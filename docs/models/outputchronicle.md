@@ -18,24 +18,46 @@ let value: OutputChronicle = {
     "<value 2>",
     "<value 3>",
   ],
+  apiVersion: "<value>",
+  authenticationMethod: "serviceAccount",
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: true,
   region: "<value>",
+  concurrency: 1431.94,
+  maxPayloadSizeKB: 3002.04,
+  maxPayloadEvents: 2390.43,
+  compress: false,
+  rejectUnauthorized: false,
+  timeoutSec: 1217.75,
+  flushPeriodSec: 7979.3,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  failedRequestLoggingMode: "none",
   safeHeaders: [
     "<value 1>",
     "<value 2>",
   ],
-  totalMemoryLimitKB: 2245.68,
+  useRoundRobinDns: true,
+  onBackpressure: "drop",
+  totalMemoryLimitKB: 8564.64,
+  ingestionMethod: "<value>",
   namespace: "<value>",
   logType: "<value>",
   logTextField: "<value>",
@@ -45,11 +67,22 @@ let value: OutputChronicle = {
     {
       key: "<key>",
       value: "<value>",
+      rbacEnabled: true,
     },
   ],
-  description: "skyscraper since colon attribute",
+  description: "ah heating redesign usable for oof swathe expense meh thigh",
   serviceAccountCredentials: "<value>",
   serviceAccountCredentialsSecret: "<value>",
+  pqStrictOrdering: false,
+  pqRatePerSec: 9925.69,
+  pqMode: "backpressure",
+  pqMaxBufferSize: 7755.05,
+  pqMaxBackpressureSec: 2000.53,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "none",
+  pqOnBackpressure: "block",
   pqControls: {},
 };
 ```
@@ -89,7 +122,7 @@ let value: OutputChronicle = {
 | `logTextField`                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.                                                                                                                                                                                                             |
 | `gcpProjectId`                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | The Google Cloud Platform (GCP) project ID to send events to                                                                                                                                                                                                                                                                                     |
 | `gcpInstance`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | The Google Cloud Platform (GCP) instance to send events to. This is the Chronicle customer uuid.                                                                                                                                                                                                                                                 |
-| `customLabels`                                                                                                                                                                                                                                                                                                                                   | [models.OutputChronicleCustomLabel](../models/outputchroniclecustomlabel.md)[]                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Custom labels to be added to every event                                                                                                                                                                                                                                                                                                         |
+| `customLabels`                                                                                                                                                                                                                                                                                                                                   | [models.CustomLabel](../models/customlabel.md)[]                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Custom labels to be added to every event                                                                                                                                                                                                                                                                                                         |
 | `description`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `serviceAccountCredentials`                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.                                                                                                                                                                                    |
 | `serviceAccountCredentialsSecret`                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a stored text secret                                                                                                                                                                                                                                                                                                            |

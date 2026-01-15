@@ -12,7 +12,10 @@ let value: PipelineFunctionRegexExtractConf = {
       regex: "<value>",
     },
   ],
+  source: "<value>",
+  iterations: 5628.57,
   fieldNameExpression: "<value>",
+  overwrite: true,
 };
 ```
 

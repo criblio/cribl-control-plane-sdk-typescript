@@ -22,14 +22,24 @@ let value: OutputElasticCloud = {
   ],
   url: "https://palatable-season.biz/",
   index: "<value>",
+  concurrency: 1238.65,
+  maxPayloadSizeKB: 615.44,
+  maxPayloadEvents: 6695.34,
+  compress: true,
+  rejectUnauthorized: true,
+  timeoutSec: 5286.36,
+  flushPeriodSec: 1941.62,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  failedRequestLoggingMode: "payloadAndHeaders",
   safeHeaders: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   extraParams: [
     {
@@ -38,20 +48,44 @@ let value: OutputElasticCloud = {
     },
   ],
   auth: {
-    username: "Angelina.Heathcote52",
-    password: "BvRrWL3SahoxkSY",
+    disabled: false,
+    username: "Mckayla_Brown",
+    password: "zmUAKCdYqdY6aTZ",
+    authType: "secret",
     credentialsSecret: "<value>",
     manualAPIKey: "<value>",
     textSecret: "<value>",
   },
   elasticPipeline: "<value>",
+  includeDocId: false,
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
-  description: "marathon next sauerkraut comparison fidget",
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: false,
+  onBackpressure: "block",
+  description:
+    "over supposing mmm consequently above boohoo pry amidst nautical yuck",
+  pqStrictOrdering: true,
+  pqRatePerSec: 2719.4,
+  pqMode: "error",
+  pqMaxBufferSize: 4192.47,
+  pqMaxBackpressureSec: 5517.55,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "gzip",
+  pqOnBackpressure: "drop",
   pqControls: {},
 };
 ```
@@ -79,7 +113,7 @@ let value: OutputElasticCloud = {
 | `failedRequestLoggingMode`                                                                                                                                                                                                                                                                                                                       | [models.FailedRequestLoggingModeOptions](../../models/failedrequestloggingmodeoptions.md)                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.                                                                                                                                                                                                                                      |
 | `safeHeaders`                                                                                                                                                                                                                                                                                                                                    | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | List of headers that are safe to log in plain text                                                                                                                                                                                                                                                                                               |
 | `extraParams`                                                                                                                                                                                                                                                                                                                                    | [models.ItemsTypeSaslSaslExtensions](../../models/itemstypesaslsaslextensions.md)[]                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Extra parameters to use in HTTP requests                                                                                                                                                                                                                                                                                                         |
-| `auth`                                                                                                                                                                                                                                                                                                                                           | [operations.AuthElasticCloud](../../models/operations/authelasticcloud.md)                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `auth`                                                                                                                                                                                                                                                                                                                                           | [models.AuthType](../../models/authtype.md)                                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `elasticPipeline`                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Optional Elastic Cloud Destination pipeline                                                                                                                                                                                                                                                                                                      |
 | `includeDocId`                                                                                                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)                                                                                                                                                                                                                                                 |
 | `responseRetrySettings`                                                                                                                                                                                                                                                                                                                          | [models.ItemsTypeResponseRetrySettings](../../models/itemstyperesponseretrysettings.md)[]                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)                                                                                                                                                                                                                       |

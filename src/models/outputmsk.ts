@@ -53,11 +53,11 @@ import {
   SignatureVersionOptions$outboundSchema,
 } from "./signatureversionoptions.js";
 import {
-  TlsSettingsClientSideType1,
-  TlsSettingsClientSideType1$inboundSchema,
-  TlsSettingsClientSideType1$Outbound,
-  TlsSettingsClientSideType1$outboundSchema,
-} from "./tlssettingsclientsidetype1.js";
+  TlsSettingsClientSideTypeKafkaSchemaRegistry,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
+} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
 
 export type OutputMskPqControls = {};
 
@@ -151,7 +151,7 @@ export type OutputMsk = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod: string;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -189,7 +189,7 @@ export type OutputMsk = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
-  tls?: TlsSettingsClientSideType1 | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -298,50 +298,50 @@ export const OutputMsk$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: AcknowledgmentsOptions1$inboundSchema.default(1),
-  format: RecordDataFormatOptions1$inboundSchema.default("json"),
-  compression: CompressionOptions3$inboundSchema.default("gzip"),
-  maxRecordSizeKB: z.number().default(768),
-  flushEventCount: z.number().default(1000),
-  flushPeriodSec: z.number().default(1),
+  ack: AcknowledgmentsOptions1$inboundSchema.optional(),
+  format: RecordDataFormatOptions1$inboundSchema.optional(),
+  compression: CompressionOptions3$inboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType1$inboundSchema
     .optional(),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  awsAuthenticationMethod: z.string(),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions$inboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  tls: TlsSettingsClientSideType1$inboundSchema.optional(),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  durationSeconds: z.number().optional(),
+  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   protobufLibraryId: z.string().optional(),
   protobufEncodingId: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputMskPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -354,51 +354,51 @@ export type OutputMsk$Outbound = {
   streamtags?: Array<string> | undefined;
   brokers: Array<string>;
   topic: string;
-  ack: number;
-  format: string;
-  compression: string;
-  maxRecordSizeKB: number;
-  flushEventCount: number;
-  flushPeriodSec: number;
+  ack?: number | undefined;
+  format?: string | undefined;
+  compression?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
     | KafkaSchemaRegistryAuthenticationType1$Outbound
     | undefined;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
   awsAuthenticationMethod: string;
   awsSecretKey?: string | undefined;
   region: string;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  tls?: TlsSettingsClientSideType1$Outbound | undefined;
-  onBackpressure: string;
+  durationSeconds?: number | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   protobufLibraryId?: string | undefined;
   protobufEncodingId?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputMskPqControls$Outbound | undefined;
 };
 
@@ -416,50 +416,50 @@ export const OutputMsk$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: AcknowledgmentsOptions1$outboundSchema.default(1),
-  format: RecordDataFormatOptions1$outboundSchema.default("json"),
-  compression: CompressionOptions3$outboundSchema.default("gzip"),
-  maxRecordSizeKB: z.number().default(768),
-  flushEventCount: z.number().default(1000),
-  flushPeriodSec: z.number().default(1),
+  ack: AcknowledgmentsOptions1$outboundSchema.optional(),
+  format: RecordDataFormatOptions1$outboundSchema.optional(),
+  compression: CompressionOptions3$outboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType1$outboundSchema
     .optional(),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  awsAuthenticationMethod: z.string(),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  durationSeconds: z.number().optional(),
+  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   protobufLibraryId: z.string().optional(),
   protobufEncodingId: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputMskPqControls$outboundSchema).optional(),
 });
 

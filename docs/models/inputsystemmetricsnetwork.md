@@ -6,9 +6,13 @@
 import { InputSystemMetricsNetwork } from "cribl-control-plane/models";
 
 let value: InputSystemMetricsNetwork = {
+  mode: "basic",
+  detail: true,
+  protocols: false,
   devices: [
     "<value 1>",
   ],
+  perInterface: true,
 };
 ```
 

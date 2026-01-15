@@ -7,7 +7,8 @@ import { ItemsTypeAuthTokens } from "cribl-control-plane/models";
 
 let value: ItemsTypeAuthTokens = {
   tokenSecret: "<value>",
-  description: "taro submitter by mostly sit citizen more",
+  enabled: false,
+  description: "drive by circa or trick silt",
 };
 ```
 

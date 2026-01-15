@@ -134,7 +134,7 @@ export type OutputSecurityLake = {
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
-  stagePath?: string | undefined;
+  stagePath: string;
   /**
    * Add the Output ID value to staging location
    */
@@ -321,63 +321,57 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputSecurityLakeSignatureVersion$inboundSchema.default(
-    "v4",
-  ),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: OutputSecurityLakeSignatureVersion$inboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
-  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  durationSeconds: z.number().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  objectACL: ObjectAclOptions$inboundSchema.optional(),
   storageClass: StorageClassOptions$inboundSchema.optional(),
   serverSideEncryption:
     ServerSideEncryptionForUploadedObjectsOptions$inboundSchema.optional(),
   kmsKeyId: z.string().optional(),
-  removeEmptyDirs: z.boolean().default(true),
-  baseFileName: z.string().default("`CriblOut`"),
-  maxFileSizeMB: z.number().default(32),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
-    "block",
-  ),
-  forceCloseOnShutdown: z.boolean().default(false),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxConcurrentFileParts: z.number().default(4),
-  verifyPermissions: z.boolean().default(true),
-  maxClosingFilesToBackpressure: z.number().default(100),
+  removeEmptyDirs: z.boolean().optional(),
+  baseFileName: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
   accountId: z.string(),
   customSource: z.string(),
-  automaticSchema: z.boolean().default(false),
-  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
-  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  automaticSchema: z.boolean().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.optional(),
+  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
   parquetSchema: z.string().optional(),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 /** @internal */
 export type OutputSecurityLake$Outbound = {
@@ -390,56 +384,56 @@ export type OutputSecurityLake$Outbound = {
   bucket: string;
   region: string;
   awsSecretKey?: string | undefined;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn: string;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
+  durationSeconds?: number | undefined;
   stagePath: string;
-  addIdToStagePath: boolean;
-  objectACL: string;
+  addIdToStagePath?: boolean | undefined;
+  objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
   kmsKeyId?: string | undefined;
-  removeEmptyDirs: boolean;
-  baseFileName: string;
-  maxFileSizeMB: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxConcurrentFileParts: number;
-  verifyPermissions: boolean;
-  maxClosingFilesToBackpressure: number;
+  removeEmptyDirs?: boolean | undefined;
+  baseFileName?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
   accountId: string;
   customSource: string;
-  automaticSchema: boolean;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  automaticSchema?: boolean | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
   parquetSchema?: string | undefined;
-  deadletterPath: string;
-  maxRetryNum: number;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -457,64 +451,59 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputSecurityLakeSignatureVersion$outboundSchema.default(
-    "v4",
-  ),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: OutputSecurityLakeSignatureVersion$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
-  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  durationSeconds: z.number().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  objectACL: ObjectAclOptions$outboundSchema.optional(),
   storageClass: StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption:
     ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
   kmsKeyId: z.string().optional(),
-  removeEmptyDirs: z.boolean().default(true),
-  baseFileName: z.string().default("`CriblOut`"),
-  maxFileSizeMB: z.number().default(32),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
-    "block",
-  ),
-  forceCloseOnShutdown: z.boolean().default(false),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxConcurrentFileParts: z.number().default(4),
-  verifyPermissions: z.boolean().default(true),
-  maxClosingFilesToBackpressure: z.number().default(100),
+  removeEmptyDirs: z.boolean().optional(),
+  baseFileName: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
   accountId: z.string(),
   customSource: z.string(),
-  automaticSchema: z.boolean().default(false),
-  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
-  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  automaticSchema: z.boolean().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
   parquetSchema: z.string().optional(),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputSecurityLakeToJSON(

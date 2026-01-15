@@ -43,17 +43,17 @@ export const ItemsTypeHosts$inboundSchema: z.ZodType<
 > = z.object({
   host: z.string(),
   port: z.number(),
-  tls: TlsOptionsHostsItems$inboundSchema.default("inherit"),
+  tls: TlsOptionsHostsItems$inboundSchema.optional(),
   servername: z.string().optional(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 /** @internal */
 export type ItemsTypeHosts$Outbound = {
   host: string;
   port: number;
-  tls: string;
+  tls?: string | undefined;
   servername?: string | undefined;
-  weight: number;
+  weight?: number | undefined;
 };
 
 /** @internal */
@@ -64,9 +64,9 @@ export const ItemsTypeHosts$outboundSchema: z.ZodType<
 > = z.object({
   host: z.string(),
   port: z.number(),
-  tls: TlsOptionsHostsItems$outboundSchema.default("inherit"),
+  tls: TlsOptionsHostsItems$outboundSchema.optional(),
   servername: z.string().optional(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 
 export function itemsTypeHostsToJSON(itemsTypeHosts: ItemsTypeHosts): string {

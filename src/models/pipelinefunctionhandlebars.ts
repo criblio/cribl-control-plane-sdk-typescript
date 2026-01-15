@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type PipelineFunctionHandlebarsTemplateDefinition = {
+export type TemplateDefinition = {
   /**
    * Unique identifier for this template
    */
@@ -23,14 +23,14 @@ export type PipelineFunctionHandlebarsTemplateDefinition = {
   /**
    * Type categorization for the template (e.g., Universal, Email, Slack)
    */
-  type?: string | undefined;
+  type: string;
 };
 
 export type PipelineFunctionHandlebarsConf = {
   /**
    * Array of template definitions. Uses event.__template_id to select template at runtime.
    */
-  templates: Array<PipelineFunctionHandlebarsTemplateDefinition>;
+  templates: Array<TemplateDefinition>;
   /**
    * Field name to store the rendered template result. Defaults to _raw.
    */
@@ -74,19 +74,18 @@ export type PipelineFunctionHandlebars = {
 };
 
 /** @internal */
-export const PipelineFunctionHandlebarsTemplateDefinition$inboundSchema:
-  z.ZodType<
-    PipelineFunctionHandlebarsTemplateDefinition,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    id: z.string(),
-    content: z.string(),
-    description: z.string().optional(),
-    type: z.string().default("Universal"),
-  });
+export const TemplateDefinition$inboundSchema: z.ZodType<
+  TemplateDefinition,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: z.string(),
+  content: z.string(),
+  description: z.string().optional(),
+  type: z.string(),
+});
 /** @internal */
-export type PipelineFunctionHandlebarsTemplateDefinition$Outbound = {
+export type TemplateDefinition$Outbound = {
   id: string;
   content: string;
   description?: string | undefined;
@@ -94,41 +93,31 @@ export type PipelineFunctionHandlebarsTemplateDefinition$Outbound = {
 };
 
 /** @internal */
-export const PipelineFunctionHandlebarsTemplateDefinition$outboundSchema:
-  z.ZodType<
-    PipelineFunctionHandlebarsTemplateDefinition$Outbound,
-    z.ZodTypeDef,
-    PipelineFunctionHandlebarsTemplateDefinition
-  > = z.object({
-    id: z.string(),
-    content: z.string(),
-    description: z.string().optional(),
-    type: z.string().default("Universal"),
-  });
+export const TemplateDefinition$outboundSchema: z.ZodType<
+  TemplateDefinition$Outbound,
+  z.ZodTypeDef,
+  TemplateDefinition
+> = z.object({
+  id: z.string(),
+  content: z.string(),
+  description: z.string().optional(),
+  type: z.string(),
+});
 
-export function pipelineFunctionHandlebarsTemplateDefinitionToJSON(
-  pipelineFunctionHandlebarsTemplateDefinition:
-    PipelineFunctionHandlebarsTemplateDefinition,
+export function templateDefinitionToJSON(
+  templateDefinition: TemplateDefinition,
 ): string {
   return JSON.stringify(
-    PipelineFunctionHandlebarsTemplateDefinition$outboundSchema.parse(
-      pipelineFunctionHandlebarsTemplateDefinition,
-    ),
+    TemplateDefinition$outboundSchema.parse(templateDefinition),
   );
 }
-export function pipelineFunctionHandlebarsTemplateDefinitionFromJSON(
+export function templateDefinitionFromJSON(
   jsonString: string,
-): SafeParseResult<
-  PipelineFunctionHandlebarsTemplateDefinition,
-  SDKValidationError
-> {
+): SafeParseResult<TemplateDefinition, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      PipelineFunctionHandlebarsTemplateDefinition$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'PipelineFunctionHandlebarsTemplateDefinition' from JSON`,
+    (x) => TemplateDefinition$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'TemplateDefinition' from JSON`,
   );
 }
 
@@ -138,19 +127,17 @@ export const PipelineFunctionHandlebarsConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  templates: z.array(
-    z.lazy(() => PipelineFunctionHandlebarsTemplateDefinition$inboundSchema),
-  ),
-  targetField: z.string().default("_raw"),
-  parseJson: z.boolean().default(false),
-  removeOnNull: z.boolean().default(true),
+  templates: z.array(z.lazy(() => TemplateDefinition$inboundSchema)),
+  targetField: z.string().optional(),
+  parseJson: z.boolean().optional(),
+  removeOnNull: z.boolean().optional(),
 });
 /** @internal */
 export type PipelineFunctionHandlebarsConf$Outbound = {
-  templates: Array<PipelineFunctionHandlebarsTemplateDefinition$Outbound>;
-  targetField: string;
-  parseJson: boolean;
-  removeOnNull: boolean;
+  templates: Array<TemplateDefinition$Outbound>;
+  targetField?: string | undefined;
+  parseJson?: boolean | undefined;
+  removeOnNull?: boolean | undefined;
 };
 
 /** @internal */
@@ -159,12 +146,10 @@ export const PipelineFunctionHandlebarsConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionHandlebarsConf
 > = z.object({
-  templates: z.array(
-    z.lazy(() => PipelineFunctionHandlebarsTemplateDefinition$outboundSchema),
-  ),
-  targetField: z.string().default("_raw"),
-  parseJson: z.boolean().default(false),
-  removeOnNull: z.boolean().default(true),
+  templates: z.array(z.lazy(() => TemplateDefinition$outboundSchema)),
+  targetField: z.string().optional(),
+  parseJson: z.boolean().optional(),
+  removeOnNull: z.boolean().optional(),
 });
 
 export function pipelineFunctionHandlebarsConfToJSON(
@@ -192,7 +177,7 @@ export const PipelineFunctionHandlebars$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("handlebars"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -202,7 +187,7 @@ export const PipelineFunctionHandlebars$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionHandlebars$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "handlebars";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -217,7 +202,7 @@ export const PipelineFunctionHandlebars$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionHandlebars
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("handlebars"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

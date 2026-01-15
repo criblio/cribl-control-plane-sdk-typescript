@@ -47,7 +47,7 @@ export const PipelineFunctionComment$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("comment"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionComment$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionComment$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "comment";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionComment$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionComment
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("comment"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

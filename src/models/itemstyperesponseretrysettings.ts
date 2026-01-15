@@ -33,16 +33,16 @@ export const ItemsTypeResponseRetrySettings$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  maxBackoff: z.number().optional(),
 });
 /** @internal */
 export type ItemsTypeResponseRetrySettings$Outbound = {
   httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  maxBackoff?: number | undefined;
 };
 
 /** @internal */
@@ -52,9 +52,9 @@ export const ItemsTypeResponseRetrySettings$outboundSchema: z.ZodType<
   ItemsTypeResponseRetrySettings
 > = z.object({
   httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  maxBackoff: z.number().optional(),
 });
 
 export function itemsTypeResponseRetrySettingsToJSON(

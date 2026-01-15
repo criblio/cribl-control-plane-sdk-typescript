@@ -18,6 +18,7 @@ let value: FunctionConfSchemaRename = {
     },
   ],
   renameExpr: "<value>",
+  wildcardDepth: 26011,
 };
 ```
 

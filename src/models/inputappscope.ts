@@ -4,7 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
@@ -41,11 +40,6 @@ import {
   TlsSettingsServerSideType$Outbound,
   TlsSettingsServerSideType$outboundSchema,
 } from "./tlssettingsserversidetype.js";
-
-export const InputAppscopeType = {
-  Appscope: "appscope",
-} as const;
-export type InputAppscopeType = ClosedEnum<typeof InputAppscopeType>;
 
 export type Allow = {
   /**
@@ -97,17 +91,12 @@ export type InputAppscopePersistence = {
   destPath?: string | undefined;
 };
 
-export type InputAppscopePqEnabledTrueWithPqConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
+export type InputAppscope = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputAppscopeType;
+  type: "appscope";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -117,319 +106,6 @@ export type InputAppscopePqEnabledTrueWithPqConstraint = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Regex matching IP addresses that are allowed to establish a connection
-   */
-  ipWhitelistRegex?: string | undefined;
-  /**
-   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-   */
-  maxActiveCxn?: number | undefined;
-  /**
-   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-   */
-  socketIdleTimeout?: number | undefined;
-  /**
-   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-   */
-  socketEndingMaxWait?: number | undefined;
-  /**
-   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-   */
-  socketMaxLifespan?: number | undefined;
-  /**
-   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-   */
-  enableProxyHeader?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
-   */
-  enableUnixPath?: boolean | undefined;
-  filter?: InputAppscopeFilter | undefined;
-  persistence?: InputAppscopePersistence | undefined;
-  /**
-   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-   */
-  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
-  description?: string | undefined;
-  /**
-   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
-   */
-  host?: string | undefined;
-  /**
-   * Port to listen on
-   */
-  port?: number | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
-  /**
-   * Path to the UNIX domain socket to listen on.
-   */
-  unixSocketPath?: string | undefined;
-  /**
-   * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
-   */
-  unixSocketPerms?: string | undefined;
-  /**
-   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-   */
-  authToken?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-};
-
-export type InputAppscopePqEnabledFalseConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputAppscopeType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Regex matching IP addresses that are allowed to establish a connection
-   */
-  ipWhitelistRegex?: string | undefined;
-  /**
-   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-   */
-  maxActiveCxn?: number | undefined;
-  /**
-   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-   */
-  socketIdleTimeout?: number | undefined;
-  /**
-   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-   */
-  socketEndingMaxWait?: number | undefined;
-  /**
-   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-   */
-  socketMaxLifespan?: number | undefined;
-  /**
-   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-   */
-  enableProxyHeader?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
-   */
-  enableUnixPath?: boolean | undefined;
-  filter?: InputAppscopeFilter | undefined;
-  persistence?: InputAppscopePersistence | undefined;
-  /**
-   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-   */
-  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
-  description?: string | undefined;
-  /**
-   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
-   */
-  host?: string | undefined;
-  /**
-   * Port to listen on
-   */
-  port?: number | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
-  /**
-   * Path to the UNIX domain socket to listen on.
-   */
-  unixSocketPath?: string | undefined;
-  /**
-   * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
-   */
-  unixSocketPerms?: string | undefined;
-  /**
-   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-   */
-  authToken?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-};
-
-export type InputAppscopeSendToRoutesFalseWithConnectionsConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputAppscopeType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Regex matching IP addresses that are allowed to establish a connection
-   */
-  ipWhitelistRegex?: string | undefined;
-  /**
-   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
-   */
-  maxActiveCxn?: number | undefined;
-  /**
-   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
-   */
-  socketIdleTimeout?: number | undefined;
-  /**
-   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
-   */
-  socketEndingMaxWait?: number | undefined;
-  /**
-   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-   */
-  socketMaxLifespan?: number | undefined;
-  /**
-   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
-   */
-  enableProxyHeader?: boolean | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  /**
-   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
-   */
-  breakerRulesets?: Array<string> | undefined;
-  /**
-   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-   */
-  staleChannelFlushMs?: number | undefined;
-  /**
-   * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
-   */
-  enableUnixPath?: boolean | undefined;
-  filter?: InputAppscopeFilter | undefined;
-  persistence?: InputAppscopePersistence | undefined;
-  /**
-   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-   */
-  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
-  description?: string | undefined;
-  /**
-   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
-   */
-  host?: string | undefined;
-  /**
-   * Port to listen on
-   */
-  port?: number | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
-  /**
-   * Path to the UNIX domain socket to listen on.
-   */
-  unixSocketPath?: string | undefined;
-  /**
-   * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
-   */
-  unixSocketPerms?: string | undefined;
-  /**
-   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
-   */
-  authToken?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-};
-
-export type InputAppscopeSendToRoutesTrueConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputAppscopeType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -520,21 +196,6 @@ export type InputAppscopeSendToRoutesTrueConstraint = {
    */
   textSecret?: string | undefined;
 };
-
-export type InputAppscope =
-  | InputAppscopeSendToRoutesTrueConstraint
-  | InputAppscopeSendToRoutesFalseWithConnectionsConstraint
-  | InputAppscopePqEnabledFalseConstraint
-  | InputAppscopePqEnabledTrueWithPqConstraint;
-
-/** @internal */
-export const InputAppscopeType$inboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeType
-> = z.nativeEnum(InputAppscopeType);
-/** @internal */
-export const InputAppscopeType$outboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeType
-> = InputAppscopeType$inboundSchema;
 
 /** @internal */
 export const Allow$inboundSchema: z.ZodType<Allow, z.ZodTypeDef, unknown> = z
@@ -622,23 +283,21 @@ export const InputAppscopePersistence$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: DataCompressionFormatOptionsPersistence$inboundSchema.default(
-    "gzip",
-  ),
-  destPath: z.string().default("$CRIBL_HOME/state/appscope"),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$inboundSchema.optional(),
+  destPath: z.string().optional(),
 });
 /** @internal */
 export type InputAppscopePersistence$Outbound = {
-  enable: boolean;
-  timeWindow: string;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
-  destPath: string;
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
 };
 
 /** @internal */
@@ -647,14 +306,12 @@ export const InputAppscopePersistence$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputAppscopePersistence
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: DataCompressionFormatOptionsPersistence$outboundSchema.default(
-    "gzip",
-  ),
-  destPath: z.string().default("$CRIBL_HOME/state/appscope"),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$outboundSchema.optional(),
+  destPath: z.string().optional(),
 });
 
 export function inputAppscopePersistenceToJSON(
@@ -675,605 +332,117 @@ export function inputAppscopePersistenceFromJSON(
 }
 
 /** @internal */
-export const InputAppscopePqEnabledTrueWithPqConstraint$inboundSchema:
-  z.ZodType<InputAppscopePqEnabledTrueWithPqConstraint, z.ZodTypeDef, unknown> =
-    z.object({
-      pqEnabled: z.boolean().default(false),
-      pq: PqType$inboundSchema.optional(),
-      id: z.string().optional(),
-      type: InputAppscopeType$inboundSchema,
-      disabled: z.boolean().default(false),
-      pipeline: z.string().optional(),
-      sendToRoutes: z.boolean().default(true),
-      environment: z.string().optional(),
-      streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
-        .optional(),
-      ipWhitelistRegex: z.string().default("/.*/"),
-      maxActiveCxn: z.number().default(1000),
-      socketIdleTimeout: z.number().default(0),
-      socketEndingMaxWait: z.number().default(30),
-      socketMaxLifespan: z.number().default(0),
-      enableProxyHeader: z.boolean().default(false),
-      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      breakerRulesets: z.array(z.string()).optional(),
-      staleChannelFlushMs: z.number().default(10000),
-      enableUnixPath: z.boolean().default(false),
-      filter: z.lazy(() => InputAppscopeFilter$inboundSchema).optional(),
-      persistence: z.lazy(() => InputAppscopePersistence$inboundSchema)
-        .optional(),
-      authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema
-        .default("manual"),
-      description: z.string().optional(),
-      host: z.string().optional(),
-      port: z.number().optional(),
-      tls: TlsSettingsServerSideType$inboundSchema.optional(),
-      unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
-      unixSocketPerms: z.string().optional(),
-      authToken: z.string().default(""),
-      textSecret: z.string().optional(),
-    });
-/** @internal */
-export type InputAppscopePqEnabledTrueWithPqConstraint$Outbound = {
-  pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  ipWhitelistRegex: string;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  enableUnixPath: boolean;
-  filter?: InputAppscopeFilter$Outbound | undefined;
-  persistence?: InputAppscopePersistence$Outbound | undefined;
-  authType: string;
-  description?: string | undefined;
-  host?: string | undefined;
-  port?: number | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  unixSocketPath: string;
-  unixSocketPerms?: string | undefined;
-  authToken: string;
-  textSecret?: string | undefined;
-};
-
-/** @internal */
-export const InputAppscopePqEnabledTrueWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputAppscopePqEnabledTrueWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputAppscopePqEnabledTrueWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputAppscopeType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    ipWhitelistRegex: z.string().default("/.*/"),
-    maxActiveCxn: z.number().default(1000),
-    socketIdleTimeout: z.number().default(0),
-    socketEndingMaxWait: z.number().default(30),
-    socketMaxLifespan: z.number().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    enableUnixPath: z.boolean().default(false),
-    filter: z.lazy(() => InputAppscopeFilter$outboundSchema).optional(),
-    persistence: z.lazy(() => InputAppscopePersistence$outboundSchema)
-      .optional(),
-    authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-      "manual",
-    ),
-    description: z.string().optional(),
-    host: z.string().optional(),
-    port: z.number().optional(),
-    tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
-    unixSocketPerms: z.string().optional(),
-    authToken: z.string().default(""),
-    textSecret: z.string().optional(),
-  });
-
-export function inputAppscopePqEnabledTrueWithPqConstraintToJSON(
-  inputAppscopePqEnabledTrueWithPqConstraint:
-    InputAppscopePqEnabledTrueWithPqConstraint,
-): string {
-  return JSON.stringify(
-    InputAppscopePqEnabledTrueWithPqConstraint$outboundSchema.parse(
-      inputAppscopePqEnabledTrueWithPqConstraint,
-    ),
-  );
-}
-export function inputAppscopePqEnabledTrueWithPqConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputAppscopePqEnabledTrueWithPqConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputAppscopePqEnabledTrueWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputAppscopePqEnabledTrueWithPqConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputAppscopePqEnabledFalseConstraint$inboundSchema: z.ZodType<
-  InputAppscopePqEnabledFalseConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputAppscopeType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  enableUnixPath: z.boolean().default(false),
-  filter: z.lazy(() => InputAppscopeFilter$inboundSchema).optional(),
-  persistence: z.lazy(() => InputAppscopePersistence$inboundSchema).optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
-  description: z.string().optional(),
-  host: z.string().optional(),
-  port: z.number().optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
-  unixSocketPerms: z.string().optional(),
-  authToken: z.string().default(""),
-  textSecret: z.string().optional(),
-});
-/** @internal */
-export type InputAppscopePqEnabledFalseConstraint$Outbound = {
-  pqEnabled: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  ipWhitelistRegex: string;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  enableUnixPath: boolean;
-  filter?: InputAppscopeFilter$Outbound | undefined;
-  persistence?: InputAppscopePersistence$Outbound | undefined;
-  authType: string;
-  description?: string | undefined;
-  host?: string | undefined;
-  port?: number | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  unixSocketPath: string;
-  unixSocketPerms?: string | undefined;
-  authToken: string;
-  textSecret?: string | undefined;
-};
-
-/** @internal */
-export const InputAppscopePqEnabledFalseConstraint$outboundSchema: z.ZodType<
-  InputAppscopePqEnabledFalseConstraint$Outbound,
-  z.ZodTypeDef,
-  InputAppscopePqEnabledFalseConstraint
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputAppscopeType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  enableUnixPath: z.boolean().default(false),
-  filter: z.lazy(() => InputAppscopeFilter$outboundSchema).optional(),
-  persistence: z.lazy(() => InputAppscopePersistence$outboundSchema).optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
-  description: z.string().optional(),
-  host: z.string().optional(),
-  port: z.number().optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
-  unixSocketPerms: z.string().optional(),
-  authToken: z.string().default(""),
-  textSecret: z.string().optional(),
-});
-
-export function inputAppscopePqEnabledFalseConstraintToJSON(
-  inputAppscopePqEnabledFalseConstraint: InputAppscopePqEnabledFalseConstraint,
-): string {
-  return JSON.stringify(
-    InputAppscopePqEnabledFalseConstraint$outboundSchema.parse(
-      inputAppscopePqEnabledFalseConstraint,
-    ),
-  );
-}
-export function inputAppscopePqEnabledFalseConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<InputAppscopePqEnabledFalseConstraint, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputAppscopePqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopePqEnabledFalseConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputAppscopeSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputAppscopeSendToRoutesFalseWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputAppscopeType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    ipWhitelistRegex: z.string().default("/.*/"),
-    maxActiveCxn: z.number().default(1000),
-    socketIdleTimeout: z.number().default(0),
-    socketEndingMaxWait: z.number().default(30),
-    socketMaxLifespan: z.number().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    enableUnixPath: z.boolean().default(false),
-    filter: z.lazy(() => InputAppscopeFilter$inboundSchema).optional(),
-    persistence: z.lazy(() => InputAppscopePersistence$inboundSchema)
-      .optional(),
-    authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-      "manual",
-    ),
-    description: z.string().optional(),
-    host: z.string().optional(),
-    port: z.number().optional(),
-    tls: TlsSettingsServerSideType$inboundSchema.optional(),
-    unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
-    unixSocketPerms: z.string().optional(),
-    authToken: z.string().default(""),
-    textSecret: z.string().optional(),
-  });
-/** @internal */
-export type InputAppscopeSendToRoutesFalseWithConnectionsConstraint$Outbound = {
-  sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  pq?: PqType$Outbound | undefined;
-  ipWhitelistRegex: string;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  enableUnixPath: boolean;
-  filter?: InputAppscopeFilter$Outbound | undefined;
-  persistence?: InputAppscopePersistence$Outbound | undefined;
-  authType: string;
-  description?: string | undefined;
-  host?: string | undefined;
-  port?: number | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  unixSocketPath: string;
-  unixSocketPerms?: string | undefined;
-  authToken: string;
-  textSecret?: string | undefined;
-};
-
-/** @internal */
-export const InputAppscopeSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputAppscopeSendToRoutesFalseWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputAppscopeSendToRoutesFalseWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    id: z.string().optional(),
-    type: InputAppscopeType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    ipWhitelistRegex: z.string().default("/.*/"),
-    maxActiveCxn: z.number().default(1000),
-    socketIdleTimeout: z.number().default(0),
-    socketEndingMaxWait: z.number().default(30),
-    socketMaxLifespan: z.number().default(0),
-    enableProxyHeader: z.boolean().default(false),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().default(10000),
-    enableUnixPath: z.boolean().default(false),
-    filter: z.lazy(() => InputAppscopeFilter$outboundSchema).optional(),
-    persistence: z.lazy(() => InputAppscopePersistence$outboundSchema)
-      .optional(),
-    authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-      "manual",
-    ),
-    description: z.string().optional(),
-    host: z.string().optional(),
-    port: z.number().optional(),
-    tls: TlsSettingsServerSideType$outboundSchema.optional(),
-    unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
-    unixSocketPerms: z.string().optional(),
-    authToken: z.string().default(""),
-    textSecret: z.string().optional(),
-  });
-
-export function inputAppscopeSendToRoutesFalseWithConnectionsConstraintToJSON(
-  inputAppscopeSendToRoutesFalseWithConnectionsConstraint:
-    InputAppscopeSendToRoutesFalseWithConnectionsConstraint,
-): string {
-  return JSON.stringify(
-    InputAppscopeSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-      .parse(inputAppscopeSendToRoutesFalseWithConnectionsConstraint),
-  );
-}
-export function inputAppscopeSendToRoutesFalseWithConnectionsConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputAppscopeSendToRoutesFalseWithConnectionsConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputAppscopeSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputAppscopeSendToRoutesFalseWithConnectionsConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputAppscopeSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
-  InputAppscopeSendToRoutesTrueConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputAppscopeType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  enableUnixPath: z.boolean().default(false),
-  filter: z.lazy(() => InputAppscopeFilter$inboundSchema).optional(),
-  persistence: z.lazy(() => InputAppscopePersistence$inboundSchema).optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
-  description: z.string().optional(),
-  host: z.string().optional(),
-  port: z.number().optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
-  unixSocketPerms: z.string().optional(),
-  authToken: z.string().default(""),
-  textSecret: z.string().optional(),
-});
-/** @internal */
-export type InputAppscopeSendToRoutesTrueConstraint$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  ipWhitelistRegex: string;
-  maxActiveCxn: number;
-  socketIdleTimeout: number;
-  socketEndingMaxWait: number;
-  socketMaxLifespan: number;
-  enableProxyHeader: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  enableUnixPath: boolean;
-  filter?: InputAppscopeFilter$Outbound | undefined;
-  persistence?: InputAppscopePersistence$Outbound | undefined;
-  authType: string;
-  description?: string | undefined;
-  host?: string | undefined;
-  port?: number | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  unixSocketPath: string;
-  unixSocketPerms?: string | undefined;
-  authToken: string;
-  textSecret?: string | undefined;
-};
-
-/** @internal */
-export const InputAppscopeSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
-  InputAppscopeSendToRoutesTrueConstraint$Outbound,
-  z.ZodTypeDef,
-  InputAppscopeSendToRoutesTrueConstraint
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputAppscopeType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  maxActiveCxn: z.number().default(1000),
-  socketIdleTimeout: z.number().default(0),
-  socketEndingMaxWait: z.number().default(30),
-  socketMaxLifespan: z.number().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  enableUnixPath: z.boolean().default(false),
-  filter: z.lazy(() => InputAppscopeFilter$outboundSchema).optional(),
-  persistence: z.lazy(() => InputAppscopePersistence$outboundSchema).optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
-  description: z.string().optional(),
-  host: z.string().optional(),
-  port: z.number().optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  unixSocketPath: z.string().default("$CRIBL_HOME/state/appscope.sock"),
-  unixSocketPerms: z.string().optional(),
-  authToken: z.string().default(""),
-  textSecret: z.string().optional(),
-});
-
-export function inputAppscopeSendToRoutesTrueConstraintToJSON(
-  inputAppscopeSendToRoutesTrueConstraint:
-    InputAppscopeSendToRoutesTrueConstraint,
-): string {
-  return JSON.stringify(
-    InputAppscopeSendToRoutesTrueConstraint$outboundSchema.parse(
-      inputAppscopeSendToRoutesTrueConstraint,
-    ),
-  );
-}
-export function inputAppscopeSendToRoutesTrueConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputAppscopeSendToRoutesTrueConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputAppscopeSendToRoutesTrueConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputAppscopeSendToRoutesTrueConstraint' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputAppscope$inboundSchema: z.ZodType<
   InputAppscope,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => InputAppscopeSendToRoutesTrueConstraint$inboundSchema),
-  z.lazy(() =>
-    InputAppscopeSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-  ),
-  z.lazy(() => InputAppscopePqEnabledFalseConstraint$inboundSchema),
-  z.lazy(() => InputAppscopePqEnabledTrueWithPqConstraint$inboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("appscope"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  enableUnixPath: z.boolean().optional(),
+  filter: z.lazy(() => InputAppscopeFilter$inboundSchema).optional(),
+  persistence: z.lazy(() => InputAppscopePersistence$inboundSchema).optional(),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  unixSocketPath: z.string().optional(),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().optional(),
+  textSecret: z.string().optional(),
+});
 /** @internal */
-export type InputAppscope$Outbound =
-  | InputAppscopeSendToRoutesTrueConstraint$Outbound
-  | InputAppscopeSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputAppscopePqEnabledFalseConstraint$Outbound
-  | InputAppscopePqEnabledTrueWithPqConstraint$Outbound;
+export type InputAppscope$Outbound = {
+  id?: string | undefined;
+  type: "appscope";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  enableUnixPath?: boolean | undefined;
+  filter?: InputAppscopeFilter$Outbound | undefined;
+  persistence?: InputAppscopePersistence$Outbound | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  host?: string | undefined;
+  port?: number | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  unixSocketPath?: string | undefined;
+  unixSocketPerms?: string | undefined;
+  authToken?: string | undefined;
+  textSecret?: string | undefined;
+};
 
 /** @internal */
 export const InputAppscope$outboundSchema: z.ZodType<
   InputAppscope$Outbound,
   z.ZodTypeDef,
   InputAppscope
-> = z.union([
-  z.lazy(() => InputAppscopeSendToRoutesTrueConstraint$outboundSchema),
-  z.lazy(() =>
-    InputAppscopeSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-  ),
-  z.lazy(() => InputAppscopePqEnabledFalseConstraint$outboundSchema),
-  z.lazy(() => InputAppscopePqEnabledTrueWithPqConstraint$outboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("appscope"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  enableUnixPath: z.boolean().optional(),
+  filter: z.lazy(() => InputAppscopeFilter$outboundSchema).optional(),
+  persistence: z.lazy(() => InputAppscopePersistence$outboundSchema).optional(),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  unixSocketPath: z.string().optional(),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().optional(),
+  textSecret: z.string().optional(),
+});
 
 export function inputAppscopeToJSON(inputAppscope: InputAppscope): string {
   return JSON.stringify(InputAppscope$outboundSchema.parse(inputAppscope));

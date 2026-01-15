@@ -1,16 +1,18 @@
 # InputKubeLogs
 
-
-## Supported Types
-
-### `models.InputKubeLogsSendToRoutesTrueConstraint`
+## Example Usage
 
 ```typescript
-const value: models.InputKubeLogsSendToRoutesTrueConstraint = {
+import { InputKubeLogs } from "cribl-control-plane/models";
+
+let value: InputKubeLogs = {
   id: "<id>",
   type: "kube_logs",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -23,157 +25,66 @@ const value: models.InputKubeLogsSendToRoutesTrueConstraint = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
     pqControls: {},
   },
+  interval: 971.18,
   rules: [
     {
       filter: "<value>",
-      description:
-        "lava unlike unlike kiss till focalise kosher cool amidst per",
+      description: "graduate now fiddle ouch carefully wherever where",
     },
   ],
+  timestamps: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  persistence: {},
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  description: "championship softly convalesce hence good-natured amongst",
-};
-```
-
-### `models.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint`
-
-```typescript
-const value: models.InputKubeLogsSendToRoutesFalseWithConnectionsConstraint = {
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  id: "<id>",
-  type: "kube_logs",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  pq: {
-    pqControls: {},
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
   },
-  rules: [
-    {
-      filter: "<value>",
-      description:
-        "lava unlike unlike kiss till focalise kosher cool amidst per",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  description: "victoriously hippodrome primary unlike",
+  staleChannelFlushMs: 9531.45,
+  enableLoadBalancing: true,
+  description: "but over wafer following ugh strait dimly yuck crumble hastily",
 };
 ```
 
-### `models.InputKubeLogsPqEnabledFalseConstraint`
+## Fields
 
-```typescript
-const value: models.InputKubeLogsPqEnabledFalseConstraint = {
-  id: "<id>",
-  type: "kube_logs",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    pqControls: {},
-  },
-  rules: [
-    {
-      filter: "<value>",
-      description:
-        "lava unlike unlike kiss till focalise kosher cool amidst per",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  description: "folklore webbed bell unto pro gosh zowie actually by terrorise",
-};
-```
-
-### `models.InputKubeLogsPqEnabledTrueWithPqConstraint`
-
-```typescript
-const value: models.InputKubeLogsPqEnabledTrueWithPqConstraint = {
-  pq: {
-    pqControls: {},
-  },
-  id: "<id>",
-  type: "kube_logs",
-  pipeline: "<value>",
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  rules: [
-    {
-      filter: "<value>",
-      description:
-        "lava unlike unlike kiss till focalise kosher cool amidst per",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {},
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  description:
-    "excluding aha athwart ouch hypothesize list nor until mid cultivated",
-};
-```
-
+| Field                                                                                                                                                                                                                                                                                      | Type                                                                                                                                                                                                                                                                                       | Required                                                                                                                                                                                                                                                                                   | Description                                                                                                                                                                                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Unique ID for this input                                                                                                                                                                                                                                                                   |
+| `type`                                                                                                                                                                                                                                                                                     | *"kube_logs"*                                                                                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                                                                        |
+| `disabled`                                                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                                                                        |
+| `pipeline`                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                                                                             |
+| `sendToRoutes`                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                                                                        |
+| `environment`                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                       |
+| `pqEnabled`                                                                                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).                                               |
+| `streamtags`                                                                                                                                                                                                                                                                               | *string*[]                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                              |
+| `connections`                                                                                                                                                                                                                                                                              | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                |
+| `pq`                                                                                                                                                                                                                                                                                       | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                                                                        |
+| `interval`                                                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Time, in seconds, between checks for new containers. Default is 15 secs.                                                                                                                                                                                                                   |
+| `rules`                                                                                                                                                                                                                                                                                    | [models.InputKubeLogsRule](../models/inputkubelogsrule.md)[]                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.                                                                                                                                           |
+| `timestamps`                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted. |
+| `metadata`                                                                                                                                                                                                                                                                                 | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Fields to add to events from this input                                                                                                                                                                                                                                                    |
+| `persistence`                                                                                                                                                                                                                                                                              | [models.DiskSpoolingType](../models/diskspoolingtype.md)                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                                                                        |
+| `breakerRulesets`                                                                                                                                                                                                                                                                          | *string*[]                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | A list of event-breaking rulesets that will be applied, in order, to the input data stream                                                                                                                                                                                                 |
+| `staleChannelFlushMs`                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines                                                                                                                          |
+| `enableLoadBalancing`                                                                                                                                                                                                                                                                      | *boolean*                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Load balance traffic across all Worker Processes                                                                                                                                                                                                                                           |
+| `description`                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                                                                        |

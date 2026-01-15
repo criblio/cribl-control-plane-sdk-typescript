@@ -18,8 +18,12 @@ let value: OutputDiskSpool = {
   streamtags: [
     "<value 1>",
   ],
+  timeWindow: "<value>",
+  maxDataSize: "<value>",
+  maxDataTime: "<value>",
+  compress: "none",
   partitionExpr: "<value>",
-  description: "seemingly moisten best searchingly damaged clone",
+  description: "legislature repeat arrange once gripper garrote",
 };
 ```
 

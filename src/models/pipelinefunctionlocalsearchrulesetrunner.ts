@@ -47,7 +47,7 @@ export const PipelineFunctionLocalSearchRulesetRunner$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("local_search_ruleset_runner"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionLocalSearchRulesetRunner$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionLocalSearchRulesetRunner$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "local_search_ruleset_runner";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionLocalSearchRulesetRunner$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionLocalSearchRulesetRunner
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("local_search_ruleset_runner"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

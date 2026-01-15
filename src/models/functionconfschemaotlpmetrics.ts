@@ -32,16 +32,16 @@ export const FunctionConfSchemaOtlpMetrics$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   resourceAttributePrefixes: z.array(z.string()).optional(),
-  dropNonMetricEvents: z.boolean().default(false),
-  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
-  batchOTLPMetrics: z.boolean().default(false),
+  dropNonMetricEvents: z.boolean().optional(),
+  otlpVersion: OtlpVersionOptions$inboundSchema.optional(),
+  batchOTLPMetrics: z.boolean().optional(),
 });
 /** @internal */
 export type FunctionConfSchemaOtlpMetrics$Outbound = {
   resourceAttributePrefixes?: Array<string> | undefined;
-  dropNonMetricEvents: boolean;
-  otlpVersion: string;
-  batchOTLPMetrics: boolean;
+  dropNonMetricEvents?: boolean | undefined;
+  otlpVersion?: string | undefined;
+  batchOTLPMetrics?: boolean | undefined;
 };
 
 /** @internal */
@@ -51,9 +51,9 @@ export const FunctionConfSchemaOtlpMetrics$outboundSchema: z.ZodType<
   FunctionConfSchemaOtlpMetrics
 > = z.object({
   resourceAttributePrefixes: z.array(z.string()).optional(),
-  dropNonMetricEvents: z.boolean().default(false),
-  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
-  batchOTLPMetrics: z.boolean().default(false),
+  dropNonMetricEvents: z.boolean().optional(),
+  otlpVersion: OtlpVersionOptions$outboundSchema.optional(),
+  batchOTLPMetrics: z.boolean().optional(),
 });
 
 export function functionConfSchemaOtlpMetricsToJSON(

@@ -10,6 +10,7 @@ let value: OutputRouterRule = {
   output: "<value>",
   description:
     "mortise weatherize per scenario instead shrill flight mathematics",
+  final: false,
 };
 ```
 

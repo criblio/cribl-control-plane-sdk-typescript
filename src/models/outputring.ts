@@ -106,15 +106,13 @@ export const OutputRing$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  format: OutputRingDataFormat$inboundSchema.default("json"),
+  format: OutputRingDataFormat$inboundSchema.optional(),
   partitionExpr: z.string().optional(),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: DataCompressionFormatOptionsPersistence$inboundSchema.default(
-    "gzip",
-  ),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$inboundSchema.optional(),
   destPath: z.string().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -125,13 +123,13 @@ export type OutputRing$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  format: string;
+  format?: string | undefined;
   partitionExpr?: string | undefined;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
   destPath?: string | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
 };
 
@@ -147,15 +145,13 @@ export const OutputRing$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  format: OutputRingDataFormat$outboundSchema.default("json"),
+  format: OutputRingDataFormat$outboundSchema.optional(),
   partitionExpr: z.string().optional(),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: DataCompressionFormatOptionsPersistence$outboundSchema.default(
-    "gzip",
-  ),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$outboundSchema.optional(),
   destPath: z.string().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
   description: z.string().optional(),
 });
 

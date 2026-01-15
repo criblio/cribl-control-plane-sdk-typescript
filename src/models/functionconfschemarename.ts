@@ -81,14 +81,14 @@ export const FunctionConfSchemaRename$inboundSchema: z.ZodType<
   baseFields: z.array(z.string()).optional(),
   rename: z.array(z.lazy(() => Rename$inboundSchema)).optional(),
   renameExpr: z.string().optional(),
-  wildcardDepth: z.number().int().default(5),
+  wildcardDepth: z.number().int().optional(),
 });
 /** @internal */
 export type FunctionConfSchemaRename$Outbound = {
   baseFields?: Array<string> | undefined;
   rename?: Array<Rename$Outbound> | undefined;
   renameExpr?: string | undefined;
-  wildcardDepth: number;
+  wildcardDepth?: number | undefined;
 };
 
 /** @internal */
@@ -100,7 +100,7 @@ export const FunctionConfSchemaRename$outboundSchema: z.ZodType<
   baseFields: z.array(z.string()).optional(),
   rename: z.array(z.lazy(() => Rename$outboundSchema)).optional(),
   renameExpr: z.string().optional(),
-  wildcardDepth: z.number().int().default(5),
+  wildcardDepth: z.number().int().optional(),
 });
 
 export function functionConfSchemaRenameToJSON(

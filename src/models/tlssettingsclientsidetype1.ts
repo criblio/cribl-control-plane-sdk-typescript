@@ -20,13 +20,6 @@ import {
 export type TlsSettingsClientSideType1 = {
   disabled?: boolean | undefined;
   /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-   *
-   * @remarks
-   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
    * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
    */
   servername?: string | undefined;
@@ -60,8 +53,7 @@ export const TlsSettingsClientSideType1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
+  disabled: z.boolean().optional(),
   servername: z.string().optional(),
   certificateName: z.string().optional(),
   caPath: z.string().optional(),
@@ -75,8 +67,7 @@ export const TlsSettingsClientSideType1$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type TlsSettingsClientSideType1$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
+  disabled?: boolean | undefined;
   servername?: string | undefined;
   certificateName?: string | undefined;
   caPath?: string | undefined;
@@ -93,8 +84,7 @@ export const TlsSettingsClientSideType1$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   TlsSettingsClientSideType1
 > = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
+  disabled: z.boolean().optional(),
   servername: z.string().optional(),
   certificateName: z.string().optional(),
   caPath: z.string().optional(),

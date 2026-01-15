@@ -368,12 +368,12 @@ export const AzureBlobAuthTypeClientCert$inboundSchema: z.ZodType<
   extractors: z.array(
     z.lazy(() => AzureBlobAuthTypeClientCertExtractor$inboundSchema),
   ).optional(),
-  recurse: z.boolean().default(true),
-  includeMetadata: z.boolean().default(true),
-  includeTags: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  recurse: z.boolean().optional(),
+  includeMetadata: z.boolean().optional(),
+  includeTags: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 /** @internal */
 export type AzureBlobAuthTypeClientCert$Outbound = {
@@ -388,12 +388,12 @@ export type AzureBlobAuthTypeClientCert$Outbound = {
   containerName: string;
   path?: string | undefined;
   extractors?: Array<AzureBlobAuthTypeClientCertExtractor$Outbound> | undefined;
-  recurse: boolean;
-  includeMetadata: boolean;
-  includeTags: boolean;
-  maxBatchSize: number;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  recurse?: boolean | undefined;
+  includeMetadata?: boolean | undefined;
+  includeTags?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
 };
 
 /** @internal */
@@ -415,12 +415,12 @@ export const AzureBlobAuthTypeClientCert$outboundSchema: z.ZodType<
   extractors: z.array(
     z.lazy(() => AzureBlobAuthTypeClientCertExtractor$outboundSchema),
   ).optional(),
-  recurse: z.boolean().default(true),
-  includeMetadata: z.boolean().default(true),
-  includeTags: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  recurse: z.boolean().optional(),
+  includeMetadata: z.boolean().optional(),
+  includeTags: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 
 export function azureBlobAuthTypeClientCertToJSON(
@@ -500,19 +500,19 @@ export const AzureBlobAuthTypeClientSecret$inboundSchema: z.ZodType<
   clientId: z.string(),
   clientTextSecret: z.string(),
   endpointSuffix: z.string().optional(),
-  azureCloud: z.string().default("azure"),
+  azureCloud: z.string().optional(),
   outputName: z.string().optional(),
   containerName: z.string(),
   path: z.string().optional(),
   extractors: z.array(
     z.lazy(() => AzureBlobAuthTypeClientSecretExtractor$inboundSchema),
   ).optional(),
-  recurse: z.boolean().default(true),
-  includeMetadata: z.boolean().default(true),
-  includeTags: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  recurse: z.boolean().optional(),
+  includeMetadata: z.boolean().optional(),
+  includeTags: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 /** @internal */
 export type AzureBlobAuthTypeClientSecret$Outbound = {
@@ -522,19 +522,19 @@ export type AzureBlobAuthTypeClientSecret$Outbound = {
   clientId: string;
   clientTextSecret: string;
   endpointSuffix?: string | undefined;
-  azureCloud: string;
+  azureCloud?: string | undefined;
   outputName?: string | undefined;
   containerName: string;
   path?: string | undefined;
   extractors?:
     | Array<AzureBlobAuthTypeClientSecretExtractor$Outbound>
     | undefined;
-  recurse: boolean;
-  includeMetadata: boolean;
-  includeTags: boolean;
-  maxBatchSize: number;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  recurse?: boolean | undefined;
+  includeMetadata?: boolean | undefined;
+  includeTags?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
 };
 
 /** @internal */
@@ -549,19 +549,19 @@ export const AzureBlobAuthTypeClientSecret$outboundSchema: z.ZodType<
   clientId: z.string(),
   clientTextSecret: z.string(),
   endpointSuffix: z.string().optional(),
-  azureCloud: z.string().default("azure"),
+  azureCloud: z.string().optional(),
   outputName: z.string().optional(),
   containerName: z.string(),
   path: z.string().optional(),
   extractors: z.array(
     z.lazy(() => AzureBlobAuthTypeClientSecretExtractor$outboundSchema),
   ).optional(),
-  recurse: z.boolean().default(true),
-  includeMetadata: z.boolean().default(true),
-  includeTags: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  recurse: z.boolean().optional(),
+  includeMetadata: z.boolean().optional(),
+  includeTags: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 
 export function azureBlobAuthTypeClientSecretToJSON(
@@ -641,12 +641,12 @@ export const AzureBlobAuthTypeSecret$inboundSchema: z.ZodType<
   extractors: z.array(
     z.lazy(() => AzureBlobAuthTypeSecretExtractor$inboundSchema),
   ).optional(),
-  recurse: z.boolean().default(true),
-  includeMetadata: z.boolean().default(true),
-  includeTags: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  recurse: z.boolean().optional(),
+  includeMetadata: z.boolean().optional(),
+  includeTags: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 /** @internal */
 export type AzureBlobAuthTypeSecret$Outbound = {
@@ -656,12 +656,12 @@ export type AzureBlobAuthTypeSecret$Outbound = {
   containerName: string;
   path?: string | undefined;
   extractors?: Array<AzureBlobAuthTypeSecretExtractor$Outbound> | undefined;
-  recurse: boolean;
-  includeMetadata: boolean;
-  includeTags: boolean;
-  maxBatchSize: number;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  recurse?: boolean | undefined;
+  includeMetadata?: boolean | undefined;
+  includeTags?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
 };
 
 /** @internal */
@@ -678,12 +678,12 @@ export const AzureBlobAuthTypeSecret$outboundSchema: z.ZodType<
   extractors: z.array(
     z.lazy(() => AzureBlobAuthTypeSecretExtractor$outboundSchema),
   ).optional(),
-  recurse: z.boolean().default(true),
-  includeMetadata: z.boolean().default(true),
-  includeTags: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  recurse: z.boolean().optional(),
+  includeMetadata: z.boolean().optional(),
+  includeTags: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 
 export function azureBlobAuthTypeSecretToJSON(
@@ -761,12 +761,12 @@ export const AzureBlobAuthTypeManual$inboundSchema: z.ZodType<
   extractors: z.array(
     z.lazy(() => AzureBlobAuthTypeManualExtractor$inboundSchema),
   ).optional(),
-  recurse: z.boolean().default(true),
-  includeMetadata: z.boolean().default(true),
-  includeTags: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  recurse: z.boolean().optional(),
+  includeMetadata: z.boolean().optional(),
+  includeTags: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 /** @internal */
 export type AzureBlobAuthTypeManual$Outbound = {
@@ -776,12 +776,12 @@ export type AzureBlobAuthTypeManual$Outbound = {
   containerName: string;
   path?: string | undefined;
   extractors?: Array<AzureBlobAuthTypeManualExtractor$Outbound> | undefined;
-  recurse: boolean;
-  includeMetadata: boolean;
-  includeTags: boolean;
-  maxBatchSize: number;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
+  recurse?: boolean | undefined;
+  includeMetadata?: boolean | undefined;
+  includeTags?: boolean | undefined;
+  maxBatchSize?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
 };
 
 /** @internal */
@@ -798,12 +798,12 @@ export const AzureBlobAuthTypeManual$outboundSchema: z.ZodType<
   extractors: z.array(
     z.lazy(() => AzureBlobAuthTypeManualExtractor$outboundSchema),
   ).optional(),
-  recurse: z.boolean().default(true),
-  includeMetadata: z.boolean().default(true),
-  includeTags: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
+  recurse: z.boolean().optional(),
+  includeMetadata: z.boolean().optional(),
+  includeTags: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
 });
 
 export function azureBlobAuthTypeManualToJSON(

@@ -7,6 +7,7 @@ import { ConfInput } from "cribl-control-plane/models";
 
 let value: ConfInput = {
   asyncFuncTimeout: 626210,
+  output: "<value>",
   description:
     "evenly on polite yieldingly exaggerate incandescence arrogantly yearningly",
   streamtags: [
@@ -16,7 +17,7 @@ let value: ConfInput = {
   ],
   functions: [
     {
-      filter: "true",
+      filter: "<value>",
       id: "sort",
       description:
         "wildly huzzah tasty plus yahoo ick agreement before subdued",
@@ -36,7 +37,7 @@ let value: ConfInput = {
     "key": {
       name: "<value>",
       description:
-        "ack regularly uh-huh naturally kettledrum before frenetically beard inasmuch quickly",
+        "march meanwhile potentially although trouser wearily furthermore weary whereas",
       disabled: true,
     },
   },

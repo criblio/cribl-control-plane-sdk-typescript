@@ -5,7 +5,12 @@
 ```typescript
 import { RunnableJobExecutorRun } from "cribl-control-plane/models";
 
-let value: RunnableJobExecutorRun = {};
+let value: RunnableJobExecutorRun = {
+  rescheduleDroppedTasks: false,
+  maxTaskReschedule: 4481.65,
+  logLevel: "silly",
+  jobTimeout: "<value>",
+};
 ```
 
 ## Fields

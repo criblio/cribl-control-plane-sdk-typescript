@@ -10,6 +10,7 @@ let value: PipelineFunctionMaskConf = {
   fields: [
     "<value 1>",
   ],
+  depth: 374535,
   flags: [
     {
       name: "<value>",

@@ -18,12 +18,23 @@ let value: OutputSignalfx = {
     "<value 1>",
     "<value 2>",
   ],
+  authType: "secret",
+  realm: "<value>",
+  concurrency: 9115.44,
+  maxPayloadSizeKB: 5567.89,
+  maxPayloadEvents: 6782.86,
+  compress: true,
+  rejectUnauthorized: false,
+  timeoutSec: 6375.79,
+  flushPeriodSec: 7407.01,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  useRoundRobinDns: false,
+  failedRequestLoggingMode: "payload",
   safeHeaders: [
     "<value 1>",
     "<value 2>",
@@ -31,14 +42,33 @@ let value: OutputSignalfx = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
-  description:
-    "since furthermore zowie rust stable dream an greedily far which",
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: false,
+  onBackpressure: "drop",
+  description: "whisper furthermore whoever",
   token: "<value>",
   textSecret: "<value>",
+  pqStrictOrdering: false,
+  pqRatePerSec: 7926.7,
+  pqMode: "backpressure",
+  pqMaxBufferSize: 1121.58,
+  pqMaxBackpressureSec: 3754.64,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "gzip",
+  pqOnBackpressure: "block",
   pqControls: {},
 };
 ```
@@ -54,7 +84,7 @@ let value: OutputSignalfx = {
 | `environment`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                             |
 | `streamtags`                                                                                                                                                                                                                                                                                                                                     | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                    |
 | `authType`                                                                                                                                                                                                                                                                                                                                       | [models.AuthenticationMethodOptionsAuthTokensItems](../models/authenticationmethodoptionsauthtokensitems.md)                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate                                                                                                                                                                                                                                             |
-| `realm`                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | SignalFx realm name, e.g. "us0". For a complete list of available SignalFx realm names, please check [here](https://docs.splunk.com/observability/en/get-started/service-description.html#sd-regions).                                                                                                                                           |
+| `realm`                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | SignalFx realm name, e.g. "us0". For a complete list of available SignalFx realm names, please check [here](https://docs.splunk.com/observability/en/get-started/service-description.html#sd-regions).                                                                                                                                           |
 | `concurrency`                                                                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of ongoing requests before blocking                                                                                                                                                                                                                                                                                               |
 | `maxPayloadSizeKB`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum size, in KB, of the request body                                                                                                                                                                                                                                                                                                         |
 | `maxPayloadEvents`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of events to include in the request body. Default is 0 (unlimited).                                                                                                                                                                                                                                                               |

@@ -62,15 +62,15 @@ export const PipelineFunctionXmlUnrollConf$inboundSchema: z.ZodType<
 > = z.object({
   unroll: z.string(),
   inherit: z.string().optional(),
-  unrollIdxField: z.string().default("unroll_idx"),
-  pretty: z.boolean().default(false),
+  unrollIdxField: z.string().optional(),
+  pretty: z.boolean().optional(),
 });
 /** @internal */
 export type PipelineFunctionXmlUnrollConf$Outbound = {
   unroll: string;
   inherit?: string | undefined;
-  unrollIdxField: string;
-  pretty: boolean;
+  unrollIdxField?: string | undefined;
+  pretty?: boolean | undefined;
 };
 
 /** @internal */
@@ -81,8 +81,8 @@ export const PipelineFunctionXmlUnrollConf$outboundSchema: z.ZodType<
 > = z.object({
   unroll: z.string(),
   inherit: z.string().optional(),
-  unrollIdxField: z.string().default("unroll_idx"),
-  pretty: z.boolean().default(false),
+  unrollIdxField: z.string().optional(),
+  pretty: z.boolean().optional(),
 });
 
 export function pipelineFunctionXmlUnrollConfToJSON(
@@ -110,7 +110,7 @@ export const PipelineFunctionXmlUnroll$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("xml_unroll"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -120,7 +120,7 @@ export const PipelineFunctionXmlUnroll$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionXmlUnroll$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "xml_unroll";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -135,7 +135,7 @@ export const PipelineFunctionXmlUnroll$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionXmlUnroll
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("xml_unroll"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

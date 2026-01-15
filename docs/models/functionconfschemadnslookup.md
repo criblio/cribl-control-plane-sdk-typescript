@@ -9,6 +9,7 @@ let value: FunctionConfSchemaDnsLookup = {
   dnsLookupFields: [
     {
       inFieldName: "<value>",
+      resourceRecordType: "A",
       outFieldName: "<value>",
     },
   ],
@@ -21,9 +22,16 @@ let value: FunctionConfSchemaDnsLookup = {
   dnsServers: [
     "<value 1>",
   ],
+  cacheTTL: 477.42,
+  maxCacheSize: 9685.05,
+  useResolvConf: true,
+  lookupFallback: true,
   domainOverrides: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
+  lookupFailLogLevel: "error",
 };
 ```
 

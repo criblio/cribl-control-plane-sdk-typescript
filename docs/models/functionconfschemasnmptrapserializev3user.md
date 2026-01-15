@@ -7,7 +7,9 @@ import { FunctionConfSchemaSnmpTrapSerializeV3User } from "cribl-control-plane/m
 
 let value: FunctionConfSchemaSnmpTrapSerializeV3User = {
   name: "<value>",
+  authProtocol: "md5",
   authKey: "<value>",
+  privProtocol: "<value>",
 };
 ```
 

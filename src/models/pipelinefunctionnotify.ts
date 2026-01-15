@@ -12,7 +12,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
  */
-export const PipelineFunctionNotifyTriggerType = {
+export const TriggerType = {
   /**
    * Where
    */
@@ -25,14 +25,12 @@ export const PipelineFunctionNotifyTriggerType = {
 /**
  * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
  */
-export type PipelineFunctionNotifyTriggerType = OpenEnum<
-  typeof PipelineFunctionNotifyTriggerType
->;
+export type TriggerType = OpenEnum<typeof TriggerType>;
 
 /**
  * Operation to be applied over the results count
  */
-export const PipelineFunctionNotifyCountComparator = {
+export const CountComparator = {
   /**
    * greater than
    */
@@ -61,19 +59,17 @@ export const PipelineFunctionNotifyCountComparator = {
 /**
  * Operation to be applied over the results count
  */
-export type PipelineFunctionNotifyCountComparator = OpenEnum<
-  typeof PipelineFunctionNotifyCountComparator
->;
+export type CountComparator = OpenEnum<typeof CountComparator>;
 
 export type NotifyConfiguration = {
   /**
    * Group the notification belongs to
    */
-  group?: string | undefined;
+  group: string;
   /**
    * Workspace within the deployment to send the search results to.
    */
-  notificationId?: string | undefined;
+  notificationId: string;
   /**
    * Id of the search this function is running on.
    */
@@ -89,11 +85,11 @@ export type NotifyConfiguration = {
   /**
    * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
    */
-  triggerType?: PipelineFunctionNotifyTriggerType | undefined;
+  triggerType?: TriggerType | undefined;
   /**
    * Operation to be applied over the results count
    */
-  triggerComparator?: PipelineFunctionNotifyCountComparator | undefined;
+  triggerComparator?: CountComparator | undefined;
   /**
    * How many results that match trigger the condition
    */
@@ -153,30 +149,30 @@ export type PipelineFunctionNotify = {
 };
 
 /** @internal */
-export const PipelineFunctionNotifyTriggerType$inboundSchema: z.ZodType<
-  PipelineFunctionNotifyTriggerType,
+export const TriggerType$inboundSchema: z.ZodType<
+  TriggerType,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(PipelineFunctionNotifyTriggerType);
+> = openEnums.inboundSchema(TriggerType);
 /** @internal */
-export const PipelineFunctionNotifyTriggerType$outboundSchema: z.ZodType<
+export const TriggerType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  PipelineFunctionNotifyTriggerType
-> = openEnums.outboundSchema(PipelineFunctionNotifyTriggerType);
+  TriggerType
+> = openEnums.outboundSchema(TriggerType);
 
 /** @internal */
-export const PipelineFunctionNotifyCountComparator$inboundSchema: z.ZodType<
-  PipelineFunctionNotifyCountComparator,
+export const CountComparator$inboundSchema: z.ZodType<
+  CountComparator,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(PipelineFunctionNotifyCountComparator);
+> = openEnums.inboundSchema(CountComparator);
 /** @internal */
-export const PipelineFunctionNotifyCountComparator$outboundSchema: z.ZodType<
+export const CountComparator$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  PipelineFunctionNotifyCountComparator
-> = openEnums.outboundSchema(PipelineFunctionNotifyCountComparator);
+  CountComparator
+> = openEnums.outboundSchema(CountComparator);
 
 /** @internal */
 export const NotifyConfiguration$inboundSchema: z.ZodType<
@@ -184,16 +180,15 @@ export const NotifyConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  group: z.string().default("default"),
-  notificationId: z.string().default("main"),
+  group: z.string(),
+  notificationId: z.string(),
   searchId: z.string(),
   savedQueryId: z.string(),
   trigger: z.string().optional(),
-  triggerType: PipelineFunctionNotifyTriggerType$inboundSchema.optional(),
-  triggerComparator: PipelineFunctionNotifyCountComparator$inboundSchema
-    .optional(),
-  triggerCount: z.number().default(0),
-  resultsLimit: z.number().default(50),
+  triggerType: TriggerType$inboundSchema.optional(),
+  triggerComparator: CountComparator$inboundSchema.optional(),
+  triggerCount: z.number().optional(),
+  resultsLimit: z.number().optional(),
   searchUrl: z.string(),
   message: z.string().optional(),
   authToken: z.string(),
@@ -209,8 +204,8 @@ export type NotifyConfiguration$Outbound = {
   trigger?: string | undefined;
   triggerType?: string | undefined;
   triggerComparator?: string | undefined;
-  triggerCount: number;
-  resultsLimit: number;
+  triggerCount?: number | undefined;
+  resultsLimit?: number | undefined;
   searchUrl: string;
   message?: string | undefined;
   authToken: string;
@@ -224,16 +219,15 @@ export const NotifyConfiguration$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   NotifyConfiguration
 > = z.object({
-  group: z.string().default("default"),
-  notificationId: z.string().default("main"),
+  group: z.string(),
+  notificationId: z.string(),
   searchId: z.string(),
   savedQueryId: z.string(),
   trigger: z.string().optional(),
-  triggerType: PipelineFunctionNotifyTriggerType$outboundSchema.optional(),
-  triggerComparator: PipelineFunctionNotifyCountComparator$outboundSchema
-    .optional(),
-  triggerCount: z.number().default(0),
-  resultsLimit: z.number().default(50),
+  triggerType: TriggerType$outboundSchema.optional(),
+  triggerComparator: CountComparator$outboundSchema.optional(),
+  triggerCount: z.number().optional(),
+  resultsLimit: z.number().optional(),
   searchUrl: z.string(),
   message: z.string().optional(),
   authToken: z.string(),
@@ -264,7 +258,7 @@ export const PipelineFunctionNotify$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("notify"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -274,7 +268,7 @@ export const PipelineFunctionNotify$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionNotify$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "notify";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -289,7 +283,7 @@ export const PipelineFunctionNotify$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionNotify
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("notify"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

@@ -28,11 +28,11 @@ export type PipelineFunctionAggregateMetricsMetricType = OpenEnum<
   typeof PipelineFunctionAggregateMetricsMetricType
 >;
 
-export type PipelineFunctionAggregateMetricsAggregation = {
+export type Aggregation = {
   /**
    * The output metric type
    */
-  metricType?: PipelineFunctionAggregateMetricsMetricType | undefined;
+  metricType: PipelineFunctionAggregateMetricsMetricType;
   /**
    * Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
    */
@@ -67,11 +67,11 @@ export type PipelineFunctionAggregateMetricsConf = {
   /**
    * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
    */
-  timeWindow?: string | undefined;
+  timeWindow: string;
   /**
    * Combination of Aggregation function and output metric type
    */
-  aggregations: Array<PipelineFunctionAggregateMetricsAggregation>;
+  aggregations: Array<Aggregation>;
   /**
    * Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
    */
@@ -140,57 +140,40 @@ export const PipelineFunctionAggregateMetricsMetricType$outboundSchema:
     openEnums.outboundSchema(PipelineFunctionAggregateMetricsMetricType);
 
 /** @internal */
-export const PipelineFunctionAggregateMetricsAggregation$inboundSchema:
-  z.ZodType<
-    PipelineFunctionAggregateMetricsAggregation,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    metricType: PipelineFunctionAggregateMetricsMetricType$inboundSchema
-      .default("automatic"),
-    agg: z.string(),
-  });
+export const Aggregation$inboundSchema: z.ZodType<
+  Aggregation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  metricType: PipelineFunctionAggregateMetricsMetricType$inboundSchema,
+  agg: z.string(),
+});
 /** @internal */
-export type PipelineFunctionAggregateMetricsAggregation$Outbound = {
+export type Aggregation$Outbound = {
   metricType: string;
   agg: string;
 };
 
 /** @internal */
-export const PipelineFunctionAggregateMetricsAggregation$outboundSchema:
-  z.ZodType<
-    PipelineFunctionAggregateMetricsAggregation$Outbound,
-    z.ZodTypeDef,
-    PipelineFunctionAggregateMetricsAggregation
-  > = z.object({
-    metricType: PipelineFunctionAggregateMetricsMetricType$outboundSchema
-      .default("automatic"),
-    agg: z.string(),
-  });
+export const Aggregation$outboundSchema: z.ZodType<
+  Aggregation$Outbound,
+  z.ZodTypeDef,
+  Aggregation
+> = z.object({
+  metricType: PipelineFunctionAggregateMetricsMetricType$outboundSchema,
+  agg: z.string(),
+});
 
-export function pipelineFunctionAggregateMetricsAggregationToJSON(
-  pipelineFunctionAggregateMetricsAggregation:
-    PipelineFunctionAggregateMetricsAggregation,
-): string {
-  return JSON.stringify(
-    PipelineFunctionAggregateMetricsAggregation$outboundSchema.parse(
-      pipelineFunctionAggregateMetricsAggregation,
-    ),
-  );
+export function aggregationToJSON(aggregation: Aggregation): string {
+  return JSON.stringify(Aggregation$outboundSchema.parse(aggregation));
 }
-export function pipelineFunctionAggregateMetricsAggregationFromJSON(
+export function aggregationFromJSON(
   jsonString: string,
-): SafeParseResult<
-  PipelineFunctionAggregateMetricsAggregation,
-  SDKValidationError
-> {
+): SafeParseResult<Aggregation, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      PipelineFunctionAggregateMetricsAggregation$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'PipelineFunctionAggregateMetricsAggregation' from JSON`,
+    (x) => Aggregation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Aggregation' from JSON`,
   );
 }
 
@@ -245,38 +228,36 @@ export const PipelineFunctionAggregateMetricsConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  passthrough: z.boolean().default(false),
-  preserveGroupBys: z.boolean().default(false),
-  sufficientStatsOnly: z.boolean().default(false),
+  passthrough: z.boolean().optional(),
+  preserveGroupBys: z.boolean().optional(),
+  sufficientStatsOnly: z.boolean().optional(),
   prefix: z.string().optional(),
-  timeWindow: z.string().default("10s"),
-  aggregations: z.array(
-    z.lazy(() => PipelineFunctionAggregateMetricsAggregation$inboundSchema),
-  ),
+  timeWindow: z.string(),
+  aggregations: z.array(z.lazy(() => Aggregation$inboundSchema)),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),
-  cumulative: z.boolean().default(false),
-  shouldTreatDotsAsLiterals: z.boolean().default(true),
+  cumulative: z.boolean().optional(),
+  shouldTreatDotsAsLiterals: z.boolean().optional(),
   add: z.array(z.lazy(() => PipelineFunctionAggregateMetricsAdd$inboundSchema))
     .optional(),
-  flushOnInputClose: z.boolean().default(true),
+  flushOnInputClose: z.boolean().optional(),
 });
 /** @internal */
 export type PipelineFunctionAggregateMetricsConf$Outbound = {
-  passthrough: boolean;
-  preserveGroupBys: boolean;
-  sufficientStatsOnly: boolean;
+  passthrough?: boolean | undefined;
+  preserveGroupBys?: boolean | undefined;
+  sufficientStatsOnly?: boolean | undefined;
   prefix?: string | undefined;
   timeWindow: string;
-  aggregations: Array<PipelineFunctionAggregateMetricsAggregation$Outbound>;
+  aggregations: Array<Aggregation$Outbound>;
   groupbys?: Array<string> | undefined;
   flushEventLimit?: number | undefined;
   flushMemLimit?: string | undefined;
-  cumulative: boolean;
-  shouldTreatDotsAsLiterals: boolean;
+  cumulative?: boolean | undefined;
+  shouldTreatDotsAsLiterals?: boolean | undefined;
   add?: Array<PipelineFunctionAggregateMetricsAdd$Outbound> | undefined;
-  flushOnInputClose: boolean;
+  flushOnInputClose?: boolean | undefined;
 };
 
 /** @internal */
@@ -285,22 +266,20 @@ export const PipelineFunctionAggregateMetricsConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionAggregateMetricsConf
 > = z.object({
-  passthrough: z.boolean().default(false),
-  preserveGroupBys: z.boolean().default(false),
-  sufficientStatsOnly: z.boolean().default(false),
+  passthrough: z.boolean().optional(),
+  preserveGroupBys: z.boolean().optional(),
+  sufficientStatsOnly: z.boolean().optional(),
   prefix: z.string().optional(),
-  timeWindow: z.string().default("10s"),
-  aggregations: z.array(
-    z.lazy(() => PipelineFunctionAggregateMetricsAggregation$outboundSchema),
-  ),
+  timeWindow: z.string(),
+  aggregations: z.array(z.lazy(() => Aggregation$outboundSchema)),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),
-  cumulative: z.boolean().default(false),
-  shouldTreatDotsAsLiterals: z.boolean().default(true),
+  cumulative: z.boolean().optional(),
+  shouldTreatDotsAsLiterals: z.boolean().optional(),
   add: z.array(z.lazy(() => PipelineFunctionAggregateMetricsAdd$outboundSchema))
     .optional(),
-  flushOnInputClose: z.boolean().default(true),
+  flushOnInputClose: z.boolean().optional(),
 });
 
 export function pipelineFunctionAggregateMetricsConfToJSON(
@@ -329,7 +308,7 @@ export const PipelineFunctionAggregateMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("aggregate_metrics"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -339,7 +318,7 @@ export const PipelineFunctionAggregateMetrics$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionAggregateMetrics$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "aggregate_metrics";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -354,7 +333,7 @@ export const PipelineFunctionAggregateMetrics$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionAggregateMetrics
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("aggregate_metrics"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

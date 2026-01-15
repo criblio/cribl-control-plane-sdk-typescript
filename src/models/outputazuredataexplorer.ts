@@ -239,7 +239,7 @@ export type OutputAzureDataExplorer = {
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
-  oauthEndpoint?: MicrosoftEntraIdAuthenticationEndpointOptionsSasl | undefined;
+  oauthEndpoint: MicrosoftEntraIdAuthenticationEndpointOptionsSasl;
   /**
    * Directory ID (tenant identifier) in Azure Active Directory
    */
@@ -255,7 +255,7 @@ export type OutputAzureDataExplorer = {
   /**
    * The type of OAuth 2.0 client credentials grant flow to use
    */
-  oauthType?: OutputAzureDataExplorerAuthenticationMethod | undefined;
+  oauthType: OutputAzureDataExplorerAuthenticationMethod;
   description?: string | undefined;
   /**
    * The client secret that you generated for your app in the Azure portal
@@ -273,7 +273,7 @@ export type OutputAzureDataExplorer = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: CompressionOptions2 | undefined;
+  compress: CompressionOptions2;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -786,91 +786,83 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   clusterUrl: z.string(),
   database: z.string(),
   table: z.string(),
-  validateDatabaseSettings: z.boolean().default(true),
-  ingestMode: IngestionMode$inboundSchema.default("batching"),
-  oauthEndpoint: MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema
-    .default("https://login.microsoftonline.com"),
+  validateDatabaseSettings: z.boolean().optional(),
+  ingestMode: IngestionMode$inboundSchema.optional(),
+  oauthEndpoint:
+    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
   tenantId: z.string(),
   clientId: z.string(),
   scope: z.string(),
-  oauthType: OutputAzureDataExplorerAuthenticationMethod$inboundSchema.default(
-    "clientSecret",
-  ),
+  oauthType: OutputAzureDataExplorerAuthenticationMethod$inboundSchema,
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
   certificate: z.lazy(() => Certificate$inboundSchema).optional(),
-  format: DataFormatOptions$inboundSchema.default("json"),
-  compress: CompressionOptions2$inboundSchema.default("gzip"),
-  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
-  automaticSchema: z.boolean().default(false),
+  format: DataFormatOptions$inboundSchema.optional(),
+  compress: CompressionOptions2$inboundSchema,
+  compressionLevel: CompressionLevelOptions$inboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
-  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: ParquetVersionOptions$inboundSchema.optional(),
+  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  removeEmptyDirs: z.boolean().default(true),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterEnabled: z.boolean().default(false),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
-  isMappingObj: z.boolean().default(false),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterEnabled: z.boolean().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+  isMappingObj: z.boolean().optional(),
   mappingObj: z.string().optional(),
   mappingRef: z.string().optional(),
   ingestUrl: z.string().optional(),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  maxConcurrentFileParts: z.number().default(1),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
-    "block",
-  ),
-  addIdToStagePath: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushImmediately: z.boolean().default(false),
-  retainBlobOnSuccess: z.boolean().default(false),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
+  stagePath: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.optional(),
+  addIdToStagePath: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushImmediately: z.boolean().optional(),
+  retainBlobOnSuccess: z.boolean().optional(),
   extentTags: z.array(z.lazy(() => ExtentTag$inboundSchema)).optional(),
   ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist$inboundSchema))
     .optional(),
-  reportLevel: ReportLevel$inboundSchema.default("failuresOnly"),
-  reportMethod: ReportMethod$inboundSchema.default("queue"),
+  reportLevel: ReportLevel$inboundSchema.optional(),
+  reportMethod: ReportMethod$inboundSchema.optional(),
   additionalProperties: z.array(z.lazy(() => AdditionalProperty$inboundSchema))
     .optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  flushPeriodSec: z.number().default(1),
-  rejectUnauthorized: z.boolean().default(true),
-  useRoundRobinDns: z.boolean().default(false),
-  keepAlive: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  keepAlive: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputAzureDataExplorerPqControls$inboundSchema)
     .optional(),
 });
@@ -885,8 +877,8 @@ export type OutputAzureDataExplorer$Outbound = {
   clusterUrl: string;
   database: string;
   table: string;
-  validateDatabaseSettings: boolean;
-  ingestMode: string;
+  validateDatabaseSettings?: boolean | undefined;
+  ingestMode?: string | undefined;
   oauthEndpoint: string;
   tenantId: string;
   clientId: string;
@@ -896,70 +888,70 @@ export type OutputAzureDataExplorer$Outbound = {
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
   certificate?: Certificate$Outbound | undefined;
-  format: string;
+  format?: string | undefined;
   compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
   parquetSchema?: string | undefined;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  removeEmptyDirs: boolean;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterEnabled: boolean;
-  deadletterPath: string;
-  maxRetryNum: number;
-  isMappingObj: boolean;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterEnabled?: boolean | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+  isMappingObj?: boolean | undefined;
   mappingObj?: string | undefined;
   mappingRef?: string | undefined;
   ingestUrl?: string | undefined;
-  onBackpressure: string;
-  stagePath: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxOpenFiles: number;
-  maxConcurrentFileParts: number;
-  onDiskFullBackpressure: string;
-  addIdToStagePath: boolean;
-  timeoutSec: number;
-  flushImmediately: boolean;
-  retainBlobOnSuccess: boolean;
+  onBackpressure?: string | undefined;
+  stagePath?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  addIdToStagePath?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushImmediately?: boolean | undefined;
+  retainBlobOnSuccess?: boolean | undefined;
   extentTags?: Array<ExtentTag$Outbound> | undefined;
   ingestIfNotExists?: Array<IngestIfNotExist$Outbound> | undefined;
-  reportLevel: string;
-  reportMethod: string;
+  reportLevel?: string | undefined;
+  reportMethod?: string | undefined;
   additionalProperties?: Array<AdditionalProperty$Outbound> | undefined;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  flushPeriodSec: number;
-  rejectUnauthorized: boolean;
-  useRoundRobinDns: boolean;
-  keepAlive: boolean;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  keepAlive?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputAzureDataExplorerPqControls$Outbound | undefined;
 };
 
@@ -978,96 +970,84 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   clusterUrl: z.string(),
   database: z.string(),
   table: z.string(),
-  validateDatabaseSettings: z.boolean().default(true),
-  ingestMode: IngestionMode$outboundSchema.default("batching"),
+  validateDatabaseSettings: z.boolean().optional(),
+  ingestMode: IngestionMode$outboundSchema.optional(),
   oauthEndpoint:
-    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema.default(
-      "https://login.microsoftonline.com",
-    ),
+    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema,
   tenantId: z.string(),
   clientId: z.string(),
   scope: z.string(),
-  oauthType: OutputAzureDataExplorerAuthenticationMethod$outboundSchema.default(
-    "clientSecret",
-  ),
+  oauthType: OutputAzureDataExplorerAuthenticationMethod$outboundSchema,
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
   certificate: z.lazy(() => Certificate$outboundSchema).optional(),
-  format: DataFormatOptions$outboundSchema.default("json"),
-  compress: CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: CompressionLevelOptions$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  format: DataFormatOptions$outboundSchema.optional(),
+  compress: CompressionOptions2$outboundSchema,
+  compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
-  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  removeEmptyDirs: z.boolean().default(true),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterEnabled: z.boolean().default(false),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
-  isMappingObj: z.boolean().default(false),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterEnabled: z.boolean().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+  isMappingObj: z.boolean().optional(),
   mappingObj: z.string().optional(),
   mappingRef: z.string().optional(),
   ingestUrl: z.string().optional(),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  maxConcurrentFileParts: z.number().default(1),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
-    "block",
-  ),
-  addIdToStagePath: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushImmediately: z.boolean().default(false),
-  retainBlobOnSuccess: z.boolean().default(false),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
+  stagePath: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
+  addIdToStagePath: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushImmediately: z.boolean().optional(),
+  retainBlobOnSuccess: z.boolean().optional(),
   extentTags: z.array(z.lazy(() => ExtentTag$outboundSchema)).optional(),
   ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist$outboundSchema))
     .optional(),
-  reportLevel: ReportLevel$outboundSchema.default("failuresOnly"),
-  reportMethod: ReportMethod$outboundSchema.default("queue"),
+  reportLevel: ReportLevel$outboundSchema.optional(),
+  reportMethod: ReportMethod$outboundSchema.optional(),
   additionalProperties: z.array(z.lazy(() => AdditionalProperty$outboundSchema))
     .optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  flushPeriodSec: z.number().default(1),
-  rejectUnauthorized: z.boolean().default(true),
-  useRoundRobinDns: z.boolean().default(false),
-  keepAlive: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  keepAlive: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputAzureDataExplorerPqControls$outboundSchema)
     .optional(),
 });

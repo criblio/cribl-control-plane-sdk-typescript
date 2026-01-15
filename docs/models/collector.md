@@ -29,12 +29,12 @@ const value: models.CollectorAzureBlob = {
         expression: "<value>",
       },
     ],
-    recurse: true,
-    includeMetadata: true,
-    includeTags: true,
-    maxBatchSize: 10,
-    parquetChunkSizeMB: 5,
-    parquetChunkDownloadTimeout: 600,
+    recurse: false,
+    includeMetadata: false,
+    includeTags: false,
+    maxBatchSize: 2877.09,
+    parquetChunkSizeMB: 3385.81,
+    parquetChunkDownloadTimeout: 2527.71,
   },
 };
 ```
@@ -58,6 +58,7 @@ const value: models.CollectorDatabase = {
   conf: {
     connectionId: "<id>",
     query: "<value>",
+    queryValidationEnabled: true,
     defaultBreakers: "Cribl",
     __scheduling: {
       stateTracking: {
@@ -82,6 +83,8 @@ const value: models.CollectorFilesystem = {
         expression: "<value>",
       },
     ],
+    recurse: false,
+    maxBatchSize: 4087.23,
   },
 };
 ```
@@ -104,11 +107,11 @@ const value: models.CollectorGoogleCloudStorage = {
       },
     ],
     endpoint: "<value>",
-    disableTimeFilter: false,
-    recurse: true,
-    maxBatchSize: 10,
-    parquetChunkSizeMB: 5,
-    parquetChunkDownloadTimeout: 600,
+    disableTimeFilter: true,
+    recurse: false,
+    maxBatchSize: 60.67,
+    parquetChunkSizeMB: 2920.25,
+    parquetChunkDownloadTimeout: 430.44,
   },
 };
 ```
@@ -120,13 +123,12 @@ const value: models.CollectorHealthCheck = {
   type: "health_check",
   conf: {
     authentication: "login",
-    loginUrl: "`https://localhost:9000/api/v1/auth/login`",
-    username: "Connor_Schowalter",
-    password: "lv0D0RYmS35HdTL",
-    loginBody:
-      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+    loginUrl: "https://crooked-shoulder.name/",
+    username: "Isaac_Schiller",
+    password: "0RYmS35HdTLMgXY",
+    loginBody: "<value>",
     tokenRespAttribute: "<value>",
-    authHeaderExpr: "`Bearer ${token}`",
+    authHeaderExpr: "<value>",
     authRequestHeaders: [
       {
         name: "<value>",
@@ -134,9 +136,9 @@ const value: models.CollectorHealthCheck = {
       },
     ],
     discovery: {
-      discoverType: "none",
+      discoverType: "list",
     },
-    collectUrl: "https://silver-morning.biz/",
+    collectUrl: "https://soupy-glider.org/",
     collectMethod: "get",
     collectRequestParams: "<value>",
     collectBody: "<value>",
@@ -146,15 +148,15 @@ const value: models.CollectorHealthCheck = {
         value: "<value>",
       },
     ],
-    authenticateCollect: false,
-    timeout: 30,
+    authenticateCollect: true,
+    timeout: 9055.35,
     rejectUnauthorized: false,
     defaultBreakers: "Cribl",
     safeHeaders: [
       "<value 1>",
     ],
     retryRules: {
-      type: "backoff",
+      type: "static",
       interval: "<value>",
       limit: "<value>",
       multiplier: "<value>",
@@ -174,10 +176,10 @@ const value: models.CollectorRest = {
     authentication: "hmac",
     hmacFunctionId: "<id>",
     discovery: {
-      discoverType: "none",
+      discoverType: "http",
     },
-    collectUrl: "https://simplistic-cardboard.biz/",
-    collectMethod: "get",
+    collectUrl: "https://close-decision.net",
+    collectMethod: "post",
     collectVerb: "<value>",
     collectRequestParams: "<value>",
     collectBody: "<value>",
@@ -188,22 +190,22 @@ const value: models.CollectorRest = {
       },
     ],
     pagination: {
-      type: "none",
+      type: "response_header",
     },
-    timeout: 0,
-    useRoundRobinDns: false,
+    timeout: 4762.75,
+    useRoundRobinDns: true,
     disableTimeFilter: false,
-    decodeUrl: true,
-    rejectUnauthorized: false,
+    decodeUrl: false,
+    rejectUnauthorized: true,
     captureHeaders: false,
-    stopOnEmptyResults: false,
+    stopOnEmptyResults: true,
     safeHeaders: [
       "<value 1>",
       "<value 2>",
       "<value 3>",
     ],
     retryRules: {
-      type: "backoff",
+      type: "none",
       interval: "<value>",
       limit: "<value>",
       multiplier: "<value>",
@@ -215,7 +217,7 @@ const value: models.CollectorRest = {
     },
     __scheduling: {
       stateTracking: {
-        enabled: true,
+        enabled: false,
       },
     },
   },
@@ -231,10 +233,10 @@ const value: models.CollectorS3 = {
     awsAuthenticationMethod: "auto",
     outputName: "<value>",
     bucket: "<value>",
-    parquetChunkSizeMB: 5,
-    parquetChunkDownloadTimeout: 600,
+    parquetChunkSizeMB: 219.36,
+    parquetChunkDownloadTimeout: 4909.83,
     region: "<value>",
-    path: "/bin",
+    path: "/private/var",
     partitioningScheme: "none",
     extractors: [
       {
@@ -244,16 +246,16 @@ const value: models.CollectorS3 = {
     ],
     endpoint: "<value>",
     signatureVersion: "v4",
-    enableAssumeRole: false,
+    enableAssumeRole: true,
     assumeRoleArn: "<value>",
     assumeRoleExternalId: "<id>",
-    durationSeconds: 3600,
-    maxBatchSize: 10,
+    durationSeconds: 2339.05,
+    maxBatchSize: 5719.01,
     recurse: "<value>",
-    reuseConnections: true,
+    reuseConnections: false,
     rejectUnauthorized: true,
-    verifyPermissions: true,
-    disableTimeFilter: false,
+    verifyPermissions: false,
+    disableTimeFilter: true,
   },
 };
 ```
@@ -266,6 +268,7 @@ const value: models.CollectorScript = {
   conf: {
     discoverScript: "<value>",
     collectScript: "<value>",
+    shell: "<value>",
     envVars: [
       {
         name: "<value>",
@@ -285,11 +288,11 @@ const value: models.CollectorSplunk = {
     authentication: "basic",
     username: "Enrico53",
     password: "a6l5mrPhEvtGkTu",
-    searchHead: "https://localhost:8089",
+    searchHead: "<value>",
     search: "<value>",
     earliest: "<value>",
     latest: "<value>",
-    endpoint: "/services/search/v2/jobs/export",
+    endpoint: "<value>",
     outputMode: "json",
     collectRequestParams: [
       {
@@ -303,10 +306,10 @@ const value: models.CollectorSplunk = {
         value: "<value>",
       },
     ],
-    timeout: 0,
-    useRoundRobinDns: false,
+    timeout: 2992.03,
+    useRoundRobinDns: true,
     disableTimeFilter: true,
-    rejectUnauthorized: false,
+    rejectUnauthorized: true,
     handleEscapedChars: false,
     retryRules: {
       type: "backoff",

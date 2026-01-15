@@ -47,7 +47,7 @@ export const PipelineFunctionOtlpMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("otlp_metrics"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionOtlpMetrics$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionOtlpMetrics$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "otlp_metrics";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionOtlpMetrics$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionOtlpMetrics
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("otlp_metrics"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

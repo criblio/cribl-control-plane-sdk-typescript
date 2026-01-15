@@ -6,6 +6,7 @@
 import { PipelineFunctionNotificationPolicies } from "cribl-control-plane/models";
 
 let value: PipelineFunctionNotificationPolicies = {
+  filter: "<value>",
   id: "notification_policies",
   description: "hm whenever prudent embalm stall excepting hm ack jet",
   disabled: true,
@@ -14,31 +15,26 @@ let value: PipelineFunctionNotificationPolicies = {
     policies: [
       {
         id: "<id>",
-        waitToGroup: 8810.59,
+        disabled: false,
+        waitToGroup: 8213.72,
         groupByLabels: [
           "<value 1>",
           "<value 2>",
           "<value 3>",
         ],
         conditions: [
-          [
-            {
-              key: "<key>",
-              operator: "!=",
-              value: 4612.54,
-            },
-          ],
-          [
-            {
-              key: "<key>",
-              operator: "!=",
-              value: 4612.54,
-            },
-          ],
+          [],
+          [],
           [],
         ],
-        templateTargetPairs: [],
-        order: 2760.74,
+        templateTargetPairs: [
+          {
+            templateId: "<id>",
+            targetId: "<id>",
+          },
+        ],
+        final: true,
+        order: 4556.84,
       },
     ],
   },

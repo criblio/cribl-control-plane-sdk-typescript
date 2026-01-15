@@ -42,9 +42,7 @@ export const PrometheusAuthType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationTypeOptionsPrometheusAuth1$inboundSchema.default(
-    "basic",
-  ),
+  authType: AuthenticationTypeOptionsPrometheusAuth1$inboundSchema.optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   username: z.string().optional(),
@@ -53,7 +51,7 @@ export const PrometheusAuthType$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PrometheusAuthType$Outbound = {
-  authType: string;
+  authType?: string | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
   username?: string | undefined;
@@ -67,9 +65,7 @@ export const PrometheusAuthType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PrometheusAuthType
 > = z.object({
-  authType: AuthenticationTypeOptionsPrometheusAuth1$outboundSchema.default(
-    "basic",
-  ),
+  authType: AuthenticationTypeOptionsPrometheusAuth1$outboundSchema.optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   username: z.string().optional(),

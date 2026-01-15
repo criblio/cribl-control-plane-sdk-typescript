@@ -5,7 +5,14 @@
 ```typescript
 import { InputSystemMetricsPersistence } from "cribl-control-plane/models";
 
-let value: InputSystemMetricsPersistence = {};
+let value: InputSystemMetricsPersistence = {
+  enable: true,
+  timeWindow: "<value>",
+  maxDataSize: "<value>",
+  maxDataTime: "<value>",
+  compress: "none",
+  destPath: "<value>",
+};
 ```
 
 ## Fields

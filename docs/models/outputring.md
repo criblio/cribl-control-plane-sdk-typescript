@@ -17,9 +17,14 @@ let value: OutputRing = {
   streamtags: [
     "<value 1>",
   ],
+  format: "raw",
   partitionExpr: "<value>",
+  maxDataSize: "<value>",
+  maxDataTime: "<value>",
+  compress: "gzip",
   destPath: "<value>",
-  description: "pace anneal yum phooey even archaeology onto",
+  onBackpressure: "drop",
+  description: "absent fisherman likewise notwithstanding rule likewise",
 };
 ```
 

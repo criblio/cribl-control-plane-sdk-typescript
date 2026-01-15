@@ -34,13 +34,13 @@ export const FunctionConfSchemaSidlookupField$inboundSchema: z.ZodType<
 > = z.object({
   name: z.string().optional(),
   expr: z.string(),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
 });
 /** @internal */
 export type FunctionConfSchemaSidlookupField$Outbound = {
   name?: string | undefined;
   expr: string;
-  disabled: boolean;
+  disabled?: boolean | undefined;
 };
 
 /** @internal */
@@ -51,7 +51,7 @@ export const FunctionConfSchemaSidlookupField$outboundSchema: z.ZodType<
 > = z.object({
   name: z.string().optional(),
   expr: z.string(),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
 });
 
 export function functionConfSchemaSidlookupFieldToJSON(

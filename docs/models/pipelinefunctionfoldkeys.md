@@ -6,11 +6,14 @@
 import { PipelineFunctionFoldkeys } from "cribl-control-plane/models";
 
 let value: PipelineFunctionFoldkeys = {
+  filter: "<value>",
   id: "foldkeys",
   description: "whoa warlike without pish before qua zowie grandson",
   disabled: false,
   final: true,
   conf: {
+    deleteOriginal: true,
+    separator: "<value>",
     selectionRegExp: "<value>",
   },
   groupId: "<id>",

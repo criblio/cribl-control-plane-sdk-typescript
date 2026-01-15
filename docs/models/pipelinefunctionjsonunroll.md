@@ -6,6 +6,7 @@
 import { PipelineFunctionJsonUnroll } from "cribl-control-plane/models";
 
 let value: PipelineFunctionJsonUnroll = {
+  filter: "<value>",
   id: "json_unroll",
   description: "covenant draft far affiliate anenst",
   disabled: false,

@@ -6,7 +6,8 @@
 import { LokiAuth2 } from "cribl-control-plane/models";
 
 let value: LokiAuth2 = {
-  username: "Otto_Kuhn43",
+  authType: "textSecret",
+  username: "Kaylin.Ortiz",
   password: "RIONhoxj_C4cO_0",
   token: "<value>",
   credentialsSecret: "<value>",
@@ -15,6 +16,8 @@ let value: LokiAuth2 = {
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
+  authHeaderExpr: "<value>",
+  tokenTimeoutSecs: 3428.86,
   oauthParams: [
     {
       name: "<value>",

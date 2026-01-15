@@ -15,7 +15,7 @@ export type OutputNetflowHost = {
   /**
    * Destination port, default is 2055
    */
-  port?: number | undefined;
+  port: number;
 };
 
 export type OutputNetflow = {
@@ -66,7 +66,7 @@ export const OutputNetflowHost$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   host: z.string(),
-  port: z.number().default(2055),
+  port: z.number(),
 });
 /** @internal */
 export type OutputNetflowHost$Outbound = {
@@ -81,7 +81,7 @@ export const OutputNetflowHost$outboundSchema: z.ZodType<
   OutputNetflowHost
 > = z.object({
   host: z.string(),
-  port: z.number().default(2055),
+  port: z.number(),
 });
 
 export function outputNetflowHostToJSON(
@@ -114,10 +114,10 @@ export const OutputNetflow$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   hosts: z.array(z.lazy(() => OutputNetflowHost$inboundSchema)),
-  dnsResolvePeriodSec: z.number().default(0),
-  enableIpSpoofing: z.boolean().default(false),
+  dnsResolvePeriodSec: z.number().optional(),
+  enableIpSpoofing: z.boolean().optional(),
   description: z.string().optional(),
-  maxRecordSize: z.number().default(1500),
+  maxRecordSize: z.number().optional(),
 });
 /** @internal */
 export type OutputNetflow$Outbound = {
@@ -128,10 +128,10 @@ export type OutputNetflow$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   hosts: Array<OutputNetflowHost$Outbound>;
-  dnsResolvePeriodSec: number;
-  enableIpSpoofing: boolean;
+  dnsResolvePeriodSec?: number | undefined;
+  enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
-  maxRecordSize: number;
+  maxRecordSize?: number | undefined;
 };
 
 /** @internal */
@@ -147,10 +147,10 @@ export const OutputNetflow$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   hosts: z.array(z.lazy(() => OutputNetflowHost$outboundSchema)),
-  dnsResolvePeriodSec: z.number().default(0),
-  enableIpSpoofing: z.boolean().default(false),
+  dnsResolvePeriodSec: z.number().optional(),
+  enableIpSpoofing: z.boolean().optional(),
   description: z.string().optional(),
-  maxRecordSize: z.number().default(1500),
+  maxRecordSize: z.number().optional(),
 });
 
 export function outputNetflowToJSON(outputNetflow: OutputNetflow): string {

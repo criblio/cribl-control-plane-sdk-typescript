@@ -67,7 +67,7 @@ export type OutputMicrosoftFabricAuthenticationMethod = OpenEnum<
  * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
  */
 export type OutputMicrosoftFabricAuthentication = {
-  disabled?: boolean | undefined;
+  disabled: boolean;
   mechanism?: SaslMechanismOptionsSasl1 | undefined;
   /**
    * The username for authentication. This should always be $ConnectionString.
@@ -261,19 +261,19 @@ export const OutputMicrosoftFabricAuthentication$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(false),
-  mechanism: SaslMechanismOptionsSasl1$inboundSchema.default("plain"),
-  username: z.string().default("$ConnectionString"),
+  disabled: z.boolean(),
+  mechanism: SaslMechanismOptionsSasl1$inboundSchema.optional(),
+  username: z.string().optional(),
   textSecret: z.string().optional(),
   clientSecretAuthType: OutputMicrosoftFabricAuthenticationMethod$inboundSchema
-    .default("secret"),
+    .optional(),
   clientTextSecret: z.string().optional(),
   certificateName: z.string().optional(),
   certPath: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   oauthEndpoint: MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema
-    .default("https://login.microsoftonline.com"),
+    .optional(),
   clientId: z.string().optional(),
   tenantId: z.string().optional(),
   scope: z.string().optional(),
@@ -281,16 +281,16 @@ export const OutputMicrosoftFabricAuthentication$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputMicrosoftFabricAuthentication$Outbound = {
   disabled: boolean;
-  mechanism: string;
-  username: string;
+  mechanism?: string | undefined;
+  username?: string | undefined;
   textSecret?: string | undefined;
-  clientSecretAuthType: string;
+  clientSecretAuthType?: string | undefined;
   clientTextSecret?: string | undefined;
   certificateName?: string | undefined;
   certPath?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
-  oauthEndpoint: string;
+  oauthEndpoint?: string | undefined;
   clientId?: string | undefined;
   tenantId?: string | undefined;
   scope?: string | undefined;
@@ -302,21 +302,19 @@ export const OutputMicrosoftFabricAuthentication$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputMicrosoftFabricAuthentication
 > = z.object({
-  disabled: z.boolean().default(false),
-  mechanism: SaslMechanismOptionsSasl1$outboundSchema.default("plain"),
-  username: z.string().default("$ConnectionString"),
+  disabled: z.boolean(),
+  mechanism: SaslMechanismOptionsSasl1$outboundSchema.optional(),
+  username: z.string().optional(),
   textSecret: z.string().optional(),
   clientSecretAuthType: OutputMicrosoftFabricAuthenticationMethod$outboundSchema
-    .default("secret"),
+    .optional(),
   clientTextSecret: z.string().optional(),
   certificateName: z.string().optional(),
   certPath: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   oauthEndpoint:
-    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema.default(
-      "https://login.microsoftonline.com",
-    ),
+    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema.optional(),
   clientId: z.string().optional(),
   tenantId: z.string().optional(),
   scope: z.string().optional(),
@@ -390,35 +388,35 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   topic: z.string(),
-  ack: AcknowledgmentsOptions$inboundSchema.default(1),
-  format: RecordDataFormatOptions$inboundSchema.default("json"),
-  maxRecordSizeKB: z.number().default(768),
-  flushEventCount: z.number().default(1000),
-  flushPeriodSec: z.number().default(1),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
+  ack: AcknowledgmentsOptions$inboundSchema.optional(),
+  format: RecordDataFormatOptions$inboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
   sasl: z.lazy(() => OutputMicrosoftFabricAuthentication$inboundSchema)
     .optional(),
   tls: TlsSettingsClientSideType$inboundSchema.optional(),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   bootstrap_server: z.string(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputMicrosoftFabricPqControls$inboundSchema)
     .optional(),
 });
@@ -431,34 +429,34 @@ export type OutputMicrosoftFabric$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   topic: string;
-  ack: number;
-  format: string;
-  maxRecordSizeKB: number;
-  flushEventCount: number;
-  flushPeriodSec: number;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
+  ack?: number | undefined;
+  format?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
   sasl?: OutputMicrosoftFabricAuthentication$Outbound | undefined;
   tls?: TlsSettingsClientSideType$Outbound | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   bootstrap_server: string;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputMicrosoftFabricPqControls$Outbound | undefined;
 };
 
@@ -475,35 +473,35 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   topic: z.string(),
-  ack: AcknowledgmentsOptions$outboundSchema.default(1),
-  format: RecordDataFormatOptions$outboundSchema.default("json"),
-  maxRecordSizeKB: z.number().default(768),
-  flushEventCount: z.number().default(1000),
-  flushPeriodSec: z.number().default(1),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
+  ack: AcknowledgmentsOptions$outboundSchema.optional(),
+  format: RecordDataFormatOptions$outboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
   sasl: z.lazy(() => OutputMicrosoftFabricAuthentication$outboundSchema)
     .optional(),
   tls: TlsSettingsClientSideType$outboundSchema.optional(),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   bootstrap_server: z.string(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputMicrosoftFabricPqControls$outboundSchema)
     .optional(),
 });

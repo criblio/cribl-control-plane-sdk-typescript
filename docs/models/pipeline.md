@@ -9,6 +9,7 @@ let value: Pipeline = {
   id: "<id>",
   conf: {
     asyncFuncTimeout: 772456,
+    output: "<value>",
     description:
       "self-confidence certify seagull bah once steeple miskey fit fowl dispose",
     streamtags: [
@@ -18,23 +19,23 @@ let value: Pipeline = {
     ],
     functions: [
       {
-        filter: "true",
+        filter: "<value>",
         id: "notify",
         description:
           "zen priesthood characterization fictionalize than exasperation oh fervently afterwards before",
         disabled: true,
         final: true,
         conf: {
-          group: "default",
-          notificationId: "main",
+          group: "<value>",
+          notificationId: "<id>",
           searchId: "<id>",
           savedQueryId: "<id>",
           trigger: "<value>",
           triggerType: "resultsCount",
           triggerComparator: ">",
-          triggerCount: 0,
-          resultsLimit: 50,
-          searchUrl: "https://negligible-collaboration.biz",
+          triggerCount: 8364.23,
+          resultsLimit: 5484.73,
+          searchUrl: "https://equatorial-teammate.net/",
           message: "<value>",
           authToken: "<value>",
           messagesEndpoint: "<value>",
@@ -47,7 +48,7 @@ let value: Pipeline = {
       "key": {
         name: "<value>",
         description:
-          "ack regularly uh-huh naturally kettledrum before frenetically beard inasmuch quickly",
+          "march meanwhile potentially although trouser wearily furthermore weary whereas",
         disabled: true,
       },
     },

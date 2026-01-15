@@ -195,9 +195,11 @@ async function run() {
           disabled: true,
           filter: "source == \"access.log\"",
           pipeline: "main",
+          enableOutputExpression: false,
           output: "<value>",
           outputExpression: "<value>",
           description: "Route access logs to main pipeline",
+          final: true,
         },
       ],
       groups: {
@@ -250,9 +252,11 @@ async function run() {
           disabled: true,
           filter: "source == \"access.log\"",
           pipeline: "main",
+          enableOutputExpression: false,
           output: "<value>",
           outputExpression: "<value>",
           description: "Route access logs to main pipeline",
+          final: true,
         },
       ],
       groups: {

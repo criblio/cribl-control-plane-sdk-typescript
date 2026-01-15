@@ -110,24 +110,24 @@ export const SendConfiguration$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   url: z.string().optional(),
-  group: z.string().default("default"),
-  workspace: z.string().default("main"),
+  group: z.string().optional(),
+  workspace: z.string().optional(),
   sendUrlTemplate: z.string().optional(),
   searchId: z.string(),
-  tee: z.string().default("false"),
-  flushMs: z.number().default(1000),
+  tee: z.string().optional(),
+  flushMs: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
   mode: PipelineFunctionSendMode$inboundSchema.optional(),
 });
 /** @internal */
 export type SendConfiguration$Outbound = {
   url?: string | undefined;
-  group: string;
-  workspace: string;
+  group?: string | undefined;
+  workspace?: string | undefined;
   sendUrlTemplate?: string | undefined;
   searchId: string;
-  tee: string;
-  flushMs: number;
+  tee?: string | undefined;
+  flushMs?: number | undefined;
   suppressPreviews?: boolean | undefined;
   mode?: string | undefined;
 };
@@ -139,12 +139,12 @@ export const SendConfiguration$outboundSchema: z.ZodType<
   SendConfiguration
 > = z.object({
   url: z.string().optional(),
-  group: z.string().default("default"),
-  workspace: z.string().default("main"),
+  group: z.string().optional(),
+  workspace: z.string().optional(),
   sendUrlTemplate: z.string().optional(),
   searchId: z.string(),
-  tee: z.string().default("false"),
-  flushMs: z.number().default(1000),
+  tee: z.string().optional(),
+  flushMs: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
   mode: PipelineFunctionSendMode$outboundSchema.optional(),
 });
@@ -172,7 +172,7 @@ export const PipelineFunctionSend$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("send"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -182,7 +182,7 @@ export const PipelineFunctionSend$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionSend$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "send";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -197,7 +197,7 @@ export const PipelineFunctionSend$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionSend
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("send"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

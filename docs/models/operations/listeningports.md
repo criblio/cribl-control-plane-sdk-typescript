@@ -7,7 +7,9 @@ Creates events from list of listening ports
 ```typescript
 import { ListeningPorts } from "cribl-control-plane/models/operations";
 
-let value: ListeningPorts = {};
+let value: ListeningPorts = {
+  enable: true,
+};
 ```
 
 ## Fields

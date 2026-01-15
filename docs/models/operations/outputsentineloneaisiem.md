@@ -19,26 +19,71 @@ let value: OutputSentinelOneAiSiem = {
     "<value 1>",
     "<value 2>",
   ],
+  region: "AU",
+  endpoint: "/services/collector/raw",
+  concurrency: 6454.06,
+  maxPayloadSizeKB: 4276.69,
+  maxPayloadEvents: 946.41,
+  compress: true,
+  rejectUnauthorized: true,
+  timeoutSec: 5980.44,
+  flushPeriodSec: 3392.92,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  failedRequestLoggingMode: "payload",
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
+  authType: "secret",
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
-  description: "floss incidentally ouch usually readies geez spirited",
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: true,
+  onBackpressure: "block",
+  description:
+    "beneath bruised ethical supposing duh drag scrape wasabi whose oh",
   token: "<value>",
   textSecret: "<value>",
+  baseUrl: "https://ill-fated-polarisation.com/",
+  hostExpression: "<value>",
+  sourceExpression: "<value>",
+  sourceTypeExpression: "<value>",
+  dataSourceCategoryExpression: "<value>",
+  dataSourceNameExpression: "<value>",
+  dataSourceVendorExpression: "<value>",
+  eventTypeExpression: "<value>",
+  host: "sarcastic-possession.biz",
+  source: "<value>",
+  sourceType: "<value>",
+  dataSourceCategory: "<value>",
+  dataSourceName: "<value>",
+  dataSourceVendor: "<value>",
+  eventType: "<value>",
+  pqStrictOrdering: false,
+  pqRatePerSec: 1277.39,
+  pqMode: "always",
+  pqMaxBufferSize: 2579.37,
+  pqMaxBackpressureSec: 2492.71,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "gzip",
+  pqOnBackpressure: "block",
   pqControls: {},
 };
 ```
@@ -53,8 +98,8 @@ let value: OutputSentinelOneAiSiem = {
 | `systemFields`                                                                                                                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Fields to automatically add to events, such as cribl_pipe. Supports wildcards.                                                                                                                                                                                                                                                                   |
 | `environment`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                             |
 | `streamtags`                                                                                                                                                                                                                                                                                                                                     | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                    |
-| `region`                                                                                                                                                                                                                                                                                                                                         | [operations.Region](../../models/operations/region.md)                                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.                                                                                                                                           |
-| `endpoint`                                                                                                                                                                                                                                                                                                                                       | [operations.AISIEMEndpointPath](../../models/operations/aisiemendpointpath.md)                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).                                                                                                                                                  |
+| `region`                                                                                                                                                                                                                                                                                                                                         | [operations.Region](../../models/operations/region.md)                                                                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.                                                                                                                                           |
+| `endpoint`                                                                                                                                                                                                                                                                                                                                       | [operations.AISIEMEndpointPath](../../models/operations/aisiemendpointpath.md)                                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).                                                                                                                                                  |
 | `concurrency`                                                                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of ongoing requests before blocking                                                                                                                                                                                                                                                                                               |
 | `maxPayloadSizeKB`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum size, in KB, of the request body                                                                                                                                                                                                                                                                                                         |
 | `maxPayloadEvents`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of events to include in the request body. Default is 0 (unlimited).                                                                                                                                                                                                                                                               |

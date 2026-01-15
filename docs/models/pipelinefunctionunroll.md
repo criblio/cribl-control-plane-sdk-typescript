@@ -6,11 +6,15 @@
 import { PipelineFunctionUnroll } from "cribl-control-plane/models";
 
 let value: PipelineFunctionUnroll = {
+  filter: "<value>",
   id: "unroll",
   description: "er gah machine ew obediently pfft that why",
   disabled: true,
   final: false,
-  conf: {},
+  conf: {
+    srcExpr: "<value>",
+    dstField: "<value>",
+  },
   groupId: "<id>",
 };
 ```

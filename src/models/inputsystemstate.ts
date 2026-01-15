@@ -4,9 +4,12 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  DataCompressionFormatOptionsPersistence,
+  DataCompressionFormatOptionsPersistence$inboundSchema,
+  DataCompressionFormatOptionsPersistence$outboundSchema,
+} from "./datacompressionformatoptionspersistence.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -26,11 +29,6 @@ import {
   PqType$Outbound,
   PqType$outboundSchema,
 } from "./pqtype.js";
-
-export const InputSystemStateType = {
-  SystemState: "system_state",
-} as const;
-export type InputSystemStateType = ClosedEnum<typeof InputSystemStateType>;
 
 /**
  * Creates events based on entries collected from the hosts file
@@ -156,12 +154,6 @@ export type Collectors = {
   loginUsers?: LoggedInUsers | undefined;
 };
 
-export const DataCompressionFormat = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-export type DataCompressionFormat = OpenEnum<typeof DataCompressionFormat>;
-
 export type InputSystemStatePersistence = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
@@ -179,24 +171,19 @@ export type InputSystemStatePersistence = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: DataCompressionFormat | undefined;
+  compress?: DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
    */
   destPath?: string | undefined;
 };
 
-export type InputSystemStatePqEnabledTrueWithPqConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
+export type InputSystemState = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSystemStateType;
+  type: "system_state";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -206,160 +193,6 @@ export type InputSystemStatePqEnabledTrueWithPqConstraint = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-   */
-  interval?: number | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  collectors?: Collectors | undefined;
-  persistence?: InputSystemStatePersistence | undefined;
-  /**
-   * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-   */
-  disableNativeModule?: boolean | undefined;
-  /**
-   * Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-   */
-  disableNativeLastLogModule?: boolean | undefined;
-  description?: string | undefined;
-};
-
-export type InputSystemStatePqEnabledFalseConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputSystemStateType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-   */
-  interval?: number | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  collectors?: Collectors | undefined;
-  persistence?: InputSystemStatePersistence | undefined;
-  /**
-   * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-   */
-  disableNativeModule?: boolean | undefined;
-  /**
-   * Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-   */
-  disableNativeLastLogModule?: boolean | undefined;
-  description?: string | undefined;
-};
-
-export type InputSystemStateSendToRoutesFalseWithConnectionsConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputSystemStateType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
-   */
-  interval?: number | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  collectors?: Collectors | undefined;
-  persistence?: InputSystemStatePersistence | undefined;
-  /**
-   * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-   */
-  disableNativeModule?: boolean | undefined;
-  /**
-   * Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-   */
-  disableNativeLastLogModule?: boolean | undefined;
-  description?: string | undefined;
-};
-
-export type InputSystemStateSendToRoutesTrueConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputSystemStateType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -397,21 +230,6 @@ export type InputSystemStateSendToRoutesTrueConstraint = {
   disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
 };
-
-export type InputSystemState =
-  | InputSystemStateSendToRoutesTrueConstraint
-  | InputSystemStateSendToRoutesFalseWithConnectionsConstraint
-  | InputSystemStatePqEnabledFalseConstraint
-  | InputSystemStatePqEnabledTrueWithPqConstraint;
-
-/** @internal */
-export const InputSystemStateType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSystemStateType
-> = z.nativeEnum(InputSystemStateType);
-/** @internal */
-export const InputSystemStateType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSystemStateType
-> = InputSystemStateType$inboundSchema;
 
 /** @internal */
 export const HostsFile$inboundSchema: z.ZodType<
@@ -419,11 +237,11 @@ export const HostsFile$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 /** @internal */
 export type HostsFile$Outbound = {
-  enable: boolean;
+  enable?: boolean | undefined;
 };
 
 /** @internal */
@@ -432,7 +250,7 @@ export const HostsFile$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HostsFile
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 
 export function hostsFileToJSON(hostsFile: HostsFile): string {
@@ -454,11 +272,11 @@ export const Interfaces$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 /** @internal */
 export type Interfaces$Outbound = {
-  enable: boolean;
+  enable?: boolean | undefined;
 };
 
 /** @internal */
@@ -467,7 +285,7 @@ export const Interfaces$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Interfaces
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 
 export function interfacesToJSON(interfaces: Interfaces): string {
@@ -489,11 +307,11 @@ export const DisksAndFileSystems$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 /** @internal */
 export type DisksAndFileSystems$Outbound = {
-  enable: boolean;
+  enable?: boolean | undefined;
 };
 
 /** @internal */
@@ -502,7 +320,7 @@ export const DisksAndFileSystems$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DisksAndFileSystems
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 
 export function disksAndFileSystemsToJSON(
@@ -528,11 +346,11 @@ export const HostInfo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 /** @internal */
 export type HostInfo$Outbound = {
-  enable: boolean;
+  enable?: boolean | undefined;
 };
 
 /** @internal */
@@ -541,7 +359,7 @@ export const HostInfo$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HostInfo
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 
 export function hostInfoToJSON(hostInfo: HostInfo): string {
@@ -563,11 +381,11 @@ export const InputSystemStateRoutes$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 /** @internal */
 export type InputSystemStateRoutes$Outbound = {
-  enable: boolean;
+  enable?: boolean | undefined;
 };
 
 /** @internal */
@@ -576,7 +394,7 @@ export const InputSystemStateRoutes$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSystemStateRoutes
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 
 export function inputSystemStateRoutesToJSON(
@@ -599,17 +417,17 @@ export function inputSystemStateRoutesFromJSON(
 /** @internal */
 export const Dns$inboundSchema: z.ZodType<Dns, z.ZodTypeDef, unknown> = z
   .object({
-    enable: z.boolean().default(true),
+    enable: z.boolean().optional(),
   });
 /** @internal */
 export type Dns$Outbound = {
-  enable: boolean;
+  enable?: boolean | undefined;
 };
 
 /** @internal */
 export const Dns$outboundSchema: z.ZodType<Dns$Outbound, z.ZodTypeDef, Dns> = z
   .object({
-    enable: z.boolean().default(true),
+    enable: z.boolean().optional(),
   });
 
 export function dnsToJSON(dns: Dns): string {
@@ -631,11 +449,11 @@ export const UsersAndGroups$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 /** @internal */
 export type UsersAndGroups$Outbound = {
-  enable: boolean;
+  enable?: boolean | undefined;
 };
 
 /** @internal */
@@ -644,7 +462,7 @@ export const UsersAndGroups$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UsersAndGroups
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 
 export function usersAndGroupsToJSON(usersAndGroups: UsersAndGroups): string {
@@ -666,11 +484,11 @@ export const Firewall$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 /** @internal */
 export type Firewall$Outbound = {
-  enable: boolean;
+  enable?: boolean | undefined;
 };
 
 /** @internal */
@@ -679,7 +497,7 @@ export const Firewall$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Firewall
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 
 export function firewallToJSON(firewall: Firewall): string {
@@ -701,11 +519,11 @@ export const Services$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 /** @internal */
 export type Services$Outbound = {
-  enable: boolean;
+  enable?: boolean | undefined;
 };
 
 /** @internal */
@@ -714,7 +532,7 @@ export const Services$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Services
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 
 export function servicesToJSON(services: Services): string {
@@ -736,11 +554,11 @@ export const ListeningPorts$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 /** @internal */
 export type ListeningPorts$Outbound = {
-  enable: boolean;
+  enable?: boolean | undefined;
 };
 
 /** @internal */
@@ -749,7 +567,7 @@ export const ListeningPorts$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListeningPorts
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 
 export function listeningPortsToJSON(listeningPorts: ListeningPorts): string {
@@ -771,11 +589,11 @@ export const LoggedInUsers$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 /** @internal */
 export type LoggedInUsers$Outbound = {
-  enable: boolean;
+  enable?: boolean | undefined;
 };
 
 /** @internal */
@@ -784,7 +602,7 @@ export const LoggedInUsers$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   LoggedInUsers
 > = z.object({
-  enable: z.boolean().default(true),
+  enable: z.boolean().optional(),
 });
 
 export function loggedInUsersToJSON(loggedInUsers: LoggedInUsers): string {
@@ -866,39 +684,26 @@ export function collectorsFromJSON(
 }
 
 /** @internal */
-export const DataCompressionFormat$inboundSchema: z.ZodType<
-  DataCompressionFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(DataCompressionFormat);
-/** @internal */
-export const DataCompressionFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  DataCompressionFormat
-> = openEnums.outboundSchema(DataCompressionFormat);
-
-/** @internal */
 export const InputSystemStatePersistence$inboundSchema: z.ZodType<
   InputSystemStatePersistence,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: DataCompressionFormat$inboundSchema.default("none"),
-  destPath: z.string().default("$CRIBL_HOME/state/system_state"),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$inboundSchema.optional(),
+  destPath: z.string().optional(),
 });
 /** @internal */
 export type InputSystemStatePersistence$Outbound = {
-  enable: boolean;
-  timeWindow: string;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
-  destPath: string;
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
 };
 
 /** @internal */
@@ -907,12 +712,12 @@ export const InputSystemStatePersistence$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputSystemStatePersistence
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: DataCompressionFormat$outboundSchema.default("none"),
-  destPath: z.string().default("$CRIBL_HOME/state/system_state"),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$outboundSchema.optional(),
+  destPath: z.string().optional(),
 });
 
 export function inputSystemStatePersistenceToJSON(
@@ -935,436 +740,76 @@ export function inputSystemStatePersistenceFromJSON(
 }
 
 /** @internal */
-export const InputSystemStatePqEnabledTrueWithPqConstraint$inboundSchema:
-  z.ZodType<
-    InputSystemStatePqEnabledTrueWithPqConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$inboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputSystemStateType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    interval: z.number().default(300),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    collectors: z.lazy(() => Collectors$inboundSchema).optional(),
-    persistence: z.lazy(() => InputSystemStatePersistence$inboundSchema)
-      .optional(),
-    disableNativeModule: z.boolean().default(false),
-    disableNativeLastLogModule: z.boolean().default(false),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputSystemStatePqEnabledTrueWithPqConstraint$Outbound = {
-  pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  interval: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  collectors?: Collectors$Outbound | undefined;
-  persistence?: InputSystemStatePersistence$Outbound | undefined;
-  disableNativeModule: boolean;
-  disableNativeLastLogModule: boolean;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputSystemStatePqEnabledTrueWithPqConstraint$outboundSchema:
-  z.ZodType<
-    InputSystemStatePqEnabledTrueWithPqConstraint$Outbound,
-    z.ZodTypeDef,
-    InputSystemStatePqEnabledTrueWithPqConstraint
-  > = z.object({
-    pqEnabled: z.boolean().default(false),
-    pq: PqType$outboundSchema.optional(),
-    id: z.string().optional(),
-    type: InputSystemStateType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    sendToRoutes: z.boolean().default(true),
-    environment: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    interval: z.number().default(300),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    collectors: z.lazy(() => Collectors$outboundSchema).optional(),
-    persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
-      .optional(),
-    disableNativeModule: z.boolean().default(false),
-    disableNativeLastLogModule: z.boolean().default(false),
-    description: z.string().optional(),
-  });
-
-export function inputSystemStatePqEnabledTrueWithPqConstraintToJSON(
-  inputSystemStatePqEnabledTrueWithPqConstraint:
-    InputSystemStatePqEnabledTrueWithPqConstraint,
-): string {
-  return JSON.stringify(
-    InputSystemStatePqEnabledTrueWithPqConstraint$outboundSchema.parse(
-      inputSystemStatePqEnabledTrueWithPqConstraint,
-    ),
-  );
-}
-export function inputSystemStatePqEnabledTrueWithPqConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputSystemStatePqEnabledTrueWithPqConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputSystemStatePqEnabledTrueWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputSystemStatePqEnabledTrueWithPqConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemStatePqEnabledFalseConstraint$inboundSchema: z.ZodType<
-  InputSystemStatePqEnabledFalseConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputSystemStateType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  interval: z.number().default(300),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  collectors: z.lazy(() => Collectors$inboundSchema).optional(),
-  persistence: z.lazy(() => InputSystemStatePersistence$inboundSchema)
-    .optional(),
-  disableNativeModule: z.boolean().default(false),
-  disableNativeLastLogModule: z.boolean().default(false),
-  description: z.string().optional(),
-});
-/** @internal */
-export type InputSystemStatePqEnabledFalseConstraint$Outbound = {
-  pqEnabled: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  interval: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  collectors?: Collectors$Outbound | undefined;
-  persistence?: InputSystemStatePersistence$Outbound | undefined;
-  disableNativeModule: boolean;
-  disableNativeLastLogModule: boolean;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputSystemStatePqEnabledFalseConstraint$outboundSchema: z.ZodType<
-  InputSystemStatePqEnabledFalseConstraint$Outbound,
-  z.ZodTypeDef,
-  InputSystemStatePqEnabledFalseConstraint
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputSystemStateType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  interval: z.number().default(300),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  collectors: z.lazy(() => Collectors$outboundSchema).optional(),
-  persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
-    .optional(),
-  disableNativeModule: z.boolean().default(false),
-  disableNativeLastLogModule: z.boolean().default(false),
-  description: z.string().optional(),
-});
-
-export function inputSystemStatePqEnabledFalseConstraintToJSON(
-  inputSystemStatePqEnabledFalseConstraint:
-    InputSystemStatePqEnabledFalseConstraint,
-): string {
-  return JSON.stringify(
-    InputSystemStatePqEnabledFalseConstraint$outboundSchema.parse(
-      inputSystemStatePqEnabledFalseConstraint,
-    ),
-  );
-}
-export function inputSystemStatePqEnabledFalseConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputSystemStatePqEnabledFalseConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputSystemStatePqEnabledFalseConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputSystemStatePqEnabledFalseConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemStateSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputSystemStateSendToRoutesFalseWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputSystemStateType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    interval: z.number().default(300),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    collectors: z.lazy(() => Collectors$inboundSchema).optional(),
-    persistence: z.lazy(() => InputSystemStatePersistence$inboundSchema)
-      .optional(),
-    disableNativeModule: z.boolean().default(false),
-    disableNativeLastLogModule: z.boolean().default(false),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputSystemStateSendToRoutesFalseWithConnectionsConstraint$Outbound =
-  {
-    sendToRoutes: boolean;
-    connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-    id?: string | undefined;
-    type: string;
-    disabled: boolean;
-    pipeline?: string | undefined;
-    environment?: string | undefined;
-    pqEnabled: boolean;
-    streamtags?: Array<string> | undefined;
-    pq?: PqType$Outbound | undefined;
-    interval: number;
-    metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-    collectors?: Collectors$Outbound | undefined;
-    persistence?: InputSystemStatePersistence$Outbound | undefined;
-    disableNativeModule: boolean;
-    disableNativeLastLogModule: boolean;
-    description?: string | undefined;
-  };
-
-/** @internal */
-export const InputSystemStateSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputSystemStateSendToRoutesFalseWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputSystemStateSendToRoutesFalseWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    id: z.string().optional(),
-    type: InputSystemStateType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    interval: z.number().default(300),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    collectors: z.lazy(() => Collectors$outboundSchema).optional(),
-    persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
-      .optional(),
-    disableNativeModule: z.boolean().default(false),
-    disableNativeLastLogModule: z.boolean().default(false),
-    description: z.string().optional(),
-  });
-
-export function inputSystemStateSendToRoutesFalseWithConnectionsConstraintToJSON(
-  inputSystemStateSendToRoutesFalseWithConnectionsConstraint:
-    InputSystemStateSendToRoutesFalseWithConnectionsConstraint,
-): string {
-  return JSON.stringify(
-    InputSystemStateSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-      .parse(inputSystemStateSendToRoutesFalseWithConnectionsConstraint),
-  );
-}
-export function inputSystemStateSendToRoutesFalseWithConnectionsConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputSystemStateSendToRoutesFalseWithConnectionsConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputSystemStateSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-        .parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemStateSendToRoutesFalseWithConnectionsConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemStateSendToRoutesTrueConstraint$inboundSchema:
-  z.ZodType<InputSystemStateSendToRoutesTrueConstraint, z.ZodTypeDef, unknown> =
-    z.object({
-      sendToRoutes: z.boolean().default(true),
-      id: z.string().optional(),
-      type: InputSystemStateType$inboundSchema,
-      disabled: z.boolean().default(false),
-      pipeline: z.string().optional(),
-      environment: z.string().optional(),
-      pqEnabled: z.boolean().default(false),
-      streamtags: z.array(z.string()).optional(),
-      connections: z.array(ItemsTypeConnectionsOptional$inboundSchema)
-        .optional(),
-      pq: PqType$inboundSchema.optional(),
-      interval: z.number().default(300),
-      metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-      collectors: z.lazy(() => Collectors$inboundSchema).optional(),
-      persistence: z.lazy(() => InputSystemStatePersistence$inboundSchema)
-        .optional(),
-      disableNativeModule: z.boolean().default(false),
-      disableNativeLastLogModule: z.boolean().default(false),
-      description: z.string().optional(),
-    });
-/** @internal */
-export type InputSystemStateSendToRoutesTrueConstraint$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  interval: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  collectors?: Collectors$Outbound | undefined;
-  persistence?: InputSystemStatePersistence$Outbound | undefined;
-  disableNativeModule: boolean;
-  disableNativeLastLogModule: boolean;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputSystemStateSendToRoutesTrueConstraint$outboundSchema:
-  z.ZodType<
-    InputSystemStateSendToRoutesTrueConstraint$Outbound,
-    z.ZodTypeDef,
-    InputSystemStateSendToRoutesTrueConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    id: z.string().optional(),
-    type: InputSystemStateType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    pq: PqType$outboundSchema.optional(),
-    interval: z.number().default(300),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    collectors: z.lazy(() => Collectors$outboundSchema).optional(),
-    persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
-      .optional(),
-    disableNativeModule: z.boolean().default(false),
-    disableNativeLastLogModule: z.boolean().default(false),
-    description: z.string().optional(),
-  });
-
-export function inputSystemStateSendToRoutesTrueConstraintToJSON(
-  inputSystemStateSendToRoutesTrueConstraint:
-    InputSystemStateSendToRoutesTrueConstraint,
-): string {
-  return JSON.stringify(
-    InputSystemStateSendToRoutesTrueConstraint$outboundSchema.parse(
-      inputSystemStateSendToRoutesTrueConstraint,
-    ),
-  );
-}
-export function inputSystemStateSendToRoutesTrueConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputSystemStateSendToRoutesTrueConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputSystemStateSendToRoutesTrueConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputSystemStateSendToRoutesTrueConstraint' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputSystemState$inboundSchema: z.ZodType<
   InputSystemState,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => InputSystemStateSendToRoutesTrueConstraint$inboundSchema),
-  z.lazy(() =>
-    InputSystemStateSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-  ),
-  z.lazy(() => InputSystemStatePqEnabledFalseConstraint$inboundSchema),
-  z.lazy(() => InputSystemStatePqEnabledTrueWithPqConstraint$inboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("system_state"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  collectors: z.lazy(() => Collectors$inboundSchema).optional(),
+  persistence: z.lazy(() => InputSystemStatePersistence$inboundSchema)
+    .optional(),
+  disableNativeModule: z.boolean().optional(),
+  disableNativeLastLogModule: z.boolean().optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputSystemState$Outbound =
-  | InputSystemStateSendToRoutesTrueConstraint$Outbound
-  | InputSystemStateSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputSystemStatePqEnabledFalseConstraint$Outbound
-  | InputSystemStatePqEnabledTrueWithPqConstraint$Outbound;
+export type InputSystemState$Outbound = {
+  id?: string | undefined;
+  type: "system_state";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval?: number | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  collectors?: Collectors$Outbound | undefined;
+  persistence?: InputSystemStatePersistence$Outbound | undefined;
+  disableNativeModule?: boolean | undefined;
+  disableNativeLastLogModule?: boolean | undefined;
+  description?: string | undefined;
+};
 
 /** @internal */
 export const InputSystemState$outboundSchema: z.ZodType<
   InputSystemState$Outbound,
   z.ZodTypeDef,
   InputSystemState
-> = z.union([
-  z.lazy(() => InputSystemStateSendToRoutesTrueConstraint$outboundSchema),
-  z.lazy(() =>
-    InputSystemStateSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-  ),
-  z.lazy(() => InputSystemStatePqEnabledFalseConstraint$outboundSchema),
-  z.lazy(() => InputSystemStatePqEnabledTrueWithPqConstraint$outboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("system_state"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  collectors: z.lazy(() => Collectors$outboundSchema).optional(),
+  persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
+    .optional(),
+  disableNativeModule: z.boolean().optional(),
+  disableNativeLastLogModule: z.boolean().optional(),
+  description: z.string().optional(),
+});
 
 export function inputSystemStateToJSON(
   inputSystemState: InputSystemState,

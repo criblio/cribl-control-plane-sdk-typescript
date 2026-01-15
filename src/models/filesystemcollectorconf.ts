@@ -96,16 +96,16 @@ export const FilesystemCollectorConf$inboundSchema: z.ZodType<
   extractors: z.array(
     z.lazy(() => FilesystemCollectorConfExtractor$inboundSchema),
   ).optional(),
-  recurse: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
+  recurse: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
 });
 /** @internal */
 export type FilesystemCollectorConf$Outbound = {
   outputName?: string | undefined;
   path: string;
   extractors?: Array<FilesystemCollectorConfExtractor$Outbound> | undefined;
-  recurse: boolean;
-  maxBatchSize: number;
+  recurse?: boolean | undefined;
+  maxBatchSize?: number | undefined;
 };
 
 /** @internal */
@@ -119,8 +119,8 @@ export const FilesystemCollectorConf$outboundSchema: z.ZodType<
   extractors: z.array(
     z.lazy(() => FilesystemCollectorConfExtractor$outboundSchema),
   ).optional(),
-  recurse: z.boolean().default(true),
-  maxBatchSize: z.number().default(10),
+  recurse: z.boolean().optional(),
+  maxBatchSize: z.number().optional(),
 });
 
 export function filesystemCollectorConfToJSON(

@@ -53,12 +53,12 @@ export const PipelineFunctionPackConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   unpackedFields: z.array(z.string()),
-  target: z.string().default("_pack"),
+  target: z.string().optional(),
 });
 /** @internal */
 export type PipelineFunctionPackConf$Outbound = {
   unpackedFields: Array<string>;
-  target: string;
+  target?: string | undefined;
 };
 
 /** @internal */
@@ -68,7 +68,7 @@ export const PipelineFunctionPackConf$outboundSchema: z.ZodType<
   PipelineFunctionPackConf
 > = z.object({
   unpackedFields: z.array(z.string()),
-  target: z.string().default("_pack"),
+  target: z.string().optional(),
 });
 
 export function pipelineFunctionPackConfToJSON(
@@ -94,7 +94,7 @@ export const PipelineFunctionPack$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("pack"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -104,7 +104,7 @@ export const PipelineFunctionPack$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionPack$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "pack";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -119,7 +119,7 @@ export const PipelineFunctionPack$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionPack
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("pack"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

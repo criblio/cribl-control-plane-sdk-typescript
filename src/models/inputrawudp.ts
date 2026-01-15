@@ -4,7 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -26,22 +25,12 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 
-export const InputRawUdpType = {
-  RawUdp: "raw_udp",
-} as const;
-export type InputRawUdpType = ClosedEnum<typeof InputRawUdpType>;
-
-export type InputRawUdpPqEnabledTrueWithPqConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  pq?: PqType | undefined;
+export type InputRawUdp = {
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputRawUdpType;
+  type: "raw_udp";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -56,6 +45,10 @@ export type InputRawUdpPqEnabledTrueWithPqConstraint = {
    */
   environment?: string | undefined;
   /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
@@ -63,10 +56,11 @@ export type InputRawUdpPqEnabledTrueWithPqConstraint = {
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
   connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -97,655 +91,82 @@ export type InputRawUdpPqEnabledTrueWithPqConstraint = {
   metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
 };
-
-export type InputRawUdpPqEnabledFalseConstraint = {
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputRawUdpType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-   */
-  host?: string | undefined;
-  /**
-   * Port to listen on
-   */
-  port: number;
-  /**
-   * Maximum number of events to buffer when downstream is blocking.
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * Regex matching IP addresses that are allowed to send data
-   */
-  ipWhitelistRegex?: string | undefined;
-  /**
-   * If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
-   */
-  singleMsgUdpPackets?: boolean | undefined;
-  /**
-   * If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
-   */
-  ingestRawBytes?: boolean | undefined;
-  /**
-   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
-   */
-  udpSocketRxBufSize?: number | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-};
-
-export type InputRawUdpSendToRoutesFalseWithConnectionsConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputRawUdpType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-   */
-  host?: string | undefined;
-  /**
-   * Port to listen on
-   */
-  port: number;
-  /**
-   * Maximum number of events to buffer when downstream is blocking.
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * Regex matching IP addresses that are allowed to send data
-   */
-  ipWhitelistRegex?: string | undefined;
-  /**
-   * If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
-   */
-  singleMsgUdpPackets?: boolean | undefined;
-  /**
-   * If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
-   */
-  ingestRawBytes?: boolean | undefined;
-  /**
-   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
-   */
-  udpSocketRxBufSize?: number | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-};
-
-export type InputRawUdpSendToRoutesTrueConstraint = {
-  /**
-   * Select whether to send data to Routes, or directly to Destinations.
-   */
-  sendToRoutes?: boolean | undefined;
-  /**
-   * Unique ID for this input
-   */
-  id?: string | undefined;
-  type: InputRawUdpType;
-  disabled?: boolean | undefined;
-  /**
-   * Pipeline to process data from this Source before sending it through the Routes
-   */
-  pipeline?: string | undefined;
-  /**
-   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-   */
-  environment?: string | undefined;
-  /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
-   */
-  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
-  pq?: PqType | undefined;
-  /**
-   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
-   */
-  host?: string | undefined;
-  /**
-   * Port to listen on
-   */
-  port: number;
-  /**
-   * Maximum number of events to buffer when downstream is blocking.
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * Regex matching IP addresses that are allowed to send data
-   */
-  ipWhitelistRegex?: string | undefined;
-  /**
-   * If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
-   */
-  singleMsgUdpPackets?: boolean | undefined;
-  /**
-   * If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
-   */
-  ingestRawBytes?: boolean | undefined;
-  /**
-   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
-   */
-  udpSocketRxBufSize?: number | undefined;
-  /**
-   * Fields to add to events from this input
-   */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  description?: string | undefined;
-};
-
-export type InputRawUdp =
-  | InputRawUdpSendToRoutesTrueConstraint
-  | InputRawUdpSendToRoutesFalseWithConnectionsConstraint
-  | InputRawUdpPqEnabledFalseConstraint
-  | InputRawUdpPqEnabledTrueWithPqConstraint;
-
-/** @internal */
-export const InputRawUdpType$inboundSchema: z.ZodNativeEnum<
-  typeof InputRawUdpType
-> = z.nativeEnum(InputRawUdpType);
-/** @internal */
-export const InputRawUdpType$outboundSchema: z.ZodNativeEnum<
-  typeof InputRawUdpType
-> = InputRawUdpType$inboundSchema;
-
-/** @internal */
-export const InputRawUdpPqEnabledTrueWithPqConstraint$inboundSchema: z.ZodType<
-  InputRawUdpPqEnabledTrueWithPqConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  pq: PqType$inboundSchema.optional(),
-  id: z.string().optional(),
-  type: InputRawUdpType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  ingestRawBytes: z.boolean().default(false),
-  udpSocketRxBufSize: z.number().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-});
-/** @internal */
-export type InputRawUdpPqEnabledTrueWithPqConstraint$Outbound = {
-  pqEnabled: boolean;
-  pq?: PqType$Outbound | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  host: string;
-  port: number;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
-  singleMsgUdpPackets: boolean;
-  ingestRawBytes: boolean;
-  udpSocketRxBufSize?: number | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputRawUdpPqEnabledTrueWithPqConstraint$outboundSchema: z.ZodType<
-  InputRawUdpPqEnabledTrueWithPqConstraint$Outbound,
-  z.ZodTypeDef,
-  InputRawUdpPqEnabledTrueWithPqConstraint
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  pq: PqType$outboundSchema.optional(),
-  id: z.string().optional(),
-  type: InputRawUdpType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  ingestRawBytes: z.boolean().default(false),
-  udpSocketRxBufSize: z.number().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-});
-
-export function inputRawUdpPqEnabledTrueWithPqConstraintToJSON(
-  inputRawUdpPqEnabledTrueWithPqConstraint:
-    InputRawUdpPqEnabledTrueWithPqConstraint,
-): string {
-  return JSON.stringify(
-    InputRawUdpPqEnabledTrueWithPqConstraint$outboundSchema.parse(
-      inputRawUdpPqEnabledTrueWithPqConstraint,
-    ),
-  );
-}
-export function inputRawUdpPqEnabledTrueWithPqConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputRawUdpPqEnabledTrueWithPqConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputRawUdpPqEnabledTrueWithPqConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputRawUdpPqEnabledTrueWithPqConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputRawUdpPqEnabledFalseConstraint$inboundSchema: z.ZodType<
-  InputRawUdpPqEnabledFalseConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputRawUdpType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  ingestRawBytes: z.boolean().default(false),
-  udpSocketRxBufSize: z.number().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-});
-/** @internal */
-export type InputRawUdpPqEnabledFalseConstraint$Outbound = {
-  pqEnabled: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  host: string;
-  port: number;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
-  singleMsgUdpPackets: boolean;
-  ingestRawBytes: boolean;
-  udpSocketRxBufSize?: number | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputRawUdpPqEnabledFalseConstraint$outboundSchema: z.ZodType<
-  InputRawUdpPqEnabledFalseConstraint$Outbound,
-  z.ZodTypeDef,
-  InputRawUdpPqEnabledFalseConstraint
-> = z.object({
-  pqEnabled: z.boolean().default(false),
-  id: z.string().optional(),
-  type: InputRawUdpType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  ingestRawBytes: z.boolean().default(false),
-  udpSocketRxBufSize: z.number().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-});
-
-export function inputRawUdpPqEnabledFalseConstraintToJSON(
-  inputRawUdpPqEnabledFalseConstraint: InputRawUdpPqEnabledFalseConstraint,
-): string {
-  return JSON.stringify(
-    InputRawUdpPqEnabledFalseConstraint$outboundSchema.parse(
-      inputRawUdpPqEnabledFalseConstraint,
-    ),
-  );
-}
-export function inputRawUdpPqEnabledFalseConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<InputRawUdpPqEnabledFalseConstraint, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputRawUdpPqEnabledFalseConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputRawUdpPqEnabledFalseConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputRawUdpSendToRoutesFalseWithConnectionsConstraint$inboundSchema:
-  z.ZodType<
-    InputRawUdpSendToRoutesFalseWithConnectionsConstraint,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-    id: z.string().optional(),
-    type: InputRawUdpType$inboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$inboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    maxBufferSize: z.number().default(1000),
-    ipWhitelistRegex: z.string().default("/.*/"),
-    singleMsgUdpPackets: z.boolean().default(false),
-    ingestRawBytes: z.boolean().default(false),
-    udpSocketRxBufSize: z.number().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    description: z.string().optional(),
-  });
-/** @internal */
-export type InputRawUdpSendToRoutesFalseWithConnectionsConstraint$Outbound = {
-  sendToRoutes: boolean;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  pq?: PqType$Outbound | undefined;
-  host: string;
-  port: number;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
-  singleMsgUdpPackets: boolean;
-  ingestRawBytes: boolean;
-  udpSocketRxBufSize?: number | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputRawUdpSendToRoutesFalseWithConnectionsConstraint$outboundSchema:
-  z.ZodType<
-    InputRawUdpSendToRoutesFalseWithConnectionsConstraint$Outbound,
-    z.ZodTypeDef,
-    InputRawUdpSendToRoutesFalseWithConnectionsConstraint
-  > = z.object({
-    sendToRoutes: z.boolean().default(true),
-    connections: z.array(ItemsTypeConnectionsOptional$outboundSchema)
-      .optional(),
-    id: z.string().optional(),
-    type: InputRawUdpType$outboundSchema,
-    disabled: z.boolean().default(false),
-    pipeline: z.string().optional(),
-    environment: z.string().optional(),
-    pqEnabled: z.boolean().default(false),
-    streamtags: z.array(z.string()).optional(),
-    pq: PqType$outboundSchema.optional(),
-    host: z.string().default("0.0.0.0"),
-    port: z.number(),
-    maxBufferSize: z.number().default(1000),
-    ipWhitelistRegex: z.string().default("/.*/"),
-    singleMsgUdpPackets: z.boolean().default(false),
-    ingestRawBytes: z.boolean().default(false),
-    udpSocketRxBufSize: z.number().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-    description: z.string().optional(),
-  });
-
-export function inputRawUdpSendToRoutesFalseWithConnectionsConstraintToJSON(
-  inputRawUdpSendToRoutesFalseWithConnectionsConstraint:
-    InputRawUdpSendToRoutesFalseWithConnectionsConstraint,
-): string {
-  return JSON.stringify(
-    InputRawUdpSendToRoutesFalseWithConnectionsConstraint$outboundSchema.parse(
-      inputRawUdpSendToRoutesFalseWithConnectionsConstraint,
-    ),
-  );
-}
-export function inputRawUdpSendToRoutesFalseWithConnectionsConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputRawUdpSendToRoutesFalseWithConnectionsConstraint,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputRawUdpSendToRoutesFalseWithConnectionsConstraint$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputRawUdpSendToRoutesFalseWithConnectionsConstraint' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputRawUdpSendToRoutesTrueConstraint$inboundSchema: z.ZodType<
-  InputRawUdpSendToRoutesTrueConstraint,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputRawUdpType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  ingestRawBytes: z.boolean().default(false),
-  udpSocketRxBufSize: z.number().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-});
-/** @internal */
-export type InputRawUdpSendToRoutesTrueConstraint$Outbound = {
-  sendToRoutes: boolean;
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
-  host: string;
-  port: number;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
-  singleMsgUdpPackets: boolean;
-  ingestRawBytes: boolean;
-  udpSocketRxBufSize?: number | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputRawUdpSendToRoutesTrueConstraint$outboundSchema: z.ZodType<
-  InputRawUdpSendToRoutesTrueConstraint$Outbound,
-  z.ZodTypeDef,
-  InputRawUdpSendToRoutesTrueConstraint
-> = z.object({
-  sendToRoutes: z.boolean().default(true),
-  id: z.string().optional(),
-  type: InputRawUdpType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  ingestRawBytes: z.boolean().default(false),
-  udpSocketRxBufSize: z.number().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  description: z.string().optional(),
-});
-
-export function inputRawUdpSendToRoutesTrueConstraintToJSON(
-  inputRawUdpSendToRoutesTrueConstraint: InputRawUdpSendToRoutesTrueConstraint,
-): string {
-  return JSON.stringify(
-    InputRawUdpSendToRoutesTrueConstraint$outboundSchema.parse(
-      inputRawUdpSendToRoutesTrueConstraint,
-    ),
-  );
-}
-export function inputRawUdpSendToRoutesTrueConstraintFromJSON(
-  jsonString: string,
-): SafeParseResult<InputRawUdpSendToRoutesTrueConstraint, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputRawUdpSendToRoutesTrueConstraint$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputRawUdpSendToRoutesTrueConstraint' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputRawUdp$inboundSchema: z.ZodType<
   InputRawUdp,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => InputRawUdpSendToRoutesTrueConstraint$inboundSchema),
-  z.lazy(() =>
-    InputRawUdpSendToRoutesFalseWithConnectionsConstraint$inboundSchema
-  ),
-  z.lazy(() => InputRawUdpPqEnabledFalseConstraint$inboundSchema),
-  z.lazy(() => InputRawUdpPqEnabledTrueWithPqConstraint$inboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("raw_udp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  ingestRawBytes: z.boolean().optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  description: z.string().optional(),
+});
 /** @internal */
-export type InputRawUdp$Outbound =
-  | InputRawUdpSendToRoutesTrueConstraint$Outbound
-  | InputRawUdpSendToRoutesFalseWithConnectionsConstraint$Outbound
-  | InputRawUdpPqEnabledFalseConstraint$Outbound
-  | InputRawUdpPqEnabledTrueWithPqConstraint$Outbound;
+export type InputRawUdp$Outbound = {
+  id?: string | undefined;
+  type: "raw_udp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  singleMsgUdpPackets?: boolean | undefined;
+  ingestRawBytes?: boolean | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
 
 /** @internal */
 export const InputRawUdp$outboundSchema: z.ZodType<
   InputRawUdp$Outbound,
   z.ZodTypeDef,
   InputRawUdp
-> = z.union([
-  z.lazy(() => InputRawUdpSendToRoutesTrueConstraint$outboundSchema),
-  z.lazy(() =>
-    InputRawUdpSendToRoutesFalseWithConnectionsConstraint$outboundSchema
-  ),
-  z.lazy(() => InputRawUdpPqEnabledFalseConstraint$outboundSchema),
-  z.lazy(() => InputRawUdpPqEnabledTrueWithPqConstraint$outboundSchema),
-]);
+> = z.object({
+  id: z.string().optional(),
+  type: z.literal("raw_udp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  ingestRawBytes: z.boolean().optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  description: z.string().optional(),
+});
 
 export function inputRawUdpToJSON(inputRawUdp: InputRawUdp): string {
   return JSON.stringify(InputRawUdp$outboundSchema.parse(inputRawUdp));

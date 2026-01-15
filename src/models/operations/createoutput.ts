@@ -64,7 +64,7 @@ export type OutputCloudflareR2 = {
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
    */
-  stagePath?: string | undefined;
+  stagePath: string;
   /**
    * Add the Output ID value to staging location
    */
@@ -253,7 +253,7 @@ export type ClientSecretAuthTypeAuthenticationMethod = OpenEnum<
  * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
  */
 export type Authentication = {
-  disabled?: boolean | undefined;
+  disabled: boolean;
   mechanism?: models.SaslMechanismOptionsSasl1 | undefined;
   /**
    * The username for authentication. This should always be $ConnectionString.
@@ -533,7 +533,7 @@ export type OutputDatabricks = {
   /**
    * OAuth scope for Unity Catalog authentication
    */
-  scope?: string | undefined;
+  scope: string;
   /**
    * OAuth client ID for Unity Catalog authentication
    */
@@ -541,15 +541,15 @@ export type OutputDatabricks = {
   /**
    * Name of the catalog to use for the output
    */
-  catalog?: string | undefined;
+  catalog: string;
   /**
    * Name of the catalog schema to use for the output
    */
-  schema?: string | undefined;
+  schema: string;
   /**
    * Name of the events volume in Databricks
    */
-  eventsVolumeName?: string | undefined;
+  eventsVolumeName: string;
   /**
    * OAuth client secret for Unity Catalog authentication
    */
@@ -637,7 +637,7 @@ export type AuthenticationMethodChronicle = OpenEnum<
   typeof AuthenticationMethodChronicle
 >;
 
-export type CustomLabelChronicle = {
+export type CustomLabel = {
   key: string;
   value: string;
   /**
@@ -767,7 +767,7 @@ export type OutputChronicle = {
   /**
    * Custom labels to be added to every event
    */
-  customLabels?: Array<CustomLabelChronicle> | undefined;
+  customLabels?: Array<CustomLabel> | undefined;
   description?: string | undefined;
   /**
    * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
@@ -876,11 +876,11 @@ export type OutputSentinelOneAiSiem = {
   /**
    * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
    */
-  region?: Region | undefined;
+  region: Region;
   /**
    * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
    */
-  endpoint?: AISIEMEndpointPath | undefined;
+  endpoint: AISIEMEndpointPath;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -1115,15 +1115,15 @@ export type OutputDynatraceOtlp = {
   /**
    * Select a transport option for Dynatrace
    */
-  protocol?: ProtocolDynatraceOtlp | undefined;
+  protocol: ProtocolDynatraceOtlp;
   /**
    * The endpoint where Dynatrace events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion?: models.OtlpVersionOptions1 | undefined;
+  otlpVersion: models.OtlpVersionOptions1;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
@@ -1183,7 +1183,7 @@ export type OutputDynatraceOtlp = {
   /**
    * Select the type of Dynatrace endpoint configured
    */
-  endpointType?: EndpointType | undefined;
+  endpointType: EndpointType;
   /**
    * Select or create a stored text secret
    */
@@ -1427,9 +1427,9 @@ export type OutputDynatraceHttp = {
   /**
    * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
    */
-  format?: FormatDynatraceHTTP | undefined;
-  endpoint?: Endpoint | undefined;
-  telemetryType?: TelemetryType | undefined;
+  format: FormatDynatraceHTTP;
+  endpoint: Endpoint;
+  telemetryType: TelemetryType;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -1506,7 +1506,7 @@ export type HostNetflow = {
   /**
    * Destination port, default is 2055
    */
-  port?: number | undefined;
+  port: number;
 };
 
 export type OutputNetflow = {
@@ -1860,7 +1860,7 @@ export type OutputClickHouse = {
    * Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
    */
   asyncInserts?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideType2 | undefined;
+  tls?: models.TlsSettingsClientSideType1 | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -2081,13 +2081,6 @@ export type OutputDiskSpool = {
   description?: string | undefined;
 };
 
-export const AwsAuthenticationMethod = {
-  Auto: "auto",
-  AutoRpc: "auto_rpc",
-  Manual: "manual",
-} as const;
-export type AwsAuthenticationMethod = OpenEnum<typeof AwsAuthenticationMethod>;
-
 export type OutputCriblLake = {
   /**
    * Unique ID for this output
@@ -2241,7 +2234,7 @@ export type OutputCriblLake = {
    * Maximum number of files that can be waiting for upload before backpressure is applied
    */
   maxClosingFilesToBackpressure?: number | undefined;
-  awsAuthenticationMethod?: AwsAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: models.MethodOptionsCredentials | undefined;
   format?: models.FormatOptionsCriblLakeDataset | undefined;
   /**
    * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
@@ -2350,7 +2343,7 @@ export type OutputSecurityLake = {
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
-  stagePath?: string | undefined;
+  stagePath: string;
   /**
    * Add the Output ID value to staging location
    */
@@ -2582,7 +2575,7 @@ export type OutputDlS3 = {
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
-  stagePath?: string | undefined;
+  stagePath: string;
   /**
    * Add the Output ID value to staging location
    */
@@ -2839,7 +2832,7 @@ export type OutputCrowdstrikeNextGenSiem = {
   /**
    * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
    */
-  format?: models.RequestFormatOptions | undefined;
+  format: models.RequestFormatOptions;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -2935,7 +2928,7 @@ export type OutputHumioHec = {
   /**
    * URL to a CrowdStrike Falcon LogScale endpoint to send events to. Examples: https://cloud.us.humio.com/api/v1/ingest/hec for JSON and https://cloud.us.humio.com/api/v1/ingest/hec/raw for raw
    */
-  url?: string | undefined;
+  url: string;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -2987,7 +2980,7 @@ export type OutputHumioHec = {
   /**
    * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
    */
-  format?: models.RequestFormatOptions | undefined;
+  format: models.RequestFormatOptions;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -3397,29 +3390,6 @@ export type OutputCriblHttp = {
   pqControls?: PqControlsCriblHTTP | undefined;
 };
 
-export type HostCriblTCP = {
-  /**
-   * The hostname of the receiver
-   */
-  host: string;
-  /**
-   * The port to connect to on the provided host
-   */
-  port?: number | undefined;
-  /**
-   * Whether to inherit TLS configs from group setting or disable TLS
-   */
-  tls?: models.TlsOptionsHostsItems | undefined;
-  /**
-   * Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
-   */
-  servername?: string | undefined;
-  /**
-   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-   */
-  weight?: number | undefined;
-};
-
 export type PqControlsCriblTCP = {};
 
 export type OutputCriblTcp = {
@@ -3501,7 +3471,7 @@ export type OutputCriblTcp = {
   /**
    * Set of hosts to load-balance data to
    */
-  hosts?: Array<HostCriblTCP> | undefined;
+  hosts?: Array<models.ItemsTypeHosts> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -3816,7 +3786,7 @@ export type OutputServiceNow = {
   /**
    * The endpoint where ServiceNow events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * Select or create a stored text secret
    */
@@ -3825,7 +3795,7 @@ export type OutputServiceNow = {
   /**
    * The version of OTLP Protobuf definitions to use when structuring data to send
    */
-  otlpVersion?: models.OtlpVersionOptions1 | undefined;
+  otlpVersion: models.OtlpVersionOptions1;
   /**
    * Maximum size, in KB, of the request body
    */
@@ -3833,7 +3803,7 @@ export type OutputServiceNow = {
   /**
    * Select a transport option for OpenTelemetry
    */
-  protocol?: models.ProtocolOptions | undefined;
+  protocol: models.ProtocolOptions;
   /**
    * Type of compression to apply to messages sent to the OpenTelemetry endpoint
    */
@@ -3922,7 +3892,7 @@ export type OutputServiceNow = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideType3 | undefined;
+  tls?: models.TlsSettingsClientSideType2 | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -4162,7 +4132,7 @@ export type OutputOpenTelemetry = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  tls?: models.TlsSettingsClientSideType3 | undefined;
+  tls?: models.TlsSettingsClientSideType2 | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -4461,30 +4431,6 @@ export type OutputPrometheus = {
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
 };
 
-export const AuthenticationTypeLoki = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Auth token
-   */
-  Token: "token",
-  /**
-   * Auth token (text secret)
-   */
-  TextSecret: "textSecret",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  CredentialsSecret: "credentialsSecret",
-} as const;
-export type AuthenticationTypeLoki = OpenEnum<typeof AuthenticationTypeLoki>;
-
 export type PqControlsLoki = {};
 
 export type OutputLoki = {
@@ -4525,7 +4471,7 @@ export type OutputLoki = {
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
   labels?: Array<models.ItemsTypeLabels> | undefined;
-  authType?: AuthenticationTypeLoki | undefined;
+  authType?: models.AuthenticationTypeOptionsPrometheusAuth1 | undefined;
   /**
    * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
    */
@@ -5460,7 +5406,7 @@ export type HostSnmp = {
   /**
    * Destination port, default is 162
    */
-  port?: number | undefined;
+  port: number;
 };
 
 export type OutputSnmp = {
@@ -5885,7 +5831,7 @@ export type OutputGraphite = {
   /**
    * Protocol to use when communicating with the destination.
    */
-  protocol?: models.DestinationProtocolOptions | undefined;
+  protocol: models.DestinationProtocolOptions;
   /**
    * The hostname of the destination.
    */
@@ -5893,7 +5839,7 @@ export type OutputGraphite = {
   /**
    * Destination port.
    */
-  port?: number | undefined;
+  port: number;
   /**
    * When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
    */
@@ -5993,7 +5939,7 @@ export type OutputStatsdExt = {
   /**
    * Protocol to use when communicating with the destination.
    */
-  protocol?: models.DestinationProtocolOptions | undefined;
+  protocol: models.DestinationProtocolOptions;
   /**
    * The hostname of the destination.
    */
@@ -6001,7 +5947,7 @@ export type OutputStatsdExt = {
   /**
    * Destination port.
    */
-  port?: number | undefined;
+  port: number;
   /**
    * When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
    */
@@ -6101,7 +6047,7 @@ export type OutputStatsd = {
   /**
    * Protocol to use when communicating with the destination.
    */
-  protocol?: models.DestinationProtocolOptions | undefined;
+  protocol: models.DestinationProtocolOptions;
   /**
    * The hostname of the destination.
    */
@@ -6109,7 +6055,7 @@ export type OutputStatsd = {
   /**
    * Destination port.
    */
-  port?: number | undefined;
+  port: number;
   /**
    * When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
    */
@@ -6227,7 +6173,7 @@ export type OutputMinio = {
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
    */
-  stagePath?: string | undefined;
+  stagePath: string;
   /**
    * Add the Output ID value to staging location
    */
@@ -7142,28 +7088,6 @@ export type OutputNewrelic = {
   textSecret?: string | undefined;
 };
 
-export type AuthElasticCloud = {
-  disabled?: boolean | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  /**
-   * Enter credentials directly, or select a stored secret
-   */
-  authType?: models.AuthenticationMethodOptionsAuth | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-  /**
-   * Enter API key directly
-   */
-  manualAPIKey?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-};
-
 export type PqControlsElasticCloud = {};
 
 export type OutputElasticCloud = {
@@ -7244,7 +7168,7 @@ export type OutputElasticCloud = {
    * Extra parameters to use in HTTP requests
    */
   extraParams?: Array<models.ItemsTypeSaslSaslExtensions> | undefined;
-  auth?: AuthElasticCloud | undefined;
+  auth?: models.AuthType | undefined;
   /**
    * Optional Elastic Cloud Destination pipeline
    */
@@ -7310,28 +7234,6 @@ export type OutputElasticCloud = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsElasticCloud | undefined;
-};
-
-export type AuthElastic = {
-  disabled?: boolean | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  /**
-   * Enter credentials directly, or select a stored secret
-   */
-  authType?: models.AuthenticationMethodOptionsAuth | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-  /**
-   * Enter API key directly
-   */
-  manualAPIKey?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
 };
 
 /**
@@ -7477,7 +7379,7 @@ export type OutputElastic = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   extraParams?: Array<models.ItemsTypeSaslSaslExtensions> | undefined;
-  auth?: AuthElastic | undefined;
+  auth?: models.AuthType | undefined;
   /**
    * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
    */
@@ -7661,7 +7563,7 @@ export type OutputMsk = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: string | undefined;
+  awsAuthenticationMethod: string;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -7699,7 +7601,7 @@ export type OutputMsk = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
-  tls?: models.TlsSettingsClientSideType1 | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -7789,7 +7691,7 @@ export type OutputConfluentCloud = {
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092.
    */
   brokers: Array<string>;
-  tls?: models.TlsSettingsClientSideType1 | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * The topic to publish events to. Can be overridden using the __topicOut field.
    */
@@ -8098,11 +8000,11 @@ export type OutputExabeam = {
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
-  stagePath?: string | undefined;
+  stagePath: string;
   /**
    * Google Cloud Storage service endpoint
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * Signature version to use for signing Google Cloud Storage requests
    */
@@ -8684,7 +8586,7 @@ export type OutputGoogleCloudStorage = {
   /**
    * Google Cloud Storage service endpoint
    */
-  endpoint?: string | undefined;
+  endpoint: string;
   /**
    * Signature version to use for signing Google Cloud Storage requests
    */
@@ -8693,7 +8595,7 @@ export type OutputGoogleCloudStorage = {
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
-  stagePath?: string | undefined;
+  stagePath: string;
   /**
    * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
    */
@@ -8916,11 +8818,6 @@ export type ExtraLogType = {
   description?: string | undefined;
 };
 
-export type CustomLabelGoogleChronicle = {
-  key: string;
-  value: string;
-};
-
 /**
  * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
  */
@@ -8970,7 +8867,7 @@ export type OutputGoogleChronicle = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  logFormatType?: SendEventsAs | undefined;
+  logFormatType: SendEventsAs;
   /**
    * Regional endpoint to send events to
    */
@@ -9055,7 +8952,7 @@ export type OutputGoogleChronicle = {
   /**
    * Custom labels to be added to every batch
    */
-  customLabels?: Array<CustomLabelGoogleChronicle> | undefined;
+  customLabels?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
   /**
    * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
    */
@@ -9612,7 +9509,7 @@ export type OutputAzureLogs = {
   /**
    * The Log Type of events sent to this LogAnalytics workspace. Defaults to `Cribl`. Use only letters, numbers, and `_` characters, and can't exceed 100 characters. Can be overwritten by event field __logType.
    */
-  logType?: string | undefined;
+  logType: string;
   /**
    * Optional Resource ID of the Azure resource to associate the data with. Can be overridden by the __resourceId event field. This ID populates the _ResourceId property, allowing the data to be included in resource-centric queries. If the ID is neither specified nor overridden, resource-centric queries will omit the data.
    */
@@ -9898,9 +9795,7 @@ export type OutputAzureDataExplorer = {
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
-  oauthEndpoint?:
-    | models.MicrosoftEntraIdAuthenticationEndpointOptionsSasl
-    | undefined;
+  oauthEndpoint: models.MicrosoftEntraIdAuthenticationEndpointOptionsSasl;
   /**
    * Directory ID (tenant identifier) in Azure Active Directory
    */
@@ -9916,7 +9811,7 @@ export type OutputAzureDataExplorer = {
   /**
    * The type of OAuth 2.0 client credentials grant flow to use
    */
-  oauthType?: OauthTypeAuthenticationMethod | undefined;
+  oauthType: OauthTypeAuthenticationMethod;
   description?: string | undefined;
   /**
    * The client secret that you generated for your app in the Azure portal
@@ -9934,7 +9829,7 @@ export type OutputAzureDataExplorer = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: models.CompressionOptions2 | undefined;
+  compress: models.CompressionOptions2;
   /**
    * Compression level to apply before moving files to final destination
    */
@@ -10242,7 +10137,7 @@ export type OutputAzureBlob = {
   /**
    * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
    */
-  stagePath?: string | undefined;
+  stagePath: string;
   /**
    * Add the Output ID value to staging location
    */
@@ -10490,7 +10385,7 @@ export type OutputS3 = {
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
-  stagePath?: string | undefined;
+  stagePath: string;
   /**
    * Add the Output ID value to staging location
    */
@@ -10861,7 +10756,7 @@ export type OutputSignalfx = {
   /**
    * SignalFx realm name, e.g. "us0". For a complete list of available SignalFx realm names, please check [here](https://docs.splunk.com/observability/en/get-started/service-description.html#sd-regions).
    */
-  realm?: string | undefined;
+  realm: string;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -11008,7 +10903,7 @@ export type OutputWavefront = {
   /**
    * WaveFront domain name, e.g. "longboard"
    */
-  domain?: string | undefined;
+  domain: string;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -11273,7 +11168,7 @@ export type UrlWizHec = {
   /**
    * URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
    */
-  url?: string | undefined;
+  url: string;
   /**
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
@@ -11314,7 +11209,7 @@ export type OutputWizHec = {
    * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
    */
   tcpRouting?: string | undefined;
-  tls?: models.TlsSettingsClientSideType2 | undefined;
+  tls?: models.TlsSettingsClientSideType1 | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -11418,7 +11313,7 @@ export type UrlSplunkHec = {
   /**
    * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
    */
-  url?: string | undefined;
+  url: string;
   /**
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
@@ -11461,7 +11356,7 @@ export type OutputSplunkHec = {
    * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
    */
   tcpRouting?: string | undefined;
-  tls?: models.TlsSettingsClientSideType2 | undefined;
+  tls?: models.TlsSettingsClientSideType1 | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -11624,7 +11519,7 @@ export type IndexerDiscoveryConfigs = {
   /**
    * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
    */
-  site?: string | undefined;
+  site: string;
   /**
    * Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
    */
@@ -11632,7 +11527,7 @@ export type IndexerDiscoveryConfigs = {
   /**
    * Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
    */
-  refreshIntervalSec?: number | undefined;
+  refreshIntervalSec: number;
   /**
    * During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
    */
@@ -11653,29 +11548,6 @@ export type IndexerDiscoveryConfigs = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-};
-
-export type HostSplunkLb = {
-  /**
-   * The hostname of the receiver
-   */
-  host: string;
-  /**
-   * The port to connect to on the provided host
-   */
-  port?: number | undefined;
-  /**
-   * Whether to inherit TLS configs from group setting or disable TLS
-   */
-  tls?: models.TlsOptionsHostsItems | undefined;
-  /**
-   * Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
-   */
-  servername?: string | undefined;
-  /**
-   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-   */
-  weight?: number | undefined;
 };
 
 export type PqControlsSplunkLb = {};
@@ -11783,7 +11655,7 @@ export type OutputSplunkLb = {
   /**
    * Set of Splunk indexers to load-balance data to.
    */
-  hosts: Array<HostSplunkLb>;
+  hosts: Array<models.ItemsTypeHosts>;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -11866,7 +11738,7 @@ export type OutputSplunk = {
   /**
    * The port to connect to on the provided host
    */
-  port?: number | undefined;
+  port: number;
   /**
    * How to serialize nested fields into index-time fields
    */
@@ -12423,7 +12295,7 @@ export type OutputSentinel = {
   /**
    * Enter the data collection endpoint URL or the individual ID
    */
-  endpointURLConfiguration?: EndpointConfiguration | undefined;
+  endpointURLConfiguration: EndpointConfiguration;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -12697,7 +12569,7 @@ export type OutputWebhook = {
    * Authentication method to use for the HTTP request
    */
   authType?: AuthenticationTypeWebhook | undefined;
-  tls?: models.TlsSettingsClientSideType2 | undefined;
+  tls?: models.TlsSettingsClientSideType1 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -12968,57 +12840,57 @@ export type OutputCloudflareR2$Outbound = {
   streamtags?: Array<string> | undefined;
   endpoint: string;
   bucket: string;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region?: any | undefined;
   stagePath: string;
-  addIdToStagePath: boolean;
+  addIdToStagePath?: boolean | undefined;
   destPath?: string | undefined;
-  signatureVersion: string;
+  signatureVersion?: string | undefined;
   objectACL?: any | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  verifyPermissions: boolean;
-  removeEmptyDirs: boolean;
-  partitionExpr: string;
-  format: string;
-  baseFileName: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxConcurrentFileParts: number;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
   parquetSchema?: string | undefined;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
     | Array<models.ItemsTypeKeyValueMetadata$Outbound>
     | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -13036,72 +12908,59 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   endpoint: z.string(),
   bucket: z.string(),
   awsAuthenticationMethod: AuthenticationMethodCloudflareR2$outboundSchema
-    .default("auto"),
+    .optional(),
   awsSecretKey: z.string().optional(),
   region: z.any().optional(),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
   destPath: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions5$outboundSchema.default(
-    "v4",
-  ),
+  signatureVersion: models.SignatureVersionOptions5$outboundSchema.optional(),
   objectACL: z.any().optional(),
   storageClass: models.StorageClassOptions2$outboundSchema.optional(),
   serverSideEncryption: models.ServerSideEncryptionOptions$outboundSchema
     .optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  verifyPermissions: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: models.DataFormatOptions$outboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .default("block"),
-  forceCloseOnShutdown: z.boolean().default(false),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxConcurrentFileParts: z.number().default(4),
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputCloudflareR2ToJSON(
@@ -13122,16 +12981,16 @@ export const ClientSecretAuthTypeAuthenticationMethod$outboundSchema: z.ZodType<
 /** @internal */
 export type Authentication$Outbound = {
   disabled: boolean;
-  mechanism: string;
-  username: string;
+  mechanism?: string | undefined;
+  username?: string | undefined;
   textSecret?: string | undefined;
-  clientSecretAuthType: string;
+  clientSecretAuthType?: string | undefined;
   clientTextSecret?: string | undefined;
   certificateName?: string | undefined;
   certPath?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
-  oauthEndpoint: string;
+  oauthEndpoint?: string | undefined;
   clientId?: string | undefined;
   tenantId?: string | undefined;
   scope?: string | undefined;
@@ -13143,21 +13002,20 @@ export const Authentication$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Authentication
 > = z.object({
-  disabled: z.boolean().default(false),
-  mechanism: models.SaslMechanismOptionsSasl1$outboundSchema.default("plain"),
-  username: z.string().default("$ConnectionString"),
+  disabled: z.boolean(),
+  mechanism: models.SaslMechanismOptionsSasl1$outboundSchema.optional(),
+  username: z.string().optional(),
   textSecret: z.string().optional(),
   clientSecretAuthType: ClientSecretAuthTypeAuthenticationMethod$outboundSchema
-    .default("secret"),
+    .optional(),
   clientTextSecret: z.string().optional(),
   certificateName: z.string().optional(),
   certPath: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   oauthEndpoint: models
-    .MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema.default(
-      "https://login.microsoftonline.com",
-    ),
+    .MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema
+    .optional(),
   clientId: z.string().optional(),
   tenantId: z.string().optional(),
   scope: z.string().optional(),
@@ -13194,34 +13052,34 @@ export type OutputMicrosoftFabric$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   topic: string;
-  ack: number;
-  format: string;
-  maxRecordSizeKB: number;
-  flushEventCount: number;
-  flushPeriodSec: number;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
+  ack?: number | undefined;
+  format?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
   sasl?: Authentication$Outbound | undefined;
   tls?: models.TlsSettingsClientSideType$Outbound | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   bootstrap_server: string;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsMicrosoftFabric$Outbound | undefined;
 };
 
@@ -13238,38 +13096,34 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   topic: z.string(),
-  ack: models.AcknowledgmentsOptions$outboundSchema.default(1),
-  format: models.RecordDataFormatOptions$outboundSchema.default("json"),
-  maxRecordSizeKB: z.number().default(768),
-  flushEventCount: z.number().default(1000),
-  flushPeriodSec: z.number().default(1),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
+  ack: models.AcknowledgmentsOptions$outboundSchema.optional(),
+  format: models.RecordDataFormatOptions$outboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
   sasl: z.lazy(() => Authentication$outboundSchema).optional(),
   tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   bootstrap_server: z.string(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsMicrosoftFabric$outboundSchema).optional(),
 });
 
@@ -13289,24 +13143,24 @@ export type OutputDatabricks$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  destPath: string;
-  stagePath: string;
-  addIdToStagePath: boolean;
-  removeEmptyDirs: boolean;
-  partitionExpr: string;
-  format: string;
-  baseFileName: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
+  destPath?: string | undefined;
+  stagePath?: string | undefined;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
   workspaceId: string;
   scope: string;
   clientId: string;
@@ -13314,27 +13168,27 @@ export type OutputDatabricks$Outbound = {
   schema: string;
   eventsVolumeName: string;
   clientTextSecret: string;
-  timeoutSec: number;
+  timeoutSec?: number | undefined;
   description?: string | undefined;
-  compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
   parquetSchema?: string | undefined;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
     | Array<models.ItemsTypeKeyValueMetadata$Outbound>
     | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -13349,64 +13203,53 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  destPath: z.string().default(""),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: models.DataFormatOptions$outboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .default("block"),
-  forceCloseOnShutdown: z.boolean().default(false),
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
   workspaceId: z.string(),
-  scope: z.string().default("all-apis"),
+  scope: z.string(),
   clientId: z.string(),
-  catalog: z.string().default("main"),
-  schema: z.string().default("external"),
-  eventsVolumeName: z.string().default("events"),
+  catalog: z.string(),
+  schema: z.string(),
+  eventsVolumeName: z.string(),
   clientTextSecret: z.string(),
-  timeoutSec: z.number().default(60),
+  timeoutSec: z.number().optional(),
   description: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputDatabricksToJSON(
@@ -13425,29 +13268,25 @@ export const AuthenticationMethodChronicle$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(AuthenticationMethodChronicle);
 
 /** @internal */
-export type CustomLabelChronicle$Outbound = {
+export type CustomLabel$Outbound = {
   key: string;
   value: string;
-  rbacEnabled: boolean;
+  rbacEnabled?: boolean | undefined;
 };
 
 /** @internal */
-export const CustomLabelChronicle$outboundSchema: z.ZodType<
-  CustomLabelChronicle$Outbound,
+export const CustomLabel$outboundSchema: z.ZodType<
+  CustomLabel$Outbound,
   z.ZodTypeDef,
-  CustomLabelChronicle
+  CustomLabel
 > = z.object({
   key: z.string(),
   value: z.string(),
-  rbacEnabled: z.boolean().default(false),
+  rbacEnabled: z.boolean().optional(),
 });
 
-export function customLabelChronicleToJSON(
-  customLabelChronicle: CustomLabelChronicle,
-): string {
-  return JSON.stringify(
-    CustomLabelChronicle$outboundSchema.parse(customLabelChronicle),
-  );
+export function customLabelToJSON(customLabel: CustomLabel): string {
+  return JSON.stringify(CustomLabel$outboundSchema.parse(customLabel));
 }
 
 /** @internal */
@@ -13476,49 +13315,49 @@ export type OutputChronicle$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  apiVersion: string;
-  authenticationMethod: string;
+  apiVersion?: string | undefined;
+  authenticationMethod?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
+  responseHonorRetryAfterHeader?: boolean | undefined;
   region: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  useRoundRobinDns: boolean;
-  onBackpressure: string;
+  useRoundRobinDns?: boolean | undefined;
+  onBackpressure?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
-  ingestionMethod: string;
+  ingestionMethod?: string | undefined;
   namespace?: string | undefined;
   logType: string;
   logTextField?: string | undefined;
   gcpProjectId: string;
   gcpInstance: string;
-  customLabels?: Array<CustomLabelChronicle$Outbound> | undefined;
+  customLabels?: Array<CustomLabel$Outbound> | undefined;
   description?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   serviceAccountCredentialsSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsChronicle$Outbound | undefined;
 };
 
@@ -13534,57 +13373,50 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  apiVersion: z.string().default("v1alpha"),
-  authenticationMethod: AuthenticationMethodChronicle$outboundSchema.default(
-    "serviceAccount",
-  ),
+  apiVersion: z.string().optional(),
+  authenticationMethod: AuthenticationMethodChronicle$outboundSchema.optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
   region: z.string(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(1024),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(90),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  useRoundRobinDns: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
-  ingestionMethod: z.string().default("ImportLogs"),
+  ingestionMethod: z.string().optional(),
   namespace: z.string().optional(),
   logType: z.string(),
   logTextField: z.string().optional(),
   gcpProjectId: z.string(),
   gcpInstance: z.string(),
-  customLabels: z.array(z.lazy(() => CustomLabelChronicle$outboundSchema))
-    .optional(),
+  customLabels: z.array(z.lazy(() => CustomLabel$outboundSchema)).optional(),
   description: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   serviceAccountCredentialsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsChronicle$outboundSchema).optional(),
 });
 
@@ -13635,53 +13467,53 @@ export type OutputSentinelOneAiSiem$Outbound = {
   streamtags?: Array<string> | undefined;
   region: string;
   endpoint: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  authType: string;
+  authType?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
-  baseUrl: string;
-  hostExpression: string;
-  sourceExpression: string;
-  sourceTypeExpression: string;
-  dataSourceCategoryExpression: string;
-  dataSourceNameExpression: string;
-  dataSourceVendorExpression: string;
-  eventTypeExpression: string;
-  host: string;
-  source: string;
-  sourceType: string;
-  dataSourceCategory: string;
-  dataSourceName: string;
-  dataSourceVendor: string;
-  eventType: string;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  baseUrl?: string | undefined;
+  hostExpression?: string | undefined;
+  sourceExpression?: string | undefined;
+  sourceTypeExpression?: string | undefined;
+  dataSourceCategoryExpression?: string | undefined;
+  dataSourceNameExpression?: string | undefined;
+  dataSourceVendorExpression?: string | undefined;
+  eventTypeExpression?: string | undefined;
+  host?: string | undefined;
+  source?: string | undefined;
+  sourceType?: string | undefined;
+  dataSourceCategory?: string | undefined;
+  dataSourceName?: string | undefined;
+  dataSourceVendor?: string | undefined;
+  eventType?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSentinelOneAiSiem$Outbound | undefined;
 };
 
@@ -13697,69 +13529,57 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: Region$outboundSchema.default("US"),
-  endpoint: AISIEMEndpointPath$outboundSchema.default(
-    "/services/collector/event",
-  ),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(5120),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(5),
+  region: Region$outboundSchema,
+  endpoint: AISIEMEndpointPath$outboundSchema,
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+    .optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  baseUrl: z.string().default("https://<Your-S1-Tenant>.sentinelone.net"),
-  hostExpression: z.string().default("__e.host || C.os.hostname()"),
-  sourceExpression: z.string().default(
-    "__e.source || (__e.__criblMetrics ? 'metrics' : 'cribl')",
-  ),
-  sourceTypeExpression: z.string().default("__e.sourcetype || 'dottedJson'"),
-  dataSourceCategoryExpression: z.string().default("'security'"),
-  dataSourceNameExpression: z.string().default(
-    "__e.__dataSourceName || 'cribl'",
-  ),
-  dataSourceVendorExpression: z.string().default(
-    "__e.__dataSourceVendor || 'cribl'",
-  ),
-  eventTypeExpression: z.string().default(""),
-  host: z.string().default("C.os.hostname()"),
-  source: z.string().default("cribl"),
-  sourceType: z.string().default("hecRawParser"),
-  dataSourceCategory: z.string().default("security"),
-  dataSourceName: z.string().default("cribl"),
-  dataSourceVendor: z.string().default("cribl"),
-  eventType: z.string().default(""),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  baseUrl: z.string().optional(),
+  hostExpression: z.string().optional(),
+  sourceExpression: z.string().optional(),
+  sourceTypeExpression: z.string().optional(),
+  dataSourceCategoryExpression: z.string().optional(),
+  dataSourceNameExpression: z.string().optional(),
+  dataSourceVendorExpression: z.string().optional(),
+  eventTypeExpression: z.string().optional(),
+  host: z.string().optional(),
+  source: z.string().optional(),
+  sourceType: z.string().optional(),
+  dataSourceCategory: z.string().optional(),
+  dataSourceName: z.string().optional(),
+  dataSourceVendor: z.string().optional(),
+  eventType: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSentinelOneAiSiem$outboundSchema)
     .optional(),
 });
@@ -13815,27 +13635,27 @@ export type OutputDynatraceOtlp$Outbound = {
   protocol: string;
   endpoint: string;
   otlpVersion: string;
-  compress: string;
-  httpCompress: string;
+  compress?: string | undefined;
+  httpCompress?: string | undefined;
   httpTracesEndpointOverride?: string | undefined;
   httpMetricsEndpointOverride?: string | undefined;
   httpLogsEndpointOverride?: string | undefined;
   metadata?: Array<models.ItemsTypeKeyValueMetadata$Outbound> | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  timeoutSec: number;
-  flushPeriodSec: number;
-  failedRequestLoggingMode: string;
-  connectionTimeout: number;
-  keepAliveTime: number;
-  keepAlive: boolean;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  connectionTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  keepAlive?: boolean | undefined;
   endpointType: string;
   tokenSecret: string;
-  authTokenName: string;
-  onBackpressure: string;
+  authTokenName?: string | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  rejectUnauthorized: boolean;
-  useRoundRobinDns: boolean;
+  rejectUnauthorized?: boolean | undefined;
+  useRoundRobinDns?: boolean | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
@@ -13844,17 +13664,17 @@ export type OutputDynatraceOtlp$Outbound = {
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsDynatraceOtlp$Outbound | undefined;
 };
 
@@ -13870,35 +13690,31 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: ProtocolDynatraceOtlp$outboundSchema.default("http"),
-  endpoint: z.string().default(
-    "https://{your-environment-id}.live.dynatrace.com/api/v2/otlp",
-  ),
-  otlpVersion: models.OtlpVersionOptions1$outboundSchema.default("1.3.1"),
-  compress: models.CompressionOptions4$outboundSchema.default("gzip"),
-  httpCompress: models.CompressionOptions5$outboundSchema.default("gzip"),
+  protocol: ProtocolDynatraceOtlp$outboundSchema,
+  endpoint: z.string(),
+  otlpVersion: models.OtlpVersionOptions1$outboundSchema,
+  compress: models.CompressionOptions4$outboundSchema.optional(),
+  httpCompress: models.CompressionOptions5$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
   metadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema).optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(2048),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
-  connectionTimeout: z.number().default(10000),
-  keepAliveTime: z.number().default(30),
-  keepAlive: z.boolean().default(true),
-  endpointType: EndpointType$outboundSchema.default("saas"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  keepAlive: z.boolean().optional(),
+  endpointType: EndpointType$outboundSchema,
   tokenSecret: z.string(),
-  authTokenName: z.string().default("Authorization"),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  authTokenName: z.string().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  rejectUnauthorized: z.boolean().default(true),
-  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -13907,19 +13723,17 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsDynatraceOtlp$outboundSchema).optional(),
 });
 
@@ -13985,43 +13799,43 @@ export type OutputDynatraceHttp$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  method: string;
-  keepAlive: boolean;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  method?: string | undefined;
+  keepAlive?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
-  authType: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   format: string;
   endpoint: string;
   telemetryType: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsDynatraceHTTP$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
@@ -14042,48 +13856,44 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  method: models.MethodOptions$outboundSchema.default("POST"),
-  keepAlive: z.boolean().default(true),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  method: models.MethodOptions$outboundSchema.optional(),
+  keepAlive: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  authType: AuthenticationTypeDynatraceHTTP$outboundSchema.default("token"),
-  format: FormatDynatraceHTTP$outboundSchema.default("json_array"),
-  endpoint: Endpoint$outboundSchema.default("cloud"),
-  telemetryType: TelemetryType$outboundSchema.default("logs"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: AuthenticationTypeDynatraceHTTP$outboundSchema.optional(),
+  format: FormatDynatraceHTTP$outboundSchema,
+  endpoint: Endpoint$outboundSchema,
+  telemetryType: TelemetryType$outboundSchema,
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsDynatraceHTTP$outboundSchema).optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
@@ -14113,7 +13923,7 @@ export const HostNetflow$outboundSchema: z.ZodType<
   HostNetflow
 > = z.object({
   host: z.string(),
-  port: z.number().default(2055),
+  port: z.number(),
 });
 
 export function hostNetflowToJSON(hostNetflow: HostNetflow): string {
@@ -14129,10 +13939,10 @@ export type OutputNetflow$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   hosts: Array<HostNetflow$Outbound>;
-  dnsResolvePeriodSec: number;
-  enableIpSpoofing: boolean;
+  dnsResolvePeriodSec?: number | undefined;
+  enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
-  maxRecordSize: number;
+  maxRecordSize?: number | undefined;
 };
 
 /** @internal */
@@ -14148,10 +13958,10 @@ export const OutputNetflow$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   hosts: z.array(z.lazy(() => HostNetflow$outboundSchema)),
-  dnsResolvePeriodSec: z.number().default(0),
-  enableIpSpoofing: z.boolean().default(false),
+  dnsResolvePeriodSec: z.number().optional(),
+  enableIpSpoofing: z.boolean().optional(),
   description: z.string().optional(),
-  maxRecordSize: z.number().default(1500),
+  maxRecordSize: z.number().optional(),
 });
 
 export function outputNetflowToJSON(outputNetflow: OutputNetflow): string {
@@ -14168,7 +13978,7 @@ export const AuthenticationMethodXsiam$outboundSchema: z.ZodType<
 /** @internal */
 export type UrlXsiam$Outbound = {
   url?: any | undefined;
-  weight: number;
+  weight?: number | undefined;
 };
 
 /** @internal */
@@ -14178,7 +13988,7 @@ export const UrlXsiam$outboundSchema: z.ZodType<
   UrlXsiam
 > = z.object({
   url: z.any().optional(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 
 export function urlXsiamToJSON(urlXsiam: UrlXsiam): string {
@@ -14209,46 +14019,46 @@ export type OutputXsiam$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  loadBalanced?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  authType: string;
+  authType?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  throttleRateReqPerSec: number;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  throttleRateReqPerSec?: number | undefined;
+  onBackpressure?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  url: string;
-  useRoundRobinDns: boolean;
-  excludeSelf: boolean;
+  url?: string | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
   urls?: Array<UrlXsiam$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsXsiam$Outbound | undefined;
 };
 
@@ -14264,51 +14074,47 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(false),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(9500),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  loadBalanced: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  authType: AuthenticationMethodXsiam$outboundSchema.default("token"),
+  authType: AuthenticationMethodXsiam$outboundSchema.optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  throttleRateReqPerSec: z.number().int().default(400),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  throttleRateReqPerSec: z.number().int().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  url: z.string().default("http://localhost:8088/logs/v1/event"),
-  useRoundRobinDns: z.boolean().default(false),
-  excludeSelf: z.boolean().default(false),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => UrlXsiam$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsXsiam$outboundSchema).optional(),
 });
 
@@ -14420,34 +14226,34 @@ export type OutputClickHouse$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   url: string;
-  authType: string;
+  authType?: string | undefined;
   database: string;
   tableName: string;
-  format: string;
-  mappingType: string;
-  asyncInserts: boolean;
-  tls?: models.TlsSettingsClientSideType2$Outbound | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  format?: string | undefined;
+  mappingType?: string | undefined;
+  asyncInserts?: boolean | undefined;
+  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  dumpFormatErrorsToDisk: boolean;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  dumpFormatErrorsToDisk?: boolean | undefined;
   statsDestination?: StatsDestination$Outbound | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -14458,25 +14264,25 @@ export type OutputClickHouse$Outbound = {
   secretParamName?: string | undefined;
   secret?: string | undefined;
   tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
   sqlUsername?: string | undefined;
-  waitForAsyncInserts: boolean;
+  waitForAsyncInserts?: boolean | undefined;
   excludeMappingFields?: Array<string> | undefined;
   describeTable?: string | undefined;
   columnMappings?: Array<ColumnMapping$Outbound> | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsClickHouse$Outbound | undefined;
 };
 
@@ -14493,39 +14299,35 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  authType: AuthenticationTypeClickHouse$outboundSchema.default("none"),
+  authType: AuthenticationTypeClickHouse$outboundSchema.optional(),
   database: z.string(),
   tableName: z.string(),
-  format: FormatClickHouse$outboundSchema.default(
-    "json-compact-each-row-with-names",
-  ),
-  mappingType: MappingType$outboundSchema.default("automatic"),
-  asyncInserts: z.boolean().default(false),
-  tls: models.TlsSettingsClientSideType2$outboundSchema.optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  format: FormatClickHouse$outboundSchema.optional(),
+  mappingType: MappingType$outboundSchema.optional(),
+  asyncInserts: z.boolean().optional(),
+  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  dumpFormatErrorsToDisk: z.boolean().default(false),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  dumpFormatErrorsToDisk: z.boolean().optional(),
   statsDestination: z.lazy(() => StatsDestination$outboundSchema).optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -14536,28 +14338,26 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   secretParamName: z.string().optional(),
   secret: z.string().optional(),
   tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
   sqlUsername: z.string().optional(),
-  waitForAsyncInserts: z.boolean().default(true),
+  waitForAsyncInserts: z.boolean().optional(),
   excludeMappingFields: z.array(z.string()).optional(),
   describeTable: z.string().optional(),
   columnMappings: z.array(z.lazy(() => ColumnMapping$outboundSchema))
     .optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsClickHouse$outboundSchema).optional(),
 });
 
@@ -14577,10 +14377,10 @@ export type OutputDiskSpool$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  timeWindow: string;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
   partitionExpr?: string | undefined;
   description?: string | undefined;
 };
@@ -14597,10 +14397,10 @@ export const OutputDiskSpool$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: models.CompressionOptionsPersistence$outboundSchema.default("gzip"),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.CompressionOptionsPersistence$outboundSchema.optional(),
   partitionExpr: z.string().optional(),
   description: z.string().optional(),
 });
@@ -14610,13 +14410,6 @@ export function outputDiskSpoolToJSON(
 ): string {
   return JSON.stringify(OutputDiskSpool$outboundSchema.parse(outputDiskSpool));
 }
-
-/** @internal */
-export const AwsAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AwsAuthenticationMethod
-> = openEnums.outboundSchema(AwsAuthenticationMethod);
 
 /** @internal */
 export type OutputCriblLake$Outbound = {
@@ -14630,43 +14423,43 @@ export type OutputCriblLake$Outbound = {
   region?: string | undefined;
   awsSecretKey?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  stagePath: string;
-  addIdToStagePath: boolean;
+  durationSeconds?: number | undefined;
+  stagePath?: string | undefined;
+  addIdToStagePath?: boolean | undefined;
   destPath?: string | undefined;
-  objectACL: string;
+  objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
   kmsKeyId?: string | undefined;
-  removeEmptyDirs: boolean;
-  baseFileName: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  verifyPermissions: boolean;
-  maxClosingFilesToBackpressure: number;
-  awsAuthenticationMethod: string;
+  removeEmptyDirs?: boolean | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
+  awsAuthenticationMethod?: string | undefined;
   format?: string | undefined;
-  maxConcurrentFileParts: number;
+  maxConcurrentFileParts?: number | undefined;
   description?: string | undefined;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -14686,51 +14479,46 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
+  durationSeconds: z.number().optional(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().optional(),
   destPath: z.string().optional(),
-  objectACL: models.ObjectAclOptions$outboundSchema.default("private"),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
   storageClass: models.StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption: models
     .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
   kmsKeyId: z.string().optional(),
-  removeEmptyDirs: z.boolean().default(true),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(64),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
+  removeEmptyDirs: z.boolean().optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .default("block"),
-  forceCloseOnShutdown: z.boolean().default(false),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(300),
-  verifyPermissions: z.boolean().default(true),
-  maxClosingFilesToBackpressure: z.number().default(100),
-  awsAuthenticationMethod: AwsAuthenticationMethod$outboundSchema.default(
-    "auto",
-  ),
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
+  awsAuthenticationMethod: models.MethodOptionsCredentials$outboundSchema
+    .optional(),
   format: models.FormatOptionsCriblLakeDataset$outboundSchema.optional(),
-  maxConcurrentFileParts: z.number().default(1),
+  maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputCriblLakeToJSON(
@@ -14757,58 +14545,58 @@ export type OutputSecurityLake$Outbound = {
   bucket: string;
   region: string;
   awsSecretKey?: string | undefined;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn: string;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
+  durationSeconds?: number | undefined;
   stagePath: string;
-  addIdToStagePath: boolean;
-  objectACL: string;
+  addIdToStagePath?: boolean | undefined;
+  objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
   kmsKeyId?: string | undefined;
-  removeEmptyDirs: boolean;
-  baseFileName: string;
-  maxFileSizeMB: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxConcurrentFileParts: number;
-  verifyPermissions: boolean;
-  maxClosingFilesToBackpressure: number;
+  removeEmptyDirs?: boolean | undefined;
+  baseFileName?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
   accountId: string;
   customSource: string;
-  automaticSchema: boolean;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  automaticSchema?: boolean | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
     | Array<models.ItemsTypeKeyValueMetadata$Outbound>
     | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
   parquetSchema?: string | undefined;
-  deadletterPath: string;
-  maxRetryNum: number;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -14826,65 +14614,60 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionSecurityLake$outboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionSecurityLake$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
-  objectACL: models.ObjectAclOptions$outboundSchema.default("private"),
+  durationSeconds: z.number().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
   storageClass: models.StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption: models
     .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
   kmsKeyId: z.string().optional(),
-  removeEmptyDirs: z.boolean().default(true),
-  baseFileName: z.string().default("`CriblOut`"),
-  maxFileSizeMB: z.number().default(32),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
+  removeEmptyDirs: z.boolean().optional(),
+  baseFileName: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .default("block"),
-  forceCloseOnShutdown: z.boolean().default(false),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxConcurrentFileParts: z.number().default(4),
-  verifyPermissions: z.boolean().default(true),
-  maxClosingFilesToBackpressure: z.number().default(100),
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
   accountId: z.string(),
   customSource: z.string(),
-  automaticSchema: z.boolean().default(false),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  automaticSchema: z.boolean().optional(),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
   parquetSchema: z.string().optional(),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputSecurityLakeToJSON(
@@ -14906,62 +14689,62 @@ export type OutputDlS3$Outbound = {
   bucket: string;
   region?: string | undefined;
   awsSecretKey?: string | undefined;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
+  durationSeconds?: number | undefined;
   stagePath: string;
-  addIdToStagePath: boolean;
-  destPath: string;
-  objectACL: string;
+  addIdToStagePath?: boolean | undefined;
+  destPath?: string | undefined;
+  objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
   kmsKeyId?: string | undefined;
-  removeEmptyDirs: boolean;
-  format: string;
-  baseFileName: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxConcurrentFileParts: number;
-  verifyPermissions: boolean;
-  maxClosingFilesToBackpressure: number;
+  removeEmptyDirs?: boolean | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
   partitioningFields?: Array<string> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
   parquetSchema?: string | undefined;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
     | Array<models.ItemsTypeKeyValueMetadata$Outbound>
     | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -14979,74 +14762,65 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string().optional(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
-  destPath: z.string().default(""),
-  objectACL: models.ObjectAclOptions$outboundSchema.default("private"),
+  durationSeconds: z.number().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  destPath: z.string().optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
   storageClass: models.StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption: models
     .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
   kmsKeyId: z.string().optional(),
-  removeEmptyDirs: z.boolean().default(true),
-  format: models.DataFormatOptions$outboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
+  removeEmptyDirs: z.boolean().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .default("block"),
-  forceCloseOnShutdown: z.boolean().default(false),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxConcurrentFileParts: z.number().default(4),
-  verifyPermissions: z.boolean().default(true),
-  maxClosingFilesToBackpressure: z.number().default(100),
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
   partitioningFields: z.array(z.string()).optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputDlS3ToJSON(outputDlS3: OutputDlS3): string {
@@ -15082,40 +14856,40 @@ export type OutputCrowdstrikeNextGenSiem$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   url: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   format: string;
-  authType: string;
+  authType?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsCrowdstrikeNextGenSiem$Outbound | undefined;
 };
 
@@ -15132,46 +14906,42 @@ export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  format: models.RequestFormatOptions$outboundSchema.default("JSON"),
+  format: models.RequestFormatOptions$outboundSchema,
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+    .optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsCrowdstrikeNextGenSiem$outboundSchema)
     .optional(),
 });
@@ -15213,40 +14983,40 @@ export type OutputHumioHec$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   url: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   format: string;
-  authType: string;
+  authType?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsHumioHec$Outbound | undefined;
 };
 
@@ -15262,47 +15032,43 @@ export const OutputHumioHec$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  url: z.string().default("https://cloud.us.humio.com/api/v1/ingest/hec"),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  url: z.string(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  format: models.RequestFormatOptions$outboundSchema.default("JSON"),
+  format: models.RequestFormatOptions$outboundSchema,
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+    .optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsHumioHec$outboundSchema).optional(),
 });
 
@@ -15338,49 +15104,49 @@ export type OutputCriblSearchEngine$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
+  loadBalanced?: boolean | undefined;
   tls?:
     | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
     | undefined;
-  tokenTTLMinutes: number;
+  tokenTTLMinutes?: number | undefined;
   excludeFields?: Array<string> | undefined;
-  compression: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  compression?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  throttleRatePerSec: string;
+  throttleRatePerSec?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
+  responseHonorRetryAfterHeader?: boolean | undefined;
   authTokens?: Array<models.ItemsTypeAuthTokens1$Outbound> | undefined;
-  onBackpressure: string;
-  useRoundRobinDns: boolean;
+  onBackpressure?: string | undefined;
+  useRoundRobinDns?: boolean | undefined;
   description?: string | undefined;
   url?: string | undefined;
-  excludeSelf: boolean;
+  excludeSelf?: boolean | undefined;
   urls?: Array<models.ItemsTypeUrls$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsCriblSearchEngine$Outbound | undefined;
 };
 
@@ -15396,53 +15162,49 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(false),
+  loadBalanced: z.boolean().optional(),
   tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
     .optional(),
-  tokenTTLMinutes: z.number().default(60),
+  tokenTTLMinutes: z.number().optional(),
   excludeFields: z.array(z.string()).optional(),
-  compression: models.CompressionOptions1$outboundSchema.default("gzip"),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  compression: models.CompressionOptions1$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  throttleRatePerSec: z.string().default("0"),
+  throttleRatePerSec: z.string().optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
   authTokens: z.array(models.ItemsTypeAuthTokens1$outboundSchema).optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  useRoundRobinDns: z.boolean().default(false),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  useRoundRobinDns: z.boolean().optional(),
   description: z.string().optional(),
   url: z.string().optional(),
-  excludeSelf: z.boolean().default(false),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(models.ItemsTypeUrls$outboundSchema).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsCriblSearchEngine$outboundSchema)
     .optional(),
 });
@@ -15481,49 +15243,49 @@ export type OutputCriblHttp$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
+  loadBalanced?: boolean | undefined;
   tls?:
     | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
     | undefined;
-  tokenTTLMinutes: number;
+  tokenTTLMinutes?: number | undefined;
   excludeFields?: Array<string> | undefined;
-  compression: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  compression?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  throttleRatePerSec: string;
+  throttleRatePerSec?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
+  responseHonorRetryAfterHeader?: boolean | undefined;
   authTokens?: Array<models.ItemsTypeAuthTokens1$Outbound> | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   url?: string | undefined;
-  useRoundRobinDns: boolean;
-  excludeSelf: boolean;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
   urls?: Array<models.ItemsTypeUrls$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsCriblHTTP$Outbound | undefined;
 };
 
@@ -15539,53 +15301,49 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(true),
+  loadBalanced: z.boolean().optional(),
   tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
     .optional(),
-  tokenTTLMinutes: z.number().default(60),
+  tokenTTLMinutes: z.number().optional(),
   excludeFields: z.array(z.string()).optional(),
-  compression: models.CompressionOptions1$outboundSchema.default("gzip"),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  compression: models.CompressionOptions1$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  throttleRatePerSec: z.string().default("0"),
+  throttleRatePerSec: z.string().optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
   authTokens: z.array(models.ItemsTypeAuthTokens1$outboundSchema).optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   url: z.string().optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  excludeSelf: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(models.ItemsTypeUrls$outboundSchema).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsCriblHTTP$outboundSchema).optional(),
 });
 
@@ -15593,32 +15351,6 @@ export function outputCriblHttpToJSON(
   outputCriblHttp: OutputCriblHttp,
 ): string {
   return JSON.stringify(OutputCriblHttp$outboundSchema.parse(outputCriblHttp));
-}
-
-/** @internal */
-export type HostCriblTCP$Outbound = {
-  host: string;
-  port: number;
-  tls: string;
-  servername?: string | undefined;
-  weight: number;
-};
-
-/** @internal */
-export const HostCriblTCP$outboundSchema: z.ZodType<
-  HostCriblTCP$Outbound,
-  z.ZodTypeDef,
-  HostCriblTCP
-> = z.object({
-  host: z.string(),
-  port: z.number().default(10300),
-  tls: models.TlsOptionsHostsItems$outboundSchema.default("inherit"),
-  servername: z.string().optional(),
-  weight: z.number().default(1),
-});
-
-export function hostCriblTCPToJSON(hostCriblTCP: HostCriblTCP): string {
-  return JSON.stringify(HostCriblTCP$outboundSchema.parse(hostCriblTCP));
 }
 
 /** @internal */
@@ -15647,37 +15379,37 @@ export type OutputCriblTcp$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
-  compression: string;
-  logFailedRequests: boolean;
-  throttleRatePerSec: string;
+  loadBalanced?: boolean | undefined;
+  compression?: string | undefined;
+  logFailedRequests?: boolean | undefined;
+  throttleRatePerSec?: string | undefined;
   tls?:
     | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
     | undefined;
-  connectionTimeout: number;
-  writeTimeout: number;
-  tokenTTLMinutes: number;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  tokenTTLMinutes?: number | undefined;
   authTokens?: Array<models.ItemsTypeAuthTokens$Outbound> | undefined;
   excludeFields?: Array<string> | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   host?: string | undefined;
-  port: number;
-  excludeSelf: boolean;
-  hosts?: Array<HostCriblTCP$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
-  maxConcurrentSenders: number;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  port?: number | undefined;
+  excludeSelf?: boolean | undefined;
+  hosts?: Array<models.ItemsTypeHosts$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  maxConcurrentSenders?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsCriblTCP$Outbound | undefined;
 };
 
@@ -15693,40 +15425,36 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(true),
-  compression: models.CompressionOptions1$outboundSchema.default("gzip"),
-  logFailedRequests: z.boolean().default(false),
-  throttleRatePerSec: z.string().default("0"),
+  loadBalanced: z.boolean().optional(),
+  compression: models.CompressionOptions1$outboundSchema.optional(),
+  logFailedRequests: z.boolean().optional(),
+  throttleRatePerSec: z.string().optional(),
   tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
     .optional(),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
-  tokenTTLMinutes: z.number().default(60),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  tokenTTLMinutes: z.number().optional(),
   authTokens: z.array(models.ItemsTypeAuthTokens$outboundSchema).optional(),
   excludeFields: z.array(z.string()).optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   host: z.string().optional(),
-  port: z.number().default(10300),
-  excludeSelf: z.boolean().default(false),
-  hosts: z.array(z.lazy(() => HostCriblTCP$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  port: z.number().optional(),
+  excludeSelf: z.boolean().optional(),
+  hosts: z.array(models.ItemsTypeHosts$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsCriblTCP$outboundSchema).optional(),
 });
 
@@ -15778,41 +15506,41 @@ export type OutputDataset$Outbound = {
   excludeFields?: Array<string> | undefined;
   serverHostField?: string | undefined;
   timestampField?: string | undefined;
-  defaultSeverity: string;
+  defaultSeverity?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  site: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  site?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  onBackpressure: string;
-  authType: string;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsDataset$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
@@ -15834,48 +15562,42 @@ export const OutputDataset$outboundSchema: z.ZodType<
   excludeFields: z.array(z.string()).optional(),
   serverHostField: z.string().optional(),
   timestampField: z.string().optional(),
-  defaultSeverity: DefaultSeveritySeverity$outboundSchema.default("info"),
+  defaultSeverity: DefaultSeveritySeverity$outboundSchema.optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
-  site: DataSetSite$outboundSchema.default("us"),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  site: DataSetSite$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
-    "manual",
-  ),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsDataset$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
@@ -15913,27 +15635,27 @@ export type OutputServiceNow$Outbound = {
   streamtags?: Array<string> | undefined;
   endpoint: string;
   tokenSecret: string;
-  authTokenName: string;
+  authTokenName?: string | undefined;
   otlpVersion: string;
-  maxPayloadSizeKB: number;
+  maxPayloadSizeKB?: number | undefined;
   protocol: string;
-  compress: string;
-  httpCompress: string;
+  compress?: string | undefined;
+  httpCompress?: string | undefined;
   httpTracesEndpointOverride?: string | undefined;
   httpMetricsEndpointOverride?: string | undefined;
   httpLogsEndpointOverride?: string | undefined;
   metadata?: Array<models.ItemsTypeKeyValueMetadata$Outbound> | undefined;
-  concurrency: number;
-  timeoutSec: number;
-  flushPeriodSec: number;
-  failedRequestLoggingMode: string;
-  connectionTimeout: number;
-  keepAliveTime: number;
-  keepAlive: boolean;
-  onBackpressure: string;
+  concurrency?: number | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  connectionTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  keepAlive?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  rejectUnauthorized: boolean;
-  useRoundRobinDns: boolean;
+  rejectUnauthorized?: boolean | undefined;
+  useRoundRobinDns?: boolean | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
@@ -15942,18 +15664,18 @@ export type OutputServiceNow$Outbound = {
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  tls?: models.TlsSettingsClientSideType3$Outbound | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  tls?: models.TlsSettingsClientSideType2$Outbound | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsServiceNow$Outbound | undefined;
 };
 
@@ -15969,32 +15691,30 @@ export const OutputServiceNow$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  endpoint: z.string().default("ingest.lightstep.com:443"),
+  endpoint: z.string(),
   tokenSecret: z.string(),
-  authTokenName: z.string().default("lightstep-access-token"),
-  otlpVersion: models.OtlpVersionOptions1$outboundSchema.default("1.3.1"),
-  maxPayloadSizeKB: z.number().default(2048),
-  protocol: models.ProtocolOptions$outboundSchema.default("grpc"),
-  compress: models.CompressionOptions4$outboundSchema.default("gzip"),
-  httpCompress: models.CompressionOptions5$outboundSchema.default("gzip"),
+  authTokenName: z.string().optional(),
+  otlpVersion: models.OtlpVersionOptions1$outboundSchema,
+  maxPayloadSizeKB: z.number().optional(),
+  protocol: models.ProtocolOptions$outboundSchema,
+  compress: models.CompressionOptions4$outboundSchema.optional(),
+  httpCompress: models.CompressionOptions5$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
   metadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema).optional(),
-  concurrency: z.number().default(5),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
-  connectionTimeout: z.number().default(10000),
-  keepAliveTime: z.number().default(30),
-  keepAlive: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  keepAlive: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  rejectUnauthorized: z.boolean().default(true),
-  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -16003,20 +15723,18 @@ export const OutputServiceNow$outboundSchema: z.ZodType<
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  tls: models.TlsSettingsClientSideType3$outboundSchema.optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  tls: models.TlsSettingsClientSideType2$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsServiceNow$outboundSchema).optional(),
 });
 
@@ -16061,25 +15779,25 @@ export type OutputOpenTelemetry$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  protocol: string;
+  protocol?: string | undefined;
   endpoint: string;
-  otlpVersion: string;
-  compress: string;
-  httpCompress: string;
-  authType: string;
+  otlpVersion?: string | undefined;
+  compress?: string | undefined;
+  httpCompress?: string | undefined;
+  authType?: string | undefined;
   httpTracesEndpointOverride?: string | undefined;
   httpMetricsEndpointOverride?: string | undefined;
   httpLogsEndpointOverride?: string | undefined;
   metadata?: Array<models.ItemsTypeKeyValueMetadata$Outbound> | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  timeoutSec: number;
-  flushPeriodSec: number;
-  failedRequestLoggingMode: string;
-  connectionTimeout: number;
-  keepAliveTime: number;
-  keepAlive: boolean;
-  onBackpressure: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  connectionTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  keepAlive?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -16090,12 +15808,12 @@ export type OutputOpenTelemetry$Outbound = {
   secretParamName?: string | undefined;
   secret?: string | undefined;
   tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
-  rejectUnauthorized: boolean;
-  useRoundRobinDns: boolean;
+  rejectUnauthorized?: boolean | undefined;
+  useRoundRobinDns?: boolean | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
@@ -16104,18 +15822,18 @@ export type OutputOpenTelemetry$Outbound = {
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  tls?: models.TlsSettingsClientSideType3$Outbound | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  tls?: models.TlsSettingsClientSideType2$Outbound | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsOpenTelemetry$Outbound | undefined;
 };
 
@@ -16131,28 +15849,26 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: models.ProtocolOptions$outboundSchema.default("grpc"),
+  protocol: models.ProtocolOptions$outboundSchema.optional(),
   endpoint: z.string(),
-  otlpVersion: CreateOutputOTLPVersion$outboundSchema.default("0.10.0"),
-  compress: models.CompressionOptions4$outboundSchema.default("gzip"),
-  httpCompress: models.CompressionOptions5$outboundSchema.default("gzip"),
-  authType: models.AuthenticationTypeOptions$outboundSchema.default("none"),
+  otlpVersion: CreateOutputOTLPVersion$outboundSchema.optional(),
+  compress: models.CompressionOptions4$outboundSchema.optional(),
+  httpCompress: models.CompressionOptions5$outboundSchema.optional(),
+  authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
   httpTracesEndpointOverride: z.string().optional(),
   httpMetricsEndpointOverride: z.string().optional(),
   httpLogsEndpointOverride: z.string().optional(),
   metadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema).optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
-  connectionTimeout: z.number().default(10000),
-  keepAliveTime: z.number().default(30),
-  keepAlive: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  keepAlive: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -16163,12 +15879,12 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   secretParamName: z.string().optional(),
   secret: z.string().optional(),
   tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
-  rejectUnauthorized: z.boolean().default(true),
-  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
@@ -16177,20 +15893,18 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  tls: models.TlsSettingsClientSideType3$outboundSchema.optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  tls: models.TlsSettingsClientSideType2$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsOpenTelemetry$outboundSchema).optional(),
 });
 
@@ -16217,13 +15931,13 @@ export type OutputRing$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  format: string;
+  format?: string | undefined;
   partitionExpr?: string | undefined;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
   destPath?: string | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
 };
 
@@ -16239,16 +15953,14 @@ export const OutputRing$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  format: DataFormatRing$outboundSchema.default("json"),
+  format: DataFormatRing$outboundSchema.optional(),
   partitionExpr: z.string().optional(),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
   compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
-    .default("gzip"),
+    .optional(),
   destPath: z.string().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
   description: z.string().optional(),
 });
 
@@ -16283,39 +15995,39 @@ export type OutputPrometheus$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   url: string;
-  metricRenameExpr: string;
-  sendMetadata: boolean;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  metricRenameExpr?: string | undefined;
+  sendMetadata?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
-  authType: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
-  metricsFlushPeriodSec: number;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  metricsFlushPeriodSec?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsPrometheus$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -16326,8 +16038,8 @@ export type OutputPrometheus$Outbound = {
   secretParamName?: string | undefined;
   secret?: string | undefined;
   tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
 };
@@ -16345,45 +16057,41 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  metricRenameExpr: z.string().default("name.replace(/[^a-zA-Z0-9_]/g, '_')"),
-  sendMetadata: z.boolean().default(true),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  metricRenameExpr: z.string().optional(),
+  sendMetadata: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
-    .default("none"),
+    .optional(),
   description: z.string().optional(),
-  metricsFlushPeriodSec: z.number().default(60),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  metricsFlushPeriodSec: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsPrometheus$outboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -16394,8 +16102,8 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   secretParamName: z.string().optional(),
   secret: z.string().optional(),
   tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
@@ -16407,13 +16115,6 @@ export function outputPrometheusToJSON(
     OutputPrometheus$outboundSchema.parse(outputPrometheus),
   );
 }
-
-/** @internal */
-export const AuthenticationTypeLoki$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthenticationTypeLoki
-> = openEnums.outboundSchema(AuthenticationTypeLoki);
 
 /** @internal */
 export type PqControlsLoki$Outbound = {};
@@ -16439,46 +16140,46 @@ export type OutputLoki$Outbound = {
   streamtags?: Array<string> | undefined;
   url: string;
   message?: string | undefined;
-  messageFormat: string;
+  messageFormat?: string | undefined;
   labels?: Array<models.ItemsTypeLabels$Outbound> | undefined;
-  authType: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  authType?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  enableDynamicHeaders: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  enableDynamicHeaders?: boolean | undefined;
+  onBackpressure?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  compress: boolean;
+  compress?: boolean | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsLoki$Outbound | undefined;
 };
 
@@ -16496,51 +16197,48 @@ export const OutputLoki$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
   message: z.string().optional(),
-  messageFormat: models.MessageFormatOptions$outboundSchema.default("protobuf"),
+  messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
   labels: z.array(models.ItemsTypeLabels$outboundSchema).optional(),
-  authType: AuthenticationTypeLoki$outboundSchema.default("none"),
-  concurrency: z.number().default(1),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(15),
+  authType: models.AuthenticationTypeOptionsPrometheusAuth1$outboundSchema
+    .optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
-  enableDynamicHeaders: z.boolean().default(false),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  enableDynamicHeaders: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  compress: z.boolean().default(true),
+  compress: z.boolean().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsLoki$outboundSchema).optional(),
 });
 
@@ -16584,41 +16282,41 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   lokiUrl?: string | undefined;
   prometheusUrl: string;
   message?: string | undefined;
-  messageFormat: string;
+  messageFormat?: string | undefined;
   labels?: Array<models.ItemsTypeLabels$Outbound> | undefined;
-  metricRenameExpr: string;
+  metricRenameExpr?: string | undefined;
   prometheusAuth?: models.PrometheusAuthType$Outbound | undefined;
   lokiAuth?: models.PrometheusAuthType$Outbound | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  compress: boolean;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  compress?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputGrafanaCloudPqControls2$Outbound | undefined;
 };
 
@@ -16637,46 +16335,42 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   lokiUrl: z.string().optional(),
   prometheusUrl: z.string(),
   message: z.string().optional(),
-  messageFormat: models.MessageFormatOptions$outboundSchema.default("protobuf"),
+  messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
   labels: z.array(models.ItemsTypeLabels$outboundSchema).optional(),
-  metricRenameExpr: z.string().default("name.replace(/[^a-zA-Z0-9_]/g, '_')"),
+  metricRenameExpr: z.string().optional(),
   prometheusAuth: models.PrometheusAuthType$outboundSchema.optional(),
   lokiAuth: models.PrometheusAuthType$outboundSchema.optional(),
-  concurrency: z.number().default(1),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(15),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  compress: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls2$outboundSchema)
     .optional(),
 });
@@ -16727,41 +16421,41 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   lokiUrl: string;
   prometheusUrl?: string | undefined;
   message?: string | undefined;
-  messageFormat: string;
+  messageFormat?: string | undefined;
   labels?: Array<models.ItemsTypeLabels$Outbound> | undefined;
-  metricRenameExpr: string;
+  metricRenameExpr?: string | undefined;
   prometheusAuth?: models.PrometheusAuthType$Outbound | undefined;
   lokiAuth?: models.PrometheusAuthType$Outbound | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  compress: boolean;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  compress?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputGrafanaCloudPqControls1$Outbound | undefined;
 };
 
@@ -16780,46 +16474,42 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   lokiUrl: z.string(),
   prometheusUrl: z.string().optional(),
   message: z.string().optional(),
-  messageFormat: models.MessageFormatOptions$outboundSchema.default("protobuf"),
+  messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
   labels: z.array(models.ItemsTypeLabels$outboundSchema).optional(),
-  metricRenameExpr: z.string().default("name.replace(/[^a-zA-Z0-9_]/g, '_')"),
+  metricRenameExpr: z.string().optional(),
   prometheusAuth: models.PrometheusAuthType$outboundSchema.optional(),
   lokiAuth: models.PrometheusAuthType$outboundSchema.optional(),
-  concurrency: z.number().default(1),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(15),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  compress: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls1$outboundSchema)
     .optional(),
 });
@@ -16904,50 +16594,50 @@ export type OutputDatadog$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  contentType: string;
+  contentType?: string | undefined;
   message?: string | undefined;
   source?: string | undefined;
   host?: string | undefined;
   service?: string | undefined;
   tags?: Array<string> | undefined;
-  batchByTags: boolean;
-  allowApiKeyFromEvents: boolean;
+  batchByTags?: boolean | undefined;
+  allowApiKeyFromEvents?: boolean | undefined;
   severity?: string | undefined;
-  site: string;
-  sendCountersAsCount: boolean;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  site?: string | undefined;
+  sendCountersAsCount?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
-  authType: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsDatadog$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
@@ -16965,57 +16655,51 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  contentType: SendLogsAs$outboundSchema.default("json"),
+  contentType: SendLogsAs$outboundSchema.optional(),
   message: z.string().optional(),
   source: z.string().optional(),
   host: z.string().optional(),
   service: z.string().optional(),
   tags: z.array(z.string()).optional(),
-  batchByTags: z.boolean().default(true),
-  allowApiKeyFromEvents: z.boolean().default(false),
+  batchByTags: z.boolean().optional(),
+  allowApiKeyFromEvents: z.boolean().optional(),
   severity: SeverityDatadog$outboundSchema.optional(),
-  site: DatadogSite$outboundSchema.default("us"),
-  sendCountersAsCount: z.boolean().default(false),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  site: DatadogSite$outboundSchema.optional(),
+  sendCountersAsCount: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
-    "manual",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsDatadog$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
@@ -17061,38 +16745,38 @@ export type OutputSumoLogic$Outbound = {
   url: string;
   customSource?: string | undefined;
   customCategory?: string | undefined;
-  format: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  format?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSumoLogic$Outbound | undefined;
 };
 
@@ -17111,43 +16795,39 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   url: z.string(),
   customSource: z.string().optional(),
   customCategory: z.string().optional(),
-  format: DataFormatSumoLogic$outboundSchema.default("json"),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(1024),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  format: DataFormatSumoLogic$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSumoLogic$outboundSchema).optional(),
 });
 
@@ -17170,7 +16850,7 @@ export const HostSnmp$outboundSchema: z.ZodType<
   HostSnmp
 > = z.object({
   host: z.string(),
-  port: z.number().default(162),
+  port: z.number(),
 });
 
 export function hostSnmpToJSON(hostSnmp: HostSnmp): string {
@@ -17186,7 +16866,7 @@ export type OutputSnmp$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   hosts: Array<HostSnmp$Outbound>;
-  dnsResolvePeriodSec: number;
+  dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
 };
 
@@ -17203,7 +16883,7 @@ export const OutputSnmp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   hosts: z.array(z.lazy(() => HostSnmp$outboundSchema)),
-  dnsResolvePeriodSec: z.number().default(0),
+  dnsResolvePeriodSec: z.number().optional(),
   description: z.string().optional(),
 });
 
@@ -17243,37 +16923,37 @@ export type OutputSqs$Outbound = {
   queueName: string;
   queueType: string;
   awsAccountId?: string | undefined;
-  messageGroupId: string;
-  createQueue: boolean;
-  awsAuthenticationMethod: string;
+  messageGroupId?: string | undefined;
+  createQueue?: boolean | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  maxQueueSize: number;
-  maxRecordSizeKB: number;
-  flushPeriodSec: number;
-  maxInProgress: number;
-  onBackpressure: string;
+  durationSeconds?: number | undefined;
+  maxQueueSize?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  maxInProgress?: number | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSqs$Outbound | undefined;
 };
 
@@ -17292,43 +16972,37 @@ export const OutputSqs$outboundSchema: z.ZodType<
   queueName: z.string(),
   queueType: CreateOutputQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
-  messageGroupId: z.string().default("cribl"),
-  createQueue: z.boolean().default(true),
-  awsAuthenticationMethod: z.string().default("auto"),
+  messageGroupId: z.string().optional(),
+  createQueue: z.boolean().optional(),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions3$outboundSchema.default(
-    "v4",
-  ),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: models.SignatureVersionOptions3$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxQueueSize: z.number().default(100),
-  maxRecordSizeKB: z.number().default(256),
-  flushPeriodSec: z.number().default(1),
-  maxInProgress: z.number().default(10),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  durationSeconds: z.number().optional(),
+  maxQueueSize: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  maxInProgress: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSqs$outboundSchema).optional(),
 });
 
@@ -17368,31 +17042,31 @@ export type OutputSns$Outbound = {
   topicArn: string;
   messageGroupId: string;
   maxRetries?: number | undefined;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  onBackpressure: string;
+  durationSeconds?: number | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSns$Outbound | undefined;
 };
 
@@ -17411,35 +17085,31 @@ export const OutputSns$outboundSchema: z.ZodType<
   topicArn: z.string(),
   messageGroupId: z.string(),
   maxRetries: z.number().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionSns$outboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionSns$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  durationSeconds: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSns$outboundSchema).optional(),
 });
 
@@ -17452,7 +17122,7 @@ export type CreateOutputRule$Outbound = {
   filter: string;
   output: string;
   description?: string | undefined;
-  final: boolean;
+  final?: boolean | undefined;
 };
 
 /** @internal */
@@ -17464,7 +17134,7 @@ export const CreateOutputRule$outboundSchema: z.ZodType<
   filter: z.string(),
   output: z.string(),
   description: z.string().optional(),
-  final: z.boolean().default(true),
+  final: z.boolean().optional(),
 });
 
 export function createOutputRuleToJSON(
@@ -17536,24 +17206,24 @@ export type OutputGraphite$Outbound = {
   protocol: string;
   host: string;
   port: number;
-  mtu: number;
-  flushPeriodSec: number;
-  dnsResolvePeriodSec: number;
+  mtu?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
-  throttleRatePerSec: string;
-  connectionTimeout: number;
-  writeTimeout: number;
-  onBackpressure: string;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  throttleRatePerSec?: string | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  onBackpressure?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsGraphite$Outbound | undefined;
 };
 
@@ -17569,31 +17239,27 @@ export const OutputGraphite$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: models.DestinationProtocolOptions$outboundSchema.default("udp"),
+  protocol: models.DestinationProtocolOptions$outboundSchema,
   host: z.string(),
-  port: z.number().default(8125),
-  mtu: z.number().default(512),
-  flushPeriodSec: z.number().default(1),
-  dnsResolvePeriodSec: z.number().default(0),
+  port: z.number(),
+  mtu: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  dnsResolvePeriodSec: z.number().optional(),
   description: z.string().optional(),
-  throttleRatePerSec: z.string().default("0"),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsGraphite$outboundSchema).optional(),
 });
 
@@ -17630,24 +17296,24 @@ export type OutputStatsdExt$Outbound = {
   protocol: string;
   host: string;
   port: number;
-  mtu: number;
-  flushPeriodSec: number;
-  dnsResolvePeriodSec: number;
+  mtu?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
-  throttleRatePerSec: string;
-  connectionTimeout: number;
-  writeTimeout: number;
-  onBackpressure: string;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  throttleRatePerSec?: string | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  onBackpressure?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsStatsdExt$Outbound | undefined;
 };
 
@@ -17663,31 +17329,27 @@ export const OutputStatsdExt$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: models.DestinationProtocolOptions$outboundSchema.default("udp"),
+  protocol: models.DestinationProtocolOptions$outboundSchema,
   host: z.string(),
-  port: z.number().default(8125),
-  mtu: z.number().default(512),
-  flushPeriodSec: z.number().default(1),
-  dnsResolvePeriodSec: z.number().default(0),
+  port: z.number(),
+  mtu: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  dnsResolvePeriodSec: z.number().optional(),
   description: z.string().optional(),
-  throttleRatePerSec: z.string().default("0"),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsStatsdExt$outboundSchema).optional(),
 });
 
@@ -17726,24 +17388,24 @@ export type OutputStatsd$Outbound = {
   protocol: string;
   host: string;
   port: number;
-  mtu: number;
-  flushPeriodSec: number;
-  dnsResolvePeriodSec: number;
+  mtu?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
-  throttleRatePerSec: string;
-  connectionTimeout: number;
-  writeTimeout: number;
-  onBackpressure: string;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  throttleRatePerSec?: string | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  onBackpressure?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsStatsd$Outbound | undefined;
 };
 
@@ -17759,31 +17421,27 @@ export const OutputStatsd$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: models.DestinationProtocolOptions$outboundSchema.default("udp"),
+  protocol: models.DestinationProtocolOptions$outboundSchema,
   host: z.string(),
-  port: z.number().default(8125),
-  mtu: z.number().default(512),
-  flushPeriodSec: z.number().default(1),
-  dnsResolvePeriodSec: z.number().default(0),
+  port: z.number(),
+  mtu: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  dnsResolvePeriodSec: z.number().optional(),
   description: z.string().optional(),
-  throttleRatePerSec: z.string().default("0"),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsStatsd$outboundSchema).optional(),
 });
 
@@ -17801,57 +17459,57 @@ export type OutputMinio$Outbound = {
   streamtags?: Array<string> | undefined;
   endpoint: string;
   bucket: string;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   stagePath: string;
-  addIdToStagePath: boolean;
+  addIdToStagePath?: boolean | undefined;
   destPath?: string | undefined;
-  signatureVersion: string;
-  objectACL: string;
+  signatureVersion?: string | undefined;
+  objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  verifyPermissions: boolean;
-  removeEmptyDirs: boolean;
-  partitionExpr: string;
-  format: string;
-  baseFileName: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxConcurrentFileParts: number;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
   parquetSchema?: string | undefined;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
     | Array<models.ItemsTypeKeyValueMetadata$Outbound>
     | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -17868,72 +17526,59 @@ export const OutputMinio$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
   destPath: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions5$outboundSchema.default(
-    "v4",
-  ),
-  objectACL: models.ObjectAclOptions$outboundSchema.default("private"),
+  signatureVersion: models.SignatureVersionOptions5$outboundSchema.optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
   storageClass: models.StorageClassOptions2$outboundSchema.optional(),
   serverSideEncryption: models.ServerSideEncryptionOptions$outboundSchema
     .optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  verifyPermissions: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: models.DataFormatOptions$outboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .default("block"),
-  forceCloseOnShutdown: z.boolean().default(false),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxConcurrentFileParts: z.number().default(4),
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputMinioToJSON(outputMinio: OutputMinio): string {
@@ -17968,33 +17613,33 @@ export type OutputCloudwatch$Outbound = {
   streamtags?: Array<string> | undefined;
   logGroupName: string;
   logStreamName: string;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region: string;
   endpoint?: string | undefined;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  maxQueueSize: number;
-  maxRecordSizeKB: number;
-  flushPeriodSec: number;
-  onBackpressure: string;
+  durationSeconds?: number | undefined;
+  maxQueueSize?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsCloudwatch$Outbound | undefined;
 };
 
@@ -18012,37 +17657,33 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logGroupName: z.string(),
   logStreamName: z.string(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxQueueSize: z.number().default(5),
-  maxRecordSizeKB: z.number().default(1024),
-  flushPeriodSec: z.number().default(1),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  durationSeconds: z.number().optional(),
+  maxQueueSize: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsCloudwatch$outboundSchema).optional(),
 });
 
@@ -18095,44 +17736,44 @@ export type OutputInfluxdb$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   url: string;
-  useV2API: boolean;
-  timestampPrecision: string;
-  dynamicValueFieldName: boolean;
-  valueFieldName: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  useV2API?: boolean | undefined;
+  timestampPrecision?: string | undefined;
+  dynamicValueFieldName?: boolean | undefined;
+  valueFieldName?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
-  authType: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
   database?: string | undefined;
   bucket?: string | undefined;
   org?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsInfluxdb$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -18143,8 +17784,8 @@ export type OutputInfluxdb$Outbound = {
   secretParamName?: string | undefined;
   secret?: string | undefined;
   tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
 };
@@ -18162,49 +17803,45 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  useV2API: z.boolean().default(false),
-  timestampPrecision: TimestampPrecision$outboundSchema.default("ms"),
-  dynamicValueFieldName: z.boolean().default(true),
-  valueFieldName: z.string().default("value"),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  useV2API: z.boolean().optional(),
+  timestampPrecision: TimestampPrecision$outboundSchema.optional(),
+  dynamicValueFieldName: z.boolean().optional(),
+  valueFieldName: z.string().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  authType: AuthenticationTypeInfluxdb$outboundSchema.default("none"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: AuthenticationTypeInfluxdb$outboundSchema.optional(),
   description: z.string().optional(),
   database: z.string().optional(),
   bucket: z.string().optional(),
   org: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsInfluxdb$outboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -18215,8 +17852,8 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   secretParamName: z.string().optional(),
   secret: z.string().optional(),
   tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
@@ -18251,41 +17888,41 @@ export type OutputNewrelicEvents$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  region: string;
+  region?: string | undefined;
   accountId: string;
   eventType: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
-  authType: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsNewrelicEvents$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
@@ -18303,48 +17940,42 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: models.RegionOptions$outboundSchema.default("US"),
+  region: models.RegionOptions$outboundSchema.optional(),
   accountId: z.string(),
   eventType: z.string(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(1024),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
-    "manual",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsNewrelicEvents$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
@@ -18411,43 +18042,43 @@ export type OutputNewrelic$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  region: string;
-  logType: string;
-  messageField: string;
+  region?: string | undefined;
+  logType?: string | undefined;
+  messageField?: string | undefined;
   metadata?: Array<Metadatum$Outbound> | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
-  authType: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsNewrelic$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
@@ -18465,50 +18096,44 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: models.RegionOptions$outboundSchema.default("US"),
-  logType: z.string().default(""),
-  messageField: z.string().default(""),
+  region: models.RegionOptions$outboundSchema.optional(),
+  logType: z.string().optional(),
+  messageField: z.string().optional(),
   metadata: z.array(z.lazy(() => Metadatum$outboundSchema)).optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(1024),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
-    "manual",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsNewrelic$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
@@ -18516,42 +18141,6 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
 
 export function outputNewrelicToJSON(outputNewrelic: OutputNewrelic): string {
   return JSON.stringify(OutputNewrelic$outboundSchema.parse(outputNewrelic));
-}
-
-/** @internal */
-export type AuthElasticCloud$Outbound = {
-  disabled: boolean;
-  username?: string | undefined;
-  password?: string | undefined;
-  authType: string;
-  credentialsSecret?: string | undefined;
-  manualAPIKey?: string | undefined;
-  textSecret?: string | undefined;
-};
-
-/** @internal */
-export const AuthElasticCloud$outboundSchema: z.ZodType<
-  AuthElasticCloud$Outbound,
-  z.ZodTypeDef,
-  AuthElasticCloud
-> = z.object({
-  disabled: z.boolean().default(false),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  authType: models.AuthenticationMethodOptionsAuth$outboundSchema.default(
-    "manual",
-  ),
-  credentialsSecret: z.string().optional(),
-  manualAPIKey: z.string().optional(),
-  textSecret: z.string().optional(),
-});
-
-export function authElasticCloudToJSON(
-  authElasticCloud: AuthElasticCloud,
-): string {
-  return JSON.stringify(
-    AuthElasticCloud$outboundSchema.parse(authElasticCloud),
-  );
 }
 
 /** @internal */
@@ -18582,39 +18171,39 @@ export type OutputElasticCloud$Outbound = {
   streamtags?: Array<string> | undefined;
   url: string;
   index: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   extraParams?: Array<models.ItemsTypeSaslSaslExtensions$Outbound> | undefined;
-  auth?: AuthElasticCloud$Outbound | undefined;
+  auth?: models.AuthType$Outbound | undefined;
   elasticPipeline?: string | undefined;
-  includeDocId: boolean;
+  includeDocId?: boolean | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsElasticCloud$Outbound | undefined;
 };
 
@@ -18632,45 +18221,41 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
   index: z.string(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   extraParams: z.array(models.ItemsTypeSaslSaslExtensions$outboundSchema)
     .optional(),
-  auth: z.lazy(() => AuthElasticCloud$outboundSchema).optional(),
+  auth: models.AuthType$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
-  includeDocId: z.boolean().default(true),
+  includeDocId: z.boolean().optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsElasticCloud$outboundSchema).optional(),
 });
 
@@ -18680,38 +18265,6 @@ export function outputElasticCloudToJSON(
   return JSON.stringify(
     OutputElasticCloud$outboundSchema.parse(outputElasticCloud),
   );
-}
-
-/** @internal */
-export type AuthElastic$Outbound = {
-  disabled: boolean;
-  username?: string | undefined;
-  password?: string | undefined;
-  authType: string;
-  credentialsSecret?: string | undefined;
-  manualAPIKey?: string | undefined;
-  textSecret?: string | undefined;
-};
-
-/** @internal */
-export const AuthElastic$outboundSchema: z.ZodType<
-  AuthElastic$Outbound,
-  z.ZodTypeDef,
-  AuthElastic
-> = z.object({
-  disabled: z.boolean().default(true),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  authType: models.AuthenticationMethodOptionsAuth$outboundSchema.default(
-    "manual",
-  ),
-  credentialsSecret: z.string().optional(),
-  manualAPIKey: z.string().optional(),
-  textSecret: z.string().optional(),
-});
-
-export function authElasticToJSON(authElastic: AuthElastic): string {
-  return JSON.stringify(AuthElastic$outboundSchema.parse(authElastic));
 }
 
 /** @internal */
@@ -18731,7 +18284,7 @@ export const WriteAction$outboundSchema: z.ZodType<
 /** @internal */
 export type UrlElastic$Outbound = {
   url: string;
-  weight: number;
+  weight?: number | undefined;
 };
 
 /** @internal */
@@ -18741,7 +18294,7 @@ export const UrlElastic$outboundSchema: z.ZodType<
   UrlElastic
 > = z.object({
   url: z.string(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 
 export function urlElasticToJSON(urlElastic: UrlElastic): string {
@@ -18774,51 +18327,51 @@ export type OutputElastic$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
+  loadBalanced?: boolean | undefined;
   index: string;
   docType?: string | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
+  responseHonorRetryAfterHeader?: boolean | undefined;
   extraParams?: Array<models.ItemsTypeSaslSaslExtensions$Outbound> | undefined;
-  auth?: AuthElastic$Outbound | undefined;
-  elasticVersion: string;
+  auth?: models.AuthType$Outbound | undefined;
+  elasticVersion?: string | undefined;
   elasticPipeline?: string | undefined;
-  includeDocId: boolean;
-  writeAction: string;
-  retryPartialErrors: boolean;
-  onBackpressure: string;
+  includeDocId?: boolean | undefined;
+  writeAction?: string | undefined;
+  retryPartialErrors?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   url?: string | undefined;
-  useRoundRobinDns: boolean;
-  excludeSelf: boolean;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
   urls?: Array<UrlElastic$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsElastic$Outbound | undefined;
 };
 
@@ -18834,57 +18387,53 @@ export const OutputElastic$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(true),
+  loadBalanced: z.boolean().optional(),
   index: z.string(),
   docType: z.string().optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
   extraParams: z.array(models.ItemsTypeSaslSaslExtensions$outboundSchema)
     .optional(),
-  auth: z.lazy(() => AuthElastic$outboundSchema).optional(),
-  elasticVersion: ElasticVersion$outboundSchema.default("auto"),
+  auth: models.AuthType$outboundSchema.optional(),
+  elasticVersion: ElasticVersion$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
-  includeDocId: z.boolean().default(false),
-  writeAction: WriteAction$outboundSchema.default("create"),
-  retryPartialErrors: z.boolean().default(false),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  includeDocId: z.boolean().optional(),
+  writeAction: WriteAction$outboundSchema.optional(),
+  retryPartialErrors: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   url: z.string().optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  excludeSelf: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => UrlElastic$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsElastic$outboundSchema).optional(),
 });
 
@@ -18916,51 +18465,53 @@ export type OutputMsk$Outbound = {
   streamtags?: Array<string> | undefined;
   brokers: Array<string>;
   topic: string;
-  ack: number;
-  format: string;
-  compression: string;
-  maxRecordSizeKB: number;
-  flushEventCount: number;
-  flushPeriodSec: number;
+  ack?: number | undefined;
+  format?: string | undefined;
+  compression?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType1$Outbound
     | undefined;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
   awsAuthenticationMethod: string;
   awsSecretKey?: string | undefined;
   region: string;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
-  onBackpressure: string;
+  durationSeconds?: number | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   protobufLibraryId?: string | undefined;
   protobufEncodingId?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsMsk$Outbound | undefined;
 };
 
@@ -18978,54 +18529,51 @@ export const OutputMsk$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: models.AcknowledgmentsOptions1$outboundSchema.default(1),
-  format: models.RecordDataFormatOptions1$outboundSchema.default("json"),
-  compression: models.CompressionOptions3$outboundSchema.default("gzip"),
-  maxRecordSizeKB: z.number().default(768),
-  flushEventCount: z.number().default(1000),
-  flushPeriodSec: z.number().default(1),
+  ack: models.AcknowledgmentsOptions1$outboundSchema.optional(),
+  format: models.RecordDataFormatOptions1$outboundSchema.optional(),
+  compression: models.CompressionOptions3$outboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   kafkaSchemaRegistry: models
     .KafkaSchemaRegistryAuthenticationType1$outboundSchema.optional(),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: z.string().default("auto"),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  awsAuthenticationMethod: z.string(),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions$outboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: models.SignatureVersionOptions$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  durationSeconds: z.number().optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   protobufLibraryId: z.string().optional(),
   protobufEncodingId: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsMsk$outboundSchema).optional(),
 });
 
@@ -19060,40 +18608,42 @@ export type OutputConfluentCloud$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   brokers: Array<string>;
-  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
   topic: string;
-  ack: number;
-  format: string;
-  compression: string;
-  maxRecordSizeKB: number;
-  flushEventCount: number;
-  flushPeriodSec: number;
+  ack?: number | undefined;
+  format?: string | undefined;
+  compression?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType1$Outbound
     | undefined;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
   sasl?: models.AuthenticationType$Outbound | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   protobufLibraryId?: string | undefined;
   protobufEncodingId?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsConfluentCloud$Outbound | undefined;
 };
 
@@ -19110,43 +18660,40 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
-  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
   topic: z.string(),
-  ack: models.AcknowledgmentsOptions1$outboundSchema.default(1),
-  format: models.RecordDataFormatOptions1$outboundSchema.default("json"),
-  compression: models.CompressionOptions3$outboundSchema.default("gzip"),
-  maxRecordSizeKB: z.number().default(768),
-  flushEventCount: z.number().default(1000),
-  flushPeriodSec: z.number().default(1),
+  ack: models.AcknowledgmentsOptions1$outboundSchema.optional(),
+  format: models.RecordDataFormatOptions1$outboundSchema.optional(),
+  compression: models.CompressionOptions3$outboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   kafkaSchemaRegistry: models
     .KafkaSchemaRegistryAuthenticationType1$outboundSchema.optional(),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
   sasl: models.AuthenticationType$outboundSchema.optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   protobufLibraryId: z.string().optional(),
   protobufEncodingId: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsConfluentCloud$outboundSchema).optional(),
 });
 
@@ -19184,41 +18731,41 @@ export type OutputKafka$Outbound = {
   streamtags?: Array<string> | undefined;
   brokers: Array<string>;
   topic: string;
-  ack: number;
-  format: string;
-  compression: string;
-  maxRecordSizeKB: number;
-  flushEventCount: number;
-  flushPeriodSec: number;
+  ack?: number | undefined;
+  format?: string | undefined;
+  compression?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType1$Outbound
     | undefined;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
   sasl?: models.AuthenticationType$Outbound | undefined;
   tls?:
     | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
     | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   protobufLibraryId?: string | undefined;
   protobufEncodingId?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsKafka$Outbound | undefined;
 };
 
@@ -19236,43 +18783,39 @@ export const OutputKafka$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: models.AcknowledgmentsOptions1$outboundSchema.default(1),
-  format: models.RecordDataFormatOptions1$outboundSchema.default("json"),
-  compression: models.CompressionOptions3$outboundSchema.default("gzip"),
-  maxRecordSizeKB: z.number().default(768),
-  flushEventCount: z.number().default(1000),
-  flushPeriodSec: z.number().default(1),
+  ack: models.AcknowledgmentsOptions1$outboundSchema.optional(),
+  format: models.RecordDataFormatOptions1$outboundSchema.optional(),
+  compression: models.CompressionOptions3$outboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   kafkaSchemaRegistry: models
     .KafkaSchemaRegistryAuthenticationType1$outboundSchema.optional(),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
   sasl: models.AuthenticationType$outboundSchema.optional(),
   tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
     .optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   protobufLibraryId: z.string().optional(),
   protobufEncodingId: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsKafka$outboundSchema).optional(),
 });
 
@@ -19292,20 +18835,20 @@ export type OutputExabeam$Outbound = {
   region: string;
   stagePath: string;
   endpoint: string;
-  signatureVersion: string;
-  objectACL: string;
+  signatureVersion?: string | undefined;
+  objectACL?: string | undefined;
   storageClass?: string | undefined;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  addIdToStagePath: boolean;
-  removeEmptyDirs: boolean;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxOpenFiles: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  maxFileSizeMB: number;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  maxFileSizeMB?: number | undefined;
   encodedConfiguration?: string | undefined;
   collectorInstanceId: string;
   siteName?: string | undefined;
@@ -19314,10 +18857,10 @@ export type OutputExabeam$Outbound = {
   awsApiKey?: string | undefined;
   awsSecretKey?: string | undefined;
   description?: string | undefined;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -19334,27 +18877,23 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   bucket: z.string(),
   region: z.string(),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: models.SignatureVersionOptions4$outboundSchema.default(
-    "v4",
-  ),
-  objectACL: models.ObjectAclOptions1$outboundSchema.default("private"),
+  stagePath: z.string(),
+  endpoint: z.string(),
+  signatureVersion: models.SignatureVersionOptions4$outboundSchema.optional(),
+  objectACL: models.ObjectAclOptions1$outboundSchema.optional(),
   storageClass: models.StorageClassOptions1$outboundSchema.optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .default("block"),
-  maxFileSizeMB: z.number().default(10),
+    .optional(),
+  maxFileSizeMB: z.number().optional(),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),
   siteName: z.string().optional(),
@@ -19363,10 +18902,10 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   description: z.string().optional(),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputExabeamToJSON(outputExabeam: OutputExabeam): string {
@@ -19400,30 +18939,30 @@ export type OutputGooglePubsub$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   topicName: string;
-  createTopic: boolean;
-  orderedDelivery: boolean;
+  createTopic?: boolean | undefined;
+  orderedDelivery?: boolean | undefined;
   region?: string | undefined;
-  googleAuthMethod: string;
+  googleAuthMethod?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   secret?: string | undefined;
-  batchSize: number;
-  batchTimeout: number;
-  maxQueueSize: number;
-  maxRecordSizeKB: number;
-  flushPeriod: number;
-  maxInProgress: number;
-  onBackpressure: string;
+  batchSize?: number | undefined;
+  batchTimeout?: number | undefined;
+  maxQueueSize?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriod?: number | undefined;
+  maxInProgress?: number | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsGooglePubsub$Outbound | undefined;
 };
 
@@ -19440,35 +18979,31 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   topicName: z.string(),
-  createTopic: z.boolean().default(false),
-  orderedDelivery: z.boolean().default(false),
+  createTopic: z.boolean().optional(),
+  orderedDelivery: z.boolean().optional(),
   region: z.string().optional(),
   googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
-    .default("manual"),
+    .optional(),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
-  batchSize: z.number().default(1000),
-  batchTimeout: z.number().default(100),
-  maxQueueSize: z.number().default(100),
-  maxRecordSizeKB: z.number().default(256),
-  flushPeriod: z.number().default(1),
-  maxInProgress: z.number().default(10),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  batchSize: z.number().optional(),
+  batchTimeout: z.number().optional(),
+  maxQueueSize: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriod: z.number().optional(),
+  maxInProgress: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsGooglePubsub$outboundSchema).optional(),
 });
 
@@ -19524,22 +19059,22 @@ export type OutputGoogleCloudLogging$Outbound = {
   streamtags?: Array<string> | undefined;
   logLocationType: string;
   logNameExpression: string;
-  sanitizeLogNames: boolean;
-  payloadFormat: string;
+  sanitizeLogNames?: boolean | undefined;
+  payloadFormat?: string | undefined;
   logLabels?: Array<models.ItemsTypeLogLabels$Outbound> | undefined;
   resourceTypeExpression?: string | undefined;
   resourceTypeLabels?: Array<models.ItemsTypeLogLabels$Outbound> | undefined;
   severityExpression?: string | undefined;
   insertIdExpression?: string | undefined;
-  googleAuthMethod: string;
+  googleAuthMethod?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   secret?: string | undefined;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  flushPeriodSec: number;
-  concurrency: number;
-  connectionTimeout: number;
-  timeoutSec: number;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  concurrency?: number | undefined;
+  connectionTimeout?: number | undefined;
+  timeoutSec?: number | undefined;
   throttleRateReqPerSec?: number | undefined;
   requestMethodExpression?: string | undefined;
   requestUrlExpression?: string | undefined;
@@ -19569,21 +19104,21 @@ export type OutputGoogleCloudLogging$Outbound = {
   traceExpression?: string | undefined;
   spanIdExpression?: string | undefined;
   traceSampledExpression?: string | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   logLocationExpression: string;
   payloadExpression?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsGoogleCloudLogging$Outbound | undefined;
 };
 
@@ -19601,8 +19136,8 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logLocationType: LogLocationType$outboundSchema,
   logNameExpression: z.string(),
-  sanitizeLogNames: z.boolean().default(false),
-  payloadFormat: PayloadFormat$outboundSchema.default("text"),
+  sanitizeLogNames: z.boolean().optional(),
+  payloadFormat: PayloadFormat$outboundSchema.optional(),
   logLabels: z.array(models.ItemsTypeLogLabels$outboundSchema).optional(),
   resourceTypeExpression: z.string().optional(),
   resourceTypeLabels: z.array(models.ItemsTypeLogLabels$outboundSchema)
@@ -19610,15 +19145,15 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   severityExpression: z.string().optional(),
   insertIdExpression: z.string().optional(),
   googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
-    .default("manual"),
+    .optional(),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  flushPeriodSec: z.number().default(1),
-  concurrency: z.number().default(5),
-  connectionTimeout: z.number().default(10000),
-  timeoutSec: z.number().default(30),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  concurrency: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  timeoutSec: z.number().optional(),
   throttleRateReqPerSec: z.number().int().optional(),
   requestMethodExpression: z.string().optional(),
   requestUrlExpression: z.string().optional(),
@@ -19648,25 +19183,21 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   traceExpression: z.string().optional(),
   spanIdExpression: z.string().optional(),
   traceSampledExpression: z.string().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   logLocationExpression: z.string(),
   payloadExpression: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsGoogleCloudLogging$outboundSchema)
     .optional(),
 });
@@ -19697,51 +19228,51 @@ export type OutputGoogleCloudStorage$Outbound = {
   bucket: string;
   region: string;
   endpoint: string;
-  signatureVersion: string;
-  awsAuthenticationMethod: string;
+  signatureVersion?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
   stagePath: string;
-  destPath: string;
-  verifyPermissions: boolean;
-  objectACL: string;
+  destPath?: string | undefined;
+  verifyPermissions?: boolean | undefined;
+  objectACL?: string | undefined;
   storageClass?: string | undefined;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  addIdToStagePath: boolean;
-  removeEmptyDirs: boolean;
-  partitionExpr: string;
-  format: string;
-  baseFileName: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
   description?: string | undefined;
-  compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
   parquetSchema?: string | undefined;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
     | Array<models.ItemsTypeKeyValueMetadata$Outbound>
     | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
   awsApiKey?: string | undefined;
   awsSecretKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -19761,67 +19292,54 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   bucket: z.string(),
   region: z.string(),
-  endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: models.SignatureVersionOptions4$outboundSchema.default(
-    "v4",
-  ),
+  endpoint: z.string(),
+  signatureVersion: models.SignatureVersionOptions4$outboundSchema.optional(),
   awsAuthenticationMethod: AuthenticationMethodGoogleCloudStorage$outboundSchema
-    .default("manual"),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  destPath: z.string().default(""),
-  verifyPermissions: z.boolean().default(true),
-  objectACL: models.ObjectAclOptions1$outboundSchema.default("private"),
+    .optional(),
+  stagePath: z.string(),
+  destPath: z.string().optional(),
+  verifyPermissions: z.boolean().optional(),
+  objectACL: models.ObjectAclOptions1$outboundSchema.optional(),
   storageClass: models.StorageClassOptions1$outboundSchema.optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: models.DataFormatOptions$outboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .default("block"),
-  forceCloseOnShutdown: z.boolean().default(false),
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
   description: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -19877,30 +19395,6 @@ export function extraLogTypeToJSON(extraLogType: ExtraLogType): string {
 }
 
 /** @internal */
-export type CustomLabelGoogleChronicle$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const CustomLabelGoogleChronicle$outboundSchema: z.ZodType<
-  CustomLabelGoogleChronicle$Outbound,
-  z.ZodTypeDef,
-  CustomLabelGoogleChronicle
-> = z.object({
-  key: z.string(),
-  value: z.string(),
-});
-
-export function customLabelGoogleChronicleToJSON(
-  customLabelGoogleChronicle: CustomLabelGoogleChronicle,
-): string {
-  return JSON.stringify(
-    CustomLabelGoogleChronicle$outboundSchema.parse(customLabelGoogleChronicle),
-  );
-}
-
-/** @internal */
 export const UDMType$outboundSchema: z.ZodType<string, z.ZodTypeDef, UDMType> =
   openEnums.outboundSchema(UDMType);
 
@@ -19930,29 +19424,29 @@ export type OutputGoogleChronicle$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  apiVersion: string;
-  authenticationMethod: string;
+  apiVersion?: string | undefined;
+  authenticationMethod?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
+  responseHonorRetryAfterHeader?: boolean | undefined;
   logFormatType: string;
   region?: string | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  useRoundRobinDns: boolean;
-  onBackpressure: string;
+  useRoundRobinDns?: boolean | undefined;
+  onBackpressure?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   extraLogTypes?: Array<ExtraLogType$Outbound> | undefined;
@@ -19960,22 +19454,22 @@ export type OutputGoogleChronicle$Outbound = {
   logTextField?: string | undefined;
   customerId?: string | undefined;
   namespace?: string | undefined;
-  customLabels?: Array<CustomLabelGoogleChronicle$Outbound> | undefined;
-  udmType: string;
+  customLabels?: Array<models.ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  udmType?: string | undefined;
   apiKey?: string | undefined;
   apiKeySecret?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   serviceAccountCredentialsSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsGoogleChronicle$Outbound | undefined;
 };
 
@@ -19991,33 +19485,31 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  apiVersion: CreateOutputAPIVersion$outboundSchema.default("v1"),
+  apiVersion: CreateOutputAPIVersion$outboundSchema.optional(),
   authenticationMethod: AuthenticationMethodGoogleChronicle$outboundSchema
-    .default("serviceAccount"),
+    .optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
-  logFormatType: SendEventsAs$outboundSchema.default("unstructured"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  logFormatType: SendEventsAs$outboundSchema,
   region: z.string().optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(1024),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(90),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  useRoundRobinDns: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   extraLogTypes: z.array(z.lazy(() => ExtraLogType$outboundSchema)).optional(),
@@ -20025,25 +19517,23 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   logTextField: z.string().optional(),
   customerId: z.string().optional(),
   namespace: z.string().optional(),
-  customLabels: z.array(z.lazy(() => CustomLabelGoogleChronicle$outboundSchema))
+  customLabels: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  udmType: UDMType$outboundSchema.default("logs"),
+  udmType: UDMType$outboundSchema.optional(),
   apiKey: z.string().optional(),
   apiKeySecret: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   serviceAccountCredentialsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsGoogleChronicle$outboundSchema).optional(),
 });
 
@@ -20083,33 +19573,33 @@ export type OutputAzureEventhub$Outbound = {
   streamtags?: Array<string> | undefined;
   brokers: Array<string>;
   topic: string;
-  ack: number;
-  format: string;
-  maxRecordSizeKB: number;
-  flushEventCount: number;
-  flushPeriodSec: number;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  maxBackOff: number;
-  initialBackoff: number;
-  backoffRate: number;
-  authenticationTimeout: number;
-  reauthenticationThreshold: number;
+  ack?: number | undefined;
+  format?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
   sasl?: models.AuthenticationType1$Outbound | undefined;
   tls?: models.TlsSettingsClientSideType$Outbound | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsAzureEventhub$Outbound | undefined;
 };
 
@@ -20127,37 +19617,33 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: models.AcknowledgmentsOptions$outboundSchema.default(1),
-  format: models.RecordDataFormatOptions$outboundSchema.default("json"),
-  maxRecordSizeKB: z.number().default(768),
-  flushEventCount: z.number().default(1000),
-  flushPeriodSec: z.number().default(1),
-  connectionTimeout: z.number().default(10000),
-  requestTimeout: z.number().default(60000),
-  maxRetries: z.number().default(5),
-  maxBackOff: z.number().default(30000),
-  initialBackoff: z.number().default(300),
-  backoffRate: z.number().default(2),
-  authenticationTimeout: z.number().default(10000),
-  reauthenticationThreshold: z.number().default(10000),
+  ack: models.AcknowledgmentsOptions$outboundSchema.optional(),
+  format: models.RecordDataFormatOptions$outboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
   sasl: models.AuthenticationType1$outboundSchema.optional(),
   tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsAzureEventhub$outboundSchema).optional(),
 });
 
@@ -20196,37 +19682,37 @@ export type OutputHoneycomb$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   dataset: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
-  authType: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsHoneycomb$Outbound | undefined;
   team?: string | undefined;
   textSecret?: string | undefined;
@@ -20245,44 +19731,38 @@ export const OutputHoneycomb$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   dataset: z.string(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  authType: models.AuthenticationMethodOptions2$outboundSchema.default(
-    "manual",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsHoneycomb$outboundSchema).optional(),
   team: z.string().optional(),
   textSecret: z.string().optional(),
@@ -20328,38 +19808,38 @@ export type OutputKinesis$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   streamName: string;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region: string;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  concurrency: number;
-  maxRecordSizeKB: number;
-  flushPeriodSec: number;
-  compression: string;
-  useListShards: boolean;
-  asNdjson: boolean;
-  onBackpressure: string;
+  durationSeconds?: number | undefined;
+  concurrency?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  compression?: string | undefined;
+  useListShards?: boolean | undefined;
+  asNdjson?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  maxEventsPerFlush: number;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  maxEventsPerFlush?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsKinesis$Outbound | undefined;
 };
 
@@ -20376,44 +19856,38 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   streamName: z.string(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: models.SignatureVersionOptions2$outboundSchema.default(
-    "v4",
-  ),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: models.SignatureVersionOptions2$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  concurrency: z.number().default(5),
-  maxRecordSizeKB: z.number().default(1024),
-  flushPeriodSec: z.number().default(1),
-  compression: CreateOutputCompression$outboundSchema.default("gzip"),
-  useListShards: z.boolean().default(false),
-  asNdjson: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  durationSeconds: z.number().optional(),
+  concurrency: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  compression: CreateOutputCompression$outboundSchema.optional(),
+  useListShards: z.boolean().optional(),
+  asNdjson: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  maxEventsPerFlush: z.number().default(500),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  maxEventsPerFlush: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsKinesis$outboundSchema).optional(),
 });
 
@@ -20456,38 +19930,38 @@ export type OutputAzureLogs$Outbound = {
   streamtags?: Array<string> | undefined;
   logType: string;
   resourceId?: string | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
   compress?: boolean | undefined;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  apiUrl: string;
+  apiUrl?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
-  authType: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsAzureLogs$Outbound | undefined;
   workspaceId?: string | undefined;
   workspaceKey?: string | undefined;
@@ -20506,45 +19980,41 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  logType: z.string().default("Cribl"),
+  logType: z.string(),
   resourceId: z.string().optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(1024),
-  maxPayloadEvents: z.number().default(0),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
   compress: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  apiUrl: z.string().default(".ods.opinsights.azure.com"),
+  apiUrl: z.string().optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  authType: AuthenticationMethodAzureLogs$outboundSchema.default("manual"),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: AuthenticationMethodAzureLogs$outboundSchema.optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsAzureLogs$outboundSchema).optional(),
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
@@ -20707,8 +20177,8 @@ export type OutputAzureDataExplorer$Outbound = {
   clusterUrl: string;
   database: string;
   table: string;
-  validateDatabaseSettings: boolean;
-  ingestMode: string;
+  validateDatabaseSettings?: boolean | undefined;
+  ingestMode?: string | undefined;
   oauthEndpoint: string;
   tenantId: string;
   clientId: string;
@@ -20718,72 +20188,72 @@ export type OutputAzureDataExplorer$Outbound = {
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
   certificate?: Certificate$Outbound | undefined;
-  format: string;
+  format?: string | undefined;
   compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
   parquetSchema?: string | undefined;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
     | Array<models.ItemsTypeKeyValueMetadata$Outbound>
     | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  removeEmptyDirs: boolean;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterEnabled: boolean;
-  deadletterPath: string;
-  maxRetryNum: number;
-  isMappingObj: boolean;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterEnabled?: boolean | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+  isMappingObj?: boolean | undefined;
   mappingObj?: string | undefined;
   mappingRef?: string | undefined;
   ingestUrl?: string | undefined;
-  onBackpressure: string;
-  stagePath: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxOpenFiles: number;
-  maxConcurrentFileParts: number;
-  onDiskFullBackpressure: string;
-  addIdToStagePath: boolean;
-  timeoutSec: number;
-  flushImmediately: boolean;
-  retainBlobOnSuccess: boolean;
+  onBackpressure?: string | undefined;
+  stagePath?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  addIdToStagePath?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushImmediately?: boolean | undefined;
+  retainBlobOnSuccess?: boolean | undefined;
   extentTags?: Array<ExtentTag$Outbound> | undefined;
   ingestIfNotExists?: Array<IngestIfNotExist$Outbound> | undefined;
-  reportLevel: string;
-  reportMethod: string;
+  reportLevel?: string | undefined;
+  reportMethod?: string | undefined;
   additionalProperties?: Array<AdditionalProperty$Outbound> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  flushPeriodSec: number;
-  rejectUnauthorized: boolean;
-  useRoundRobinDns: boolean;
-  keepAlive: boolean;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  keepAlive?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsAzureDataExplorer$Outbound | undefined;
 };
 
@@ -20802,76 +20272,63 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   clusterUrl: z.string(),
   database: z.string(),
   table: z.string(),
-  validateDatabaseSettings: z.boolean().default(true),
-  ingestMode: IngestionMode$outboundSchema.default("batching"),
-  oauthEndpoint: models
-    .MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema.default(
-      "https://login.microsoftonline.com",
-    ),
+  validateDatabaseSettings: z.boolean().optional(),
+  ingestMode: IngestionMode$outboundSchema.optional(),
+  oauthEndpoint:
+    models.MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema,
   tenantId: z.string(),
   clientId: z.string(),
   scope: z.string(),
-  oauthType: OauthTypeAuthenticationMethod$outboundSchema.default(
-    "clientSecret",
-  ),
+  oauthType: OauthTypeAuthenticationMethod$outboundSchema,
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
   certificate: z.lazy(() => Certificate$outboundSchema).optional(),
-  format: models.DataFormatOptions$outboundSchema.default("json"),
-  compress: models.CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  compress: models.CompressionOptions2$outboundSchema,
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  removeEmptyDirs: z.boolean().default(true),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterEnabled: z.boolean().default(false),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
-  isMappingObj: z.boolean().default(false),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterEnabled: z.boolean().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+  isMappingObj: z.boolean().optional(),
   mappingObj: z.string().optional(),
   mappingRef: z.string().optional(),
   ingestUrl: z.string().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  maxConcurrentFileParts: z.number().default(1),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  stagePath: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .default("block"),
-  addIdToStagePath: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushImmediately: z.boolean().default(false),
-  retainBlobOnSuccess: z.boolean().default(false),
+    .optional(),
+  addIdToStagePath: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushImmediately: z.boolean().optional(),
+  retainBlobOnSuccess: z.boolean().optional(),
   extentTags: z.array(z.lazy(() => ExtentTag$outboundSchema)).optional(),
   ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist$outboundSchema))
     .optional(),
-  reportLevel: ReportLevel$outboundSchema.default("failuresOnly"),
-  reportMethod: ReportMethod$outboundSchema.default("queue"),
+  reportLevel: ReportLevel$outboundSchema.optional(),
+  reportMethod: ReportMethod$outboundSchema.optional(),
   additionalProperties: z.array(z.lazy(() => AdditionalProperty$outboundSchema))
     .optional(),
   responseRetrySettings: z.array(
@@ -20879,26 +20336,24 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  flushPeriodSec: z.number().default(1),
-  rejectUnauthorized: z.boolean().default(true),
-  useRoundRobinDns: z.boolean().default(false),
-  keepAlive: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  keepAlive: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsAzureDataExplorer$outboundSchema)
     .optional(),
 });
@@ -20927,48 +20382,48 @@ export type OutputAzureBlob$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   containerName: string;
-  createContainer: boolean;
+  createContainer?: boolean | undefined;
   destPath?: string | undefined;
   stagePath: string;
-  addIdToStagePath: boolean;
-  maxConcurrentFileParts: number;
-  removeEmptyDirs: boolean;
-  partitionExpr: string;
-  format: string;
-  baseFileName: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
-  authType: string;
-  storageClass: string;
+  addIdToStagePath?: boolean | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  authType?: string | undefined;
+  storageClass?: string | undefined;
   description?: string | undefined;
-  compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
   parquetSchema?: string | undefined;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
     | Array<models.ItemsTypeKeyValueMetadata$Outbound>
     | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
   connectionString?: string | undefined;
   textSecret?: string | undefined;
   storageAccountName?: string | undefined;
@@ -20995,60 +20450,49 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   containerName: z.string(),
-  createContainer: z.boolean().default(false),
+  createContainer: z.boolean().optional(),
   destPath: z.string().optional(),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
-  maxConcurrentFileParts: z.number().default(1),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: models.DataFormatOptions$outboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .default("block"),
-  forceCloseOnShutdown: z.boolean().default(false),
-  authType: models.AuthenticationMethodOptions$outboundSchema.default("manual"),
-  storageClass: BlobAccessTier$outboundSchema.default("Inferred"),
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  authType: models.AuthenticationMethodOptions$outboundSchema.optional(),
+  storageClass: BlobAccessTier$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
   storageAccountName: z.string().optional(),
@@ -21078,62 +20522,62 @@ export type OutputS3$Outbound = {
   bucket: string;
   region?: string | undefined;
   awsSecretKey?: string | undefined;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
+  durationSeconds?: number | undefined;
   stagePath: string;
-  addIdToStagePath: boolean;
-  destPath: string;
-  objectACL: string;
+  addIdToStagePath?: boolean | undefined;
+  destPath?: string | undefined;
+  objectACL?: string | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
   kmsKeyId?: string | undefined;
-  removeEmptyDirs: boolean;
-  partitionExpr: string;
-  format: string;
-  baseFileName: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxConcurrentFileParts: number;
-  verifyPermissions: boolean;
-  maxClosingFilesToBackpressure: number;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
   parquetSchema?: string | undefined;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
     | Array<models.ItemsTypeKeyValueMetadata$Outbound>
     | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -21151,76 +20595,65 @@ export const OutputS3$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string().optional(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: z.string().default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
   signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
-    .default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
-  destPath: z.string().default(""),
-  objectACL: models.ObjectAclOptions$outboundSchema.default("private"),
+  durationSeconds: z.number().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  destPath: z.string().optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
   storageClass: models.StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption: models
     .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
   kmsKeyId: z.string().optional(),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: models.DataFormatOptions$outboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .default("block"),
-  forceCloseOnShutdown: z.boolean().default(false),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxConcurrentFileParts: z.number().default(4),
-  verifyPermissions: z.boolean().default(true),
-  maxClosingFilesToBackpressure: z.number().default(100),
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputS3ToJSON(outputS3: OutputS3): string {
@@ -21237,42 +20670,42 @@ export type OutputFilesystem$Outbound = {
   streamtags?: Array<string> | undefined;
   destPath: string;
   stagePath?: string | undefined;
-  addIdToStagePath: boolean;
-  removeEmptyDirs: boolean;
-  partitionExpr: string;
-  format: string;
-  baseFileName: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
   description?: string | undefined;
-  compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
   parquetSchema?: string | undefined;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
   keyValueMetadata?:
     | Array<models.ItemsTypeKeyValueMetadata$Outbound>
     | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -21289,54 +20722,43 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   destPath: z.string(),
   stagePath: z.string().optional(),
-  addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: models.DataFormatOptions$outboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
-    .default("block"),
-  forceCloseOnShutdown: z.boolean().default(false),
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
   description: z.string().optional(),
-  compress: models.CompressionOptions2$outboundSchema.default("gzip"),
-  compressionLevel: models.CompressionLevelOptions$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: models.ParquetVersionOptions$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputFilesystemToJSON(
@@ -21373,40 +20795,40 @@ export type OutputSignalfx$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  authType: string;
+  authType?: string | undefined;
   realm: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSignalfx$Outbound | undefined;
 };
 
@@ -21423,45 +20845,41 @@ export const OutputSignalfx$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
-  realm: z.string().default("us0"),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+    .optional(),
+  realm: z.string(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSignalfx$outboundSchema).optional(),
 });
 
@@ -21495,40 +20913,40 @@ export type OutputWavefront$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  authType: string;
+  authType?: string | undefined;
   domain: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsWavefront$Outbound | undefined;
 };
 
@@ -21545,45 +20963,41 @@ export const OutputWavefront$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
-  domain: z.string().default("longboard"),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+    .optional(),
+  domain: z.string(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsWavefront$outboundSchema).optional(),
 });
 
@@ -21619,39 +21033,39 @@ export type OutputTcpjson$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
-  compression: string;
-  logFailedRequests: boolean;
-  throttleRatePerSec: string;
+  loadBalanced?: boolean | undefined;
+  compression?: string | undefined;
+  logFailedRequests?: boolean | undefined;
+  throttleRatePerSec?: string | undefined;
   tls?:
     | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
     | undefined;
-  connectionTimeout: number;
-  writeTimeout: number;
-  tokenTTLMinutes: number;
-  sendHeader: boolean;
-  onBackpressure: string;
-  authType: string;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  tokenTTLMinutes?: number | undefined;
+  sendHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
   host?: string | undefined;
   port?: number | undefined;
-  excludeSelf: boolean;
+  excludeSelf?: boolean | undefined;
   hosts?: Array<models.ItemsTypeHosts$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
-  maxConcurrentSenders: number;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  maxConcurrentSenders?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsTcpjson$Outbound | undefined;
-  authToken: string;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -21667,43 +21081,39 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(true),
-  compression: models.CompressionOptions1$outboundSchema.default("gzip"),
-  logFailedRequests: z.boolean().default(false),
-  throttleRatePerSec: z.string().default("0"),
+  loadBalanced: z.boolean().optional(),
+  compression: models.CompressionOptions1$outboundSchema.optional(),
+  logFailedRequests: z.boolean().optional(),
+  throttleRatePerSec: z.string().optional(),
   tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
     .optional(),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
-  tokenTTLMinutes: z.number().default(60),
-  sendHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  tokenTTLMinutes: z.number().optional(),
+  sendHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+    .optional(),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
-  excludeSelf: z.boolean().default(false),
+  excludeSelf: z.boolean().optional(),
   hosts: z.array(models.ItemsTypeHosts$outboundSchema).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsTcpjson$outboundSchema).optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
@@ -21714,7 +21124,7 @@ export function outputTcpjsonToJSON(outputTcpjson: OutputTcpjson): string {
 /** @internal */
 export type UrlWizHec$Outbound = {
   url: string;
-  weight: number;
+  weight?: number | undefined;
 };
 
 /** @internal */
@@ -21723,8 +21133,8 @@ export const UrlWizHec$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UrlWizHec
 > = z.object({
-  url: z.string().default("http://localhost:8088/services/collector/event"),
-  weight: z.number().default(1),
+  url: z.string(),
+  weight: z.number().optional(),
 });
 
 export function urlWizHecToJSON(urlWizHec: UrlWizHec): string {
@@ -21739,37 +21149,37 @@ export type OutputWizHec$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
-  nextQueue: string;
-  tcpRouting: string;
-  tls?: models.TlsSettingsClientSideType2$Outbound | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  loadBalanced?: boolean | undefined;
+  nextQueue?: string | undefined;
+  tcpRouting?: string | undefined;
+  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  enableMultiMetrics: boolean;
-  authType: string;
+  enableMultiMetrics?: boolean | undefined;
+  authType?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  url: string;
-  useRoundRobinDns: boolean;
-  excludeSelf: boolean;
+  url?: string | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
   urls?: Array<UrlWizHec$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
 };
@@ -21786,41 +21196,39 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(true),
-  nextQueue: z.string().default("indexQueue"),
-  tcpRouting: z.string().default("nowhere"),
-  tls: models.TlsSettingsClientSideType2$outboundSchema.optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  loadBalanced: z.boolean().optional(),
+  nextQueue: z.string().optional(),
+  tcpRouting: z.string().optional(),
+  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  enableMultiMetrics: z.boolean().default(false),
+  enableMultiMetrics: z.boolean().optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+    .optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  url: z.string().default("http://localhost:8088/services/collector/event"),
-  useRoundRobinDns: z.boolean().default(false),
-  excludeSelf: z.boolean().default(false),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => UrlWizHec$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
 });
@@ -21832,7 +21240,7 @@ export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {
 /** @internal */
 export type UrlSplunkHec$Outbound = {
   url: string;
-  weight: number;
+  weight?: number | undefined;
 };
 
 /** @internal */
@@ -21841,8 +21249,8 @@ export const UrlSplunkHec$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   UrlSplunkHec
 > = z.object({
-  url: z.string().default("http://localhost:8088/services/collector/event"),
-  weight: z.number().default(1),
+  url: z.string(),
+  weight: z.number().optional(),
 });
 
 export function urlSplunkHecToJSON(urlSplunkHec: UrlSplunkHec): string {
@@ -21875,49 +21283,49 @@ export type OutputSplunkHec$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
-  nextQueue: string;
-  tcpRouting: string;
-  tls?: models.TlsSettingsClientSideType2$Outbound | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  loadBalanced?: boolean | undefined;
+  nextQueue?: string | undefined;
+  tcpRouting?: string | undefined;
+  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  failedRequestLoggingMode: string;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  enableMultiMetrics: boolean;
-  authType: string;
+  enableMultiMetrics?: boolean | undefined;
+  authType?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  url: string;
-  useRoundRobinDns: boolean;
-  excludeSelf: boolean;
+  url?: string | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
   urls?: Array<UrlSplunkHec$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSplunkHec$Outbound | undefined;
 };
 
@@ -21933,55 +21341,51 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(true),
-  nextQueue: z.string().default("indexQueue"),
-  tcpRouting: z.string().default("nowhere"),
-  tls: models.TlsSettingsClientSideType2$outboundSchema.optional(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  loadBalanced: z.boolean().optional(),
+  nextQueue: z.string().optional(),
+  tcpRouting: z.string().optional(),
+  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  enableMultiMetrics: z.boolean().default(false),
+  enableMultiMetrics: z.boolean().optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+    .optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  url: z.string().default("http://localhost:8088/services/collector/event"),
-  useRoundRobinDns: z.boolean().default(false),
-  excludeSelf: z.boolean().default(false),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => UrlSplunkHec$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSplunkHec$outboundSchema).optional(),
 });
 
@@ -21993,8 +21397,8 @@ export function outputSplunkHecToJSON(
 
 /** @internal */
 export type CreateOutputAuthToken$Outbound = {
-  authType: string;
-  authToken: string;
+  authType?: string | undefined;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -22005,8 +21409,8 @@ export const CreateOutputAuthToken$outboundSchema: z.ZodType<
   CreateOutputAuthToken
 > = z.object({
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
-  authToken: z.string().default(""),
+    .optional(),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
@@ -22023,10 +21427,10 @@ export type IndexerDiscoveryConfigs$Outbound = {
   site: string;
   masterUri: string;
   refreshIntervalSec: number;
-  rejectUnauthorized: boolean;
+  rejectUnauthorized?: boolean | undefined;
   authTokens?: Array<CreateOutputAuthToken$Outbound> | undefined;
-  authType: string;
-  authToken: string;
+  authType?: string | undefined;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -22036,15 +21440,15 @@ export const IndexerDiscoveryConfigs$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   IndexerDiscoveryConfigs
 > = z.object({
-  site: z.string().default("default"),
+  site: z.string(),
   masterUri: z.string(),
-  refreshIntervalSec: z.number().default(300),
-  rejectUnauthorized: z.boolean().default(false),
+  refreshIntervalSec: z.number(),
+  rejectUnauthorized: z.boolean().optional(),
   authTokens: z.array(z.lazy(() => CreateOutputAuthToken$outboundSchema))
     .optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
-  authToken: z.string().default(""),
+    .optional(),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
@@ -22054,32 +21458,6 @@ export function indexerDiscoveryConfigsToJSON(
   return JSON.stringify(
     IndexerDiscoveryConfigs$outboundSchema.parse(indexerDiscoveryConfigs),
   );
-}
-
-/** @internal */
-export type HostSplunkLb$Outbound = {
-  host: string;
-  port: number;
-  tls: string;
-  servername?: string | undefined;
-  weight: number;
-};
-
-/** @internal */
-export const HostSplunkLb$outboundSchema: z.ZodType<
-  HostSplunkLb$Outbound,
-  z.ZodTypeDef,
-  HostSplunkLb
-> = z.object({
-  host: z.string(),
-  port: z.number().default(9997),
-  tls: models.TlsOptionsHostsItems$outboundSchema.default("inherit"),
-  servername: z.string().optional(),
-  weight: z.number().default(1),
-});
-
-export function hostSplunkLbToJSON(hostSplunkLb: HostSplunkLb): string {
-  return JSON.stringify(HostSplunkLb$outboundSchema.parse(hostSplunkLb));
 }
 
 /** @internal */
@@ -22108,42 +21486,42 @@ export type OutputSplunkLb$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
-  maxConcurrentSenders: number;
-  nestedFields: string;
-  throttleRatePerSec: string;
-  connectionTimeout: number;
-  writeTimeout: number;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  maxConcurrentSenders?: number | undefined;
+  nestedFields?: string | undefined;
+  throttleRatePerSec?: string | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
   tls?:
     | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
     | undefined;
-  enableMultiMetrics: boolean;
-  enableACK: boolean;
-  logFailedRequests: boolean;
-  maxS2Sversion: string;
-  onBackpressure: string;
-  indexerDiscovery: boolean;
-  senderUnhealthyTimeAllowance: number;
-  authType: string;
+  enableMultiMetrics?: boolean | undefined;
+  enableACK?: boolean | undefined;
+  logFailedRequests?: boolean | undefined;
+  maxS2Sversion?: string | undefined;
+  onBackpressure?: string | undefined;
+  indexerDiscovery?: boolean | undefined;
+  senderUnhealthyTimeAllowance?: number | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
-  maxFailedHealthChecks: number;
-  compress: string;
+  maxFailedHealthChecks?: number | undefined;
+  compress?: string | undefined;
   indexerDiscoveryConfigs?: IndexerDiscoveryConfigs$Outbound | undefined;
-  excludeSelf: boolean;
-  hosts: Array<HostSplunkLb$Outbound>;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  excludeSelf?: boolean | undefined;
+  hosts: Array<models.ItemsTypeHosts$Outbound>;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSplunkLb$Outbound | undefined;
-  authToken: string;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -22159,49 +21537,44 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  nestedFields: models.NestedFieldSerializationOptions$outboundSchema.default(
-    "none",
-  ),
-  throttleRatePerSec: z.string().default("0"),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  nestedFields: models.NestedFieldSerializationOptions$outboundSchema
+    .optional(),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
   tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
     .optional(),
-  enableMultiMetrics: z.boolean().default(false),
-  enableACK: z.boolean().default(true),
-  logFailedRequests: z.boolean().default(false),
-  maxS2Sversion: models.MaxS2SVersionOptions$outboundSchema.default("v3"),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  indexerDiscovery: z.boolean().default(false),
-  senderUnhealthyTimeAllowance: z.number().default(100),
+  enableMultiMetrics: z.boolean().optional(),
+  enableACK: z.boolean().optional(),
+  logFailedRequests: z.boolean().optional(),
+  maxS2Sversion: models.MaxS2SVersionOptions$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  indexerDiscovery: z.boolean().optional(),
+  senderUnhealthyTimeAllowance: z.number().optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+    .optional(),
   description: z.string().optional(),
-  maxFailedHealthChecks: z.number().default(1),
-  compress: models.CompressionOptions$outboundSchema.default("disabled"),
+  maxFailedHealthChecks: z.number().optional(),
+  compress: models.CompressionOptions$outboundSchema.optional(),
   indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs$outboundSchema)
     .optional(),
-  excludeSelf: z.boolean().default(false),
-  hosts: z.array(z.lazy(() => HostSplunkLb$outboundSchema)),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  excludeSelf: z.boolean().optional(),
+  hosts: z.array(models.ItemsTypeHosts$outboundSchema),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSplunkLb$outboundSchema).optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
@@ -22237,34 +21610,34 @@ export type OutputSplunk$Outbound = {
   streamtags?: Array<string> | undefined;
   host: string;
   port: number;
-  nestedFields: string;
-  throttleRatePerSec: string;
-  connectionTimeout: number;
-  writeTimeout: number;
+  nestedFields?: string | undefined;
+  throttleRatePerSec?: string | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
   tls?:
     | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
     | undefined;
-  enableMultiMetrics: boolean;
-  enableACK: boolean;
-  logFailedRequests: boolean;
-  maxS2Sversion: string;
-  onBackpressure: string;
-  authType: string;
+  enableMultiMetrics?: boolean | undefined;
+  enableACK?: boolean | undefined;
+  logFailedRequests?: boolean | undefined;
+  maxS2Sversion?: string | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
-  maxFailedHealthChecks: number;
-  compress: string;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  maxFailedHealthChecks?: number | undefined;
+  compress?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSplunk$Outbound | undefined;
-  authToken: string;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -22281,41 +21654,36 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   host: z.string(),
-  port: z.number().default(9997),
-  nestedFields: models.NestedFieldSerializationOptions$outboundSchema.default(
-    "none",
-  ),
-  throttleRatePerSec: z.string().default("0"),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
+  port: z.number(),
+  nestedFields: models.NestedFieldSerializationOptions$outboundSchema
+    .optional(),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
   tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
     .optional(),
-  enableMultiMetrics: z.boolean().default(false),
-  enableACK: z.boolean().default(true),
-  logFailedRequests: z.boolean().default(false),
-  maxS2Sversion: models.MaxS2SVersionOptions$outboundSchema.default("v3"),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  enableMultiMetrics: z.boolean().optional(),
+  enableACK: z.boolean().optional(),
+  logFailedRequests: z.boolean().optional(),
+  maxS2Sversion: models.MaxS2SVersionOptions$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
-    .default("manual"),
+    .optional(),
   description: z.string().optional(),
-  maxFailedHealthChecks: z.number().default(1),
-  compress: models.CompressionOptions$outboundSchema.default("disabled"),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  maxFailedHealthChecks: z.number().optional(),
+  compress: models.CompressionOptions$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSplunk$outboundSchema).optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
@@ -22384,43 +21752,43 @@ export type OutputSyslog$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  protocol: string;
-  facility: number;
-  severity: number;
-  appName: string;
-  messageFormat: string;
-  timestampFormat: string;
-  throttleRatePerSec: string;
+  protocol?: string | undefined;
+  facility?: number | undefined;
+  severity?: number | undefined;
+  appName?: string | undefined;
+  messageFormat?: string | undefined;
+  timestampFormat?: string | undefined;
+  throttleRatePerSec?: string | undefined;
   octetCountFraming?: boolean | undefined;
-  logFailedRequests: boolean;
+  logFailedRequests?: boolean | undefined;
   description?: string | undefined;
-  loadBalanced: boolean;
+  loadBalanced?: boolean | undefined;
   host?: string | undefined;
   port?: number | undefined;
-  excludeSelf: boolean;
+  excludeSelf?: boolean | undefined;
   hosts?: Array<models.ItemsTypeHosts$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
-  maxConcurrentSenders: number;
-  connectionTimeout: number;
-  writeTimeout: number;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  maxConcurrentSenders?: number | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
   tls?:
     | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
     | undefined;
-  onBackpressure: string;
-  maxRecordSize: number;
-  udpDnsResolvePeriodSec: number;
-  enableIpSpoofing: boolean;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  onBackpressure?: string | undefined;
+  maxRecordSize?: number | undefined;
+  udpDnsResolvePeriodSec?: number | undefined;
+  enableIpSpoofing?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSyslog$Outbound | undefined;
 };
 
@@ -22436,46 +21804,42 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: ProtocolSyslog$outboundSchema.default("tcp"),
-  facility: Facility$outboundSchema.default(1),
-  severity: SeveritySyslog$outboundSchema.default(5),
-  appName: z.string().default("Cribl"),
-  messageFormat: MessageFormat$outboundSchema.default("rfc3164"),
-  timestampFormat: TimestampFormat$outboundSchema.default("syslog"),
-  throttleRatePerSec: z.string().default("0"),
+  protocol: ProtocolSyslog$outboundSchema.optional(),
+  facility: Facility$outboundSchema.optional(),
+  severity: SeveritySyslog$outboundSchema.optional(),
+  appName: z.string().optional(),
+  messageFormat: MessageFormat$outboundSchema.optional(),
+  timestampFormat: TimestampFormat$outboundSchema.optional(),
+  throttleRatePerSec: z.string().optional(),
   octetCountFraming: z.boolean().optional(),
-  logFailedRequests: z.boolean().default(false),
+  logFailedRequests: z.boolean().optional(),
   description: z.string().optional(),
-  loadBalanced: z.boolean().default(true),
+  loadBalanced: z.boolean().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
-  excludeSelf: z.boolean().default(false),
+  excludeSelf: z.boolean().optional(),
   hosts: z.array(models.ItemsTypeHosts$outboundSchema).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
   tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
     .optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  maxRecordSize: z.number().default(1500),
-  udpDnsResolvePeriodSec: z.number().default(0),
-  enableIpSpoofing: z.boolean().default(false),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  maxRecordSize: z.number().optional(),
+  udpDnsResolvePeriodSec: z.number().optional(),
+  enableIpSpoofing: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSyslog$outboundSchema).optional(),
 });
 
@@ -22558,53 +21922,53 @@ export type OutputSentinel$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  keepAlive: boolean;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  keepAlive?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   authType?: string | undefined;
   loginUrl: string;
   secret: string;
   client_id: string;
-  scope: string;
+  scope?: string | undefined;
   endpointURLConfiguration: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   format?: string | undefined;
-  customSourceExpression: string;
-  customDropWhenNull: boolean;
-  customEventDelimiter: string;
-  customContentType: string;
-  customPayloadExpression: string;
-  advancedContentType: string;
+  customSourceExpression?: string | undefined;
+  customDropWhenNull?: boolean | undefined;
+  customEventDelimiter?: string | undefined;
+  customContentType?: string | undefined;
+  customPayloadExpression?: string | undefined;
+  advancedContentType?: string | undefined;
   formatEventCode?: string | undefined;
   formatPayloadCode?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSentinel$Outbound | undefined;
   url?: string | undefined;
   dcrID?: string | undefined;
@@ -22624,58 +21988,54 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  keepAlive: z.boolean().default(true),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(1000),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  keepAlive: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   authType: AuthType$outboundSchema.optional(),
   loginUrl: z.string(),
   secret: z.string(),
   client_id: z.string(),
-  scope: z.string().default("https://monitor.azure.com/.default"),
-  endpointURLConfiguration: EndpointConfiguration$outboundSchema.default("url"),
+  scope: z.string().optional(),
+  endpointURLConfiguration: EndpointConfiguration$outboundSchema,
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   format: FormatSentinel$outboundSchema.optional(),
-  customSourceExpression: z.string().default("__httpOut"),
-  customDropWhenNull: z.boolean().default(false),
-  customEventDelimiter: z.string().default("\\n"),
-  customContentType: z.string().default("application/x-ndjson"),
-  customPayloadExpression: z.string().default("`${events}`"),
-  advancedContentType: z.string().default("application/json"),
+  customSourceExpression: z.string().optional(),
+  customDropWhenNull: z.boolean().optional(),
+  customEventDelimiter: z.string().optional(),
+  customContentType: z.string().optional(),
+  customPayloadExpression: z.string().optional(),
+  advancedContentType: z.string().optional(),
   formatEventCode: z.string().optional(),
   formatPayloadCode: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSentinel$outboundSchema).optional(),
   url: z.string().optional(),
   dcrID: z.string().optional(),
@@ -22722,7 +22082,7 @@ export function pqControlsWebhookToJSON(
 /** @internal */
 export type UrlWebhook$Outbound = {
   url: string;
-  weight: number;
+  weight?: number | undefined;
 };
 
 /** @internal */
@@ -22732,7 +22092,7 @@ export const UrlWebhook$outboundSchema: z.ZodType<
   UrlWebhook
 > = z.object({
   url: z.string(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 
 export function urlWebhookToJSON(urlWebhook: UrlWebhook): string {
@@ -22747,51 +22107,51 @@ export type OutputWebhook$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  method: string;
-  format: string;
-  keepAlive: boolean;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
+  method?: string | undefined;
+  format?: string | undefined;
+  keepAlive?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
-  authType: string;
-  tls?: models.TlsSettingsClientSideType2$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
   totalMemoryLimitKB?: number | undefined;
-  loadBalanced: boolean;
+  loadBalanced?: boolean | undefined;
   description?: string | undefined;
-  customSourceExpression: string;
-  customDropWhenNull: boolean;
-  customEventDelimiter: string;
-  customContentType: string;
-  customPayloadExpression: string;
-  advancedContentType: string;
+  customSourceExpression?: string | undefined;
+  customDropWhenNull?: boolean | undefined;
+  customEventDelimiter?: string | undefined;
+  customContentType?: string | undefined;
+  customPayloadExpression?: string | undefined;
+  advancedContentType?: string | undefined;
   formatEventCode?: string | undefined;
   formatPayloadCode?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsWebhook$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -22802,15 +22162,15 @@ export type OutputWebhook$Outbound = {
   secretParamName?: string | undefined;
   secret?: string | undefined;
   tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
   url?: string | undefined;
-  excludeSelf: boolean;
+  excludeSelf?: boolean | undefined;
   urls?: Array<UrlWebhook$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
 };
 
 /** @internal */
@@ -22825,56 +22185,52 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  method: models.MethodOptions$outboundSchema.default("POST"),
-  format: FormatWebhook$outboundSchema.default("ndjson"),
-  keepAlive: z.boolean().default(true),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
+  method: models.MethodOptions$outboundSchema.optional(),
+  format: FormatWebhook$outboundSchema.optional(),
+  keepAlive: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  useRoundRobinDns: z.boolean().default(false),
+  useRoundRobinDns: z.boolean().optional(),
   failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.default("none"),
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
-  authType: AuthenticationTypeWebhook$outboundSchema.default("none"),
-  tls: models.TlsSettingsClientSideType2$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: AuthenticationTypeWebhook$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
-  loadBalanced: z.boolean().default(false),
+  loadBalanced: z.boolean().optional(),
   description: z.string().optional(),
-  customSourceExpression: z.string().default("__httpOut"),
-  customDropWhenNull: z.boolean().default(false),
-  customEventDelimiter: z.string().default("\\n"),
-  customContentType: z.string().default("application/x-ndjson"),
-  customPayloadExpression: z.string().default("`${events}`"),
-  advancedContentType: z.string().default("application/json"),
+  customSourceExpression: z.string().optional(),
+  customDropWhenNull: z.boolean().optional(),
+  customEventDelimiter: z.string().optional(),
+  customContentType: z.string().optional(),
+  customPayloadExpression: z.string().optional(),
+  advancedContentType: z.string().optional(),
   formatEventCode: z.string().optional(),
   formatPayloadCode: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: models.ModeOptions$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsWebhook$outboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -22885,15 +22241,15 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   secretParamName: z.string().optional(),
   secret: z.string().optional(),
   tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
   url: z.string().optional(),
-  excludeSelf: z.boolean().default(false),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => UrlWebhook$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
 });
 
 export function outputWebhookToJSON(outputWebhook: OutputWebhook): string {

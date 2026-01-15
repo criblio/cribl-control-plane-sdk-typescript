@@ -33,16 +33,16 @@ export const FunctionConfSchemaFlatten$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   fields: z.array(z.string()).optional(),
-  prefix: z.string().default(""),
-  depth: z.number().default(5),
-  delimiter: z.string().default("_"),
+  prefix: z.string().optional(),
+  depth: z.number().optional(),
+  delimiter: z.string().optional(),
 });
 /** @internal */
 export type FunctionConfSchemaFlatten$Outbound = {
   fields?: Array<string> | undefined;
-  prefix: string;
-  depth: number;
-  delimiter: string;
+  prefix?: string | undefined;
+  depth?: number | undefined;
+  delimiter?: string | undefined;
 };
 
 /** @internal */
@@ -52,9 +52,9 @@ export const FunctionConfSchemaFlatten$outboundSchema: z.ZodType<
   FunctionConfSchemaFlatten
 > = z.object({
   fields: z.array(z.string()).optional(),
-  prefix: z.string().default(""),
-  depth: z.number().default(5),
-  delimiter: z.string().default("_"),
+  prefix: z.string().optional(),
+  depth: z.number().optional(),
+  delimiter: z.string().optional(),
 });
 
 export function functionConfSchemaFlattenToJSON(

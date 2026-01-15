@@ -7,6 +7,7 @@ import { OutputNetflowHost } from "cribl-control-plane/models";
 
 let value: OutputNetflowHost = {
   host: "gruesome-valentine.com",
+  port: 2777.11,
 };
 ```
 
@@ -15,4 +16,4 @@ let value: OutputNetflowHost = {
 | Field                             | Type                              | Required                          | Description                       |
 | --------------------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
 | `host`                            | *string*                          | :heavy_check_mark:                | Destination host                  |
-| `port`                            | *number*                          | :heavy_minus_sign:                | Destination port, default is 2055 |
+| `port`                            | *number*                          | :heavy_check_mark:                | Destination port, default is 2055 |

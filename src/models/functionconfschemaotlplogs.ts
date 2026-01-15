@@ -21,13 +21,13 @@ export const FunctionConfSchemaOtlpLogs$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  dropNonLogEvents: z.boolean().default(false),
-  batchOTLPLogs: z.boolean().default(false),
+  dropNonLogEvents: z.boolean().optional(),
+  batchOTLPLogs: z.boolean().optional(),
 });
 /** @internal */
 export type FunctionConfSchemaOtlpLogs$Outbound = {
-  dropNonLogEvents: boolean;
-  batchOTLPLogs: boolean;
+  dropNonLogEvents?: boolean | undefined;
+  batchOTLPLogs?: boolean | undefined;
 };
 
 /** @internal */
@@ -36,8 +36,8 @@ export const FunctionConfSchemaOtlpLogs$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   FunctionConfSchemaOtlpLogs
 > = z.object({
-  dropNonLogEvents: z.boolean().default(false),
-  batchOTLPLogs: z.boolean().default(false),
+  dropNonLogEvents: z.boolean().optional(),
+  batchOTLPLogs: z.boolean().optional(),
 });
 
 export function functionConfSchemaOtlpLogsToJSON(

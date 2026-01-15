@@ -6,6 +6,7 @@
 import { PipelineFunctionLakeExport } from "cribl-control-plane/models";
 
 let value: PipelineFunctionLakeExport = {
+  filter: "<value>",
   id: "lake_export",
   description: "retrospectivity conceal crossly bah huzzah fraternise through",
   disabled: true,
@@ -13,6 +14,9 @@ let value: PipelineFunctionLakeExport = {
   conf: {
     searchJobId: "<id>",
     dataset: "<value>",
+    lake: "<value>",
+    tee: "<value>",
+    flushMs: 4350.69,
     suppressPreviews: true,
   },
   groupId: "<id>",

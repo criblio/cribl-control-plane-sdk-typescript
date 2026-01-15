@@ -7,6 +7,7 @@ import { OutputXsiamUrl } from "cribl-control-plane/models";
 
 let value: OutputXsiamUrl = {
   url: "https://free-fedora.biz",
+  weight: 1203.18,
 };
 ```
 

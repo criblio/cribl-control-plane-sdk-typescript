@@ -6,6 +6,7 @@
 import { ItemsTypeKeyValueMetadata } from "cribl-control-plane/models";
 
 let value: ItemsTypeKeyValueMetadata = {
+  key: "<key>",
   value: "<value>",
 };
 ```
@@ -14,5 +15,5 @@ let value: ItemsTypeKeyValueMetadata = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `key`              | *string*           | :heavy_minus_sign: | N/A                |
+| `key`              | *string*           | :heavy_check_mark: | N/A                |
 | `value`            | *string*           | :heavy_check_mark: | N/A                |

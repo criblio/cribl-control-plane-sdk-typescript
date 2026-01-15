@@ -10,8 +10,11 @@ let value: S3AwsAuthenticationMethodSecret = {
   awsSecret: "<value>",
   outputName: "<value>",
   bucket: "<value>",
+  parquetChunkSizeMB: 6863.54,
+  parquetChunkDownloadTimeout: 7443,
   region: "<value>",
-  path: "/usr/X11R6",
+  path: "/proc",
+  partitioningScheme: "none",
   extractors: [
     {
       key: "<key>",
@@ -19,9 +22,17 @@ let value: S3AwsAuthenticationMethodSecret = {
     },
   ],
   endpoint: "<value>",
+  signatureVersion: "v2",
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  durationSeconds: 2574.95,
+  maxBatchSize: 9056.47,
   recurse: "<value>",
+  reuseConnections: true,
+  rejectUnauthorized: true,
+  verifyPermissions: false,
+  disableTimeFilter: false,
 };
 ```
 

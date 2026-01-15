@@ -6,9 +6,12 @@
 import { RestCollectMethodPostWithBody } from "cribl-control-plane/models";
 
 let value: RestCollectMethodPostWithBody = {
+  collectMethod: "other",
   collectBody: "<value>",
-  discovery: {},
-  collectUrl: "https://artistic-embarrassment.com",
+  discovery: {
+    discoverType: "http",
+  },
+  collectUrl: "https://ample-vol.info/",
   collectVerb: "<value>",
   collectRequestParams: "<value>",
   collectRequestHeaders: [
@@ -17,13 +20,23 @@ let value: RestCollectMethodPostWithBody = {
       value: "<value>",
     },
   ],
-  pagination: {},
+  pagination: {
+    type: "response_header",
+  },
+  authentication: "basic",
+  timeout: 8356.33,
+  useRoundRobinDns: false,
+  disableTimeFilter: false,
+  decodeUrl: true,
+  rejectUnauthorized: false,
+  captureHeaders: false,
+  stopOnEmptyResults: false,
   safeHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   retryRules: {
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -45,7 +58,7 @@ let value: RestCollectMethodPostWithBody = {
 
 | Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `collectMethod`                                                                                                                                    | [models.RestCollectMethodPostWithBodyCollectMethod](../models/restcollectmethodpostwithbodycollectmethod.md)                                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `collectMethod`                                                                                                                                    | [models.RestCollectMethodPostWithBodyCollectMethod](../models/restcollectmethodpostwithbodycollectmethod.md)                                       | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
 | `discovery`                                                                                                                                        | [models.RestCollectMethodPostWithBodyDiscovery](../models/restcollectmethodpostwithbodydiscovery.md)                                               | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
@@ -53,7 +66,7 @@ let value: RestCollectMethodPostWithBody = {
 | `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestHeaders`                                                                                                                            | [models.ItemsTypeRestCollectMethodGetCollectRequestParams](../models/itemstyperestcollectmethodgetcollectrequestparams.md)[]                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `pagination`                                                                                                                                       | [models.RestCollectMethodPostWithBodyPagination](../models/restcollectmethodpostwithbodypagination.md)                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `authentication`                                                                                                                                   | [models.RestCollectMethodPostWithBodyAuthentication](../models/restcollectmethodpostwithbodyauthentication.md)                                     | :heavy_minus_sign:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |
+| `authentication`                                                                                                                                   | [models.RestCollectMethodPostWithBodyAuthentication](../models/restcollectmethodpostwithbodyauthentication.md)                                     | :heavy_check_mark:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |
 | `timeout`                                                                                                                                          | *number*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout. Use 0 to disable.                                                                                                 |
 | `useRoundRobinDns`                                                                                                                                 | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.                                                     |
 | `disableTimeFilter`                                                                                                                                | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Disable Collector event time filtering when a date range is specified                                                                              |

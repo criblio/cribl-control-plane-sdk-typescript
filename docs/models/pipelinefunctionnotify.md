@@ -6,18 +6,23 @@
 import { PipelineFunctionNotify } from "cribl-control-plane/models";
 
 let value: PipelineFunctionNotify = {
+  filter: "<value>",
   id: "notify",
   description:
     "friendly bathhouse but preside structure reprove scarily ouch jet pip",
   disabled: false,
   final: true,
   conf: {
+    group: "<value>",
+    notificationId: "<id>",
     searchId: "<id>",
     savedQueryId: "<id>",
     trigger: "<value>",
     triggerType: "resultsCount",
     triggerComparator: ">",
-    searchUrl: "https://negligible-collaboration.biz",
+    triggerCount: 8364.23,
+    resultsLimit: 5484.73,
+    searchUrl: "https://equatorial-teammate.net/",
     message: "<value>",
     authToken: "<value>",
     messagesEndpoint: "<value>",

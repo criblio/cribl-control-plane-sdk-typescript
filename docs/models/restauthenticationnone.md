@@ -7,8 +7,11 @@ import { RestAuthenticationNone } from "cribl-control-plane/models";
 
 let value: RestAuthenticationNone = {
   authentication: "none",
-  discovery: {},
-  collectUrl: "https://elastic-hawk.org/",
+  discovery: {
+    discoverType: "json",
+  },
+  collectUrl: "https://inexperienced-unblinking.biz/",
+  collectMethod: "get",
   collectVerb: "<value>",
   collectRequestParams: "<value>",
   collectBody: "<value>",
@@ -18,11 +21,23 @@ let value: RestAuthenticationNone = {
       value: "<value>",
     },
   ],
-  pagination: {},
+  pagination: {
+    type: "none",
+  },
+  timeout: 3213.74,
+  useRoundRobinDns: false,
+  disableTimeFilter: false,
+  decodeUrl: false,
+  rejectUnauthorized: true,
+  captureHeaders: true,
+  stopOnEmptyResults: false,
   safeHeaders: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   retryRules: {
+    type: "static",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -47,7 +62,7 @@ let value: RestAuthenticationNone = {
 | `authentication`                                                                                                                                   | *"none"*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |
 | `discovery`                                                                                                                                        | [models.RestAuthenticationNoneDiscovery](../models/restauthenticationnonediscovery.md)                                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
-| `collectMethod`                                                                                                                                    | [models.RestAuthenticationNoneCollectMethod](../models/restauthenticationnonecollectmethod.md)                                                     | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `collectMethod`                                                                                                                                    | [models.RestAuthenticationNoneCollectMethod](../models/restauthenticationnonecollectmethod.md)                                                     | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |

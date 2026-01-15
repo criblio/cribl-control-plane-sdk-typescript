@@ -18,34 +18,64 @@ let value: OutputCriblTcp = {
     "<value 2>",
     "<value 3>",
   ],
+  loadBalanced: true,
+  compression: "gzip",
+  logFailedRequests: false,
+  throttleRatePerSec: "<value>",
   tls: {
+    disabled: false,
+    rejectUnauthorized: true,
     servername: "<value>",
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1.1",
   },
+  connectionTimeout: 1067.5,
+  writeTimeout: 8333.21,
+  tokenTTLMinutes: 6793.84,
   authTokens: [
     {
       tokenSecret: "<value>",
-      description: "psst whoa zowie when waterspout",
+      enabled: true,
+      description: "technician flimsy and ha",
     },
   ],
   excludeFields: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  description:
-    "inside as anaesthetise offend fearless confirm commandeer bashfully commercial citizen",
-  host: "whole-summary.com",
+  onBackpressure: "queue",
+  description: "as anaesthetise offend fearless confirm commandeer bashfully",
+  host: "early-pepper.info",
+  port: 518.54,
+  excludeSelf: true,
   hosts: [
     {
-      host: "alienated-fuel.biz",
+      host: "favorite-drive.org",
+      port: 6983.36,
+      tls: "inherit",
       servername: "<value>",
+      weight: 890.95,
     },
   ],
+  dnsResolvePeriodSec: 2314.82,
+  loadBalanceStatsPeriodSec: 1703,
+  maxConcurrentSenders: 1951.19,
+  pqStrictOrdering: true,
+  pqRatePerSec: 3148.31,
+  pqMode: "backpressure",
+  pqMaxBufferSize: 6812.39,
+  pqMaxBackpressureSec: 3707.78,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "none",
+  pqOnBackpressure: "drop",
   pqControls: {},
 };
 ```
@@ -75,7 +105,7 @@ let value: OutputCriblTcp = {
 | `host`                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The hostname of the receiver                                                                                                                                                                                                                                   |
 | `port`                                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The port to connect to on the provided host                                                                                                                                                                                                                    |
 | `excludeSelf`                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                             | Exclude all IPs of the current host from the list of any resolved hostnames                                                                                                                                                                                    |
-| `hosts`                                                                                                                                                                                                                                                        | [models.OutputCriblTcpHost](../models/outputcribltcphost.md)[]                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                             | Set of hosts to load-balance data to                                                                                                                                                                                                                           |
+| `hosts`                                                                                                                                                                                                                                                        | [models.ItemsTypeHosts](../models/itemstypehosts.md)[]                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                             | Set of hosts to load-balance data to                                                                                                                                                                                                                           |
 | `dnsResolvePeriodSec`                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | The interval in which to re-resolve any hostnames and pick up destinations from A records                                                                                                                                                                      |
 | `loadBalanceStatsPeriodSec`                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | How far back in time to keep traffic stats for load balancing purposes                                                                                                                                                                                         |
 | `maxConcurrentSenders`                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.                                                                                                         |

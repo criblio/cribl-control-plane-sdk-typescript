@@ -6,10 +6,6 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaEval,
-  FunctionConfSchemaEval$inboundSchema,
-} from "./functionconfschemaeval.js";
 
 export type FunctionEval = {
   __filename: string;
@@ -25,7 +21,7 @@ export type FunctionEval = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionConfSchemaEval | undefined;
+  schema?: { [k: string]: any } | undefined;
 };
 
 /** @internal */
@@ -47,7 +43,7 @@ export const FunctionEval$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: FunctionConfSchemaEval$inboundSchema.optional(),
+  schema: z.record(z.any()).optional(),
 });
 
 export function functionEvalFromJSON(

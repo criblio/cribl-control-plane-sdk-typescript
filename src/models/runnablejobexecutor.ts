@@ -27,19 +27,19 @@ export type RunnableJobExecutorRun = {
   /**
    * Reschedule tasks that failed with non-fatal errors
    */
-  rescheduleDroppedTasks: boolean;
+  rescheduleDroppedTasks?: boolean | undefined;
   /**
    * Maximum number of times a task can be rescheduled
    */
-  maxTaskReschedule: number;
+  maxTaskReschedule?: number | undefined;
   /**
    * Level at which to set task logging
    */
-  logLevel: LogLevelOptionsSavedJobCollectionScheduleRun;
+  logLevel?: LogLevelOptionsSavedJobCollectionScheduleRun | undefined;
   /**
    * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
-  jobTimeout: string;
+  jobTimeout?: string | undefined;
 };
 
 export type RunnableJobExecutor = {
@@ -52,11 +52,11 @@ export type RunnableJobExecutor = {
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
-  ttl: string;
+  ttl?: string | undefined;
   /**
    * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
    */
-  ignoreGroupJobsLimit: boolean;
+  ignoreGroupJobsLimit?: boolean | undefined;
   /**
    * List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface.
    */
@@ -64,7 +64,7 @@ export type RunnableJobExecutor = {
   /**
    * Resume the ad hoc job if a failure condition causes Stream to restart during job execution
    */
-  resumeOnBoot: boolean;
+  resumeOnBoot?: boolean | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -87,12 +87,11 @@ export const RunnableJobExecutorRun$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rescheduleDroppedTasks: z.boolean().default(true),
-  maxTaskReschedule: z.number().default(1),
-  logLevel: LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema.default(
-    "info",
-  ),
-  jobTimeout: z.string().default("0"),
+  rescheduleDroppedTasks: z.boolean().optional(),
+  maxTaskReschedule: z.number().optional(),
+  logLevel: LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema
+    .optional(),
+  jobTimeout: z.string().optional(),
 });
 
 export function runnableJobExecutorRunFromJSON(
@@ -114,10 +113,10 @@ export const RunnableJobExecutor$inboundSchema: z.ZodType<
   id: z.string().optional(),
   description: z.string().optional(),
   type: JobTypeOptionsSavedJobCollection$inboundSchema.optional(),
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
   removeFields: z.array(z.string()).optional(),
-  resumeOnBoot: z.boolean().default(false),
+  resumeOnBoot: z.boolean().optional(),
   environment: z.string().optional(),
   schedule: ScheduleTypeRunnableJobCollection$inboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),

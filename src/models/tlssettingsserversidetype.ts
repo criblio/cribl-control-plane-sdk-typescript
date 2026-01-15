@@ -61,10 +61,10 @@ export const TlsSettingsServerSideType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
+  disabled: z.boolean().optional(),
+  requestCert: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  commonNameRegex: z.string().optional(),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
@@ -77,10 +77,10 @@ export const TlsSettingsServerSideType$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type TlsSettingsServerSideType$Outbound = {
-  disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
+  disabled?: boolean | undefined;
+  requestCert?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  commonNameRegex?: string | undefined;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
@@ -96,10 +96,10 @@ export const TlsSettingsServerSideType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   TlsSettingsServerSideType
 > = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
+  disabled: z.boolean().optional(),
+  requestCert: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  commonNameRegex: z.string().optional(),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),

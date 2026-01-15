@@ -8,8 +8,11 @@ import { InputSyslogSyslog2 } from "cribl-control-plane/models/operations";
 let value: InputSyslogSyslog2 = {
   id: "<id>",
   type: "syslog",
+  disabled: false,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -22,23 +25,47 @@ let value: InputSyslogSyslog2 = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
     pqControls: {},
   },
-  udpPort: 8752.91,
-  tcpPort: 8415.47,
+  host: "agitated-cinema.org",
+  udpPort: 2922.7,
+  tcpPort: 2078.87,
+  maxBufferSize: 3359.41,
+  ipWhitelistRegex: "<value>",
+  timestampTimezone: "<value>",
+  singleMsgUdpPackets: false,
+  enableProxyHeader: true,
   keepFieldsList: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
+  octetCounting: false,
+  inferFraming: true,
+  strictlyInferOctetCounting: true,
+  allowNonStandardAppName: false,
+  maxActiveCxn: 1495.84,
+  socketIdleTimeout: 7630.44,
+  socketEndingMaxWait: 7437.9,
+  socketMaxLifespan: 9292.91,
   tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
     minVersion: "TLSv1",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -46,9 +73,10 @@ let value: InputSyslogSyslog2 = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 181.3,
-  description: "eek roger whoever humidity",
-  enableEnhancedProxyHeaderParsing: false,
+  udpSocketRxBufSize: 2573.33,
+  enableLoadBalancing: false,
+  description: "acidly forenenst spring afore atop provided",
+  enableEnhancedProxyHeaderParsing: true,
 };
 ```
 
@@ -66,7 +94,7 @@ let value: InputSyslogSyslog2 = {
 | `streamtags`                                                                                                                                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                                |
 | `connections`                                                                                                                                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                                                                                                                                  |
 | `pq`                                                                                                                                                                                                                                                                                                                                                         | [models.PqType](../../models/pqtype.md)                                                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                                                                                          |
-| `host`                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.                                                                                                                                                                                                                      |
+| `host`                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.                                                                                                                                                                                                                      |
 | `udpPort`                                                                                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Enter UDP port number to listen on. Not required if listening on TCP.                                                                                                                                                                                                                                                                                        |
 | `tcpPort`                                                                                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Enter TCP port number to listen on. Not required if listening on UDP.                                                                                                                                                                                                                                                                                        |
 | `maxBufferSize`                                                                                                                                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                           | Maximum number of events to buffer when downstream is blocking. Only applies to UDP.                                                                                                                                                                                                                                                                         |

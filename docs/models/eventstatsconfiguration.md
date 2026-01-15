@@ -12,6 +12,8 @@ let value: EventstatsConfiguration = {
   groupBys: [
     "<value 1>",
   ],
+  maxEvents: 5681.09,
+  flushOnInputClose: false,
 };
 ```
 

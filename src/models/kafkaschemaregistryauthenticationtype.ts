@@ -20,7 +20,7 @@ import {
 } from "./tlssettingsclientsidetypekafkaschemaregistry.js";
 
 export type KafkaSchemaRegistryAuthenticationType = {
-  disabled?: boolean | undefined;
+  disabled: boolean;
   /**
    * URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
    */
@@ -50,21 +50,21 @@ export const KafkaSchemaRegistryAuthenticationType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(true),
-  schemaRegistryURL: z.string().default("http://localhost:8081"),
-  connectionTimeout: z.number().default(30000),
-  requestTimeout: z.number().default(30000),
-  maxRetries: z.number().default(1),
+  disabled: z.boolean(),
+  schemaRegistryURL: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
   auth: AuthTypeKafkaSchemaRegistry$inboundSchema.optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
 });
 /** @internal */
 export type KafkaSchemaRegistryAuthenticationType$Outbound = {
   disabled: boolean;
-  schemaRegistryURL: string;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
+  schemaRegistryURL?: string | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
   auth?: AuthTypeKafkaSchemaRegistry$Outbound | undefined;
   tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
 };
@@ -75,11 +75,11 @@ export const KafkaSchemaRegistryAuthenticationType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   KafkaSchemaRegistryAuthenticationType
 > = z.object({
-  disabled: z.boolean().default(true),
-  schemaRegistryURL: z.string().default("http://localhost:8081"),
-  connectionTimeout: z.number().default(30000),
-  requestTimeout: z.number().default(30000),
-  maxRetries: z.number().default(1),
+  disabled: z.boolean(),
+  schemaRegistryURL: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
   auth: AuthTypeKafkaSchemaRegistry$outboundSchema.optional(),
   tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
 });

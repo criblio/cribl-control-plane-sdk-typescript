@@ -20,24 +20,61 @@ let value: OutputSecurityLake = {
   bucket: "<value>",
   region: "<value>",
   awsSecretKey: "<value>",
+  awsAuthenticationMethod: "<value>",
   endpoint: "<value>",
+  signatureVersion: "v2",
+  reuseConnections: true,
+  rejectUnauthorized: false,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  storageClass: "ONEZONE_IA",
-  serverSideEncryption: "AES256",
+  durationSeconds: 6528.29,
+  stagePath: "<value>",
+  addIdToStagePath: false,
+  objectACL: "public-read-write",
+  storageClass: "GLACIER_IR",
+  serverSideEncryption: "aws:kms",
   kmsKeyId: "<id>",
+  removeEmptyDirs: false,
+  baseFileName: "<value>",
+  maxFileSizeMB: 2063.57,
+  maxOpenFiles: 4086.5,
+  headerLine: "<value>",
+  writeHighWaterMark: 5423.78,
+  onBackpressure: "block",
+  deadletterEnabled: true,
+  onDiskFullBackpressure: "block",
+  forceCloseOnShutdown: false,
+  maxFileOpenTimeSec: 3633.84,
+  maxFileIdleTimeSec: 5106.04,
+  maxConcurrentFileParts: 716.62,
+  verifyPermissions: true,
+  maxClosingFilesToBackpressure: 5523.84,
   accountId: "<id>",
   customSource: "<value>",
+  automaticSchema: false,
+  parquetVersion: "PARQUET_2_6",
+  parquetDataPageVersion: "DATA_PAGE_V2",
+  parquetRowGroupLength: 7521.84,
+  parquetPageSize: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
+      key: "<key>",
       value: "<value>",
     },
   ],
-  description: "dramatic galvanize qua phooey quickly into tomb scuffle",
+  enableStatistics: false,
+  enableWritePageIndex: true,
+  enablePageChecksum: false,
+  description: "afore singe veto abandoned ick awkwardly finally qua where an",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  emptyDirCleanupSec: 621.72,
+  directoryBatchSize: 7313.61,
   parquetSchema: "<value>",
+  deadletterPath: "<value>",
+  maxRetryNum: 4421.63,
 };
 ```
 
@@ -63,7 +100,7 @@ let value: OutputSecurityLake = {
 | `assumeRoleArn`                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                                                            | Amazon Resource Name (ARN) of the role to assume                                                                                                                                                                                                              |
 | `assumeRoleExternalId`                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | External ID to use when assuming role                                                                                                                                                                                                                         |
 | `durationSeconds`                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).                                                                                                                   |
-| `stagePath`                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.                                                                                                                          |
+| `stagePath`                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                                                            | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.                                                                                                                          |
 | `addIdToStagePath`                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | Add the Output ID value to staging location                                                                                                                                                                                                                   |
 | `objectACL`                                                                                                                                                                                                                                                   | [models.ObjectAclOptions](../../models/objectacloptions.md)                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                            | Object ACL to assign to uploaded objects                                                                                                                                                                                                                      |
 | `storageClass`                                                                                                                                                                                                                                                | [models.StorageClassOptions](../../models/storageclassoptions.md)                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                            | Storage class to select for uploaded objects                                                                                                                                                                                                                  |

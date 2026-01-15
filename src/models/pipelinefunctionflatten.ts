@@ -47,7 +47,7 @@ export const PipelineFunctionFlatten$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("flatten"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),
@@ -57,7 +57,7 @@ export const PipelineFunctionFlatten$inboundSchema: z.ZodType<
 });
 /** @internal */
 export type PipelineFunctionFlatten$Outbound = {
-  filter: string;
+  filter?: string | undefined;
   id: "flatten";
   description?: string | undefined;
   disabled?: boolean | undefined;
@@ -72,7 +72,7 @@ export const PipelineFunctionFlatten$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionFlatten
 > = z.object({
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   id: z.literal("flatten"),
   description: z.string().optional(),
   disabled: z.boolean().optional(),

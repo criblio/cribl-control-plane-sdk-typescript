@@ -8,7 +8,10 @@ import { LakeExportConfiguration } from "cribl-control-plane/models";
 let value: LakeExportConfiguration = {
   searchJobId: "<id>",
   dataset: "<value>",
-  suppressPreviews: true,
+  lake: "<value>",
+  tee: "<value>",
+  flushMs: 3893.87,
+  suppressPreviews: false,
 };
 ```
 

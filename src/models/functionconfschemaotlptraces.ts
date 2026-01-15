@@ -27,15 +27,15 @@ export const FunctionConfSchemaOtlpTraces$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  dropNonTraceEvents: z.boolean().default(false),
-  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
-  batchOTLPTraces: z.boolean().default(false),
+  dropNonTraceEvents: z.boolean().optional(),
+  otlpVersion: OtlpVersionOptions$inboundSchema.optional(),
+  batchOTLPTraces: z.boolean().optional(),
 });
 /** @internal */
 export type FunctionConfSchemaOtlpTraces$Outbound = {
-  dropNonTraceEvents: boolean;
-  otlpVersion: string;
-  batchOTLPTraces: boolean;
+  dropNonTraceEvents?: boolean | undefined;
+  otlpVersion?: string | undefined;
+  batchOTLPTraces?: boolean | undefined;
 };
 
 /** @internal */
@@ -44,9 +44,9 @@ export const FunctionConfSchemaOtlpTraces$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   FunctionConfSchemaOtlpTraces
 > = z.object({
-  dropNonTraceEvents: z.boolean().default(false),
-  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
-  batchOTLPTraces: z.boolean().default(false),
+  dropNonTraceEvents: z.boolean().optional(),
+  otlpVersion: OtlpVersionOptions$outboundSchema.optional(),
+  batchOTLPTraces: z.boolean().optional(),
 });
 
 export function functionConfSchemaOtlpTracesToJSON(

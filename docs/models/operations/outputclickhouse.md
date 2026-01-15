@@ -19,53 +19,79 @@ let value: OutputClickHouse = {
     "<value 1>",
   ],
   url: "https://immense-place.biz/",
+  authType: "credentialsSecret",
   database: "<value>",
   tableName: "<value>",
+  format: "json-each-row",
+  mappingType: "custom",
+  asyncInserts: false,
   tls: {
+    disabled: false,
     servername: "<value>",
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.1",
   },
+  concurrency: 9562.62,
+  maxPayloadSizeKB: 1631.42,
+  maxPayloadEvents: 1137.36,
+  compress: false,
+  rejectUnauthorized: false,
+  timeoutSec: 38.05,
+  flushPeriodSec: 4495.62,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  useRoundRobinDns: false,
+  failedRequestLoggingMode: "none",
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2591.04,
+      initialBackoff: 4815.7,
+      backoffRate: 5576.87,
+      maxBackoff: 1844.93,
     },
   ],
-  timeoutRetrySettings: {},
+  timeoutRetrySettings: {
+    timeoutRetry: false,
+    initialBackoff: 4289.71,
+    backoffRate: 7830.71,
+    maxBackoff: 6330,
+  },
+  responseHonorRetryAfterHeader: true,
+  dumpFormatErrorsToDisk: false,
   statsDestination: {
-    url: "https://scared-marten.org",
+    url: "https://angelic-rationale.biz",
     database: "<value>",
     tableName: "<value>",
     authType: "<value>",
-    username: "Carter_Stracke",
+    username: "Precious68",
     sqlUsername: "<value>",
-    password: "RzLf6mLUSadNUuZ",
+    password: "NUuZOwwFsTQYSfN",
   },
-  description: "aha rawhide staid untrue orientate confusion",
-  username: "Joshuah_Rice85",
-  password: "9zMh6XcMrb5Fskj",
+  onBackpressure: "drop",
+  description: "exterior meanwhile crafty what nor",
+  username: "Elisha_Breitenberg22",
+  password: "XcMrb5Fskjx6_Au",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://circular-decision.name",
+  loginUrl: "https://new-mobility.org",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
+  authHeaderExpr: "<value>",
+  tokenTimeoutSecs: 2840.74,
   oauthParams: [
     {
       name: "<value>",
@@ -79,9 +105,11 @@ let value: OutputClickHouse = {
     },
   ],
   sqlUsername: "<value>",
+  waitForAsyncInserts: true,
   excludeMappingFields: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   describeTable: "<value>",
   columnMappings: [
@@ -91,6 +119,16 @@ let value: OutputClickHouse = {
       columnValueExpression: "<value>",
     },
   ],
+  pqStrictOrdering: false,
+  pqRatePerSec: 168.13,
+  pqMode: "always",
+  pqMaxBufferSize: 5388.56,
+  pqMaxBackpressureSec: 1686.88,
+  pqMaxFileSize: "<value>",
+  pqMaxSize: "<value>",
+  pqPath: "<value>",
+  pqCompress: "gzip",
+  pqOnBackpressure: "drop",
   pqControls: {},
 };
 ```
@@ -112,7 +150,7 @@ let value: OutputClickHouse = {
 | `format`                                                                                                                                                                                                                                                                                                                                         | [operations.FormatClickHouse](../../models/operations/formatclickhouse.md)                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Data format to use when sending data to ClickHouse. Defaults to JSON Compact.                                                                                                                                                                                                                                                                    |
 | `mappingType`                                                                                                                                                                                                                                                                                                                                    | [operations.MappingType](../../models/operations/mappingtype.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How event fields are mapped to ClickHouse columns.                                                                                                                                                                                                                                                                                               |
 | `asyncInserts`                                                                                                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.                                                                                                                                                                                                                                              |
-| `tls`                                                                                                                                                                                                                                                                                                                                            | [models.TlsSettingsClientSideType2](../../models/tlssettingsclientsidetype2.md)                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `tls`                                                                                                                                                                                                                                                                                                                                            | [models.TlsSettingsClientSideType1](../../models/tlssettingsclientsidetype1.md)                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `concurrency`                                                                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of ongoing requests before blocking                                                                                                                                                                                                                                                                                               |
 | `maxPayloadSizeKB`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum size, in KB, of the request body                                                                                                                                                                                                                                                                                                         |
 | `maxPayloadEvents`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of events to include in the request body. Default is 0 (unlimited).                                                                                                                                                                                                                                                               |

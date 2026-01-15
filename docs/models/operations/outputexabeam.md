@@ -20,7 +20,22 @@ let value: OutputExabeam = {
   ],
   bucket: "<value>",
   region: "<value>",
-  storageClass: "NEARLINE",
+  stagePath: "<value>",
+  endpoint: "<value>",
+  signatureVersion: "v2",
+  objectACL: "authenticated-read",
+  storageClass: "ARCHIVE",
+  reuseConnections: false,
+  rejectUnauthorized: false,
+  addIdToStagePath: true,
+  removeEmptyDirs: false,
+  maxFileOpenTimeSec: 449.43,
+  maxFileIdleTimeSec: 8660.42,
+  maxOpenFiles: 2794.99,
+  onBackpressure: "drop",
+  deadletterEnabled: true,
+  onDiskFullBackpressure: "drop",
+  maxFileSizeMB: 2472.36,
   encodedConfiguration: "<value>",
   collectorInstanceId: "<id>",
   siteName: "<value>",
@@ -28,8 +43,11 @@ let value: OutputExabeam = {
   timezoneOffset: "<value>",
   awsApiKey: "<value>",
   awsSecretKey: "<value>",
-  description:
-    "which against extricate tenderly why medium wetly crooked lobotomise",
+  description: "unto adviser egg remorseful knavishly sport hasty encode",
+  emptyDirCleanupSec: 5503.1,
+  directoryBatchSize: 5844.39,
+  deadletterPath: "<value>",
+  maxRetryNum: 1039.79,
 };
 ```
 
@@ -45,8 +63,8 @@ let value: OutputExabeam = {
 | `streamtags`                                                                                                                                                                                    | *string*[]                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                              | Tags for filtering and grouping in @{product}                                                                                                                                                   |
 | `bucket`                                                                                                                                                                                        | *string*                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                              | Name of the destination bucket. A constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a JavaScript Global Variable: `myBucket-${C.vars.myVar}`. |
 | `region`                                                                                                                                                                                        | *string*                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                              | Region where the bucket is located                                                                                                                                                              |
-| `stagePath`                                                                                                                                                                                     | *string*                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                              | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.                                                            |
-| `endpoint`                                                                                                                                                                                      | *string*                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                              | Google Cloud Storage service endpoint                                                                                                                                                           |
+| `stagePath`                                                                                                                                                                                     | *string*                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                              | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.                                                            |
+| `endpoint`                                                                                                                                                                                      | *string*                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                              | Google Cloud Storage service endpoint                                                                                                                                                           |
 | `signatureVersion`                                                                                                                                                                              | [models.SignatureVersionOptions4](../../models/signatureversionoptions4.md)                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                              | Signature version to use for signing Google Cloud Storage requests                                                                                                                              |
 | `objectACL`                                                                                                                                                                                     | [models.ObjectAclOptions1](../../models/objectacloptions1.md)                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                              | Object ACL to assign to uploaded objects                                                                                                                                                        |
 | `storageClass`                                                                                                                                                                                  | [models.StorageClassOptions1](../../models/storageclassoptions1.md)                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                              | Storage class to select for uploaded objects                                                                                                                                                    |
