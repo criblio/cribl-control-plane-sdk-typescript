@@ -6,10 +6,6 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaRename,
-  FunctionConfSchemaRename$inboundSchema,
-} from "./functionconfschemarename.js";
 
 export type FunctionRename = {
   __filename: string;
@@ -25,7 +21,7 @@ export type FunctionRename = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionConfSchemaRename | undefined;
+  schema?: { [k: string]: any } | undefined;
 };
 
 /** @internal */
@@ -47,7 +43,7 @@ export const FunctionRename$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: FunctionConfSchemaRename$inboundSchema.optional(),
+  schema: z.record(z.any()).optional(),
 });
 
 export function functionRenameFromJSON(

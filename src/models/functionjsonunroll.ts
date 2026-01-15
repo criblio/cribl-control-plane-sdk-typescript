@@ -6,10 +6,6 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaJsonUnroll,
-  FunctionConfSchemaJsonUnroll$inboundSchema,
-} from "./functionconfschemajsonunroll.js";
 
 export type FunctionJsonUnroll = {
   __filename: string;
@@ -25,7 +21,7 @@ export type FunctionJsonUnroll = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionConfSchemaJsonUnroll | undefined;
+  schema?: { [k: string]: any } | undefined;
 };
 
 /** @internal */
@@ -47,7 +43,7 @@ export const FunctionJsonUnroll$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: FunctionConfSchemaJsonUnroll$inboundSchema.optional(),
+  schema: z.record(z.any()).optional(),
 });
 
 export function functionJsonUnrollFromJSON(

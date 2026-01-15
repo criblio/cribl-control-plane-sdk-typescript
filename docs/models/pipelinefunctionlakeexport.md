@@ -15,9 +15,9 @@ let value: PipelineFunctionLakeExport = {
     searchJobId: "<id>",
     dataset: "<value>",
     lake: "<value>",
-    tee: true,
-    flushMs: 780.97,
-    suppressPreviews: false,
+    tee: "<value>",
+    flushMs: 4350.69,
+    suppressPreviews: true,
   },
   groupId: "<id>",
 };

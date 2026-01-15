@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type PipelineFunctionLookupInField = {
+export type InField = {
   /**
    * Field name as it appears in events
    */
@@ -18,7 +18,7 @@ export type PipelineFunctionLookupInField = {
   lookupField?: string | undefined;
 };
 
-export type PipelineFunctionLookupOutField = {
+export type OutField = {
   /**
    * The field name as it appears in the lookup file
    */
@@ -48,11 +48,11 @@ export type PipelineFunctionLookupConf = {
   /**
    * Fields that should be used to key into the lookup table
    */
-  inFields?: Array<PipelineFunctionLookupInField> | undefined;
+  inFields?: Array<InField> | undefined;
   /**
    * Fields to add to events after matching lookup. Defaults to all if not specified.
    */
-  outFields?: Array<PipelineFunctionLookupOutField> | undefined;
+  outFields?: Array<OutField> | undefined;
   /**
    * Add the looked-up values to _raw, as key=value pairs
    */
@@ -89,52 +89,43 @@ export type PipelineFunctionLookup = {
 };
 
 /** @internal */
-export const PipelineFunctionLookupInField$inboundSchema: z.ZodType<
-  PipelineFunctionLookupInField,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  eventField: z.string(),
-  lookupField: z.string().optional(),
-});
+export const InField$inboundSchema: z.ZodType<InField, z.ZodTypeDef, unknown> =
+  z.object({
+    eventField: z.string(),
+    lookupField: z.string().optional(),
+  });
 /** @internal */
-export type PipelineFunctionLookupInField$Outbound = {
+export type InField$Outbound = {
   eventField: string;
   lookupField?: string | undefined;
 };
 
 /** @internal */
-export const PipelineFunctionLookupInField$outboundSchema: z.ZodType<
-  PipelineFunctionLookupInField$Outbound,
+export const InField$outboundSchema: z.ZodType<
+  InField$Outbound,
   z.ZodTypeDef,
-  PipelineFunctionLookupInField
+  InField
 > = z.object({
   eventField: z.string(),
   lookupField: z.string().optional(),
 });
 
-export function pipelineFunctionLookupInFieldToJSON(
-  pipelineFunctionLookupInField: PipelineFunctionLookupInField,
-): string {
-  return JSON.stringify(
-    PipelineFunctionLookupInField$outboundSchema.parse(
-      pipelineFunctionLookupInField,
-    ),
-  );
+export function inFieldToJSON(inField: InField): string {
+  return JSON.stringify(InField$outboundSchema.parse(inField));
 }
-export function pipelineFunctionLookupInFieldFromJSON(
+export function inFieldFromJSON(
   jsonString: string,
-): SafeParseResult<PipelineFunctionLookupInField, SDKValidationError> {
+): SafeParseResult<InField, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PipelineFunctionLookupInField$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionLookupInField' from JSON`,
+    (x) => InField$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InField' from JSON`,
   );
 }
 
 /** @internal */
-export const PipelineFunctionLookupOutField$inboundSchema: z.ZodType<
-  PipelineFunctionLookupOutField,
+export const OutField$inboundSchema: z.ZodType<
+  OutField,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -143,39 +134,33 @@ export const PipelineFunctionLookupOutField$inboundSchema: z.ZodType<
   defaultValue: z.string().optional(),
 });
 /** @internal */
-export type PipelineFunctionLookupOutField$Outbound = {
+export type OutField$Outbound = {
   lookupField: string;
   eventField?: string | undefined;
   defaultValue?: string | undefined;
 };
 
 /** @internal */
-export const PipelineFunctionLookupOutField$outboundSchema: z.ZodType<
-  PipelineFunctionLookupOutField$Outbound,
+export const OutField$outboundSchema: z.ZodType<
+  OutField$Outbound,
   z.ZodTypeDef,
-  PipelineFunctionLookupOutField
+  OutField
 > = z.object({
   lookupField: z.string(),
   eventField: z.string().optional(),
   defaultValue: z.string().optional(),
 });
 
-export function pipelineFunctionLookupOutFieldToJSON(
-  pipelineFunctionLookupOutField: PipelineFunctionLookupOutField,
-): string {
-  return JSON.stringify(
-    PipelineFunctionLookupOutField$outboundSchema.parse(
-      pipelineFunctionLookupOutField,
-    ),
-  );
+export function outFieldToJSON(outField: OutField): string {
+  return JSON.stringify(OutField$outboundSchema.parse(outField));
 }
-export function pipelineFunctionLookupOutFieldFromJSON(
+export function outFieldFromJSON(
   jsonString: string,
-): SafeParseResult<PipelineFunctionLookupOutField, SDKValidationError> {
+): SafeParseResult<OutField, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PipelineFunctionLookupOutField$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionLookupOutField' from JSON`,
+    (x) => OutField$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutField' from JSON`,
   );
 }
 
@@ -190,10 +175,8 @@ export const PipelineFunctionLookupConf$inboundSchema: z.ZodType<
   matchMode: z.any().optional(),
   matchType: z.any().optional(),
   reloadPeriodSec: z.any().optional(),
-  inFields: z.array(z.lazy(() => PipelineFunctionLookupInField$inboundSchema))
-    .optional(),
-  outFields: z.array(z.lazy(() => PipelineFunctionLookupOutField$inboundSchema))
-    .optional(),
+  inFields: z.array(z.lazy(() => InField$inboundSchema)).optional(),
+  outFields: z.array(z.lazy(() => OutField$inboundSchema)).optional(),
   addToEvent: z.boolean().optional(),
   ignoreCase: z.any().optional(),
 });
@@ -204,8 +187,8 @@ export type PipelineFunctionLookupConf$Outbound = {
   matchMode?: any | undefined;
   matchType?: any | undefined;
   reloadPeriodSec?: any | undefined;
-  inFields?: Array<PipelineFunctionLookupInField$Outbound> | undefined;
-  outFields?: Array<PipelineFunctionLookupOutField$Outbound> | undefined;
+  inFields?: Array<InField$Outbound> | undefined;
+  outFields?: Array<OutField$Outbound> | undefined;
   addToEvent?: boolean | undefined;
   ignoreCase?: any | undefined;
 };
@@ -221,11 +204,8 @@ export const PipelineFunctionLookupConf$outboundSchema: z.ZodType<
   matchMode: z.any().optional(),
   matchType: z.any().optional(),
   reloadPeriodSec: z.any().optional(),
-  inFields: z.array(z.lazy(() => PipelineFunctionLookupInField$outboundSchema))
-    .optional(),
-  outFields: z.array(
-    z.lazy(() => PipelineFunctionLookupOutField$outboundSchema),
-  ).optional(),
+  inFields: z.array(z.lazy(() => InField$outboundSchema)).optional(),
+  outFields: z.array(z.lazy(() => OutField$outboundSchema)).optional(),
   addToEvent: z.boolean().optional(),
   ignoreCase: z.any().optional(),
 });

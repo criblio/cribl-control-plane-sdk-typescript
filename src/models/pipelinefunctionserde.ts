@@ -17,7 +17,7 @@ import {
 /**
  * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
  */
-export const PipelineFunctionSerdeOperationMode = {
+export const OperationMode = {
   /**
    * Extract
    */
@@ -30,15 +30,13 @@ export const PipelineFunctionSerdeOperationMode = {
 /**
  * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
  */
-export type PipelineFunctionSerdeOperationMode = OpenEnum<
-  typeof PipelineFunctionSerdeOperationMode
->;
+export type OperationMode = OpenEnum<typeof OperationMode>;
 
 export type PipelineFunctionSerdeConf = {
   /**
    * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
    */
-  mode: PipelineFunctionSerdeOperationMode;
+  mode: OperationMode;
   /**
    * Parser or formatter type to use
    */
@@ -87,17 +85,17 @@ export type PipelineFunctionSerde = {
 };
 
 /** @internal */
-export const PipelineFunctionSerdeOperationMode$inboundSchema: z.ZodType<
-  PipelineFunctionSerdeOperationMode,
+export const OperationMode$inboundSchema: z.ZodType<
+  OperationMode,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(PipelineFunctionSerdeOperationMode);
+> = openEnums.inboundSchema(OperationMode);
 /** @internal */
-export const PipelineFunctionSerdeOperationMode$outboundSchema: z.ZodType<
+export const OperationMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  PipelineFunctionSerdeOperationMode
-> = openEnums.outboundSchema(PipelineFunctionSerdeOperationMode);
+  OperationMode
+> = openEnums.outboundSchema(OperationMode);
 
 /** @internal */
 export const PipelineFunctionSerdeConf$inboundSchema: z.ZodType<
@@ -105,7 +103,7 @@ export const PipelineFunctionSerdeConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: PipelineFunctionSerdeOperationMode$inboundSchema,
+  mode: OperationMode$inboundSchema,
   type: TypeOptions$inboundSchema,
   delimChar: z.any().optional(),
   quoteChar: z.any().optional(),
@@ -134,7 +132,7 @@ export const PipelineFunctionSerdeConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionSerdeConf
 > = z.object({
-  mode: PipelineFunctionSerdeOperationMode$outboundSchema,
+  mode: OperationMode$outboundSchema,
   type: TypeOptions$outboundSchema,
   delimChar: z.any().optional(),
   quoteChar: z.any().optional(),

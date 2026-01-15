@@ -47,7 +47,7 @@ export type SendConfiguration = {
   /**
    * Tee results to search. When set to true results will be shipped instead of stats
    */
-  tee?: boolean | undefined;
+  tee?: string | undefined;
   /**
    * How often are stats flushed in ms
    */
@@ -114,7 +114,7 @@ export const SendConfiguration$inboundSchema: z.ZodType<
   workspace: z.string().optional(),
   sendUrlTemplate: z.string().optional(),
   searchId: z.string(),
-  tee: z.boolean().optional(),
+  tee: z.string().optional(),
   flushMs: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
   mode: PipelineFunctionSendMode$inboundSchema.optional(),
@@ -126,7 +126,7 @@ export type SendConfiguration$Outbound = {
   workspace?: string | undefined;
   sendUrlTemplate?: string | undefined;
   searchId: string;
-  tee?: boolean | undefined;
+  tee?: string | undefined;
   flushMs?: number | undefined;
   suppressPreviews?: boolean | undefined;
   mode?: string | undefined;
@@ -143,7 +143,7 @@ export const SendConfiguration$outboundSchema: z.ZodType<
   workspace: z.string().optional(),
   sendUrlTemplate: z.string().optional(),
   searchId: z.string(),
-  tee: z.boolean().optional(),
+  tee: z.string().optional(),
   flushMs: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
   mode: PipelineFunctionSendMode$outboundSchema.optional(),

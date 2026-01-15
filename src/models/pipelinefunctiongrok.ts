@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type PipelineFunctionGrokPatternList = {
+export type PatternList = {
   /**
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
@@ -19,7 +19,7 @@ export type PipelineFunctionGrokConf = {
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
   pattern: string;
-  patternList?: Array<PipelineFunctionGrokPatternList> | undefined;
+  patternList?: Array<PatternList> | undefined;
   /**
    * Field on which to perform Grok extractions
    */
@@ -55,43 +55,37 @@ export type PipelineFunctionGrok = {
 };
 
 /** @internal */
-export const PipelineFunctionGrokPatternList$inboundSchema: z.ZodType<
-  PipelineFunctionGrokPatternList,
+export const PatternList$inboundSchema: z.ZodType<
+  PatternList,
   z.ZodTypeDef,
   unknown
 > = z.object({
   pattern: z.string(),
 });
 /** @internal */
-export type PipelineFunctionGrokPatternList$Outbound = {
+export type PatternList$Outbound = {
   pattern: string;
 };
 
 /** @internal */
-export const PipelineFunctionGrokPatternList$outboundSchema: z.ZodType<
-  PipelineFunctionGrokPatternList$Outbound,
+export const PatternList$outboundSchema: z.ZodType<
+  PatternList$Outbound,
   z.ZodTypeDef,
-  PipelineFunctionGrokPatternList
+  PatternList
 > = z.object({
   pattern: z.string(),
 });
 
-export function pipelineFunctionGrokPatternListToJSON(
-  pipelineFunctionGrokPatternList: PipelineFunctionGrokPatternList,
-): string {
-  return JSON.stringify(
-    PipelineFunctionGrokPatternList$outboundSchema.parse(
-      pipelineFunctionGrokPatternList,
-    ),
-  );
+export function patternListToJSON(patternList: PatternList): string {
+  return JSON.stringify(PatternList$outboundSchema.parse(patternList));
 }
-export function pipelineFunctionGrokPatternListFromJSON(
+export function patternListFromJSON(
   jsonString: string,
-): SafeParseResult<PipelineFunctionGrokPatternList, SDKValidationError> {
+): SafeParseResult<PatternList, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PipelineFunctionGrokPatternList$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionGrokPatternList' from JSON`,
+    (x) => PatternList$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PatternList' from JSON`,
   );
 }
 
@@ -102,15 +96,13 @@ export const PipelineFunctionGrokConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   pattern: z.string(),
-  patternList: z.array(
-    z.lazy(() => PipelineFunctionGrokPatternList$inboundSchema),
-  ).optional(),
+  patternList: z.array(z.lazy(() => PatternList$inboundSchema)).optional(),
   source: z.string().optional(),
 });
 /** @internal */
 export type PipelineFunctionGrokConf$Outbound = {
   pattern: string;
-  patternList?: Array<PipelineFunctionGrokPatternList$Outbound> | undefined;
+  patternList?: Array<PatternList$Outbound> | undefined;
   source?: string | undefined;
 };
 
@@ -121,9 +113,7 @@ export const PipelineFunctionGrokConf$outboundSchema: z.ZodType<
   PipelineFunctionGrokConf
 > = z.object({
   pattern: z.string(),
-  patternList: z.array(
-    z.lazy(() => PipelineFunctionGrokPatternList$outboundSchema),
-  ).optional(),
+  patternList: z.array(z.lazy(() => PatternList$outboundSchema)).optional(),
   source: z.string().optional(),
 });
 

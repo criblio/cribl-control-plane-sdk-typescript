@@ -6,10 +6,6 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FunctionConfSchemaOtlpLogs,
-  FunctionConfSchemaOtlpLogs$inboundSchema,
-} from "./functionconfschemaotlplogs.js";
 
 export type FunctionOtlpLogs = {
   __filename: string;
@@ -25,7 +21,7 @@ export type FunctionOtlpLogs = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionConfSchemaOtlpLogs | undefined;
+  schema?: { [k: string]: any } | undefined;
 };
 
 /** @internal */
@@ -47,7 +43,7 @@ export const FunctionOtlpLogs$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: FunctionConfSchemaOtlpLogs$inboundSchema.optional(),
+  schema: z.record(z.any()).optional(),
 });
 
 export function functionOtlpLogsFromJSON(
