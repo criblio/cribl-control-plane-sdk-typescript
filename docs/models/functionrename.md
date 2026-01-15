@@ -20,36 +20,26 @@ let value: FunctionRename = {
   uischema: {},
   version: "<value>",
   schema: {
-    baseFields: [
-      "<value 1>",
-    ],
-    rename: [
-      {
-        currentName: "<value>",
-        newName: "<value>",
-      },
-    ],
-    renameExpr: "<value>",
-    wildcardDepth: 22329,
+    "key": "<value>",
   },
 };
 ```
 
 ## Fields
 
-| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `filename`                                                               | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
-| `asyncTimeout`                                                           | *number*                                                                 | :heavy_minus_sign:                                                       | N/A                                                                      |
-| `criblVersion`                                                           | *string*                                                                 | :heavy_minus_sign:                                                       | N/A                                                                      |
-| `disabled`                                                               | *boolean*                                                                | :heavy_minus_sign:                                                       | N/A                                                                      |
-| `group`                                                                  | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
-| `handleSignals`                                                          | *boolean*                                                                | :heavy_minus_sign:                                                       | N/A                                                                      |
-| `id`                                                                     | *"rename"*                                                               | :heavy_check_mark:                                                       | N/A                                                                      |
-| `loadTime`                                                               | *number*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
-| `modTime`                                                                | *number*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
-| `name`                                                                   | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
-| `sync`                                                                   | *boolean*                                                                | :heavy_minus_sign:                                                       | N/A                                                                      |
-| `uischema`                                                               | Record<string, *any*>                                                    | :heavy_check_mark:                                                       | N/A                                                                      |
-| `version`                                                                | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
-| `schema`                                                                 | [models.FunctionConfSchemaRename](../models/functionconfschemarename.md) | :heavy_minus_sign:                                                       | N/A                                                                      |
+| Field                 | Type                  | Required              | Description           |
+| --------------------- | --------------------- | --------------------- | --------------------- |
+| `filename`            | *string*              | :heavy_check_mark:    | N/A                   |
+| `asyncTimeout`        | *number*              | :heavy_minus_sign:    | N/A                   |
+| `criblVersion`        | *string*              | :heavy_minus_sign:    | N/A                   |
+| `disabled`            | *boolean*             | :heavy_minus_sign:    | N/A                   |
+| `group`               | *string*              | :heavy_check_mark:    | N/A                   |
+| `handleSignals`       | *boolean*             | :heavy_minus_sign:    | N/A                   |
+| `id`                  | *"rename"*            | :heavy_check_mark:    | N/A                   |
+| `loadTime`            | *number*              | :heavy_check_mark:    | N/A                   |
+| `modTime`             | *number*              | :heavy_check_mark:    | N/A                   |
+| `name`                | *string*              | :heavy_check_mark:    | N/A                   |
+| `sync`                | *boolean*             | :heavy_minus_sign:    | N/A                   |
+| `uischema`            | Record<string, *any*> | :heavy_check_mark:    | N/A                   |
+| `version`             | *string*              | :heavy_check_mark:    | N/A                   |
+| `schema`              | Record<string, *any*> | :heavy_minus_sign:    | N/A                   |

@@ -12,7 +12,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * decides if bag-values are expanded to bags or arrays
  */
-export const PipelineFunctionMvExpandBagExpansionMode = {
+export const BagExpansionMode = {
   /**
    * Store as object
    */
@@ -25,9 +25,7 @@ export const PipelineFunctionMvExpandBagExpansionMode = {
 /**
  * decides if bag-values are expanded to bags or arrays
  */
-export type PipelineFunctionMvExpandBagExpansionMode = OpenEnum<
-  typeof PipelineFunctionMvExpandBagExpansionMode
->;
+export type BagExpansionMode = OpenEnum<typeof BagExpansionMode>;
 
 export type PipelineFunctionMvExpandConf = {
   /**
@@ -49,7 +47,7 @@ export type PipelineFunctionMvExpandConf = {
   /**
    * decides if bag-values are expanded to bags or arrays
    */
-  bagExpansionMode?: PipelineFunctionMvExpandBagExpansionMode | undefined;
+  bagExpansionMode?: BagExpansionMode | undefined;
 };
 
 export type PipelineFunctionMvExpand = {
@@ -81,17 +79,17 @@ export type PipelineFunctionMvExpand = {
 };
 
 /** @internal */
-export const PipelineFunctionMvExpandBagExpansionMode$inboundSchema: z.ZodType<
-  PipelineFunctionMvExpandBagExpansionMode,
+export const BagExpansionMode$inboundSchema: z.ZodType<
+  BagExpansionMode,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(PipelineFunctionMvExpandBagExpansionMode);
+> = openEnums.inboundSchema(BagExpansionMode);
 /** @internal */
-export const PipelineFunctionMvExpandBagExpansionMode$outboundSchema: z.ZodType<
+export const BagExpansionMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  PipelineFunctionMvExpandBagExpansionMode
-> = openEnums.outboundSchema(PipelineFunctionMvExpandBagExpansionMode);
+  BagExpansionMode
+> = openEnums.outboundSchema(BagExpansionMode);
 
 /** @internal */
 export const PipelineFunctionMvExpandConf$inboundSchema: z.ZodType<
@@ -103,8 +101,7 @@ export const PipelineFunctionMvExpandConf$inboundSchema: z.ZodType<
   targetNames: z.array(z.string()).optional(),
   rowLimit: z.number().optional(),
   itemIndexName: z.string().optional(),
-  bagExpansionMode: PipelineFunctionMvExpandBagExpansionMode$inboundSchema
-    .optional(),
+  bagExpansionMode: BagExpansionMode$inboundSchema.optional(),
 });
 /** @internal */
 export type PipelineFunctionMvExpandConf$Outbound = {
@@ -125,8 +122,7 @@ export const PipelineFunctionMvExpandConf$outboundSchema: z.ZodType<
   targetNames: z.array(z.string()).optional(),
   rowLimit: z.number().optional(),
   itemIndexName: z.string().optional(),
-  bagExpansionMode: PipelineFunctionMvExpandBagExpansionMode$outboundSchema
-    .optional(),
+  bagExpansionMode: BagExpansionMode$outboundSchema.optional(),
 });
 
 export function pipelineFunctionMvExpandConfToJSON(

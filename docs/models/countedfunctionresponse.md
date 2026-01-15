@@ -27,8 +27,7 @@ let value: CountedFunctionResponse = {
       },
       version: "<value>",
       schema: {
-        comment:
-          "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
+        "key": "<value>",
       },
     },
   ],

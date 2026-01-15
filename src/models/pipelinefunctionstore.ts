@@ -10,7 +10,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * Mapping event property names to output field names
  */
-export type PipelineFunctionStoreMappingOfFieldNames = {};
+export type MappingOfFieldNames = {};
 
 export type StoreFunctionConfiguration = {
   /**
@@ -28,7 +28,7 @@ export type StoreFunctionConfiguration = {
   /**
    * Mapping event property names to output field names
    */
-  fieldMapping?: PipelineFunctionStoreMappingOfFieldNames | undefined;
+  fieldMapping?: MappingOfFieldNames | undefined;
   /**
    * Character to be used as value delimiter in output
    */
@@ -84,44 +84,35 @@ export type PipelineFunctionStore = {
 };
 
 /** @internal */
-export const PipelineFunctionStoreMappingOfFieldNames$inboundSchema: z.ZodType<
-  PipelineFunctionStoreMappingOfFieldNames,
+export const MappingOfFieldNames$inboundSchema: z.ZodType<
+  MappingOfFieldNames,
   z.ZodTypeDef,
   unknown
 > = z.object({});
 /** @internal */
-export type PipelineFunctionStoreMappingOfFieldNames$Outbound = {};
+export type MappingOfFieldNames$Outbound = {};
 
 /** @internal */
-export const PipelineFunctionStoreMappingOfFieldNames$outboundSchema: z.ZodType<
-  PipelineFunctionStoreMappingOfFieldNames$Outbound,
+export const MappingOfFieldNames$outboundSchema: z.ZodType<
+  MappingOfFieldNames$Outbound,
   z.ZodTypeDef,
-  PipelineFunctionStoreMappingOfFieldNames
+  MappingOfFieldNames
 > = z.object({});
 
-export function pipelineFunctionStoreMappingOfFieldNamesToJSON(
-  pipelineFunctionStoreMappingOfFieldNames:
-    PipelineFunctionStoreMappingOfFieldNames,
+export function mappingOfFieldNamesToJSON(
+  mappingOfFieldNames: MappingOfFieldNames,
 ): string {
   return JSON.stringify(
-    PipelineFunctionStoreMappingOfFieldNames$outboundSchema.parse(
-      pipelineFunctionStoreMappingOfFieldNames,
-    ),
+    MappingOfFieldNames$outboundSchema.parse(mappingOfFieldNames),
   );
 }
-export function pipelineFunctionStoreMappingOfFieldNamesFromJSON(
+export function mappingOfFieldNamesFromJSON(
   jsonString: string,
-): SafeParseResult<
-  PipelineFunctionStoreMappingOfFieldNames,
-  SDKValidationError
-> {
+): SafeParseResult<MappingOfFieldNames, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      PipelineFunctionStoreMappingOfFieldNames$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'PipelineFunctionStoreMappingOfFieldNames' from JSON`,
+    (x) => MappingOfFieldNames$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MappingOfFieldNames' from JSON`,
   );
 }
 
@@ -134,9 +125,7 @@ export const StoreFunctionConfiguration$inboundSchema: z.ZodType<
   type: z.string(),
   destination: z.string().optional(),
   description: z.string().optional(),
-  fieldMapping: z.lazy(() =>
-    PipelineFunctionStoreMappingOfFieldNames$inboundSchema
-  ).optional(),
+  fieldMapping: z.lazy(() => MappingOfFieldNames$inboundSchema).optional(),
   separator: z.string().optional(),
   overwrite: z.boolean().optional(),
   compress: z.string().optional(),
@@ -149,7 +138,7 @@ export type StoreFunctionConfiguration$Outbound = {
   type: string;
   destination?: string | undefined;
   description?: string | undefined;
-  fieldMapping?: PipelineFunctionStoreMappingOfFieldNames$Outbound | undefined;
+  fieldMapping?: MappingOfFieldNames$Outbound | undefined;
   separator?: string | undefined;
   overwrite?: boolean | undefined;
   compress?: string | undefined;
@@ -167,9 +156,7 @@ export const StoreFunctionConfiguration$outboundSchema: z.ZodType<
   type: z.string(),
   destination: z.string().optional(),
   description: z.string().optional(),
-  fieldMapping: z.lazy(() =>
-    PipelineFunctionStoreMappingOfFieldNames$outboundSchema
-  ).optional(),
+  fieldMapping: z.lazy(() => MappingOfFieldNames$outboundSchema).optional(),
   separator: z.string().optional(),
   overwrite: z.boolean().optional(),
   compress: z.string().optional(),

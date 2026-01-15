@@ -7,7 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type PipelineFunctionJoinFieldCondition = {
+export type FieldCondition = {
   /**
    * The field name to join on, on the left side.
    */
@@ -30,7 +30,7 @@ export type JoinConfiguration = {
   /**
    * Fields to use when joining
    */
-  fieldConditions: Array<PipelineFunctionJoinFieldCondition>;
+  fieldConditions: Array<FieldCondition>;
   /**
    * The id for this search job.
    */
@@ -70,8 +70,8 @@ export type PipelineFunctionJoin = {
 };
 
 /** @internal */
-export const PipelineFunctionJoinFieldCondition$inboundSchema: z.ZodType<
-  PipelineFunctionJoinFieldCondition,
+export const FieldCondition$inboundSchema: z.ZodType<
+  FieldCondition,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -79,38 +79,31 @@ export const PipelineFunctionJoinFieldCondition$inboundSchema: z.ZodType<
   rightFieldName: z.string(),
 });
 /** @internal */
-export type PipelineFunctionJoinFieldCondition$Outbound = {
+export type FieldCondition$Outbound = {
   leftFieldName: string;
   rightFieldName: string;
 };
 
 /** @internal */
-export const PipelineFunctionJoinFieldCondition$outboundSchema: z.ZodType<
-  PipelineFunctionJoinFieldCondition$Outbound,
+export const FieldCondition$outboundSchema: z.ZodType<
+  FieldCondition$Outbound,
   z.ZodTypeDef,
-  PipelineFunctionJoinFieldCondition
+  FieldCondition
 > = z.object({
   leftFieldName: z.string(),
   rightFieldName: z.string(),
 });
 
-export function pipelineFunctionJoinFieldConditionToJSON(
-  pipelineFunctionJoinFieldCondition: PipelineFunctionJoinFieldCondition,
-): string {
-  return JSON.stringify(
-    PipelineFunctionJoinFieldCondition$outboundSchema.parse(
-      pipelineFunctionJoinFieldCondition,
-    ),
-  );
+export function fieldConditionToJSON(fieldCondition: FieldCondition): string {
+  return JSON.stringify(FieldCondition$outboundSchema.parse(fieldCondition));
 }
-export function pipelineFunctionJoinFieldConditionFromJSON(
+export function fieldConditionFromJSON(
   jsonString: string,
-): SafeParseResult<PipelineFunctionJoinFieldCondition, SDKValidationError> {
+): SafeParseResult<FieldCondition, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      PipelineFunctionJoinFieldCondition$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionJoinFieldCondition' from JSON`,
+    (x) => FieldCondition$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FieldCondition' from JSON`,
   );
 }
 
@@ -122,9 +115,7 @@ export const JoinConfiguration$inboundSchema: z.ZodType<
 > = z.object({
   kind: z.string().optional(),
   hints: z.record(z.string()).optional(),
-  fieldConditions: z.array(
-    z.lazy(() => PipelineFunctionJoinFieldCondition$inboundSchema),
-  ),
+  fieldConditions: z.array(z.lazy(() => FieldCondition$inboundSchema)),
   searchJobId: z.string().optional(),
   stageId: z.string().optional(),
 });
@@ -132,7 +123,7 @@ export const JoinConfiguration$inboundSchema: z.ZodType<
 export type JoinConfiguration$Outbound = {
   kind?: string | undefined;
   hints?: { [k: string]: string } | undefined;
-  fieldConditions: Array<PipelineFunctionJoinFieldCondition$Outbound>;
+  fieldConditions: Array<FieldCondition$Outbound>;
   searchJobId?: string | undefined;
   stageId?: string | undefined;
 };
@@ -145,9 +136,7 @@ export const JoinConfiguration$outboundSchema: z.ZodType<
 > = z.object({
   kind: z.string().optional(),
   hints: z.record(z.string()).optional(),
-  fieldConditions: z.array(
-    z.lazy(() => PipelineFunctionJoinFieldCondition$outboundSchema),
-  ),
+  fieldConditions: z.array(z.lazy(() => FieldCondition$outboundSchema)),
   searchJobId: z.string().optional(),
   stageId: z.string().optional(),
 });

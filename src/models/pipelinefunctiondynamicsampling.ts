@@ -12,7 +12,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
  */
-export const PipelineFunctionDynamicSamplingSampleMode = {
+export const SampleMode = {
   /**
    * Logarithmic
    */
@@ -25,15 +25,13 @@ export const PipelineFunctionDynamicSamplingSampleMode = {
 /**
  * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
  */
-export type PipelineFunctionDynamicSamplingSampleMode = OpenEnum<
-  typeof PipelineFunctionDynamicSamplingSampleMode
->;
+export type SampleMode = OpenEnum<typeof SampleMode>;
 
 export type PipelineFunctionDynamicSamplingConf = {
   /**
    * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
    */
-  mode: PipelineFunctionDynamicSamplingSampleMode;
+  mode: SampleMode;
   /**
    * Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
    */
@@ -81,15 +79,17 @@ export type PipelineFunctionDynamicSampling = {
 };
 
 /** @internal */
-export const PipelineFunctionDynamicSamplingSampleMode$inboundSchema: z.ZodType<
-  PipelineFunctionDynamicSamplingSampleMode,
+export const SampleMode$inboundSchema: z.ZodType<
+  SampleMode,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(PipelineFunctionDynamicSamplingSampleMode);
+> = openEnums.inboundSchema(SampleMode);
 /** @internal */
-export const PipelineFunctionDynamicSamplingSampleMode$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, PipelineFunctionDynamicSamplingSampleMode> =
-    openEnums.outboundSchema(PipelineFunctionDynamicSamplingSampleMode);
+export const SampleMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SampleMode
+> = openEnums.outboundSchema(SampleMode);
 
 /** @internal */
 export const PipelineFunctionDynamicSamplingConf$inboundSchema: z.ZodType<
@@ -97,7 +97,7 @@ export const PipelineFunctionDynamicSamplingConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: PipelineFunctionDynamicSamplingSampleMode$inboundSchema,
+  mode: SampleMode$inboundSchema,
   keyExpr: z.string(),
   samplePeriod: z.number().optional(),
   minEvents: z.number().optional(),
@@ -118,7 +118,7 @@ export const PipelineFunctionDynamicSamplingConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PipelineFunctionDynamicSamplingConf
 > = z.object({
-  mode: PipelineFunctionDynamicSamplingSampleMode$outboundSchema,
+  mode: SampleMode$outboundSchema,
   keyExpr: z.string(),
   samplePeriod: z.number().optional(),
   minEvents: z.number().optional(),

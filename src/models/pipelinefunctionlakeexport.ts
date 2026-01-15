@@ -23,7 +23,7 @@ export type LakeExportConfiguration = {
   /**
    * Tee results to search. When set to true results will be shipped instead of stats
    */
-  tee?: boolean | undefined;
+  tee?: string | undefined;
   /**
    * How often are stats flushed in ms
    */
@@ -71,7 +71,7 @@ export const LakeExportConfiguration$inboundSchema: z.ZodType<
   searchJobId: z.string(),
   dataset: z.string(),
   lake: z.string().optional(),
-  tee: z.boolean().optional(),
+  tee: z.string().optional(),
   flushMs: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
 });
@@ -80,7 +80,7 @@ export type LakeExportConfiguration$Outbound = {
   searchJobId: string;
   dataset: string;
   lake?: string | undefined;
-  tee?: boolean | undefined;
+  tee?: string | undefined;
   flushMs?: number | undefined;
   suppressPreviews?: boolean | undefined;
 };
@@ -94,7 +94,7 @@ export const LakeExportConfiguration$outboundSchema: z.ZodType<
   searchJobId: z.string(),
   dataset: z.string(),
   lake: z.string().optional(),
-  tee: z.boolean().optional(),
+  tee: z.string().optional(),
   flushMs: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
 });

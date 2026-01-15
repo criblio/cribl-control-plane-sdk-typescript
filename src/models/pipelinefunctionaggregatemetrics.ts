@@ -28,7 +28,7 @@ export type PipelineFunctionAggregateMetricsMetricType = OpenEnum<
   typeof PipelineFunctionAggregateMetricsMetricType
 >;
 
-export type PipelineFunctionAggregateMetricsAggregation = {
+export type Aggregation = {
   /**
    * The output metric type
    */
@@ -71,7 +71,7 @@ export type PipelineFunctionAggregateMetricsConf = {
   /**
    * Combination of Aggregation function and output metric type
    */
-  aggregations: Array<PipelineFunctionAggregateMetricsAggregation>;
+  aggregations: Array<Aggregation>;
   /**
    * Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
    */
@@ -140,55 +140,40 @@ export const PipelineFunctionAggregateMetricsMetricType$outboundSchema:
     openEnums.outboundSchema(PipelineFunctionAggregateMetricsMetricType);
 
 /** @internal */
-export const PipelineFunctionAggregateMetricsAggregation$inboundSchema:
-  z.ZodType<
-    PipelineFunctionAggregateMetricsAggregation,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    metricType: PipelineFunctionAggregateMetricsMetricType$inboundSchema,
-    agg: z.string(),
-  });
+export const Aggregation$inboundSchema: z.ZodType<
+  Aggregation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  metricType: PipelineFunctionAggregateMetricsMetricType$inboundSchema,
+  agg: z.string(),
+});
 /** @internal */
-export type PipelineFunctionAggregateMetricsAggregation$Outbound = {
+export type Aggregation$Outbound = {
   metricType: string;
   agg: string;
 };
 
 /** @internal */
-export const PipelineFunctionAggregateMetricsAggregation$outboundSchema:
-  z.ZodType<
-    PipelineFunctionAggregateMetricsAggregation$Outbound,
-    z.ZodTypeDef,
-    PipelineFunctionAggregateMetricsAggregation
-  > = z.object({
-    metricType: PipelineFunctionAggregateMetricsMetricType$outboundSchema,
-    agg: z.string(),
-  });
+export const Aggregation$outboundSchema: z.ZodType<
+  Aggregation$Outbound,
+  z.ZodTypeDef,
+  Aggregation
+> = z.object({
+  metricType: PipelineFunctionAggregateMetricsMetricType$outboundSchema,
+  agg: z.string(),
+});
 
-export function pipelineFunctionAggregateMetricsAggregationToJSON(
-  pipelineFunctionAggregateMetricsAggregation:
-    PipelineFunctionAggregateMetricsAggregation,
-): string {
-  return JSON.stringify(
-    PipelineFunctionAggregateMetricsAggregation$outboundSchema.parse(
-      pipelineFunctionAggregateMetricsAggregation,
-    ),
-  );
+export function aggregationToJSON(aggregation: Aggregation): string {
+  return JSON.stringify(Aggregation$outboundSchema.parse(aggregation));
 }
-export function pipelineFunctionAggregateMetricsAggregationFromJSON(
+export function aggregationFromJSON(
   jsonString: string,
-): SafeParseResult<
-  PipelineFunctionAggregateMetricsAggregation,
-  SDKValidationError
-> {
+): SafeParseResult<Aggregation, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      PipelineFunctionAggregateMetricsAggregation$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'PipelineFunctionAggregateMetricsAggregation' from JSON`,
+    (x) => Aggregation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Aggregation' from JSON`,
   );
 }
 
@@ -248,9 +233,7 @@ export const PipelineFunctionAggregateMetricsConf$inboundSchema: z.ZodType<
   sufficientStatsOnly: z.boolean().optional(),
   prefix: z.string().optional(),
   timeWindow: z.string(),
-  aggregations: z.array(
-    z.lazy(() => PipelineFunctionAggregateMetricsAggregation$inboundSchema),
-  ),
+  aggregations: z.array(z.lazy(() => Aggregation$inboundSchema)),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),
@@ -267,7 +250,7 @@ export type PipelineFunctionAggregateMetricsConf$Outbound = {
   sufficientStatsOnly?: boolean | undefined;
   prefix?: string | undefined;
   timeWindow: string;
-  aggregations: Array<PipelineFunctionAggregateMetricsAggregation$Outbound>;
+  aggregations: Array<Aggregation$Outbound>;
   groupbys?: Array<string> | undefined;
   flushEventLimit?: number | undefined;
   flushMemLimit?: string | undefined;
@@ -288,9 +271,7 @@ export const PipelineFunctionAggregateMetricsConf$outboundSchema: z.ZodType<
   sufficientStatsOnly: z.boolean().optional(),
   prefix: z.string().optional(),
   timeWindow: z.string(),
-  aggregations: z.array(
-    z.lazy(() => PipelineFunctionAggregateMetricsAggregation$outboundSchema),
-  ),
+  aggregations: z.array(z.lazy(() => Aggregation$outboundSchema)),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),
