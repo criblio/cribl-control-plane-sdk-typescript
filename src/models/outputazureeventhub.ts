@@ -184,6 +184,10 @@ export type OutputAzureEventhub = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputAzureEventhubPqControls | undefined;
+  /**
+   * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
+   */
+  __template_topic?: string | undefined;
 };
 
 /** @internal */
@@ -264,6 +268,7 @@ export const OutputAzureEventhub$inboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputAzureEventhubPqControls$inboundSchema)
     .optional(),
+  __template_topic: z.string().optional(),
 });
 /** @internal */
 export type OutputAzureEventhub$Outbound = {
@@ -303,6 +308,7 @@ export type OutputAzureEventhub$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputAzureEventhubPqControls$Outbound | undefined;
+  __template_topic?: string | undefined;
 };
 
 /** @internal */
@@ -348,6 +354,7 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputAzureEventhubPqControls$outboundSchema)
     .optional(),
+  __template_topic: z.string().optional(),
 });
 
 export function outputAzureEventhubToJSON(

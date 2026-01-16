@@ -22,6 +22,12 @@ import {
   ObjectAclOptions1$outboundSchema,
 } from "./objectacloptions1.js";
 import {
+  RetrySettingsType,
+  RetrySettingsType$inboundSchema,
+  RetrySettingsType$Outbound,
+  RetrySettingsType$outboundSchema,
+} from "./retrysettingstype.js";
+import {
   SignatureVersionOptions4,
   SignatureVersionOptions4$inboundSchema,
   SignatureVersionOptions4$outboundSchema,
@@ -122,6 +128,7 @@ export type OutputExabeam = {
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
   onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
+  retrySettings?: RetrySettingsType | undefined;
   /**
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
    */
@@ -170,6 +177,10 @@ export type OutputExabeam = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
 };
 
 /** @internal */
@@ -201,6 +212,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   onBackpressure: BackpressureBehaviorOptions1$inboundSchema.optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.optional(),
+  retrySettings: RetrySettingsType$inboundSchema.optional(),
   maxFileSizeMB: z.number().optional(),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),
@@ -214,6 +226,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_region: z.string().optional(),
 });
 /** @internal */
 export type OutputExabeam$Outbound = {
@@ -240,6 +253,7 @@ export type OutputExabeam$Outbound = {
   onBackpressure?: string | undefined;
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
+  retrySettings?: RetrySettingsType$Outbound | undefined;
   maxFileSizeMB?: number | undefined;
   encodedConfiguration?: string | undefined;
   collectorInstanceId: string;
@@ -253,6 +267,7 @@ export type OutputExabeam$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_region?: string | undefined;
 };
 
 /** @internal */
@@ -284,6 +299,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
+  retrySettings: RetrySettingsType$outboundSchema.optional(),
   maxFileSizeMB: z.number().optional(),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),
@@ -297,6 +313,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_region: z.string().optional(),
 });
 
 export function outputExabeamToJSON(outputExabeam: OutputExabeam): string {

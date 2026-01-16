@@ -55,6 +55,10 @@ export type OutputWizHecUrl = {
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 export type OutputWizHec = {
@@ -187,6 +191,10 @@ export type OutputWizHec = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -197,11 +205,13 @@ export const OutputWizHecUrl$inboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
+  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputWizHecUrl$Outbound = {
   url: string;
   weight?: number | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -212,6 +222,7 @@ export const OutputWizHecUrl$outboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
+  __template_url: z.string().optional(),
 });
 
 export function outputWizHecUrlToJSON(
@@ -272,6 +283,7 @@ export const OutputWizHec$inboundSchema: z.ZodType<
   loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputWizHec$Outbound = {
@@ -312,6 +324,7 @@ export type OutputWizHec$Outbound = {
   loadBalanceStatsPeriodSec?: number | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -359,6 +372,7 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_url: z.string().optional(),
 });
 
 export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {

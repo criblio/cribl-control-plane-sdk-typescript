@@ -148,6 +148,18 @@ export type InputHttp = {
    */
   authTokensExt?: Array<ItemsTypeAuthTokensExt> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+   */
+  __template_splunkHecAPI?: string | undefined;
 };
 
 /** @internal */
@@ -188,6 +200,9 @@ export const InputHttp$inboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   authTokensExt: z.array(ItemsTypeAuthTokensExt$inboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_splunkHecAPI: z.string().optional(),
 });
 /** @internal */
 export type InputHttp$Outbound = {
@@ -223,6 +238,9 @@ export type InputHttp$Outbound = {
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   authTokensExt?: Array<ItemsTypeAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_splunkHecAPI?: string | undefined;
 };
 
 /** @internal */
@@ -263,6 +281,9 @@ export const InputHttp$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   authTokensExt: z.array(ItemsTypeAuthTokensExt$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_splunkHecAPI: z.string().optional(),
 });
 
 export function inputHttpToJSON(inputHttp: InputHttp): string {

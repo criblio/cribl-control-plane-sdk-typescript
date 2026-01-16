@@ -113,6 +113,10 @@ export type OutputElasticUrl = {
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 export type OutputElasticPqControls = {};
@@ -293,6 +297,10 @@ export type OutputElastic = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputElasticPqControls | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -329,11 +337,13 @@ export const OutputElasticUrl$inboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
+  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputElasticUrl$Outbound = {
   url: string;
   weight?: number | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -344,6 +354,7 @@ export const OutputElasticUrl$outboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
+  __template_url: z.string().optional(),
 });
 
 export function outputElasticUrlToJSON(
@@ -452,6 +463,7 @@ export const OutputElastic$inboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$inboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputElasticPqControls$inboundSchema).optional(),
+  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputElastic$Outbound = {
@@ -505,6 +517,7 @@ export type OutputElastic$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputElasticPqControls$Outbound | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -564,6 +577,7 @@ export const OutputElastic$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputElasticPqControls$outboundSchema).optional(),
+  __template_url: z.string().optional(),
 });
 
 export function outputElasticToJSON(outputElastic: OutputElastic): string {

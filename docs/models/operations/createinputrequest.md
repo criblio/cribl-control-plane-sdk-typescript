@@ -292,6 +292,11 @@ const value: operations.InputMsk = {
   description: "sparkling wavy joyously anticodon each bouncy",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
+  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -377,6 +382,9 @@ const value: operations.InputHttp = {
     },
   ],
   description: "preregister oddly atomize why",
+  __template_host: "<value>",
+  __template_port: "<value>",
+  __template_splunkHecAPI: "<value>",
 };
 ```
 
@@ -454,6 +462,8 @@ const value: operations.InputSplunk = {
   dropControlFields: false,
   extractMetrics: false,
   compress: "auto",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -567,6 +577,8 @@ const value: operations.InputSplunkSearch = {
       value: "<value>",
     },
   ],
+  __template_loginUrl: "https://finished-steeple.org",
+  __template_secret: "<value>",
 };
 ```
 
@@ -678,6 +690,9 @@ const value: operations.InputSplunkHec = {
   emitTokenMetrics: true,
   description:
     "slimy sticky hm gosh indeed wherever anneal notwithstanding anenst as",
+  __template_host: "<value>",
+  __template_port: "<value>",
+  __template_splunkHecAPI: "<value>",
 };
 ```
 
@@ -743,6 +758,10 @@ const value: operations.InputAzureBlob = {
   certificate: {
     certificateName: "<value>",
   },
+  __template_queueName: "<value>",
+  __template_connectionString: "<value>",
+  __template_tenantId: "<id>",
+  __template_clientId: "<id>",
 };
 ```
 
@@ -832,18 +851,19 @@ const value: operations.InputElastic = {
       "<value 3>",
     ],
     timeoutSec: 9264.12,
+    __template_url: "https://orderly-haircut.biz",
   },
-  description:
-    "ah memorable abnegate mountain grandpa shanghai whether across legitimize",
-  username: "Estell.Baumbach",
-  password: "qE8YC8VcJnBHKiz",
+  description: "optimal collectivization yippee",
+  username: "Everette11",
+  password: "XPFr_bql4rORDjf",
   credentialsSecret: "<value>",
   authTokens: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   customAPIVersion: "<value>",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -1061,20 +1081,22 @@ const value: operations.InputGrafana = {
         value: "<value>",
       },
     ],
+    __template_loginUrl: "https://cluttered-knuckle.com/",
+    __template_secret: "<value>",
   },
   lokiAuth: {
-    authType: "credentialsSecret",
-    username: "Brad.Bogisich",
-    password: "nNQJeNfbiSbBQOg",
+    authType: "basic",
+    username: "Dwight.Schumm",
+    password: "JeNfbiSbBQOgQ5l",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://cheap-custody.net",
+    loginUrl: "https://sociable-junior.info/",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
     authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 3513.03,
+    tokenTimeoutSecs: 3047.02,
     oauthParams: [
       {
         name: "<value>",
@@ -1087,6 +1109,8 @@ const value: operations.InputGrafana = {
         value: "<value>",
       },
     ],
+    __template_loginUrl: "https://tempting-knitting.name",
+    __template_secret: "<value>",
   },
   metadata: [
     {
@@ -1095,6 +1119,8 @@ const value: operations.InputGrafana = {
     },
   ],
   description: "meanwhile till uncomfortable till onto utter",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -1188,6 +1214,10 @@ const value: operations.InputLoki = {
       value: "<value>",
     },
   ],
+  __template_host: "<value>",
+  __template_port: "<value>",
+  __template_loginUrl: "https://agitated-traditionalism.name/",
+  __template_secret: "<value>",
 };
 ```
 
@@ -1281,6 +1311,11 @@ const value: operations.InputPrometheusRw = {
       value: "<value>",
     },
   ],
+  __template_host: "<value>",
+  __template_port: "<value>",
+  __template_prometheusAPI: "<value>",
+  __template_loginUrl: "https://bogus-tune-up.name",
+  __template_secret: "<value>",
 };
 ```
 
@@ -1375,6 +1410,12 @@ const value: operations.InputPrometheus = {
   username: "Jalen_Kris",
   password: "PUxEKSAbzVy9MPn",
   credentialsSecret: "<value>",
+  __template_logLevel: "<value>",
+  __template_awsApiKey: "<value>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
 };
 ```
 
@@ -1483,6 +1524,11 @@ const value: operations.InputEdgePrometheus = {
   username: "Uriel.Schinner43",
   password: "_GfZ57KuJW1Epqr",
   credentialsSecret: "<value>",
+  __template_awsApiKey: "<value>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
 };
 ```
 
@@ -1560,6 +1606,10 @@ const value: operations.InputOffice365Mgmt = {
   description: "impassioned which whereas ravage seagull boldly",
   clientSecret: "<value>",
   textSecret: "<value>",
+  __template_tenantId: "<id>",
+  __template_appId: "<id>",
+  __template_publisherIdentifier: "<value>",
+  __template_clientSecret: "<value>",
 };
 ```
 
@@ -1636,6 +1686,9 @@ const value: operations.InputOffice365Service = {
   description: "yippee fail stiffen duh",
   clientSecret: "<value>",
   textSecret: "<value>",
+  __template_tenantId: "<id>",
+  __template_appId: "<id>",
+  __template_clientSecret: "<value>",
 };
 ```
 
@@ -1720,6 +1773,10 @@ const value: operations.InputOffice365MsgTrace = {
     passphrase: "<value>",
     certPath: "<value>",
   },
+  __template_url: "https://carefree-lifestyle.com/",
+  __template_tenantId: "<id>",
+  __template_clientId: "<id>",
+  __template_resource: "<value>",
 };
 ```
 
@@ -1936,6 +1993,8 @@ const value: operations.InputFirehose = {
     },
   ],
   description: "postbox psst however till athwart lightly",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -1991,6 +2050,9 @@ const value: operations.InputGooglePubsub = {
   ],
   description: "past creator or given slowly glossy nutritious volunteer but",
   orderedDelivery: true,
+  __template_topicName: "<value>",
+  __template_subscriptionName: "<value>",
+  __template_region: "<value>",
 };
 ```
 
@@ -2102,6 +2164,8 @@ const value: operations.InputCriblTcp = {
     },
   ],
   description: "ouch warmly encode probable regularly boyfriend almost across",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -2177,6 +2241,8 @@ const value: operations.InputCriblHttp = {
     },
   ],
   description: "tune earth since likewise furthermore tooth folklore",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -2274,6 +2340,9 @@ const value: operations.InputCriblLakeHttp = {
     },
   ],
   description: "if acceptable once numeric",
+  __template_host: "<value>",
+  __template_port: "<value>",
+  __template_splunkHecAPI: "<value>",
 };
 ```
 
@@ -2340,6 +2409,8 @@ const value: operations.InputTcpjson = {
   description: "menacing swing oh lovingly",
   authToken: "<value>",
   textSecret: "<value>",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -2896,6 +2967,13 @@ const value: operations.InputCrowdstrike = {
   tagAfterProcessing: "false",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
+  __template_queueName: "<value>",
+  __template_awsAccountId: "<id>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
+  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -2967,6 +3045,8 @@ const value: operations.InputDatadogAgent = {
     rejectUnauthorized: false,
   },
   description: "although minister enraged howl understated standard marimba",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -3110,6 +3190,8 @@ const value: operations.InputHttpRaw = {
   ],
   description:
     "orientate pfft excepting voluntarily till dependable failing likewise",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -3173,6 +3255,12 @@ const value: operations.InputKinesis = {
   description: "yahoo um aw concerning instead but than amendment",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  __template_streamName: "<value>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
+  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3280,6 +3368,9 @@ const value: operations.InputMetrics = {
   udpSocketRxBufSize: 9826.8,
   description:
     "free antelope dependent mushy bandwidth internal adaptation gosh",
+  __template_host: "<value>",
+  __template_udpPort: "<value>",
+  __template_tcpPort: "<value>",
 };
 ```
 
@@ -3367,6 +3458,13 @@ const value: operations.InputS3 = {
   awsSecret: "<value>",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
+  __template_queueName: "<value>",
+  __template_awsAccountId: "<id>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
+  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3456,6 +3554,13 @@ const value: operations.InputS3Inventory = {
   tagAfterProcessing: "true",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
+  __template_queueName: "<value>",
+  __template_awsAccountId: "<id>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
+  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3517,6 +3622,8 @@ const value: operations.InputSnmp = {
   varbindsWithTypes: true,
   bestEffortParsing: false,
   description: "behind versus omelet",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -3615,6 +3722,10 @@ const value: operations.InputOpenTelemetry = {
     },
   ],
   extractLogs: false,
+  __template_host: "<value>",
+  __template_port: "<value>",
+  __template_loginUrl: "https://posh-nun.biz",
+  __template_secret: "<value>",
 };
 ```
 
@@ -3674,6 +3785,8 @@ const value: operations.InputModelDrivenTelemetry = {
   maxActiveCxn: 7750.59,
   shutdownTimeoutMs: 7039.55,
   description: "insert connect metabolise flight",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -3735,6 +3848,13 @@ const value: operations.InputSqs = {
   awsApiKey: "<value>",
   awsSecret: "<value>",
   numReceivers: 4387.78,
+  __template_queueName: "<value>",
+  __template_awsAccountId: "<id>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
+  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3812,6 +3932,9 @@ const value: operations.InputSyslog = {
   enableLoadBalancing: true,
   description: "because mispronounce tarragon that typewriter",
   enableEnhancedProxyHeaderParsing: true,
+  __template_host: "<value>",
+  __template_udpPort: "<value>",
+  __template_tcpPort: "<value>",
 };
 ```
 
@@ -3879,6 +4002,7 @@ const value: operations.InputFile = {
   depth: 2604.05,
   suppressMissingPathErrors: true,
   deleteFiles: true,
+  saltHash: true,
   includeUnidentifiableBinary: true,
 };
 ```
@@ -3958,6 +4082,8 @@ const value: operations.InputTcp = {
   authToken: "<value>",
   authType: "secret",
   textSecret: "<value>",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -4050,6 +4176,8 @@ const value: operations.InputAppscope = {
   unixSocketPerms: "<value>",
   authToken: "<value>",
   textSecret: "<value>",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -4125,6 +4253,8 @@ const value: operations.InputWef = {
   ],
   description: "weighty firsthand wing meanwhile tomatillo",
   logFingerprintMismatch: false,
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -4228,6 +4358,8 @@ const value: operations.InputRawUdp = {
     },
   ],
   description: "wearily around so",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -4369,6 +4501,9 @@ const value: operations.InputWiz = {
     "furiously unfinished honestly pfft seemingly unearth remand foretell whoever",
   clientSecret: "<value>",
   textSecret: "<value>",
+  __template_endpoint: "<value>",
+  __template_authUrl: "https://self-assured-embarrassment.org/",
+  __template_clientId: "<id>",
 };
 ```
 
@@ -4465,6 +4600,8 @@ const value: operations.InputWizWebhook = {
     },
   ],
   description: "metallic devoted behind weakly phrase what mosh faithfully",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -4515,6 +4652,8 @@ const value: operations.InputNetflow = {
     },
   ],
   description: "schlep however question step entice yowza past whoever",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -4602,6 +4741,13 @@ const value: operations.InputSecurityLake = {
   tagAfterProcessing: "false",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
+  __template_queueName: "<value>",
+  __template_awsAccountId: "<id>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
+  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -4703,6 +4849,9 @@ const value: operations.InputZscalerHec = {
   ],
   emitTokenMetrics: false,
   description: "concerning essence validity runny ick ew log",
+  __template_host: "<value>",
+  __template_port: "<value>",
+  __template_hecAPI: "<value>",
 };
 ```
 
@@ -4808,6 +4957,8 @@ const value: operations.InputCloudflareHec = {
   ],
   emitTokenMetrics: true,
   description: "slow hassle convalesce boohoo",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 

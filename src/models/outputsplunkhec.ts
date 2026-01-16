@@ -70,6 +70,10 @@ export type OutputSplunkHecUrl = {
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 export type OutputSplunkHecPqControls = {};
@@ -245,6 +249,10 @@ export type OutputSplunkHec = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputSplunkHecPqControls | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -255,11 +263,13 @@ export const OutputSplunkHecUrl$inboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
+  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputSplunkHecUrl$Outbound = {
   url: string;
   weight?: number | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -270,6 +280,7 @@ export const OutputSplunkHecUrl$outboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
+  __template_url: z.string().optional(),
 });
 
 export function outputSplunkHecUrlToJSON(
@@ -376,6 +387,7 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$inboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputSplunkHecPqControls$inboundSchema).optional(),
+  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputSplunkHec$Outbound = {
@@ -427,6 +439,7 @@ export type OutputSplunkHec$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputSplunkHecPqControls$Outbound | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -485,6 +498,7 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputSplunkHecPqControls$outboundSchema).optional(),
+  __template_url: z.string().optional(),
 });
 
 export function outputSplunkHecToJSON(

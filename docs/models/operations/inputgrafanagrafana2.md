@@ -86,20 +86,22 @@ let value: InputGrafanaGrafana2 = {
         value: "<value>",
       },
     ],
+    __template_loginUrl: "https://superb-meander.name",
+    __template_secret: "<value>",
   },
   lokiAuth: {
     authType: "oauth",
-    username: "Ressie_Mills60",
-    password: "qlBvHj1XjKBCN_o",
+    username: "Lenny8",
+    password: "lBvHj1XjKBCN_o1",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://devoted-design.org/",
+    loginUrl: "https://evil-vision.org/",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
     authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 8551.08,
+    tokenTimeoutSecs: 399.52,
     oauthParams: [
       {
         name: "<value>",
@@ -112,6 +114,8 @@ let value: InputGrafanaGrafana2 = {
         value: "<value>",
       },
     ],
+    __template_loginUrl: "https://wavy-flight.biz/",
+    __template_secret: "<value>",
   },
   metadata: [
     {
@@ -119,7 +123,9 @@ let value: InputGrafanaGrafana2 = {
       value: "<value>",
     },
   ],
-  description: "swear doubtfully as",
+  description: "catalyst afore meanwhile tensely utterly transparency",
+  __template_host: "<value>",
+  __template_port: "<value>",
 };
 ```
 
@@ -157,3 +163,5 @@ let value: InputGrafanaGrafana2 = {
 | `lokiAuth`                                                                                                                                                                                                                                                                                                                                                                                                      | [operations.LokiAuth2](../../models/operations/lokiauth2.md)                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `metadata`                                                                                                                                                                                                                                                                                                                                                                                                      | [models.ItemsTypeNotificationMetadata](../../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | Fields to add to events from this input                                                                                                                                                                                                                                                                                                                                                                         |
 | `description`                                                                                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `templateHost`                                                                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.                                                                                                                                                                                                                           |
+| `templatePort`                                                                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.                                                                                                                                                                                                                           |
