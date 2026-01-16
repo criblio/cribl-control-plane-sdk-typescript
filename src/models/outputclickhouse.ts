@@ -362,6 +362,26 @@ export type OutputClickHouse = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputClickHousePqControls | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
+   */
+  __template_database?: string | undefined;
+  /**
+   * Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
+   */
+  __template_tableName?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+   */
+  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -603,6 +623,11 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$inboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputClickHousePqControls$inboundSchema).optional(),
+  __template_url: z.string().optional(),
+  __template_database: z.string().optional(),
+  __template_tableName: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
 });
 /** @internal */
 export type OutputClickHouse$Outbound = {
@@ -669,6 +694,11 @@ export type OutputClickHouse$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputClickHousePqControls$Outbound | undefined;
+  __template_url?: string | undefined;
+  __template_database?: string | undefined;
+  __template_tableName?: string | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -743,6 +773,11 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputClickHousePqControls$outboundSchema)
     .optional(),
+  __template_url: z.string().optional(),
+  __template_database: z.string().optional(),
+  __template_tableName: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
 });
 
 export function outputClickHouseToJSON(

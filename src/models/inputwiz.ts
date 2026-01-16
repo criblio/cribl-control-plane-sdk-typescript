@@ -192,6 +192,18 @@ export type InputWiz = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'authUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authUrl' at runtime.
+   */
+  __template_authUrl?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -346,6 +358,9 @@ export const InputWiz$inboundSchema: z.ZodType<
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_authUrl: z.string().optional(),
+  __template_clientId: z.string().optional(),
 });
 /** @internal */
 export type InputWiz$Outbound = {
@@ -375,6 +390,9 @@ export type InputWiz$Outbound = {
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_authUrl?: string | undefined;
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -409,6 +427,9 @@ export const InputWiz$outboundSchema: z.ZodType<
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_authUrl: z.string().optional(),
+  __template_clientId: z.string().optional(),
 });
 
 export function inputWizToJSON(inputWiz: InputWiz): string {
