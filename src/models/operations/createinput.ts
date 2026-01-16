@@ -1712,6 +1712,10 @@ export type InputFile = {
    */
   deleteFiles?: boolean | undefined;
   /**
+   * Salt the file hash with the Source file path. Ensures that all files with the same header hash, such as CSV files, are ingested. Moving or renaming the file, or toggling this after starting the Source will cause re-ingestion.
+   */
+  saltHash?: boolean | undefined;
+  /**
    * Stream binary files as Base64-encoded chunks.
    */
   includeUnidentifiableBinary?: boolean | undefined;
@@ -9969,6 +9973,7 @@ export type InputFile$Outbound = {
   depth?: number | undefined;
   suppressMissingPathErrors?: boolean | undefined;
   deleteFiles?: boolean | undefined;
+  saltHash?: boolean | undefined;
   includeUnidentifiableBinary?: boolean | undefined;
 };
 
@@ -10009,6 +10014,7 @@ export const InputFile$outboundSchema: z.ZodType<
   depth: z.number().optional(),
   suppressMissingPathErrors: z.boolean().optional(),
   deleteFiles: z.boolean().optional(),
+  saltHash: z.boolean().optional(),
   includeUnidentifiableBinary: z.boolean().optional(),
 });
 

@@ -150,6 +150,7 @@ export type OutputCloudflareR2 = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -526,6 +527,7 @@ export type OutputDatabricks = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
   /**
    * Databricks workspace ID
    */
@@ -2218,6 +2220,7 @@ export type OutputCriblLake = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -2403,6 +2406,7 @@ export type OutputSecurityLake = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -2647,6 +2651,7 @@ export type OutputDlS3 = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -6262,6 +6267,7 @@ export type OutputMinio = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -8057,6 +8063,7 @@ export type OutputExabeam = {
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
   onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
   /**
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
    */
@@ -8684,6 +8691,7 @@ export type OutputGoogleCloudStorage = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -9958,6 +9966,7 @@ export type OutputAzureDataExplorer = {
    * Add the Output ID value to staging location
    */
   addIdToStagePath?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
   /**
    * Amount of time, in seconds, to wait for a request to complete before canceling it
    */
@@ -10206,6 +10215,7 @@ export type OutputAzureBlob = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
   authType?: models.AuthenticationMethodOptions | undefined;
   storageClass?: BlobAccessTier | undefined;
   description?: string | undefined;
@@ -10461,6 +10471,7 @@ export type OutputS3 = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -10654,6 +10665,7 @@ export type OutputFilesystem = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -12866,6 +12878,7 @@ export type OutputCloudflareR2$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
   maxFileOpenTimeSec?: number | undefined;
   maxFileIdleTimeSec?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
@@ -12936,6 +12949,7 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),
@@ -13161,6 +13175,7 @@ export type OutputDatabricks$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
   workspaceId: string;
   scope: string;
   clientId: string;
@@ -13222,6 +13237,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   workspaceId: z.string(),
   scope: z.string(),
   clientId: z.string(),
@@ -14448,6 +14464,7 @@ export type OutputCriblLake$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
   maxFileOpenTimeSec?: number | undefined;
   maxFileIdleTimeSec?: number | undefined;
   verifyPermissions?: boolean | undefined;
@@ -14506,6 +14523,7 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   verifyPermissions: z.boolean().optional(),
@@ -14570,6 +14588,7 @@ export type OutputSecurityLake$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
   maxFileOpenTimeSec?: number | undefined;
   maxFileIdleTimeSec?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
@@ -14641,6 +14660,7 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),
@@ -14717,6 +14737,7 @@ export type OutputDlS3$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
   maxFileOpenTimeSec?: number | undefined;
   maxFileIdleTimeSec?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
@@ -14793,6 +14814,7 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),
@@ -17485,6 +17507,7 @@ export type OutputMinio$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
   maxFileOpenTimeSec?: number | undefined;
   maxFileIdleTimeSec?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
@@ -17554,6 +17577,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),
@@ -18848,6 +18872,7 @@ export type OutputExabeam$Outbound = {
   onBackpressure?: string | undefined;
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
   maxFileSizeMB?: number | undefined;
   encodedConfiguration?: string | undefined;
   collectorInstanceId: string;
@@ -18893,6 +18918,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   maxFileSizeMB: z.number().optional(),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),
@@ -19253,6 +19279,7 @@ export type OutputGoogleCloudStorage$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
   description?: string | undefined;
   compress?: string | undefined;
   compressionLevel?: string | undefined;
@@ -19320,6 +19347,7 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   description: z.string().optional(),
   compress: models.CompressionOptions2$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
@@ -20224,6 +20252,7 @@ export type OutputAzureDataExplorer$Outbound = {
   maxConcurrentFileParts?: number | undefined;
   onDiskFullBackpressure?: string | undefined;
   addIdToStagePath?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
   timeoutSec?: number | undefined;
   flushImmediately?: boolean | undefined;
   retainBlobOnSuccess?: boolean | undefined;
@@ -20321,6 +20350,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   addIdToStagePath: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   timeoutSec: z.number().optional(),
   flushImmediately: z.boolean().optional(),
   retainBlobOnSuccess: z.boolean().optional(),
@@ -20402,6 +20432,7 @@ export type OutputAzureBlob$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
   authType?: string | undefined;
   storageClass?: string | undefined;
   description?: string | undefined;
@@ -20471,6 +20502,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   authType: models.AuthenticationMethodOptions$outboundSchema.optional(),
   storageClass: BlobAccessTier$outboundSchema.optional(),
   description: z.string().optional(),
@@ -20551,6 +20583,7 @@ export type OutputS3$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
   maxFileOpenTimeSec?: number | undefined;
   maxFileIdleTimeSec?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
@@ -20627,6 +20660,7 @@ export const OutputS3$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),
@@ -20686,6 +20720,7 @@ export type OutputFilesystem$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
   description?: string | undefined;
   compress?: string | undefined;
   compressionLevel?: string | undefined;
@@ -20739,6 +20774,7 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
     .optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   description: z.string().optional(),
   compress: models.CompressionOptions2$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),

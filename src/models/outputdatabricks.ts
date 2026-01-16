@@ -47,6 +47,12 @@ import {
   ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
 } from "./parquetversionoptions.js";
+import {
+  RetrySettingsType,
+  RetrySettingsType$inboundSchema,
+  RetrySettingsType$Outbound,
+  RetrySettingsType$outboundSchema,
+} from "./retrysettingstype.js";
 
 export type OutputDatabricks = {
   /**
@@ -142,6 +148,7 @@ export type OutputDatabricks = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: RetrySettingsType | undefined;
   /**
    * Databricks workspace ID
    */
@@ -275,6 +282,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: RetrySettingsType$inboundSchema.optional(),
   workspaceId: z.string(),
   scope: z.string(),
   clientId: z.string(),
@@ -328,6 +336,7 @@ export type OutputDatabricks$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: RetrySettingsType$Outbound | undefined;
   workspaceId: string;
   scope: string;
   clientId: string;
@@ -386,6 +395,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: RetrySettingsType$outboundSchema.optional(),
   workspaceId: z.string(),
   scope: z.string(),
   clientId: z.string(),

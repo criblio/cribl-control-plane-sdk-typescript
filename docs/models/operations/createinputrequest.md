@@ -3879,6 +3879,7 @@ const value: operations.InputFile = {
   depth: 2604.05,
   suppressMissingPathErrors: true,
   deleteFiles: true,
+  saltHash: true,
   includeUnidentifiableBinary: true,
 };
 ```

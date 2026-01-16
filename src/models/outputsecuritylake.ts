@@ -40,6 +40,12 @@ import {
   ParquetVersionOptions$outboundSchema,
 } from "./parquetversionoptions.js";
 import {
+  RetrySettingsType,
+  RetrySettingsType$inboundSchema,
+  RetrySettingsType$Outbound,
+  RetrySettingsType$outboundSchema,
+} from "./retrysettingstype.js";
+import {
   ServerSideEncryptionForUploadedObjectsOptions,
   ServerSideEncryptionForUploadedObjectsOptions$inboundSchema,
   ServerSideEncryptionForUploadedObjectsOptions$outboundSchema,
@@ -194,6 +200,7 @@ export type OutputSecurityLake = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: RetrySettingsType | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -347,6 +354,7 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: RetrySettingsType$inboundSchema.optional(),
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),
@@ -409,6 +417,7 @@ export type OutputSecurityLake$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: RetrySettingsType$Outbound | undefined;
   maxFileOpenTimeSec?: number | undefined;
   maxFileIdleTimeSec?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
@@ -478,6 +487,7 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: RetrySettingsType$outboundSchema.optional(),
   maxFileOpenTimeSec: z.number().optional(),
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),

@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 1dbe919974128a7c1a7dc7bcc9c6c870
-  docVersion: 4.16.0-alpha.1768483143772-4850b2b2
+  docChecksum: 7fffd29703cb2523043270a2d6ce3221
+  docVersion: 4.16.0-alpha.1768518246968-56b63ce7
   speakeasyVersion: 1.683.2
   generationVersion: 2.792.3
-  releaseVersion: 0.5.0-beta.22
-  configChecksum: 8342cb3502cd9b1a72e275b795121b4b
+  releaseVersion: 0.5.0-beta.23
+  configChecksum: 6ed9c19c54246ba09eb916169bc580ff
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: f5c5599e-44a1-4470-bd03-2b2dc6c6ff38
-  pristine_commit_hash: e620ba6e650a03e192a50f64ce0926b50f529842
-  pristine_tree_hash: 89e5ee3f20f390c01b8febdf8f2e6d2ead359ff6
+  generation_id: f8cbd1d1-8655-4573-be5f-60b7e445dc8c
+  pristine_commit_hash: a65bfb824553821eb6feb77f7cc9d2327927d10a
+  pristine_tree_hash: 73d9c2f16e9ed97f3678c4cca72ef2daeb6fb044
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1682,8 +1682,8 @@ trackedFiles:
     pristine_git_object: 4ccbde8756964da51145b025050773263023579d
   docs/models/input.md:
     id: 5cbc446a3956
-    last_write_checksum: sha1:d4be2a424e7d19d1e435153ff15ca2f6860cace6
-    pristine_git_object: a0e6b14d0810fa4ae75257844ef037e23a723fc4
+    last_write_checksum: sha1:40e13f86a327a08a8e98fa76d4bfd7c889bd11d2
+    pristine_git_object: 47a03d0fe9ef0c1dbb55aefafb83111730c95dee
   docs/models/inputappscope.md:
     id: ff69a212f541
     last_write_checksum: sha1:25c7e84d41dd00755c589a8e523468bd3c99f98a
@@ -1798,8 +1798,8 @@ trackedFiles:
     pristine_git_object: 3521c9f4f7065cdeb779cbbada3258d8516687d5
   docs/models/inputfile.md:
     id: db8f99e35e60
-    last_write_checksum: sha1:d4df2ac4f8b9898b76b4a8d0e7bf7e1c188d5cbc
-    pristine_git_object: 1cdf67e7952832821ac8bc88a8e6839778fac81f
+    last_write_checksum: sha1:c388a1b70b26a68520eae21ac701494920324e83
+    pristine_git_object: 51ce13341e67ee79ebf7881a802c07e60b8fe478
   docs/models/inputfilemode.md:
     id: d57aa21dc987
     last_write_checksum: sha1:6b411184dfdcf072e3ed04e00b3a52cd1b5ec78a
@@ -2362,8 +2362,8 @@ trackedFiles:
     pristine_git_object: 680af7d998b69fee121fe4b40e2a5a2bd23570f4
   docs/models/lakeexportconfiguration.md:
     id: 8bd1bb7bc273
-    last_write_checksum: sha1:e0a4cee3cfe2a03bc507b1d6a627bc5770a39deb
-    pristine_git_object: f0806bb996b44aac77fc3c1c3d1c29525d4c93c4
+    last_write_checksum: sha1:f813801212bb108c00b7ecce317340a868ed8e91
+    pristine_git_object: cfa3589d2cb6447ce98b3a55b70b8b5ccd1ddbb4
   docs/models/lakehouseconnectiontype.md:
     id: d33654b4e587
     last_write_checksum: sha1:9cb21083a46b031e04c27c2aba55d16598d11be1
@@ -2758,8 +2758,8 @@ trackedFiles:
     pristine_git_object: 9db2d89b59222afc21c298aa25a013eb54ae28ea
   docs/models/operations/createinputrequest.md:
     id: 47be44e9cc4a
-    last_write_checksum: sha1:2d67a8901971ce59a7a2cd7e682431eacd186782
-    pristine_git_object: 4b8dac11afe6adad952eff0ee31d22b17439ddc1
+    last_write_checksum: sha1:daa2e1aee11b5658bd792fbfcbee93c789e9ac27
+    pristine_git_object: 53ac6966b42c631b65948ddf2c2c02ac545dccb4
   docs/models/operations/createoutputapiversion.md:
     id: 8aebc09e5f00
     last_write_checksum: sha1:7ee8252b55da7a6dee56da7545b340fb97588ad7
@@ -2782,8 +2782,8 @@ trackedFiles:
     pristine_git_object: 0098b93057fab216f5219c90950bff4a1f1d75e8
   docs/models/operations/createoutputrequest.md:
     id: 1ed98d6cd06b
-    last_write_checksum: sha1:d7e680fbd302ac4ab176be45272533ba13735721
-    pristine_git_object: 0379531d02bf3e3f2c3de059b62f87d5de519c15
+    last_write_checksum: sha1:0a5b7ed0af83928f4bf71a7a2be906a8e99cac69
+    pristine_git_object: 1cdbe92fe40592d20795480d43cc958107d1b20b
   docs/models/operations/createoutputrule.md:
     id: 7155862b7d46
     last_write_checksum: sha1:6026f6b5447a3d138400c03c04750292f4425f22
@@ -3186,8 +3186,8 @@ trackedFiles:
     pristine_git_object: 04c50d31295c61c39aa87a4311068ea7cf993863
   docs/models/operations/inputfile.md:
     id: a2595cad4386
-    last_write_checksum: sha1:643b4b354594d527607fc2a0a54cb6334be8f885
-    pristine_git_object: e84391dda79b0ba075f6566fbe25dfc38256379b
+    last_write_checksum: sha1:a4f99c3b59c7d01d637bec5de98804304b033138
+    pristine_git_object: b6e1cef0efd16ebfbf63f2c2ad961e814b4f68ed
   docs/models/operations/inputfilemode.md:
     id: e76c057e91ae
     last_write_checksum: sha1:daf4aa25699b2c253c794140c5ee541c1520e8b0
@@ -3506,12 +3506,12 @@ trackedFiles:
     pristine_git_object: 1f6ee27127476bb671bc5f8bb8ae623387ba5bd9
   docs/models/operations/outputazureblob.md:
     id: f4b0904ef912
-    last_write_checksum: sha1:12cf7417499001a1e9b3264f9499b3fee266e171
-    pristine_git_object: 54f0d526967f7fa6469fa3309e9e8c1679e2cef2
+    last_write_checksum: sha1:3d0644e05dd09c75b166d28b16fa4ed3eaf3fde8
+    pristine_git_object: 1cec329f27d22e1438a80c12c3e229bf15af59cd
   docs/models/operations/outputazuredataexplorer.md:
     id: 13c74b44fd6e
-    last_write_checksum: sha1:ba37de407374151f4a18d8a30fb6df37a76f4aa9
-    pristine_git_object: 4085bdb48e50f88b9039f428e2b0e8c6bab6d1e9
+    last_write_checksum: sha1:25a35cbed74a29a6e3cf84d43b62267ba8c757bc
+    pristine_git_object: 5011b5b08289020d9d29c9d684dbea1520ab6561
   docs/models/operations/outputazureeventhub.md:
     id: 4e732076cc1f
     last_write_checksum: sha1:75284a4418d85742330c0c29d1bb06ab64020aa2
@@ -3530,8 +3530,8 @@ trackedFiles:
     pristine_git_object: 5b6b4370504e237f6c3a8b85904e17eda5be733b
   docs/models/operations/outputcloudflarer2.md:
     id: 7564501a7362
-    last_write_checksum: sha1:babe48c6a2d98471d0511ea3ec627f458b4b72d5
-    pristine_git_object: 4b68c38eff761e96953df347593bc20ff8394a1a
+    last_write_checksum: sha1:e2a57a54d8126ffba9fd431f2e75590d2964eeea
+    pristine_git_object: 03259a9fa00d064191297e2ca62f574a8dd3e71f
   docs/models/operations/outputcloudwatch.md:
     id: a6487961989a
     last_write_checksum: sha1:d5d2a26d86e91077645f327ee6cf29e6f9e5d992
@@ -3546,8 +3546,8 @@ trackedFiles:
     pristine_git_object: c57ebc48d70e6606495e9b307012c367fc16ccec
   docs/models/operations/outputcribllake.md:
     id: 7259a3a97bdc
-    last_write_checksum: sha1:aae16706001374ea6a7925653c428e95eaa8e259
-    pristine_git_object: 272dafe7e6d3f9963a1394333ade32186c0ef62b
+    last_write_checksum: sha1:f23ce7f6fe87472bd1b2a839ddd6e5cf546dac81
+    pristine_git_object: e014053fe6fb0af0921d97b797fef68c447d8e7f
   docs/models/operations/outputcriblsearchengine.md:
     id: 4c32e0439f13
     last_write_checksum: sha1:20b85554d33a6bf99ac5e8615f6c0ac9b02e7003
@@ -3562,8 +3562,8 @@ trackedFiles:
     pristine_git_object: 9290b6c9129e47bcf1462340da70acda93e40ad9
   docs/models/operations/outputdatabricks.md:
     id: 78cea0d490c7
-    last_write_checksum: sha1:742b36bda4f6c760eb5e1b9922d41f5ee3a3b1a1
-    pristine_git_object: 354e1ca2c3a3309830854bce582db7405ad6efc5
+    last_write_checksum: sha1:5aa2ca417295d6f5f6b6147447c68fe2c816d20f
+    pristine_git_object: 7f271ad2bd719f955477a0404f8dde039faa90fb
   docs/models/operations/outputdatadog.md:
     id: 7e5b803b1106
     last_write_checksum: sha1:cd027d54c236192a5a4cdf5337012dbadaa0c3f4
@@ -3586,8 +3586,8 @@ trackedFiles:
     pristine_git_object: 808d90d5d7d1f423aa1bb21cc21ac76263718e0f
   docs/models/operations/outputdls3.md:
     id: 7f0d92c24ac8
-    last_write_checksum: sha1:4cf990893872462dc89b5696d4ae9ef11f31cae0
-    pristine_git_object: 7a7fe93ece58d069cd12e1de2bf1a35838925f1e
+    last_write_checksum: sha1:b82d085b1ca2a3fe213e549a386cc00a8459e1b3
+    pristine_git_object: 204b786769324fcf83f0dc2dd6dd71a8435e2dd4
   docs/models/operations/outputdynatracehttp.md:
     id: cdf90818194e
     last_write_checksum: sha1:cf1f897d9142d7f22b66fd710bbdc5b741367eca
@@ -3606,12 +3606,12 @@ trackedFiles:
     pristine_git_object: d4edced7074d430be588ae015d818ea6503a74e3
   docs/models/operations/outputexabeam.md:
     id: 9034630f10bf
-    last_write_checksum: sha1:8414d2d762f5d807440fdae0397379afcebd9527
-    pristine_git_object: 0decb8d2f6e0249f0f5c0ce6bb9ef8b198273bd0
+    last_write_checksum: sha1:42513870ffd9017509c3ae9b31eb0033654d3ac4
+    pristine_git_object: 686b0bf9fdc77a9d9b9c1978a958b9f28171350d
   docs/models/operations/outputfilesystem.md:
     id: ddac8cda5428
-    last_write_checksum: sha1:367f1de2a046c4f1a027056875f4642892487f47
-    pristine_git_object: 8ec2fff03be2f11067d31f1cfda62af54f1b389a
+    last_write_checksum: sha1:c3b5502acac48cdd4765ac3f42801659252f7b85
+    pristine_git_object: 2ae7f4ba8955d07947e5b85e5ebd43266afd9562
   docs/models/operations/outputgooglechronicle.md:
     id: a2dc9005da9f
     last_write_checksum: sha1:2c5197f0fe2e35077d9f2053552e8e3f5a967d99
@@ -3622,8 +3622,8 @@ trackedFiles:
     pristine_git_object: 0e77746cce85448ffba020b9fab09604830cbcd9
   docs/models/operations/outputgooglecloudstorage.md:
     id: 311a8ec10756
-    last_write_checksum: sha1:b53272744a4aacb8461676449cba2a8fb0acf53c
-    pristine_git_object: faa628d1c761ec962ffd1d07b346542d9e8e4b38
+    last_write_checksum: sha1:98f5218c21144f756275dddee10efb4fc4b2ab03
+    pristine_git_object: a76a63493b110281f8e4b2b07c91979e0b790fba
   docs/models/operations/outputgooglepubsub.md:
     id: 348757acbe2b
     last_write_checksum: sha1:c9b25fd67631791a4263a1e2f9250eba6c2dad90
@@ -3690,8 +3690,8 @@ trackedFiles:
     pristine_git_object: 6097b66fb166f388584dd4f3bbb763589e1674a9
   docs/models/operations/outputminio.md:
     id: 43cbbb6226c3
-    last_write_checksum: sha1:848b442cbb426d87fef4c80cdf48e6bb941d1d07
-    pristine_git_object: 99448a6a7c56d373449a182cbc07fbccd7c0179c
+    last_write_checksum: sha1:7373ddd0f081f042beeee946dfcbd44bce2ef463
+    pristine_git_object: b5a1824518ed2e533cb09348083e0636de2e3ba4
   docs/models/operations/outputmsk.md:
     id: 8105a6150f28
     last_write_checksum: sha1:f85c2d69b53a6ef0f52788471d0cf56e30c14d19
@@ -3726,12 +3726,12 @@ trackedFiles:
     pristine_git_object: c816d6f69f84ad020fcbff1d089d30cdf9364ee1
   docs/models/operations/outputs3.md:
     id: 92d5853538dc
-    last_write_checksum: sha1:c0fde55baf28875c0de5f153ac9e4e2fd2ca1213
-    pristine_git_object: 12d99744b5094d200c18ec6e3c2bb9aea56f67af
+    last_write_checksum: sha1:139db1e4218d0dfa39dc10b562224c049eefbe4e
+    pristine_git_object: b7755f525efd8dfdd39293717503c20892e7eb45
   docs/models/operations/outputsecuritylake.md:
     id: b0e8b1951d84
-    last_write_checksum: sha1:f279f8e7f63accbba7a806d0456092f98a601883
-    pristine_git_object: caa5183e0af890d4235d7dc563b44683142b5b50
+    last_write_checksum: sha1:ebf2369f1629e9a94267764d9e0a289d480e8a5b
+    pristine_git_object: f00e710c8136eca0fadab94faab78f930d27d9b8
   docs/models/operations/outputsentinel.md:
     id: b7e34a26d667
     last_write_checksum: sha1:5166dc21efd88a76de113df29ddf76280ec4e2b0
@@ -4226,8 +4226,8 @@ trackedFiles:
     pristine_git_object: 5f97eacdda6cddbcc05bd6c7d923ac87dcdfd461
   docs/models/operations/updateoutputbyidrequest.md:
     id: 74441d68a8f0
-    last_write_checksum: sha1:45272d5e81e0277173d0c7d051a7896defe09b5b
-    pristine_git_object: 52c1fa2ac589f806fb00a14a1c6293442660cf54
+    last_write_checksum: sha1:20a69b700f8cbc804d8d2e0cc4a2df1191526e5e
+    pristine_git_object: e1458c73c11ec54bea9bba95e4132e365b2946b8
   docs/models/operations/updatepacksbyidrequest.md:
     id: 71298184b051
     last_write_checksum: sha1:2b8cc8176507536d26f3dddeaf3a7ffe74f03fd2
@@ -4310,16 +4310,16 @@ trackedFiles:
     pristine_git_object: ebdf3c0fbc37f47d4e3c49b7c1b51d2e852b6189
   docs/models/output.md:
     id: 376633b966cd
-    last_write_checksum: sha1:5189d61bba39868ee75abbd7db1b7adc57618917
-    pristine_git_object: 5325766be686eac0dccb146ed86a2b7f159b7411
+    last_write_checksum: sha1:83aa63e88837de1758f5a3efe007ba193b749e8a
+    pristine_git_object: c966e2fe0f796d73e4ca2f6da9fa6e60f3594834
   docs/models/outputazureblob.md:
     id: a995af061056
-    last_write_checksum: sha1:20c43dfd59cbd4bdcb522c3938d0bab3c8d4c4ce
-    pristine_git_object: e845ba9c6dc374f763ba12833af6dbad1704dda1
+    last_write_checksum: sha1:5b45f4a5188d10cdf14b2fe22324a7035c4fe8b2
+    pristine_git_object: d801f659929a66f337ed861e28c26b5349b40ac5
   docs/models/outputazuredataexplorer.md:
     id: 69de7df3be04
-    last_write_checksum: sha1:47cad1bc416a815c84520782dfbb51f8b4cf02de
-    pristine_git_object: c74274b10fea49e22e0d18b7fdd6f6f6894f9abe
+    last_write_checksum: sha1:8241447d88c148e7db2a825111c8d21f650eeddd
+    pristine_git_object: 384e5ae69f80a188d7c303828509e68ca2fe9105
   docs/models/outputazuredataexplorerauthenticationmethod.md:
     id: 37ff7207408d
     last_write_checksum: sha1:8b1b6158613bdd1e4cca7fd79086d6ed8baca3a7
@@ -4378,8 +4378,8 @@ trackedFiles:
     pristine_git_object: 8b15d1f12195336842f40598afdbc9cf727bc784
   docs/models/outputcloudflarer2.md:
     id: f2abd18362ed
-    last_write_checksum: sha1:d96d3a16a7d05b89859898d1ccbb1f5e0fa995fc
-    pristine_git_object: 883e4c272c0299faa8f39eeb8d1e4b40b84e9d25
+    last_write_checksum: sha1:afa9f753f4eebc84124b3ea04e1683a582f2a123
+    pristine_git_object: 198684b18c8796c26b5394333b6a64ad91e846ff
   docs/models/outputcloudflarer2authenticationmethod.md:
     id: e8ca9320c31c
     last_write_checksum: sha1:b83ce0f1999cfbc1cfe2d4636141cbf53bdd9e60
@@ -4410,8 +4410,8 @@ trackedFiles:
     pristine_git_object: 8ddbcfb174655010ee0c02943020a704a61ac139
   docs/models/outputcribllake.md:
     id: b90e8719d73e
-    last_write_checksum: sha1:c0e0bbcbf23892ced4c249249aabf7fa33a7cfcc
-    pristine_git_object: f84e4cdeaa136276ea4d9aa675cd8b269a2284d6
+    last_write_checksum: sha1:0a0915cf1b134d9743c87b920d2c1454a72d4716
+    pristine_git_object: b3f109b11b8e0af00dcab2a1db14e2a34b140b74
   docs/models/outputcriblsearchengine.md:
     id: 0ed418fdd6c7
     last_write_checksum: sha1:9061a20060b4cc3fbc94cc71aeebfe9c884ae1e0
@@ -4438,8 +4438,8 @@ trackedFiles:
     pristine_git_object: 63163e5407ea8c82bec86600a692a860d49edd6b
   docs/models/outputdatabricks.md:
     id: 4724dc10cd94
-    last_write_checksum: sha1:4f0d5672127442121470c7005b3387a951489c7d
-    pristine_git_object: e64647df96aa09011fd39da821bb7be6fb02745f
+    last_write_checksum: sha1:747fb9a2415b91a37cca8de2ecf2540adca03faf
+    pristine_git_object: b2e9a8a306e50be867ef77bd57c6f1b94a60961d
   docs/models/outputdatadog.md:
     id: c5607e162b7d
     last_write_checksum: sha1:91c0516013db740d454fb0263899bda3d4836b04
@@ -4478,8 +4478,8 @@ trackedFiles:
     pristine_git_object: 065734198e7afee55629ee65d2caf99ed045d9f2
   docs/models/outputdls3.md:
     id: bfe004572203
-    last_write_checksum: sha1:d93a4dc1a2003ae87f231ade8a3fd997366d61d0
-    pristine_git_object: e82151562296eea19dbb4359236bab10f62241df
+    last_write_checksum: sha1:f69de71500b5acf855dfc45a0d1251ac4f3c5c45
+    pristine_git_object: 5950d1ee8e99f02746ad7e8d7f28ba95da3f8d51
   docs/models/outputdynatracehttp.md:
     id: 2173c2e4a2f5
     last_write_checksum: sha1:b4eacc5149316f9f2d13dc02d841c6bd6bf743ec
@@ -4530,16 +4530,16 @@ trackedFiles:
     pristine_git_object: 161e57619e1854a307fd3258c5adef0266fc1b9d
   docs/models/outputexabeam.md:
     id: 3994111083ee
-    last_write_checksum: sha1:957b0975fe789c56a7546135530805c87647f09f
-    pristine_git_object: 33c5063c308a04db43fc55c8bfdad4f072a7734a
+    last_write_checksum: sha1:d839a917df119c3c25e836c8448b15d352ee12d1
+    pristine_git_object: b21fe6729d3ea06f14a05328d304de77e951f33e
   docs/models/outputfieldmappings.md:
     id: b451bed6fb44
     last_write_checksum: sha1:69d5ccea3e1dbb9fa76cb9e861d9c78c5d0d340d
     pristine_git_object: 0df946b7f5b4060b1d762c4806effb0764f56ccf
   docs/models/outputfilesystem.md:
     id: 733abda7d3a2
-    last_write_checksum: sha1:3cf2c6a6658143eb77476ba6ddbe1175353cd8ec
-    pristine_git_object: 113d76d082551110cf3480faeac502e51b3c85f8
+    last_write_checksum: sha1:25da7824b1aeccde397ae14ee1d8aae883b55653
+    pristine_git_object: de334ff97912d73e99fca080584d2937a5ab38d0
   docs/models/outputgooglechronicle.md:
     id: 94619dc3adca
     last_write_checksum: sha1:83436002da53ed360f20817b0d43fc046092044c
@@ -4566,8 +4566,8 @@ trackedFiles:
     pristine_git_object: b4dc575d94d27365574c23b7c552240310dcbc07
   docs/models/outputgooglecloudstorage.md:
     id: 336c1580f008
-    last_write_checksum: sha1:4a27cd41cecca3c7ddb31b8342130469db196fae
-    pristine_git_object: 27b0e83ae44ccebbdf84a032fb38e4525d7c35cb
+    last_write_checksum: sha1:eb21a7f973660fec921560ca275bccc03e0d9749
+    pristine_git_object: d91278366be3f2ce91c872b157fd9b908383d09e
   docs/models/outputgooglecloudstorageauthenticationmethod.md:
     id: 1beb4055d203
     last_write_checksum: sha1:2beb832f612f1da2d1e7d321f61500f617a7429f
@@ -4690,8 +4690,8 @@ trackedFiles:
     pristine_git_object: 11718f221833fec87b81a4edad455295e0c625c4
   docs/models/outputminio.md:
     id: fd1514cd9203
-    last_write_checksum: sha1:34187b7df90ea6bc73d8a0a342727fa291dd3708
-    pristine_git_object: e44fb4fc3e7c3dcf981109a75e548995ddbf5aee
+    last_write_checksum: sha1:4b02cf8ff844ea5500087f86db58b68cbd0c58aa
+    pristine_git_object: 5a7335985728ecc269996f60166879cc14f820ee
   docs/models/outputmodeoptionssplunkcollectorconf.md:
     id: 2568be788e23
     last_write_checksum: sha1:763d26e8eedf419c3dca8d654e26c62a8157fc50
@@ -4766,16 +4766,16 @@ trackedFiles:
     pristine_git_object: 6a93967b77baec81479c4693e8dd20686b33cac8
   docs/models/outputs3.md:
     id: de258647639f
-    last_write_checksum: sha1:f571cba64d7b6eed5ef3e4feb5b7b687de5d585b
-    pristine_git_object: b406886342a925f7060fab78c838741007b9ba77
+    last_write_checksum: sha1:861097289201feaddc3b05d7e43408964e2bc814
+    pristine_git_object: 8288a349ff910eb3cbbfde8672208e8cbbfd1beb
   docs/models/outputsamplesresponse.md:
     id: 940d41a3ec76
     last_write_checksum: sha1:efffd18b7de4fc6046d438e38eb51b4f8e678014
     pristine_git_object: bbfba6ba618ce5f9b393d03a81c67cb0971421b6
   docs/models/outputsecuritylake.md:
     id: 083797d0cf6f
-    last_write_checksum: sha1:7d5de4524ddee427fc93b1720c95e08cc053622d
-    pristine_git_object: b7fc778cef2879b7d4a35f967cecea6e126d273b
+    last_write_checksum: sha1:7620cc1f82bec0826b1c19e9a61cca9b51b01cae
+    pristine_git_object: 9f96f93a2eb3c82b842e0d98d08f9e0ab25d4837
   docs/models/outputsecuritylakesignatureversion.md:
     id: 8149ebb39fd3
     last_write_checksum: sha1:0aa65498f5001aff4e748dd82357a0443b657d75
@@ -5054,8 +5054,8 @@ trackedFiles:
     pristine_git_object: 29dac798acca39115535fe2483f9ebbe9c2efeb7
   docs/models/pipelineconf.md:
     id: e98782925cec
-    last_write_checksum: sha1:9518f8d3a21b7ae83a0b48c0fc0b654396307cd3
-    pristine_git_object: 2b7000de4414fde5131015eec9aacced5b6bdbc5
+    last_write_checksum: sha1:e1f1b2296d8e0b9fbcd92a995b8c313f4d098dc5
+    pristine_git_object: 26822979ac90b318cbba1e4d68d897fd656cc208
   docs/models/pipelinefunctionaggregatemetrics.md:
     id: 480cec57b095
     last_write_checksum: sha1:92941249f2d7d229a9be7b42cbdbd533ed5ceca7
@@ -5114,12 +5114,12 @@ trackedFiles:
     pristine_git_object: 6f2cb8c8b311af0254c252161c782b80790224b8
   docs/models/pipelinefunctionconf.md:
     id: 52478e5b129d
-    last_write_checksum: sha1:eef908cf0d0e09b8d0e03fe82cd6153711c0d6ac
-    pristine_git_object: 597ba9badb0704891131298ea642e65c92abcfaa
+    last_write_checksum: sha1:0064ab566ffa3677c2717dcb351ae2b048b6ac23
+    pristine_git_object: c071bbf71bc4bc0ca3e17b3ac854b126a034c7be
   docs/models/pipelinefunctionconfinput.md:
     id: 8775804bf22e
-    last_write_checksum: sha1:e25b4a1e33c076783561e5b604ba6fa284864fbe
-    pristine_git_object: 9573de25ada13d18f57c9e2a23ba95bc8e5e0c50
+    last_write_checksum: sha1:446809f17e77ebd47e59aca0f73afc693bd92f4c
+    pristine_git_object: b310783409360ceb9e8d45c5f0a98eec472cfe47
   docs/models/pipelinefunctiondistinct.md:
     id: ee40702875ea
     last_write_checksum: sha1:0115bec7fa6bcead0310c954c248437a477a659e
@@ -5218,8 +5218,8 @@ trackedFiles:
     pristine_git_object: 24f18608d5355e0beddcdb5835704718e68bcb9a
   docs/models/pipelinefunctionlakeexport.md:
     id: 5cfd26e5d944
-    last_write_checksum: sha1:d8f4301404ba30372f60d4ce0302aa49611624f5
-    pristine_git_object: d0e380018cb2808d55fafde48231f3a607ba7abc
+    last_write_checksum: sha1:d58c659e444d4265789c5bfef55d22628de8a4e8
+    pristine_git_object: 302c1966958318236d9f076adbcd9815d8660b54
   docs/models/pipelinefunctionlimit.md:
     id: 59f7257d62e3
     last_write_checksum: sha1:67984fa3fd757765c96eac8f52a44089bdae4bf8
@@ -5358,8 +5358,8 @@ trackedFiles:
     pristine_git_object: bbe8c7a154f8d43d4dc2470b0a1d427f5b214b2c
   docs/models/pipelinefunctionsend.md:
     id: 74abb0008326
-    last_write_checksum: sha1:8374db680627681d1dd574d9addc36120c6d8b30
-    pristine_git_object: 0ad514305fe0780acfbeae8df106cc5b9460df8c
+    last_write_checksum: sha1:0fa2b3f3625ff4911fb0264926131406a61f5418
+    pristine_git_object: fde65af0182636e73ec821c646ed489fbedaa41e
   docs/models/pipelinefunctionsendmode.md:
     id: 4f1a875ef700
     last_write_checksum: sha1:c3ccdd26dea8334981782c7207ea4b135ca0a7d3
@@ -6136,6 +6136,10 @@ trackedFiles:
     id: b79a917caa6d
     last_write_checksum: sha1:e20dd0dc6f8f234055bc751d798201f0d225123e
     pristine_git_object: efd9d809cd90ef4909691674f0835aa190e6e5d7
+  docs/models/retrysettingstype.md:
+    id: cf213ab5ac61
+    last_write_checksum: sha1:9e59c958120660122370701fc8b09c6afa3f7af1
+    pristine_git_object: 2c6a5ea379ebe37e6584d9a77fc4e4dab3bcd5ff
   docs/models/retrytypeoptionshealthcheckcollectorconfretryrules.md:
     id: c9486c78458f
     last_write_checksum: sha1:fe884af0b8b23daf0bce966948adc0369f68fdb3
@@ -6350,8 +6354,8 @@ trackedFiles:
     pristine_git_object: 40c5b71e8e9a9deb03dad5eda5abdeadb8041598
   docs/models/sendconfiguration.md:
     id: 7264c5ca693b
-    last_write_checksum: sha1:bb4e92598f64c29e043240dd48702e12fe9e4cb8
-    pristine_git_object: 772ba85c014c236c205b3bddc3dedbfd205de753
+    last_write_checksum: sha1:a209c4814c407ed529d77b2bd8d6cd872d3df0fc
+    pristine_git_object: 7ae3542e42396c1d8cd343e65effa1208b52e1ba
   docs/models/sendeventsas.md:
     id: 46ed47de98c9
     last_write_checksum: sha1:213adeec775ea125c156fe1b01e5b50f8e3ae3b7
@@ -6894,12 +6898,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:4f6d5f7fecd52c424d770d6989273f459d6f1ce5
-    pristine_git_object: 6fb047966bd18ade8690ac0bc606253cde383049
+    last_write_checksum: sha1:fbd455938af5d5a851537e3ccac2a3dc7055c98a
+    pristine_git_object: 69137681e2796f984ee6a03bd474bea11c8cda2c
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:5c3df3093c12ee51f59fbfe085ed79491c440155
-    pristine_git_object: 4b7e8b6921a3c2e42372a719940687359342a26a
+    last_write_checksum: sha1:7a16c5953a8aa59e958cb5b5d9c04da3109fdaf2
+    pristine_git_object: 5f59d6d442d214c281f7889e9189cea927a21ad4
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -7218,8 +7222,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:387af84b820f9933b27c1bb368a4bbd016643073
-    pristine_git_object: 69fdefb153634feb6930065de5b30911db567070
+    last_write_checksum: sha1:d797a443b704014547d096b25c7fe28cf5edf200
+    pristine_git_object: 888191aba2fb2be428aa6deb6bdaacdbeb79c39f
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -8270,8 +8274,8 @@ trackedFiles:
     pristine_git_object: 2341fc249597a4ef6bc21adfa8fe46132f533a1d
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:5423ff02ba7a1b8838fae1f9a046ec41af48e668
-    pristine_git_object: 69a9090c7030a1a4ed547550502d28457f07d885
+    last_write_checksum: sha1:d48c5456f8a581580da26e560ec08c4ad84a9186
+    pristine_git_object: 526c4519ebe22c430503097c25ed087c205d6c61
   src/models/input.ts:
     id: 3b376a2db155
     last_write_checksum: sha1:319a09d631a7ef50bc57ab0632445be9ea7ac6e3
@@ -8346,8 +8350,8 @@ trackedFiles:
     pristine_git_object: 1f217beea259c245e25cc5432a46610396b66930
   src/models/inputfile.ts:
     id: 21319fb604ac
-    last_write_checksum: sha1:9addedae43276c2ca912f18e5c37e7822b9f6588
-    pristine_git_object: 36817b5baa882ede68e9e7eb9b45da902c825f30
+    last_write_checksum: sha1:7cd9484a0a466a052a4de496b03d95e2cd80ddee
+    pristine_git_object: 8d0a46252031c95ae918aac44f7558d7a68d7c28
   src/models/inputfirehose.ts:
     id: 3cf1ae12b5b0
     last_write_checksum: sha1:eb841df8a101534ca234023df06f4cd65527a75f
@@ -8770,16 +8774,16 @@ trackedFiles:
     pristine_git_object: b70baf74b65eb6014e2e326c2e60baf3d8967a5f
   src/models/operations/createinput.ts:
     id: 9b961c34b2ad
-    last_write_checksum: sha1:5fb8fb89865fa84a1f2bc0bd8af12c848c2a05b2
-    pristine_git_object: 85ef8cf82ec2ceaef13f0ec4f2b05daf320a5161
+    last_write_checksum: sha1:337f7f0a62a9d33d7638671072283f39ec1fe633
+    pristine_git_object: 042ccd3e3de1b8c61d11205f14c676b94c635611
   src/models/operations/createinputhectokenbyid.ts:
     id: 9a464b44af35
     last_write_checksum: sha1:03dd8fb2b2839e7942c5878317541441f3b3dabd
     pristine_git_object: d50a0dbe7b197ac6f66323b5b328909b1f8d4bcb
   src/models/operations/createoutput.ts:
     id: b78d02594812
-    last_write_checksum: sha1:cd678bca72f29a9d8f33228e76bc5fcf00007c62
-    pristine_git_object: 5cff25967f3286e18aab0f0d94b2c5da59dfdf6c
+    last_write_checksum: sha1:4109f65f236e6e4f91d8abb70920cbf0e4b9c4b4
+    pristine_git_object: 392ca8d875a6be6088cf941aac434b94f7975f35
   src/models/operations/createoutputtestbyid.ts:
     id: edef7624f001
     last_write_checksum: sha1:f502988a771b0ba17ed81c979b346ccdb47c96ea
@@ -9010,12 +9014,12 @@ trackedFiles:
     pristine_git_object: 4a4dc1f561428d6d998989b92db9ee3aac15bb6b
   src/models/outputazureblob.ts:
     id: 1135a47e98e0
-    last_write_checksum: sha1:70255e0f40a93578344268e56ffb3dc445402b0b
-    pristine_git_object: f2d7e8e3a3e6d3355538d41c7d4fce6308c86436
+    last_write_checksum: sha1:c171fa6ded5cf46934bc186c2c870bea99b0fffa
+    pristine_git_object: d563b3c5fe4fef618986e68241e7d432425b079c
   src/models/outputazuredataexplorer.ts:
     id: 9e7db53f5e96
-    last_write_checksum: sha1:0ecb2d2c05a8cf7704714afe0edbf02d31a52c80
-    pristine_git_object: 7e9a6625155e8131bde52c1c625f84a626ea4dfa
+    last_write_checksum: sha1:a3231c22c9fa18d1407c6a3be03647bbb007dbd3
+    pristine_git_object: dec3847ab14914f13de15240b2c52c1c5e656f69
   src/models/outputazureeventhub.ts:
     id: 428523980ae0
     last_write_checksum: sha1:7c5b374c68dcc398c0f799087269962c45e1f294
@@ -9034,8 +9038,8 @@ trackedFiles:
     pristine_git_object: a4fcebca0623a410cbabca35ccd16a66789aeab8
   src/models/outputcloudflarer2.ts:
     id: c0ebcf61632c
-    last_write_checksum: sha1:09ccd602d1033fe7c6d739d5bfd5307cef3d30ee
-    pristine_git_object: 20f303d4e376f0de24a8d8b57356e43ee801b05c
+    last_write_checksum: sha1:4c77d29f2c4443a41234baf0e0567c4002c19169
+    pristine_git_object: 0801b72fd35f19f542621509556fd2000689fa38
   src/models/outputcloudwatch.ts:
     id: 8e2414463792
     last_write_checksum: sha1:3ff8084703a1ff2e41a9c19293df37e0dd30fb38
@@ -9050,8 +9054,8 @@ trackedFiles:
     pristine_git_object: 05b502f2bf94dce91ba7cac48983fe14ca945c46
   src/models/outputcribllake.ts:
     id: 61ffe27fff5e
-    last_write_checksum: sha1:54ceba85c8ce65d5cb57e256e0cc6242de1effd4
-    pristine_git_object: 8a94acdf379cabf88d0da46b35dac3d6fce09a33
+    last_write_checksum: sha1:46f8ddf8807e023c2cdd3f7f700fa240ea26bb71
+    pristine_git_object: 6c128b3dbf57d7ac6a710d21fb0278d3b9c152cb
   src/models/outputcriblsearchengine.ts:
     id: bcb3e6bd4a44
     last_write_checksum: sha1:23eac4e6f89fa193f7f9ea89cdaf71b546b26a38
@@ -9066,8 +9070,8 @@ trackedFiles:
     pristine_git_object: a18171d80db8d358e60dd41f899535f572ef48cb
   src/models/outputdatabricks.ts:
     id: b18e9cd61433
-    last_write_checksum: sha1:acd14437b9d53c70044399dcb7ef16e59de53ad9
-    pristine_git_object: a74670a383a79a582759b32a0fc7c60e07314bd7
+    last_write_checksum: sha1:7ab7a16dccb6d375ef9e5bba84084b0963bc3fa3
+    pristine_git_object: 031b5adfaf96ab24b6f94993b9a47b3a095f1e70
   src/models/outputdatadog.ts:
     id: 9a1fcb4061b3
     last_write_checksum: sha1:4dc5cabdc0c1b66fab31da577a6ef9b79c5bcfe3
@@ -9090,8 +9094,8 @@ trackedFiles:
     pristine_git_object: 5a9b791f4998f03b5beb91007d532f6a929978bb
   src/models/outputdls3.ts:
     id: 5021debf06ca
-    last_write_checksum: sha1:78be93a31bc82d23f3b2c3ef99e6051487d67c89
-    pristine_git_object: 42816ff25721e6d93701936c74e19766422b1f2c
+    last_write_checksum: sha1:b0c860132de024a9e966dcd542d5f2616da355a8
+    pristine_git_object: 3134ffac099ddd311770d2eb82ef14e96f03ea49
   src/models/outputdynatracehttp.ts:
     id: aa254322c796
     last_write_checksum: sha1:4f3bdb573a43cf060452865e4f8bd541725b27b4
@@ -9110,12 +9114,12 @@ trackedFiles:
     pristine_git_object: a95e8495236cf8d805567a003192baac74f92af4
   src/models/outputexabeam.ts:
     id: eb433fd70f6b
-    last_write_checksum: sha1:7fa103d3b59ae769215cd8d3d7e0f01c0b44b58b
-    pristine_git_object: 3f09d222d930165e26cb5940e8cdd8ad4b20e733
+    last_write_checksum: sha1:fd3fb54cc0ccad6b09d8016a5a3c85b27afcdaf8
+    pristine_git_object: ab7170633c8827806cb9be92c1e3bfa8993e666a
   src/models/outputfilesystem.ts:
     id: 99b5cc793123
-    last_write_checksum: sha1:ab97d5e68192304548986f16ab680ef91d4369aa
-    pristine_git_object: b659bb26e2de5197329c195f0cb1ee411c589a69
+    last_write_checksum: sha1:c98c568cd2daeac87cf5a84bf9ef4213f914d1c8
+    pristine_git_object: f318b7fe049652c271266cbbea8d1c1d9d7bad21
   src/models/outputgooglechronicle.ts:
     id: 64cf2b47aaee
     last_write_checksum: sha1:d9e812943e754c25fe929b2a48abd06affb1c93e
@@ -9126,8 +9130,8 @@ trackedFiles:
     pristine_git_object: b555051646c9e1955e5150eceece294be4f26504
   src/models/outputgooglecloudstorage.ts:
     id: 247160025f00
-    last_write_checksum: sha1:9e4ac9d8e217359dd31b60671c005cfbaa7fcd24
-    pristine_git_object: cd57b5f9b164c09d1b42202162da2c4ff1407c1d
+    last_write_checksum: sha1:183a86e1efa625909b1771b39a79e2fa8251b3f6
+    pristine_git_object: a86f3572b32e91c3fad5e207c01e65b1f9ae6fbc
   src/models/outputgooglepubsub.ts:
     id: 9527922bb948
     last_write_checksum: sha1:71e599c71fb268c8e9e48f39f5d269ca9e236600
@@ -9170,8 +9174,8 @@ trackedFiles:
     pristine_git_object: d3eb3d700a06247a831a0cfb4cfd3b245910e30d
   src/models/outputminio.ts:
     id: 8ffc597c559d
-    last_write_checksum: sha1:f9fc4977b14b92ed98286b903233a18b4fcb5ce4
-    pristine_git_object: 83d2a86d7de811b518ba0f87f05cbd0cb7aa45f6
+    last_write_checksum: sha1:d74737d4116cb46bd5d402ccb114ee3416dcf6f5
+    pristine_git_object: fdff923f8e51fa47c581d83030f55440f3de1ebe
   src/models/outputmodeoptionssplunkcollectorconf.ts:
     id: 58e37148d900
     last_write_checksum: sha1:321dbd04d30d74765f28e05e29e542ea641a0aad
@@ -9210,16 +9214,16 @@ trackedFiles:
     pristine_git_object: 71eb8206c8e319bdcc4f838f868f99862740624a
   src/models/outputs3.ts:
     id: e31e836751c4
-    last_write_checksum: sha1:574f573ad045473205956d4faa690de4885fcaf3
-    pristine_git_object: 349a7463a9935c830c56424592324083dff8f558
+    last_write_checksum: sha1:a79fe44f8cfcd599d37d2da48aa77a0947b9671c
+    pristine_git_object: 872bc7dd8302dd2b4b14675f1f9b8dd2c8f84f37
   src/models/outputsamplesresponse.ts:
     id: 0905a223e5cc
     last_write_checksum: sha1:c922546960e3037f98bc546b51d049d9b8b6ddbc
     pristine_git_object: 26a879ef71573fe161956428799b71af3aa09737
   src/models/outputsecuritylake.ts:
     id: ff184c001f4f
-    last_write_checksum: sha1:437d02bffc17b8f2f5dde783e9c9b728888a095b
-    pristine_git_object: a88c109c1c3d0e344b0e212c2483176aeda47548
+    last_write_checksum: sha1:ca584fb97f164a4ee1d37b43f2986abd554bbdcc
+    pristine_git_object: 118bff357248f9853096d5803ec4fe33fb023431
   src/models/outputsentinel.ts:
     id: b46f075adcf4
     last_write_checksum: sha1:d635cccef90300eee9bc505817f746ed1382b00b
@@ -9454,8 +9458,8 @@ trackedFiles:
     pristine_git_object: 4c12205c004a4e103c4cb7e7e9fa5d43dac84987
   src/models/pipelinefunctionlakeexport.ts:
     id: e66114252335
-    last_write_checksum: sha1:056831fc4b34fb3e7316606947489cf100685bd3
-    pristine_git_object: 81dcca07c2421f73ac2e1b25b7c6ba7e61cd1971
+    last_write_checksum: sha1:2756a19a3bc8e3015bb6317bb2a8a3ae86d50a84
+    pristine_git_object: 9a6e2937f57d445e230e4150baf387ffc94a2c0e
   src/models/pipelinefunctionlimit.ts:
     id: ee0d6d9e87f9
     last_write_checksum: sha1:ce267cf307d602898d135461124bb5a795dfba52
@@ -9550,8 +9554,8 @@ trackedFiles:
     pristine_git_object: 3ad3b67223e8fd4a2fcf8a80f97a3210dff81811
   src/models/pipelinefunctionsend.ts:
     id: a07bc93bbf7e
-    last_write_checksum: sha1:c0be11610d1a417652b6c6c694f6ab1eb23b8646
-    pristine_git_object: c8087ba42b0f114efcdcf0572c874bb10c5efb56
+    last_write_checksum: sha1:fcc883e5e164444f340167347b30121e933f190c
+    pristine_git_object: 3ba457585fae954d802305167c54af0ec6553b01
   src/models/pipelinefunctionsensitivedatascanner.ts:
     id: e078cc6f2ae3
     last_write_checksum: sha1:d6158329c72dbdeb65a03f1eb5a780ff612ee0c5
@@ -9688,6 +9692,10 @@ trackedFiles:
     id: e676840f7b04
     last_write_checksum: sha1:324bdbcce0e876e174725bf7b5714f0e43ca75a9
     pristine_git_object: 8e4b536c49734cc97ca8093e41af0cb36714306b
+  src/models/retrysettingstype.ts:
+    id: bbe84827e8a9
+    last_write_checksum: sha1:309eff0033f10c6483d6601be5261a9cbd3f1986
+    pristine_git_object: d38681b7fda5b341d68b75ef3ec36e5fdda8bb39
   src/models/retrytypeoptionshealthcheckcollectorconfretryrules.ts:
     id: 6ccf669d2cce
     last_write_checksum: sha1:6037eb737c920a88d802364ea9d42148d95ad2cd
@@ -10275,7 +10283,7 @@ examples:
           application/json: {"message": "<value>"}
     InputCreateExamplesFile:
       requestBody:
-        application/json: {"id": "file-source", "type": "file", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "mode": "manual", "interval": 10, "filenames": ["<value 1>", "<value 2>", "<value 3>"], "filterArchivedFiles": false, "tailOnly": true, "idleTimeout": 300, "minAgeDur": "<value>", "maxAgeDur": "<value>", "checkFileModTime": false, "forceText": false, "hashLen": 256, "metadata": [{"name": "<value>", "value": "<value>"}], "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "description": "oh whoa entice when phooey address", "path": "/usr/local/src", "depth": 9351.84, "suppressMissingPathErrors": false, "deleteFiles": false, "includeUnidentifiableBinary": false}
+        application/json: {"id": "file-source", "type": "file", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "mode": "manual", "interval": 10, "filenames": ["<value 1>", "<value 2>", "<value 3>"], "filterArchivedFiles": false, "tailOnly": true, "idleTimeout": 300, "minAgeDur": "<value>", "maxAgeDur": "<value>", "checkFileModTime": false, "forceText": false, "hashLen": 256, "metadata": [{"name": "<value>", "value": "<value>"}], "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "description": "oh whoa entice when phooey address", "path": "/usr/local/src", "depth": 9351.84, "suppressMissingPathErrors": false, "deleteFiles": false, "saltHash": false, "includeUnidentifiableBinary": false}
       responses:
         "200":
           application/json: {"count": 152889, "items": [{"id": "<id>", "type": "kube_metrics", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "interval": 15, "rules": [{"filter": "<value>", "description": "saloon where faithfully"}], "metadata": [{"name": "<value>", "value": "<value>"}], "persistence": {"enable": false, "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "destPath": "$CRIBL_HOME/state/kube_metrics"}, "description": "within ack tenant"}]}
@@ -10831,7 +10839,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "file-source", "type": "file", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "mode": "manual", "interval": 10, "filenames": ["<value 1>", "<value 2>"], "filterArchivedFiles": false, "tailOnly": true, "idleTimeout": 300, "minAgeDur": "<value>", "maxAgeDur": "<value>", "checkFileModTime": false, "forceText": false, "hashLen": 256, "metadata": [{"name": "<value>", "value": "<value>"}], "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "description": "shell yesterday testimonial afore though sedately profuse", "path": "/Network", "depth": 4361.93, "suppressMissingPathErrors": false, "deleteFiles": false, "includeUnidentifiableBinary": false}
+        application/json: {"id": "file-source", "type": "file", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "mode": "manual", "interval": 10, "filenames": ["<value 1>", "<value 2>"], "filterArchivedFiles": false, "tailOnly": true, "idleTimeout": 300, "minAgeDur": "<value>", "maxAgeDur": "<value>", "checkFileModTime": false, "forceText": false, "hashLen": 256, "metadata": [{"name": "<value>", "value": "<value>"}], "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "description": "shell yesterday testimonial afore though sedately profuse", "path": "/Network", "depth": 4361.93, "suppressMissingPathErrors": false, "deleteFiles": false, "saltHash": false, "includeUnidentifiableBinary": false}
       responses:
         "200":
           application/json: {"count": 624327, "items": [{"id": "<id>", "type": "tcp", "disabled": false, "pipeline": "<value>", "sendToRoutes": true, "environment": "<value>", "pqEnabled": false, "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "connections": [{"pipeline": "<value>", "output": "<value>"}], "pq": {"mode": "always", "maxBufferSize": 1000, "commitFrequency": 42, "maxFileSize": "1 MB", "maxSize": "5GB", "path": "$CRIBL_HOME/state/queues", "compress": "none", "pqControls": {}}, "host": "0.0.0.0", "port": 311.34, "tls": {"disabled": true, "requestCert": false, "rejectUnauthorized": true, "commonNameRegex": "/.*/", "certificateName": "<value>", "privKeyPath": "<value>", "passphrase": "<value>", "certPath": "<value>", "caPath": "<value>", "minVersion": "TLSv1.1", "maxVersion": "TLSv1.3"}, "ipWhitelistRegex": "/.*/", "maxActiveCxn": 1000, "socketIdleTimeout": 0, "socketEndingMaxWait": 30, "socketMaxLifespan": 0, "enableProxyHeader": false, "metadata": [{"name": "<value>", "value": "<value>"}], "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 10000, "enableHeader": false, "preprocess": {"disabled": true, "command": "<value>", "args": ["<value 1>", "<value 2>"]}, "description": "likely despite investigate minor given underneath wallaby sin moisten anenst", "authToken": "", "authType": "manual", "textSecret": "<value>"}]}
@@ -11438,7 +11446,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesFilesystem:
       requestBody:
-        application/json: {"id": "filesystem-output", "type": "filesystem", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "destPath": "/var/log/output", "stagePath": "<value>", "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "meanwhile victoriously founder because before", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "filesystem-output", "type": "filesystem", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "destPath": "/var/log/output", "stagePath": "<value>", "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 2614.76, "backoffMultiplier": 6389.94, "maxBackoffMs": 7295.73, "jitterPercent": 166.54}, "description": "meanwhile victoriously founder because before", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -11446,7 +11454,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesS3:
       requestBody:
-        application/json: {"id": "s3-output", "type": "s3", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "bucket": "my-bucket", "region": "us-east-1", "awsSecretKey": "<value>", "awsAuthenticationMethod": "auto", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "", "objectACL": "private", "storageClass": "STANDARD", "serverSideEncryption": "aws:kms", "kmsKeyId": "<id>", "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "description": "cross-contamination upside-down above", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "s3-output", "type": "s3", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "bucket": "my-bucket", "region": "us-east-1", "awsSecretKey": "<value>", "awsAuthenticationMethod": "auto", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "", "objectACL": "private", "storageClass": "STANDARD", "serverSideEncryption": "aws:kms", "kmsKeyId": "<id>", "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 2614.76, "backoffMultiplier": 6389.94, "maxBackoffMs": 7295.73, "jitterPercent": 166.54}, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "description": "cross-contamination upside-down above", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -11454,7 +11462,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesAzureBlob:
       requestBody:
-        application/json: {"id": "azure-blob-output", "type": "azure_blob", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "containerName": "my-container", "createContainer": false, "destPath": "<value>", "stagePath": "/tmp/staging", "addIdToStagePath": true, "maxConcurrentFileParts": 1, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "authType": "manual", "storageClass": "Inferred", "description": "each before down ouch inexperienced below vaguely celebrated past quizzically", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "connectionString": "<value>", "textSecret": "<value>", "storageAccountName": "<value>", "tenantId": "<id>", "clientId": "<id>", "azureCloud": "<value>", "endpointSuffix": "<value>", "clientTextSecret": "<value>", "certificate": {"certificateName": "<value>"}}
+        application/json: {"id": "azure-blob-output", "type": "azure_blob", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "containerName": "my-container", "createContainer": false, "destPath": "<value>", "stagePath": "/tmp/staging", "addIdToStagePath": true, "maxConcurrentFileParts": 1, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 2614.76, "backoffMultiplier": 6389.94, "maxBackoffMs": 7295.73, "jitterPercent": 166.54}, "authType": "manual", "storageClass": "Inferred", "description": "each before down ouch inexperienced below vaguely celebrated past quizzically", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "connectionString": "<value>", "textSecret": "<value>", "storageAccountName": "<value>", "tenantId": "<id>", "clientId": "<id>", "azureCloud": "<value>", "endpointSuffix": "<value>", "clientTextSecret": "<value>", "certificate": {"certificateName": "<value>"}}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -11462,7 +11470,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesAzureDataExplorer:
       requestBody:
-        application/json: {"id": "azure-data-explorer-output", "type": "azure_data_explorer", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "clusterUrl": "https://mycluster.kusto.windows.net", "database": "mydatabase", "table": "mytable", "validateDatabaseSettings": true, "ingestMode": "streaming", "oauthEndpoint": "https://login.microsoftonline.com", "tenantId": "tenant-id", "clientId": "client-id", "scope": "https://mycluster.kusto.windows.net/.default", "oauthType": "clientSecret", "description": "rationale fundraising er muffled", "clientSecret": "client-secret", "textSecret": "<value>", "certificate": {"certificateName": "<value>"}, "format": "json", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "removeEmptyDirs": true, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterEnabled": false, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "isMappingObj": false, "mappingObj": "<value>", "mappingRef": "<value>", "ingestUrl": "https://precious-transparency.org/", "onBackpressure": "block", "stagePath": "$CRIBL_HOME/state/outputs/staging", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "maxConcurrentFileParts": 1, "onDiskFullBackpressure": "block", "addIdToStagePath": true, "timeoutSec": 30, "flushImmediately": false, "retainBlobOnSuccess": false, "extentTags": [{"prefix": "ingestBy", "value": "<value>"}], "ingestIfNotExists": [{"value": "<value>"}], "reportLevel": "failuresOnly", "reportMethod": "queue", "additionalProperties": [{"key": "<key>", "value": "<value>"}], "responseRetrySettings": [{"httpStatus": 5522.82, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": true, "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "flushPeriodSec": 1, "rejectUnauthorized": true, "useRoundRobinDns": false, "keepAlive": true, "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}
+        application/json: {"id": "azure-data-explorer-output", "type": "azure_data_explorer", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "clusterUrl": "https://mycluster.kusto.windows.net", "database": "mydatabase", "table": "mytable", "validateDatabaseSettings": true, "ingestMode": "streaming", "oauthEndpoint": "https://login.microsoftonline.com", "tenantId": "tenant-id", "clientId": "client-id", "scope": "https://mycluster.kusto.windows.net/.default", "oauthType": "clientSecret", "description": "rationale fundraising er muffled", "clientSecret": "client-secret", "textSecret": "<value>", "certificate": {"certificateName": "<value>"}, "format": "json", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "removeEmptyDirs": true, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterEnabled": false, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "isMappingObj": false, "mappingObj": "<value>", "mappingRef": "<value>", "ingestUrl": "https://precious-transparency.org/", "onBackpressure": "block", "stagePath": "$CRIBL_HOME/state/outputs/staging", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "maxConcurrentFileParts": 1, "onDiskFullBackpressure": "block", "addIdToStagePath": true, "retrySettings": {"enabled": true, "initialBackoffMs": 2614.76, "backoffMultiplier": 6389.94, "maxBackoffMs": 7295.73, "jitterPercent": 166.54}, "timeoutSec": 30, "flushImmediately": false, "retainBlobOnSuccess": false, "extentTags": [{"prefix": "ingestBy", "value": "<value>"}], "ingestIfNotExists": [{"value": "<value>"}], "reportLevel": "failuresOnly", "reportMethod": "queue", "additionalProperties": [{"key": "<key>", "value": "<value>"}], "responseRetrySettings": [{"httpStatus": 5522.82, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": true, "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "flushPeriodSec": 1, "rejectUnauthorized": true, "useRoundRobinDns": false, "keepAlive": true, "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -11542,7 +11550,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesCloudflareR2:
       requestBody:
-        application/json: {"id": "cloudflare-r2-output", "type": "cloudflare_r2", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>"], "endpoint": "https://account-id.r2.cloudflarestorage.com", "bucket": "my-bucket", "awsAuthenticationMethod": "auto", "awsSecretKey": "<value>", "region": "<value>", "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "<value>", "signatureVersion": "v4", "objectACL": "<value>", "storageClass": "REDUCED_REDUNDANCY", "serverSideEncryption": "AES256", "reuseConnections": true, "rejectUnauthorized": true, "verifyPermissions": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "description": "kiddingly lively provided neatly importance instantly effector", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "cloudflare-r2-output", "type": "cloudflare_r2", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>"], "endpoint": "https://account-id.r2.cloudflarestorage.com", "bucket": "my-bucket", "awsAuthenticationMethod": "auto", "awsSecretKey": "<value>", "region": "<value>", "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "<value>", "signatureVersion": "v4", "objectACL": "<value>", "storageClass": "REDUCED_REDUNDANCY", "serverSideEncryption": "AES256", "reuseConnections": true, "rejectUnauthorized": true, "verifyPermissions": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 2614.76, "backoffMultiplier": 6389.94, "maxBackoffMs": 7295.73, "jitterPercent": 166.54}, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "description": "kiddingly lively provided neatly importance instantly effector", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -11590,7 +11598,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesMinio:
       requestBody:
-        application/json: {"id": "minio-output", "type": "minio", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "endpoint": "http://localhost:9000", "bucket": "my-bucket", "awsAuthenticationMethod": "auto", "awsSecretKey": "<value>", "region": "<value>", "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "<value>", "signatureVersion": "v4", "objectACL": "private", "storageClass": "STANDARD", "serverSideEncryption": "AES256", "reuseConnections": true, "rejectUnauthorized": true, "verifyPermissions": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "description": "supposing instead elegantly explode slope tasty direct what", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "minio-output", "type": "minio", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "endpoint": "http://localhost:9000", "bucket": "my-bucket", "awsAuthenticationMethod": "auto", "awsSecretKey": "<value>", "region": "<value>", "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "<value>", "signatureVersion": "v4", "objectACL": "private", "storageClass": "STANDARD", "serverSideEncryption": "AES256", "reuseConnections": true, "rejectUnauthorized": true, "verifyPermissions": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 2614.76, "backoffMultiplier": 6389.94, "maxBackoffMs": 7295.73, "jitterPercent": 166.54}, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "description": "supposing instead elegantly explode slope tasty direct what", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -11662,7 +11670,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesGoogleCloudStorage:
       requestBody:
-        application/json: {"id": "google-cloud-storage-output", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "my-bucket", "region": "us-east1", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "/tmp/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "ARCHIVE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "dutiful parsnip likewise guard warmhearted lucky spattering despite above", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}
+        application/json: {"id": "google-cloud-storage-output", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "my-bucket", "region": "us-east1", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "/tmp/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "ARCHIVE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 2614.76, "backoffMultiplier": 6389.94, "maxBackoffMs": 7295.73, "jitterPercent": 166.54}, "description": "dutiful parsnip likewise guard warmhearted lucky spattering despite above", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -11846,7 +11854,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesDlS3:
       requestBody:
-        application/json: {"id": "dl-s3-output", "type": "dl_s3", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "my-bucket", "region": "us-east-1", "awsSecretKey": "<value>", "awsAuthenticationMethod": "auto", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "", "objectACL": "private", "storageClass": "REDUCED_REDUNDANCY", "serverSideEncryption": "aws:kms", "kmsKeyId": "<id>", "removeEmptyDirs": true, "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "partitioningFields": ["<value 1>", "<value 2>"], "description": "segregate helplessly clinking", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "dl-s3-output", "type": "dl_s3", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "my-bucket", "region": "us-east-1", "awsSecretKey": "<value>", "awsAuthenticationMethod": "auto", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "", "objectACL": "private", "storageClass": "REDUCED_REDUNDANCY", "serverSideEncryption": "aws:kms", "kmsKeyId": "<id>", "removeEmptyDirs": true, "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 2614.76, "backoffMultiplier": 6389.94, "maxBackoffMs": 7295.73, "jitterPercent": 166.54}, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "partitioningFields": ["<value 1>", "<value 2>"], "description": "segregate helplessly clinking", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -11854,7 +11862,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesSecurityLake:
       requestBody:
-        application/json: {"id": "security-lake-output", "type": "security_lake", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "my-bucket", "region": "us-east-1", "awsSecretKey": "<value>", "awsAuthenticationMethod": "auto", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "arn:aws:iam::123456789012:role/my-role", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "/tmp/staging", "addIdToStagePath": true, "objectACL": "private", "storageClass": "INTELLIGENT_TIERING", "serverSideEncryption": "AES256", "kmsKeyId": "<id>", "removeEmptyDirs": true, "baseFileName": "`CriblOut`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "accountId": "123456789012", "customSource": "my-custom-source", "automaticSchema": false, "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "description": "crowded furthermore editor lovable confound which", "awsApiKey": "<value>", "awsSecret": "<value>", "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "parquetSchema": "<value>", "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "security-lake-output", "type": "security_lake", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "my-bucket", "region": "us-east-1", "awsSecretKey": "<value>", "awsAuthenticationMethod": "auto", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "arn:aws:iam::123456789012:role/my-role", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "/tmp/staging", "addIdToStagePath": true, "objectACL": "private", "storageClass": "INTELLIGENT_TIERING", "serverSideEncryption": "AES256", "kmsKeyId": "<id>", "removeEmptyDirs": true, "baseFileName": "`CriblOut`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 2614.76, "backoffMultiplier": 6389.94, "maxBackoffMs": 7295.73, "jitterPercent": 166.54}, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "accountId": "123456789012", "customSource": "my-custom-source", "automaticSchema": false, "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "description": "crowded furthermore editor lovable confound which", "awsApiKey": "<value>", "awsSecret": "<value>", "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "parquetSchema": "<value>", "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -11862,7 +11870,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesCriblLake:
       requestBody:
-        application/json: {"id": "cribl-lake-output", "type": "cribl_lake", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "bucket": "<value>", "region": "<value>", "awsSecretKey": "<value>", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "$CRIBL_HOME/state/outputs/staging", "addIdToStagePath": true, "destPath": "<value>", "objectACL": "private", "storageClass": "STANDARD_IA", "serverSideEncryption": "aws:kms", "kmsKeyId": "<id>", "removeEmptyDirs": true, "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 64, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 300, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "awsAuthenticationMethod": "auto", "format": "json", "maxConcurrentFileParts": 1, "description": "amongst round huzzah while direct abaft powerfully", "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "cribl-lake-output", "type": "cribl_lake", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "bucket": "<value>", "region": "<value>", "awsSecretKey": "<value>", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "$CRIBL_HOME/state/outputs/staging", "addIdToStagePath": true, "destPath": "<value>", "objectACL": "private", "storageClass": "STANDARD_IA", "serverSideEncryption": "aws:kms", "kmsKeyId": "<id>", "removeEmptyDirs": true, "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 64, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 2614.76, "backoffMultiplier": 6389.94, "maxBackoffMs": 7295.73, "jitterPercent": 166.54}, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 300, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "awsAuthenticationMethod": "auto", "format": "json", "maxConcurrentFileParts": 1, "description": "amongst round huzzah while direct abaft powerfully", "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -11870,7 +11878,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesExabeam:
       requestBody:
-        application/json: {"id": "exabeam-output", "type": "exabeam", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "my-bucket", "region": "us-east1", "stagePath": "/tmp/staging", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "objectACL": "private", "storageClass": "STANDARD", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "maxFileSizeMB": 10, "encodedConfiguration": "<value>", "collectorInstanceId": "11112222-3333-4444-5555-666677778888", "siteName": "<value>", "siteId": "<id>", "timezoneOffset": "<value>", "awsApiKey": "<value>", "awsSecretKey": "<value>", "description": "likewise chapel phooey mount nor", "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "exabeam-output", "type": "exabeam", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "my-bucket", "region": "us-east1", "stagePath": "/tmp/staging", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "objectACL": "private", "storageClass": "STANDARD", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "retrySettings": {"enabled": true, "initialBackoffMs": 2614.76, "backoffMultiplier": 6389.94, "maxBackoffMs": 7295.73, "jitterPercent": 166.54}, "maxFileSizeMB": 10, "encodedConfiguration": "<value>", "collectorInstanceId": "11112222-3333-4444-5555-666677778888", "siteName": "<value>", "siteId": "<id>", "timezoneOffset": "<value>", "awsApiKey": "<value>", "awsSecretKey": "<value>", "description": "likewise chapel phooey mount nor", "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -11918,7 +11926,7 @@ examples:
           application/json: {"message": "<value>"}
     OutputCreateExamplesDatabricks:
       requestBody:
-        application/json: {"id": "databricks-output", "type": "databricks", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "destPath": "", "stagePath": "$CRIBL_HOME/state/outputs/staging", "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "workspaceId": "your-workspace-id", "scope": "my-scope", "clientId": "your-client-id", "catalog": "my-catalog", "schema": "my-schema", "eventsVolumeName": "my-volume", "clientTextSecret": "your-client-secret", "timeoutSec": 60, "description": "oof parody ad round verbally across", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "databricks-output", "type": "databricks", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "destPath": "", "stagePath": "$CRIBL_HOME/state/outputs/staging", "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 2614.76, "backoffMultiplier": 6389.94, "maxBackoffMs": 7295.73, "jitterPercent": 166.54}, "workspaceId": "your-workspace-id", "scope": "my-scope", "clientId": "your-client-id", "catalog": "my-catalog", "schema": "my-schema", "eventsVolumeName": "my-volume", "clientTextSecret": "your-client-secret", "timeoutSec": 60, "description": "oof parody ad round verbally across", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
@@ -11947,7 +11955,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 651644, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "NEARLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "to pish oof boohoo", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
+          application/json: {"count": 651644, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "NEARLINE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": false, "initialBackoffMs": 3205.7, "backoffMultiplier": 6030.77, "maxBackoffMs": 7496.53, "jitterPercent": 2640.62}, "description": "to pish oof boohoo", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   updateOutputById:
@@ -12033,7 +12041,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "filesystem-output", "type": "filesystem", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "destPath": "/var/log/output", "stagePath": "<value>", "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "luck ah ski", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "filesystem-output", "type": "filesystem", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "destPath": "/var/log/output", "stagePath": "<value>", "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 6434.77, "backoffMultiplier": 857.42, "maxBackoffMs": 2924.72, "jitterPercent": 4562.74}, "description": "luck ah ski", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -12044,7 +12052,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "s3-output", "type": "s3", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>"], "bucket": "my-bucket", "region": "us-east-1", "awsSecretKey": "<value>", "awsAuthenticationMethod": "auto", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "", "objectACL": "private", "storageClass": "ONEZONE_IA", "serverSideEncryption": "AES256", "kmsKeyId": "<id>", "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "description": "starch nephew including hmph separately mobilize sugary deliberately", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "s3-output", "type": "s3", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>"], "bucket": "my-bucket", "region": "us-east-1", "awsSecretKey": "<value>", "awsAuthenticationMethod": "auto", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "", "objectACL": "private", "storageClass": "ONEZONE_IA", "serverSideEncryption": "AES256", "kmsKeyId": "<id>", "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 6434.77, "backoffMultiplier": 857.42, "maxBackoffMs": 2924.72, "jitterPercent": 4562.74}, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "description": "starch nephew including hmph separately mobilize sugary deliberately", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -12055,7 +12063,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "azure-blob-output", "type": "azure_blob", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>"], "containerName": "my-container", "createContainer": false, "destPath": "<value>", "stagePath": "/tmp/staging", "addIdToStagePath": true, "maxConcurrentFileParts": 1, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "authType": "manual", "storageClass": "Inferred", "description": "practical adumbrate by", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "connectionString": "<value>", "textSecret": "<value>", "storageAccountName": "<value>", "tenantId": "<id>", "clientId": "<id>", "azureCloud": "<value>", "endpointSuffix": "<value>", "clientTextSecret": "<value>", "certificate": {"certificateName": "<value>"}}
+        application/json: {"id": "azure-blob-output", "type": "azure_blob", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>"], "containerName": "my-container", "createContainer": false, "destPath": "<value>", "stagePath": "/tmp/staging", "addIdToStagePath": true, "maxConcurrentFileParts": 1, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 6434.77, "backoffMultiplier": 857.42, "maxBackoffMs": 2924.72, "jitterPercent": 4562.74}, "authType": "manual", "storageClass": "Inferred", "description": "practical adumbrate by", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "connectionString": "<value>", "textSecret": "<value>", "storageAccountName": "<value>", "tenantId": "<id>", "clientId": "<id>", "azureCloud": "<value>", "endpointSuffix": "<value>", "clientTextSecret": "<value>", "certificate": {"certificateName": "<value>"}}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -12066,7 +12074,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "azure-data-explorer-output", "type": "azure_data_explorer", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "clusterUrl": "https://mycluster.kusto.windows.net", "database": "mydatabase", "table": "mytable", "validateDatabaseSettings": true, "ingestMode": "streaming", "oauthEndpoint": "https://login.microsoftonline.com", "tenantId": "tenant-id", "clientId": "client-id", "scope": "https://mycluster.kusto.windows.net/.default", "oauthType": "clientSecret", "description": "oof pace once", "clientSecret": "client-secret", "textSecret": "<value>", "certificate": {"certificateName": "<value>"}, "format": "json", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "removeEmptyDirs": true, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterEnabled": false, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "isMappingObj": false, "mappingObj": "<value>", "mappingRef": "<value>", "ingestUrl": "https://competent-nephew.name", "onBackpressure": "block", "stagePath": "$CRIBL_HOME/state/outputs/staging", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "maxConcurrentFileParts": 1, "onDiskFullBackpressure": "block", "addIdToStagePath": true, "timeoutSec": 30, "flushImmediately": false, "retainBlobOnSuccess": false, "extentTags": [{"prefix": "dropBy", "value": "<value>"}], "ingestIfNotExists": [{"value": "<value>"}], "reportLevel": "failuresOnly", "reportMethod": "queue", "additionalProperties": [{"key": "<key>", "value": "<value>"}], "responseRetrySettings": [{"httpStatus": 4119.46, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": true, "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "flushPeriodSec": 1, "rejectUnauthorized": true, "useRoundRobinDns": false, "keepAlive": true, "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}
+        application/json: {"id": "azure-data-explorer-output", "type": "azure_data_explorer", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "clusterUrl": "https://mycluster.kusto.windows.net", "database": "mydatabase", "table": "mytable", "validateDatabaseSettings": true, "ingestMode": "streaming", "oauthEndpoint": "https://login.microsoftonline.com", "tenantId": "tenant-id", "clientId": "client-id", "scope": "https://mycluster.kusto.windows.net/.default", "oauthType": "clientSecret", "description": "oof pace once", "clientSecret": "client-secret", "textSecret": "<value>", "certificate": {"certificateName": "<value>"}, "format": "json", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "removeEmptyDirs": true, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterEnabled": false, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "isMappingObj": false, "mappingObj": "<value>", "mappingRef": "<value>", "ingestUrl": "https://competent-nephew.name", "onBackpressure": "block", "stagePath": "$CRIBL_HOME/state/outputs/staging", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "maxConcurrentFileParts": 1, "onDiskFullBackpressure": "block", "addIdToStagePath": true, "retrySettings": {"enabled": true, "initialBackoffMs": 6434.77, "backoffMultiplier": 857.42, "maxBackoffMs": 2924.72, "jitterPercent": 4562.74}, "timeoutSec": 30, "flushImmediately": false, "retainBlobOnSuccess": false, "extentTags": [{"prefix": "dropBy", "value": "<value>"}], "ingestIfNotExists": [{"value": "<value>"}], "reportLevel": "failuresOnly", "reportMethod": "queue", "additionalProperties": [{"key": "<key>", "value": "<value>"}], "responseRetrySettings": [{"httpStatus": 4119.46, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": true, "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "flushPeriodSec": 1, "rejectUnauthorized": true, "useRoundRobinDns": false, "keepAlive": true, "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -12176,7 +12184,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "cloudflare-r2-output", "type": "cloudflare_r2", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "endpoint": "https://account-id.r2.cloudflarestorage.com", "bucket": "my-bucket", "awsAuthenticationMethod": "auto", "awsSecretKey": "<value>", "region": "<value>", "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "<value>", "signatureVersion": "v4", "objectACL": "<value>", "storageClass": "REDUCED_REDUNDANCY", "serverSideEncryption": "AES256", "reuseConnections": true, "rejectUnauthorized": true, "verifyPermissions": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "description": "whenever beret quirkily certainly cruelty well-documented poorly inject throughout", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "cloudflare-r2-output", "type": "cloudflare_r2", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "endpoint": "https://account-id.r2.cloudflarestorage.com", "bucket": "my-bucket", "awsAuthenticationMethod": "auto", "awsSecretKey": "<value>", "region": "<value>", "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "<value>", "signatureVersion": "v4", "objectACL": "<value>", "storageClass": "REDUCED_REDUNDANCY", "serverSideEncryption": "AES256", "reuseConnections": true, "rejectUnauthorized": true, "verifyPermissions": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 6434.77, "backoffMultiplier": 857.42, "maxBackoffMs": 2924.72, "jitterPercent": 4562.74}, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "description": "whenever beret quirkily certainly cruelty well-documented poorly inject throughout", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -12242,7 +12250,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "minio-output", "type": "minio", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "endpoint": "http://localhost:9000", "bucket": "my-bucket", "awsAuthenticationMethod": "auto", "awsSecretKey": "<value>", "region": "<value>", "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "<value>", "signatureVersion": "v4", "objectACL": "private", "storageClass": "REDUCED_REDUNDANCY", "serverSideEncryption": "AES256", "reuseConnections": true, "rejectUnauthorized": true, "verifyPermissions": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "description": "gosh footrest complication", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "minio-output", "type": "minio", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "endpoint": "http://localhost:9000", "bucket": "my-bucket", "awsAuthenticationMethod": "auto", "awsSecretKey": "<value>", "region": "<value>", "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "<value>", "signatureVersion": "v4", "objectACL": "private", "storageClass": "REDUCED_REDUNDANCY", "serverSideEncryption": "AES256", "reuseConnections": true, "rejectUnauthorized": true, "verifyPermissions": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 6434.77, "backoffMultiplier": 857.42, "maxBackoffMs": 2924.72, "jitterPercent": 4562.74}, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "description": "gosh footrest complication", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -12341,7 +12349,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "google-cloud-storage-output", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "my-bucket", "region": "us-east1", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "/tmp/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "ARCHIVE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "ew sarong cumbersome", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}
+        application/json: {"id": "google-cloud-storage-output", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "my-bucket", "region": "us-east1", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "/tmp/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "ARCHIVE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 6434.77, "backoffMultiplier": 857.42, "maxBackoffMs": 2924.72, "jitterPercent": 4562.74}, "description": "ew sarong cumbersome", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -12594,7 +12602,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "dl-s3-output", "type": "dl_s3", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>"], "bucket": "my-bucket", "region": "us-east-1", "awsSecretKey": "<value>", "awsAuthenticationMethod": "auto", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "", "objectACL": "private", "storageClass": "REDUCED_REDUNDANCY", "serverSideEncryption": "aws:kms", "kmsKeyId": "<id>", "removeEmptyDirs": true, "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "partitioningFields": ["<value 1>", "<value 2>", "<value 3>"], "description": "whenever mash ugh reasoning premier healthily", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "dl-s3-output", "type": "dl_s3", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>"], "bucket": "my-bucket", "region": "us-east-1", "awsSecretKey": "<value>", "awsAuthenticationMethod": "auto", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "/tmp/staging", "addIdToStagePath": true, "destPath": "", "objectACL": "private", "storageClass": "REDUCED_REDUNDANCY", "serverSideEncryption": "aws:kms", "kmsKeyId": "<id>", "removeEmptyDirs": true, "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 6434.77, "backoffMultiplier": 857.42, "maxBackoffMs": 2924.72, "jitterPercent": 4562.74}, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "partitioningFields": ["<value 1>", "<value 2>", "<value 3>"], "description": "whenever mash ugh reasoning premier healthily", "awsApiKey": "<value>", "awsSecret": "<value>", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -12605,7 +12613,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "security-lake-output", "type": "security_lake", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "my-bucket", "region": "us-east-1", "awsSecretKey": "<value>", "awsAuthenticationMethod": "auto", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "arn:aws:iam::123456789012:role/my-role", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "/tmp/staging", "addIdToStagePath": true, "objectACL": "private", "storageClass": "STANDARD", "serverSideEncryption": "aws:kms", "kmsKeyId": "<id>", "removeEmptyDirs": true, "baseFileName": "`CriblOut`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "accountId": "123456789012", "customSource": "my-custom-source", "automaticSchema": false, "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "description": "ha till furthermore excepting diver", "awsApiKey": "<value>", "awsSecret": "<value>", "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "parquetSchema": "<value>", "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "security-lake-output", "type": "security_lake", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "my-bucket", "region": "us-east-1", "awsSecretKey": "<value>", "awsAuthenticationMethod": "auto", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "arn:aws:iam::123456789012:role/my-role", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "/tmp/staging", "addIdToStagePath": true, "objectACL": "private", "storageClass": "STANDARD", "serverSideEncryption": "aws:kms", "kmsKeyId": "<id>", "removeEmptyDirs": true, "baseFileName": "`CriblOut`", "maxFileSizeMB": 32, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 6434.77, "backoffMultiplier": 857.42, "maxBackoffMs": 2924.72, "jitterPercent": 4562.74}, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxConcurrentFileParts": 4, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "accountId": "123456789012", "customSource": "my-custom-source", "automaticSchema": false, "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": false, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "description": "ha till furthermore excepting diver", "awsApiKey": "<value>", "awsSecret": "<value>", "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "parquetSchema": "<value>", "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -12616,7 +12624,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "cribl-lake-output", "type": "cribl_lake", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "<value>", "region": "<value>", "awsSecretKey": "<value>", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "$CRIBL_HOME/state/outputs/staging", "addIdToStagePath": true, "destPath": "<value>", "objectACL": "private", "storageClass": "DEEP_ARCHIVE", "serverSideEncryption": "aws:kms", "kmsKeyId": "<id>", "removeEmptyDirs": true, "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 64, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 300, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "awsAuthenticationMethod": "auto", "format": "ddss", "maxConcurrentFileParts": 1, "description": "mad mmm bitterly ah overwork mysterious instead miskey", "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "cribl-lake-output", "type": "cribl_lake", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "<value>", "region": "<value>", "awsSecretKey": "<value>", "endpoint": "<value>", "signatureVersion": "v4", "reuseConnections": true, "rejectUnauthorized": true, "enableAssumeRole": false, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 3600, "stagePath": "$CRIBL_HOME/state/outputs/staging", "addIdToStagePath": true, "destPath": "<value>", "objectACL": "private", "storageClass": "DEEP_ARCHIVE", "serverSideEncryption": "aws:kms", "kmsKeyId": "<id>", "removeEmptyDirs": true, "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 64, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 6434.77, "backoffMultiplier": 857.42, "maxBackoffMs": 2924.72, "jitterPercent": 4562.74}, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 300, "verifyPermissions": true, "maxClosingFilesToBackpressure": 100, "awsAuthenticationMethod": "auto", "format": "ddss", "maxConcurrentFileParts": 1, "description": "mad mmm bitterly ah overwork mysterious instead miskey", "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -12627,7 +12635,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "exabeam-output", "type": "exabeam", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "my-bucket", "region": "us-east1", "stagePath": "/tmp/staging", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "objectACL": "private", "storageClass": "STANDARD", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "maxFileSizeMB": 10, "encodedConfiguration": "<value>", "collectorInstanceId": "11112222-3333-4444-5555-666677778888", "siteName": "<value>", "siteId": "<id>", "timezoneOffset": "<value>", "awsApiKey": "<value>", "awsSecretKey": "<value>", "description": "brr despite even er woefully regarding", "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "exabeam-output", "type": "exabeam", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>", "<value 3>"], "bucket": "my-bucket", "region": "us-east1", "stagePath": "/tmp/staging", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "objectACL": "private", "storageClass": "STANDARD", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "retrySettings": {"enabled": true, "initialBackoffMs": 6434.77, "backoffMultiplier": 857.42, "maxBackoffMs": 2924.72, "jitterPercent": 4562.74}, "maxFileSizeMB": 10, "encodedConfiguration": "<value>", "collectorInstanceId": "11112222-3333-4444-5555-666677778888", "siteName": "<value>", "siteId": "<id>", "timezoneOffset": "<value>", "awsApiKey": "<value>", "awsSecretKey": "<value>", "description": "brr despite even er woefully regarding", "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -12693,7 +12701,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "databricks-output", "type": "databricks", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "destPath": "", "stagePath": "$CRIBL_HOME/state/outputs/staging", "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "workspaceId": "your-workspace-id", "scope": "my-scope", "clientId": "your-client-id", "catalog": "my-catalog", "schema": "my-schema", "eventsVolumeName": "my-volume", "clientTextSecret": "your-client-secret", "timeoutSec": 60, "description": "aw yowza instead", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
+        application/json: {"id": "databricks-output", "type": "databricks", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "destPath": "", "stagePath": "$CRIBL_HOME/state/outputs/staging", "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": true, "initialBackoffMs": 6434.77, "backoffMultiplier": 857.42, "maxBackoffMs": 2924.72, "jitterPercent": 4562.74}, "workspaceId": "your-workspace-id", "scope": "my-scope", "clientId": "your-client-id", "catalog": "my-catalog", "schema": "my-schema", "eventsVolumeName": "my-volume", "clientTextSecret": "your-client-secret", "timeoutSec": 60, "description": "aw yowza instead", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20}
       responses:
         "200":
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
@@ -12728,7 +12736,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"count": 920100, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "ARCHIVE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "description": "casement encode hmph owlishly", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
+          application/json: {"count": 920100, "items": [{"id": "<id>", "type": "google_cloud_storage", "pipeline": "<value>", "systemFields": ["<value 1>"], "environment": "<value>", "streamtags": ["<value 1>", "<value 2>"], "bucket": "<value>", "region": "<value>", "endpoint": "https://storage.googleapis.com", "signatureVersion": "v4", "awsAuthenticationMethod": "manual", "stagePath": "$CRIBL_HOME/state/outputs/staging", "destPath": "", "verifyPermissions": true, "objectACL": "private", "storageClass": "ARCHIVE", "reuseConnections": true, "rejectUnauthorized": true, "addIdToStagePath": true, "removeEmptyDirs": true, "partitionExpr": "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')", "format": "json", "baseFileName": "`CriblOut`", "fileNameSuffix": "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`", "maxFileSizeMB": 32, "maxFileOpenTimeSec": 300, "maxFileIdleTimeSec": 30, "maxOpenFiles": 100, "headerLine": "", "writeHighWaterMark": 64, "onBackpressure": "block", "deadletterEnabled": false, "onDiskFullBackpressure": "block", "forceCloseOnShutdown": false, "retrySettings": {"enabled": false, "initialBackoffMs": 3181.42, "backoffMultiplier": 2162.41, "maxBackoffMs": 4023.43, "jitterPercent": 8187.52}, "description": "casement encode hmph owlishly", "compress": "gzip", "compressionLevel": "best_speed", "automaticSchema": false, "parquetSchema": "<value>", "parquetVersion": "PARQUET_2_6", "parquetDataPageVersion": "DATA_PAGE_V2", "parquetRowGroupLength": 10000, "parquetPageSize": "1MB", "shouldLogInvalidRows": true, "keyValueMetadata": [{"key": "", "value": "<value>"}], "enableStatistics": true, "enableWritePageIndex": true, "enablePageChecksum": false, "emptyDirCleanupSec": 300, "directoryBatchSize": 1000, "deadletterPath": "$CRIBL_HOME/state/outputs/dead-letter", "maxRetryNum": 20, "awsApiKey": "<value>", "awsSecretKey": "<value>", "awsSecret": "<value>"}]}
         "500":
           application/json: {"message": "<value>"}
   deleteOutputPqById:
@@ -14775,7 +14783,7 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.pipelines.update()`: \n  *  `request.pipeline.conf` **Changed** **Breaking** :warning:\n  *  `response.items.[].conf` **Changed**\n* `criblcontrolplane.pipelines.create()`: \n  *  `request.conf` **Changed** **Breaking** :warning:\n  *  `response.items.[].conf` **Changed**\n* `criblcontrolplane.functions.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.functions.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.collectors.update()`: \n  *  `request.savedJob` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.collectors.create()`: \n  *  `request.savedJob` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.routes.get()`:  `response.items.[].routes.[]` **Changed**\n* `criblcontrolplane.collectors.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.pq.get()`:  `response.items.[].args` **Changed**\n* `criblcontrolplane.pipelines.list()`:  `response.items.[].conf` **Changed**\n* `criblcontrolplane.collectors.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.routes.list()`:  `response.items.[].routes.[]` **Changed**\n* `criblcontrolplane.pipelines.delete()`:  `response.items.[].conf` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.routes.update()`: \n  *  `request.routes.routes.[]` **Changed**\n  *  `response.items.[].routes.[]` **Changed**\n* `criblcontrolplane.routes.append()`:  `response.items.[].routes.[]` **Changed**\n* `criblcontrolplane.pipelines.get()`:  `response.items.[].conf` **Changed**\n* `criblcontrolplane.collectors.delete()`:  `response.items.[]` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.pipelines.list()`:  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.delete()`:  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.update()`: \n  *  `request.pipeline.conf.functions.[]` **Changed** **Breaking** :warning:\n  *  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.get()`:  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.create()`: \n  *  `request.conf.functions.[]` **Changed** **Breaking** :warning:\n  *  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed**\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.list()`:  `response.items.[].[file].saltHash` **Added**\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed**\n  *  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.sources.delete()`:  `response.items.[].[file].saltHash` **Added**\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.[file].saltHash` **Added**\n  *  `response.items.[].[file].saltHash` **Added**\n* `criblcontrolplane.sources.get()`:  `response.items.[].[file].saltHash` **Added**\n* `criblcontrolplane.sources.create()`: \n  *  `request.[file].saltHash` **Added**\n  *  `response.items.[].[file].saltHash` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

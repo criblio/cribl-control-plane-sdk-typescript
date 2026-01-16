@@ -536,6 +536,7 @@ export * from "./resourcepolicy.js";
 export * from "./restcollectorconf.js";
 export * from "./retryrulestype.js";
 export * from "./retryrulestype1.js";
+export * from "./retrysettingstype.js";
 export * from "./retrytypeoptionshealthcheckcollectorconfretryrules.js";
 export * from "./rollbacksettingsunion.js";
 export * from "./routeconf.js";
