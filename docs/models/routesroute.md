@@ -9,10 +9,13 @@ let value: RoutesRoute = {
   id: "<id>",
   name: "<value>",
   disabled: true,
+  filter: "<value>",
   pipeline: "<value>",
+  enableOutputExpression: true,
   output: "<value>",
   outputExpression: "<value>",
-  description: "and self-confidence toward normal",
+  description: "heroine er mobilize appropriate function shoulder",
+  final: true,
 };
 ```
 

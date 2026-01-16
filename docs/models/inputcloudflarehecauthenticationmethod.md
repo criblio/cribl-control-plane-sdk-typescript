@@ -15,5 +15,5 @@ let value: InputCloudflareHecAuthenticationMethod = "secret";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"secret" | Unrecognized<string>
+"secret" | "manual" | Unrecognized<string>
 ```

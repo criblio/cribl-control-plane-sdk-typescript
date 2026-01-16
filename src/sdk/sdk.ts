@@ -4,7 +4,9 @@
 
 import { ClientSDK } from "../lib/sdks.js";
 import { Auth } from "./auth.js";
+import { Collectors } from "./collectors.js";
 import { Destinations } from "./destinations.js";
+import { Functions } from "./functions.js";
 import { Groups } from "./groups.js";
 import { Health } from "./health.js";
 import { LakeDatasets } from "./lakedatasets.js";
@@ -13,12 +15,18 @@ import { Packs } from "./packs.js";
 import { Pipelines } from "./pipelines.js";
 import { Routes } from "./routes.js";
 import { Sources } from "./sources.js";
+import { System } from "./system.js";
 import { Versions } from "./versions.js";
 
 export class CriblControlPlane extends ClientSDK {
   private _lakeDatasets?: LakeDatasets;
   get lakeDatasets(): LakeDatasets {
     return (this._lakeDatasets ??= new LakeDatasets(this._options));
+  }
+
+  private _collectors?: Collectors;
+  get collectors(): Collectors {
+    return (this._collectors ??= new Collectors(this._options));
   }
 
   private _sources?: Sources;
@@ -56,9 +64,19 @@ export class CriblControlPlane extends ClientSDK {
     return (this._packs ??= new Packs(this._options));
   }
 
+  private _system?: System;
+  get system(): System {
+    return (this._system ??= new System(this._options));
+  }
+
   private _versions?: Versions;
   get versions(): Versions {
     return (this._versions ??= new Versions(this._options));
+  }
+
+  private _functions?: Functions;
+  get functions(): Functions {
+    return (this._functions ??= new Functions(this._options));
   }
 
   private _nodes?: Nodes;

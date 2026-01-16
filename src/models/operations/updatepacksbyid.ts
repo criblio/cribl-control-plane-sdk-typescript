@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdatePacksByIdRequest = {
@@ -18,17 +15,6 @@ export type UpdatePacksByIdRequest = {
    * PackUpgradeRequest object
    */
   packUpgradeRequest: models.PackUpgradeRequest;
-};
-
-/**
- * a list of PackInfo objects
- */
-export type UpdatePacksByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.PackInfo> | undefined;
 };
 
 /** @internal */
@@ -56,25 +42,5 @@ export function updatePacksByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdatePacksByIdRequest$outboundSchema.parse(updatePacksByIdRequest),
-  );
-}
-
-/** @internal */
-export const UpdatePacksByIdResponse$inboundSchema: z.ZodType<
-  UpdatePacksByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.PackInfo$inboundSchema).optional(),
-});
-
-export function updatePacksByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePacksByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePacksByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePacksByIdResponse' from JSON`,
   );
 }

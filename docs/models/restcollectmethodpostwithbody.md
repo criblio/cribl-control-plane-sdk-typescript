@@ -1,0 +1,79 @@
+# RestCollectMethodPostWithBody
+
+## Example Usage
+
+```typescript
+import { RestCollectMethodPostWithBody } from "cribl-control-plane/models";
+
+let value: RestCollectMethodPostWithBody = {
+  collectMethod: "other",
+  collectBody: "<value>",
+  discovery: {
+    discoverType: "http",
+  },
+  collectUrl: "https://ample-vol.info/",
+  collectVerb: "<value>",
+  collectRequestParams: "<value>",
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {
+    type: "response_header",
+  },
+  authentication: "basic",
+  timeout: 8356.33,
+  useRoundRobinDns: false,
+  disableTimeFilter: false,
+  decodeUrl: true,
+  rejectUnauthorized: false,
+  captureHeaders: false,
+  stopOnEmptyResults: false,
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  retryRules: {
+    type: "backoff",
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    maxIntervalMs: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    retryConnectTimeout: "<value>",
+    retryConnectReset: "<value>",
+  },
+  __scheduling: {
+    stateTracking: {
+      enabled: true,
+    },
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `collectMethod`                                                                                                                                    | [models.RestCollectMethodPostWithBodyCollectMethod](../models/restcollectmethodpostwithbodycollectmethod.md)                                       | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
+| `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
+| `discovery`                                                                                                                                        | [models.RestCollectMethodPostWithBodyDiscovery](../models/restcollectmethodpostwithbodydiscovery.md)                                               | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
+| `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `collectRequestHeaders`                                                                                                                            | [models.ItemsTypeRestCollectMethodGetCollectRequestParams](../models/itemstyperestcollectmethodgetcollectrequestparams.md)[]                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `pagination`                                                                                                                                       | [models.RestCollectMethodPostWithBodyPagination](../models/restcollectmethodpostwithbodypagination.md)                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `authentication`                                                                                                                                   | [models.RestCollectMethodPostWithBodyAuthentication](../models/restcollectmethodpostwithbodyauthentication.md)                                     | :heavy_check_mark:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |
+| `timeout`                                                                                                                                          | *number*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout. Use 0 to disable.                                                                                                 |
+| `useRoundRobinDns`                                                                                                                                 | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.                                                     |
+| `disableTimeFilter`                                                                                                                                | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Disable Collector event time filtering when a date range is specified                                                                              |
+| `decodeUrl`                                                                                                                                        | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Decode the URL before sending requests (including pagination requests)                                                                             |
+| `rejectUnauthorized`                                                                                                                               | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)                                                  |
+| `captureHeaders`                                                                                                                                   | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Enable to add response headers to the resHeaders field under the __collectible object                                                              |
+| `stopOnEmptyResults`                                                                                                                               | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Stop pagination when the Event Breaker produces no events                                                                                          |
+| `safeHeaders`                                                                                                                                      | *string*[]                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | List of headers that are safe to log in plain text                                                                                                 |
+| `retryRules`                                                                                                                                       | [models.RestCollectMethodPostWithBodyRetryRules](../models/restcollectmethodpostwithbodyretryrules.md)                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `scheduling`                                                                                                                                       | [models.RestCollectMethodPostWithBodyScheduling](../models/restcollectmethodpostwithbodyscheduling.md)                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |

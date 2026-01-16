@@ -3,38 +3,22486 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as openEnums from "../../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import * as models from "../index.js";
 
 /**
- * a list of Destination objects
+ * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type CreateOutputResponse = {
+export const AuthenticationMethodCloudflareR2 = {
+  Auto: "auto",
+  Secret: "secret",
+  Manual: "manual",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type AuthenticationMethodCloudflareR2 = OpenEnum<
+  typeof AuthenticationMethodCloudflareR2
+>;
+
+export type OutputCloudflareR2 = {
   /**
-   * number of items present in the items array
+   * Unique ID for this output
    */
-  count?: number | undefined;
-  items?: Array<models.Output> | undefined;
+  id: string;
+  type: "cloudflare_r2";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
+   */
+  endpoint: string;
+  /**
+   * Name of the destination R2 bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AuthenticationMethodCloudflareR2 | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   */
+  awsSecretKey?: string | undefined;
+  region?: any | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   */
+  stagePath: string;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+   */
+  destPath?: string | undefined;
+  /**
+   * Signature version to use for signing MinIO requests
+   */
+  signatureVersion?: models.SignatureVersionOptions5 | undefined;
+  objectACL?: any | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: models.StorageClassOptions2 | undefined;
+  /**
+   * Server-side encryption for uploaded objects
+   */
+  serverSideEncryption?: models.ServerSideEncryptionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: models.DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: models.CompressionOptions2 | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: models.CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const ClientSecretAuthTypeAuthenticationMethod = {
+  Secret: "secret",
+  Certificate: "certificate",
+} as const;
+export type ClientSecretAuthTypeAuthenticationMethod = OpenEnum<
+  typeof ClientSecretAuthTypeAuthenticationMethod
+>;
+
+/**
+ * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
+ */
+export type Authentication = {
+  disabled: boolean;
+  mechanism?: models.SaslMechanismOptionsSasl1 | undefined;
+  /**
+   * The username for authentication. This should always be $ConnectionString.
+   */
+  username?: string | undefined;
+  /**
+   * Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
+   */
+  textSecret?: string | undefined;
+  clientSecretAuthType?: ClientSecretAuthTypeAuthenticationMethod | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * Select or create a stored certificate
+   */
+  certificateName?: string | undefined;
+  certPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | models.MicrosoftEntraIdAuthenticationEndpointOptionsSasl
+    | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId?: string | undefined;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope?: string | undefined;
+};
+
+export type PqControlsMicrosoftFabric = {};
+
+export type OutputMicrosoftFabric = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "microsoft_fabric";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Topic name from Fabric Eventstream's endpoint
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments
+   */
+  ack?: models.AcknowledgmentsOptions | undefined;
+  /**
+   * Format to use to serialize events before writing to the Event Hubs Kafka brokers
+   */
+  format?: models.RecordDataFormatOptions | undefined;
+  /**
+   * Maximum size of each record batch before compression. Setting should be < message.max.bytes settings in Event Hubs brokers.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum number of events in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
+   */
+  sasl?: Authentication | undefined;
+  tls?: models.TlsSettingsClientSideType | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Bootstrap server from Fabric Eventstream's endpoint
+   */
+  bootstrap_server: string;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsMicrosoftFabric | undefined;
+};
+
+export type OutputDatabricks = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "databricks";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Optional path to prepend to files before uploading.
+   */
+  destPath?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: models.DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  /**
+   * Databricks workspace ID
+   */
+  workspaceId: string;
+  /**
+   * OAuth scope for Unity Catalog authentication
+   */
+  scope: string;
+  /**
+   * OAuth client ID for Unity Catalog authentication
+   */
+  clientId: string;
+  /**
+   * Name of the catalog to use for the output
+   */
+  catalog: string;
+  /**
+   * Name of the catalog schema to use for the output
+   */
+  schema: string;
+  /**
+   * Name of the events volume in Databricks
+   */
+  eventsVolumeName: string;
+  /**
+   * OAuth client secret for Unity Catalog authentication
+   */
+  clientTextSecret: string;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: models.CompressionOptions2 | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: models.CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const AuthenticationMethodChronicle = {
+  ServiceAccount: "serviceAccount",
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type AuthenticationMethodChronicle = OpenEnum<
+  typeof AuthenticationMethodChronicle
+>;
+
+export type CustomLabel = {
+  key: string;
+  value: string;
+  /**
+   * Designate this label for role-based access control and filtering
+   */
+  rbacEnabled?: boolean | undefined;
+};
+
+export type PqControlsChronicle = {};
+
+export type OutputChronicle = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "chronicle";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  apiVersion?: string | undefined;
+  authenticationMethod?: AuthenticationMethodChronicle | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Regional endpoint to send events to
+   */
+  region: string;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  ingestionMethod?: string | undefined;
+  /**
+   * User-configured environment namespace to identify the data domain the logs originated from. This namespace is used as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+   */
+  namespace?: string | undefined;
+  /**
+   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
+   */
+  logType: string;
+  /**
+   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  logTextField?: string | undefined;
+  /**
+   * The Google Cloud Platform (GCP) project ID to send events to
+   */
+  gcpProjectId: string;
+  /**
+   * The Google Cloud Platform (GCP) instance to send events to. This is the Chronicle customer uuid.
+   */
+  gcpInstance: string;
+  /**
+   * Custom labels to be added to every event
+   */
+  customLabels?: Array<CustomLabel> | undefined;
+  description?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  serviceAccountCredentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsChronicle | undefined;
+};
+
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export const Region = {
+  Us: "US",
+  Ca: "CA",
+  Emea: "EMEA",
+  Ap: "AP",
+  Aps: "APS",
+  Au: "AU",
+  Custom: "Custom",
+} as const;
+/**
+ * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+ */
+export type Region = OpenEnum<typeof Region>;
+
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export const AISIEMEndpointPath = {
+  RootServicesCollectorEvent: "/services/collector/event",
+  RootServicesCollectorRaw: "/services/collector/raw",
+} as const;
+/**
+ * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+ */
+export type AISIEMEndpointPath = OpenEnum<typeof AISIEMEndpointPath>;
+
+export type PqControlsSentinelOneAiSiem = {};
+
+export type OutputSentinelOneAiSiem = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "sentinel_one_ai_siem";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+   */
+  region: Region;
+  /**
+   * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+   */
+  endpoint: AISIEMEndpointPath;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Base URL of the endpoint used to send events to, such as https://<Your-S1-Tenant>.sentinelone.net. Must begin with http:// or https://, can include a port number, and no trailing slashes. Matches pattern: ^https?://[a-zA-Z0-9.-]+(:[0-9]+)?$.
+   */
+  baseUrl?: string | undefined;
+  /**
+   * Define serverHost for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myServer').
+   */
+  hostExpression?: string | undefined;
+  /**
+   * Define logFile for events using a JavaScript expression. You must enclose text constants in quotes (such as, 'myLogFile.txt').
+   */
+  sourceExpression?: string | undefined;
+  /**
+   * Define the parser for events using a JavaScript expression. This value helps parse data into AI SIEM. You must enclose text constants in quotes (such as, 'dottedJson'). For custom parsers, substitute 'dottedJson' with your parser's name.
+   */
+  sourceTypeExpression?: string | undefined;
+  /**
+   * Define the dataSource.category for events using a JavaScript expression. This value helps categorize data and helps enable extra features in SentinelOne AI SIEM. You must enclose text constants in quotes. The default value is 'security'.
+   */
+  dataSourceCategoryExpression?: string | undefined;
+  /**
+   * Define the dataSource.name for events using a JavaScript expression. This value should reflect the type of data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'networkActivity' or 'authLogs').
+   */
+  dataSourceNameExpression?: string | undefined;
+  /**
+   * Define the dataSource.vendor for events using a JavaScript expression. This value should reflect the vendor of the data being inserted into AI SIEM. You must enclose text constants in quotes (such as, 'Cisco' or 'Microsoft').
+   */
+  dataSourceVendorExpression?: string | undefined;
+  /**
+   * Optionally, define the event.type for events using a JavaScript expression. This value acts as a label, grouping events into meaningful categories. You must enclose text constants in quotes (such as, 'Process Creation' or 'Network Connection').
+   */
+  eventTypeExpression?: string | undefined;
+  /**
+   * Define the serverHost for events using a JavaScript expression. This value will be passed to AI SIEM. You must enclose text constants in quotes (such as, 'myServerName').
+   */
+  host?: string | undefined;
+  /**
+   * Specify the logFile value to pass as a parameter to SentinelOne AI SIEM. Don't quote this value. The default is cribl.
+   */
+  source?: string | undefined;
+  /**
+   * Specify the sourcetype parameter for SentinelOne AI SIEM, which determines the parser. Don't quote this value. For custom parsers, substitute hecRawParser with your parser's name. The default is hecRawParser.
+   */
+  sourceType?: string | undefined;
+  /**
+   * Specify the dataSource.category value to pass as a parameter to SentinelOne AI SIEM. This value helps categorize data and enables additional features. Don't quote this value. The default is security.
+   */
+  dataSourceCategory?: string | undefined;
+  /**
+   * Specify the dataSource.name value to pass as a parameter to AI SIEM. This value should reflect the type of data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceName?: string | undefined;
+  /**
+   * Specify the dataSource.vendorvalue to pass as a parameter to AI SIEM. This value should reflect the vendor of the data being inserted. Don't quote this value. The default is cribl.
+   */
+  dataSourceVendor?: string | undefined;
+  /**
+   * Specify the event.type value to pass as an optional parameter to AI SIEM. This value acts as a label, grouping events into meaningful categories like Process Creation, File Modification, or Network Connection. Don't quote this value. By default, this field is empty.
+   */
+  eventType?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsSentinelOneAiSiem | undefined;
+};
+
+/**
+ * Select a transport option for Dynatrace
+ */
+export const ProtocolDynatraceOtlp = {
+  /**
+   * HTTP
+   */
+  Http: "http",
+} as const;
+/**
+ * Select a transport option for Dynatrace
+ */
+export type ProtocolDynatraceOtlp = OpenEnum<typeof ProtocolDynatraceOtlp>;
+
+/**
+ * Select the type of Dynatrace endpoint configured
+ */
+export const EndpointType = {
+  /**
+   * SaaS
+   */
+  Saas: "saas",
+  /**
+   * ActiveGate
+   */
+  Ag: "ag",
+} as const;
+/**
+ * Select the type of Dynatrace endpoint configured
+ */
+export type EndpointType = OpenEnum<typeof EndpointType>;
+
+export type PqControlsDynatraceOtlp = {};
+
+export type OutputDynatraceOtlp = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "dynatrace_otlp";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Select a transport option for Dynatrace
+   */
+  protocol: ProtocolDynatraceOtlp;
+  /**
+   * The endpoint where Dynatrace events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
+   */
+  endpoint: string;
+  /**
+   * The version of OTLP Protobuf definitions to use when structuring data to send
+   */
+  otlpVersion: models.OtlpVersionOptions1;
+  /**
+   * Type of compression to apply to messages sent to the OpenTelemetry endpoint
+   */
+  compress?: models.CompressionOptions4 | undefined;
+  /**
+   * Type of compression to apply to messages sent to the OpenTelemetry endpoint
+   */
+  httpCompress?: models.CompressionOptions5 | undefined;
+  /**
+   * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpTracesEndpointOverride?: string | undefined;
+  /**
+   * If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpMetricsEndpointOverride?: string | undefined;
+  /**
+   * If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpLogsEndpointOverride?: string | undefined;
+  /**
+   * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+   */
+  metadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (in KB) of the request body. The maximum payload size is 4 MB. If this limit is exceeded, the entire OTLP message is dropped
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * How often the sender should ping the peer to keep the connection open
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Select the type of Dynatrace endpoint configured
+   */
+  endpointType: EndpointType;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  authTokenName?: string | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsDynatraceOtlp | undefined;
+};
+
+export const AuthenticationTypeDynatraceHTTP = {
+  /**
+   * Auth token
+   */
+  Token: "token",
+  /**
+   * Token (text secret)
+   */
+  TextSecret: "textSecret",
+} as const;
+export type AuthenticationTypeDynatraceHTTP = OpenEnum<
+  typeof AuthenticationTypeDynatraceHTTP
+>;
+
+/**
+ * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
+ */
+export const FormatDynatraceHTTP = {
+  /**
+   * JSON
+   */
+  JsonArray: "json_array",
+  /**
+   * Plaintext
+   */
+  Plaintext: "plaintext",
+} as const;
+/**
+ * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
+ */
+export type FormatDynatraceHTTP = OpenEnum<typeof FormatDynatraceHTTP>;
+
+export const Endpoint = {
+  /**
+   * Cloud
+   */
+  Cloud: "cloud",
+  /**
+   * ActiveGate
+   */
+  ActiveGate: "activeGate",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+} as const;
+export type Endpoint = OpenEnum<typeof Endpoint>;
+
+export const TelemetryType = {
+  /**
+   * Logs
+   */
+  Logs: "logs",
+  /**
+   * Metrics
+   */
+  Metrics: "metrics",
+} as const;
+export type TelemetryType = OpenEnum<typeof TelemetryType>;
+
+export type PqControlsDynatraceHTTP = {};
+
+export type OutputDynatraceHttp = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "dynatrace_http";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The method to use when sending events
+   */
+  method?: models.MethodOptions | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  authType?: AuthenticationTypeDynatraceHTTP | undefined;
+  /**
+   * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
+   */
+  format: FormatDynatraceHTTP;
+  endpoint: Endpoint;
+  telemetryType: TelemetryType;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsDynatraceHTTP | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * ID of the environment to send to
+   */
+  environmentId?: string | undefined;
+  /**
+   * ActiveGate domain with Log analytics collector module enabled. For example https://{activeGate-domain}:9999/e/{environment-id}/api/v2/logs/ingest.
+   */
+  activeGateDomain?: string | undefined;
+  /**
+   * URL to send events to. Can be overwritten by an event's __url field.
+   */
+  url?: string | undefined;
+};
+
+export type HostNetflow = {
+  /**
+   * Destination host
+   */
+  host: string;
+  /**
+   * Destination port, default is 2055
+   */
+  port: number;
+};
+
+export type OutputNetflow = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "netflow";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * One or more NetFlow Destinations to forward events to
+   */
+  hosts: Array<HostNetflow>;
+  /**
+   * How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every datagram sent will incur a DNS lookup.
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * Send NetFlow traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+   */
+  enableIpSpoofing?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * MTU in bytes. The actual maximum NetFlow payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). For example, with the default MTU of 1500, the max payload is 1472 bytes for IPv4. Payloads exceeding this limit will be dropped.
+   */
+  maxRecordSize?: number | undefined;
+};
+
+/**
+ * Enter a token directly, or provide a secret referencing a token
+ */
+export const AuthenticationMethodXsiam = {
+  Token: "token",
+  Secret: "secret",
+} as const;
+/**
+ * Enter a token directly, or provide a secret referencing a token
+ */
+export type AuthenticationMethodXsiam = OpenEnum<
+  typeof AuthenticationMethodXsiam
+>;
+
+export type UrlXsiam = {
+  url?: any | undefined;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+};
+
+export type PqControlsXsiam = {};
+
+export type OutputXsiam = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "xsiam";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enter a token directly, or provide a secret referencing a token
+   */
+  authType?: AuthenticationMethodXsiam | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of requests to limit to per second
+   */
+  throttleRateReqPerSec?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlXsiam> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * XSIAM authentication token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsXsiam | undefined;
+};
+
+export const AuthenticationTypeClickHouse = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  SslUserCertificate: "sslUserCertificate",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+export type AuthenticationTypeClickHouse = OpenEnum<
+  typeof AuthenticationTypeClickHouse
+>;
+
+/**
+ * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+ */
+export const FormatClickHouse = {
+  /**
+   * JSONCompactEachRowWithNames
+   */
+  JsonCompactEachRowWithNames: "json-compact-each-row-with-names",
+  /**
+   * JSONEachRow
+   */
+  JsonEachRow: "json-each-row",
+} as const;
+/**
+ * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+ */
+export type FormatClickHouse = OpenEnum<typeof FormatClickHouse>;
+
+/**
+ * How event fields are mapped to ClickHouse columns.
+ */
+export const MappingType = {
+  /**
+   * Automatic
+   */
+  Automatic: "automatic",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * How event fields are mapped to ClickHouse columns.
+ */
+export type MappingType = OpenEnum<typeof MappingType>;
+
+export type StatsDestination = {
+  url?: string | undefined;
+  database?: string | undefined;
+  tableName?: string | undefined;
+  authType?: string | undefined;
+  username?: string | undefined;
+  sqlUsername?: string | undefined;
+  password?: string | undefined;
+};
+
+export type ColumnMapping = {
+  /**
+   * Name of the column in ClickHouse that will store field value
+   */
+  columnName: string;
+  /**
+   * Type of the column in the ClickHouse database
+   */
+  columnType?: string | undefined;
+  /**
+   * JavaScript expression to compute value to be inserted into ClickHouse table
+   */
+  columnValueExpression: string;
+};
+
+export type PqControlsClickHouse = {};
+
+export type OutputClickHouse = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "click_house";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of the ClickHouse instance. Example: http://localhost:8123/
+   */
+  url: string;
+  authType?: AuthenticationTypeClickHouse | undefined;
+  database: string;
+  /**
+   * Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+   */
+  tableName: string;
+  /**
+   * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+   */
+  format?: FormatClickHouse | undefined;
+  /**
+   * How event fields are mapped to ClickHouse columns.
+   */
+  mappingType?: MappingType | undefined;
+  /**
+   * Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+   */
+  asyncInserts?: boolean | undefined;
+  tls?: models.TlsSettingsClientSideType1 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Log the most recent event that fails to match the table schema
+   */
+  dumpFormatErrorsToDisk?: boolean | undefined;
+  statsDestination?: StatsDestination | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  /**
+   * Username for certificate authentication
+   */
+  sqlUsername?: string | undefined;
+  /**
+   * Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+   */
+  waitForAsyncInserts?: boolean | undefined;
+  /**
+   * Fields to exclude from sending to ClickHouse
+   */
+  excludeMappingFields?: Array<string> | undefined;
+  /**
+   * Retrieves the table schema from ClickHouse and populates the Column Mapping table
+   */
+  describeTable?: string | undefined;
+  columnMappings?: Array<ColumnMapping> | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsClickHouse | undefined;
+};
+
+export type OutputDiskSpool = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "disk_spool";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Time period for grouping spooled events. Default is 10m.
+   */
+  timeWindow?: string | undefined;
+  /**
+   * Maximum disk space that can be consumed before older buckets are deleted. Examples: 420MB, 4GB. Default is 1GB.
+   */
+  maxDataSize?: string | undefined;
+  /**
+   * Maximum amount of time to retain data before older buckets are deleted. Examples: 2h, 4d. Default is 24h.
+   */
+  maxDataTime?: string | undefined;
+  /**
+   * Data compression format. Default is gzip.
+   */
+  compress?: models.CompressionOptionsPersistence | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized within the time-buckets. If blank, the event's __partition property is used and otherwise, events go directly into the time-bucket directory.
+   */
+  partitionExpr?: string | undefined;
+  description?: string | undefined;
+};
+
+export type OutputCriblLake = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "cribl_lake";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket?: string | undefined;
+  /**
+   * Region where the S3 bucket is located
+   */
+  region?: string | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Lake dataset to send the data to.
+   */
+  destPath?: string | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: models.ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: models.StorageClassOptions | undefined;
+  serverSideEncryption?:
+    | models.ServerSideEncryptionForUploadedObjectsOptions
+    | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  awsAuthenticationMethod?: models.MethodOptionsCredentials | undefined;
+  format?: models.FormatOptionsCriblLakeDataset | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+/**
+ * Signature version to use for signing Amazon Security Lake requests
+ */
+export const SignatureVersionSecurityLake = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing Amazon Security Lake requests
+ */
+export type SignatureVersionSecurityLake = OpenEnum<
+  typeof SignatureVersionSecurityLake
+>;
+
+export type OutputSecurityLake = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "security_lake";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the Amazon Security Lake is located.
+   */
+  region: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  /**
+   * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing Amazon Security Lake requests
+   */
+  signatureVersion?: SignatureVersionSecurityLake | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn: string;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath: string;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: models.ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: models.StorageClassOptions | undefined;
+  serverSideEncryption?:
+    | models.ServerSideEncryptionForUploadedObjectsOptions
+    | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+   */
+  accountId: string;
+  /**
+   * Name of the custom source configured in Amazon Security Lake
+   */
+  customSource: string;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputDlS3 = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "dl_s3";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the S3 bucket is located
+   */
+  region?: string | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  /**
+   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath: string;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: models.ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: models.StorageClassOptions | undefined;
+  serverSideEncryption?:
+    | models.ServerSideEncryptionForUploadedObjectsOptions
+    | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: models.DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
+   */
+  partitioningFields?: Array<string> | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: models.CompressionOptions2 | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: models.CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type PqControlsCrowdstrikeNextGenSiem = {};
+
+export type OutputCrowdstrikeNextGenSiem = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "crowdstrike_next_gen_siem";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL provided from a CrowdStrike data connector.
+   *
+   * @remarks
+   * Example: https://ingest.<region>.crowdstrike.com/api/ingest/hec/<connection-id>/v1/services/collector
+   */
+  url: string;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
+   */
+  format: models.RequestFormatOptions;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsCrowdstrikeNextGenSiem | undefined;
+};
+
+export type PqControlsHumioHec = {};
+
+export type OutputHumioHec = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "humio_hec";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL to a CrowdStrike Falcon LogScale endpoint to send events to. Examples: https://cloud.us.humio.com/api/v1/ingest/hec for JSON and https://cloud.us.humio.com/api/v1/ingest/hec/raw for raw
+   */
+  url: string;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
+   */
+  format: models.RequestFormatOptions;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * CrowdStrike Falcon LogScale authentication token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsHumioHec | undefined;
+};
+
+export type PqControlsCriblSearchEngine = {};
+
+export type OutputCriblSearchEngine = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "cribl_search_engine";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
+   */
+  tokenTTLMinutes?: number | undefined;
+  /**
+   * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * Codec to use to compress the data before sending
+   */
+  compression?: models.CompressionOptions1 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+   */
+  authTokens?: Array<models.ItemsTypeAuthTokens1> | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * URL of a Cribl Worker to send events to, such as http://localhost:10200
+   */
+  url?: string | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<models.ItemsTypeUrls> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsCriblSearchEngine | undefined;
+};
+
+export type PqControlsCriblHTTP = {};
+
+export type OutputCriblHttp = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "cribl_http";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
+   */
+  tokenTTLMinutes?: number | undefined;
+  /**
+   * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * Codec to use to compress the data before sending
+   */
+  compression?: models.CompressionOptions1 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+   */
+  authTokens?: Array<models.ItemsTypeAuthTokens1> | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * URL of a Cribl Worker to send events to, such as http://localhost:10200
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<models.ItemsTypeUrls> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsCriblHTTP | undefined;
+};
+
+export type PqControlsCriblTCP = {};
+
+export type OutputCriblTcp = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "cribl_tcp";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Use load-balanced destinations
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Codec to use to compress the data before sending
+   */
+  compression?: models.CompressionOptions1 | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  /**
+   * The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
+   */
+  tokenTTLMinutes?: number | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
+   */
+  authTokens?: Array<models.ItemsTypeAuthTokens> | undefined;
+  /**
+   * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host?: string | undefined;
+  /**
+   * The port to connect to on the provided host
+   */
+  port?: number | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of hosts to load-balance data to
+   */
+  hosts?: Array<models.ItemsTypeHosts> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsCriblTCP | undefined;
+};
+
+/**
+ * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+ */
+export const DefaultSeveritySeverity = {
+  /**
+   * 0 - finest
+   */
+  Finest: "finest",
+  /**
+   * 1 - finer
+   */
+  Finer: "finer",
+  /**
+   * 2 - fine
+   */
+  Fine: "fine",
+  /**
+   * 3 - info
+   */
+  Info: "info",
+  /**
+   * 4 - warning
+   */
+  Warning: "warning",
+  /**
+   * 5 - error
+   */
+  Error: "error",
+  /**
+   * 6 - fatal
+   */
+  Fatal: "fatal",
+} as const;
+/**
+ * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+ */
+export type DefaultSeveritySeverity = OpenEnum<typeof DefaultSeveritySeverity>;
+
+/**
+ * DataSet site to which events should be sent
+ */
+export const DataSetSite = {
+  /**
+   * US
+   */
+  Us: "us",
+  /**
+   * Europe
+   */
+  Eu: "eu",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * DataSet site to which events should be sent
+ */
+export type DataSetSite = OpenEnum<typeof DataSetSite>;
+
+export type PqControlsDataset = {};
+
+export type OutputDataset = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "dataset";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the event field that contains the message or attributes to send. If not specified, all of the event's non-internal fields will be sent as attributes.
+   */
+  messageField?: string | undefined;
+  /**
+   * Fields to exclude from the event if the Message field is either unspecified or refers to an object. Ignored if the Message field is a string. If empty, we send all non-internal fields.
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * Name of the event field that contains the `serverHost` identifier. If not specified, defaults to `cribl_<outputId>`.
+   */
+  serverHostField?: string | undefined;
+  /**
+   * Name of the event field that contains the timestamp. If not specified, defaults to `ts`, `_time`, or `Date.now()`, in that order.
+   */
+  timestampField?: string | undefined;
+  /**
+   * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+   */
+  defaultSeverity?: DefaultSeveritySeverity | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * DataSet site to which events should be sent
+   */
+  site?: DataSetSite | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Enter API key directly, or select a stored secret
+   */
+  authType?: models.AuthenticationMethodOptions2 | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsDataset | undefined;
+  /**
+   * A 'Log Write Access' API key for the DataSet account
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type PqControlsServiceNow = {};
+
+export type OutputServiceNow = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "service_now";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint where ServiceNow events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
+   */
+  endpoint: string;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret: string;
+  authTokenName?: string | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when structuring data to send
+   */
+  otlpVersion: models.OtlpVersionOptions1;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Select a transport option for OpenTelemetry
+   */
+  protocol: models.ProtocolOptions;
+  /**
+   * Type of compression to apply to messages sent to the OpenTelemetry endpoint
+   */
+  compress?: models.CompressionOptions4 | undefined;
+  /**
+   * Type of compression to apply to messages sent to the OpenTelemetry endpoint
+   */
+  httpCompress?: models.CompressionOptions5 | undefined;
+  /**
+   * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpTracesEndpointOverride?: string | undefined;
+  /**
+   * If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpMetricsEndpointOverride?: string | undefined;
+  /**
+   * If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpLogsEndpointOverride?: string | undefined;
+  /**
+   * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+   */
+  metadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * How often the sender should ping the peer to keep the connection open
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  tls?: models.TlsSettingsClientSideType2 | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsServiceNow | undefined;
+};
+
+/**
+ * The version of OTLP Protobuf definitions to use when structuring data to send
+ */
+export const CreateOutputOTLPVersion = {
+  /**
+   * 0.10.0
+   */
+  ZeroDot10Dot0: "0.10.0",
+  /**
+   * 1.3.1
+   */
+  OneDot3Dot1: "1.3.1",
+} as const;
+/**
+ * The version of OTLP Protobuf definitions to use when structuring data to send
+ */
+export type CreateOutputOTLPVersion = OpenEnum<typeof CreateOutputOTLPVersion>;
+
+export type PqControlsOpenTelemetry = {};
+
+export type OutputOpenTelemetry = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "open_telemetry";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Select a transport option for OpenTelemetry
+   */
+  protocol?: models.ProtocolOptions | undefined;
+  /**
+   * The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
+   */
+  endpoint: string;
+  /**
+   * The version of OTLP Protobuf definitions to use when structuring data to send
+   */
+  otlpVersion?: CreateOutputOTLPVersion | undefined;
+  /**
+   * Type of compression to apply to messages sent to the OpenTelemetry endpoint
+   */
+  compress?: models.CompressionOptions4 | undefined;
+  /**
+   * Type of compression to apply to messages sent to the OpenTelemetry endpoint
+   */
+  httpCompress?: models.CompressionOptions5 | undefined;
+  /**
+   * OpenTelemetry authentication type
+   */
+  authType?: models.AuthenticationTypeOptions | undefined;
+  /**
+   * If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpTracesEndpointOverride?: string | undefined;
+  /**
+   * If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpMetricsEndpointOverride?: string | undefined;
+  /**
+   * If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
+   */
+  httpLogsEndpointOverride?: string | undefined;
+  /**
+   * List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
+   */
+  metadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * How often the sender should ping the peer to keep the connection open
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  tls?: models.TlsSettingsClientSideType2 | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsOpenTelemetry | undefined;
+};
+
+/**
+ * Format of the output data.
+ */
+export const DataFormatRing = {
+  Json: "json",
+  Raw: "raw",
+} as const;
+/**
+ * Format of the output data.
+ */
+export type DataFormatRing = OpenEnum<typeof DataFormatRing>;
+
+export type OutputRing = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "ring";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Format of the output data.
+   */
+  format?: DataFormatRing | undefined;
+  /**
+   * JS expression to define how files are partitioned and organized. If left blank, Cribl Stream will fallback on event.__partition.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
+   */
+  maxDataSize?: string | undefined;
+  /**
+   * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
+   */
+  maxDataTime?: string | undefined;
+  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
+  /**
+   * Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
+   */
+  destPath?: string | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  description?: string | undefined;
+};
+
+export type PqControlsPrometheus = {};
+
+export type OutputPrometheus = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "prometheus";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions to generated metrics.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint to send metrics to
+   */
+  url: string;
+  /**
+   * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
+   */
+  metricRenameExpr?: string | undefined;
+  /**
+   * Generate and send metadata (`type` and `metricFamilyName`) requests
+   */
+  sendMetadata?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Remote Write authentication type
+   */
+  authType?: models.AuthenticationTypeOptionsPrometheusAuth | undefined;
+  description?: string | undefined;
+  /**
+   * How frequently metrics metadata is sent out. Value cannot be smaller than the base Flush period set above.
+   */
+  metricsFlushPeriodSec?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsPrometheus | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+};
+
+export type PqControlsLoki = {};
+
+export type OutputLoki = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "loki";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint to send logs to
+   */
+  url: string;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Format to use when sending logs to Loki (Protobuf or JSON)
+   */
+  messageFormat?: models.MessageFormatOptions | undefined;
+  /**
+   * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+   */
+  labels?: Array<models.ItemsTypeLabels> | undefined;
+  authType?: models.AuthenticationTypeOptionsPrometheusAuth1 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Defaults to 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki to complain about entries being delivered out of order.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Add per-event HTTP headers from the __headers field to outgoing requests. Events with different headers are batched and sent separately.
+   */
+  enableDynamicHeaders?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Username for authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password (API key in Grafana Cloud domain) for authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsLoki | undefined;
+};
+
+export const OutputGrafanaCloudType2 = {
+  GrafanaCloud: "grafana_cloud",
+} as const;
+export type OutputGrafanaCloudType2 = ClosedEnum<
+  typeof OutputGrafanaCloudType2
+>;
+
+export type OutputGrafanaCloudPqControls2 = {};
+
+export type OutputGrafanaCloudGrafanaCloud2 = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: OutputGrafanaCloudType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint to send logs to, such as https://logs-prod-us-central1.grafana.net
+   */
+  lokiUrl?: string | undefined;
+  /**
+   * The remote_write endpoint to send Prometheus metrics to, such as https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
+   */
+  prometheusUrl: string;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Format to use when sending logs to Loki (Protobuf or JSON)
+   */
+  messageFormat?: models.MessageFormatOptions | undefined;
+  /**
+   * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+   */
+  labels?: Array<models.ItemsTypeLabels> | undefined;
+  /**
+   * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
+   */
+  metricRenameExpr?: string | undefined;
+  prometheusAuth?: models.PrometheusAuthType | undefined;
+  lokiAuth?: models.PrometheusAuthType | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki and Prometheus to complain about entries being delivered out of order.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki and Prometheus to complain about entries being delivered out of order.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki and Prometheus to complain about entries being delivered out of order.
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki and Prometheus to complain about entries being delivered out of order.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
+   */
+  compress?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: OutputGrafanaCloudPqControls2 | undefined;
+};
+
+export const OutputGrafanaCloudType1 = {
+  GrafanaCloud: "grafana_cloud",
+} as const;
+export type OutputGrafanaCloudType1 = ClosedEnum<
+  typeof OutputGrafanaCloudType1
+>;
+
+export type OutputGrafanaCloudPqControls1 = {};
+
+export type OutputGrafanaCloudGrafanaCloud1 = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: OutputGrafanaCloudType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The endpoint to send logs to, such as https://logs-prod-us-central1.grafana.net
+   */
+  lokiUrl: string;
+  /**
+   * The remote_write endpoint to send Prometheus metrics to, such as https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
+   */
+  prometheusUrl?: string | undefined;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Format to use when sending logs to Loki (Protobuf or JSON)
+   */
+  messageFormat?: models.MessageFormatOptions | undefined;
+  /**
+   * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
+   */
+  labels?: Array<models.ItemsTypeLabels> | undefined;
+  /**
+   * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
+   */
+  metricRenameExpr?: string | undefined;
+  prometheusAuth?: models.PrometheusAuthType | undefined;
+  lokiAuth?: models.PrometheusAuthType | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki and Prometheus to complain about entries being delivered out of order.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki and Prometheus to complain about entries being delivered out of order.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited). Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki and Prometheus to complain about entries being delivered out of order.
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Maximum time between requests. Small values can reduce the payload size below the configured 'Max record size' and 'Max events per request'. Warning: Setting this too low can increase the number of ongoing requests (depending on the value of 'Request concurrency'); this can cause Loki and Prometheus to complain about entries being delivered out of order.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
+   */
+  compress?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: OutputGrafanaCloudPqControls1 | undefined;
+};
+
+export type OutputGrafanaCloud =
+  | OutputGrafanaCloudGrafanaCloud1
+  | OutputGrafanaCloudGrafanaCloud2;
+
+/**
+ * The content type to use when sending logs
+ */
+export const SendLogsAs = {
+  /**
+   * text/plain
+   */
+  Text: "text",
+  /**
+   * application/json
+   */
+  Json: "json",
+} as const;
+/**
+ * The content type to use when sending logs
+ */
+export type SendLogsAs = OpenEnum<typeof SendLogsAs>;
+
+/**
+ * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+ */
+export const SeverityDatadog = {
+  /**
+   * emergency
+   */
+  Emergency: "emergency",
+  /**
+   * alert
+   */
+  Alert: "alert",
+  /**
+   * critical
+   */
+  Critical: "critical",
+  /**
+   * error
+   */
+  Error: "error",
+  /**
+   * warning
+   */
+  Warning: "warning",
+  /**
+   * notice
+   */
+  Notice: "notice",
+  /**
+   * info
+   */
+  Info: "info",
+  /**
+   * debug
+   */
+  Debug: "debug",
+} as const;
+/**
+ * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+ */
+export type SeverityDatadog = OpenEnum<typeof SeverityDatadog>;
+
+/**
+ * Datadog site to which events should be sent
+ */
+export const DatadogSite = {
+  /**
+   * US
+   */
+  Us: "us",
+  /**
+   * US3
+   */
+  Us3: "us3",
+  /**
+   * US5
+   */
+  Us5: "us5",
+  /**
+   * Europe
+   */
+  Eu: "eu",
+  /**
+   * US1-FED
+   */
+  Fed1: "fed1",
+  /**
+   * AP1
+   */
+  Ap1: "ap1",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * Datadog site to which events should be sent
+ */
+export type DatadogSite = OpenEnum<typeof DatadogSite>;
+
+export type PqControlsDatadog = {};
+
+export type OutputDatadog = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "datadog";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The content type to use when sending logs
+   */
+  contentType?: SendLogsAs | undefined;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
+   */
+  source?: string | undefined;
+  /**
+   * Name of the host to send with logs. When you send logs as JSON objects, the event's 'host' field (if set) will override this value.
+   */
+  host?: string | undefined;
+  /**
+   * Name of the service to send with logs. When you send logs as JSON objects, the event's '__service' field (if set) will override this value.
+   */
+  service?: string | undefined;
+  /**
+   * List of tags to send with logs, such as 'env:prod' and 'env_staging:east'
+   */
+  tags?: Array<string> | undefined;
+  /**
+   * Batch events by API key and the ddtags field on the event. When disabled, batches events only by API key. If incoming events have high cardinality in the ddtags field, disabling this setting may improve Destination performance.
+   */
+  batchByTags?: boolean | undefined;
+  /**
+   * Allow API key to be set from the event's '__agent_api_key' field
+   */
+  allowApiKeyFromEvents?: boolean | undefined;
+  /**
+   * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+   */
+  severity?: SeverityDatadog | undefined;
+  /**
+   * Datadog site to which events should be sent
+   */
+  site?: DatadogSite | undefined;
+  /**
+   * If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
+   */
+  sendCountersAsCount?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Enter API key directly, or select a stored secret
+   */
+  authType?: models.AuthenticationMethodOptions2 | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsDatadog | undefined;
+  /**
+   * Organization's API key in Datadog
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+/**
+ * Preserve the raw event format instead of JSONifying it
+ */
+export const DataFormatSumoLogic = {
+  /**
+   * JSON
+   */
+  Json: "json",
+  /**
+   * Raw
+   */
+  Raw: "raw",
+} as const;
+/**
+ * Preserve the raw event format instead of JSONifying it
+ */
+export type DataFormatSumoLogic = OpenEnum<typeof DataFormatSumoLogic>;
+
+export type PqControlsSumoLogic = {};
+
+export type OutputSumoLogic = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "sumo_logic";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Sumo Logic HTTP collector URL to which events should be sent
+   */
+  url: string;
+  /**
+   * Override the source name configured on the Sumo Logic HTTP collector. This can also be overridden at the event level with the __sourceName field.
+   */
+  customSource?: string | undefined;
+  /**
+   * Override the source category configured on the Sumo Logic HTTP collector. This can also be overridden at the event level with the __sourceCategory field.
+   */
+  customCategory?: string | undefined;
+  /**
+   * Preserve the raw event format instead of JSONifying it
+   */
+  format?: DataFormatSumoLogic | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsSumoLogic | undefined;
+};
+
+export type HostSnmp = {
+  /**
+   * Destination host
+   */
+  host: string;
+  /**
+   * Destination port, default is 162
+   */
+  port: number;
+};
+
+export type OutputSnmp = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "snmp";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * One or more SNMP destinations to forward traps to
+   */
+  hosts: Array<HostSnmp>;
+  /**
+   * How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  description?: string | undefined;
+};
+
+/**
+ * The queue type used (or created). Defaults to Standard.
+ */
+export const CreateOutputQueueType = {
+  /**
+   * Standard
+   */
+  Standard: "standard",
+  /**
+   * FIFO
+   */
+  Fifo: "fifo",
+} as const;
+/**
+ * The queue type used (or created). Defaults to Standard.
+ */
+export type CreateOutputQueueType = OpenEnum<typeof CreateOutputQueueType>;
+
+export type PqControlsSqs = {};
+
+export type OutputSqs = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "sqs";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to send events to. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created). Defaults to Standard.
+   */
+  queueType: CreateOutputQueueType;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * This parameter applies only to FIFO queues. The tag that specifies that a message belongs to a specific message group. Messages that belong to the same message group are processed in a FIFO manner. Use event field __messageGroupId to override this value.
+   */
+  messageGroupId?: string | undefined;
+  /**
+   * Create queue if it does not exist.
+   */
+  createQueue?: boolean | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing SQS requests
+   */
+  signatureVersion?: models.SignatureVersionOptions3 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking.
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of batches to send. Per the SQS spec, the max allowed value is 256 KB.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * The maximum number of in-progress API requests before backpressure is applied.
+   */
+  maxInProgress?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsSqs | undefined;
+};
+
+/**
+ * Signature version to use for signing SNS requests
+ */
+export const SignatureVersionSns = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing SNS requests
+ */
+export type SignatureVersionSns = OpenEnum<typeof SignatureVersionSns>;
+
+export type PqControlsSns = {};
+
+export type OutputSns = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "sns";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The ARN of the SNS topic to send events to. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. E.g., 'https://host:port/myQueueName'. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`
+   */
+  topicArn: string;
+  /**
+   * Messages in the same group are processed in a FIFO manner. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  messageGroupId: string;
+  /**
+   * Maximum number of retries before the output returns an error. Note that not all errors are retryable. The retries use an exponential backoff policy.
+   */
+  maxRetries?: number | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the SNS is located
+   */
+  region?: string | undefined;
+  /**
+   * SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing SNS requests
+   */
+  signatureVersion?: SignatureVersionSns | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SNS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsSns | undefined;
+};
+
+export type CreateOutputRule = {
+  /**
+   * JavaScript expression to select events to send to output
+   */
+  filter: string;
+  /**
+   * Output to send matching events to
+   */
+  output: string;
+  /**
+   * Description of this rule's purpose
+   */
+  description?: string | undefined;
+  /**
+   * Flag to control whether to stop the event from being checked against other rules
+   */
+  final?: boolean | undefined;
+};
+
+export type OutputRouter = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "router";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Event routing rules
+   */
+  rules: Array<CreateOutputRule>;
+  description?: string | undefined;
+};
+
+export type PqControlsGraphite = {};
+
+export type OutputGraphite = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "graphite";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Protocol to use when communicating with the destination.
+   */
+  protocol: models.DestinationProtocolOptions;
+  /**
+   * The hostname of the destination.
+   */
+  host: string;
+  /**
+   * Destination port.
+   */
+  port: number;
+  /**
+   * When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
+   */
+  mtu?: number | undefined;
+  /**
+   * When protocol is TCP, specifies how often buffers should be flushed, resulting in records sent to the destination.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsGraphite | undefined;
+};
+
+export type PqControlsStatsdExt = {};
+
+export type OutputStatsdExt = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "statsd_ext";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Protocol to use when communicating with the destination.
+   */
+  protocol: models.DestinationProtocolOptions;
+  /**
+   * The hostname of the destination.
+   */
+  host: string;
+  /**
+   * Destination port.
+   */
+  port: number;
+  /**
+   * When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
+   */
+  mtu?: number | undefined;
+  /**
+   * When protocol is TCP, specifies how often buffers should be flushed, resulting in records sent to the destination.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsStatsdExt | undefined;
+};
+
+export type PqControlsStatsd = {};
+
+export type OutputStatsd = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "statsd";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Protocol to use when communicating with the destination.
+   */
+  protocol: models.DestinationProtocolOptions;
+  /**
+   * The hostname of the destination.
+   */
+  host: string;
+  /**
+   * Destination port.
+   */
+  port: number;
+  /**
+   * When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
+   */
+  mtu?: number | undefined;
+  /**
+   * When protocol is TCP, specifies how often buffers should be flushed, resulting in records sent to the destination.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsStatsd | undefined;
+};
+
+export type OutputMinio = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "minio";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * MinIO service url (e.g. http://minioHost:9000)
+   */
+  endpoint: string;
+  /**
+   * Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MinIO service/cluster is located
+   */
+  region?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   */
+  stagePath: string;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+   */
+  destPath?: string | undefined;
+  /**
+   * Signature version to use for signing MinIO requests
+   */
+  signatureVersion?: models.SignatureVersionOptions5 | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: models.ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: models.StorageClassOptions2 | undefined;
+  /**
+   * Server-side encryption for uploaded objects
+   */
+  serverSideEncryption?: models.ServerSideEncryptionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: models.DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: models.CompressionOptions2 | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: models.CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type PqControlsCloudwatch = {};
+
+export type OutputCloudwatch = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "cloudwatch";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * CloudWatch log group to associate events with
+   */
+  logGroupName: string;
+  /**
+   * Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
+   */
+  logStreamName: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the CloudWatchLogs is located
+   */
+  region: string;
+  /**
+   * CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access CloudWatchLogs
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For non compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsCloudwatch | undefined;
+};
+
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export const TimestampPrecision = {
+  /**
+   * Nanoseconds
+   */
+  Ns: "ns",
+  /**
+   * Microseconds
+   */
+  U: "u",
+  /**
+   * Milliseconds
+   */
+  Ms: "ms",
+  /**
+   * Seconds
+   */
+  S: "s",
+  /**
+   * Minutes
+   */
+  M: "m",
+  /**
+   * Hours
+   */
+  H: "h",
+} as const;
+/**
+ * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+ */
+export type TimestampPrecision = OpenEnum<typeof TimestampPrecision>;
+
+/**
+ * InfluxDB authentication type
+ */
+export const AuthenticationTypeInfluxdb = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * InfluxDB authentication type
+ */
+export type AuthenticationTypeInfluxdb = OpenEnum<
+  typeof AuthenticationTypeInfluxdb
+>;
+
+export type PqControlsInfluxdb = {};
+
+export type OutputInfluxdb = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "influxdb";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * URL of an InfluxDB cluster to send events to, e.g., http://localhost:8086/write
+   */
+  url: string;
+  /**
+   * The v2 API can be enabled with InfluxDB versions 1.8 and later.
+   */
+  useV2API?: boolean | undefined;
+  /**
+   * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+   */
+  timestampPrecision?: TimestampPrecision | undefined;
+  /**
+   * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
+   */
+  dynamicValueFieldName?: boolean | undefined;
+  /**
+   * Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
+   */
+  valueFieldName?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * InfluxDB authentication type
+   */
+  authType?: AuthenticationTypeInfluxdb | undefined;
+  description?: string | undefined;
+  /**
+   * Database to write to.
+   */
+  database?: string | undefined;
+  /**
+   * Bucket to write to.
+   */
+  bucket?: string | undefined;
+  /**
+   * Organization ID for this bucket.
+   */
+  org?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsInfluxdb | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+};
+
+export type PqControlsNewrelicEvents = {};
+
+export type OutputNewrelicEvents = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "newrelic_events";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Which New Relic region endpoint to use.
+   */
+  region?: models.RegionOptions | undefined;
+  /**
+   * New Relic account ID
+   */
+  accountId: string;
+  /**
+   * Default eventType to use when not present in an event. For more information, see [here](https://docs.newrelic.com/docs/telemetry-data-platform/custom-data/custom-events/data-requirements-limits-custom-event-data/#reserved-words).
+   */
+  eventType: string;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Enter API key directly, or select a stored secret
+   */
+  authType?: models.AuthenticationMethodOptions2 | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsNewrelicEvents | undefined;
+  /**
+   * New Relic API key. Can be overridden using __newRelic_apiKey field.
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const FieldName = {
+  Service: "service",
+  Hostname: "hostname",
+  Timestamp: "timestamp",
+  AuditId: "auditId",
+} as const;
+export type FieldName = OpenEnum<typeof FieldName>;
+
+export type Metadatum = {
+  name: FieldName;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type PqControlsNewrelic = {};
+
+export type OutputNewrelic = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "newrelic";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Which New Relic region endpoint to use.
+   */
+  region?: models.RegionOptions | undefined;
+  /**
+   * Name of the logtype to send with events, e.g.: observability, access_log. The event's 'sourcetype' field (if set) will override this value.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of field to send as log message value. If not present, event will be serialized and sent as JSON.
+   */
+  messageField?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadatum> | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Enter API key directly, or select a stored secret
+   */
+  authType?: models.AuthenticationMethodOptions2 | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsNewrelic | undefined;
+  /**
+   * New Relic API key. Can be overridden using __newRelic_apiKey field.
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type PqControlsElasticCloud = {};
+
+export type OutputElasticCloud = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "elastic_cloud";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enter Cloud ID of the Elastic Cloud environment to send events to
+   */
+  url: string;
+  /**
+   * Data stream or index to send events to. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be overwritten by an event's __index field.
+   */
+  index: string;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Extra parameters to use in HTTP requests
+   */
+  extraParams?: Array<models.ItemsTypeSaslSaslExtensions> | undefined;
+  auth?: models.AuthType | undefined;
+  /**
+   * Optional Elastic Cloud Destination pipeline
+   */
+  elasticPipeline?: string | undefined;
+  /**
+   * Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
+   */
+  includeDocId?: boolean | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsElasticCloud | undefined;
+};
+
+/**
+ * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
+ */
+export const ElasticVersion = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * 6.x
+   */
+  Six: "6",
+  /**
+   * 7.x
+   */
+  Seven: "7",
+} as const;
+/**
+ * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
+ */
+export type ElasticVersion = OpenEnum<typeof ElasticVersion>;
+
+/**
+ * Action to use when writing events. Must be set to `Create` when writing to a data stream.
+ */
+export const WriteAction = {
+  /**
+   * Index
+   */
+  Index: "index",
+  /**
+   * Create
+   */
+  Create: "create",
+} as const;
+/**
+ * Action to use when writing events. Must be set to `Create` when writing to a data stream.
+ */
+export type WriteAction = OpenEnum<typeof WriteAction>;
+
+export type UrlElastic = {
+  /**
+   * The URL to an Elastic node to send events to. Example: http://elastic:9200/_bulk
+   */
+  url: string;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+};
+
+export type PqControlsElastic = {};
+
+export type OutputElastic = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "elastic";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Index or data stream to send events to. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be overwritten by an event's __index field.
+   */
+  index: string;
+  /**
+   * Document type to use for events. Can be overwritten by an event's __type field.
+   */
+  docType?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  extraParams?: Array<models.ItemsTypeSaslSaslExtensions> | undefined;
+  auth?: models.AuthType | undefined;
+  /**
+   * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
+   */
+  elasticVersion?: ElasticVersion | undefined;
+  /**
+   * Optional Elasticsearch destination pipeline
+   */
+  elasticPipeline?: string | undefined;
+  /**
+   * Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
+   */
+  includeDocId?: boolean | undefined;
+  /**
+   * Action to use when writing events. Must be set to `Create` when writing to a data stream.
+   */
+  writeAction?: WriteAction | undefined;
+  /**
+   * Retry failed events when a bulk request to Elastic is successful, but the response body returns an error for one or more events in the batch
+   */
+  retryPartialErrors?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * The Cloud ID or URL to an Elastic cluster to send events to. Example: http://elastic:9200/_bulk
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlElastic> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsElastic | undefined;
+};
+
+export type PqControlsMsk = {};
+
+export type OutputMsk = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "msk";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify hostname and port, e.g., mykafkabroker:9092, or just hostname, in which case @{product} will assign port 9092.
+   */
+  brokers: Array<string>;
+  /**
+   * The topic to publish events to. Can be overridden using the __topicOut field.
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments.
+   */
+  ack?: models.AcknowledgmentsOptions1 | undefined;
+  /**
+   * Format to use to serialize events before writing to Kafka.
+   */
+  format?: models.RecordDataFormatOptions1 | undefined;
+  /**
+   * Codec to use to compress the data before sending to Kafka
+   */
+  compression?: models.CompressionOptions3 | undefined;
+  /**
+   * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * The maximum number of events you want the Destination to allow in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
+   */
+  flushPeriodSec?: number | undefined;
+  kafkaSchemaRegistry?:
+    | models.KafkaSchemaRegistryAuthenticationType1
+    | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MSK cluster is located
+   */
+  region: string;
+  /**
+   * MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: models.SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access MSK
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Select a set of Protobuf definitions for the events you want to send
+   */
+  protobufLibraryId?: string | undefined;
+  /**
+   * Select the type of object you want the Protobuf definitions to use for event encoding
+   */
+  protobufEncodingId?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsMsk | undefined;
+};
+
+export type PqControlsConfluentCloud = {};
+
+export type OutputConfluentCloud = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "confluent_cloud";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092.
+   */
+  brokers: Array<string>;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * The topic to publish events to. Can be overridden using the __topicOut field.
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments.
+   */
+  ack?: models.AcknowledgmentsOptions1 | undefined;
+  /**
+   * Format to use to serialize events before writing to Kafka.
+   */
+  format?: models.RecordDataFormatOptions1 | undefined;
+  /**
+   * Codec to use to compress the data before sending to Kafka
+   */
+  compression?: models.CompressionOptions3 | undefined;
+  /**
+   * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * The maximum number of events you want the Destination to allow in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
+   */
+  flushPeriodSec?: number | undefined;
+  kafkaSchemaRegistry?:
+    | models.KafkaSchemaRegistryAuthenticationType1
+    | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+   */
+  sasl?: models.AuthenticationType | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Select a set of Protobuf definitions for the events you want to send
+   */
+  protobufLibraryId?: string | undefined;
+  /**
+   * Select the type of object you want the Protobuf definitions to use for event encoding
+   */
+  protobufEncodingId?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsConfluentCloud | undefined;
+};
+
+export type PqControlsKafka = {};
+
+export type OutputKafka = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "kafka";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify hostname and port, e.g., mykafkabroker:9092, or just hostname, in which case @{product} will assign port 9092.
+   */
+  brokers: Array<string>;
+  /**
+   * The topic to publish events to. Can be overridden using the __topicOut field.
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments.
+   */
+  ack?: models.AcknowledgmentsOptions1 | undefined;
+  /**
+   * Format to use to serialize events before writing to Kafka.
+   */
+  format?: models.RecordDataFormatOptions1 | undefined;
+  /**
+   * Codec to use to compress the data before sending to Kafka
+   */
+  compression?: models.CompressionOptions3 | undefined;
+  /**
+   * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * The maximum number of events you want the Destination to allow in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
+   */
+  flushPeriodSec?: number | undefined;
+  kafkaSchemaRegistry?:
+    | models.KafkaSchemaRegistryAuthenticationType1
+    | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+   */
+  sasl?: models.AuthenticationType | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Select a set of Protobuf definitions for the events you want to send
+   */
+  protobufLibraryId?: string | undefined;
+  /**
+   * Select the type of object you want the Protobuf definitions to use for event encoding
+   */
+  protobufEncodingId?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsKafka | undefined;
+};
+
+export type OutputExabeam = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "exabeam";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. A constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a JavaScript Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint: string;
+  /**
+   * Signature version to use for signing Google Cloud Storage requests
+   */
+  signatureVersion?: models.SignatureVersionOptions4 | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: models.ObjectAclOptions1 | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: models.StorageClassOptions1 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Enter an encoded string containing Exabeam configurations
+   */
+  encodedConfiguration?: string | undefined;
+  /**
+   * ID of the Exabeam Collector where data should be sent. Example: 11112222-3333-4444-5555-666677778888
+   *
+   * @remarks
+   */
+  collectorInstanceId: string;
+  /**
+   * Constant or JavaScript expression to create an Exabeam site name. Values that aren't successfully evaluated will be treated as string constants.
+   */
+  siteName?: string | undefined;
+  /**
+   * Exabeam site ID. If left blank, @{product} will use the value of the Exabeam site name.
+   */
+  siteId?: string | undefined;
+  timezoneOffset?: string | undefined;
+  /**
+   * HMAC access key. Can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. Can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  description?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type PqControlsGooglePubsub = {};
+
+export type OutputGooglePubsub = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "google_pubsub";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * ID of the topic to send events to.
+   */
+  topicName: string;
+  /**
+   * If enabled, create topic if it does not exist.
+   */
+  createTopic?: boolean | undefined;
+  /**
+   * If enabled, send events in the order they were added to the queue. For this to work correctly, the process receiving events must have ordering enabled.
+   */
+  orderedDelivery?: boolean | undefined;
+  /**
+   * Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+   */
+  region?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   */
+  googleAuthMethod?: models.GoogleAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * The maximum number of items the Google API should batch before it sends them to the topic.
+   */
+  batchSize?: number | undefined;
+  /**
+   * The maximum amount of time, in milliseconds, that the Google API should wait to send a batch (if the Batch size is not reached).
+   */
+  batchTimeout?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking.
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of batches to send.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time to wait before sending a batch (when batch size limit is not reached)
+   */
+  flushPeriod?: number | undefined;
+  /**
+   * The maximum number of in-progress API requests before backpressure is applied.
+   */
+  maxInProgress?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsGooglePubsub | undefined;
+};
+
+export const LogLocationType = {
+  /**
+   * Project
+   */
+  Project: "project",
+  /**
+   * Organization
+   */
+  Organization: "organization",
+  /**
+   * Billing Account
+   */
+  BillingAccount: "billingAccount",
+  /**
+   * Folder
+   */
+  Folder: "folder",
+} as const;
+export type LogLocationType = OpenEnum<typeof LogLocationType>;
+
+/**
+ * Format to use when sending payload. Defaults to Text.
+ */
+export const PayloadFormat = {
+  /**
+   * Text
+   */
+  Text: "text",
+  /**
+   * JSON
+   */
+  Json: "json",
+} as const;
+/**
+ * Format to use when sending payload. Defaults to Text.
+ */
+export type PayloadFormat = OpenEnum<typeof PayloadFormat>;
+
+export type PqControlsGoogleCloudLogging = {};
+
+export type OutputGoogleCloudLogging = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "google_cloud_logging";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  logLocationType: LogLocationType;
+  /**
+   * JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+   */
+  logNameExpression: string;
+  sanitizeLogNames?: boolean | undefined;
+  /**
+   * Format to use when sending payload. Defaults to Text.
+   */
+  payloadFormat?: PayloadFormat | undefined;
+  /**
+   * Labels to apply to the log entry
+   */
+  logLabels?: Array<models.ItemsTypeLogLabels> | undefined;
+  /**
+   * JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
+   */
+  resourceTypeExpression?: string | undefined;
+  /**
+   * Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
+   */
+  resourceTypeLabels?: Array<models.ItemsTypeLogLabels> | undefined;
+  /**
+   * JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
+   */
+  severityExpression?: string | undefined;
+  /**
+   * JavaScript expression to compute the value of the insert ID field.
+   */
+  insertIdExpression?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   */
+  googleAuthMethod?: models.GoogleAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * Maximum size, in KB, of the request body.
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Max number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it.
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum number of requests to limit to per second.
+   */
+  throttleRateReqPerSec?: number | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request method as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  requestMethodExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request URL as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  requestUrlExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  requestSizeExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request method as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  statusExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP response size as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  responseSizeExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request user agent as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  userAgentExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request remote IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  remoteIpExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request server IP as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  serverIpExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request referer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  refererExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request latency, formatted as <seconds>.<nanoseconds>s (for example, 1.23s). See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  latencyExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache lookup as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheLookupExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache hit as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheHitExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache validated with origin server as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheValidatedExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request cache fill bytes as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  cacheFillBytesExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the HTTP request protocol as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) for details.
+   */
+  protocolExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation ID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  idExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation producer as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  producerExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation first flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  firstExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry operation last flag as a boolean. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentryoperation) for details.
+   */
+  lastExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry source location file as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+   */
+  fileExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry source location line as a string, in int64 format. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+   */
+  lineExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry source location function as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logentrysourcelocation) for details.
+   */
+  functionExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry log split UID as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+   */
+  uidExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry log split index as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+   */
+  indexExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the log entry log split total splits as a number. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logsplit) for details.
+   */
+  totalSplitsExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the REST resource name of the trace being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+   */
+  traceExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the ID of the cloud trace span associated with the current operation in which the log is being written as a string. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+   */
+  spanIdExpression?: string | undefined;
+  /**
+   * A JavaScript expression that evaluates to the the sampling decision of the span associated with the log entry. See the [documentation](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry) for details.
+   */
+  traceSampledExpression?: string | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
+   */
+  logLocationExpression: string;
+  /**
+   * JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
+   */
+  payloadExpression?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsGoogleCloudLogging | undefined;
+};
+
+export const AuthenticationMethodGoogleCloudStorage = {
+  /**
+   * auto
+   */
+  Auto: "auto",
+  /**
+   * manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+export type AuthenticationMethodGoogleCloudStorage = OpenEnum<
+  typeof AuthenticationMethodGoogleCloudStorage
+>;
+
+export type OutputGoogleCloudStorage = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "google_cloud_storage";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint: string;
+  /**
+   * Signature version to use for signing Google Cloud Storage requests
+   */
+  signatureVersion?: models.SignatureVersionOptions4 | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodGoogleCloudStorage | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath: string;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: models.ObjectAclOptions1 | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: models.StorageClassOptions1 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: models.DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  description?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: models.CompressionOptions2 | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: models.CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export const CreateOutputAPIVersion = {
+  /**
+   * V1
+   */
+  V1: "v1",
+  /**
+   * V2
+   */
+  V2: "v2",
+} as const;
+export type CreateOutputAPIVersion = OpenEnum<typeof CreateOutputAPIVersion>;
+
+export const AuthenticationMethodGoogleChronicle = {
+  /**
+   * API key
+   */
+  Manual: "manual",
+  /**
+   * API key secret
+   */
+  Secret: "secret",
+  /**
+   * Service account credentials
+   */
+  ServiceAccount: "serviceAccount",
+  /**
+   * Service account credentials secret
+   */
+  ServiceAccountSecret: "serviceAccountSecret",
+} as const;
+export type AuthenticationMethodGoogleChronicle = OpenEnum<
+  typeof AuthenticationMethodGoogleChronicle
+>;
+
+export const SendEventsAs = {
+  /**
+   * Unstructured
+   */
+  Unstructured: "unstructured",
+  /**
+   * UDM
+   */
+  Udm: "udm",
+} as const;
+export type SendEventsAs = OpenEnum<typeof SendEventsAs>;
+
+export type ExtraLogType = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export const UDMType = {
+  Entities: "entities",
+  Logs: "logs",
+} as const;
+/**
+ * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+ */
+export type UDMType = OpenEnum<typeof UDMType>;
+
+export type PqControlsGoogleChronicle = {};
+
+export type OutputGoogleChronicle = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "google_chronicle";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  apiVersion?: CreateOutputAPIVersion | undefined;
+  authenticationMethod?: AuthenticationMethodGoogleChronicle | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  logFormatType: SendEventsAs;
+  /**
+   * Regional endpoint to send events to
+   */
+  region?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
+   */
+  extraLogTypes?: Array<ExtraLogType> | undefined;
+  /**
+   * Default log type value to send to SecOps. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  logTextField?: string | undefined;
+  /**
+   * A unique identifier (UUID) for your Google SecOps instance. This is provided by your Google representative and is required for API V2 authentication.
+   */
+  customerId?: string | undefined;
+  /**
+   * User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
+   */
+  namespace?: string | undefined;
+  /**
+   * Custom labels to be added to every batch
+   */
+  customLabels?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+   */
+  udmType?: UDMType | undefined;
+  /**
+   * Organization's API key in Google SecOps
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  apiKeySecret?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  serviceAccountCredentialsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsGoogleChronicle | undefined;
+};
+
+export type PqControlsAzureEventhub = {};
+
+export type OutputAzureEventhub = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "azure_eventhub";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * List of Event Hubs Kafka brokers to connect to, eg. yourdomain.servicebus.windows.net:9093. The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
+   */
+  brokers: Array<string>;
+  /**
+   * The name of the Event Hub (Kafka Topic) to publish events. Can be overwritten using field __topicOut.
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments
+   */
+  ack?: models.AcknowledgmentsOptions | undefined;
+  /**
+   * Format to use to serialize events before writing to the Event Hubs Kafka brokers
+   */
+  format?: models.RecordDataFormatOptions | undefined;
+  /**
+   * Maximum size of each record batch before compression. Setting should be < message.max.bytes settings in Event Hubs brokers.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum number of events in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+   */
+  sasl?: models.AuthenticationType1 | undefined;
+  tls?: models.TlsSettingsClientSideType | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsAzureEventhub | undefined;
+};
+
+export type PqControlsHoneycomb = {};
+
+export type OutputHoneycomb = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "honeycomb";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the dataset to send events to – e.g., observability
+   */
+  dataset: string;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Enter API key directly, or select a stored secret
+   */
+  authType?: models.AuthenticationMethodOptions2 | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsHoneycomb | undefined;
+  /**
+   * Team API key where the dataset belongs
+   */
+  team?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+/**
+ * Compression type to use for records
+ */
+export const CreateOutputCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Compression type to use for records
+ */
+export type CreateOutputCompression = OpenEnum<typeof CreateOutputCompression>;
+
+export type PqControlsKinesis = {};
+
+export type OutputKinesis = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "kinesis";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Kinesis stream name to send events to.
+   */
+  streamName: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing Kinesis stream requests
+   */
+  signatureVersion?: models.SignatureVersionOptions2 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of ongoing put requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For uncompressed or non-compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Compression type to use for records
+   */
+  compression?: CreateOutputCompression | undefined;
+  /**
+   * Provides higher stream rate limits, improving delivery speed and reliability by minimizing throttling. See the [ListShards API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html) documentation for details.
+   */
+  useListShards?: boolean | undefined;
+  /**
+   * Batch events into a single record as NDJSON
+   */
+  asNdjson?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Maximum number of records to send in a single request
+   */
+  maxEventsPerFlush?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsKinesis | undefined;
+};
+
+/**
+ * Enter workspace ID and workspace key directly, or select a stored secret
+ */
+export const AuthenticationMethodAzureLogs = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter workspace ID and workspace key directly, or select a stored secret
+ */
+export type AuthenticationMethodAzureLogs = OpenEnum<
+  typeof AuthenticationMethodAzureLogs
+>;
+
+export type PqControlsAzureLogs = {};
+
+export type OutputAzureLogs = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "azure_logs";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Log Type of events sent to this LogAnalytics workspace. Defaults to `Cribl`. Use only letters, numbers, and `_` characters, and can't exceed 100 characters. Can be overwritten by event field __logType.
+   */
+  logType: string;
+  /**
+   * Optional Resource ID of the Azure resource to associate the data with. Can be overridden by the __resourceId event field. This ID populates the _ResourceId property, allowing the data to be included in resource-centric queries. If the ID is neither specified nor overridden, resource-centric queries will omit the data.
+   */
+  resourceId?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * The DNS name of the Log API endpoint that sends log data to a Log Analytics workspace in Azure Monitor. Defaults to .ods.opinsights.azure.com. @{product} will add a prefix and suffix to construct a URI in this format: <https://<Workspace_ID><your_DNS_name>/api/logs?api-version=<API version>.
+   */
+  apiUrl?: string | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Enter workspace ID and workspace key directly, or select a stored secret
+   */
+  authType?: AuthenticationMethodAzureLogs | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsAzureLogs | undefined;
+  /**
+   * Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
+   */
+  workspaceId?: string | undefined;
+  /**
+   * Azure Log Analytics Workspace Primary or Secondary Shared Key. See Azure Dashboard Workspace > Advanced settings.
+   */
+  workspaceKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  keypairSecret?: string | undefined;
+};
+
+export const IngestionMode = {
+  /**
+   * Batching
+   */
+  Batching: "batching",
+  /**
+   * Streaming
+   */
+  Streaming: "streaming",
+} as const;
+export type IngestionMode = OpenEnum<typeof IngestionMode>;
+
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export const OauthTypeAuthenticationMethod = {
+  /**
+   * Client secret
+   */
+  ClientSecret: "clientSecret",
+  /**
+   * Client secret (text secret)
+   */
+  ClientTextSecret: "clientTextSecret",
+  /**
+   * Certificate
+   */
+  Certificate: "certificate",
+} as const;
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export type OauthTypeAuthenticationMethod = OpenEnum<
+  typeof OauthTypeAuthenticationMethod
+>;
+
+export type Certificate = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName?: string | undefined;
+};
+
+export const PrefixOptional = {
+  /**
+   * drop-by
+   */
+  DropBy: "dropBy",
+  /**
+   * ingest-by
+   */
+  IngestBy: "ingestBy",
+} as const;
+export type PrefixOptional = OpenEnum<typeof PrefixOptional>;
+
+export type ExtentTag = {
+  prefix?: PrefixOptional | undefined;
+  value: string;
+};
+
+export type IngestIfNotExist = {
+  value: string;
+};
+
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export const ReportLevel = {
+  /**
+   * FailuresOnly
+   */
+  FailuresOnly: "failuresOnly",
+  /**
+   * DoNotReport
+   */
+  DoNotReport: "doNotReport",
+  /**
+   * FailuresAndSuccesses
+   */
+  FailuresAndSuccesses: "failuresAndSuccesses",
+} as const;
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export type ReportLevel = OpenEnum<typeof ReportLevel>;
+
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export const ReportMethod = {
+  /**
+   * Queue
+   */
+  Queue: "queue",
+  /**
+   * Table
+   */
+  Table: "table",
+  /**
+   * QueueAndTable
+   */
+  QueueAndTable: "queueAndTable",
+} as const;
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export type ReportMethod = OpenEnum<typeof ReportMethod>;
+
+export type AdditionalProperty = {
+  key: string;
+  value: string;
+};
+
+export type PqControlsAzureDataExplorer = {};
+
+export type OutputAzureDataExplorer = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "azure_data_explorer";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The base URI for your cluster. Typically, `https://<cluster>.<region>.kusto.windows.net`.
+   */
+  clusterUrl: string;
+  /**
+   * Name of the database containing the table where data will be ingested
+   */
+  database: string;
+  /**
+   * Name of the table to ingest data into
+   */
+  table: string;
+  /**
+   * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
+   */
+  validateDatabaseSettings?: boolean | undefined;
+  ingestMode?: IngestionMode | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint: models.MicrosoftEntraIdAuthenticationEndpointOptionsSasl;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId: string;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope: string;
+  /**
+   * The type of OAuth 2.0 client credentials grant flow to use
+   */
+  oauthType: OauthTypeAuthenticationMethod;
+  description?: string | undefined;
+  /**
+   * The client secret that you generated for your app in the Azure portal
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  certificate?: Certificate | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: models.DataFormatOptions | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress: models.CompressionOptions2;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: models.CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Send a JSON mapping object instead of specifying an existing named data mapping
+   */
+  isMappingObj?: boolean | undefined;
+  /**
+   * Enter a JSON object that defines your desired data mapping
+   */
+  mappingObj?: string | undefined;
+  /**
+   * Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
+   */
+  mappingRef?: string | undefined;
+  /**
+   * The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
+   */
+  ingestUrl?: string | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Bypass the data management service's aggregation mechanism
+   */
+  flushImmediately?: boolean | undefined;
+  /**
+   * Prevent blob deletion after ingestion is complete
+   */
+  retainBlobOnSuccess?: boolean | undefined;
+  /**
+   * Strings or tags associated with the extent (ingested data shard)
+   */
+  extentTags?: Array<ExtentTag> | undefined;
+  /**
+   * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
+   */
+  ingestIfNotExists?: Array<IngestIfNotExist> | undefined;
+  /**
+   * Level of ingestion status reporting. Defaults to FailuresOnly.
+   */
+  reportLevel?: ReportLevel | undefined;
+  /**
+   * Target of the ingestion status reporting. Defaults to Queue.
+   */
+  reportMethod?: ReportMethod | undefined;
+  /**
+   * Optionally, enter additional configuration properties to send to the ingestion service
+   */
+  additionalProperties?: Array<AdditionalProperty> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsAzureDataExplorer | undefined;
+};
+
+export const BlobAccessTier = {
+  /**
+   * Default account access tier
+   */
+  Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
+  Hot: "Hot",
+  /**
+   * Cool tier
+   */
+  Cool: "Cool",
+  /**
+   * Cold tier
+   */
+  Cold: "Cold",
+  /**
+   * Archive tier
+   */
+  Archive: "Archive",
+} as const;
+export type BlobAccessTier = OpenEnum<typeof BlobAccessTier>;
+
+export type OutputAzureBlob = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "azure_blob";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  containerName: string;
+  /**
+   * Create the configured container in Azure Blob Storage if it does not already exist
+   */
+  createContainer?: boolean | undefined;
+  /**
+   * Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  destPath?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath: string;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: models.DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  authType?: models.AuthenticationMethodOptions | undefined;
+  storageClass?: BlobAccessTier | undefined;
+  description?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: models.CompressionOptions2 | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: models.CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+};
+
+export type OutputS3 = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "s3";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the S3 bucket is located
+   */
+  region?: string | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  /**
+   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath: string;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: models.ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: models.StorageClassOptions | undefined;
+  serverSideEncryption?:
+    | models.ServerSideEncryptionForUploadedObjectsOptions
+    | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: models.DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: models.CompressionOptions2 | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: models.CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputFilesystem = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "filesystem";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Final destination for the output files
+   */
+  destPath: string;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: models.DataFormatOptions | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions1 | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when disk space is below the global 'Min free disk space' limit
+   */
+  onDiskFullBackpressure?: models.DiskSpaceProtectionOptions | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType | undefined;
+  description?: string | undefined;
+  /**
+   * Data compression format to apply to HTTP content before it is delivered
+   */
+  compress?: models.CompressionOptions2 | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: models.CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: models.ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: models.DataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<models.ItemsTypeKeyValueMetadata> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type PqControlsSignalfx = {};
+
+export type OutputSignalfx = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "signalfx";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * SignalFx realm name, e.g. "us0". For a complete list of available SignalFx realm names, please check [here](https://docs.splunk.com/observability/en/get-started/service-description.html#sd-regions).
+   */
+  realm: string;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * SignalFx API access token (see [here](https://docs.signalfx.com/en/latest/admin-guide/tokens.html#working-with-access-tokens))
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsSignalfx | undefined;
+};
+
+export type PqControlsWavefront = {};
+
+export type OutputWavefront = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "wavefront";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * WaveFront domain name, e.g. "longboard"
+   */
+  domain: string;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * WaveFront API authentication token (see [here](https://docs.wavefront.com/wavefront_api.html#generating-an-api-token))
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsWavefront | undefined;
+};
+
+export type PqControlsTcpjson = {};
+
+export type OutputTcpjson = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "tcpjson";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Use load-balanced destinations
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * Codec to use to compress the data before sending
+   */
+  compression?: models.CompressionOptions1 | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  /**
+   * The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
+   */
+  tokenTTLMinutes?: number | undefined;
+  /**
+   * Upon connection, send a header-like record containing the auth token and other metadata.This record will not contain an actual event – only subsequent records will.
+   */
+  sendHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  description?: string | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host?: string | undefined;
+  /**
+   * The port to connect to on the provided host
+   */
+  port?: number | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of hosts to load-balance data to
+   */
+  hosts?: Array<models.ItemsTypeHosts> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsTcpjson | undefined;
+  /**
+   * Optional authentication token to include as part of the connection header
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type UrlWizHec = {
+  /**
+   * URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
+   */
+  url: string;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+};
+
+export type OutputWizHec = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "wiz_hec";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+   */
+  nextQueue?: string | undefined;
+  /**
+   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+   */
+  tcpRouting?: string | undefined;
+  tls?: models.TlsSettingsClientSideType1 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Output metrics in multiple-metric format
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlWizHec> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Wiz Defender Auth token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type UrlSplunkHec = {
+  /**
+   * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
+   */
+  url: string;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+};
+
+export type PqControlsSplunkHec = {};
+
+export type OutputSplunkHec = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "splunk_hec";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+   */
+  nextQueue?: string | undefined;
+  /**
+   * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+   */
+  tcpRouting?: string | undefined;
+  tls?: models.TlsSettingsClientSideType1 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Output metrics in multiple-metric format, supported in Splunk 8.0 and above to allow multiple metrics in a single event.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  /**
+   * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
+   */
+  url?: string | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlSplunkHec> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Splunk HEC authentication token
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsSplunkHec | undefined;
+};
+
+export type CreateOutputAuthToken = {
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+/**
+ * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+ */
+export type IndexerDiscoveryConfigs = {
+  /**
+   * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
+   */
+  site: string;
+  /**
+   * Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
+   */
+  masterUri: string;
+  /**
+   * Time interval, in seconds, between two consecutive indexer list fetches from cluster manager
+   */
+  refreshIntervalSec: number;
+  /**
+   * During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Tokens required to authenticate to cluster manager for indexer discovery
+   */
+  authTokens?: Array<CreateOutputAuthToken> | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type PqControlsSplunkLb = {};
+
+export type OutputSplunkLb = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "splunk_lb";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: models.NestedFieldSerializationOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: models.MaxS2SVersionOptions | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Automatically discover indexers in indexer clustering environment.
+   */
+  indexerDiscovery?: boolean | undefined;
+  /**
+   * How long (in milliseconds) each LB endpoint can report blocked before the Destination reports unhealthy, blocking the sender. (Grace period for fluctuations.) Use 0 to disable; max 1 minute.
+   */
+  senderUnhealthyTimeAllowance?: number | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
+   */
+  compress?: models.CompressionOptions | undefined;
+  /**
+   * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+   */
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of Splunk indexers to load-balance data to.
+   */
+  hosts: Array<models.ItemsTypeHosts>;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsSplunkLb | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type PqControlsSplunk = {};
+
+export type OutputSplunk = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "splunk";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host: string;
+  /**
+   * The port to connect to on the provided host
+   */
+  port: number;
+  /**
+   * How to serialize nested fields into index-time fields
+   */
+  nestedFields?: models.NestedFieldSerializationOptions | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
+   */
+  enableMultiMetrics?: boolean | undefined;
+  /**
+   * Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
+   */
+  enableACK?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: models.MaxS2SVersionOptions | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  description?: string | undefined;
+  /**
+   * Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
+   */
+  maxFailedHealthChecks?: number | undefined;
+  /**
+   * Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
+   */
+  compress?: models.CompressionOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsSplunk | undefined;
+  /**
+   * Shared secret token to use when establishing a connection to a Splunk indexer.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+/**
+ * The network protocol to use for sending out syslog messages
+ */
+export const ProtocolSyslog = {
+  /**
+   * TCP
+   */
+  Tcp: "tcp",
+  /**
+   * UDP
+   */
+  Udp: "udp",
+} as const;
+/**
+ * The network protocol to use for sending out syslog messages
+ */
+export type ProtocolSyslog = OpenEnum<typeof ProtocolSyslog>;
+
+/**
+ * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+ */
+export const Facility = {
+  Zero: 0,
+  One: 1,
+  Two: 2,
+  Three: 3,
+  Four: 4,
+  Five: 5,
+  Six: 6,
+  Seven: 7,
+  Eight: 8,
+  Nine: 9,
+  Ten: 10,
+  Eleven: 11,
+  Twelve: 12,
+  Thirteen: 13,
+  Fourteen: 14,
+  Fifteen: 15,
+  Sixteen: 16,
+  Seventeen: 17,
+  Eighteen: 18,
+  Nineteen: 19,
+  Twenty: 20,
+  TwentyOne: 21,
+} as const;
+/**
+ * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+ */
+export type Facility = OpenEnum<typeof Facility>;
+
+/**
+ * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
+ */
+export const SeveritySyslog = {
+  /**
+   * emergency
+   */
+  Zero: 0,
+  /**
+   * alert
+   */
+  One: 1,
+  /**
+   * critical
+   */
+  Two: 2,
+  /**
+   * error
+   */
+  Three: 3,
+  /**
+   * warning
+   */
+  Four: 4,
+  /**
+   * notice
+   */
+  Five: 5,
+  /**
+   * info
+   */
+  Six: 6,
+  /**
+   * debug
+   */
+  Seven: 7,
+} as const;
+/**
+ * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
+ */
+export type SeveritySyslog = OpenEnum<typeof SeveritySyslog>;
+
+/**
+ * The syslog message format depending on the receiver's support
+ */
+export const MessageFormat = {
+  /**
+   * RFC3164
+   */
+  Rfc3164: "rfc3164",
+  /**
+   * RFC5424
+   */
+  Rfc5424: "rfc5424",
+} as const;
+/**
+ * The syslog message format depending on the receiver's support
+ */
+export type MessageFormat = OpenEnum<typeof MessageFormat>;
+
+/**
+ * Timestamp format to use when serializing event's time field
+ */
+export const TimestampFormat = {
+  /**
+   * Syslog
+   */
+  Syslog: "syslog",
+  /**
+   * ISO8601
+   */
+  Iso8601: "iso8601",
+} as const;
+/**
+ * Timestamp format to use when serializing event's time field
+ */
+export type TimestampFormat = OpenEnum<typeof TimestampFormat>;
+
+export type PqControlsSyslog = {};
+
+export type OutputSyslog = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "syslog";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The network protocol to use for sending out syslog messages
+   */
+  protocol?: ProtocolSyslog | undefined;
+  /**
+   * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+   */
+  facility?: Facility | undefined;
+  /**
+   * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
+   */
+  severity?: SeveritySyslog | undefined;
+  /**
+   * Default name for device or application that originated the message. Defaults to Cribl, but will be overwritten by value of __appname if set.
+   */
+  appName?: string | undefined;
+  /**
+   * The syslog message format depending on the receiver's support
+   */
+  messageFormat?: MessageFormat | undefined;
+  /**
+   * Timestamp format to use when serializing event's time field
+   */
+  timestampFormat?: TimestampFormat | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Prefix messages with the byte count of the message. If disabled, no prefix will be set, and the message will be appended with a \n.
+   */
+  octetCountFraming?: boolean | undefined;
+  /**
+   * Use to troubleshoot issues with sending data
+   */
+  logFailedRequests?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs.  If this setting is disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  /**
+   * The hostname of the receiver
+   */
+  host?: string | undefined;
+  /**
+   * The port to connect to on the provided host
+   */
+  port?: number | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  /**
+   * Set of hosts to load-balance data to
+   */
+  hosts?: Array<models.ItemsTypeHosts> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Maximum number of concurrent connections (per Worker Process). A random set of IPs will be picked on every DNS resolution period. Use 0 for unlimited.
+   */
+  maxConcurrentSenders?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Maximum size of syslog messages. Make sure this value is less than or equal to the MTU to avoid UDP packet fragmentation.
+   */
+  maxRecordSize?: number | undefined;
+  /**
+   * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every message sent will incur a DNS lookup.
+   */
+  udpDnsResolvePeriodSec?: number | undefined;
+  /**
+   * Send Syslog traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+   */
+  enableIpSpoofing?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsSyslog | undefined;
+};
+
+export type OutputDevnull = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "devnull";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+};
+
+export const AuthType = {
+  Oauth: "oauth",
+} as const;
+export type AuthType = OpenEnum<typeof AuthType>;
+
+/**
+ * Enter the data collection endpoint URL or the individual ID
+ */
+export const EndpointConfiguration = {
+  /**
+   * URL
+   */
+  Url: "url",
+  /**
+   * ID
+   */
+  Id: "ID",
+} as const;
+/**
+ * Enter the data collection endpoint URL or the individual ID
+ */
+export type EndpointConfiguration = OpenEnum<typeof EndpointConfiguration>;
+
+export const FormatSentinel = {
+  Ndjson: "ndjson",
+  JsonArray: "json_array",
+  Custom: "custom",
+  Advanced: "advanced",
+} as const;
+export type FormatSentinel = OpenEnum<typeof FormatSentinel>;
+
+export type PqControlsSentinel = {};
+
+export type OutputSentinel = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "sentinel";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of the request body (defaults to the API's maximum limit of 1000 KB)
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  authType?: AuthType | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl: string;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret: string;
+  /**
+   * JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
+   */
+  client_id: string;
+  /**
+   * Scope to pass in the OAuth request
+   */
+  scope?: string | undefined;
+  /**
+   * Enter the data collection endpoint URL or the individual ID
+   */
+  endpointURLConfiguration: EndpointConfiguration;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  format?: FormatSentinel | undefined;
+  /**
+   * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+   */
+  customSourceExpression?: string | undefined;
+  /**
+   * Whether to drop events when the source expression evaluates to null
+   */
+  customDropWhenNull?: boolean | undefined;
+  /**
+   * Delimiter string to insert between individual events. Defaults to newline character.
+   */
+  customEventDelimiter?: string | undefined;
+  /**
+   * Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+   */
+  customContentType?: string | undefined;
+  /**
+   * Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+   */
+  customPayloadExpression?: string | undefined;
+  /**
+   * HTTP content-type header value
+   */
+  advancedContentType?: string | undefined;
+  /**
+   * Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatEventCode?: string | undefined;
+  /**
+   * Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatPayloadCode?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsSentinel | undefined;
+  /**
+   * URL to send events to. Can be overwritten by an event's __url field.
+   */
+  url?: string | undefined;
+  /**
+   * Immutable ID for the Data Collection Rule (DCR)
+   */
+  dcrID?: string | undefined;
+  /**
+   * Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`
+   */
+  dceEndpoint?: string | undefined;
+  /**
+   * The name of the stream (Sentinel table) in which to store the events
+   */
+  streamName?: string | undefined;
+};
+
+/**
+ * How to format events before sending out
+ */
+export const FormatWebhook = {
+  /**
+   * NDJSON (Newline Delimited JSON)
+   */
+  Ndjson: "ndjson",
+  /**
+   * JSON Array
+   */
+  JsonArray: "json_array",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Advanced
+   */
+  Advanced: "advanced",
+} as const;
+/**
+ * How to format events before sending out
+ */
+export type FormatWebhook = OpenEnum<typeof FormatWebhook>;
+
+/**
+ * Authentication method to use for the HTTP request
+ */
+export const AuthenticationTypeWebhook = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
+  Token: "token",
+  /**
+   * Token (text secret)
+   */
+  TextSecret: "textSecret",
+  /**
+   * OAuth
+   */
+  Oauth: "oauth",
+} as const;
+/**
+ * Authentication method to use for the HTTP request
+ */
+export type AuthenticationTypeWebhook = OpenEnum<
+  typeof AuthenticationTypeWebhook
+>;
+
+export type PqControlsWebhook = {};
+
+export type UrlWebhook = {
+  /**
+   * URL of a webhook endpoint to send events to, such as http://localhost:10200
+   */
+  url: string;
+  /**
+   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
+   */
+  weight?: number | undefined;
+};
+
+export type OutputWebhook = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "webhook";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The method to use when sending events
+   */
+  method?: models.MethodOptions | undefined;
+  /**
+   * How to format events before sending out
+   */
+  format?: FormatWebhook | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: models.FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * Authentication method to use for the HTTP request
+   */
+  authType?: AuthenticationTypeWebhook | undefined;
+  tls?: models.TlsSettingsClientSideType1 | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  /**
+   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
+   */
+  loadBalanced?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
+   */
+  customSourceExpression?: string | undefined;
+  /**
+   * Whether to drop events when the source expression evaluates to null
+   */
+  customDropWhenNull?: boolean | undefined;
+  /**
+   * Delimiter string to insert between individual events. Defaults to newline character.
+   */
+  customEventDelimiter?: string | undefined;
+  /**
+   * Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
+   */
+  customContentType?: string | undefined;
+  /**
+   * Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
+   */
+  customPayloadExpression?: string | undefined;
+  /**
+   * HTTP content-type header value
+   */
+  advancedContentType?: string | undefined;
+  /**
+   * Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatEventCode?: string | undefined;
+  /**
+   * Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+   */
+  formatPayloadCode?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: PqControlsWebhook | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  /**
+   * URL of a webhook endpoint to send events to, such as http://localhost:10200
+   */
+  url?: string | undefined;
+  /**
+   * Exclude all IPs of the current host from the list of any resolved hostnames
+   */
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlWebhook> | undefined;
+  /**
+   * The interval in which to re-resolve any hostnames and pick up destinations from A records
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  /**
+   * How far back in time to keep traffic stats for load balancing purposes
+   */
+  loadBalanceStatsPeriodSec?: number | undefined;
+};
+
+export type OutputDefault = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "default";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
+   */
+  defaultId: string;
+};
+
+/**
+ * Output object
+ */
+export type CreateOutputRequest =
+  | OutputDefault
+  | OutputWebhook
+  | OutputSentinel
+  | OutputDevnull
+  | OutputSyslog
+  | OutputSplunk
+  | OutputSplunkLb
+  | OutputSplunkHec
+  | OutputWizHec
+  | OutputTcpjson
+  | OutputWavefront
+  | OutputSignalfx
+  | OutputFilesystem
+  | OutputS3
+  | OutputAzureBlob
+  | OutputAzureDataExplorer
+  | OutputAzureLogs
+  | OutputKinesis
+  | OutputHoneycomb
+  | OutputAzureEventhub
+  | OutputGoogleChronicle
+  | OutputGoogleCloudStorage
+  | OutputGoogleCloudLogging
+  | OutputGooglePubsub
+  | OutputExabeam
+  | OutputKafka
+  | OutputConfluentCloud
+  | OutputMsk
+  | OutputElastic
+  | OutputElasticCloud
+  | OutputNewrelic
+  | OutputNewrelicEvents
+  | OutputInfluxdb
+  | OutputCloudwatch
+  | OutputMinio
+  | OutputStatsd
+  | OutputStatsdExt
+  | OutputGraphite
+  | OutputRouter
+  | OutputSns
+  | OutputSqs
+  | OutputSnmp
+  | OutputSumoLogic
+  | OutputDatadog
+  | (
+    | OutputGrafanaCloudGrafanaCloud1
+    | OutputGrafanaCloudGrafanaCloud2 & { type: "grafana_cloud" }
+  )
+  | OutputLoki
+  | OutputPrometheus
+  | OutputRing
+  | OutputOpenTelemetry
+  | OutputServiceNow
+  | OutputDataset
+  | OutputCriblTcp
+  | OutputCriblHttp
+  | OutputCriblSearchEngine
+  | OutputHumioHec
+  | OutputCrowdstrikeNextGenSiem
+  | OutputDlS3
+  | OutputSecurityLake
+  | OutputCriblLake
+  | OutputDiskSpool
+  | OutputClickHouse
+  | OutputXsiam
+  | OutputNetflow
+  | OutputDynatraceHttp
+  | OutputDynatraceOtlp
+  | OutputSentinelOneAiSiem
+  | OutputChronicle
+  | OutputDatabricks
+  | OutputMicrosoftFabric
+  | OutputCloudflareR2;
+
+/** @internal */
+export const AuthenticationMethodCloudflareR2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodCloudflareR2
+> = openEnums.outboundSchema(AuthenticationMethodCloudflareR2);
+
+/** @internal */
+export type OutputCloudflareR2$Outbound = {
+  id: string;
+  type: "cloudflare_r2";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  bucket: string;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: any | undefined;
+  stagePath: string;
+  addIdToStagePath?: boolean | undefined;
+  destPath?: string | undefined;
+  signatureVersion?: string | undefined;
+  objectACL?: any | undefined;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
-export const CreateOutputResponse$inboundSchema: z.ZodType<
-  CreateOutputResponse,
+export const OutputCloudflareR2$outboundSchema: z.ZodType<
+  OutputCloudflareR2$Outbound,
   z.ZodTypeDef,
-  unknown
+  OutputCloudflareR2
 > = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Output$inboundSchema).optional(),
+  id: z.string(),
+  type: z.literal("cloudflare_r2"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: AuthenticationMethodCloudflareR2$outboundSchema
+    .optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.any().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  destPath: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptions5$outboundSchema.optional(),
+  objectACL: z.any().optional(),
+  storageClass: models.StorageClassOptions2$outboundSchema.optional(),
+  serverSideEncryption: models.ServerSideEncryptionOptions$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
+  parquetSchema: z.string().optional(),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
-export function createOutputResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateOutputResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateOutputResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateOutputResponse' from JSON`,
+export function outputCloudflareR2ToJSON(
+  outputCloudflareR2: OutputCloudflareR2,
+): string {
+  return JSON.stringify(
+    OutputCloudflareR2$outboundSchema.parse(outputCloudflareR2),
+  );
+}
+
+/** @internal */
+export const ClientSecretAuthTypeAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ClientSecretAuthTypeAuthenticationMethod
+> = openEnums.outboundSchema(ClientSecretAuthTypeAuthenticationMethod);
+
+/** @internal */
+export type Authentication$Outbound = {
+  disabled: boolean;
+  mechanism?: string | undefined;
+  username?: string | undefined;
+  textSecret?: string | undefined;
+  clientSecretAuthType?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificateName?: string | undefined;
+  certPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  oauthEndpoint?: string | undefined;
+  clientId?: string | undefined;
+  tenantId?: string | undefined;
+  scope?: string | undefined;
+};
+
+/** @internal */
+export const Authentication$outboundSchema: z.ZodType<
+  Authentication$Outbound,
+  z.ZodTypeDef,
+  Authentication
+> = z.object({
+  disabled: z.boolean(),
+  mechanism: models.SaslMechanismOptionsSasl1$outboundSchema.optional(),
+  username: z.string().optional(),
+  textSecret: z.string().optional(),
+  clientSecretAuthType: ClientSecretAuthTypeAuthenticationMethod$outboundSchema
+    .optional(),
+  clientTextSecret: z.string().optional(),
+  certificateName: z.string().optional(),
+  certPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  oauthEndpoint: models
+    .MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema
+    .optional(),
+  clientId: z.string().optional(),
+  tenantId: z.string().optional(),
+  scope: z.string().optional(),
+});
+
+export function authenticationToJSON(authentication: Authentication): string {
+  return JSON.stringify(Authentication$outboundSchema.parse(authentication));
+}
+
+/** @internal */
+export type PqControlsMicrosoftFabric$Outbound = {};
+
+/** @internal */
+export const PqControlsMicrosoftFabric$outboundSchema: z.ZodType<
+  PqControlsMicrosoftFabric$Outbound,
+  z.ZodTypeDef,
+  PqControlsMicrosoftFabric
+> = z.object({});
+
+export function pqControlsMicrosoftFabricToJSON(
+  pqControlsMicrosoftFabric: PqControlsMicrosoftFabric,
+): string {
+  return JSON.stringify(
+    PqControlsMicrosoftFabric$outboundSchema.parse(pqControlsMicrosoftFabric),
+  );
+}
+
+/** @internal */
+export type OutputMicrosoftFabric$Outbound = {
+  id: string;
+  type: "microsoft_fabric";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  topic: string;
+  ack?: number | undefined;
+  format?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
+  sasl?: Authentication$Outbound | undefined;
+  tls?: models.TlsSettingsClientSideType$Outbound | undefined;
+  onBackpressure?: string | undefined;
+  bootstrap_server: string;
+  description?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsMicrosoftFabric$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
+  OutputMicrosoftFabric$Outbound,
+  z.ZodTypeDef,
+  OutputMicrosoftFabric
+> = z.object({
+  id: z.string(),
+  type: z.literal("microsoft_fabric"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  topic: z.string(),
+  ack: models.AcknowledgmentsOptions$outboundSchema.optional(),
+  format: models.RecordDataFormatOptions$outboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  sasl: z.lazy(() => Authentication$outboundSchema).optional(),
+  tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  bootstrap_server: z.string(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsMicrosoftFabric$outboundSchema).optional(),
+});
+
+export function outputMicrosoftFabricToJSON(
+  outputMicrosoftFabric: OutputMicrosoftFabric,
+): string {
+  return JSON.stringify(
+    OutputMicrosoftFabric$outboundSchema.parse(outputMicrosoftFabric),
+  );
+}
+
+/** @internal */
+export type OutputDatabricks$Outbound = {
+  id: string;
+  type: "databricks";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  destPath?: string | undefined;
+  stagePath?: string | undefined;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  workspaceId: string;
+  scope: string;
+  clientId: string;
+  catalog: string;
+  schema: string;
+  eventsVolumeName: string;
+  clientTextSecret: string;
+  timeoutSec?: number | undefined;
+  description?: string | undefined;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+};
+
+/** @internal */
+export const OutputDatabricks$outboundSchema: z.ZodType<
+  OutputDatabricks$Outbound,
+  z.ZodTypeDef,
+  OutputDatabricks
+> = z.object({
+  id: z.string(),
+  type: z.literal("databricks"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  destPath: z.string().optional(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  workspaceId: z.string(),
+  scope: z.string(),
+  clientId: z.string(),
+  catalog: z.string(),
+  schema: z.string(),
+  eventsVolumeName: z.string(),
+  clientTextSecret: z.string(),
+  timeoutSec: z.number().optional(),
+  description: z.string().optional(),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
+  parquetSchema: z.string().optional(),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+});
+
+export function outputDatabricksToJSON(
+  outputDatabricks: OutputDatabricks,
+): string {
+  return JSON.stringify(
+    OutputDatabricks$outboundSchema.parse(outputDatabricks),
+  );
+}
+
+/** @internal */
+export const AuthenticationMethodChronicle$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodChronicle
+> = openEnums.outboundSchema(AuthenticationMethodChronicle);
+
+/** @internal */
+export type CustomLabel$Outbound = {
+  key: string;
+  value: string;
+  rbacEnabled?: boolean | undefined;
+};
+
+/** @internal */
+export const CustomLabel$outboundSchema: z.ZodType<
+  CustomLabel$Outbound,
+  z.ZodTypeDef,
+  CustomLabel
+> = z.object({
+  key: z.string(),
+  value: z.string(),
+  rbacEnabled: z.boolean().optional(),
+});
+
+export function customLabelToJSON(customLabel: CustomLabel): string {
+  return JSON.stringify(CustomLabel$outboundSchema.parse(customLabel));
+}
+
+/** @internal */
+export type PqControlsChronicle$Outbound = {};
+
+/** @internal */
+export const PqControlsChronicle$outboundSchema: z.ZodType<
+  PqControlsChronicle$Outbound,
+  z.ZodTypeDef,
+  PqControlsChronicle
+> = z.object({});
+
+export function pqControlsChronicleToJSON(
+  pqControlsChronicle: PqControlsChronicle,
+): string {
+  return JSON.stringify(
+    PqControlsChronicle$outboundSchema.parse(pqControlsChronicle),
+  );
+}
+
+/** @internal */
+export type OutputChronicle$Outbound = {
+  id: string;
+  type: "chronicle";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  apiVersion?: string | undefined;
+  authenticationMethod?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  region: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  ingestionMethod?: string | undefined;
+  namespace?: string | undefined;
+  logType: string;
+  logTextField?: string | undefined;
+  gcpProjectId: string;
+  gcpInstance: string;
+  customLabels?: Array<CustomLabel$Outbound> | undefined;
+  description?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsChronicle$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputChronicle$outboundSchema: z.ZodType<
+  OutputChronicle$Outbound,
+  z.ZodTypeDef,
+  OutputChronicle
+> = z.object({
+  id: z.string(),
+  type: z.literal("chronicle"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: z.string().optional(),
+  authenticationMethod: AuthenticationMethodChronicle$outboundSchema.optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  region: z.string(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  ingestionMethod: z.string().optional(),
+  namespace: z.string().optional(),
+  logType: z.string(),
+  logTextField: z.string().optional(),
+  gcpProjectId: z.string(),
+  gcpInstance: z.string(),
+  customLabels: z.array(z.lazy(() => CustomLabel$outboundSchema)).optional(),
+  description: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsChronicle$outboundSchema).optional(),
+});
+
+export function outputChronicleToJSON(
+  outputChronicle: OutputChronicle,
+): string {
+  return JSON.stringify(OutputChronicle$outboundSchema.parse(outputChronicle));
+}
+
+/** @internal */
+export const Region$outboundSchema: z.ZodType<string, z.ZodTypeDef, Region> =
+  openEnums.outboundSchema(Region);
+
+/** @internal */
+export const AISIEMEndpointPath$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AISIEMEndpointPath
+> = openEnums.outboundSchema(AISIEMEndpointPath);
+
+/** @internal */
+export type PqControlsSentinelOneAiSiem$Outbound = {};
+
+/** @internal */
+export const PqControlsSentinelOneAiSiem$outboundSchema: z.ZodType<
+  PqControlsSentinelOneAiSiem$Outbound,
+  z.ZodTypeDef,
+  PqControlsSentinelOneAiSiem
+> = z.object({});
+
+export function pqControlsSentinelOneAiSiemToJSON(
+  pqControlsSentinelOneAiSiem: PqControlsSentinelOneAiSiem,
+): string {
+  return JSON.stringify(
+    PqControlsSentinelOneAiSiem$outboundSchema.parse(
+      pqControlsSentinelOneAiSiem,
+    ),
+  );
+}
+
+/** @internal */
+export type OutputSentinelOneAiSiem$Outbound = {
+  id: string;
+  type: "sentinel_one_ai_siem";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  region: string;
+  endpoint: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  authType?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  baseUrl?: string | undefined;
+  hostExpression?: string | undefined;
+  sourceExpression?: string | undefined;
+  sourceTypeExpression?: string | undefined;
+  dataSourceCategoryExpression?: string | undefined;
+  dataSourceNameExpression?: string | undefined;
+  dataSourceVendorExpression?: string | undefined;
+  eventTypeExpression?: string | undefined;
+  host?: string | undefined;
+  source?: string | undefined;
+  sourceType?: string | undefined;
+  dataSourceCategory?: string | undefined;
+  dataSourceName?: string | undefined;
+  dataSourceVendor?: string | undefined;
+  eventType?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsSentinelOneAiSiem$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
+  OutputSentinelOneAiSiem$Outbound,
+  z.ZodTypeDef,
+  OutputSentinelOneAiSiem
+> = z.object({
+  id: z.string(),
+  type: z.literal("sentinel_one_ai_siem"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: Region$outboundSchema,
+  endpoint: AISIEMEndpointPath$outboundSchema,
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  baseUrl: z.string().optional(),
+  hostExpression: z.string().optional(),
+  sourceExpression: z.string().optional(),
+  sourceTypeExpression: z.string().optional(),
+  dataSourceCategoryExpression: z.string().optional(),
+  dataSourceNameExpression: z.string().optional(),
+  dataSourceVendorExpression: z.string().optional(),
+  eventTypeExpression: z.string().optional(),
+  host: z.string().optional(),
+  source: z.string().optional(),
+  sourceType: z.string().optional(),
+  dataSourceCategory: z.string().optional(),
+  dataSourceName: z.string().optional(),
+  dataSourceVendor: z.string().optional(),
+  eventType: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsSentinelOneAiSiem$outboundSchema)
+    .optional(),
+});
+
+export function outputSentinelOneAiSiemToJSON(
+  outputSentinelOneAiSiem: OutputSentinelOneAiSiem,
+): string {
+  return JSON.stringify(
+    OutputSentinelOneAiSiem$outboundSchema.parse(outputSentinelOneAiSiem),
+  );
+}
+
+/** @internal */
+export const ProtocolDynatraceOtlp$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ProtocolDynatraceOtlp
+> = openEnums.outboundSchema(ProtocolDynatraceOtlp);
+
+/** @internal */
+export const EndpointType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  EndpointType
+> = openEnums.outboundSchema(EndpointType);
+
+/** @internal */
+export type PqControlsDynatraceOtlp$Outbound = {};
+
+/** @internal */
+export const PqControlsDynatraceOtlp$outboundSchema: z.ZodType<
+  PqControlsDynatraceOtlp$Outbound,
+  z.ZodTypeDef,
+  PqControlsDynatraceOtlp
+> = z.object({});
+
+export function pqControlsDynatraceOtlpToJSON(
+  pqControlsDynatraceOtlp: PqControlsDynatraceOtlp,
+): string {
+  return JSON.stringify(
+    PqControlsDynatraceOtlp$outboundSchema.parse(pqControlsDynatraceOtlp),
+  );
+}
+
+/** @internal */
+export type OutputDynatraceOtlp$Outbound = {
+  id: string;
+  type: "dynatrace_otlp";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  protocol: string;
+  endpoint: string;
+  otlpVersion: string;
+  compress?: string | undefined;
+  httpCompress?: string | undefined;
+  httpTracesEndpointOverride?: string | undefined;
+  httpMetricsEndpointOverride?: string | undefined;
+  httpLogsEndpointOverride?: string | undefined;
+  metadata?: Array<models.ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  connectionTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  keepAlive?: boolean | undefined;
+  endpointType: string;
+  tokenSecret: string;
+  authTokenName?: string | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsDynatraceOtlp$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
+  OutputDynatraceOtlp$Outbound,
+  z.ZodTypeDef,
+  OutputDynatraceOtlp
+> = z.object({
+  id: z.string(),
+  type: z.literal("dynatrace_otlp"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  protocol: ProtocolDynatraceOtlp$outboundSchema,
+  endpoint: z.string(),
+  otlpVersion: models.OtlpVersionOptions1$outboundSchema,
+  compress: models.CompressionOptions4$outboundSchema.optional(),
+  httpCompress: models.CompressionOptions5$outboundSchema.optional(),
+  httpTracesEndpointOverride: z.string().optional(),
+  httpMetricsEndpointOverride: z.string().optional(),
+  httpLogsEndpointOverride: z.string().optional(),
+  metadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema).optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  keepAlive: z.boolean().optional(),
+  endpointType: EndpointType$outboundSchema,
+  tokenSecret: z.string(),
+  authTokenName: z.string().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsDynatraceOtlp$outboundSchema).optional(),
+});
+
+export function outputDynatraceOtlpToJSON(
+  outputDynatraceOtlp: OutputDynatraceOtlp,
+): string {
+  return JSON.stringify(
+    OutputDynatraceOtlp$outboundSchema.parse(outputDynatraceOtlp),
+  );
+}
+
+/** @internal */
+export const AuthenticationTypeDynatraceHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationTypeDynatraceHTTP
+> = openEnums.outboundSchema(AuthenticationTypeDynatraceHTTP);
+
+/** @internal */
+export const FormatDynatraceHTTP$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  FormatDynatraceHTTP
+> = openEnums.outboundSchema(FormatDynatraceHTTP);
+
+/** @internal */
+export const Endpoint$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  Endpoint
+> = openEnums.outboundSchema(Endpoint);
+
+/** @internal */
+export const TelemetryType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  TelemetryType
+> = openEnums.outboundSchema(TelemetryType);
+
+/** @internal */
+export type PqControlsDynatraceHTTP$Outbound = {};
+
+/** @internal */
+export const PqControlsDynatraceHTTP$outboundSchema: z.ZodType<
+  PqControlsDynatraceHTTP$Outbound,
+  z.ZodTypeDef,
+  PqControlsDynatraceHTTP
+> = z.object({});
+
+export function pqControlsDynatraceHTTPToJSON(
+  pqControlsDynatraceHTTP: PqControlsDynatraceHTTP,
+): string {
+  return JSON.stringify(
+    PqControlsDynatraceHTTP$outboundSchema.parse(pqControlsDynatraceHTTP),
+  );
+}
+
+/** @internal */
+export type OutputDynatraceHttp$Outbound = {
+  id: string;
+  type: "dynatrace_http";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  method?: string | undefined;
+  keepAlive?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  format: string;
+  endpoint: string;
+  telemetryType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsDynatraceHTTP$Outbound | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  environmentId?: string | undefined;
+  activeGateDomain?: string | undefined;
+  url?: string | undefined;
+};
+
+/** @internal */
+export const OutputDynatraceHttp$outboundSchema: z.ZodType<
+  OutputDynatraceHttp$Outbound,
+  z.ZodTypeDef,
+  OutputDynatraceHttp
+> = z.object({
+  id: z.string(),
+  type: z.literal("dynatrace_http"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  method: models.MethodOptions$outboundSchema.optional(),
+  keepAlive: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: AuthenticationTypeDynatraceHTTP$outboundSchema.optional(),
+  format: FormatDynatraceHTTP$outboundSchema,
+  endpoint: Endpoint$outboundSchema,
+  telemetryType: TelemetryType$outboundSchema,
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsDynatraceHTTP$outboundSchema).optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  environmentId: z.string().optional(),
+  activeGateDomain: z.string().optional(),
+  url: z.string().optional(),
+});
+
+export function outputDynatraceHttpToJSON(
+  outputDynatraceHttp: OutputDynatraceHttp,
+): string {
+  return JSON.stringify(
+    OutputDynatraceHttp$outboundSchema.parse(outputDynatraceHttp),
+  );
+}
+
+/** @internal */
+export type HostNetflow$Outbound = {
+  host: string;
+  port: number;
+};
+
+/** @internal */
+export const HostNetflow$outboundSchema: z.ZodType<
+  HostNetflow$Outbound,
+  z.ZodTypeDef,
+  HostNetflow
+> = z.object({
+  host: z.string(),
+  port: z.number(),
+});
+
+export function hostNetflowToJSON(hostNetflow: HostNetflow): string {
+  return JSON.stringify(HostNetflow$outboundSchema.parse(hostNetflow));
+}
+
+/** @internal */
+export type OutputNetflow$Outbound = {
+  id: string;
+  type: "netflow";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  hosts: Array<HostNetflow$Outbound>;
+  dnsResolvePeriodSec?: number | undefined;
+  enableIpSpoofing?: boolean | undefined;
+  description?: string | undefined;
+  maxRecordSize?: number | undefined;
+};
+
+/** @internal */
+export const OutputNetflow$outboundSchema: z.ZodType<
+  OutputNetflow$Outbound,
+  z.ZodTypeDef,
+  OutputNetflow
+> = z.object({
+  id: z.string(),
+  type: z.literal("netflow"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  hosts: z.array(z.lazy(() => HostNetflow$outboundSchema)),
+  dnsResolvePeriodSec: z.number().optional(),
+  enableIpSpoofing: z.boolean().optional(),
+  description: z.string().optional(),
+  maxRecordSize: z.number().optional(),
+});
+
+export function outputNetflowToJSON(outputNetflow: OutputNetflow): string {
+  return JSON.stringify(OutputNetflow$outboundSchema.parse(outputNetflow));
+}
+
+/** @internal */
+export const AuthenticationMethodXsiam$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodXsiam
+> = openEnums.outboundSchema(AuthenticationMethodXsiam);
+
+/** @internal */
+export type UrlXsiam$Outbound = {
+  url?: any | undefined;
+  weight?: number | undefined;
+};
+
+/** @internal */
+export const UrlXsiam$outboundSchema: z.ZodType<
+  UrlXsiam$Outbound,
+  z.ZodTypeDef,
+  UrlXsiam
+> = z.object({
+  url: z.any().optional(),
+  weight: z.number().optional(),
+});
+
+export function urlXsiamToJSON(urlXsiam: UrlXsiam): string {
+  return JSON.stringify(UrlXsiam$outboundSchema.parse(urlXsiam));
+}
+
+/** @internal */
+export type PqControlsXsiam$Outbound = {};
+
+/** @internal */
+export const PqControlsXsiam$outboundSchema: z.ZodType<
+  PqControlsXsiam$Outbound,
+  z.ZodTypeDef,
+  PqControlsXsiam
+> = z.object({});
+
+export function pqControlsXsiamToJSON(
+  pqControlsXsiam: PqControlsXsiam,
+): string {
+  return JSON.stringify(PqControlsXsiam$outboundSchema.parse(pqControlsXsiam));
+}
+
+/** @internal */
+export type OutputXsiam$Outbound = {
+  id: string;
+  type: "xsiam";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  authType?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  throttleRateReqPerSec?: number | undefined;
+  onBackpressure?: string | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  url?: string | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlXsiam$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsXsiam$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputXsiam$outboundSchema: z.ZodType<
+  OutputXsiam$Outbound,
+  z.ZodTypeDef,
+  OutputXsiam
+> = z.object({
+  id: z.string(),
+  type: z.literal("xsiam"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: AuthenticationMethodXsiam$outboundSchema.optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  throttleRateReqPerSec: z.number().int().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
+  urls: z.array(z.lazy(() => UrlXsiam$outboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsXsiam$outboundSchema).optional(),
+});
+
+export function outputXsiamToJSON(outputXsiam: OutputXsiam): string {
+  return JSON.stringify(OutputXsiam$outboundSchema.parse(outputXsiam));
+}
+
+/** @internal */
+export const AuthenticationTypeClickHouse$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationTypeClickHouse
+> = openEnums.outboundSchema(AuthenticationTypeClickHouse);
+
+/** @internal */
+export const FormatClickHouse$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  FormatClickHouse
+> = openEnums.outboundSchema(FormatClickHouse);
+
+/** @internal */
+export const MappingType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MappingType
+> = openEnums.outboundSchema(MappingType);
+
+/** @internal */
+export type StatsDestination$Outbound = {
+  url?: string | undefined;
+  database?: string | undefined;
+  tableName?: string | undefined;
+  authType?: string | undefined;
+  username?: string | undefined;
+  sqlUsername?: string | undefined;
+  password?: string | undefined;
+};
+
+/** @internal */
+export const StatsDestination$outboundSchema: z.ZodType<
+  StatsDestination$Outbound,
+  z.ZodTypeDef,
+  StatsDestination
+> = z.object({
+  url: z.string().optional(),
+  database: z.string().optional(),
+  tableName: z.string().optional(),
+  authType: z.string().optional(),
+  username: z.string().optional(),
+  sqlUsername: z.string().optional(),
+  password: z.string().optional(),
+});
+
+export function statsDestinationToJSON(
+  statsDestination: StatsDestination,
+): string {
+  return JSON.stringify(
+    StatsDestination$outboundSchema.parse(statsDestination),
+  );
+}
+
+/** @internal */
+export type ColumnMapping$Outbound = {
+  columnName: string;
+  columnType?: string | undefined;
+  columnValueExpression: string;
+};
+
+/** @internal */
+export const ColumnMapping$outboundSchema: z.ZodType<
+  ColumnMapping$Outbound,
+  z.ZodTypeDef,
+  ColumnMapping
+> = z.object({
+  columnName: z.string(),
+  columnType: z.string().optional(),
+  columnValueExpression: z.string(),
+});
+
+export function columnMappingToJSON(columnMapping: ColumnMapping): string {
+  return JSON.stringify(ColumnMapping$outboundSchema.parse(columnMapping));
+}
+
+/** @internal */
+export type PqControlsClickHouse$Outbound = {};
+
+/** @internal */
+export const PqControlsClickHouse$outboundSchema: z.ZodType<
+  PqControlsClickHouse$Outbound,
+  z.ZodTypeDef,
+  PqControlsClickHouse
+> = z.object({});
+
+export function pqControlsClickHouseToJSON(
+  pqControlsClickHouse: PqControlsClickHouse,
+): string {
+  return JSON.stringify(
+    PqControlsClickHouse$outboundSchema.parse(pqControlsClickHouse),
+  );
+}
+
+/** @internal */
+export type OutputClickHouse$Outbound = {
+  id: string;
+  type: "click_house";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  authType?: string | undefined;
+  database: string;
+  tableName: string;
+  format?: string | undefined;
+  mappingType?: string | undefined;
+  asyncInserts?: boolean | undefined;
+  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  dumpFormatErrorsToDisk?: boolean | undefined;
+  statsDestination?: StatsDestination$Outbound | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  sqlUsername?: string | undefined;
+  waitForAsyncInserts?: boolean | undefined;
+  excludeMappingFields?: Array<string> | undefined;
+  describeTable?: string | undefined;
+  columnMappings?: Array<ColumnMapping$Outbound> | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsClickHouse$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputClickHouse$outboundSchema: z.ZodType<
+  OutputClickHouse$Outbound,
+  z.ZodTypeDef,
+  OutputClickHouse
+> = z.object({
+  id: z.string(),
+  type: z.literal("click_house"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  authType: AuthenticationTypeClickHouse$outboundSchema.optional(),
+  database: z.string(),
+  tableName: z.string(),
+  format: FormatClickHouse$outboundSchema.optional(),
+  mappingType: MappingType$outboundSchema.optional(),
+  asyncInserts: z.boolean().optional(),
+  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  dumpFormatErrorsToDisk: z.boolean().optional(),
+  statsDestination: z.lazy(() => StatsDestination$outboundSchema).optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  sqlUsername: z.string().optional(),
+  waitForAsyncInserts: z.boolean().optional(),
+  excludeMappingFields: z.array(z.string()).optional(),
+  describeTable: z.string().optional(),
+  columnMappings: z.array(z.lazy(() => ColumnMapping$outboundSchema))
+    .optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsClickHouse$outboundSchema).optional(),
+});
+
+export function outputClickHouseToJSON(
+  outputClickHouse: OutputClickHouse,
+): string {
+  return JSON.stringify(
+    OutputClickHouse$outboundSchema.parse(outputClickHouse),
+  );
+}
+
+/** @internal */
+export type OutputDiskSpool$Outbound = {
+  id: string;
+  type: "disk_spool";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  partitionExpr?: string | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const OutputDiskSpool$outboundSchema: z.ZodType<
+  OutputDiskSpool$Outbound,
+  z.ZodTypeDef,
+  OutputDiskSpool
+> = z.object({
+  id: z.string(),
+  type: z.literal("disk_spool"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.CompressionOptionsPersistence$outboundSchema.optional(),
+  partitionExpr: z.string().optional(),
+  description: z.string().optional(),
+});
+
+export function outputDiskSpoolToJSON(
+  outputDiskSpool: OutputDiskSpool,
+): string {
+  return JSON.stringify(OutputDiskSpool$outboundSchema.parse(outputDiskSpool));
+}
+
+/** @internal */
+export type OutputCriblLake$Outbound = {
+  id: string;
+  type: "cribl_lake";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket?: string | undefined;
+  region?: string | undefined;
+  awsSecretKey?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  stagePath?: string | undefined;
+  addIdToStagePath?: boolean | undefined;
+  destPath?: string | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  format?: string | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+};
+
+/** @internal */
+export const OutputCriblLake$outboundSchema: z.ZodType<
+  OutputCriblLake$Outbound,
+  z.ZodTypeDef,
+  OutputCriblLake
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_lake"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string().optional(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  destPath: z.string().optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
+  storageClass: models.StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: models
+    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
+  awsAuthenticationMethod: models.MethodOptionsCredentials$outboundSchema
+    .optional(),
+  format: models.FormatOptionsCriblLakeDataset$outboundSchema.optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+});
+
+export function outputCriblLakeToJSON(
+  outputCriblLake: OutputCriblLake,
+): string {
+  return JSON.stringify(OutputCriblLake$outboundSchema.parse(outputCriblLake));
+}
+
+/** @internal */
+export const SignatureVersionSecurityLake$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SignatureVersionSecurityLake
+> = openEnums.outboundSchema(SignatureVersionSecurityLake);
+
+/** @internal */
+export type OutputSecurityLake$Outbound = {
+  id: string;
+  type: "security_lake";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  awsSecretKey?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn: string;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  stagePath: string;
+  addIdToStagePath?: boolean | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  baseFileName?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
+  accountId: string;
+  customSource: string;
+  automaticSchema?: boolean | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  parquetSchema?: string | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+};
+
+/** @internal */
+export const OutputSecurityLake$outboundSchema: z.ZodType<
+  OutputSecurityLake$Outbound,
+  z.ZodTypeDef,
+  OutputSecurityLake
+> = z.object({
+  id: z.string(),
+  type: z.literal("security_lake"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionSecurityLake$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
+  storageClass: models.StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: models
+    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  baseFileName: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().optional(),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+});
+
+export function outputSecurityLakeToJSON(
+  outputSecurityLake: OutputSecurityLake,
+): string {
+  return JSON.stringify(
+    OutputSecurityLake$outboundSchema.parse(outputSecurityLake),
+  );
+}
+
+/** @internal */
+export type OutputDlS3$Outbound = {
+  id: string;
+  type: "dl_s3";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  stagePath: string;
+  addIdToStagePath?: boolean | undefined;
+  destPath?: string | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
+  partitioningFields?: Array<string> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+};
+
+/** @internal */
+export const OutputDlS3$outboundSchema: z.ZodType<
+  OutputDlS3$Outbound,
+  z.ZodTypeDef,
+  OutputDlS3
+> = z.object({
+  id: z.string(),
+  type: z.literal("dl_s3"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  destPath: z.string().optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
+  storageClass: models.StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: models
+    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
+  partitioningFields: z.array(z.string()).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
+  parquetSchema: z.string().optional(),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+});
+
+export function outputDlS3ToJSON(outputDlS3: OutputDlS3): string {
+  return JSON.stringify(OutputDlS3$outboundSchema.parse(outputDlS3));
+}
+
+/** @internal */
+export type PqControlsCrowdstrikeNextGenSiem$Outbound = {};
+
+/** @internal */
+export const PqControlsCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
+  PqControlsCrowdstrikeNextGenSiem$Outbound,
+  z.ZodTypeDef,
+  PqControlsCrowdstrikeNextGenSiem
+> = z.object({});
+
+export function pqControlsCrowdstrikeNextGenSiemToJSON(
+  pqControlsCrowdstrikeNextGenSiem: PqControlsCrowdstrikeNextGenSiem,
+): string {
+  return JSON.stringify(
+    PqControlsCrowdstrikeNextGenSiem$outboundSchema.parse(
+      pqControlsCrowdstrikeNextGenSiem,
+    ),
+  );
+}
+
+/** @internal */
+export type OutputCrowdstrikeNextGenSiem$Outbound = {
+  id: string;
+  type: "crowdstrike_next_gen_siem";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  format: string;
+  authType?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsCrowdstrikeNextGenSiem$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
+  OutputCrowdstrikeNextGenSiem$Outbound,
+  z.ZodTypeDef,
+  OutputCrowdstrikeNextGenSiem
+> = z.object({
+  id: z.string(),
+  type: z.literal("crowdstrike_next_gen_siem"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  format: models.RequestFormatOptions$outboundSchema,
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsCrowdstrikeNextGenSiem$outboundSchema)
+    .optional(),
+});
+
+export function outputCrowdstrikeNextGenSiemToJSON(
+  outputCrowdstrikeNextGenSiem: OutputCrowdstrikeNextGenSiem,
+): string {
+  return JSON.stringify(
+    OutputCrowdstrikeNextGenSiem$outboundSchema.parse(
+      outputCrowdstrikeNextGenSiem,
+    ),
+  );
+}
+
+/** @internal */
+export type PqControlsHumioHec$Outbound = {};
+
+/** @internal */
+export const PqControlsHumioHec$outboundSchema: z.ZodType<
+  PqControlsHumioHec$Outbound,
+  z.ZodTypeDef,
+  PqControlsHumioHec
+> = z.object({});
+
+export function pqControlsHumioHecToJSON(
+  pqControlsHumioHec: PqControlsHumioHec,
+): string {
+  return JSON.stringify(
+    PqControlsHumioHec$outboundSchema.parse(pqControlsHumioHec),
+  );
+}
+
+/** @internal */
+export type OutputHumioHec$Outbound = {
+  id: string;
+  type: "humio_hec";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  format: string;
+  authType?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsHumioHec$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputHumioHec$outboundSchema: z.ZodType<
+  OutputHumioHec$Outbound,
+  z.ZodTypeDef,
+  OutputHumioHec
+> = z.object({
+  id: z.string(),
+  type: z.literal("humio_hec"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  format: models.RequestFormatOptions$outboundSchema,
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsHumioHec$outboundSchema).optional(),
+});
+
+export function outputHumioHecToJSON(outputHumioHec: OutputHumioHec): string {
+  return JSON.stringify(OutputHumioHec$outboundSchema.parse(outputHumioHec));
+}
+
+/** @internal */
+export type PqControlsCriblSearchEngine$Outbound = {};
+
+/** @internal */
+export const PqControlsCriblSearchEngine$outboundSchema: z.ZodType<
+  PqControlsCriblSearchEngine$Outbound,
+  z.ZodTypeDef,
+  PqControlsCriblSearchEngine
+> = z.object({});
+
+export function pqControlsCriblSearchEngineToJSON(
+  pqControlsCriblSearchEngine: PqControlsCriblSearchEngine,
+): string {
+  return JSON.stringify(
+    PqControlsCriblSearchEngine$outboundSchema.parse(
+      pqControlsCriblSearchEngine,
+    ),
+  );
+}
+
+/** @internal */
+export type OutputCriblSearchEngine$Outbound = {
+  id: string;
+  type: "cribl_search_engine";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced?: boolean | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  tokenTTLMinutes?: number | undefined;
+  excludeFields?: Array<string> | undefined;
+  compression?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  throttleRatePerSec?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  authTokens?: Array<models.ItemsTypeAuthTokens1$Outbound> | undefined;
+  onBackpressure?: string | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  description?: string | undefined;
+  url?: string | undefined;
+  excludeSelf?: boolean | undefined;
+  urls?: Array<models.ItemsTypeUrls$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsCriblSearchEngine$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
+  OutputCriblSearchEngine$Outbound,
+  z.ZodTypeDef,
+  OutputCriblSearchEngine
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_search_engine"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  tokenTTLMinutes: z.number().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  compression: models.CompressionOptions1$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  throttleRatePerSec: z.string().optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  authTokens: z.array(models.ItemsTypeAuthTokens1$outboundSchema).optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  description: z.string().optional(),
+  url: z.string().optional(),
+  excludeSelf: z.boolean().optional(),
+  urls: z.array(models.ItemsTypeUrls$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsCriblSearchEngine$outboundSchema)
+    .optional(),
+});
+
+export function outputCriblSearchEngineToJSON(
+  outputCriblSearchEngine: OutputCriblSearchEngine,
+): string {
+  return JSON.stringify(
+    OutputCriblSearchEngine$outboundSchema.parse(outputCriblSearchEngine),
+  );
+}
+
+/** @internal */
+export type PqControlsCriblHTTP$Outbound = {};
+
+/** @internal */
+export const PqControlsCriblHTTP$outboundSchema: z.ZodType<
+  PqControlsCriblHTTP$Outbound,
+  z.ZodTypeDef,
+  PqControlsCriblHTTP
+> = z.object({});
+
+export function pqControlsCriblHTTPToJSON(
+  pqControlsCriblHTTP: PqControlsCriblHTTP,
+): string {
+  return JSON.stringify(
+    PqControlsCriblHTTP$outboundSchema.parse(pqControlsCriblHTTP),
+  );
+}
+
+/** @internal */
+export type OutputCriblHttp$Outbound = {
+  id: string;
+  type: "cribl_http";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced?: boolean | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  tokenTTLMinutes?: number | undefined;
+  excludeFields?: Array<string> | undefined;
+  compression?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  throttleRatePerSec?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  authTokens?: Array<models.ItemsTypeAuthTokens1$Outbound> | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  url?: string | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
+  urls?: Array<models.ItemsTypeUrls$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsCriblHTTP$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputCriblHttp$outboundSchema: z.ZodType<
+  OutputCriblHttp$Outbound,
+  z.ZodTypeDef,
+  OutputCriblHttp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_http"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  tokenTTLMinutes: z.number().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  compression: models.CompressionOptions1$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  throttleRatePerSec: z.string().optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  authTokens: z.array(models.ItemsTypeAuthTokens1$outboundSchema).optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
+  urls: z.array(models.ItemsTypeUrls$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsCriblHTTP$outboundSchema).optional(),
+});
+
+export function outputCriblHttpToJSON(
+  outputCriblHttp: OutputCriblHttp,
+): string {
+  return JSON.stringify(OutputCriblHttp$outboundSchema.parse(outputCriblHttp));
+}
+
+/** @internal */
+export type PqControlsCriblTCP$Outbound = {};
+
+/** @internal */
+export const PqControlsCriblTCP$outboundSchema: z.ZodType<
+  PqControlsCriblTCP$Outbound,
+  z.ZodTypeDef,
+  PqControlsCriblTCP
+> = z.object({});
+
+export function pqControlsCriblTCPToJSON(
+  pqControlsCriblTCP: PqControlsCriblTCP,
+): string {
+  return JSON.stringify(
+    PqControlsCriblTCP$outboundSchema.parse(pqControlsCriblTCP),
+  );
+}
+
+/** @internal */
+export type OutputCriblTcp$Outbound = {
+  id: string;
+  type: "cribl_tcp";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced?: boolean | undefined;
+  compression?: string | undefined;
+  logFailedRequests?: boolean | undefined;
+  throttleRatePerSec?: string | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  tokenTTLMinutes?: number | undefined;
+  authTokens?: Array<models.ItemsTypeAuthTokens$Outbound> | undefined;
+  excludeFields?: Array<string> | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  host?: string | undefined;
+  port?: number | undefined;
+  excludeSelf?: boolean | undefined;
+  hosts?: Array<models.ItemsTypeHosts$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  maxConcurrentSenders?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsCriblTCP$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputCriblTcp$outboundSchema: z.ZodType<
+  OutputCriblTcp$Outbound,
+  z.ZodTypeDef,
+  OutputCriblTcp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_tcp"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().optional(),
+  compression: models.CompressionOptions1$outboundSchema.optional(),
+  logFailedRequests: z.boolean().optional(),
+  throttleRatePerSec: z.string().optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  tokenTTLMinutes: z.number().optional(),
+  authTokens: z.array(models.ItemsTypeAuthTokens$outboundSchema).optional(),
+  excludeFields: z.array(z.string()).optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  excludeSelf: z.boolean().optional(),
+  hosts: z.array(models.ItemsTypeHosts$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsCriblTCP$outboundSchema).optional(),
+});
+
+export function outputCriblTcpToJSON(outputCriblTcp: OutputCriblTcp): string {
+  return JSON.stringify(OutputCriblTcp$outboundSchema.parse(outputCriblTcp));
+}
+
+/** @internal */
+export const DefaultSeveritySeverity$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DefaultSeveritySeverity
+> = openEnums.outboundSchema(DefaultSeveritySeverity);
+
+/** @internal */
+export const DataSetSite$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DataSetSite
+> = openEnums.outboundSchema(DataSetSite);
+
+/** @internal */
+export type PqControlsDataset$Outbound = {};
+
+/** @internal */
+export const PqControlsDataset$outboundSchema: z.ZodType<
+  PqControlsDataset$Outbound,
+  z.ZodTypeDef,
+  PqControlsDataset
+> = z.object({});
+
+export function pqControlsDatasetToJSON(
+  pqControlsDataset: PqControlsDataset,
+): string {
+  return JSON.stringify(
+    PqControlsDataset$outboundSchema.parse(pqControlsDataset),
+  );
+}
+
+/** @internal */
+export type OutputDataset$Outbound = {
+  id: string;
+  type: "dataset";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  messageField?: string | undefined;
+  excludeFields?: Array<string> | undefined;
+  serverHostField?: string | undefined;
+  timestampField?: string | undefined;
+  defaultSeverity?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  site?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsDataset$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputDataset$outboundSchema: z.ZodType<
+  OutputDataset$Outbound,
+  z.ZodTypeDef,
+  OutputDataset
+> = z.object({
+  id: z.string(),
+  type: z.literal("dataset"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  messageField: z.string().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  serverHostField: z.string().optional(),
+  timestampField: z.string().optional(),
+  defaultSeverity: DefaultSeveritySeverity$outboundSchema.optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  site: DataSetSite$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsDataset$outboundSchema).optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputDatasetToJSON(outputDataset: OutputDataset): string {
+  return JSON.stringify(OutputDataset$outboundSchema.parse(outputDataset));
+}
+
+/** @internal */
+export type PqControlsServiceNow$Outbound = {};
+
+/** @internal */
+export const PqControlsServiceNow$outboundSchema: z.ZodType<
+  PqControlsServiceNow$Outbound,
+  z.ZodTypeDef,
+  PqControlsServiceNow
+> = z.object({});
+
+export function pqControlsServiceNowToJSON(
+  pqControlsServiceNow: PqControlsServiceNow,
+): string {
+  return JSON.stringify(
+    PqControlsServiceNow$outboundSchema.parse(pqControlsServiceNow),
+  );
+}
+
+/** @internal */
+export type OutputServiceNow$Outbound = {
+  id: string;
+  type: "service_now";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  tokenSecret: string;
+  authTokenName?: string | undefined;
+  otlpVersion: string;
+  maxPayloadSizeKB?: number | undefined;
+  protocol: string;
+  compress?: string | undefined;
+  httpCompress?: string | undefined;
+  httpTracesEndpointOverride?: string | undefined;
+  httpMetricsEndpointOverride?: string | undefined;
+  httpLogsEndpointOverride?: string | undefined;
+  metadata?: Array<models.ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  concurrency?: number | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  connectionTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  keepAlive?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  tls?: models.TlsSettingsClientSideType2$Outbound | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsServiceNow$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputServiceNow$outboundSchema: z.ZodType<
+  OutputServiceNow$Outbound,
+  z.ZodTypeDef,
+  OutputServiceNow
+> = z.object({
+  id: z.string(),
+  type: z.literal("service_now"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  tokenSecret: z.string(),
+  authTokenName: z.string().optional(),
+  otlpVersion: models.OtlpVersionOptions1$outboundSchema,
+  maxPayloadSizeKB: z.number().optional(),
+  protocol: models.ProtocolOptions$outboundSchema,
+  compress: models.CompressionOptions4$outboundSchema.optional(),
+  httpCompress: models.CompressionOptions5$outboundSchema.optional(),
+  httpTracesEndpointOverride: z.string().optional(),
+  httpMetricsEndpointOverride: z.string().optional(),
+  httpLogsEndpointOverride: z.string().optional(),
+  metadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema).optional(),
+  concurrency: z.number().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  keepAlive: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  tls: models.TlsSettingsClientSideType2$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsServiceNow$outboundSchema).optional(),
+});
+
+export function outputServiceNowToJSON(
+  outputServiceNow: OutputServiceNow,
+): string {
+  return JSON.stringify(
+    OutputServiceNow$outboundSchema.parse(outputServiceNow),
+  );
+}
+
+/** @internal */
+export const CreateOutputOTLPVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputOTLPVersion
+> = openEnums.outboundSchema(CreateOutputOTLPVersion);
+
+/** @internal */
+export type PqControlsOpenTelemetry$Outbound = {};
+
+/** @internal */
+export const PqControlsOpenTelemetry$outboundSchema: z.ZodType<
+  PqControlsOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  PqControlsOpenTelemetry
+> = z.object({});
+
+export function pqControlsOpenTelemetryToJSON(
+  pqControlsOpenTelemetry: PqControlsOpenTelemetry,
+): string {
+  return JSON.stringify(
+    PqControlsOpenTelemetry$outboundSchema.parse(pqControlsOpenTelemetry),
+  );
+}
+
+/** @internal */
+export type OutputOpenTelemetry$Outbound = {
+  id: string;
+  type: "open_telemetry";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  protocol?: string | undefined;
+  endpoint: string;
+  otlpVersion?: string | undefined;
+  compress?: string | undefined;
+  httpCompress?: string | undefined;
+  authType?: string | undefined;
+  httpTracesEndpointOverride?: string | undefined;
+  httpMetricsEndpointOverride?: string | undefined;
+  httpLogsEndpointOverride?: string | undefined;
+  metadata?: Array<models.ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  connectionTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  keepAlive?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  tls?: models.TlsSettingsClientSideType2$Outbound | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsOpenTelemetry$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputOpenTelemetry$outboundSchema: z.ZodType<
+  OutputOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  OutputOpenTelemetry
+> = z.object({
+  id: z.string(),
+  type: z.literal("open_telemetry"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  protocol: models.ProtocolOptions$outboundSchema.optional(),
+  endpoint: z.string(),
+  otlpVersion: CreateOutputOTLPVersion$outboundSchema.optional(),
+  compress: models.CompressionOptions4$outboundSchema.optional(),
+  httpCompress: models.CompressionOptions5$outboundSchema.optional(),
+  authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
+  httpTracesEndpointOverride: z.string().optional(),
+  httpMetricsEndpointOverride: z.string().optional(),
+  httpLogsEndpointOverride: z.string().optional(),
+  metadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema).optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  keepAlive: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  tls: models.TlsSettingsClientSideType2$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsOpenTelemetry$outboundSchema).optional(),
+});
+
+export function outputOpenTelemetryToJSON(
+  outputOpenTelemetry: OutputOpenTelemetry,
+): string {
+  return JSON.stringify(
+    OutputOpenTelemetry$outboundSchema.parse(outputOpenTelemetry),
+  );
+}
+
+/** @internal */
+export const DataFormatRing$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DataFormatRing
+> = openEnums.outboundSchema(DataFormatRing);
+
+/** @internal */
+export type OutputRing$Outbound = {
+  id: string;
+  type: "ring";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  format?: string | undefined;
+  partitionExpr?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const OutputRing$outboundSchema: z.ZodType<
+  OutputRing$Outbound,
+  z.ZodTypeDef,
+  OutputRing
+> = z.object({
+  id: z.string(),
+  type: z.literal("ring"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  format: DataFormatRing$outboundSchema.optional(),
+  partitionExpr: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  description: z.string().optional(),
+});
+
+export function outputRingToJSON(outputRing: OutputRing): string {
+  return JSON.stringify(OutputRing$outboundSchema.parse(outputRing));
+}
+
+/** @internal */
+export type PqControlsPrometheus$Outbound = {};
+
+/** @internal */
+export const PqControlsPrometheus$outboundSchema: z.ZodType<
+  PqControlsPrometheus$Outbound,
+  z.ZodTypeDef,
+  PqControlsPrometheus
+> = z.object({});
+
+export function pqControlsPrometheusToJSON(
+  pqControlsPrometheus: PqControlsPrometheus,
+): string {
+  return JSON.stringify(
+    PqControlsPrometheus$outboundSchema.parse(pqControlsPrometheus),
+  );
+}
+
+/** @internal */
+export type OutputPrometheus$Outbound = {
+  id: string;
+  type: "prometheus";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  metricRenameExpr?: string | undefined;
+  sendMetadata?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  metricsFlushPeriodSec?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsPrometheus$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+};
+
+/** @internal */
+export const OutputPrometheus$outboundSchema: z.ZodType<
+  OutputPrometheus$Outbound,
+  z.ZodTypeDef,
+  OutputPrometheus
+> = z.object({
+  id: z.string(),
+  type: z.literal("prometheus"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  metricRenameExpr: z.string().optional(),
+  sendMetadata: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
+    .optional(),
+  description: z.string().optional(),
+  metricsFlushPeriodSec: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsPrometheus$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+});
+
+export function outputPrometheusToJSON(
+  outputPrometheus: OutputPrometheus,
+): string {
+  return JSON.stringify(
+    OutputPrometheus$outboundSchema.parse(outputPrometheus),
+  );
+}
+
+/** @internal */
+export type PqControlsLoki$Outbound = {};
+
+/** @internal */
+export const PqControlsLoki$outboundSchema: z.ZodType<
+  PqControlsLoki$Outbound,
+  z.ZodTypeDef,
+  PqControlsLoki
+> = z.object({});
+
+export function pqControlsLokiToJSON(pqControlsLoki: PqControlsLoki): string {
+  return JSON.stringify(PqControlsLoki$outboundSchema.parse(pqControlsLoki));
+}
+
+/** @internal */
+export type OutputLoki$Outbound = {
+  id: string;
+  type: "loki";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  message?: string | undefined;
+  messageFormat?: string | undefined;
+  labels?: Array<models.ItemsTypeLabels$Outbound> | undefined;
+  authType?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  enableDynamicHeaders?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  compress?: boolean | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsLoki$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputLoki$outboundSchema: z.ZodType<
+  OutputLoki$Outbound,
+  z.ZodTypeDef,
+  OutputLoki
+> = z.object({
+  id: z.string(),
+  type: z.literal("loki"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  message: z.string().optional(),
+  messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
+  labels: z.array(models.ItemsTypeLabels$outboundSchema).optional(),
+  authType: models.AuthenticationTypeOptionsPrometheusAuth1$outboundSchema
+    .optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  enableDynamicHeaders: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  compress: z.boolean().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsLoki$outboundSchema).optional(),
+});
+
+export function outputLokiToJSON(outputLoki: OutputLoki): string {
+  return JSON.stringify(OutputLoki$outboundSchema.parse(outputLoki));
+}
+
+/** @internal */
+export const OutputGrafanaCloudType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGrafanaCloudType2
+> = z.nativeEnum(OutputGrafanaCloudType2);
+
+/** @internal */
+export type OutputGrafanaCloudPqControls2$Outbound = {};
+
+/** @internal */
+export const OutputGrafanaCloudPqControls2$outboundSchema: z.ZodType<
+  OutputGrafanaCloudPqControls2$Outbound,
+  z.ZodTypeDef,
+  OutputGrafanaCloudPqControls2
+> = z.object({});
+
+export function outputGrafanaCloudPqControls2ToJSON(
+  outputGrafanaCloudPqControls2: OutputGrafanaCloudPqControls2,
+): string {
+  return JSON.stringify(
+    OutputGrafanaCloudPqControls2$outboundSchema.parse(
+      outputGrafanaCloudPqControls2,
+    ),
+  );
+}
+
+/** @internal */
+export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
+  id: string;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  lokiUrl?: string | undefined;
+  prometheusUrl: string;
+  message?: string | undefined;
+  messageFormat?: string | undefined;
+  labels?: Array<models.ItemsTypeLabels$Outbound> | undefined;
+  metricRenameExpr?: string | undefined;
+  prometheusAuth?: models.PrometheusAuthType$Outbound | undefined;
+  lokiAuth?: models.PrometheusAuthType$Outbound | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  compress?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: OutputGrafanaCloudPqControls2$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
+  OutputGrafanaCloudGrafanaCloud2$Outbound,
+  z.ZodTypeDef,
+  OutputGrafanaCloudGrafanaCloud2
+> = z.object({
+  id: z.string(),
+  type: OutputGrafanaCloudType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  lokiUrl: z.string().optional(),
+  prometheusUrl: z.string(),
+  message: z.string().optional(),
+  messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
+  labels: z.array(models.ItemsTypeLabels$outboundSchema).optional(),
+  metricRenameExpr: z.string().optional(),
+  prometheusAuth: models.PrometheusAuthType$outboundSchema.optional(),
+  lokiAuth: models.PrometheusAuthType$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  compress: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => OutputGrafanaCloudPqControls2$outboundSchema)
+    .optional(),
+});
+
+export function outputGrafanaCloudGrafanaCloud2ToJSON(
+  outputGrafanaCloudGrafanaCloud2: OutputGrafanaCloudGrafanaCloud2,
+): string {
+  return JSON.stringify(
+    OutputGrafanaCloudGrafanaCloud2$outboundSchema.parse(
+      outputGrafanaCloudGrafanaCloud2,
+    ),
+  );
+}
+
+/** @internal */
+export const OutputGrafanaCloudType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGrafanaCloudType1
+> = z.nativeEnum(OutputGrafanaCloudType1);
+
+/** @internal */
+export type OutputGrafanaCloudPqControls1$Outbound = {};
+
+/** @internal */
+export const OutputGrafanaCloudPqControls1$outboundSchema: z.ZodType<
+  OutputGrafanaCloudPqControls1$Outbound,
+  z.ZodTypeDef,
+  OutputGrafanaCloudPqControls1
+> = z.object({});
+
+export function outputGrafanaCloudPqControls1ToJSON(
+  outputGrafanaCloudPqControls1: OutputGrafanaCloudPqControls1,
+): string {
+  return JSON.stringify(
+    OutputGrafanaCloudPqControls1$outboundSchema.parse(
+      outputGrafanaCloudPqControls1,
+    ),
+  );
+}
+
+/** @internal */
+export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
+  id: string;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  lokiUrl: string;
+  prometheusUrl?: string | undefined;
+  message?: string | undefined;
+  messageFormat?: string | undefined;
+  labels?: Array<models.ItemsTypeLabels$Outbound> | undefined;
+  metricRenameExpr?: string | undefined;
+  prometheusAuth?: models.PrometheusAuthType$Outbound | undefined;
+  lokiAuth?: models.PrometheusAuthType$Outbound | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  compress?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: OutputGrafanaCloudPqControls1$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
+  OutputGrafanaCloudGrafanaCloud1$Outbound,
+  z.ZodTypeDef,
+  OutputGrafanaCloudGrafanaCloud1
+> = z.object({
+  id: z.string(),
+  type: OutputGrafanaCloudType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  lokiUrl: z.string(),
+  prometheusUrl: z.string().optional(),
+  message: z.string().optional(),
+  messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
+  labels: z.array(models.ItemsTypeLabels$outboundSchema).optional(),
+  metricRenameExpr: z.string().optional(),
+  prometheusAuth: models.PrometheusAuthType$outboundSchema.optional(),
+  lokiAuth: models.PrometheusAuthType$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  compress: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => OutputGrafanaCloudPqControls1$outboundSchema)
+    .optional(),
+});
+
+export function outputGrafanaCloudGrafanaCloud1ToJSON(
+  outputGrafanaCloudGrafanaCloud1: OutputGrafanaCloudGrafanaCloud1,
+): string {
+  return JSON.stringify(
+    OutputGrafanaCloudGrafanaCloud1$outboundSchema.parse(
+      outputGrafanaCloudGrafanaCloud1,
+    ),
+  );
+}
+
+/** @internal */
+export type OutputGrafanaCloud$Outbound =
+  | OutputGrafanaCloudGrafanaCloud1$Outbound
+  | OutputGrafanaCloudGrafanaCloud2$Outbound;
+
+/** @internal */
+export const OutputGrafanaCloud$outboundSchema: z.ZodType<
+  OutputGrafanaCloud$Outbound,
+  z.ZodTypeDef,
+  OutputGrafanaCloud
+> = z.union([
+  z.lazy(() => OutputGrafanaCloudGrafanaCloud1$outboundSchema),
+  z.lazy(() => OutputGrafanaCloudGrafanaCloud2$outboundSchema),
+]);
+
+export function outputGrafanaCloudToJSON(
+  outputGrafanaCloud: OutputGrafanaCloud,
+): string {
+  return JSON.stringify(
+    OutputGrafanaCloud$outboundSchema.parse(outputGrafanaCloud),
+  );
+}
+
+/** @internal */
+export const SendLogsAs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SendLogsAs
+> = openEnums.outboundSchema(SendLogsAs);
+
+/** @internal */
+export const SeverityDatadog$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SeverityDatadog
+> = openEnums.outboundSchema(SeverityDatadog);
+
+/** @internal */
+export const DatadogSite$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DatadogSite
+> = openEnums.outboundSchema(DatadogSite);
+
+/** @internal */
+export type PqControlsDatadog$Outbound = {};
+
+/** @internal */
+export const PqControlsDatadog$outboundSchema: z.ZodType<
+  PqControlsDatadog$Outbound,
+  z.ZodTypeDef,
+  PqControlsDatadog
+> = z.object({});
+
+export function pqControlsDatadogToJSON(
+  pqControlsDatadog: PqControlsDatadog,
+): string {
+  return JSON.stringify(
+    PqControlsDatadog$outboundSchema.parse(pqControlsDatadog),
+  );
+}
+
+/** @internal */
+export type OutputDatadog$Outbound = {
+  id: string;
+  type: "datadog";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  contentType?: string | undefined;
+  message?: string | undefined;
+  source?: string | undefined;
+  host?: string | undefined;
+  service?: string | undefined;
+  tags?: Array<string> | undefined;
+  batchByTags?: boolean | undefined;
+  allowApiKeyFromEvents?: boolean | undefined;
+  severity?: string | undefined;
+  site?: string | undefined;
+  sendCountersAsCount?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsDatadog$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputDatadog$outboundSchema: z.ZodType<
+  OutputDatadog$Outbound,
+  z.ZodTypeDef,
+  OutputDatadog
+> = z.object({
+  id: z.string(),
+  type: z.literal("datadog"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  contentType: SendLogsAs$outboundSchema.optional(),
+  message: z.string().optional(),
+  source: z.string().optional(),
+  host: z.string().optional(),
+  service: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  batchByTags: z.boolean().optional(),
+  allowApiKeyFromEvents: z.boolean().optional(),
+  severity: SeverityDatadog$outboundSchema.optional(),
+  site: DatadogSite$outboundSchema.optional(),
+  sendCountersAsCount: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsDatadog$outboundSchema).optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputDatadogToJSON(outputDatadog: OutputDatadog): string {
+  return JSON.stringify(OutputDatadog$outboundSchema.parse(outputDatadog));
+}
+
+/** @internal */
+export const DataFormatSumoLogic$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DataFormatSumoLogic
+> = openEnums.outboundSchema(DataFormatSumoLogic);
+
+/** @internal */
+export type PqControlsSumoLogic$Outbound = {};
+
+/** @internal */
+export const PqControlsSumoLogic$outboundSchema: z.ZodType<
+  PqControlsSumoLogic$Outbound,
+  z.ZodTypeDef,
+  PqControlsSumoLogic
+> = z.object({});
+
+export function pqControlsSumoLogicToJSON(
+  pqControlsSumoLogic: PqControlsSumoLogic,
+): string {
+  return JSON.stringify(
+    PqControlsSumoLogic$outboundSchema.parse(pqControlsSumoLogic),
+  );
+}
+
+/** @internal */
+export type OutputSumoLogic$Outbound = {
+  id: string;
+  type: "sumo_logic";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  customSource?: string | undefined;
+  customCategory?: string | undefined;
+  format?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsSumoLogic$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSumoLogic$outboundSchema: z.ZodType<
+  OutputSumoLogic$Outbound,
+  z.ZodTypeDef,
+  OutputSumoLogic
+> = z.object({
+  id: z.string(),
+  type: z.literal("sumo_logic"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  customSource: z.string().optional(),
+  customCategory: z.string().optional(),
+  format: DataFormatSumoLogic$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsSumoLogic$outboundSchema).optional(),
+});
+
+export function outputSumoLogicToJSON(
+  outputSumoLogic: OutputSumoLogic,
+): string {
+  return JSON.stringify(OutputSumoLogic$outboundSchema.parse(outputSumoLogic));
+}
+
+/** @internal */
+export type HostSnmp$Outbound = {
+  host: string;
+  port: number;
+};
+
+/** @internal */
+export const HostSnmp$outboundSchema: z.ZodType<
+  HostSnmp$Outbound,
+  z.ZodTypeDef,
+  HostSnmp
+> = z.object({
+  host: z.string(),
+  port: z.number(),
+});
+
+export function hostSnmpToJSON(hostSnmp: HostSnmp): string {
+  return JSON.stringify(HostSnmp$outboundSchema.parse(hostSnmp));
+}
+
+/** @internal */
+export type OutputSnmp$Outbound = {
+  id: string;
+  type: "snmp";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  hosts: Array<HostSnmp$Outbound>;
+  dnsResolvePeriodSec?: number | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const OutputSnmp$outboundSchema: z.ZodType<
+  OutputSnmp$Outbound,
+  z.ZodTypeDef,
+  OutputSnmp
+> = z.object({
+  id: z.string(),
+  type: z.literal("snmp"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  hosts: z.array(z.lazy(() => HostSnmp$outboundSchema)),
+  dnsResolvePeriodSec: z.number().optional(),
+  description: z.string().optional(),
+});
+
+export function outputSnmpToJSON(outputSnmp: OutputSnmp): string {
+  return JSON.stringify(OutputSnmp$outboundSchema.parse(outputSnmp));
+}
+
+/** @internal */
+export const CreateOutputQueueType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputQueueType
+> = openEnums.outboundSchema(CreateOutputQueueType);
+
+/** @internal */
+export type PqControlsSqs$Outbound = {};
+
+/** @internal */
+export const PqControlsSqs$outboundSchema: z.ZodType<
+  PqControlsSqs$Outbound,
+  z.ZodTypeDef,
+  PqControlsSqs
+> = z.object({});
+
+export function pqControlsSqsToJSON(pqControlsSqs: PqControlsSqs): string {
+  return JSON.stringify(PqControlsSqs$outboundSchema.parse(pqControlsSqs));
+}
+
+/** @internal */
+export type OutputSqs$Outbound = {
+  id: string;
+  type: "sqs";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  messageGroupId?: string | undefined;
+  createQueue?: boolean | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  maxQueueSize?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  maxInProgress?: number | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsSqs$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSqs$outboundSchema: z.ZodType<
+  OutputSqs$Outbound,
+  z.ZodTypeDef,
+  OutputSqs
+> = z.object({
+  id: z.string(),
+  type: z.literal("sqs"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  queueName: z.string(),
+  queueType: CreateOutputQueueType$outboundSchema,
+  awsAccountId: z.string().optional(),
+  messageGroupId: z.string().optional(),
+  createQueue: z.boolean().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptions3$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  maxQueueSize: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  maxInProgress: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsSqs$outboundSchema).optional(),
+});
+
+export function outputSqsToJSON(outputSqs: OutputSqs): string {
+  return JSON.stringify(OutputSqs$outboundSchema.parse(outputSqs));
+}
+
+/** @internal */
+export const SignatureVersionSns$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SignatureVersionSns
+> = openEnums.outboundSchema(SignatureVersionSns);
+
+/** @internal */
+export type PqControlsSns$Outbound = {};
+
+/** @internal */
+export const PqControlsSns$outboundSchema: z.ZodType<
+  PqControlsSns$Outbound,
+  z.ZodTypeDef,
+  PqControlsSns
+> = z.object({});
+
+export function pqControlsSnsToJSON(pqControlsSns: PqControlsSns): string {
+  return JSON.stringify(PqControlsSns$outboundSchema.parse(pqControlsSns));
+}
+
+/** @internal */
+export type OutputSns$Outbound = {
+  id: string;
+  type: "sns";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  topicArn: string;
+  messageGroupId: string;
+  maxRetries?: number | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsSns$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSns$outboundSchema: z.ZodType<
+  OutputSns$Outbound,
+  z.ZodTypeDef,
+  OutputSns
+> = z.object({
+  id: z.string(),
+  type: z.literal("sns"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  topicArn: z.string(),
+  messageGroupId: z.string(),
+  maxRetries: z.number().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionSns$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsSns$outboundSchema).optional(),
+});
+
+export function outputSnsToJSON(outputSns: OutputSns): string {
+  return JSON.stringify(OutputSns$outboundSchema.parse(outputSns));
+}
+
+/** @internal */
+export type CreateOutputRule$Outbound = {
+  filter: string;
+  output: string;
+  description?: string | undefined;
+  final?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateOutputRule$outboundSchema: z.ZodType<
+  CreateOutputRule$Outbound,
+  z.ZodTypeDef,
+  CreateOutputRule
+> = z.object({
+  filter: z.string(),
+  output: z.string(),
+  description: z.string().optional(),
+  final: z.boolean().optional(),
+});
+
+export function createOutputRuleToJSON(
+  createOutputRule: CreateOutputRule,
+): string {
+  return JSON.stringify(
+    CreateOutputRule$outboundSchema.parse(createOutputRule),
+  );
+}
+
+/** @internal */
+export type OutputRouter$Outbound = {
+  id: string;
+  type: "router";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  rules: Array<CreateOutputRule$Outbound>;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const OutputRouter$outboundSchema: z.ZodType<
+  OutputRouter$Outbound,
+  z.ZodTypeDef,
+  OutputRouter
+> = z.object({
+  id: z.string(),
+  type: z.literal("router"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  rules: z.array(z.lazy(() => CreateOutputRule$outboundSchema)),
+  description: z.string().optional(),
+});
+
+export function outputRouterToJSON(outputRouter: OutputRouter): string {
+  return JSON.stringify(OutputRouter$outboundSchema.parse(outputRouter));
+}
+
+/** @internal */
+export type PqControlsGraphite$Outbound = {};
+
+/** @internal */
+export const PqControlsGraphite$outboundSchema: z.ZodType<
+  PqControlsGraphite$Outbound,
+  z.ZodTypeDef,
+  PqControlsGraphite
+> = z.object({});
+
+export function pqControlsGraphiteToJSON(
+  pqControlsGraphite: PqControlsGraphite,
+): string {
+  return JSON.stringify(
+    PqControlsGraphite$outboundSchema.parse(pqControlsGraphite),
+  );
+}
+
+/** @internal */
+export type OutputGraphite$Outbound = {
+  id: string;
+  type: "graphite";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  protocol: string;
+  host: string;
+  port: number;
+  mtu?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  description?: string | undefined;
+  throttleRatePerSec?: string | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  onBackpressure?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsGraphite$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGraphite$outboundSchema: z.ZodType<
+  OutputGraphite$Outbound,
+  z.ZodTypeDef,
+  OutputGraphite
+> = z.object({
+  id: z.string(),
+  type: z.literal("graphite"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  protocol: models.DestinationProtocolOptions$outboundSchema,
+  host: z.string(),
+  port: z.number(),
+  mtu: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  description: z.string().optional(),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsGraphite$outboundSchema).optional(),
+});
+
+export function outputGraphiteToJSON(outputGraphite: OutputGraphite): string {
+  return JSON.stringify(OutputGraphite$outboundSchema.parse(outputGraphite));
+}
+
+/** @internal */
+export type PqControlsStatsdExt$Outbound = {};
+
+/** @internal */
+export const PqControlsStatsdExt$outboundSchema: z.ZodType<
+  PqControlsStatsdExt$Outbound,
+  z.ZodTypeDef,
+  PqControlsStatsdExt
+> = z.object({});
+
+export function pqControlsStatsdExtToJSON(
+  pqControlsStatsdExt: PqControlsStatsdExt,
+): string {
+  return JSON.stringify(
+    PqControlsStatsdExt$outboundSchema.parse(pqControlsStatsdExt),
+  );
+}
+
+/** @internal */
+export type OutputStatsdExt$Outbound = {
+  id: string;
+  type: "statsd_ext";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  protocol: string;
+  host: string;
+  port: number;
+  mtu?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  description?: string | undefined;
+  throttleRatePerSec?: string | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  onBackpressure?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsStatsdExt$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputStatsdExt$outboundSchema: z.ZodType<
+  OutputStatsdExt$Outbound,
+  z.ZodTypeDef,
+  OutputStatsdExt
+> = z.object({
+  id: z.string(),
+  type: z.literal("statsd_ext"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  protocol: models.DestinationProtocolOptions$outboundSchema,
+  host: z.string(),
+  port: z.number(),
+  mtu: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  description: z.string().optional(),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsStatsdExt$outboundSchema).optional(),
+});
+
+export function outputStatsdExtToJSON(
+  outputStatsdExt: OutputStatsdExt,
+): string {
+  return JSON.stringify(OutputStatsdExt$outboundSchema.parse(outputStatsdExt));
+}
+
+/** @internal */
+export type PqControlsStatsd$Outbound = {};
+
+/** @internal */
+export const PqControlsStatsd$outboundSchema: z.ZodType<
+  PqControlsStatsd$Outbound,
+  z.ZodTypeDef,
+  PqControlsStatsd
+> = z.object({});
+
+export function pqControlsStatsdToJSON(
+  pqControlsStatsd: PqControlsStatsd,
+): string {
+  return JSON.stringify(
+    PqControlsStatsd$outboundSchema.parse(pqControlsStatsd),
+  );
+}
+
+/** @internal */
+export type OutputStatsd$Outbound = {
+  id: string;
+  type: "statsd";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  protocol: string;
+  host: string;
+  port: number;
+  mtu?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  description?: string | undefined;
+  throttleRatePerSec?: string | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  onBackpressure?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsStatsd$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputStatsd$outboundSchema: z.ZodType<
+  OutputStatsd$Outbound,
+  z.ZodTypeDef,
+  OutputStatsd
+> = z.object({
+  id: z.string(),
+  type: z.literal("statsd"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  protocol: models.DestinationProtocolOptions$outboundSchema,
+  host: z.string(),
+  port: z.number(),
+  mtu: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  description: z.string().optional(),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsStatsd$outboundSchema).optional(),
+});
+
+export function outputStatsdToJSON(outputStatsd: OutputStatsd): string {
+  return JSON.stringify(OutputStatsd$outboundSchema.parse(outputStatsd));
+}
+
+/** @internal */
+export type OutputMinio$Outbound = {
+  id: string;
+  type: "minio";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  bucket: string;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  stagePath: string;
+  addIdToStagePath?: boolean | undefined;
+  destPath?: string | undefined;
+  signatureVersion?: string | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  verifyPermissions?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+};
+
+/** @internal */
+export const OutputMinio$outboundSchema: z.ZodType<
+  OutputMinio$Outbound,
+  z.ZodTypeDef,
+  OutputMinio
+> = z.object({
+  id: z.string(),
+  type: z.literal("minio"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  destPath: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptions5$outboundSchema.optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
+  storageClass: models.StorageClassOptions2$outboundSchema.optional(),
+  serverSideEncryption: models.ServerSideEncryptionOptions$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  verifyPermissions: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
+  parquetSchema: z.string().optional(),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+});
+
+export function outputMinioToJSON(outputMinio: OutputMinio): string {
+  return JSON.stringify(OutputMinio$outboundSchema.parse(outputMinio));
+}
+
+/** @internal */
+export type PqControlsCloudwatch$Outbound = {};
+
+/** @internal */
+export const PqControlsCloudwatch$outboundSchema: z.ZodType<
+  PqControlsCloudwatch$Outbound,
+  z.ZodTypeDef,
+  PqControlsCloudwatch
+> = z.object({});
+
+export function pqControlsCloudwatchToJSON(
+  pqControlsCloudwatch: PqControlsCloudwatch,
+): string {
+  return JSON.stringify(
+    PqControlsCloudwatch$outboundSchema.parse(pqControlsCloudwatch),
+  );
+}
+
+/** @internal */
+export type OutputCloudwatch$Outbound = {
+  id: string;
+  type: "cloudwatch";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logGroupName: string;
+  logStreamName: string;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  maxQueueSize?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsCloudwatch$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputCloudwatch$outboundSchema: z.ZodType<
+  OutputCloudwatch$Outbound,
+  z.ZodTypeDef,
+  OutputCloudwatch
+> = z.object({
+  id: z.string(),
+  type: z.literal("cloudwatch"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logGroupName: z.string(),
+  logStreamName: z.string(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  maxQueueSize: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsCloudwatch$outboundSchema).optional(),
+});
+
+export function outputCloudwatchToJSON(
+  outputCloudwatch: OutputCloudwatch,
+): string {
+  return JSON.stringify(
+    OutputCloudwatch$outboundSchema.parse(outputCloudwatch),
+  );
+}
+
+/** @internal */
+export const TimestampPrecision$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  TimestampPrecision
+> = openEnums.outboundSchema(TimestampPrecision);
+
+/** @internal */
+export const AuthenticationTypeInfluxdb$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationTypeInfluxdb
+> = openEnums.outboundSchema(AuthenticationTypeInfluxdb);
+
+/** @internal */
+export type PqControlsInfluxdb$Outbound = {};
+
+/** @internal */
+export const PqControlsInfluxdb$outboundSchema: z.ZodType<
+  PqControlsInfluxdb$Outbound,
+  z.ZodTypeDef,
+  PqControlsInfluxdb
+> = z.object({});
+
+export function pqControlsInfluxdbToJSON(
+  pqControlsInfluxdb: PqControlsInfluxdb,
+): string {
+  return JSON.stringify(
+    PqControlsInfluxdb$outboundSchema.parse(pqControlsInfluxdb),
+  );
+}
+
+/** @internal */
+export type OutputInfluxdb$Outbound = {
+  id: string;
+  type: "influxdb";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  useV2API?: boolean | undefined;
+  timestampPrecision?: string | undefined;
+  dynamicValueFieldName?: boolean | undefined;
+  valueFieldName?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  database?: string | undefined;
+  bucket?: string | undefined;
+  org?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsInfluxdb$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+};
+
+/** @internal */
+export const OutputInfluxdb$outboundSchema: z.ZodType<
+  OutputInfluxdb$Outbound,
+  z.ZodTypeDef,
+  OutputInfluxdb
+> = z.object({
+  id: z.string(),
+  type: z.literal("influxdb"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  useV2API: z.boolean().optional(),
+  timestampPrecision: TimestampPrecision$outboundSchema.optional(),
+  dynamicValueFieldName: z.boolean().optional(),
+  valueFieldName: z.string().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: AuthenticationTypeInfluxdb$outboundSchema.optional(),
+  description: z.string().optional(),
+  database: z.string().optional(),
+  bucket: z.string().optional(),
+  org: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsInfluxdb$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+});
+
+export function outputInfluxdbToJSON(outputInfluxdb: OutputInfluxdb): string {
+  return JSON.stringify(OutputInfluxdb$outboundSchema.parse(outputInfluxdb));
+}
+
+/** @internal */
+export type PqControlsNewrelicEvents$Outbound = {};
+
+/** @internal */
+export const PqControlsNewrelicEvents$outboundSchema: z.ZodType<
+  PqControlsNewrelicEvents$Outbound,
+  z.ZodTypeDef,
+  PqControlsNewrelicEvents
+> = z.object({});
+
+export function pqControlsNewrelicEventsToJSON(
+  pqControlsNewrelicEvents: PqControlsNewrelicEvents,
+): string {
+  return JSON.stringify(
+    PqControlsNewrelicEvents$outboundSchema.parse(pqControlsNewrelicEvents),
+  );
+}
+
+/** @internal */
+export type OutputNewrelicEvents$Outbound = {
+  id: string;
+  type: "newrelic_events";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  region?: string | undefined;
+  accountId: string;
+  eventType: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsNewrelicEvents$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputNewrelicEvents$outboundSchema: z.ZodType<
+  OutputNewrelicEvents$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelicEvents
+> = z.object({
+  id: z.string(),
+  type: z.literal("newrelic_events"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: models.RegionOptions$outboundSchema.optional(),
+  accountId: z.string(),
+  eventType: z.string(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsNewrelicEvents$outboundSchema).optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputNewrelicEventsToJSON(
+  outputNewrelicEvents: OutputNewrelicEvents,
+): string {
+  return JSON.stringify(
+    OutputNewrelicEvents$outboundSchema.parse(outputNewrelicEvents),
+  );
+}
+
+/** @internal */
+export const FieldName$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  FieldName
+> = openEnums.outboundSchema(FieldName);
+
+/** @internal */
+export type Metadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const Metadatum$outboundSchema: z.ZodType<
+  Metadatum$Outbound,
+  z.ZodTypeDef,
+  Metadatum
+> = z.object({
+  name: FieldName$outboundSchema,
+  value: z.string(),
+});
+
+export function metadatumToJSON(metadatum: Metadatum): string {
+  return JSON.stringify(Metadatum$outboundSchema.parse(metadatum));
+}
+
+/** @internal */
+export type PqControlsNewrelic$Outbound = {};
+
+/** @internal */
+export const PqControlsNewrelic$outboundSchema: z.ZodType<
+  PqControlsNewrelic$Outbound,
+  z.ZodTypeDef,
+  PqControlsNewrelic
+> = z.object({});
+
+export function pqControlsNewrelicToJSON(
+  pqControlsNewrelic: PqControlsNewrelic,
+): string {
+  return JSON.stringify(
+    PqControlsNewrelic$outboundSchema.parse(pqControlsNewrelic),
+  );
+}
+
+/** @internal */
+export type OutputNewrelic$Outbound = {
+  id: string;
+  type: "newrelic";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  region?: string | undefined;
+  logType?: string | undefined;
+  messageField?: string | undefined;
+  metadata?: Array<Metadatum$Outbound> | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsNewrelic$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputNewrelic$outboundSchema: z.ZodType<
+  OutputNewrelic$Outbound,
+  z.ZodTypeDef,
+  OutputNewrelic
+> = z.object({
+  id: z.string(),
+  type: z.literal("newrelic"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  region: models.RegionOptions$outboundSchema.optional(),
+  logType: z.string().optional(),
+  messageField: z.string().optional(),
+  metadata: z.array(z.lazy(() => Metadatum$outboundSchema)).optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsNewrelic$outboundSchema).optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputNewrelicToJSON(outputNewrelic: OutputNewrelic): string {
+  return JSON.stringify(OutputNewrelic$outboundSchema.parse(outputNewrelic));
+}
+
+/** @internal */
+export type PqControlsElasticCloud$Outbound = {};
+
+/** @internal */
+export const PqControlsElasticCloud$outboundSchema: z.ZodType<
+  PqControlsElasticCloud$Outbound,
+  z.ZodTypeDef,
+  PqControlsElasticCloud
+> = z.object({});
+
+export function pqControlsElasticCloudToJSON(
+  pqControlsElasticCloud: PqControlsElasticCloud,
+): string {
+  return JSON.stringify(
+    PqControlsElasticCloud$outboundSchema.parse(pqControlsElasticCloud),
+  );
+}
+
+/** @internal */
+export type OutputElasticCloud$Outbound = {
+  id: string;
+  type: "elastic_cloud";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  url: string;
+  index: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  extraParams?: Array<models.ItemsTypeSaslSaslExtensions$Outbound> | undefined;
+  auth?: models.AuthType$Outbound | undefined;
+  elasticPipeline?: string | undefined;
+  includeDocId?: boolean | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsElasticCloud$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputElasticCloud$outboundSchema: z.ZodType<
+  OutputElasticCloud$Outbound,
+  z.ZodTypeDef,
+  OutputElasticCloud
+> = z.object({
+  id: z.string(),
+  type: z.literal("elastic_cloud"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  url: z.string(),
+  index: z.string(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  extraParams: z.array(models.ItemsTypeSaslSaslExtensions$outboundSchema)
+    .optional(),
+  auth: models.AuthType$outboundSchema.optional(),
+  elasticPipeline: z.string().optional(),
+  includeDocId: z.boolean().optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsElasticCloud$outboundSchema).optional(),
+});
+
+export function outputElasticCloudToJSON(
+  outputElasticCloud: OutputElasticCloud,
+): string {
+  return JSON.stringify(
+    OutputElasticCloud$outboundSchema.parse(outputElasticCloud),
+  );
+}
+
+/** @internal */
+export const ElasticVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ElasticVersion
+> = openEnums.outboundSchema(ElasticVersion);
+
+/** @internal */
+export const WriteAction$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  WriteAction
+> = openEnums.outboundSchema(WriteAction);
+
+/** @internal */
+export type UrlElastic$Outbound = {
+  url: string;
+  weight?: number | undefined;
+};
+
+/** @internal */
+export const UrlElastic$outboundSchema: z.ZodType<
+  UrlElastic$Outbound,
+  z.ZodTypeDef,
+  UrlElastic
+> = z.object({
+  url: z.string(),
+  weight: z.number().optional(),
+});
+
+export function urlElasticToJSON(urlElastic: UrlElastic): string {
+  return JSON.stringify(UrlElastic$outboundSchema.parse(urlElastic));
+}
+
+/** @internal */
+export type PqControlsElastic$Outbound = {};
+
+/** @internal */
+export const PqControlsElastic$outboundSchema: z.ZodType<
+  PqControlsElastic$Outbound,
+  z.ZodTypeDef,
+  PqControlsElastic
+> = z.object({});
+
+export function pqControlsElasticToJSON(
+  pqControlsElastic: PqControlsElastic,
+): string {
+  return JSON.stringify(
+    PqControlsElastic$outboundSchema.parse(pqControlsElastic),
+  );
+}
+
+/** @internal */
+export type OutputElastic$Outbound = {
+  id: string;
+  type: "elastic";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced?: boolean | undefined;
+  index: string;
+  docType?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  extraParams?: Array<models.ItemsTypeSaslSaslExtensions$Outbound> | undefined;
+  auth?: models.AuthType$Outbound | undefined;
+  elasticVersion?: string | undefined;
+  elasticPipeline?: string | undefined;
+  includeDocId?: boolean | undefined;
+  writeAction?: string | undefined;
+  retryPartialErrors?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  url?: string | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlElastic$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsElastic$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputElastic$outboundSchema: z.ZodType<
+  OutputElastic$Outbound,
+  z.ZodTypeDef,
+  OutputElastic
+> = z.object({
+  id: z.string(),
+  type: z.literal("elastic"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().optional(),
+  index: z.string(),
+  docType: z.string().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  extraParams: z.array(models.ItemsTypeSaslSaslExtensions$outboundSchema)
+    .optional(),
+  auth: models.AuthType$outboundSchema.optional(),
+  elasticVersion: ElasticVersion$outboundSchema.optional(),
+  elasticPipeline: z.string().optional(),
+  includeDocId: z.boolean().optional(),
+  writeAction: WriteAction$outboundSchema.optional(),
+  retryPartialErrors: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
+  urls: z.array(z.lazy(() => UrlElastic$outboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsElastic$outboundSchema).optional(),
+});
+
+export function outputElasticToJSON(outputElastic: OutputElastic): string {
+  return JSON.stringify(OutputElastic$outboundSchema.parse(outputElastic));
+}
+
+/** @internal */
+export type PqControlsMsk$Outbound = {};
+
+/** @internal */
+export const PqControlsMsk$outboundSchema: z.ZodType<
+  PqControlsMsk$Outbound,
+  z.ZodTypeDef,
+  PqControlsMsk
+> = z.object({});
+
+export function pqControlsMskToJSON(pqControlsMsk: PqControlsMsk): string {
+  return JSON.stringify(PqControlsMsk$outboundSchema.parse(pqControlsMsk));
+}
+
+/** @internal */
+export type OutputMsk$Outbound = {
+  id: string;
+  type: "msk";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  brokers: Array<string>;
+  topic: string;
+  ack?: number | undefined;
+  format?: string | undefined;
+  compression?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  kafkaSchemaRegistry?:
+    | models.KafkaSchemaRegistryAuthenticationType1$Outbound
+    | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  protobufLibraryId?: string | undefined;
+  protobufEncodingId?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsMsk$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputMsk$outboundSchema: z.ZodType<
+  OutputMsk$Outbound,
+  z.ZodTypeDef,
+  OutputMsk
+> = z.object({
+  id: z.string(),
+  type: z.literal("msk"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: models.AcknowledgmentsOptions1$outboundSchema.optional(),
+  format: models.RecordDataFormatOptions1$outboundSchema.optional(),
+  compression: models.CompressionOptions3$outboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  kafkaSchemaRegistry: models
+    .KafkaSchemaRegistryAuthenticationType1$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  awsAuthenticationMethod: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptions$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsMsk$outboundSchema).optional(),
+});
+
+export function outputMskToJSON(outputMsk: OutputMsk): string {
+  return JSON.stringify(OutputMsk$outboundSchema.parse(outputMsk));
+}
+
+/** @internal */
+export type PqControlsConfluentCloud$Outbound = {};
+
+/** @internal */
+export const PqControlsConfluentCloud$outboundSchema: z.ZodType<
+  PqControlsConfluentCloud$Outbound,
+  z.ZodTypeDef,
+  PqControlsConfluentCloud
+> = z.object({});
+
+export function pqControlsConfluentCloudToJSON(
+  pqControlsConfluentCloud: PqControlsConfluentCloud,
+): string {
+  return JSON.stringify(
+    PqControlsConfluentCloud$outboundSchema.parse(pqControlsConfluentCloud),
+  );
+}
+
+/** @internal */
+export type OutputConfluentCloud$Outbound = {
+  id: string;
+  type: "confluent_cloud";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  brokers: Array<string>;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  topic: string;
+  ack?: number | undefined;
+  format?: string | undefined;
+  compression?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  kafkaSchemaRegistry?:
+    | models.KafkaSchemaRegistryAuthenticationType1$Outbound
+    | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
+  sasl?: models.AuthenticationType$Outbound | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  protobufLibraryId?: string | undefined;
+  protobufEncodingId?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsConfluentCloud$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputConfluentCloud$outboundSchema: z.ZodType<
+  OutputConfluentCloud$Outbound,
+  z.ZodTypeDef,
+  OutputConfluentCloud
+> = z.object({
+  id: z.string(),
+  type: z.literal("confluent_cloud"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  topic: z.string(),
+  ack: models.AcknowledgmentsOptions1$outboundSchema.optional(),
+  format: models.RecordDataFormatOptions1$outboundSchema.optional(),
+  compression: models.CompressionOptions3$outboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  kafkaSchemaRegistry: models
+    .KafkaSchemaRegistryAuthenticationType1$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  sasl: models.AuthenticationType$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsConfluentCloud$outboundSchema).optional(),
+});
+
+export function outputConfluentCloudToJSON(
+  outputConfluentCloud: OutputConfluentCloud,
+): string {
+  return JSON.stringify(
+    OutputConfluentCloud$outboundSchema.parse(outputConfluentCloud),
+  );
+}
+
+/** @internal */
+export type PqControlsKafka$Outbound = {};
+
+/** @internal */
+export const PqControlsKafka$outboundSchema: z.ZodType<
+  PqControlsKafka$Outbound,
+  z.ZodTypeDef,
+  PqControlsKafka
+> = z.object({});
+
+export function pqControlsKafkaToJSON(
+  pqControlsKafka: PqControlsKafka,
+): string {
+  return JSON.stringify(PqControlsKafka$outboundSchema.parse(pqControlsKafka));
+}
+
+/** @internal */
+export type OutputKafka$Outbound = {
+  id: string;
+  type: "kafka";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  brokers: Array<string>;
+  topic: string;
+  ack?: number | undefined;
+  format?: string | undefined;
+  compression?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  kafkaSchemaRegistry?:
+    | models.KafkaSchemaRegistryAuthenticationType1$Outbound
+    | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
+  sasl?: models.AuthenticationType$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  protobufLibraryId?: string | undefined;
+  protobufEncodingId?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsKafka$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputKafka$outboundSchema: z.ZodType<
+  OutputKafka$Outbound,
+  z.ZodTypeDef,
+  OutputKafka
+> = z.object({
+  id: z.string(),
+  type: z.literal("kafka"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: models.AcknowledgmentsOptions1$outboundSchema.optional(),
+  format: models.RecordDataFormatOptions1$outboundSchema.optional(),
+  compression: models.CompressionOptions3$outboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  kafkaSchemaRegistry: models
+    .KafkaSchemaRegistryAuthenticationType1$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  sasl: models.AuthenticationType$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsKafka$outboundSchema).optional(),
+});
+
+export function outputKafkaToJSON(outputKafka: OutputKafka): string {
+  return JSON.stringify(OutputKafka$outboundSchema.parse(outputKafka));
+}
+
+/** @internal */
+export type OutputExabeam$Outbound = {
+  id: string;
+  type: "exabeam";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  stagePath: string;
+  endpoint: string;
+  signatureVersion?: string | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  maxFileSizeMB?: number | undefined;
+  encodedConfiguration?: string | undefined;
+  collectorInstanceId: string;
+  siteName?: string | undefined;
+  siteId?: string | undefined;
+  timezoneOffset?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  description?: string | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+};
+
+/** @internal */
+export const OutputExabeam$outboundSchema: z.ZodType<
+  OutputExabeam$Outbound,
+  z.ZodTypeDef,
+  OutputExabeam
+> = z.object({
+  id: z.string(),
+  type: z.literal("exabeam"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  stagePath: z.string(),
+  endpoint: z.string(),
+  signatureVersion: models.SignatureVersionOptions4$outboundSchema.optional(),
+  objectACL: models.ObjectAclOptions1$outboundSchema.optional(),
+  storageClass: models.StorageClassOptions1$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  maxFileSizeMB: z.number().optional(),
+  encodedConfiguration: z.string().optional(),
+  collectorInstanceId: z.string(),
+  siteName: z.string().optional(),
+  siteId: z.string().optional(),
+  timezoneOffset: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+});
+
+export function outputExabeamToJSON(outputExabeam: OutputExabeam): string {
+  return JSON.stringify(OutputExabeam$outboundSchema.parse(outputExabeam));
+}
+
+/** @internal */
+export type PqControlsGooglePubsub$Outbound = {};
+
+/** @internal */
+export const PqControlsGooglePubsub$outboundSchema: z.ZodType<
+  PqControlsGooglePubsub$Outbound,
+  z.ZodTypeDef,
+  PqControlsGooglePubsub
+> = z.object({});
+
+export function pqControlsGooglePubsubToJSON(
+  pqControlsGooglePubsub: PqControlsGooglePubsub,
+): string {
+  return JSON.stringify(
+    PqControlsGooglePubsub$outboundSchema.parse(pqControlsGooglePubsub),
+  );
+}
+
+/** @internal */
+export type OutputGooglePubsub$Outbound = {
+  id: string;
+  type: "google_pubsub";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  topicName: string;
+  createTopic?: boolean | undefined;
+  orderedDelivery?: boolean | undefined;
+  region?: string | undefined;
+  googleAuthMethod?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  batchSize?: number | undefined;
+  batchTimeout?: number | undefined;
+  maxQueueSize?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriod?: number | undefined;
+  maxInProgress?: number | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsGooglePubsub$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGooglePubsub$outboundSchema: z.ZodType<
+  OutputGooglePubsub$Outbound,
+  z.ZodTypeDef,
+  OutputGooglePubsub
+> = z.object({
+  id: z.string(),
+  type: z.literal("google_pubsub"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  topicName: z.string(),
+  createTopic: z.boolean().optional(),
+  orderedDelivery: z.boolean().optional(),
+  region: z.string().optional(),
+  googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
+    .optional(),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string().optional(),
+  batchSize: z.number().optional(),
+  batchTimeout: z.number().optional(),
+  maxQueueSize: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriod: z.number().optional(),
+  maxInProgress: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsGooglePubsub$outboundSchema).optional(),
+});
+
+export function outputGooglePubsubToJSON(
+  outputGooglePubsub: OutputGooglePubsub,
+): string {
+  return JSON.stringify(
+    OutputGooglePubsub$outboundSchema.parse(outputGooglePubsub),
+  );
+}
+
+/** @internal */
+export const LogLocationType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  LogLocationType
+> = openEnums.outboundSchema(LogLocationType);
+
+/** @internal */
+export const PayloadFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PayloadFormat
+> = openEnums.outboundSchema(PayloadFormat);
+
+/** @internal */
+export type PqControlsGoogleCloudLogging$Outbound = {};
+
+/** @internal */
+export const PqControlsGoogleCloudLogging$outboundSchema: z.ZodType<
+  PqControlsGoogleCloudLogging$Outbound,
+  z.ZodTypeDef,
+  PqControlsGoogleCloudLogging
+> = z.object({});
+
+export function pqControlsGoogleCloudLoggingToJSON(
+  pqControlsGoogleCloudLogging: PqControlsGoogleCloudLogging,
+): string {
+  return JSON.stringify(
+    PqControlsGoogleCloudLogging$outboundSchema.parse(
+      pqControlsGoogleCloudLogging,
+    ),
+  );
+}
+
+/** @internal */
+export type OutputGoogleCloudLogging$Outbound = {
+  id: string;
+  type: "google_cloud_logging";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logLocationType: string;
+  logNameExpression: string;
+  sanitizeLogNames?: boolean | undefined;
+  payloadFormat?: string | undefined;
+  logLabels?: Array<models.ItemsTypeLogLabels$Outbound> | undefined;
+  resourceTypeExpression?: string | undefined;
+  resourceTypeLabels?: Array<models.ItemsTypeLogLabels$Outbound> | undefined;
+  severityExpression?: string | undefined;
+  insertIdExpression?: string | undefined;
+  googleAuthMethod?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  concurrency?: number | undefined;
+  connectionTimeout?: number | undefined;
+  timeoutSec?: number | undefined;
+  throttleRateReqPerSec?: number | undefined;
+  requestMethodExpression?: string | undefined;
+  requestUrlExpression?: string | undefined;
+  requestSizeExpression?: string | undefined;
+  statusExpression?: string | undefined;
+  responseSizeExpression?: string | undefined;
+  userAgentExpression?: string | undefined;
+  remoteIpExpression?: string | undefined;
+  serverIpExpression?: string | undefined;
+  refererExpression?: string | undefined;
+  latencyExpression?: string | undefined;
+  cacheLookupExpression?: string | undefined;
+  cacheHitExpression?: string | undefined;
+  cacheValidatedExpression?: string | undefined;
+  cacheFillBytesExpression?: string | undefined;
+  protocolExpression?: string | undefined;
+  idExpression?: string | undefined;
+  producerExpression?: string | undefined;
+  firstExpression?: string | undefined;
+  lastExpression?: string | undefined;
+  fileExpression?: string | undefined;
+  lineExpression?: string | undefined;
+  functionExpression?: string | undefined;
+  uidExpression?: string | undefined;
+  indexExpression?: string | undefined;
+  totalSplitsExpression?: string | undefined;
+  traceExpression?: string | undefined;
+  spanIdExpression?: string | undefined;
+  traceSampledExpression?: string | undefined;
+  onBackpressure?: string | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  logLocationExpression: string;
+  payloadExpression?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsGoogleCloudLogging$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
+  OutputGoogleCloudLogging$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleCloudLogging
+> = z.object({
+  id: z.string(),
+  type: z.literal("google_cloud_logging"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logLocationType: LogLocationType$outboundSchema,
+  logNameExpression: z.string(),
+  sanitizeLogNames: z.boolean().optional(),
+  payloadFormat: PayloadFormat$outboundSchema.optional(),
+  logLabels: z.array(models.ItemsTypeLogLabels$outboundSchema).optional(),
+  resourceTypeExpression: z.string().optional(),
+  resourceTypeLabels: z.array(models.ItemsTypeLogLabels$outboundSchema)
+    .optional(),
+  severityExpression: z.string().optional(),
+  insertIdExpression: z.string().optional(),
+  googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
+    .optional(),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  concurrency: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  timeoutSec: z.number().optional(),
+  throttleRateReqPerSec: z.number().int().optional(),
+  requestMethodExpression: z.string().optional(),
+  requestUrlExpression: z.string().optional(),
+  requestSizeExpression: z.string().optional(),
+  statusExpression: z.string().optional(),
+  responseSizeExpression: z.string().optional(),
+  userAgentExpression: z.string().optional(),
+  remoteIpExpression: z.string().optional(),
+  serverIpExpression: z.string().optional(),
+  refererExpression: z.string().optional(),
+  latencyExpression: z.string().optional(),
+  cacheLookupExpression: z.string().optional(),
+  cacheHitExpression: z.string().optional(),
+  cacheValidatedExpression: z.string().optional(),
+  cacheFillBytesExpression: z.string().optional(),
+  protocolExpression: z.string().optional(),
+  idExpression: z.string().optional(),
+  producerExpression: z.string().optional(),
+  firstExpression: z.string().optional(),
+  lastExpression: z.string().optional(),
+  fileExpression: z.string().optional(),
+  lineExpression: z.string().optional(),
+  functionExpression: z.string().optional(),
+  uidExpression: z.string().optional(),
+  indexExpression: z.string().optional(),
+  totalSplitsExpression: z.string().optional(),
+  traceExpression: z.string().optional(),
+  spanIdExpression: z.string().optional(),
+  traceSampledExpression: z.string().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  logLocationExpression: z.string(),
+  payloadExpression: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsGoogleCloudLogging$outboundSchema)
+    .optional(),
+});
+
+export function outputGoogleCloudLoggingToJSON(
+  outputGoogleCloudLogging: OutputGoogleCloudLogging,
+): string {
+  return JSON.stringify(
+    OutputGoogleCloudLogging$outboundSchema.parse(outputGoogleCloudLogging),
+  );
+}
+
+/** @internal */
+export const AuthenticationMethodGoogleCloudStorage$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodGoogleCloudStorage
+> = openEnums.outboundSchema(AuthenticationMethodGoogleCloudStorage);
+
+/** @internal */
+export type OutputGoogleCloudStorage$Outbound = {
+  id: string;
+  type: "google_cloud_storage";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  endpoint: string;
+  signatureVersion?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  stagePath: string;
+  destPath?: string | undefined;
+  verifyPermissions?: boolean | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  description?: string | undefined;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
+  OutputGoogleCloudStorage$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleCloudStorage
+> = z.object({
+  id: z.string(),
+  type: z.literal("google_cloud_storage"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  endpoint: z.string(),
+  signatureVersion: models.SignatureVersionOptions4$outboundSchema.optional(),
+  awsAuthenticationMethod: AuthenticationMethodGoogleCloudStorage$outboundSchema
+    .optional(),
+  stagePath: z.string(),
+  destPath: z.string().optional(),
+  verifyPermissions: z.boolean().optional(),
+  objectACL: models.ObjectAclOptions1$outboundSchema.optional(),
+  storageClass: models.StorageClassOptions1$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  description: z.string().optional(),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
+  parquetSchema: z.string().optional(),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+
+export function outputGoogleCloudStorageToJSON(
+  outputGoogleCloudStorage: OutputGoogleCloudStorage,
+): string {
+  return JSON.stringify(
+    OutputGoogleCloudStorage$outboundSchema.parse(outputGoogleCloudStorage),
+  );
+}
+
+/** @internal */
+export const CreateOutputAPIVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputAPIVersion
+> = openEnums.outboundSchema(CreateOutputAPIVersion);
+
+/** @internal */
+export const AuthenticationMethodGoogleChronicle$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodGoogleChronicle
+> = openEnums.outboundSchema(AuthenticationMethodGoogleChronicle);
+
+/** @internal */
+export const SendEventsAs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SendEventsAs
+> = openEnums.outboundSchema(SendEventsAs);
+
+/** @internal */
+export type ExtraLogType$Outbound = {
+  logType: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const ExtraLogType$outboundSchema: z.ZodType<
+  ExtraLogType$Outbound,
+  z.ZodTypeDef,
+  ExtraLogType
+> = z.object({
+  logType: z.string(),
+  description: z.string().optional(),
+});
+
+export function extraLogTypeToJSON(extraLogType: ExtraLogType): string {
+  return JSON.stringify(ExtraLogType$outboundSchema.parse(extraLogType));
+}
+
+/** @internal */
+export const UDMType$outboundSchema: z.ZodType<string, z.ZodTypeDef, UDMType> =
+  openEnums.outboundSchema(UDMType);
+
+/** @internal */
+export type PqControlsGoogleChronicle$Outbound = {};
+
+/** @internal */
+export const PqControlsGoogleChronicle$outboundSchema: z.ZodType<
+  PqControlsGoogleChronicle$Outbound,
+  z.ZodTypeDef,
+  PqControlsGoogleChronicle
+> = z.object({});
+
+export function pqControlsGoogleChronicleToJSON(
+  pqControlsGoogleChronicle: PqControlsGoogleChronicle,
+): string {
+  return JSON.stringify(
+    PqControlsGoogleChronicle$outboundSchema.parse(pqControlsGoogleChronicle),
+  );
+}
+
+/** @internal */
+export type OutputGoogleChronicle$Outbound = {
+  id: string;
+  type: "google_chronicle";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  apiVersion?: string | undefined;
+  authenticationMethod?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  logFormatType: string;
+  region?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  extraLogTypes?: Array<ExtraLogType$Outbound> | undefined;
+  logType?: string | undefined;
+  logTextField?: string | undefined;
+  customerId?: string | undefined;
+  namespace?: string | undefined;
+  customLabels?: Array<models.ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  udmType?: string | undefined;
+  apiKey?: string | undefined;
+  apiKeySecret?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsGoogleChronicle$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGoogleChronicle$outboundSchema: z.ZodType<
+  OutputGoogleChronicle$Outbound,
+  z.ZodTypeDef,
+  OutputGoogleChronicle
+> = z.object({
+  id: z.string(),
+  type: z.literal("google_chronicle"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  apiVersion: CreateOutputAPIVersion$outboundSchema.optional(),
+  authenticationMethod: AuthenticationMethodGoogleChronicle$outboundSchema
+    .optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  logFormatType: SendEventsAs$outboundSchema,
+  region: z.string().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  extraLogTypes: z.array(z.lazy(() => ExtraLogType$outboundSchema)).optional(),
+  logType: z.string().optional(),
+  logTextField: z.string().optional(),
+  customerId: z.string().optional(),
+  namespace: z.string().optional(),
+  customLabels: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  udmType: UDMType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  apiKeySecret: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsGoogleChronicle$outboundSchema).optional(),
+});
+
+export function outputGoogleChronicleToJSON(
+  outputGoogleChronicle: OutputGoogleChronicle,
+): string {
+  return JSON.stringify(
+    OutputGoogleChronicle$outboundSchema.parse(outputGoogleChronicle),
+  );
+}
+
+/** @internal */
+export type PqControlsAzureEventhub$Outbound = {};
+
+/** @internal */
+export const PqControlsAzureEventhub$outboundSchema: z.ZodType<
+  PqControlsAzureEventhub$Outbound,
+  z.ZodTypeDef,
+  PqControlsAzureEventhub
+> = z.object({});
+
+export function pqControlsAzureEventhubToJSON(
+  pqControlsAzureEventhub: PqControlsAzureEventhub,
+): string {
+  return JSON.stringify(
+    PqControlsAzureEventhub$outboundSchema.parse(pqControlsAzureEventhub),
+  );
+}
+
+/** @internal */
+export type OutputAzureEventhub$Outbound = {
+  id: string;
+  type: "azure_eventhub";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  brokers: Array<string>;
+  topic: string;
+  ack?: number | undefined;
+  format?: string | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushEventCount?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
+  sasl?: models.AuthenticationType1$Outbound | undefined;
+  tls?: models.TlsSettingsClientSideType$Outbound | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsAzureEventhub$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureEventhub$outboundSchema: z.ZodType<
+  OutputAzureEventhub$Outbound,
+  z.ZodTypeDef,
+  OutputAzureEventhub
+> = z.object({
+  id: z.string(),
+  type: z.literal("azure_eventhub"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: models.AcknowledgmentsOptions$outboundSchema.optional(),
+  format: models.RecordDataFormatOptions$outboundSchema.optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushEventCount: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  sasl: models.AuthenticationType1$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsAzureEventhub$outboundSchema).optional(),
+});
+
+export function outputAzureEventhubToJSON(
+  outputAzureEventhub: OutputAzureEventhub,
+): string {
+  return JSON.stringify(
+    OutputAzureEventhub$outboundSchema.parse(outputAzureEventhub),
+  );
+}
+
+/** @internal */
+export type PqControlsHoneycomb$Outbound = {};
+
+/** @internal */
+export const PqControlsHoneycomb$outboundSchema: z.ZodType<
+  PqControlsHoneycomb$Outbound,
+  z.ZodTypeDef,
+  PqControlsHoneycomb
+> = z.object({});
+
+export function pqControlsHoneycombToJSON(
+  pqControlsHoneycomb: PqControlsHoneycomb,
+): string {
+  return JSON.stringify(
+    PqControlsHoneycomb$outboundSchema.parse(pqControlsHoneycomb),
+  );
+}
+
+/** @internal */
+export type OutputHoneycomb$Outbound = {
+  id: string;
+  type: "honeycomb";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dataset: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsHoneycomb$Outbound | undefined;
+  team?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputHoneycomb$outboundSchema: z.ZodType<
+  OutputHoneycomb$Outbound,
+  z.ZodTypeDef,
+  OutputHoneycomb
+> = z.object({
+  id: z.string(),
+  type: z.literal("honeycomb"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dataset: z.string(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions2$outboundSchema.optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsHoneycomb$outboundSchema).optional(),
+  team: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputHoneycombToJSON(
+  outputHoneycomb: OutputHoneycomb,
+): string {
+  return JSON.stringify(OutputHoneycomb$outboundSchema.parse(outputHoneycomb));
+}
+
+/** @internal */
+export const CreateOutputCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputCompression
+> = openEnums.outboundSchema(CreateOutputCompression);
+
+/** @internal */
+export type PqControlsKinesis$Outbound = {};
+
+/** @internal */
+export const PqControlsKinesis$outboundSchema: z.ZodType<
+  PqControlsKinesis$Outbound,
+  z.ZodTypeDef,
+  PqControlsKinesis
+> = z.object({});
+
+export function pqControlsKinesisToJSON(
+  pqControlsKinesis: PqControlsKinesis,
+): string {
+  return JSON.stringify(
+    PqControlsKinesis$outboundSchema.parse(pqControlsKinesis),
+  );
+}
+
+/** @internal */
+export type OutputKinesis$Outbound = {
+  id: string;
+  type: "kinesis";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  streamName: string;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  concurrency?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  compression?: string | undefined;
+  useListShards?: boolean | undefined;
+  asNdjson?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  maxEventsPerFlush?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsKinesis$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputKinesis$outboundSchema: z.ZodType<
+  OutputKinesis$Outbound,
+  z.ZodTypeDef,
+  OutputKinesis
+> = z.object({
+  id: z.string(),
+  type: z.literal("kinesis"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptions2$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  concurrency: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  compression: CreateOutputCompression$outboundSchema.optional(),
+  useListShards: z.boolean().optional(),
+  asNdjson: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsKinesis$outboundSchema).optional(),
+});
+
+export function outputKinesisToJSON(outputKinesis: OutputKinesis): string {
+  return JSON.stringify(OutputKinesis$outboundSchema.parse(outputKinesis));
+}
+
+/** @internal */
+export const AuthenticationMethodAzureLogs$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodAzureLogs
+> = openEnums.outboundSchema(AuthenticationMethodAzureLogs);
+
+/** @internal */
+export type PqControlsAzureLogs$Outbound = {};
+
+/** @internal */
+export const PqControlsAzureLogs$outboundSchema: z.ZodType<
+  PqControlsAzureLogs$Outbound,
+  z.ZodTypeDef,
+  PqControlsAzureLogs
+> = z.object({});
+
+export function pqControlsAzureLogsToJSON(
+  pqControlsAzureLogs: PqControlsAzureLogs,
+): string {
+  return JSON.stringify(
+    PqControlsAzureLogs$outboundSchema.parse(pqControlsAzureLogs),
+  );
+}
+
+/** @internal */
+export type OutputAzureLogs$Outbound = {
+  id: string;
+  type: "azure_logs";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logType: string;
+  resourceId?: string | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  apiUrl?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsAzureLogs$Outbound | undefined;
+  workspaceId?: string | undefined;
+  workspaceKey?: string | undefined;
+  keypairSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputAzureLogs$outboundSchema: z.ZodType<
+  OutputAzureLogs$Outbound,
+  z.ZodTypeDef,
+  OutputAzureLogs
+> = z.object({
+  id: z.string(),
+  type: z.literal("azure_logs"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logType: z.string(),
+  resourceId: z.string().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  apiUrl: z.string().optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: AuthenticationMethodAzureLogs$outboundSchema.optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsAzureLogs$outboundSchema).optional(),
+  workspaceId: z.string().optional(),
+  workspaceKey: z.string().optional(),
+  keypairSecret: z.string().optional(),
+});
+
+export function outputAzureLogsToJSON(
+  outputAzureLogs: OutputAzureLogs,
+): string {
+  return JSON.stringify(OutputAzureLogs$outboundSchema.parse(outputAzureLogs));
+}
+
+/** @internal */
+export const IngestionMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  IngestionMode
+> = openEnums.outboundSchema(IngestionMode);
+
+/** @internal */
+export const OauthTypeAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OauthTypeAuthenticationMethod
+> = openEnums.outboundSchema(OauthTypeAuthenticationMethod);
+
+/** @internal */
+export type Certificate$Outbound = {
+  certificateName?: string | undefined;
+};
+
+/** @internal */
+export const Certificate$outboundSchema: z.ZodType<
+  Certificate$Outbound,
+  z.ZodTypeDef,
+  Certificate
+> = z.object({
+  certificateName: z.string().optional(),
+});
+
+export function certificateToJSON(certificate: Certificate): string {
+  return JSON.stringify(Certificate$outboundSchema.parse(certificate));
+}
+
+/** @internal */
+export const PrefixOptional$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PrefixOptional
+> = openEnums.outboundSchema(PrefixOptional);
+
+/** @internal */
+export type ExtentTag$Outbound = {
+  prefix?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const ExtentTag$outboundSchema: z.ZodType<
+  ExtentTag$Outbound,
+  z.ZodTypeDef,
+  ExtentTag
+> = z.object({
+  prefix: PrefixOptional$outboundSchema.optional(),
+  value: z.string(),
+});
+
+export function extentTagToJSON(extentTag: ExtentTag): string {
+  return JSON.stringify(ExtentTag$outboundSchema.parse(extentTag));
+}
+
+/** @internal */
+export type IngestIfNotExist$Outbound = {
+  value: string;
+};
+
+/** @internal */
+export const IngestIfNotExist$outboundSchema: z.ZodType<
+  IngestIfNotExist$Outbound,
+  z.ZodTypeDef,
+  IngestIfNotExist
+> = z.object({
+  value: z.string(),
+});
+
+export function ingestIfNotExistToJSON(
+  ingestIfNotExist: IngestIfNotExist,
+): string {
+  return JSON.stringify(
+    IngestIfNotExist$outboundSchema.parse(ingestIfNotExist),
+  );
+}
+
+/** @internal */
+export const ReportLevel$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ReportLevel
+> = openEnums.outboundSchema(ReportLevel);
+
+/** @internal */
+export const ReportMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ReportMethod
+> = openEnums.outboundSchema(ReportMethod);
+
+/** @internal */
+export type AdditionalProperty$Outbound = {
+  key: string;
+  value: string;
+};
+
+/** @internal */
+export const AdditionalProperty$outboundSchema: z.ZodType<
+  AdditionalProperty$Outbound,
+  z.ZodTypeDef,
+  AdditionalProperty
+> = z.object({
+  key: z.string(),
+  value: z.string(),
+});
+
+export function additionalPropertyToJSON(
+  additionalProperty: AdditionalProperty,
+): string {
+  return JSON.stringify(
+    AdditionalProperty$outboundSchema.parse(additionalProperty),
+  );
+}
+
+/** @internal */
+export type PqControlsAzureDataExplorer$Outbound = {};
+
+/** @internal */
+export const PqControlsAzureDataExplorer$outboundSchema: z.ZodType<
+  PqControlsAzureDataExplorer$Outbound,
+  z.ZodTypeDef,
+  PqControlsAzureDataExplorer
+> = z.object({});
+
+export function pqControlsAzureDataExplorerToJSON(
+  pqControlsAzureDataExplorer: PqControlsAzureDataExplorer,
+): string {
+  return JSON.stringify(
+    PqControlsAzureDataExplorer$outboundSchema.parse(
+      pqControlsAzureDataExplorer,
+    ),
+  );
+}
+
+/** @internal */
+export type OutputAzureDataExplorer$Outbound = {
+  id: string;
+  type: "azure_data_explorer";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  clusterUrl: string;
+  database: string;
+  table: string;
+  validateDatabaseSettings?: boolean | undefined;
+  ingestMode?: string | undefined;
+  oauthEndpoint: string;
+  tenantId: string;
+  clientId: string;
+  scope: string;
+  oauthType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+  certificate?: Certificate$Outbound | undefined;
+  format?: string | undefined;
+  compress: string;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterEnabled?: boolean | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+  isMappingObj?: boolean | undefined;
+  mappingObj?: string | undefined;
+  mappingRef?: string | undefined;
+  ingestUrl?: string | undefined;
+  onBackpressure?: string | undefined;
+  stagePath?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  addIdToStagePath?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  timeoutSec?: number | undefined;
+  flushImmediately?: boolean | undefined;
+  retainBlobOnSuccess?: boolean | undefined;
+  extentTags?: Array<ExtentTag$Outbound> | undefined;
+  ingestIfNotExists?: Array<IngestIfNotExist$Outbound> | undefined;
+  reportLevel?: string | undefined;
+  reportMethod?: string | undefined;
+  additionalProperties?: Array<AdditionalProperty$Outbound> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  keepAlive?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsAzureDataExplorer$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
+  OutputAzureDataExplorer$Outbound,
+  z.ZodTypeDef,
+  OutputAzureDataExplorer
+> = z.object({
+  id: z.string(),
+  type: z.literal("azure_data_explorer"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  clusterUrl: z.string(),
+  database: z.string(),
+  table: z.string(),
+  validateDatabaseSettings: z.boolean().optional(),
+  ingestMode: IngestionMode$outboundSchema.optional(),
+  oauthEndpoint:
+    models.MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema,
+  tenantId: z.string(),
+  clientId: z.string(),
+  scope: z.string(),
+  oauthType: OauthTypeAuthenticationMethod$outboundSchema,
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  certificate: z.lazy(() => Certificate$outboundSchema).optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  compress: models.CompressionOptions2$outboundSchema,
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
+  parquetSchema: z.string().optional(),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterEnabled: z.boolean().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+  isMappingObj: z.boolean().optional(),
+  mappingObj: z.string().optional(),
+  mappingRef: z.string().optional(),
+  ingestUrl: z.string().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  stagePath: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  addIdToStagePath: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  timeoutSec: z.number().optional(),
+  flushImmediately: z.boolean().optional(),
+  retainBlobOnSuccess: z.boolean().optional(),
+  extentTags: z.array(z.lazy(() => ExtentTag$outboundSchema)).optional(),
+  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist$outboundSchema))
+    .optional(),
+  reportLevel: ReportLevel$outboundSchema.optional(),
+  reportMethod: ReportMethod$outboundSchema.optional(),
+  additionalProperties: z.array(z.lazy(() => AdditionalProperty$outboundSchema))
+    .optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  keepAlive: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsAzureDataExplorer$outboundSchema)
+    .optional(),
+});
+
+export function outputAzureDataExplorerToJSON(
+  outputAzureDataExplorer: OutputAzureDataExplorer,
+): string {
+  return JSON.stringify(
+    OutputAzureDataExplorer$outboundSchema.parse(outputAzureDataExplorer),
+  );
+}
+
+/** @internal */
+export const BlobAccessTier$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  BlobAccessTier
+> = openEnums.outboundSchema(BlobAccessTier);
+
+/** @internal */
+export type OutputAzureBlob$Outbound = {
+  id: string;
+  type: "azure_blob";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  containerName: string;
+  createContainer?: boolean | undefined;
+  destPath?: string | undefined;
+  stagePath: string;
+  addIdToStagePath?: boolean | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  authType?: string | undefined;
+  storageClass?: string | undefined;
+  description?: string | undefined;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?:
+    | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
+    | undefined;
+};
+
+/** @internal */
+export const OutputAzureBlob$outboundSchema: z.ZodType<
+  OutputAzureBlob$Outbound,
+  z.ZodTypeDef,
+  OutputAzureBlob
+> = z.object({
+  id: z.string(),
+  type: z.literal("azure_blob"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().optional(),
+  destPath: z.string().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions$outboundSchema.optional(),
+  storageClass: BlobAccessTier$outboundSchema.optional(),
+  description: z.string().optional(),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
+  parquetSchema: z.string().optional(),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+    .optional(),
+});
+
+export function outputAzureBlobToJSON(
+  outputAzureBlob: OutputAzureBlob,
+): string {
+  return JSON.stringify(OutputAzureBlob$outboundSchema.parse(outputAzureBlob));
+}
+
+/** @internal */
+export type OutputS3$Outbound = {
+  id: string;
+  type: "s3";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  stagePath: string;
+  addIdToStagePath?: boolean | undefined;
+  destPath?: string | undefined;
+  objectACL?: string | undefined;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxConcurrentFileParts?: number | undefined;
+  verifyPermissions?: boolean | undefined;
+  maxClosingFilesToBackpressure?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+};
+
+/** @internal */
+export const OutputS3$outboundSchema: z.ZodType<
+  OutputS3$Outbound,
+  z.ZodTypeDef,
+  OutputS3
+> = z.object({
+  id: z.string(),
+  type: z.literal("s3"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  stagePath: z.string(),
+  addIdToStagePath: z.boolean().optional(),
+  destPath: z.string().optional(),
+  objectACL: models.ObjectAclOptions$outboundSchema.optional(),
+  storageClass: models.StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: models
+    .ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxConcurrentFileParts: z.number().optional(),
+  verifyPermissions: z.boolean().optional(),
+  maxClosingFilesToBackpressure: z.number().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
+  parquetSchema: z.string().optional(),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+});
+
+export function outputS3ToJSON(outputS3: OutputS3): string {
+  return JSON.stringify(OutputS3$outboundSchema.parse(outputS3));
+}
+
+/** @internal */
+export type OutputFilesystem$Outbound = {
+  id: string;
+  type: "filesystem";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  destPath: string;
+  stagePath?: string | undefined;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: models.RetrySettingsType$Outbound | undefined;
+  description?: string | undefined;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
+  parquetSchema?: string | undefined;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?:
+    | Array<models.ItemsTypeKeyValueMetadata$Outbound>
+    | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
+};
+
+/** @internal */
+export const OutputFilesystem$outboundSchema: z.ZodType<
+  OutputFilesystem$Outbound,
+  z.ZodTypeDef,
+  OutputFilesystem
+> = z.object({
+  id: z.string(),
+  type: z.literal("filesystem"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  destPath: z.string(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: models.DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: models.DiskSpaceProtectionOptions$outboundSchema
+    .optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: models.RetrySettingsType$outboundSchema.optional(),
+  description: z.string().optional(),
+  compress: models.CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
+  parquetSchema: z.string().optional(),
+  parquetVersion: models.ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: models.DataPageVersionOptions$outboundSchema
+    .optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
+});
+
+export function outputFilesystemToJSON(
+  outputFilesystem: OutputFilesystem,
+): string {
+  return JSON.stringify(
+    OutputFilesystem$outboundSchema.parse(outputFilesystem),
+  );
+}
+
+/** @internal */
+export type PqControlsSignalfx$Outbound = {};
+
+/** @internal */
+export const PqControlsSignalfx$outboundSchema: z.ZodType<
+  PqControlsSignalfx$Outbound,
+  z.ZodTypeDef,
+  PqControlsSignalfx
+> = z.object({});
+
+export function pqControlsSignalfxToJSON(
+  pqControlsSignalfx: PqControlsSignalfx,
+): string {
+  return JSON.stringify(
+    PqControlsSignalfx$outboundSchema.parse(pqControlsSignalfx),
+  );
+}
+
+/** @internal */
+export type OutputSignalfx$Outbound = {
+  id: string;
+  type: "signalfx";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  authType?: string | undefined;
+  realm: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsSignalfx$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSignalfx$outboundSchema: z.ZodType<
+  OutputSignalfx$Outbound,
+  z.ZodTypeDef,
+  OutputSignalfx
+> = z.object({
+  id: z.string(),
+  type: z.literal("signalfx"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  realm: z.string(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsSignalfx$outboundSchema).optional(),
+});
+
+export function outputSignalfxToJSON(outputSignalfx: OutputSignalfx): string {
+  return JSON.stringify(OutputSignalfx$outboundSchema.parse(outputSignalfx));
+}
+
+/** @internal */
+export type PqControlsWavefront$Outbound = {};
+
+/** @internal */
+export const PqControlsWavefront$outboundSchema: z.ZodType<
+  PqControlsWavefront$Outbound,
+  z.ZodTypeDef,
+  PqControlsWavefront
+> = z.object({});
+
+export function pqControlsWavefrontToJSON(
+  pqControlsWavefront: PqControlsWavefront,
+): string {
+  return JSON.stringify(
+    PqControlsWavefront$outboundSchema.parse(pqControlsWavefront),
+  );
+}
+
+/** @internal */
+export type OutputWavefront$Outbound = {
+  id: string;
+  type: "wavefront";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  authType?: string | undefined;
+  domain: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsWavefront$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputWavefront$outboundSchema: z.ZodType<
+  OutputWavefront$Outbound,
+  z.ZodTypeDef,
+  OutputWavefront
+> = z.object({
+  id: z.string(),
+  type: z.literal("wavefront"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  domain: z.string(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsWavefront$outboundSchema).optional(),
+});
+
+export function outputWavefrontToJSON(
+  outputWavefront: OutputWavefront,
+): string {
+  return JSON.stringify(OutputWavefront$outboundSchema.parse(outputWavefront));
+}
+
+/** @internal */
+export type PqControlsTcpjson$Outbound = {};
+
+/** @internal */
+export const PqControlsTcpjson$outboundSchema: z.ZodType<
+  PqControlsTcpjson$Outbound,
+  z.ZodTypeDef,
+  PqControlsTcpjson
+> = z.object({});
+
+export function pqControlsTcpjsonToJSON(
+  pqControlsTcpjson: PqControlsTcpjson,
+): string {
+  return JSON.stringify(
+    PqControlsTcpjson$outboundSchema.parse(pqControlsTcpjson),
+  );
+}
+
+/** @internal */
+export type OutputTcpjson$Outbound = {
+  id: string;
+  type: "tcpjson";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced?: boolean | undefined;
+  compression?: string | undefined;
+  logFailedRequests?: boolean | undefined;
+  throttleRatePerSec?: string | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  tokenTTLMinutes?: number | undefined;
+  sendHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  host?: string | undefined;
+  port?: number | undefined;
+  excludeSelf?: boolean | undefined;
+  hosts?: Array<models.ItemsTypeHosts$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  maxConcurrentSenders?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsTcpjson$Outbound | undefined;
+  authToken?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputTcpjson$outboundSchema: z.ZodType<
+  OutputTcpjson$Outbound,
+  z.ZodTypeDef,
+  OutputTcpjson
+> = z.object({
+  id: z.string(),
+  type: z.literal("tcpjson"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().optional(),
+  compression: models.CompressionOptions1$outboundSchema.optional(),
+  logFailedRequests: z.boolean().optional(),
+  throttleRatePerSec: z.string().optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  tokenTTLMinutes: z.number().optional(),
+  sendHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  excludeSelf: z.boolean().optional(),
+  hosts: z.array(models.ItemsTypeHosts$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsTcpjson$outboundSchema).optional(),
+  authToken: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputTcpjsonToJSON(outputTcpjson: OutputTcpjson): string {
+  return JSON.stringify(OutputTcpjson$outboundSchema.parse(outputTcpjson));
+}
+
+/** @internal */
+export type UrlWizHec$Outbound = {
+  url: string;
+  weight?: number | undefined;
+};
+
+/** @internal */
+export const UrlWizHec$outboundSchema: z.ZodType<
+  UrlWizHec$Outbound,
+  z.ZodTypeDef,
+  UrlWizHec
+> = z.object({
+  url: z.string(),
+  weight: z.number().optional(),
+});
+
+export function urlWizHecToJSON(urlWizHec: UrlWizHec): string {
+  return JSON.stringify(UrlWizHec$outboundSchema.parse(urlWizHec));
+}
+
+/** @internal */
+export type OutputWizHec$Outbound = {
+  id: string;
+  type: "wiz_hec";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced?: boolean | undefined;
+  nextQueue?: string | undefined;
+  tcpRouting?: string | undefined;
+  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  enableMultiMetrics?: boolean | undefined;
+  authType?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  url?: string | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlWizHec$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputWizHec$outboundSchema: z.ZodType<
+  OutputWizHec$Outbound,
+  z.ZodTypeDef,
+  OutputWizHec
+> = z.object({
+  id: z.string(),
+  type: z.literal("wiz_hec"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().optional(),
+  nextQueue: z.string().optional(),
+  tcpRouting: z.string().optional(),
+  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
+  urls: z.array(z.lazy(() => UrlWizHec$outboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {
+  return JSON.stringify(OutputWizHec$outboundSchema.parse(outputWizHec));
+}
+
+/** @internal */
+export type UrlSplunkHec$Outbound = {
+  url: string;
+  weight?: number | undefined;
+};
+
+/** @internal */
+export const UrlSplunkHec$outboundSchema: z.ZodType<
+  UrlSplunkHec$Outbound,
+  z.ZodTypeDef,
+  UrlSplunkHec
+> = z.object({
+  url: z.string(),
+  weight: z.number().optional(),
+});
+
+export function urlSplunkHecToJSON(urlSplunkHec: UrlSplunkHec): string {
+  return JSON.stringify(UrlSplunkHec$outboundSchema.parse(urlSplunkHec));
+}
+
+/** @internal */
+export type PqControlsSplunkHec$Outbound = {};
+
+/** @internal */
+export const PqControlsSplunkHec$outboundSchema: z.ZodType<
+  PqControlsSplunkHec$Outbound,
+  z.ZodTypeDef,
+  PqControlsSplunkHec
+> = z.object({});
+
+export function pqControlsSplunkHecToJSON(
+  pqControlsSplunkHec: PqControlsSplunkHec,
+): string {
+  return JSON.stringify(
+    PqControlsSplunkHec$outboundSchema.parse(pqControlsSplunkHec),
+  );
+}
+
+/** @internal */
+export type OutputSplunkHec$Outbound = {
+  id: string;
+  type: "splunk_hec";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  loadBalanced?: boolean | undefined;
+  nextQueue?: string | undefined;
+  tcpRouting?: string | undefined;
+  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  enableMultiMetrics?: boolean | undefined;
+  authType?: string | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  url?: string | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlSplunkHec$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsSplunkHec$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSplunkHec$outboundSchema: z.ZodType<
+  OutputSplunkHec$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkHec
+> = z.object({
+  id: z.string(),
+  type: z.literal("splunk_hec"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  loadBalanced: z.boolean().optional(),
+  nextQueue: z.string().optional(),
+  tcpRouting: z.string().optional(),
+  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  enableMultiMetrics: z.boolean().optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
+  urls: z.array(z.lazy(() => UrlSplunkHec$outboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsSplunkHec$outboundSchema).optional(),
+});
+
+export function outputSplunkHecToJSON(
+  outputSplunkHec: OutputSplunkHec,
+): string {
+  return JSON.stringify(OutputSplunkHec$outboundSchema.parse(outputSplunkHec));
+}
+
+/** @internal */
+export type CreateOutputAuthToken$Outbound = {
+  authType?: string | undefined;
+  authToken?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputAuthToken$outboundSchema: z.ZodType<
+  CreateOutputAuthToken$Outbound,
+  z.ZodTypeDef,
+  CreateOutputAuthToken
+> = z.object({
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  authToken: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function createOutputAuthTokenToJSON(
+  createOutputAuthToken: CreateOutputAuthToken,
+): string {
+  return JSON.stringify(
+    CreateOutputAuthToken$outboundSchema.parse(createOutputAuthToken),
+  );
+}
+
+/** @internal */
+export type IndexerDiscoveryConfigs$Outbound = {
+  site: string;
+  masterUri: string;
+  refreshIntervalSec: number;
+  rejectUnauthorized?: boolean | undefined;
+  authTokens?: Array<CreateOutputAuthToken$Outbound> | undefined;
+  authType?: string | undefined;
+  authToken?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const IndexerDiscoveryConfigs$outboundSchema: z.ZodType<
+  IndexerDiscoveryConfigs$Outbound,
+  z.ZodTypeDef,
+  IndexerDiscoveryConfigs
+> = z.object({
+  site: z.string(),
+  masterUri: z.string(),
+  refreshIntervalSec: z.number(),
+  rejectUnauthorized: z.boolean().optional(),
+  authTokens: z.array(z.lazy(() => CreateOutputAuthToken$outboundSchema))
+    .optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  authToken: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function indexerDiscoveryConfigsToJSON(
+  indexerDiscoveryConfigs: IndexerDiscoveryConfigs,
+): string {
+  return JSON.stringify(
+    IndexerDiscoveryConfigs$outboundSchema.parse(indexerDiscoveryConfigs),
+  );
+}
+
+/** @internal */
+export type PqControlsSplunkLb$Outbound = {};
+
+/** @internal */
+export const PqControlsSplunkLb$outboundSchema: z.ZodType<
+  PqControlsSplunkLb$Outbound,
+  z.ZodTypeDef,
+  PqControlsSplunkLb
+> = z.object({});
+
+export function pqControlsSplunkLbToJSON(
+  pqControlsSplunkLb: PqControlsSplunkLb,
+): string {
+  return JSON.stringify(
+    PqControlsSplunkLb$outboundSchema.parse(pqControlsSplunkLb),
+  );
+}
+
+/** @internal */
+export type OutputSplunkLb$Outbound = {
+  id: string;
+  type: "splunk_lb";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  maxConcurrentSenders?: number | undefined;
+  nestedFields?: string | undefined;
+  throttleRatePerSec?: string | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  enableMultiMetrics?: boolean | undefined;
+  enableACK?: boolean | undefined;
+  logFailedRequests?: boolean | undefined;
+  maxS2Sversion?: string | undefined;
+  onBackpressure?: string | undefined;
+  indexerDiscovery?: boolean | undefined;
+  senderUnhealthyTimeAllowance?: number | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  maxFailedHealthChecks?: number | undefined;
+  compress?: string | undefined;
+  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs$Outbound | undefined;
+  excludeSelf?: boolean | undefined;
+  hosts: Array<models.ItemsTypeHosts$Outbound>;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsSplunkLb$Outbound | undefined;
+  authToken?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkLb$outboundSchema: z.ZodType<
+  OutputSplunkLb$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkLb
+> = z.object({
+  id: z.string(),
+  type: z.literal("splunk_lb"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  nestedFields: models.NestedFieldSerializationOptions$outboundSchema
+    .optional(),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  enableMultiMetrics: z.boolean().optional(),
+  enableACK: z.boolean().optional(),
+  logFailedRequests: z.boolean().optional(),
+  maxS2Sversion: models.MaxS2SVersionOptions$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  indexerDiscovery: z.boolean().optional(),
+  senderUnhealthyTimeAllowance: z.number().optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().optional(),
+  compress: models.CompressionOptions$outboundSchema.optional(),
+  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs$outboundSchema)
+    .optional(),
+  excludeSelf: z.boolean().optional(),
+  hosts: z.array(models.ItemsTypeHosts$outboundSchema),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsSplunkLb$outboundSchema).optional(),
+  authToken: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkLbToJSON(outputSplunkLb: OutputSplunkLb): string {
+  return JSON.stringify(OutputSplunkLb$outboundSchema.parse(outputSplunkLb));
+}
+
+/** @internal */
+export type PqControlsSplunk$Outbound = {};
+
+/** @internal */
+export const PqControlsSplunk$outboundSchema: z.ZodType<
+  PqControlsSplunk$Outbound,
+  z.ZodTypeDef,
+  PqControlsSplunk
+> = z.object({});
+
+export function pqControlsSplunkToJSON(
+  pqControlsSplunk: PqControlsSplunk,
+): string {
+  return JSON.stringify(
+    PqControlsSplunk$outboundSchema.parse(pqControlsSplunk),
+  );
+}
+
+/** @internal */
+export type OutputSplunk$Outbound = {
+  id: string;
+  type: "splunk";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  host: string;
+  port: number;
+  nestedFields?: string | undefined;
+  throttleRatePerSec?: string | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  enableMultiMetrics?: boolean | undefined;
+  enableACK?: boolean | undefined;
+  logFailedRequests?: boolean | undefined;
+  maxS2Sversion?: string | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  maxFailedHealthChecks?: number | undefined;
+  compress?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsSplunk$Outbound | undefined;
+  authToken?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunk$outboundSchema: z.ZodType<
+  OutputSplunk$Outbound,
+  z.ZodTypeDef,
+  OutputSplunk
+> = z.object({
+  id: z.string(),
+  type: z.literal("splunk"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number(),
+  nestedFields: models.NestedFieldSerializationOptions$outboundSchema
+    .optional(),
+  throttleRatePerSec: z.string().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  enableMultiMetrics: z.boolean().optional(),
+  enableACK: z.boolean().optional(),
+  logFailedRequests: z.boolean().optional(),
+  maxS2Sversion: models.MaxS2SVersionOptions$outboundSchema.optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  description: z.string().optional(),
+  maxFailedHealthChecks: z.number().optional(),
+  compress: models.CompressionOptions$outboundSchema.optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsSplunk$outboundSchema).optional(),
+  authToken: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputSplunkToJSON(outputSplunk: OutputSplunk): string {
+  return JSON.stringify(OutputSplunk$outboundSchema.parse(outputSplunk));
+}
+
+/** @internal */
+export const ProtocolSyslog$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ProtocolSyslog
+> = openEnums.outboundSchema(ProtocolSyslog);
+
+/** @internal */
+export const Facility$outboundSchema: z.ZodType<
+  number,
+  z.ZodTypeDef,
+  Facility
+> = openEnums.outboundSchemaInt(Facility);
+
+/** @internal */
+export const SeveritySyslog$outboundSchema: z.ZodType<
+  number,
+  z.ZodTypeDef,
+  SeveritySyslog
+> = openEnums.outboundSchemaInt(SeveritySyslog);
+
+/** @internal */
+export const MessageFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MessageFormat
+> = openEnums.outboundSchema(MessageFormat);
+
+/** @internal */
+export const TimestampFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  TimestampFormat
+> = openEnums.outboundSchema(TimestampFormat);
+
+/** @internal */
+export type PqControlsSyslog$Outbound = {};
+
+/** @internal */
+export const PqControlsSyslog$outboundSchema: z.ZodType<
+  PqControlsSyslog$Outbound,
+  z.ZodTypeDef,
+  PqControlsSyslog
+> = z.object({});
+
+export function pqControlsSyslogToJSON(
+  pqControlsSyslog: PqControlsSyslog,
+): string {
+  return JSON.stringify(
+    PqControlsSyslog$outboundSchema.parse(pqControlsSyslog),
+  );
+}
+
+/** @internal */
+export type OutputSyslog$Outbound = {
+  id: string;
+  type: "syslog";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  protocol?: string | undefined;
+  facility?: number | undefined;
+  severity?: number | undefined;
+  appName?: string | undefined;
+  messageFormat?: string | undefined;
+  timestampFormat?: string | undefined;
+  throttleRatePerSec?: string | undefined;
+  octetCountFraming?: boolean | undefined;
+  logFailedRequests?: boolean | undefined;
+  description?: string | undefined;
+  loadBalanced?: boolean | undefined;
+  host?: string | undefined;
+  port?: number | undefined;
+  excludeSelf?: boolean | undefined;
+  hosts?: Array<models.ItemsTypeHosts$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  maxConcurrentSenders?: number | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  onBackpressure?: string | undefined;
+  maxRecordSize?: number | undefined;
+  udpDnsResolvePeriodSec?: number | undefined;
+  enableIpSpoofing?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsSyslog$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSyslog$outboundSchema: z.ZodType<
+  OutputSyslog$Outbound,
+  z.ZodTypeDef,
+  OutputSyslog
+> = z.object({
+  id: z.string(),
+  type: z.literal("syslog"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  protocol: ProtocolSyslog$outboundSchema.optional(),
+  facility: Facility$outboundSchema.optional(),
+  severity: SeveritySyslog$outboundSchema.optional(),
+  appName: z.string().optional(),
+  messageFormat: MessageFormat$outboundSchema.optional(),
+  timestampFormat: TimestampFormat$outboundSchema.optional(),
+  throttleRatePerSec: z.string().optional(),
+  octetCountFraming: z.boolean().optional(),
+  logFailedRequests: z.boolean().optional(),
+  description: z.string().optional(),
+  loadBalanced: z.boolean().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  excludeSelf: z.boolean().optional(),
+  hosts: z.array(models.ItemsTypeHosts$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  maxRecordSize: z.number().optional(),
+  udpDnsResolvePeriodSec: z.number().optional(),
+  enableIpSpoofing: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsSyslog$outboundSchema).optional(),
+});
+
+export function outputSyslogToJSON(outputSyslog: OutputSyslog): string {
+  return JSON.stringify(OutputSyslog$outboundSchema.parse(outputSyslog));
+}
+
+/** @internal */
+export type OutputDevnull$Outbound = {
+  id: string;
+  type: "devnull";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+};
+
+/** @internal */
+export const OutputDevnull$outboundSchema: z.ZodType<
+  OutputDevnull$Outbound,
+  z.ZodTypeDef,
+  OutputDevnull
+> = z.object({
+  id: z.string(),
+  type: z.literal("devnull"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+});
+
+export function outputDevnullToJSON(outputDevnull: OutputDevnull): string {
+  return JSON.stringify(OutputDevnull$outboundSchema.parse(outputDevnull));
+}
+
+/** @internal */
+export const AuthType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthType
+> = openEnums.outboundSchema(AuthType);
+
+/** @internal */
+export const EndpointConfiguration$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  EndpointConfiguration
+> = openEnums.outboundSchema(EndpointConfiguration);
+
+/** @internal */
+export const FormatSentinel$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  FormatSentinel
+> = openEnums.outboundSchema(FormatSentinel);
+
+/** @internal */
+export type PqControlsSentinel$Outbound = {};
+
+/** @internal */
+export const PqControlsSentinel$outboundSchema: z.ZodType<
+  PqControlsSentinel$Outbound,
+  z.ZodTypeDef,
+  PqControlsSentinel
+> = z.object({});
+
+export function pqControlsSentinelToJSON(
+  pqControlsSentinel: PqControlsSentinel,
+): string {
+  return JSON.stringify(
+    PqControlsSentinel$outboundSchema.parse(pqControlsSentinel),
+  );
+}
+
+/** @internal */
+export type OutputSentinel$Outbound = {
+  id: string;
+  type: "sentinel";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  keepAlive?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  loginUrl: string;
+  secret: string;
+  client_id: string;
+  scope?: string | undefined;
+  endpointURLConfiguration: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  format?: string | undefined;
+  customSourceExpression?: string | undefined;
+  customDropWhenNull?: boolean | undefined;
+  customEventDelimiter?: string | undefined;
+  customContentType?: string | undefined;
+  customPayloadExpression?: string | undefined;
+  advancedContentType?: string | undefined;
+  formatEventCode?: string | undefined;
+  formatPayloadCode?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsSentinel$Outbound | undefined;
+  url?: string | undefined;
+  dcrID?: string | undefined;
+  dceEndpoint?: string | undefined;
+  streamName?: string | undefined;
+};
+
+/** @internal */
+export const OutputSentinel$outboundSchema: z.ZodType<
+  OutputSentinel$Outbound,
+  z.ZodTypeDef,
+  OutputSentinel
+> = z.object({
+  id: z.string(),
+  type: z.literal("sentinel"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  keepAlive: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: AuthType$outboundSchema.optional(),
+  loginUrl: z.string(),
+  secret: z.string(),
+  client_id: z.string(),
+  scope: z.string().optional(),
+  endpointURLConfiguration: EndpointConfiguration$outboundSchema,
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  format: FormatSentinel$outboundSchema.optional(),
+  customSourceExpression: z.string().optional(),
+  customDropWhenNull: z.boolean().optional(),
+  customEventDelimiter: z.string().optional(),
+  customContentType: z.string().optional(),
+  customPayloadExpression: z.string().optional(),
+  advancedContentType: z.string().optional(),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsSentinel$outboundSchema).optional(),
+  url: z.string().optional(),
+  dcrID: z.string().optional(),
+  dceEndpoint: z.string().optional(),
+  streamName: z.string().optional(),
+});
+
+export function outputSentinelToJSON(outputSentinel: OutputSentinel): string {
+  return JSON.stringify(OutputSentinel$outboundSchema.parse(outputSentinel));
+}
+
+/** @internal */
+export const FormatWebhook$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  FormatWebhook
+> = openEnums.outboundSchema(FormatWebhook);
+
+/** @internal */
+export const AuthenticationTypeWebhook$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationTypeWebhook
+> = openEnums.outboundSchema(AuthenticationTypeWebhook);
+
+/** @internal */
+export type PqControlsWebhook$Outbound = {};
+
+/** @internal */
+export const PqControlsWebhook$outboundSchema: z.ZodType<
+  PqControlsWebhook$Outbound,
+  z.ZodTypeDef,
+  PqControlsWebhook
+> = z.object({});
+
+export function pqControlsWebhookToJSON(
+  pqControlsWebhook: PqControlsWebhook,
+): string {
+  return JSON.stringify(
+    PqControlsWebhook$outboundSchema.parse(pqControlsWebhook),
+  );
+}
+
+/** @internal */
+export type UrlWebhook$Outbound = {
+  url: string;
+  weight?: number | undefined;
+};
+
+/** @internal */
+export const UrlWebhook$outboundSchema: z.ZodType<
+  UrlWebhook$Outbound,
+  z.ZodTypeDef,
+  UrlWebhook
+> = z.object({
+  url: z.string(),
+  weight: z.number().optional(),
+});
+
+export function urlWebhookToJSON(urlWebhook: UrlWebhook): string {
+  return JSON.stringify(UrlWebhook$outboundSchema.parse(urlWebhook));
+}
+
+/** @internal */
+export type OutputWebhook$Outbound = {
+  id: string;
+  type: "webhook";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  method?: string | undefined;
+  format?: string | undefined;
+  keepAlive?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?:
+    | Array<models.ItemsTypeResponseRetrySettings$Outbound>
+    | undefined;
+  timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
+  tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
+  totalMemoryLimitKB?: number | undefined;
+  loadBalanced?: boolean | undefined;
+  description?: string | undefined;
+  customSourceExpression?: string | undefined;
+  customDropWhenNull?: boolean | undefined;
+  customEventDelimiter?: string | undefined;
+  customContentType?: string | undefined;
+  customPayloadExpression?: string | undefined;
+  advancedContentType?: string | undefined;
+  formatEventCode?: string | undefined;
+  formatPayloadCode?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: PqControlsWebhook$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  url?: string | undefined;
+  excludeSelf?: boolean | undefined;
+  urls?: Array<UrlWebhook$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+};
+
+/** @internal */
+export const OutputWebhook$outboundSchema: z.ZodType<
+  OutputWebhook$Outbound,
+  z.ZodTypeDef,
+  OutputWebhook
+> = z.object({
+  id: z.string(),
+  type: z.literal("webhook"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  method: models.MethodOptions$outboundSchema.optional(),
+  format: FormatWebhook$outboundSchema.optional(),
+  keepAlive: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: models
+    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(
+    models.ItemsTypeResponseRetrySettings$outboundSchema,
+  ).optional(),
+  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+    .optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: AuthenticationTypeWebhook$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
+  totalMemoryLimitKB: z.number().optional(),
+  loadBalanced: z.boolean().optional(),
+  description: z.string().optional(),
+  customSourceExpression: z.string().optional(),
+  customDropWhenNull: z.boolean().optional(),
+  customEventDelimiter: z.string().optional(),
+  customContentType: z.string().optional(),
+  customPayloadExpression: z.string().optional(),
+  advancedContentType: z.string().optional(),
+  formatEventCode: z.string().optional(),
+  formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => PqControlsWebhook$outboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  url: z.string().optional(),
+  excludeSelf: z.boolean().optional(),
+  urls: z.array(z.lazy(() => UrlWebhook$outboundSchema)).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+});
+
+export function outputWebhookToJSON(outputWebhook: OutputWebhook): string {
+  return JSON.stringify(OutputWebhook$outboundSchema.parse(outputWebhook));
+}
+
+/** @internal */
+export type OutputDefault$Outbound = {
+  id: string;
+  type: "default";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  defaultId: string;
+};
+
+/** @internal */
+export const OutputDefault$outboundSchema: z.ZodType<
+  OutputDefault$Outbound,
+  z.ZodTypeDef,
+  OutputDefault
+> = z.object({
+  id: z.string(),
+  type: z.literal("default"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  defaultId: z.string(),
+});
+
+export function outputDefaultToJSON(outputDefault: OutputDefault): string {
+  return JSON.stringify(OutputDefault$outboundSchema.parse(outputDefault));
+}
+
+/** @internal */
+export type CreateOutputRequest$Outbound =
+  | OutputDefault$Outbound
+  | OutputWebhook$Outbound
+  | OutputSentinel$Outbound
+  | OutputDevnull$Outbound
+  | OutputSyslog$Outbound
+  | OutputSplunk$Outbound
+  | OutputSplunkLb$Outbound
+  | OutputSplunkHec$Outbound
+  | OutputWizHec$Outbound
+  | OutputTcpjson$Outbound
+  | OutputWavefront$Outbound
+  | OutputSignalfx$Outbound
+  | OutputFilesystem$Outbound
+  | OutputS3$Outbound
+  | OutputAzureBlob$Outbound
+  | OutputAzureDataExplorer$Outbound
+  | OutputAzureLogs$Outbound
+  | OutputKinesis$Outbound
+  | OutputHoneycomb$Outbound
+  | OutputAzureEventhub$Outbound
+  | OutputGoogleChronicle$Outbound
+  | OutputGoogleCloudStorage$Outbound
+  | OutputGoogleCloudLogging$Outbound
+  | OutputGooglePubsub$Outbound
+  | OutputExabeam$Outbound
+  | OutputKafka$Outbound
+  | OutputConfluentCloud$Outbound
+  | OutputMsk$Outbound
+  | OutputElastic$Outbound
+  | OutputElasticCloud$Outbound
+  | OutputNewrelic$Outbound
+  | OutputNewrelicEvents$Outbound
+  | OutputInfluxdb$Outbound
+  | OutputCloudwatch$Outbound
+  | OutputMinio$Outbound
+  | OutputStatsd$Outbound
+  | OutputStatsdExt$Outbound
+  | OutputGraphite$Outbound
+  | OutputRouter$Outbound
+  | OutputSns$Outbound
+  | OutputSqs$Outbound
+  | OutputSnmp$Outbound
+  | OutputSumoLogic$Outbound
+  | OutputDatadog$Outbound
+  | (
+    | OutputGrafanaCloudGrafanaCloud1$Outbound
+    | OutputGrafanaCloudGrafanaCloud2$Outbound & { type: "grafana_cloud" }
+  )
+  | OutputLoki$Outbound
+  | OutputPrometheus$Outbound
+  | OutputRing$Outbound
+  | OutputOpenTelemetry$Outbound
+  | OutputServiceNow$Outbound
+  | OutputDataset$Outbound
+  | OutputCriblTcp$Outbound
+  | OutputCriblHttp$Outbound
+  | OutputCriblSearchEngine$Outbound
+  | OutputHumioHec$Outbound
+  | OutputCrowdstrikeNextGenSiem$Outbound
+  | OutputDlS3$Outbound
+  | OutputSecurityLake$Outbound
+  | OutputCriblLake$Outbound
+  | OutputDiskSpool$Outbound
+  | OutputClickHouse$Outbound
+  | OutputXsiam$Outbound
+  | OutputNetflow$Outbound
+  | OutputDynatraceHttp$Outbound
+  | OutputDynatraceOtlp$Outbound
+  | OutputSentinelOneAiSiem$Outbound
+  | OutputChronicle$Outbound
+  | OutputDatabricks$Outbound
+  | OutputMicrosoftFabric$Outbound
+  | OutputCloudflareR2$Outbound;
+
+/** @internal */
+export const CreateOutputRequest$outboundSchema: z.ZodType<
+  CreateOutputRequest$Outbound,
+  z.ZodTypeDef,
+  CreateOutputRequest
+> = z.union([
+  z.lazy(() => OutputDefault$outboundSchema),
+  z.lazy(() => OutputWebhook$outboundSchema),
+  z.lazy(() => OutputSentinel$outboundSchema),
+  z.lazy(() => OutputDevnull$outboundSchema),
+  z.lazy(() => OutputSyslog$outboundSchema),
+  z.lazy(() => OutputSplunk$outboundSchema),
+  z.lazy(() => OutputSplunkLb$outboundSchema),
+  z.lazy(() => OutputSplunkHec$outboundSchema),
+  z.lazy(() => OutputWizHec$outboundSchema),
+  z.lazy(() => OutputTcpjson$outboundSchema),
+  z.lazy(() => OutputWavefront$outboundSchema),
+  z.lazy(() => OutputSignalfx$outboundSchema),
+  z.lazy(() => OutputFilesystem$outboundSchema),
+  z.lazy(() => OutputS3$outboundSchema),
+  z.lazy(() => OutputAzureBlob$outboundSchema),
+  z.lazy(() => OutputAzureDataExplorer$outboundSchema),
+  z.lazy(() => OutputAzureLogs$outboundSchema),
+  z.lazy(() => OutputKinesis$outboundSchema),
+  z.lazy(() => OutputHoneycomb$outboundSchema),
+  z.lazy(() => OutputAzureEventhub$outboundSchema),
+  z.lazy(() => OutputGoogleChronicle$outboundSchema),
+  z.lazy(() => OutputGoogleCloudStorage$outboundSchema),
+  z.lazy(() => OutputGoogleCloudLogging$outboundSchema),
+  z.lazy(() => OutputGooglePubsub$outboundSchema),
+  z.lazy(() => OutputExabeam$outboundSchema),
+  z.lazy(() => OutputKafka$outboundSchema),
+  z.lazy(() => OutputConfluentCloud$outboundSchema),
+  z.lazy(() => OutputMsk$outboundSchema),
+  z.lazy(() => OutputElastic$outboundSchema),
+  z.lazy(() => OutputElasticCloud$outboundSchema),
+  z.lazy(() => OutputNewrelic$outboundSchema),
+  z.lazy(() => OutputNewrelicEvents$outboundSchema),
+  z.lazy(() => OutputInfluxdb$outboundSchema),
+  z.lazy(() => OutputCloudwatch$outboundSchema),
+  z.lazy(() => OutputMinio$outboundSchema),
+  z.lazy(() => OutputStatsd$outboundSchema),
+  z.lazy(() => OutputStatsdExt$outboundSchema),
+  z.lazy(() => OutputGraphite$outboundSchema),
+  z.lazy(() => OutputRouter$outboundSchema),
+  z.lazy(() => OutputSns$outboundSchema),
+  z.lazy(() => OutputSqs$outboundSchema),
+  z.lazy(() => OutputSnmp$outboundSchema),
+  z.lazy(() => OutputSumoLogic$outboundSchema),
+  z.lazy(() => OutputDatadog$outboundSchema),
+  z.union([
+    z.lazy(() => OutputGrafanaCloudGrafanaCloud1$outboundSchema),
+    z.lazy(() => OutputGrafanaCloudGrafanaCloud2$outboundSchema),
+  ]).and(z.object({ type: z.literal("grafana_cloud") })),
+  z.lazy(() => OutputLoki$outboundSchema),
+  z.lazy(() => OutputPrometheus$outboundSchema),
+  z.lazy(() => OutputRing$outboundSchema),
+  z.lazy(() => OutputOpenTelemetry$outboundSchema),
+  z.lazy(() => OutputServiceNow$outboundSchema),
+  z.lazy(() => OutputDataset$outboundSchema),
+  z.lazy(() => OutputCriblTcp$outboundSchema),
+  z.lazy(() => OutputCriblHttp$outboundSchema),
+  z.lazy(() => OutputCriblSearchEngine$outboundSchema),
+  z.lazy(() => OutputHumioHec$outboundSchema),
+  z.lazy(() => OutputCrowdstrikeNextGenSiem$outboundSchema),
+  z.lazy(() => OutputDlS3$outboundSchema),
+  z.lazy(() => OutputSecurityLake$outboundSchema),
+  z.lazy(() => OutputCriblLake$outboundSchema),
+  z.lazy(() => OutputDiskSpool$outboundSchema),
+  z.lazy(() => OutputClickHouse$outboundSchema),
+  z.lazy(() => OutputXsiam$outboundSchema),
+  z.lazy(() => OutputNetflow$outboundSchema),
+  z.lazy(() => OutputDynatraceHttp$outboundSchema),
+  z.lazy(() => OutputDynatraceOtlp$outboundSchema),
+  z.lazy(() => OutputSentinelOneAiSiem$outboundSchema),
+  z.lazy(() => OutputChronicle$outboundSchema),
+  z.lazy(() => OutputDatabricks$outboundSchema),
+  z.lazy(() => OutputMicrosoftFabric$outboundSchema),
+  z.lazy(() => OutputCloudflareR2$outboundSchema),
+]);
+
+export function createOutputRequestToJSON(
+  createOutputRequest: CreateOutputRequest,
+): string {
+  return JSON.stringify(
+    CreateOutputRequest$outboundSchema.parse(createOutputRequest),
   );
 }

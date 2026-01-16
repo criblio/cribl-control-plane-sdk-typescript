@@ -4,200 +4,61 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptions2,
+  AuthenticationMethodOptions2$inboundSchema,
+  AuthenticationMethodOptions2$outboundSchema,
+} from "./authenticationmethodoptions2.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Which New Relic region endpoint to use.
- */
-export const OutputNewrelicEventsRegion = {
-  /**
-   * US
-   */
-  Us: "US",
-  /**
-   * Europe
-   */
-  Eu: "EU",
-  /**
-   * Custom
-   */
-  Custom: "Custom",
-} as const;
-/**
- * Which New Relic region endpoint to use.
- */
-export type OutputNewrelicEventsRegion = OpenEnum<
-  typeof OutputNewrelicEventsRegion
->;
-
-export type OutputNewrelicEventsExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputNewrelicEventsFailedRequestLoggingMode = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputNewrelicEventsFailedRequestLoggingMode = OpenEnum<
-  typeof OutputNewrelicEventsFailedRequestLoggingMode
->;
-
-export type OutputNewrelicEventsResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputNewrelicEventsTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputNewrelicEventsBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputNewrelicEventsBackpressureBehavior = OpenEnum<
-  typeof OutputNewrelicEventsBackpressureBehavior
->;
-
-/**
- * Enter API key directly, or select a stored secret
- */
-export const OutputNewrelicEventsAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Enter API key directly, or select a stored secret
- */
-export type OutputNewrelicEventsAuthenticationMethod = OpenEnum<
-  typeof OutputNewrelicEventsAuthenticationMethod
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputNewrelicEventsMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputNewrelicEventsMode = OpenEnum<
-  typeof OutputNewrelicEventsMode
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputNewrelicEventsCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputNewrelicEventsCompression = OpenEnum<
-  typeof OutputNewrelicEventsCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputNewrelicEventsQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputNewrelicEventsQueueFullBehavior = OpenEnum<
-  typeof OutputNewrelicEventsQueueFullBehavior
->;
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  RegionOptions,
+  RegionOptions$inboundSchema,
+  RegionOptions$outboundSchema,
+} from "./regionoptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 export type OutputNewrelicEventsPqControls = {};
 
@@ -226,7 +87,7 @@ export type OutputNewrelicEvents = {
   /**
    * Which New Relic region endpoint to use.
    */
-  region?: OutputNewrelicEventsRegion | undefined;
+  region?: RegionOptions | undefined;
   /**
    * New Relic account ID
    */
@@ -270,7 +131,7 @@ export type OutputNewrelicEvents = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputNewrelicEventsExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -278,9 +139,7 @@ export type OutputNewrelicEvents = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputNewrelicEventsFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -288,10 +147,8 @@ export type OutputNewrelicEvents = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputNewrelicEventsResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputNewrelicEventsTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -299,11 +156,11 @@ export type OutputNewrelicEvents = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputNewrelicEventsBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: OutputNewrelicEventsAuthenticationMethod | undefined;
+  authType?: AuthenticationMethodOptions2 | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
@@ -317,7 +174,7 @@ export type OutputNewrelicEvents = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputNewrelicEventsMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -341,11 +198,11 @@ export type OutputNewrelicEvents = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputNewrelicEventsCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputNewrelicEventsQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputNewrelicEventsPqControls | undefined;
   /**
    * New Relic API key. Can be overridden using __newRelic_apiKey field.
@@ -356,258 +213,6 @@ export type OutputNewrelicEvents = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const OutputNewrelicEventsRegion$inboundSchema: z.ZodType<
-  OutputNewrelicEventsRegion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputNewrelicEventsRegion);
-/** @internal */
-export const OutputNewrelicEventsRegion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputNewrelicEventsRegion
-> = openEnums.outboundSchema(OutputNewrelicEventsRegion);
-
-/** @internal */
-export const OutputNewrelicEventsExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputNewrelicEventsExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputNewrelicEventsExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputNewrelicEventsExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputNewrelicEventsExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputNewrelicEventsExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputNewrelicEventsExtraHttpHeaderToJSON(
-  outputNewrelicEventsExtraHttpHeader: OutputNewrelicEventsExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputNewrelicEventsExtraHttpHeader$outboundSchema.parse(
-      outputNewrelicEventsExtraHttpHeader,
-    ),
-  );
-}
-export function outputNewrelicEventsExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputNewrelicEventsExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputNewrelicEventsExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputNewrelicEventsExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputNewrelicEventsFailedRequestLoggingMode$inboundSchema:
-  z.ZodType<
-    OutputNewrelicEventsFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputNewrelicEventsFailedRequestLoggingMode);
-/** @internal */
-export const OutputNewrelicEventsFailedRequestLoggingMode$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputNewrelicEventsFailedRequestLoggingMode
-  > = openEnums.outboundSchema(OutputNewrelicEventsFailedRequestLoggingMode);
-
-/** @internal */
-export const OutputNewrelicEventsResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputNewrelicEventsResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputNewrelicEventsResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputNewrelicEventsResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputNewrelicEventsResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputNewrelicEventsResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputNewrelicEventsResponseRetrySettingToJSON(
-  outputNewrelicEventsResponseRetrySetting:
-    OutputNewrelicEventsResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputNewrelicEventsResponseRetrySetting$outboundSchema.parse(
-      outputNewrelicEventsResponseRetrySetting,
-    ),
-  );
-}
-export function outputNewrelicEventsResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputNewrelicEventsResponseRetrySetting,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputNewrelicEventsResponseRetrySetting$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputNewrelicEventsResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputNewrelicEventsTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputNewrelicEventsTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputNewrelicEventsTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputNewrelicEventsTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputNewrelicEventsTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputNewrelicEventsTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputNewrelicEventsTimeoutRetrySettingsToJSON(
-  outputNewrelicEventsTimeoutRetrySettings:
-    OutputNewrelicEventsTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputNewrelicEventsTimeoutRetrySettings$outboundSchema.parse(
-      outputNewrelicEventsTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputNewrelicEventsTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputNewrelicEventsTimeoutRetrySettings,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputNewrelicEventsTimeoutRetrySettings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputNewrelicEventsTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputNewrelicEventsBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputNewrelicEventsBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputNewrelicEventsBackpressureBehavior);
-/** @internal */
-export const OutputNewrelicEventsBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputNewrelicEventsBackpressureBehavior
-> = openEnums.outboundSchema(OutputNewrelicEventsBackpressureBehavior);
-
-/** @internal */
-export const OutputNewrelicEventsAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputNewrelicEventsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputNewrelicEventsAuthenticationMethod);
-/** @internal */
-export const OutputNewrelicEventsAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputNewrelicEventsAuthenticationMethod
-> = openEnums.outboundSchema(OutputNewrelicEventsAuthenticationMethod);
-
-/** @internal */
-export const OutputNewrelicEventsMode$inboundSchema: z.ZodType<
-  OutputNewrelicEventsMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputNewrelicEventsMode);
-/** @internal */
-export const OutputNewrelicEventsMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputNewrelicEventsMode
-> = openEnums.outboundSchema(OutputNewrelicEventsMode);
-
-/** @internal */
-export const OutputNewrelicEventsCompression$inboundSchema: z.ZodType<
-  OutputNewrelicEventsCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputNewrelicEventsCompression);
-/** @internal */
-export const OutputNewrelicEventsCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputNewrelicEventsCompression
-> = openEnums.outboundSchema(OutputNewrelicEventsCompression);
-
-/** @internal */
-export const OutputNewrelicEventsQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputNewrelicEventsQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputNewrelicEventsQueueFullBehavior);
-/** @internal */
-export const OutputNewrelicEventsQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputNewrelicEventsQueueFullBehavior
-> = openEnums.outboundSchema(OutputNewrelicEventsQueueFullBehavior);
 
 /** @internal */
 export const OutputNewrelicEventsPqControls$inboundSchema: z.ZodType<
@@ -656,49 +261,39 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: OutputNewrelicEventsRegion$inboundSchema.default("US"),
+  region: RegionOptions$inboundSchema.optional(),
   accountId: z.string(),
   eventType: z.string(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(1024),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputNewrelicEventsExtraHttpHeader$inboundSchema),
-  ).optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputNewrelicEventsFailedRequestLoggingMode$inboundSchema.default("none"),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputNewrelicEventsResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputNewrelicEventsTimeoutRetrySettings$inboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputNewrelicEventsBackpressureBehavior$inboundSchema
-    .default("block"),
-  authType: OutputNewrelicEventsAuthenticationMethod$inboundSchema.default(
-    "manual",
-  ),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
+  authType: AuthenticationMethodOptions2$inboundSchema.optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputNewrelicEventsMode$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputNewrelicEventsCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputNewrelicEventsQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputNewrelicEventsPqControls$inboundSchema)
     .optional(),
   apiKey: z.string().optional(),
@@ -712,43 +307,39 @@ export type OutputNewrelicEvents$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  region: string;
+  region?: string | undefined;
   accountId: string;
   eventType: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
-  extraHttpHeaders?:
-    | Array<OutputNewrelicEventsExtraHttpHeader$Outbound>
-    | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<OutputNewrelicEventsResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?:
-    | OutputNewrelicEventsTimeoutRetrySettings$Outbound
-    | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
-  authType: string;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputNewrelicEventsPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
@@ -766,48 +357,40 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: OutputNewrelicEventsRegion$outboundSchema.default("US"),
+  region: RegionOptions$outboundSchema.optional(),
   accountId: z.string(),
   eventType: z.string(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(1024),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputNewrelicEventsExtraHttpHeader$outboundSchema),
-  ).optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputNewrelicEventsFailedRequestLoggingMode$outboundSchema.default("none"),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputNewrelicEventsResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputNewrelicEventsTimeoutRetrySettings$outboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputNewrelicEventsBackpressureBehavior$outboundSchema
-    .default("block"),
-  authType: OutputNewrelicEventsAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: AuthenticationMethodOptions2$outboundSchema.optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputNewrelicEventsMode$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputNewrelicEventsCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputNewrelicEventsQueueFullBehavior$outboundSchema
-    .default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputNewrelicEventsPqControls$outboundSchema)
     .optional(),
   apiKey: z.string().optional(),

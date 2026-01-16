@@ -21,9 +21,11 @@ let value: OutputSnmp = {
   hosts: [
     {
       host: "gray-godparent.net",
+      port: 4283.88,
     },
   ],
-  description: "corral stark er however maestro bonnet",
+  dnsResolvePeriodSec: 5311.32,
+  description: "hence caring lobster hole metabolise",
 };
 ```
 

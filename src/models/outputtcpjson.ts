@@ -4,222 +4,50 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptionsAuthTokensItems,
+  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
+} from "./authenticationmethodoptionsauthtokensitems.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptions1,
+  CompressionOptions1$inboundSchema,
+  CompressionOptions1$outboundSchema,
+} from "./compressionoptions1.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Codec to use to compress the data before sending
- */
-export const OutputTcpjsonCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the data before sending
- */
-export type OutputTcpjsonCompression = OpenEnum<
-  typeof OutputTcpjsonCompression
->;
-
-export const OutputTcpjsonMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputTcpjsonMinimumTLSVersion = OpenEnum<
-  typeof OutputTcpjsonMinimumTLSVersion
->;
-
-export const OutputTcpjsonMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputTcpjsonMaximumTLSVersion = OpenEnum<
-  typeof OutputTcpjsonMaximumTLSVersion
->;
-
-export type OutputTcpjsonTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-   *
-   * @remarks
-   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-   */
-  servername?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  minVersion?: OutputTcpjsonMinimumTLSVersion | undefined;
-  maxVersion?: OutputTcpjsonMaximumTLSVersion | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputTcpjsonBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputTcpjsonBackpressureBehavior = OpenEnum<
-  typeof OutputTcpjsonBackpressureBehavior
->;
-
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export const OutputTcpjsonAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export type OutputTcpjsonAuthenticationMethod = OpenEnum<
-  typeof OutputTcpjsonAuthenticationMethod
->;
-
-/**
- * Whether to inherit TLS configs from group setting or disable TLS
- */
-export const OutputTcpjsonTLS = {
-  Inherit: "inherit",
-  Off: "off",
-} as const;
-/**
- * Whether to inherit TLS configs from group setting or disable TLS
- */
-export type OutputTcpjsonTLS = OpenEnum<typeof OutputTcpjsonTLS>;
-
-export type OutputTcpjsonHost = {
-  /**
-   * The hostname of the receiver
-   */
-  host: string;
-  /**
-   * The port to connect to on the provided host
-   */
-  port: number;
-  /**
-   * Whether to inherit TLS configs from group setting or disable TLS
-   */
-  tls?: OutputTcpjsonTLS | undefined;
-  /**
-   * Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
-   */
-  servername?: string | undefined;
-  /**
-   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-   */
-  weight?: number | undefined;
-};
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputTcpjsonMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputTcpjsonMode = OpenEnum<typeof OutputTcpjsonMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputTcpjsonPqCompressCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputTcpjsonPqCompressCompression = OpenEnum<
-  typeof OutputTcpjsonPqCompressCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputTcpjsonQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputTcpjsonQueueFullBehavior = OpenEnum<
-  typeof OutputTcpjsonQueueFullBehavior
->;
+import {
+  ItemsTypeHosts,
+  ItemsTypeHosts$inboundSchema,
+  ItemsTypeHosts$Outbound,
+  ItemsTypeHosts$outboundSchema,
+} from "./itemstypehosts.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TlsSettingsClientSideTypeKafkaSchemaRegistry,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
+} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
 
 export type OutputTcpjsonPqControls = {};
 
@@ -252,7 +80,7 @@ export type OutputTcpjson = {
   /**
    * Codec to use to compress the data before sending
    */
-  compression?: OutputTcpjsonCompression | undefined;
+  compression?: CompressionOptions1 | undefined;
   /**
    * Use to troubleshoot issues with sending data
    */
@@ -261,7 +89,7 @@ export type OutputTcpjson = {
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
   throttleRatePerSec?: string | undefined;
-  tls?: OutputTcpjsonTLSSettingsClientSide | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * Amount of time (milliseconds) to wait for the connection to establish before retrying
    */
@@ -281,11 +109,11 @@ export type OutputTcpjson = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputTcpjsonBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: OutputTcpjsonAuthenticationMethod | undefined;
+  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
   description?: string | undefined;
   /**
    * The hostname of the receiver
@@ -302,7 +130,7 @@ export type OutputTcpjson = {
   /**
    * Set of hosts to load-balance data to
    */
-  hosts?: Array<OutputTcpjsonHost> | undefined;
+  hosts?: Array<ItemsTypeHosts> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -326,7 +154,7 @@ export type OutputTcpjson = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputTcpjsonMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -350,11 +178,11 @@ export type OutputTcpjson = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputTcpjsonPqCompressCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputTcpjsonQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputTcpjsonPqControls | undefined;
   /**
    * Optional authentication token to include as part of the connection header
@@ -365,243 +193,6 @@ export type OutputTcpjson = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const OutputTcpjsonCompression$inboundSchema: z.ZodType<
-  OutputTcpjsonCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputTcpjsonCompression);
-/** @internal */
-export const OutputTcpjsonCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputTcpjsonCompression
-> = openEnums.outboundSchema(OutputTcpjsonCompression);
-
-/** @internal */
-export const OutputTcpjsonMinimumTLSVersion$inboundSchema: z.ZodType<
-  OutputTcpjsonMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputTcpjsonMinimumTLSVersion);
-/** @internal */
-export const OutputTcpjsonMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputTcpjsonMinimumTLSVersion
-> = openEnums.outboundSchema(OutputTcpjsonMinimumTLSVersion);
-
-/** @internal */
-export const OutputTcpjsonMaximumTLSVersion$inboundSchema: z.ZodType<
-  OutputTcpjsonMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputTcpjsonMaximumTLSVersion);
-/** @internal */
-export const OutputTcpjsonMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputTcpjsonMaximumTLSVersion
-> = openEnums.outboundSchema(OutputTcpjsonMaximumTLSVersion);
-
-/** @internal */
-export const OutputTcpjsonTLSSettingsClientSide$inboundSchema: z.ZodType<
-  OutputTcpjsonTLSSettingsClientSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputTcpjsonMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: OutputTcpjsonMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type OutputTcpjsonTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-  servername?: string | undefined;
-  certificateName?: string | undefined;
-  caPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  certPath?: string | undefined;
-  passphrase?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const OutputTcpjsonTLSSettingsClientSide$outboundSchema: z.ZodType<
-  OutputTcpjsonTLSSettingsClientSide$Outbound,
-  z.ZodTypeDef,
-  OutputTcpjsonTLSSettingsClientSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputTcpjsonMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: OutputTcpjsonMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function outputTcpjsonTLSSettingsClientSideToJSON(
-  outputTcpjsonTLSSettingsClientSide: OutputTcpjsonTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    OutputTcpjsonTLSSettingsClientSide$outboundSchema.parse(
-      outputTcpjsonTLSSettingsClientSide,
-    ),
-  );
-}
-export function outputTcpjsonTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputTcpjsonTLSSettingsClientSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputTcpjsonTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputTcpjsonTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputTcpjsonBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputTcpjsonBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputTcpjsonBackpressureBehavior);
-/** @internal */
-export const OutputTcpjsonBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputTcpjsonBackpressureBehavior
-> = openEnums.outboundSchema(OutputTcpjsonBackpressureBehavior);
-
-/** @internal */
-export const OutputTcpjsonAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputTcpjsonAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputTcpjsonAuthenticationMethod);
-/** @internal */
-export const OutputTcpjsonAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputTcpjsonAuthenticationMethod
-> = openEnums.outboundSchema(OutputTcpjsonAuthenticationMethod);
-
-/** @internal */
-export const OutputTcpjsonTLS$inboundSchema: z.ZodType<
-  OutputTcpjsonTLS,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputTcpjsonTLS);
-/** @internal */
-export const OutputTcpjsonTLS$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputTcpjsonTLS
-> = openEnums.outboundSchema(OutputTcpjsonTLS);
-
-/** @internal */
-export const OutputTcpjsonHost$inboundSchema: z.ZodType<
-  OutputTcpjsonHost,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: z.string(),
-  port: z.number(),
-  tls: OutputTcpjsonTLS$inboundSchema.default("inherit"),
-  servername: z.string().optional(),
-  weight: z.number().default(1),
-});
-/** @internal */
-export type OutputTcpjsonHost$Outbound = {
-  host: string;
-  port: number;
-  tls: string;
-  servername?: string | undefined;
-  weight: number;
-};
-
-/** @internal */
-export const OutputTcpjsonHost$outboundSchema: z.ZodType<
-  OutputTcpjsonHost$Outbound,
-  z.ZodTypeDef,
-  OutputTcpjsonHost
-> = z.object({
-  host: z.string(),
-  port: z.number(),
-  tls: OutputTcpjsonTLS$outboundSchema.default("inherit"),
-  servername: z.string().optional(),
-  weight: z.number().default(1),
-});
-
-export function outputTcpjsonHostToJSON(
-  outputTcpjsonHost: OutputTcpjsonHost,
-): string {
-  return JSON.stringify(
-    OutputTcpjsonHost$outboundSchema.parse(outputTcpjsonHost),
-  );
-}
-export function outputTcpjsonHostFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputTcpjsonHost, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputTcpjsonHost$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputTcpjsonHost' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputTcpjsonMode$inboundSchema: z.ZodType<
-  OutputTcpjsonMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputTcpjsonMode);
-/** @internal */
-export const OutputTcpjsonMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputTcpjsonMode
-> = openEnums.outboundSchema(OutputTcpjsonMode);
-
-/** @internal */
-export const OutputTcpjsonPqCompressCompression$inboundSchema: z.ZodType<
-  OutputTcpjsonPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputTcpjsonPqCompressCompression);
-/** @internal */
-export const OutputTcpjsonPqCompressCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputTcpjsonPqCompressCompression
-> = openEnums.outboundSchema(OutputTcpjsonPqCompressCompression);
-
-/** @internal */
-export const OutputTcpjsonQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputTcpjsonQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputTcpjsonQueueFullBehavior);
-/** @internal */
-export const OutputTcpjsonQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputTcpjsonQueueFullBehavior
-> = openEnums.outboundSchema(OutputTcpjsonQueueFullBehavior);
 
 /** @internal */
 export const OutputTcpjsonPqControls$inboundSchema: z.ZodType<
@@ -648,42 +239,37 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(true),
-  compression: OutputTcpjsonCompression$inboundSchema.default("gzip"),
-  logFailedRequests: z.boolean().default(false),
-  throttleRatePerSec: z.string().default("0"),
-  tls: z.lazy(() => OutputTcpjsonTLSSettingsClientSide$inboundSchema)
-    .optional(),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
-  tokenTTLMinutes: z.number().default(60),
-  sendHeader: z.boolean().default(true),
-  onBackpressure: OutputTcpjsonBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  authType: OutputTcpjsonAuthenticationMethod$inboundSchema.default("manual"),
+  loadBalanced: z.boolean().optional(),
+  compression: CompressionOptions1$inboundSchema.optional(),
+  logFailedRequests: z.boolean().optional(),
+  throttleRatePerSec: z.string().optional(),
+  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  tokenTTLMinutes: z.number().optional(),
+  sendHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
+  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
-  excludeSelf: z.boolean().default(false),
-  hosts: z.array(z.lazy(() => OutputTcpjsonHost$inboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputTcpjsonMode$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputTcpjsonPqCompressCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputTcpjsonQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
+  excludeSelf: z.boolean().optional(),
+  hosts: z.array(ItemsTypeHosts$inboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputTcpjsonPqControls$inboundSchema).optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 /** @internal */
@@ -694,37 +280,37 @@ export type OutputTcpjson$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
-  compression: string;
-  logFailedRequests: boolean;
-  throttleRatePerSec: string;
-  tls?: OutputTcpjsonTLSSettingsClientSide$Outbound | undefined;
-  connectionTimeout: number;
-  writeTimeout: number;
-  tokenTTLMinutes: number;
-  sendHeader: boolean;
-  onBackpressure: string;
-  authType: string;
+  loadBalanced?: boolean | undefined;
+  compression?: string | undefined;
+  logFailedRequests?: boolean | undefined;
+  throttleRatePerSec?: string | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  tokenTTLMinutes?: number | undefined;
+  sendHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
   host?: string | undefined;
   port?: number | undefined;
-  excludeSelf: boolean;
-  hosts?: Array<OutputTcpjsonHost$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
-  maxConcurrentSenders: number;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  excludeSelf?: boolean | undefined;
+  hosts?: Array<ItemsTypeHosts$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  maxConcurrentSenders?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputTcpjsonPqControls$Outbound | undefined;
-  authToken: string;
+  authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
@@ -740,42 +326,38 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(true),
-  compression: OutputTcpjsonCompression$outboundSchema.default("gzip"),
-  logFailedRequests: z.boolean().default(false),
-  throttleRatePerSec: z.string().default("0"),
-  tls: z.lazy(() => OutputTcpjsonTLSSettingsClientSide$outboundSchema)
+  loadBalanced: z.boolean().optional(),
+  compression: CompressionOptions1$outboundSchema.optional(),
+  logFailedRequests: z.boolean().optional(),
+  throttleRatePerSec: z.string().optional(),
+  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  tokenTTLMinutes: z.number().optional(),
+  sendHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
+  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
-  tokenTTLMinutes: z.number().default(60),
-  sendHeader: z.boolean().default(true),
-  onBackpressure: OutputTcpjsonBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  authType: OutputTcpjsonAuthenticationMethod$outboundSchema.default("manual"),
   description: z.string().optional(),
   host: z.string().optional(),
   port: z.number().optional(),
-  excludeSelf: z.boolean().default(false),
-  hosts: z.array(z.lazy(() => OutputTcpjsonHost$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputTcpjsonMode$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputTcpjsonPqCompressCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputTcpjsonQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
+  excludeSelf: z.boolean().optional(),
+  hosts: z.array(ItemsTypeHosts$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputTcpjsonPqControls$outboundSchema).optional(),
-  authToken: z.string().default(""),
+  authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 

@@ -34,11 +34,11 @@ import { Result } from "../types/fp.js";
  */
 export function destinationsCreate(
   client: CriblControlPlaneCore,
-  request: models.Output,
+  request: operations.CreateOutputRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateOutputResponse,
+    models.CountedOutput,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -59,12 +59,12 @@ export function destinationsCreate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: models.Output,
+  request: operations.CreateOutputRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.CreateOutputResponse,
+      models.CountedOutput,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,7 +80,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.Output$outboundSchema.parse(value),
+    (value) => operations.CreateOutputRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -110,8 +110,18 @@ async function $do(
     securitySource: client._options.security,
     retryConfig: options?.retries
       || client._options.retryConfig
+      || {
+        strategy: "backoff",
+        backoff: {
+          initialInterval: 500,
+          maxInterval: 60000,
+          exponent: 1.5,
+          maxElapsedTime: 3600000,
+        },
+        retryConnectionErrors: true,
+      }
       || { strategy: "none" },
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryCodes: options?.retryCodes || ["429"],
   };
 
   const requestRes = client._createRequest(context, {
@@ -145,7 +155,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateOutputResponse,
+    models.CountedOutput,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -156,7 +166,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreateOutputResponse$inboundSchema),
+    M.json(200, models.CountedOutput$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

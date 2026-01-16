@@ -1,0 +1,26 @@
+# FunctionConfSchemaSnmpTrapSerialize
+
+## Example Usage
+
+```typescript
+import { FunctionConfSchemaSnmpTrapSerialize } from "cribl-control-plane/models";
+
+let value: FunctionConfSchemaSnmpTrapSerialize = {
+  strict: false,
+  dropFailedEvents: false,
+  v3User: {
+    name: "<value>",
+    authProtocol: "sha384",
+    authKey: "<value>",
+    privProtocol: "<value>",
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                                                | Type                                                                                                                                                                                                                                 | Required                                                                                                                                                                                                                             | Description                                                                                                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `strict`                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                   | Prevent event serialization if any required fields are missing. When disabled, @{product} will attempt to serialize the event even if required fields are missing, which could cause unexpected behavior at the downstream receiver. |
+| `dropFailedEvents`                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                   | When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination                                                 |
+| `v3User`                                                                                                                                                                                                                             | [models.FunctionConfSchemaSnmpTrapSerializeV3User](../models/functionconfschemasnmptrapserializev3user.md)                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                  |

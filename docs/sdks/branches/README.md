@@ -73,7 +73,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetVersionBranchResponse](../../models/operations/getversionbranchresponse.md)\>**
+**Promise\<[models.CountedBranchInfo](../../models/countedbranchinfo.md)\>**
 
 ### Errors
 

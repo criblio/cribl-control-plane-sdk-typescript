@@ -4,291 +4,75 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeLabels,
+  ItemsTypeLabels$inboundSchema,
+  ItemsTypeLabels$Outbound,
+  ItemsTypeLabels$outboundSchema,
+} from "./itemstypelabels.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  MessageFormatOptions,
+  MessageFormatOptions$inboundSchema,
+  MessageFormatOptions$outboundSchema,
+} from "./messageformatoptions.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  PrometheusAuthType,
+  PrometheusAuthType$inboundSchema,
+  PrometheusAuthType$Outbound,
+  PrometheusAuthType$outboundSchema,
+} from "./prometheusauthtype.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 export const OutputGrafanaCloudType2 = {
   GrafanaCloud: "grafana_cloud",
 } as const;
 export type OutputGrafanaCloudType2 = ClosedEnum<
   typeof OutputGrafanaCloudType2
->;
-
-/**
- * Format to use when sending logs to Loki (Protobuf or JSON)
- */
-export const OutputGrafanaCloudMessageFormat2 = {
-  /**
-   * Protobuf
-   */
-  Protobuf: "protobuf",
-  /**
-   * JSON
-   */
-  Json: "json",
-} as const;
-/**
- * Format to use when sending logs to Loki (Protobuf or JSON)
- */
-export type OutputGrafanaCloudMessageFormat2 = OpenEnum<
-  typeof OutputGrafanaCloudMessageFormat2
->;
-
-export type OutputGrafanaCloudLabel2 = {
-  name?: string | undefined;
-  value: string;
-};
-
-export const OutputGrafanaCloudPrometheusAuthAuthenticationType2 = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Auth token
-   */
-  Token: "token",
-  /**
-   * Auth token (text secret)
-   */
-  TextSecret: "textSecret",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  CredentialsSecret: "credentialsSecret",
-} as const;
-export type OutputGrafanaCloudPrometheusAuthAuthenticationType2 = OpenEnum<
-  typeof OutputGrafanaCloudPrometheusAuthAuthenticationType2
->;
-
-export type OutputGrafanaCloudPrometheusAuth2 = {
-  authType?: OutputGrafanaCloudPrometheusAuthAuthenticationType2 | undefined;
-  /**
-   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
-   */
-  token?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-  /**
-   * Username for authentication
-   */
-  username?: string | undefined;
-  /**
-   * Password (API key in Grafana Cloud domain) for authentication
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-};
-
-export const OutputGrafanaCloudLokiAuthAuthenticationType2 = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Auth token
-   */
-  Token: "token",
-  /**
-   * Auth token (text secret)
-   */
-  TextSecret: "textSecret",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  CredentialsSecret: "credentialsSecret",
-} as const;
-export type OutputGrafanaCloudLokiAuthAuthenticationType2 = OpenEnum<
-  typeof OutputGrafanaCloudLokiAuthAuthenticationType2
->;
-
-export type OutputGrafanaCloudLokiAuth2 = {
-  authType?: OutputGrafanaCloudLokiAuthAuthenticationType2 | undefined;
-  /**
-   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
-   */
-  token?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-  /**
-   * Username for authentication
-   */
-  username?: string | undefined;
-  /**
-   * Password (API key in Grafana Cloud domain) for authentication
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-};
-
-export type OutputGrafanaCloudExtraHttpHeader2 = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputGrafanaCloudFailedRequestLoggingMode2 = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputGrafanaCloudFailedRequestLoggingMode2 = OpenEnum<
-  typeof OutputGrafanaCloudFailedRequestLoggingMode2
->;
-
-export type OutputGrafanaCloudResponseRetrySetting2 = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputGrafanaCloudTimeoutRetrySettings2 = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputGrafanaCloudBackpressureBehavior2 = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputGrafanaCloudBackpressureBehavior2 = OpenEnum<
-  typeof OutputGrafanaCloudBackpressureBehavior2
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputGrafanaCloudMode2 = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputGrafanaCloudMode2 = OpenEnum<typeof OutputGrafanaCloudMode2>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputGrafanaCloudCompression2 = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputGrafanaCloudCompression2 = OpenEnum<
-  typeof OutputGrafanaCloudCompression2
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputGrafanaCloudQueueFullBehavior2 = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputGrafanaCloudQueueFullBehavior2 = OpenEnum<
-  typeof OutputGrafanaCloudQueueFullBehavior2
 >;
 
 export type OutputGrafanaCloudPqControls2 = {};
@@ -330,17 +114,17 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Format to use when sending logs to Loki (Protobuf or JSON)
    */
-  messageFormat?: OutputGrafanaCloudMessageFormat2 | undefined;
+  messageFormat?: MessageFormatOptions | undefined;
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<OutputGrafanaCloudLabel2> | undefined;
+  labels?: Array<ItemsTypeLabels> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
   metricRenameExpr?: string | undefined;
-  prometheusAuth?: OutputGrafanaCloudPrometheusAuth2 | undefined;
-  lokiAuth?: OutputGrafanaCloudLokiAuth2 | undefined;
+  prometheusAuth?: PrometheusAuthType | undefined;
+  lokiAuth?: PrometheusAuthType | undefined;
   /**
    * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki and Prometheus to complain about entries being delivered out of order.
    */
@@ -372,7 +156,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputGrafanaCloudExtraHttpHeader2> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -380,9 +164,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputGrafanaCloudFailedRequestLoggingMode2
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -390,10 +172,8 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputGrafanaCloudResponseRetrySetting2>
-    | undefined;
-  timeoutRetrySettings?: OutputGrafanaCloudTimeoutRetrySettings2 | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -401,7 +181,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputGrafanaCloudBackpressureBehavior2 | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   description?: string | undefined;
   /**
    * Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
@@ -418,7 +198,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputGrafanaCloudMode2 | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -442,11 +222,11 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputGrafanaCloudCompression2 | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputGrafanaCloudQueueFullBehavior2 | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputGrafanaCloudPqControls2 | undefined;
 };
 
@@ -455,281 +235,6 @@ export const OutputGrafanaCloudType1 = {
 } as const;
 export type OutputGrafanaCloudType1 = ClosedEnum<
   typeof OutputGrafanaCloudType1
->;
-
-/**
- * Format to use when sending logs to Loki (Protobuf or JSON)
- */
-export const OutputGrafanaCloudMessageFormat1 = {
-  /**
-   * Protobuf
-   */
-  Protobuf: "protobuf",
-  /**
-   * JSON
-   */
-  Json: "json",
-} as const;
-/**
- * Format to use when sending logs to Loki (Protobuf or JSON)
- */
-export type OutputGrafanaCloudMessageFormat1 = OpenEnum<
-  typeof OutputGrafanaCloudMessageFormat1
->;
-
-export type OutputGrafanaCloudLabel1 = {
-  name?: string | undefined;
-  value: string;
-};
-
-export const OutputGrafanaCloudPrometheusAuthAuthenticationType1 = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Auth token
-   */
-  Token: "token",
-  /**
-   * Auth token (text secret)
-   */
-  TextSecret: "textSecret",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  CredentialsSecret: "credentialsSecret",
-} as const;
-export type OutputGrafanaCloudPrometheusAuthAuthenticationType1 = OpenEnum<
-  typeof OutputGrafanaCloudPrometheusAuthAuthenticationType1
->;
-
-export type OutputGrafanaCloudPrometheusAuth1 = {
-  authType?: OutputGrafanaCloudPrometheusAuthAuthenticationType1 | undefined;
-  /**
-   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
-   */
-  token?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-  /**
-   * Username for authentication
-   */
-  username?: string | undefined;
-  /**
-   * Password (API key in Grafana Cloud domain) for authentication
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-};
-
-export const OutputGrafanaCloudLokiAuthAuthenticationType1 = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Auth token
-   */
-  Token: "token",
-  /**
-   * Auth token (text secret)
-   */
-  TextSecret: "textSecret",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  CredentialsSecret: "credentialsSecret",
-} as const;
-export type OutputGrafanaCloudLokiAuthAuthenticationType1 = OpenEnum<
-  typeof OutputGrafanaCloudLokiAuthAuthenticationType1
->;
-
-export type OutputGrafanaCloudLokiAuth1 = {
-  authType?: OutputGrafanaCloudLokiAuthAuthenticationType1 | undefined;
-  /**
-   * Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
-   */
-  token?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-  /**
-   * Username for authentication
-   */
-  username?: string | undefined;
-  /**
-   * Password (API key in Grafana Cloud domain) for authentication
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-};
-
-export type OutputGrafanaCloudExtraHttpHeader1 = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputGrafanaCloudFailedRequestLoggingMode1 = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputGrafanaCloudFailedRequestLoggingMode1 = OpenEnum<
-  typeof OutputGrafanaCloudFailedRequestLoggingMode1
->;
-
-export type OutputGrafanaCloudResponseRetrySetting1 = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputGrafanaCloudTimeoutRetrySettings1 = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputGrafanaCloudBackpressureBehavior1 = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputGrafanaCloudBackpressureBehavior1 = OpenEnum<
-  typeof OutputGrafanaCloudBackpressureBehavior1
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputGrafanaCloudMode1 = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputGrafanaCloudMode1 = OpenEnum<typeof OutputGrafanaCloudMode1>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputGrafanaCloudCompression1 = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputGrafanaCloudCompression1 = OpenEnum<
-  typeof OutputGrafanaCloudCompression1
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputGrafanaCloudQueueFullBehavior1 = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputGrafanaCloudQueueFullBehavior1 = OpenEnum<
-  typeof OutputGrafanaCloudQueueFullBehavior1
 >;
 
 export type OutputGrafanaCloudPqControls1 = {};
@@ -771,17 +276,17 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Format to use when sending logs to Loki (Protobuf or JSON)
    */
-  messageFormat?: OutputGrafanaCloudMessageFormat1 | undefined;
+  messageFormat?: MessageFormatOptions | undefined;
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<OutputGrafanaCloudLabel1> | undefined;
+  labels?: Array<ItemsTypeLabels> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
   metricRenameExpr?: string | undefined;
-  prometheusAuth?: OutputGrafanaCloudPrometheusAuth1 | undefined;
-  lokiAuth?: OutputGrafanaCloudLokiAuth1 | undefined;
+  prometheusAuth?: PrometheusAuthType | undefined;
+  lokiAuth?: PrometheusAuthType | undefined;
   /**
    * Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki and Prometheus to complain about entries being delivered out of order.
    */
@@ -813,7 +318,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputGrafanaCloudExtraHttpHeader1> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -821,9 +326,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputGrafanaCloudFailedRequestLoggingMode1
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -831,10 +334,8 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputGrafanaCloudResponseRetrySetting1>
-    | undefined;
-  timeoutRetrySettings?: OutputGrafanaCloudTimeoutRetrySettings1 | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -842,7 +343,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputGrafanaCloudBackpressureBehavior1 | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   description?: string | undefined;
   /**
    * Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
@@ -859,7 +360,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputGrafanaCloudMode1 | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -883,11 +384,11 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputGrafanaCloudCompression1 | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputGrafanaCloudQueueFullBehavior1 | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputGrafanaCloudPqControls1 | undefined;
 };
 
@@ -903,435 +404,6 @@ export const OutputGrafanaCloudType2$inboundSchema: z.ZodNativeEnum<
 export const OutputGrafanaCloudType2$outboundSchema: z.ZodNativeEnum<
   typeof OutputGrafanaCloudType2
 > = OutputGrafanaCloudType2$inboundSchema;
-
-/** @internal */
-export const OutputGrafanaCloudMessageFormat2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudMessageFormat2,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGrafanaCloudMessageFormat2);
-/** @internal */
-export const OutputGrafanaCloudMessageFormat2$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGrafanaCloudMessageFormat2
-> = openEnums.outboundSchema(OutputGrafanaCloudMessageFormat2);
-
-/** @internal */
-export const OutputGrafanaCloudLabel2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudLabel2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().default(""),
-  value: z.string(),
-});
-/** @internal */
-export type OutputGrafanaCloudLabel2$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputGrafanaCloudLabel2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudLabel2$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudLabel2
-> = z.object({
-  name: z.string().default(""),
-  value: z.string(),
-});
-
-export function outputGrafanaCloudLabel2ToJSON(
-  outputGrafanaCloudLabel2: OutputGrafanaCloudLabel2,
-): string {
-  return JSON.stringify(
-    OutputGrafanaCloudLabel2$outboundSchema.parse(outputGrafanaCloudLabel2),
-  );
-}
-export function outputGrafanaCloudLabel2FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloudLabel2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGrafanaCloudLabel2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudLabel2' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGrafanaCloudPrometheusAuthAuthenticationType2$inboundSchema:
-  z.ZodType<
-    OutputGrafanaCloudPrometheusAuthAuthenticationType2,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    OutputGrafanaCloudPrometheusAuthAuthenticationType2,
-  );
-/** @internal */
-export const OutputGrafanaCloudPrometheusAuthAuthenticationType2$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputGrafanaCloudPrometheusAuthAuthenticationType2
-  > = openEnums.outboundSchema(
-    OutputGrafanaCloudPrometheusAuthAuthenticationType2,
-  );
-
-/** @internal */
-export const OutputGrafanaCloudPrometheusAuth2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudPrometheusAuth2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authType: OutputGrafanaCloudPrometheusAuthAuthenticationType2$inboundSchema
-    .default("basic"),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-});
-/** @internal */
-export type OutputGrafanaCloudPrometheusAuth2$Outbound = {
-  authType: string;
-  token?: string | undefined;
-  textSecret?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  credentialsSecret?: string | undefined;
-};
-
-/** @internal */
-export const OutputGrafanaCloudPrometheusAuth2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudPrometheusAuth2$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudPrometheusAuth2
-> = z.object({
-  authType: OutputGrafanaCloudPrometheusAuthAuthenticationType2$outboundSchema
-    .default("basic"),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-});
-
-export function outputGrafanaCloudPrometheusAuth2ToJSON(
-  outputGrafanaCloudPrometheusAuth2: OutputGrafanaCloudPrometheusAuth2,
-): string {
-  return JSON.stringify(
-    OutputGrafanaCloudPrometheusAuth2$outboundSchema.parse(
-      outputGrafanaCloudPrometheusAuth2,
-    ),
-  );
-}
-export function outputGrafanaCloudPrometheusAuth2FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloudPrometheusAuth2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGrafanaCloudPrometheusAuth2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudPrometheusAuth2' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGrafanaCloudLokiAuthAuthenticationType2$inboundSchema:
-  z.ZodType<
-    OutputGrafanaCloudLokiAuthAuthenticationType2,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputGrafanaCloudLokiAuthAuthenticationType2);
-/** @internal */
-export const OutputGrafanaCloudLokiAuthAuthenticationType2$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputGrafanaCloudLokiAuthAuthenticationType2
-  > = openEnums.outboundSchema(OutputGrafanaCloudLokiAuthAuthenticationType2);
-
-/** @internal */
-export const OutputGrafanaCloudLokiAuth2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudLokiAuth2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authType: OutputGrafanaCloudLokiAuthAuthenticationType2$inboundSchema.default(
-    "basic",
-  ),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-});
-/** @internal */
-export type OutputGrafanaCloudLokiAuth2$Outbound = {
-  authType: string;
-  token?: string | undefined;
-  textSecret?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  credentialsSecret?: string | undefined;
-};
-
-/** @internal */
-export const OutputGrafanaCloudLokiAuth2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudLokiAuth2$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudLokiAuth2
-> = z.object({
-  authType: OutputGrafanaCloudLokiAuthAuthenticationType2$outboundSchema
-    .default("basic"),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-});
-
-export function outputGrafanaCloudLokiAuth2ToJSON(
-  outputGrafanaCloudLokiAuth2: OutputGrafanaCloudLokiAuth2,
-): string {
-  return JSON.stringify(
-    OutputGrafanaCloudLokiAuth2$outboundSchema.parse(
-      outputGrafanaCloudLokiAuth2,
-    ),
-  );
-}
-export function outputGrafanaCloudLokiAuth2FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloudLokiAuth2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGrafanaCloudLokiAuth2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudLokiAuth2' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGrafanaCloudExtraHttpHeader2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudExtraHttpHeader2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputGrafanaCloudExtraHttpHeader2$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputGrafanaCloudExtraHttpHeader2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudExtraHttpHeader2$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudExtraHttpHeader2
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputGrafanaCloudExtraHttpHeader2ToJSON(
-  outputGrafanaCloudExtraHttpHeader2: OutputGrafanaCloudExtraHttpHeader2,
-): string {
-  return JSON.stringify(
-    OutputGrafanaCloudExtraHttpHeader2$outboundSchema.parse(
-      outputGrafanaCloudExtraHttpHeader2,
-    ),
-  );
-}
-export function outputGrafanaCloudExtraHttpHeader2FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloudExtraHttpHeader2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGrafanaCloudExtraHttpHeader2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudExtraHttpHeader2' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGrafanaCloudFailedRequestLoggingMode2$inboundSchema:
-  z.ZodType<
-    OutputGrafanaCloudFailedRequestLoggingMode2,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputGrafanaCloudFailedRequestLoggingMode2);
-/** @internal */
-export const OutputGrafanaCloudFailedRequestLoggingMode2$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputGrafanaCloudFailedRequestLoggingMode2> =
-    openEnums.outboundSchema(OutputGrafanaCloudFailedRequestLoggingMode2);
-
-/** @internal */
-export const OutputGrafanaCloudResponseRetrySetting2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudResponseRetrySetting2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputGrafanaCloudResponseRetrySetting2$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputGrafanaCloudResponseRetrySetting2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudResponseRetrySetting2$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudResponseRetrySetting2
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputGrafanaCloudResponseRetrySetting2ToJSON(
-  outputGrafanaCloudResponseRetrySetting2:
-    OutputGrafanaCloudResponseRetrySetting2,
-): string {
-  return JSON.stringify(
-    OutputGrafanaCloudResponseRetrySetting2$outboundSchema.parse(
-      outputGrafanaCloudResponseRetrySetting2,
-    ),
-  );
-}
-export function outputGrafanaCloudResponseRetrySetting2FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputGrafanaCloudResponseRetrySetting2,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGrafanaCloudResponseRetrySetting2$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputGrafanaCloudResponseRetrySetting2' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGrafanaCloudTimeoutRetrySettings2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudTimeoutRetrySettings2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputGrafanaCloudTimeoutRetrySettings2$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputGrafanaCloudTimeoutRetrySettings2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudTimeoutRetrySettings2$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudTimeoutRetrySettings2
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputGrafanaCloudTimeoutRetrySettings2ToJSON(
-  outputGrafanaCloudTimeoutRetrySettings2:
-    OutputGrafanaCloudTimeoutRetrySettings2,
-): string {
-  return JSON.stringify(
-    OutputGrafanaCloudTimeoutRetrySettings2$outboundSchema.parse(
-      outputGrafanaCloudTimeoutRetrySettings2,
-    ),
-  );
-}
-export function outputGrafanaCloudTimeoutRetrySettings2FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputGrafanaCloudTimeoutRetrySettings2,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGrafanaCloudTimeoutRetrySettings2$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputGrafanaCloudTimeoutRetrySettings2' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGrafanaCloudBackpressureBehavior2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudBackpressureBehavior2,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGrafanaCloudBackpressureBehavior2);
-/** @internal */
-export const OutputGrafanaCloudBackpressureBehavior2$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGrafanaCloudBackpressureBehavior2
-> = openEnums.outboundSchema(OutputGrafanaCloudBackpressureBehavior2);
-
-/** @internal */
-export const OutputGrafanaCloudMode2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudMode2,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGrafanaCloudMode2);
-/** @internal */
-export const OutputGrafanaCloudMode2$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGrafanaCloudMode2
-> = openEnums.outboundSchema(OutputGrafanaCloudMode2);
-
-/** @internal */
-export const OutputGrafanaCloudCompression2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudCompression2,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGrafanaCloudCompression2);
-/** @internal */
-export const OutputGrafanaCloudCompression2$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGrafanaCloudCompression2
-> = openEnums.outboundSchema(OutputGrafanaCloudCompression2);
-
-/** @internal */
-export const OutputGrafanaCloudQueueFullBehavior2$inboundSchema: z.ZodType<
-  OutputGrafanaCloudQueueFullBehavior2,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGrafanaCloudQueueFullBehavior2);
-/** @internal */
-export const OutputGrafanaCloudQueueFullBehavior2$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGrafanaCloudQueueFullBehavior2
-> = openEnums.outboundSchema(OutputGrafanaCloudQueueFullBehavior2);
 
 /** @internal */
 export const OutputGrafanaCloudPqControls2$inboundSchema: z.ZodType<
@@ -1383,52 +455,39 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
   lokiUrl: z.string().optional(),
   prometheusUrl: z.string(),
   message: z.string().optional(),
-  messageFormat: OutputGrafanaCloudMessageFormat2$inboundSchema.default(
-    "protobuf",
-  ),
-  labels: z.array(z.lazy(() => OutputGrafanaCloudLabel2$inboundSchema))
+  messageFormat: MessageFormatOptions$inboundSchema.optional(),
+  labels: z.array(ItemsTypeLabels$inboundSchema).optional(),
+  metricRenameExpr: z.string().optional(),
+  prometheusAuth: PrometheusAuthType$inboundSchema.optional(),
+  lokiAuth: PrometheusAuthType$inboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .optional(),
-  metricRenameExpr: z.string().default("name.replace(/[^a-zA-Z0-9_]/g, '_')"),
-  prometheusAuth: z.lazy(() => OutputGrafanaCloudPrometheusAuth2$inboundSchema)
-    .optional(),
-  lokiAuth: z.lazy(() => OutputGrafanaCloudLokiAuth2$inboundSchema).optional(),
-  concurrency: z.number().default(1),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(15),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputGrafanaCloudExtraHttpHeader2$inboundSchema),
-  ).optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputGrafanaCloudFailedRequestLoggingMode2$inboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputGrafanaCloudResponseRetrySetting2$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputGrafanaCloudTimeoutRetrySettings2$inboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputGrafanaCloudBackpressureBehavior2$inboundSchema.default(
-    "block",
-  ),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   description: z.string().optional(),
-  compress: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputGrafanaCloudMode2$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputGrafanaCloudCompression2$inboundSchema.default("none"),
-  pqOnBackpressure: OutputGrafanaCloudQueueFullBehavior2$inboundSchema.default(
-    "block",
-  ),
+  compress: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls2$inboundSchema)
     .optional(),
 });
@@ -1443,43 +502,39 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   lokiUrl?: string | undefined;
   prometheusUrl: string;
   message?: string | undefined;
-  messageFormat: string;
-  labels?: Array<OutputGrafanaCloudLabel2$Outbound> | undefined;
-  metricRenameExpr: string;
-  prometheusAuth?: OutputGrafanaCloudPrometheusAuth2$Outbound | undefined;
-  lokiAuth?: OutputGrafanaCloudLokiAuth2$Outbound | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
-  extraHttpHeaders?:
-    | Array<OutputGrafanaCloudExtraHttpHeader2$Outbound>
-    | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  messageFormat?: string | undefined;
+  labels?: Array<ItemsTypeLabels$Outbound> | undefined;
+  metricRenameExpr?: string | undefined;
+  prometheusAuth?: PrometheusAuthType$Outbound | undefined;
+  lokiAuth?: PrometheusAuthType$Outbound | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<OutputGrafanaCloudResponseRetrySetting2$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?:
-    | OutputGrafanaCloudTimeoutRetrySettings2$Outbound
-    | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  compress: boolean;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  compress?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputGrafanaCloudPqControls2$Outbound | undefined;
 };
 
@@ -1498,51 +553,40 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   lokiUrl: z.string().optional(),
   prometheusUrl: z.string(),
   message: z.string().optional(),
-  messageFormat: OutputGrafanaCloudMessageFormat2$outboundSchema.default(
-    "protobuf",
-  ),
-  labels: z.array(z.lazy(() => OutputGrafanaCloudLabel2$outboundSchema))
+  messageFormat: MessageFormatOptions$outboundSchema.optional(),
+  labels: z.array(ItemsTypeLabels$outboundSchema).optional(),
+  metricRenameExpr: z.string().optional(),
+  prometheusAuth: PrometheusAuthType$outboundSchema.optional(),
+  lokiAuth: PrometheusAuthType$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  metricRenameExpr: z.string().default("name.replace(/[^a-zA-Z0-9_]/g, '_')"),
-  prometheusAuth: z.lazy(() => OutputGrafanaCloudPrometheusAuth2$outboundSchema)
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
-  lokiAuth: z.lazy(() => OutputGrafanaCloudLokiAuth2$outboundSchema).optional(),
-  concurrency: z.number().default(1),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(15),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputGrafanaCloudExtraHttpHeader2$outboundSchema),
-  ).optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputGrafanaCloudFailedRequestLoggingMode2$outboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputGrafanaCloudResponseRetrySetting2$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputGrafanaCloudTimeoutRetrySettings2$outboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputGrafanaCloudBackpressureBehavior2$outboundSchema
-    .default("block"),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputGrafanaCloudMode2$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputGrafanaCloudCompression2$outboundSchema.default("none"),
-  pqOnBackpressure: OutputGrafanaCloudQueueFullBehavior2$outboundSchema.default(
-    "block",
-  ),
+  compress: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls2$outboundSchema)
     .optional(),
 });
@@ -1574,435 +618,6 @@ export const OutputGrafanaCloudType1$inboundSchema: z.ZodNativeEnum<
 export const OutputGrafanaCloudType1$outboundSchema: z.ZodNativeEnum<
   typeof OutputGrafanaCloudType1
 > = OutputGrafanaCloudType1$inboundSchema;
-
-/** @internal */
-export const OutputGrafanaCloudMessageFormat1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudMessageFormat1,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGrafanaCloudMessageFormat1);
-/** @internal */
-export const OutputGrafanaCloudMessageFormat1$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGrafanaCloudMessageFormat1
-> = openEnums.outboundSchema(OutputGrafanaCloudMessageFormat1);
-
-/** @internal */
-export const OutputGrafanaCloudLabel1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudLabel1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().default(""),
-  value: z.string(),
-});
-/** @internal */
-export type OutputGrafanaCloudLabel1$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputGrafanaCloudLabel1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudLabel1$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudLabel1
-> = z.object({
-  name: z.string().default(""),
-  value: z.string(),
-});
-
-export function outputGrafanaCloudLabel1ToJSON(
-  outputGrafanaCloudLabel1: OutputGrafanaCloudLabel1,
-): string {
-  return JSON.stringify(
-    OutputGrafanaCloudLabel1$outboundSchema.parse(outputGrafanaCloudLabel1),
-  );
-}
-export function outputGrafanaCloudLabel1FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloudLabel1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGrafanaCloudLabel1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudLabel1' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGrafanaCloudPrometheusAuthAuthenticationType1$inboundSchema:
-  z.ZodType<
-    OutputGrafanaCloudPrometheusAuthAuthenticationType1,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    OutputGrafanaCloudPrometheusAuthAuthenticationType1,
-  );
-/** @internal */
-export const OutputGrafanaCloudPrometheusAuthAuthenticationType1$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputGrafanaCloudPrometheusAuthAuthenticationType1
-  > = openEnums.outboundSchema(
-    OutputGrafanaCloudPrometheusAuthAuthenticationType1,
-  );
-
-/** @internal */
-export const OutputGrafanaCloudPrometheusAuth1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudPrometheusAuth1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authType: OutputGrafanaCloudPrometheusAuthAuthenticationType1$inboundSchema
-    .default("basic"),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-});
-/** @internal */
-export type OutputGrafanaCloudPrometheusAuth1$Outbound = {
-  authType: string;
-  token?: string | undefined;
-  textSecret?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  credentialsSecret?: string | undefined;
-};
-
-/** @internal */
-export const OutputGrafanaCloudPrometheusAuth1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudPrometheusAuth1$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudPrometheusAuth1
-> = z.object({
-  authType: OutputGrafanaCloudPrometheusAuthAuthenticationType1$outboundSchema
-    .default("basic"),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-});
-
-export function outputGrafanaCloudPrometheusAuth1ToJSON(
-  outputGrafanaCloudPrometheusAuth1: OutputGrafanaCloudPrometheusAuth1,
-): string {
-  return JSON.stringify(
-    OutputGrafanaCloudPrometheusAuth1$outboundSchema.parse(
-      outputGrafanaCloudPrometheusAuth1,
-    ),
-  );
-}
-export function outputGrafanaCloudPrometheusAuth1FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloudPrometheusAuth1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGrafanaCloudPrometheusAuth1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudPrometheusAuth1' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGrafanaCloudLokiAuthAuthenticationType1$inboundSchema:
-  z.ZodType<
-    OutputGrafanaCloudLokiAuthAuthenticationType1,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputGrafanaCloudLokiAuthAuthenticationType1);
-/** @internal */
-export const OutputGrafanaCloudLokiAuthAuthenticationType1$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputGrafanaCloudLokiAuthAuthenticationType1
-  > = openEnums.outboundSchema(OutputGrafanaCloudLokiAuthAuthenticationType1);
-
-/** @internal */
-export const OutputGrafanaCloudLokiAuth1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudLokiAuth1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authType: OutputGrafanaCloudLokiAuthAuthenticationType1$inboundSchema.default(
-    "basic",
-  ),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-});
-/** @internal */
-export type OutputGrafanaCloudLokiAuth1$Outbound = {
-  authType: string;
-  token?: string | undefined;
-  textSecret?: string | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  credentialsSecret?: string | undefined;
-};
-
-/** @internal */
-export const OutputGrafanaCloudLokiAuth1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudLokiAuth1$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudLokiAuth1
-> = z.object({
-  authType: OutputGrafanaCloudLokiAuthAuthenticationType1$outboundSchema
-    .default("basic"),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-});
-
-export function outputGrafanaCloudLokiAuth1ToJSON(
-  outputGrafanaCloudLokiAuth1: OutputGrafanaCloudLokiAuth1,
-): string {
-  return JSON.stringify(
-    OutputGrafanaCloudLokiAuth1$outboundSchema.parse(
-      outputGrafanaCloudLokiAuth1,
-    ),
-  );
-}
-export function outputGrafanaCloudLokiAuth1FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloudLokiAuth1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGrafanaCloudLokiAuth1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudLokiAuth1' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGrafanaCloudExtraHttpHeader1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudExtraHttpHeader1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputGrafanaCloudExtraHttpHeader1$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputGrafanaCloudExtraHttpHeader1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudExtraHttpHeader1$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudExtraHttpHeader1
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputGrafanaCloudExtraHttpHeader1ToJSON(
-  outputGrafanaCloudExtraHttpHeader1: OutputGrafanaCloudExtraHttpHeader1,
-): string {
-  return JSON.stringify(
-    OutputGrafanaCloudExtraHttpHeader1$outboundSchema.parse(
-      outputGrafanaCloudExtraHttpHeader1,
-    ),
-  );
-}
-export function outputGrafanaCloudExtraHttpHeader1FromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGrafanaCloudExtraHttpHeader1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGrafanaCloudExtraHttpHeader1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGrafanaCloudExtraHttpHeader1' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGrafanaCloudFailedRequestLoggingMode1$inboundSchema:
-  z.ZodType<
-    OutputGrafanaCloudFailedRequestLoggingMode1,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputGrafanaCloudFailedRequestLoggingMode1);
-/** @internal */
-export const OutputGrafanaCloudFailedRequestLoggingMode1$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputGrafanaCloudFailedRequestLoggingMode1> =
-    openEnums.outboundSchema(OutputGrafanaCloudFailedRequestLoggingMode1);
-
-/** @internal */
-export const OutputGrafanaCloudResponseRetrySetting1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudResponseRetrySetting1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputGrafanaCloudResponseRetrySetting1$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputGrafanaCloudResponseRetrySetting1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudResponseRetrySetting1$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudResponseRetrySetting1
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputGrafanaCloudResponseRetrySetting1ToJSON(
-  outputGrafanaCloudResponseRetrySetting1:
-    OutputGrafanaCloudResponseRetrySetting1,
-): string {
-  return JSON.stringify(
-    OutputGrafanaCloudResponseRetrySetting1$outboundSchema.parse(
-      outputGrafanaCloudResponseRetrySetting1,
-    ),
-  );
-}
-export function outputGrafanaCloudResponseRetrySetting1FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputGrafanaCloudResponseRetrySetting1,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGrafanaCloudResponseRetrySetting1$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputGrafanaCloudResponseRetrySetting1' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGrafanaCloudTimeoutRetrySettings1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudTimeoutRetrySettings1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputGrafanaCloudTimeoutRetrySettings1$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputGrafanaCloudTimeoutRetrySettings1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudTimeoutRetrySettings1$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudTimeoutRetrySettings1
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputGrafanaCloudTimeoutRetrySettings1ToJSON(
-  outputGrafanaCloudTimeoutRetrySettings1:
-    OutputGrafanaCloudTimeoutRetrySettings1,
-): string {
-  return JSON.stringify(
-    OutputGrafanaCloudTimeoutRetrySettings1$outboundSchema.parse(
-      outputGrafanaCloudTimeoutRetrySettings1,
-    ),
-  );
-}
-export function outputGrafanaCloudTimeoutRetrySettings1FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputGrafanaCloudTimeoutRetrySettings1,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputGrafanaCloudTimeoutRetrySettings1$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputGrafanaCloudTimeoutRetrySettings1' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGrafanaCloudBackpressureBehavior1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudBackpressureBehavior1,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGrafanaCloudBackpressureBehavior1);
-/** @internal */
-export const OutputGrafanaCloudBackpressureBehavior1$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGrafanaCloudBackpressureBehavior1
-> = openEnums.outboundSchema(OutputGrafanaCloudBackpressureBehavior1);
-
-/** @internal */
-export const OutputGrafanaCloudMode1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudMode1,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGrafanaCloudMode1);
-/** @internal */
-export const OutputGrafanaCloudMode1$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGrafanaCloudMode1
-> = openEnums.outboundSchema(OutputGrafanaCloudMode1);
-
-/** @internal */
-export const OutputGrafanaCloudCompression1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudCompression1,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGrafanaCloudCompression1);
-/** @internal */
-export const OutputGrafanaCloudCompression1$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGrafanaCloudCompression1
-> = openEnums.outboundSchema(OutputGrafanaCloudCompression1);
-
-/** @internal */
-export const OutputGrafanaCloudQueueFullBehavior1$inboundSchema: z.ZodType<
-  OutputGrafanaCloudQueueFullBehavior1,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGrafanaCloudQueueFullBehavior1);
-/** @internal */
-export const OutputGrafanaCloudQueueFullBehavior1$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGrafanaCloudQueueFullBehavior1
-> = openEnums.outboundSchema(OutputGrafanaCloudQueueFullBehavior1);
 
 /** @internal */
 export const OutputGrafanaCloudPqControls1$inboundSchema: z.ZodType<
@@ -2054,52 +669,39 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
   lokiUrl: z.string(),
   prometheusUrl: z.string().optional(),
   message: z.string().optional(),
-  messageFormat: OutputGrafanaCloudMessageFormat1$inboundSchema.default(
-    "protobuf",
-  ),
-  labels: z.array(z.lazy(() => OutputGrafanaCloudLabel1$inboundSchema))
+  messageFormat: MessageFormatOptions$inboundSchema.optional(),
+  labels: z.array(ItemsTypeLabels$inboundSchema).optional(),
+  metricRenameExpr: z.string().optional(),
+  prometheusAuth: PrometheusAuthType$inboundSchema.optional(),
+  lokiAuth: PrometheusAuthType$inboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .optional(),
-  metricRenameExpr: z.string().default("name.replace(/[^a-zA-Z0-9_]/g, '_')"),
-  prometheusAuth: z.lazy(() => OutputGrafanaCloudPrometheusAuth1$inboundSchema)
-    .optional(),
-  lokiAuth: z.lazy(() => OutputGrafanaCloudLokiAuth1$inboundSchema).optional(),
-  concurrency: z.number().default(1),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(15),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputGrafanaCloudExtraHttpHeader1$inboundSchema),
-  ).optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputGrafanaCloudFailedRequestLoggingMode1$inboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputGrafanaCloudResponseRetrySetting1$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputGrafanaCloudTimeoutRetrySettings1$inboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputGrafanaCloudBackpressureBehavior1$inboundSchema.default(
-    "block",
-  ),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   description: z.string().optional(),
-  compress: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputGrafanaCloudMode1$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputGrafanaCloudCompression1$inboundSchema.default("none"),
-  pqOnBackpressure: OutputGrafanaCloudQueueFullBehavior1$inboundSchema.default(
-    "block",
-  ),
+  compress: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls1$inboundSchema)
     .optional(),
 });
@@ -2114,43 +716,39 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   lokiUrl: string;
   prometheusUrl?: string | undefined;
   message?: string | undefined;
-  messageFormat: string;
-  labels?: Array<OutputGrafanaCloudLabel1$Outbound> | undefined;
-  metricRenameExpr: string;
-  prometheusAuth?: OutputGrafanaCloudPrometheusAuth1$Outbound | undefined;
-  lokiAuth?: OutputGrafanaCloudLokiAuth1$Outbound | undefined;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
-  extraHttpHeaders?:
-    | Array<OutputGrafanaCloudExtraHttpHeader1$Outbound>
-    | undefined;
-  useRoundRobinDns: boolean;
-  failedRequestLoggingMode: string;
+  messageFormat?: string | undefined;
+  labels?: Array<ItemsTypeLabels$Outbound> | undefined;
+  metricRenameExpr?: string | undefined;
+  prometheusAuth?: PrometheusAuthType$Outbound | undefined;
+  lokiAuth?: PrometheusAuthType$Outbound | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   responseRetrySettings?:
-    | Array<OutputGrafanaCloudResponseRetrySetting1$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?:
-    | OutputGrafanaCloudTimeoutRetrySettings1$Outbound
-    | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  compress: boolean;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  compress?: boolean | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputGrafanaCloudPqControls1$Outbound | undefined;
 };
 
@@ -2169,51 +767,40 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   lokiUrl: z.string(),
   prometheusUrl: z.string().optional(),
   message: z.string().optional(),
-  messageFormat: OutputGrafanaCloudMessageFormat1$outboundSchema.default(
-    "protobuf",
-  ),
-  labels: z.array(z.lazy(() => OutputGrafanaCloudLabel1$outboundSchema))
+  messageFormat: MessageFormatOptions$outboundSchema.optional(),
+  labels: z.array(ItemsTypeLabels$outboundSchema).optional(),
+  metricRenameExpr: z.string().optional(),
+  prometheusAuth: PrometheusAuthType$outboundSchema.optional(),
+  lokiAuth: PrometheusAuthType$outboundSchema.optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  metricRenameExpr: z.string().default("name.replace(/[^a-zA-Z0-9_]/g, '_')"),
-  prometheusAuth: z.lazy(() => OutputGrafanaCloudPrometheusAuth1$outboundSchema)
+  useRoundRobinDns: z.boolean().optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
-  lokiAuth: z.lazy(() => OutputGrafanaCloudLokiAuth1$outboundSchema).optional(),
-  concurrency: z.number().default(1),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(15),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputGrafanaCloudExtraHttpHeader1$outboundSchema),
-  ).optional(),
-  useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputGrafanaCloudFailedRequestLoggingMode1$outboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputGrafanaCloudResponseRetrySetting1$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputGrafanaCloudTimeoutRetrySettings1$outboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputGrafanaCloudBackpressureBehavior1$outboundSchema
-    .default("block"),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  compress: z.boolean().default(true),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputGrafanaCloudMode1$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputGrafanaCloudCompression1$outboundSchema.default("none"),
-  pqOnBackpressure: OutputGrafanaCloudQueueFullBehavior1$outboundSchema.default(
-    "block",
-  ),
+  compress: z.boolean().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls1$outboundSchema)
     .optional(),
 });

@@ -4,165 +4,38 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputCriblHttpConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputCriblHttpMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputCriblHttpMode = OpenEnum<typeof InputCriblHttpMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputCriblHttpCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputCriblHttpCompression = OpenEnum<
-  typeof InputCriblHttpCompression
->;
-
-export type InputCriblHttpPqControls = {};
-
-export type InputCriblHttpPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputCriblHttpMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputCriblHttpCompression | undefined;
-  pqControls?: InputCriblHttpPqControls | undefined;
-};
-
-export type InputCriblHttpAuthToken = {
-  /**
-   * Select or create a stored text secret
-   */
-  tokenSecret: string;
-  enabled?: boolean | undefined;
-  /**
-   * Optional token description
-   */
-  description?: string | undefined;
-};
-
-export const InputCriblHttpMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputCriblHttpMinimumTLSVersion = OpenEnum<
-  typeof InputCriblHttpMinimumTLSVersion
->;
-
-export const InputCriblHttpMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputCriblHttpMaximumTLSVersion = OpenEnum<
-  typeof InputCriblHttpMaximumTLSVersion
->;
-
-export type InputCriblHttpTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Regex matching allowable common names in peer certificates' subject attribute
-   */
-  commonNameRegex?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  minVersion?: InputCriblHttpMinimumTLSVersion | undefined;
-  maxVersion?: InputCriblHttpMaximumTLSVersion | undefined;
-};
-
-export type InputCriblHttpMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
+import {
+  ItemsTypeAuthTokens,
+  ItemsTypeAuthTokens$inboundSchema,
+  ItemsTypeAuthTokens$Outbound,
+  ItemsTypeAuthTokens$outboundSchema,
+} from "./itemstypeauthtokens.js";
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  TlsSettingsServerSideType,
+  TlsSettingsServerSideType$inboundSchema,
+  TlsSettingsServerSideType$Outbound,
+  TlsSettingsServerSideType$outboundSchema,
+} from "./tlssettingsserversidetype.js";
 
 export type InputCriblHttp = {
   /**
@@ -194,12 +67,12 @@ export type InputCriblHttp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputCriblHttpConnection> | undefined;
-  pq?: InputCriblHttpPq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -207,8 +80,8 @@ export type InputCriblHttp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
    */
-  authTokens?: Array<InputCriblHttpAuthToken> | undefined;
-  tls?: InputCriblHttpTLSSettingsServerSide | undefined;
+  authTokens?: Array<ItemsTypeAuthTokens> | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -256,355 +129,9 @@ export type InputCriblHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputCriblHttpMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputCriblHttpConnection$inboundSchema: z.ZodType<
-  InputCriblHttpConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputCriblHttpConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputCriblHttpConnection$outboundSchema: z.ZodType<
-  InputCriblHttpConnection$Outbound,
-  z.ZodTypeDef,
-  InputCriblHttpConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputCriblHttpConnectionToJSON(
-  inputCriblHttpConnection: InputCriblHttpConnection,
-): string {
-  return JSON.stringify(
-    InputCriblHttpConnection$outboundSchema.parse(inputCriblHttpConnection),
-  );
-}
-export function inputCriblHttpConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblHttpConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblHttpConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblHttpConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblHttpMode$inboundSchema: z.ZodType<
-  InputCriblHttpMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCriblHttpMode);
-/** @internal */
-export const InputCriblHttpMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCriblHttpMode
-> = openEnums.outboundSchema(InputCriblHttpMode);
-
-/** @internal */
-export const InputCriblHttpCompression$inboundSchema: z.ZodType<
-  InputCriblHttpCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCriblHttpCompression);
-/** @internal */
-export const InputCriblHttpCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCriblHttpCompression
-> = openEnums.outboundSchema(InputCriblHttpCompression);
-
-/** @internal */
-export const InputCriblHttpPqControls$inboundSchema: z.ZodType<
-  InputCriblHttpPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputCriblHttpPqControls$Outbound = {};
-
-/** @internal */
-export const InputCriblHttpPqControls$outboundSchema: z.ZodType<
-  InputCriblHttpPqControls$Outbound,
-  z.ZodTypeDef,
-  InputCriblHttpPqControls
-> = z.object({});
-
-export function inputCriblHttpPqControlsToJSON(
-  inputCriblHttpPqControls: InputCriblHttpPqControls,
-): string {
-  return JSON.stringify(
-    InputCriblHttpPqControls$outboundSchema.parse(inputCriblHttpPqControls),
-  );
-}
-export function inputCriblHttpPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblHttpPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblHttpPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblHttpPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblHttpPq$inboundSchema: z.ZodType<
-  InputCriblHttpPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputCriblHttpMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCriblHttpCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCriblHttpPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputCriblHttpPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputCriblHttpPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputCriblHttpPq$outboundSchema: z.ZodType<
-  InputCriblHttpPq$Outbound,
-  z.ZodTypeDef,
-  InputCriblHttpPq
-> = z.object({
-  mode: InputCriblHttpMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCriblHttpCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCriblHttpPqControls$outboundSchema).optional(),
-});
-
-export function inputCriblHttpPqToJSON(
-  inputCriblHttpPq: InputCriblHttpPq,
-): string {
-  return JSON.stringify(
-    InputCriblHttpPq$outboundSchema.parse(inputCriblHttpPq),
-  );
-}
-export function inputCriblHttpPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblHttpPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblHttpPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblHttpPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblHttpAuthToken$inboundSchema: z.ZodType<
-  InputCriblHttpAuthToken,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  tokenSecret: z.string(),
-  enabled: z.boolean().default(true),
-  description: z.string().optional(),
-});
-/** @internal */
-export type InputCriblHttpAuthToken$Outbound = {
-  tokenSecret: string;
-  enabled: boolean;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const InputCriblHttpAuthToken$outboundSchema: z.ZodType<
-  InputCriblHttpAuthToken$Outbound,
-  z.ZodTypeDef,
-  InputCriblHttpAuthToken
-> = z.object({
-  tokenSecret: z.string(),
-  enabled: z.boolean().default(true),
-  description: z.string().optional(),
-});
-
-export function inputCriblHttpAuthTokenToJSON(
-  inputCriblHttpAuthToken: InputCriblHttpAuthToken,
-): string {
-  return JSON.stringify(
-    InputCriblHttpAuthToken$outboundSchema.parse(inputCriblHttpAuthToken),
-  );
-}
-export function inputCriblHttpAuthTokenFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblHttpAuthToken, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblHttpAuthToken$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblHttpAuthToken' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblHttpMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputCriblHttpMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCriblHttpMinimumTLSVersion);
-/** @internal */
-export const InputCriblHttpMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCriblHttpMinimumTLSVersion
-> = openEnums.outboundSchema(InputCriblHttpMinimumTLSVersion);
-
-/** @internal */
-export const InputCriblHttpMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputCriblHttpMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCriblHttpMaximumTLSVersion);
-/** @internal */
-export const InputCriblHttpMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCriblHttpMaximumTLSVersion
-> = openEnums.outboundSchema(InputCriblHttpMaximumTLSVersion);
-
-/** @internal */
-export const InputCriblHttpTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputCriblHttpTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputCriblHttpMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputCriblHttpMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type InputCriblHttpTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputCriblHttpTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputCriblHttpTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputCriblHttpTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputCriblHttpMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputCriblHttpMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function inputCriblHttpTLSSettingsServerSideToJSON(
-  inputCriblHttpTLSSettingsServerSide: InputCriblHttpTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputCriblHttpTLSSettingsServerSide$outboundSchema.parse(
-      inputCriblHttpTLSSettingsServerSide,
-    ),
-  );
-}
-export function inputCriblHttpTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblHttpTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCriblHttpTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblHttpTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblHttpMetadatum$inboundSchema: z.ZodType<
-  InputCriblHttpMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputCriblHttpMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputCriblHttpMetadatum$outboundSchema: z.ZodType<
-  InputCriblHttpMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputCriblHttpMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputCriblHttpMetadatumToJSON(
-  inputCriblHttpMetadatum: InputCriblHttpMetadatum,
-): string {
-  return JSON.stringify(
-    InputCriblHttpMetadatum$outboundSchema.parse(inputCriblHttpMetadatum),
-  );
-}
-export function inputCriblHttpMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblHttpMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblHttpMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblHttpMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputCriblHttp$inboundSchema: z.ZodType<
@@ -614,64 +141,60 @@ export const InputCriblHttp$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("cribl_http"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputCriblHttpConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputCriblHttpPq$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string(),
   port: z.number(),
-  authTokens: z.array(z.lazy(() => InputCriblHttpAuthToken$inboundSchema))
-    .optional(),
-  tls: z.lazy(() => InputCriblHttpTLSSettingsServerSide$inboundSchema)
-    .optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  metadata: z.array(z.lazy(() => InputCriblHttpMetadatum$inboundSchema))
-    .optional(),
+  authTokens: z.array(ItemsTypeAuthTokens$inboundSchema).optional(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
 /** @internal */
 export type InputCriblHttp$Outbound = {
   id?: string | undefined;
   type: "cribl_http";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputCriblHttpConnection$Outbound> | undefined;
-  pq?: InputCriblHttpPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
-  authTokens?: Array<InputCriblHttpAuthToken$Outbound> | undefined;
-  tls?: InputCriblHttpTLSSettingsServerSide$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
-  metadata?: Array<InputCriblHttpMetadatum$Outbound> | undefined;
+  authTokens?: Array<ItemsTypeAuthTokens$Outbound> | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -683,34 +206,30 @@ export const InputCriblHttp$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("cribl_http"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputCriblHttpConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputCriblHttpPq$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string(),
   port: z.number(),
-  authTokens: z.array(z.lazy(() => InputCriblHttpAuthToken$outboundSchema))
-    .optional(),
-  tls: z.lazy(() => InputCriblHttpTLSSettingsServerSide$outboundSchema)
-    .optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  metadata: z.array(z.lazy(() => InputCriblHttpMetadatum$outboundSchema))
-    .optional(),
+  authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 

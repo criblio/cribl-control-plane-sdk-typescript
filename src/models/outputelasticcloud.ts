@@ -4,203 +4,63 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType,
+  AuthType$inboundSchema,
+  AuthType$Outbound,
+  AuthType$outboundSchema,
+} from "./authtype.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type OutputElasticCloudExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputElasticCloudFailedRequestLoggingMode = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputElasticCloudFailedRequestLoggingMode = OpenEnum<
-  typeof OutputElasticCloudFailedRequestLoggingMode
->;
-
-export type OutputElasticCloudExtraParam = {
-  name: string;
-  value: string;
-};
-
-/**
- * Enter credentials directly, or select a stored secret
- */
-export const OutputElasticCloudAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-  ManualAPIKey: "manualAPIKey",
-  TextSecret: "textSecret",
-} as const;
-/**
- * Enter credentials directly, or select a stored secret
- */
-export type OutputElasticCloudAuthenticationMethod = OpenEnum<
-  typeof OutputElasticCloudAuthenticationMethod
->;
-
-export type OutputElasticCloudAuth = {
-  disabled?: boolean | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  /**
-   * Enter credentials directly, or select a stored secret
-   */
-  authType?: OutputElasticCloudAuthenticationMethod | undefined;
-  /**
-   * Select or create a secret that references your credentials
-   */
-  credentialsSecret?: string | undefined;
-  /**
-   * Enter API key directly
-   */
-  manualAPIKey?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-};
-
-export type OutputElasticCloudResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputElasticCloudTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputElasticCloudBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputElasticCloudBackpressureBehavior = OpenEnum<
-  typeof OutputElasticCloudBackpressureBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputElasticCloudMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputElasticCloudMode = OpenEnum<typeof OutputElasticCloudMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputElasticCloudCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputElasticCloudCompression = OpenEnum<
-  typeof OutputElasticCloudCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputElasticCloudQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputElasticCloudQueueFullBehavior = OpenEnum<
-  typeof OutputElasticCloudQueueFullBehavior
->;
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  ItemsTypeSaslSaslExtensions,
+  ItemsTypeSaslSaslExtensions$inboundSchema,
+  ItemsTypeSaslSaslExtensions$Outbound,
+  ItemsTypeSaslSaslExtensions$outboundSchema,
+} from "./itemstypesaslsaslextensions.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 export type OutputElasticCloudPqControls = {};
 
@@ -269,13 +129,11 @@ export type OutputElasticCloud = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputElasticCloudExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputElasticCloudFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -283,8 +141,8 @@ export type OutputElasticCloud = {
   /**
    * Extra parameters to use in HTTP requests
    */
-  extraParams?: Array<OutputElasticCloudExtraParam> | undefined;
-  auth?: OutputElasticCloudAuth | undefined;
+  extraParams?: Array<ItemsTypeSaslSaslExtensions> | undefined;
+  auth?: AuthType | undefined;
   /**
    * Optional Elastic Cloud Destination pipeline
    */
@@ -296,10 +154,8 @@ export type OutputElasticCloud = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputElasticCloudResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputElasticCloudTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -307,7 +163,7 @@ export type OutputElasticCloud = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputElasticCloudBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -320,7 +176,7 @@ export type OutputElasticCloud = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputElasticCloudMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -344,340 +200,13 @@ export type OutputElasticCloud = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputElasticCloudCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputElasticCloudQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputElasticCloudPqControls | undefined;
 };
-
-/** @internal */
-export const OutputElasticCloudExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputElasticCloudExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputElasticCloudExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputElasticCloudExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputElasticCloudExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputElasticCloudExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputElasticCloudExtraHttpHeaderToJSON(
-  outputElasticCloudExtraHttpHeader: OutputElasticCloudExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputElasticCloudExtraHttpHeader$outboundSchema.parse(
-      outputElasticCloudExtraHttpHeader,
-    ),
-  );
-}
-export function outputElasticCloudExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputElasticCloudExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputElasticCloudExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputElasticCloudExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputElasticCloudFailedRequestLoggingMode$inboundSchema:
-  z.ZodType<OutputElasticCloudFailedRequestLoggingMode, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(OutputElasticCloudFailedRequestLoggingMode);
-/** @internal */
-export const OutputElasticCloudFailedRequestLoggingMode$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputElasticCloudFailedRequestLoggingMode> =
-    openEnums.outboundSchema(OutputElasticCloudFailedRequestLoggingMode);
-
-/** @internal */
-export const OutputElasticCloudExtraParam$inboundSchema: z.ZodType<
-  OutputElasticCloudExtraParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputElasticCloudExtraParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputElasticCloudExtraParam$outboundSchema: z.ZodType<
-  OutputElasticCloudExtraParam$Outbound,
-  z.ZodTypeDef,
-  OutputElasticCloudExtraParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function outputElasticCloudExtraParamToJSON(
-  outputElasticCloudExtraParam: OutputElasticCloudExtraParam,
-): string {
-  return JSON.stringify(
-    OutputElasticCloudExtraParam$outboundSchema.parse(
-      outputElasticCloudExtraParam,
-    ),
-  );
-}
-export function outputElasticCloudExtraParamFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputElasticCloudExtraParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputElasticCloudExtraParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputElasticCloudExtraParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputElasticCloudAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputElasticCloudAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputElasticCloudAuthenticationMethod);
-/** @internal */
-export const OutputElasticCloudAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputElasticCloudAuthenticationMethod
-> = openEnums.outboundSchema(OutputElasticCloudAuthenticationMethod);
-
-/** @internal */
-export const OutputElasticCloudAuth$inboundSchema: z.ZodType<
-  OutputElasticCloudAuth,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(false),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  authType: OutputElasticCloudAuthenticationMethod$inboundSchema.default(
-    "manual",
-  ),
-  credentialsSecret: z.string().optional(),
-  manualAPIKey: z.string().optional(),
-  textSecret: z.string().optional(),
-});
-/** @internal */
-export type OutputElasticCloudAuth$Outbound = {
-  disabled: boolean;
-  username?: string | undefined;
-  password?: string | undefined;
-  authType: string;
-  credentialsSecret?: string | undefined;
-  manualAPIKey?: string | undefined;
-  textSecret?: string | undefined;
-};
-
-/** @internal */
-export const OutputElasticCloudAuth$outboundSchema: z.ZodType<
-  OutputElasticCloudAuth$Outbound,
-  z.ZodTypeDef,
-  OutputElasticCloudAuth
-> = z.object({
-  disabled: z.boolean().default(false),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  authType: OutputElasticCloudAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
-  credentialsSecret: z.string().optional(),
-  manualAPIKey: z.string().optional(),
-  textSecret: z.string().optional(),
-});
-
-export function outputElasticCloudAuthToJSON(
-  outputElasticCloudAuth: OutputElasticCloudAuth,
-): string {
-  return JSON.stringify(
-    OutputElasticCloudAuth$outboundSchema.parse(outputElasticCloudAuth),
-  );
-}
-export function outputElasticCloudAuthFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputElasticCloudAuth, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputElasticCloudAuth$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputElasticCloudAuth' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputElasticCloudResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputElasticCloudResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputElasticCloudResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputElasticCloudResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputElasticCloudResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputElasticCloudResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputElasticCloudResponseRetrySettingToJSON(
-  outputElasticCloudResponseRetrySetting:
-    OutputElasticCloudResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputElasticCloudResponseRetrySetting$outboundSchema.parse(
-      outputElasticCloudResponseRetrySetting,
-    ),
-  );
-}
-export function outputElasticCloudResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputElasticCloudResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputElasticCloudResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputElasticCloudResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputElasticCloudTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputElasticCloudTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputElasticCloudTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputElasticCloudTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputElasticCloudTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputElasticCloudTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputElasticCloudTimeoutRetrySettingsToJSON(
-  outputElasticCloudTimeoutRetrySettings:
-    OutputElasticCloudTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputElasticCloudTimeoutRetrySettings$outboundSchema.parse(
-      outputElasticCloudTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputElasticCloudTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputElasticCloudTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputElasticCloudTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputElasticCloudTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputElasticCloudBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputElasticCloudBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputElasticCloudBackpressureBehavior);
-/** @internal */
-export const OutputElasticCloudBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputElasticCloudBackpressureBehavior
-> = openEnums.outboundSchema(OutputElasticCloudBackpressureBehavior);
-
-/** @internal */
-export const OutputElasticCloudMode$inboundSchema: z.ZodType<
-  OutputElasticCloudMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputElasticCloudMode);
-/** @internal */
-export const OutputElasticCloudMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputElasticCloudMode
-> = openEnums.outboundSchema(OutputElasticCloudMode);
-
-/** @internal */
-export const OutputElasticCloudCompression$inboundSchema: z.ZodType<
-  OutputElasticCloudCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputElasticCloudCompression);
-/** @internal */
-export const OutputElasticCloudCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputElasticCloudCompression
-> = openEnums.outboundSchema(OutputElasticCloudCompression);
-
-/** @internal */
-export const OutputElasticCloudQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputElasticCloudQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputElasticCloudQueueFullBehavior);
-/** @internal */
-export const OutputElasticCloudQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputElasticCloudQueueFullBehavior
-> = openEnums.outboundSchema(OutputElasticCloudQueueFullBehavior);
 
 /** @internal */
 export const OutputElasticCloudPqControls$inboundSchema: z.ZodType<
@@ -728,47 +257,37 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
   index: z.string(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputElasticCloudExtraHttpHeader$inboundSchema),
-  ).optional(),
-  failedRequestLoggingMode:
-    OutputElasticCloudFailedRequestLoggingMode$inboundSchema.default("none"),
-  safeHeaders: z.array(z.string()).optional(),
-  extraParams: z.array(z.lazy(() => OutputElasticCloudExtraParam$inboundSchema))
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .optional(),
-  auth: z.lazy(() => OutputElasticCloudAuth$inboundSchema).optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  extraParams: z.array(ItemsTypeSaslSaslExtensions$inboundSchema).optional(),
+  auth: AuthType$inboundSchema.optional(),
   elasticPipeline: z.string().optional(),
-  includeDocId: z.boolean().default(true),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputElasticCloudResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputElasticCloudTimeoutRetrySettings$inboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputElasticCloudBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
+  includeDocId: z.boolean().optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputElasticCloudMode$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputElasticCloudCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputElasticCloudQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputElasticCloudPqControls$inboundSchema)
     .optional(),
 });
@@ -782,41 +301,37 @@ export type OutputElasticCloud$Outbound = {
   streamtags?: Array<string> | undefined;
   url: string;
   index: string;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  compress: boolean;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
-  extraHttpHeaders?:
-    | Array<OutputElasticCloudExtraHttpHeader$Outbound>
-    | undefined;
-  failedRequestLoggingMode: string;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  extraParams?: Array<OutputElasticCloudExtraParam$Outbound> | undefined;
-  auth?: OutputElasticCloudAuth$Outbound | undefined;
+  extraParams?: Array<ItemsTypeSaslSaslExtensions$Outbound> | undefined;
+  auth?: AuthType$Outbound | undefined;
   elasticPipeline?: string | undefined;
-  includeDocId: boolean;
+  includeDocId?: boolean | undefined;
   responseRetrySettings?:
-    | Array<OutputElasticCloudResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?:
-    | OutputElasticCloudTimeoutRetrySettings$Outbound
-    | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputElasticCloudPqControls$Outbound | undefined;
 };
 
@@ -834,48 +349,38 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
   index: z.string(),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(4096),
-  maxPayloadEvents: z.number().default(0),
-  compress: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputElasticCloudExtraHttpHeader$outboundSchema),
-  ).optional(),
-  failedRequestLoggingMode:
-    OutputElasticCloudFailedRequestLoggingMode$outboundSchema.default("none"),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  extraParams: z.array(
-    z.lazy(() => OutputElasticCloudExtraParam$outboundSchema),
-  ).optional(),
-  auth: z.lazy(() => OutputElasticCloudAuth$outboundSchema).optional(),
+  extraParams: z.array(ItemsTypeSaslSaslExtensions$outboundSchema).optional(),
+  auth: AuthType$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
-  includeDocId: z.boolean().default(true),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputElasticCloudResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputElasticCloudTimeoutRetrySettings$outboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputElasticCloudBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  includeDocId: z.boolean().optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputElasticCloudMode$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputElasticCloudCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputElasticCloudQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputElasticCloudPqControls$outboundSchema)
     .optional(),
 });

@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type ListMasterWorkerEntryRequest = {
   /**
@@ -33,17 +29,6 @@ export type ListMasterWorkerEntryRequest = {
    * Starting point from which to retrieve results for this request. Use with <code>limit</code> to paginate the response into manageable batches.
    */
   offset?: number | undefined;
-};
-
-/**
- * a list of MasterWorkerEntry objects
- */
-export type ListMasterWorkerEntryResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.MasterWorkerEntry> | undefined;
 };
 
 /** @internal */
@@ -77,25 +62,5 @@ export function listMasterWorkerEntryRequestToJSON(
     ListMasterWorkerEntryRequest$outboundSchema.parse(
       listMasterWorkerEntryRequest,
     ),
-  );
-}
-
-/** @internal */
-export const ListMasterWorkerEntryResponse$inboundSchema: z.ZodType<
-  ListMasterWorkerEntryResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.MasterWorkerEntry$inboundSchema).optional(),
-});
-
-export function listMasterWorkerEntryResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMasterWorkerEntryResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMasterWorkerEntryResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMasterWorkerEntryResponse' from JSON`,
   );
 }

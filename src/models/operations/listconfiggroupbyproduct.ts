@@ -3,37 +3,23 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type ListConfigGroupByProductRequest = {
   /**
+   * Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.
+   */
+  product: models.ProductsCore;
+  /**
    * Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>.
    */
   fields?: string | undefined;
-  /**
-   * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
-   */
-  product: models.ProductsCore;
-};
-
-/**
- * a list of ConfigGroup objects
- */
-export type ListConfigGroupByProductResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup> | undefined;
 };
 
 /** @internal */
 export type ListConfigGroupByProductRequest$Outbound = {
-  fields?: string | undefined;
   product: string;
+  fields?: string | undefined;
 };
 
 /** @internal */
@@ -42,8 +28,8 @@ export const ListConfigGroupByProductRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListConfigGroupByProductRequest
 > = z.object({
-  fields: z.string().optional(),
   product: models.ProductsCore$outboundSchema,
+  fields: z.string().optional(),
 });
 
 export function listConfigGroupByProductRequestToJSON(
@@ -53,25 +39,5 @@ export function listConfigGroupByProductRequestToJSON(
     ListConfigGroupByProductRequest$outboundSchema.parse(
       listConfigGroupByProductRequest,
     ),
-  );
-}
-
-/** @internal */
-export const ListConfigGroupByProductResponse$inboundSchema: z.ZodType<
-  ListConfigGroupByProductResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.ConfigGroup$inboundSchema).optional(),
-});
-
-export function listConfigGroupByProductResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<ListConfigGroupByProductResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListConfigGroupByProductResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListConfigGroupByProductResponse' from JSON`,
   );
 }

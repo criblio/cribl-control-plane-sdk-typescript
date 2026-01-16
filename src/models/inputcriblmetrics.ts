@@ -4,95 +4,26 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputCriblmetricsConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputCriblmetricsMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputCriblmetricsMode = OpenEnum<typeof InputCriblmetricsMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputCriblmetricsCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputCriblmetricsCompression = OpenEnum<
-  typeof InputCriblmetricsCompression
->;
-
-export type InputCriblmetricsPqControls = {};
-
-export type InputCriblmetricsPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputCriblmetricsMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputCriblmetricsCompression | undefined;
-  pqControls?: InputCriblmetricsPqControls | undefined;
-};
-
-export type InputCriblmetricsMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
 export type InputCriblmetrics = {
   /**
@@ -124,8 +55,8 @@ export type InputCriblmetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputCriblmetricsConnection> | undefined;
-  pq?: InputCriblmetricsPq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * A prefix that is applied to the metrics provided by Cribl Stream
    */
@@ -137,218 +68,9 @@ export type InputCriblmetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputCriblmetricsMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputCriblmetricsConnection$inboundSchema: z.ZodType<
-  InputCriblmetricsConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputCriblmetricsConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputCriblmetricsConnection$outboundSchema: z.ZodType<
-  InputCriblmetricsConnection$Outbound,
-  z.ZodTypeDef,
-  InputCriblmetricsConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputCriblmetricsConnectionToJSON(
-  inputCriblmetricsConnection: InputCriblmetricsConnection,
-): string {
-  return JSON.stringify(
-    InputCriblmetricsConnection$outboundSchema.parse(
-      inputCriblmetricsConnection,
-    ),
-  );
-}
-export function inputCriblmetricsConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblmetricsConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblmetricsConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblmetricsConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblmetricsMode$inboundSchema: z.ZodType<
-  InputCriblmetricsMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCriblmetricsMode);
-/** @internal */
-export const InputCriblmetricsMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCriblmetricsMode
-> = openEnums.outboundSchema(InputCriblmetricsMode);
-
-/** @internal */
-export const InputCriblmetricsCompression$inboundSchema: z.ZodType<
-  InputCriblmetricsCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCriblmetricsCompression);
-/** @internal */
-export const InputCriblmetricsCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCriblmetricsCompression
-> = openEnums.outboundSchema(InputCriblmetricsCompression);
-
-/** @internal */
-export const InputCriblmetricsPqControls$inboundSchema: z.ZodType<
-  InputCriblmetricsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputCriblmetricsPqControls$Outbound = {};
-
-/** @internal */
-export const InputCriblmetricsPqControls$outboundSchema: z.ZodType<
-  InputCriblmetricsPqControls$Outbound,
-  z.ZodTypeDef,
-  InputCriblmetricsPqControls
-> = z.object({});
-
-export function inputCriblmetricsPqControlsToJSON(
-  inputCriblmetricsPqControls: InputCriblmetricsPqControls,
-): string {
-  return JSON.stringify(
-    InputCriblmetricsPqControls$outboundSchema.parse(
-      inputCriblmetricsPqControls,
-    ),
-  );
-}
-export function inputCriblmetricsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblmetricsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblmetricsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblmetricsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblmetricsPq$inboundSchema: z.ZodType<
-  InputCriblmetricsPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputCriblmetricsMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCriblmetricsCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCriblmetricsPqControls$inboundSchema)
-    .optional(),
-});
-/** @internal */
-export type InputCriblmetricsPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputCriblmetricsPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputCriblmetricsPq$outboundSchema: z.ZodType<
-  InputCriblmetricsPq$Outbound,
-  z.ZodTypeDef,
-  InputCriblmetricsPq
-> = z.object({
-  mode: InputCriblmetricsMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCriblmetricsCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCriblmetricsPqControls$outboundSchema)
-    .optional(),
-});
-
-export function inputCriblmetricsPqToJSON(
-  inputCriblmetricsPq: InputCriblmetricsPq,
-): string {
-  return JSON.stringify(
-    InputCriblmetricsPq$outboundSchema.parse(inputCriblmetricsPq),
-  );
-}
-export function inputCriblmetricsPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblmetricsPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblmetricsPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblmetricsPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCriblmetricsMetadatum$inboundSchema: z.ZodType<
-  InputCriblmetricsMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputCriblmetricsMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputCriblmetricsMetadatum$outboundSchema: z.ZodType<
-  InputCriblmetricsMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputCriblmetricsMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputCriblmetricsMetadatumToJSON(
-  inputCriblmetricsMetadatum: InputCriblmetricsMetadatum,
-): string {
-  return JSON.stringify(
-    InputCriblmetricsMetadatum$outboundSchema.parse(inputCriblmetricsMetadatum),
-  );
-}
-export function inputCriblmetricsMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCriblmetricsMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCriblmetricsMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCriblmetricsMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputCriblmetrics$inboundSchema: z.ZodType<
@@ -358,36 +80,34 @@ export const InputCriblmetrics$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("criblmetrics"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputCriblmetricsConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputCriblmetricsPq$inboundSchema).optional(),
-  prefix: z.string().default("cribl.logstream."),
-  fullFidelity: z.boolean().default(true),
-  metadata: z.array(z.lazy(() => InputCriblmetricsMetadatum$inboundSchema))
-    .optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  prefix: z.string().optional(),
+  fullFidelity: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
 /** @internal */
 export type InputCriblmetrics$Outbound = {
   id?: string | undefined;
   type: "criblmetrics";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputCriblmetricsConnection$Outbound> | undefined;
-  pq?: InputCriblmetricsPq$Outbound | undefined;
-  prefix: string;
-  fullFidelity: boolean;
-  metadata?: Array<InputCriblmetricsMetadatum$Outbound> | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  prefix?: string | undefined;
+  fullFidelity?: boolean | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -399,19 +119,17 @@ export const InputCriblmetrics$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("criblmetrics"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputCriblmetricsConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputCriblmetricsPq$outboundSchema).optional(),
-  prefix: z.string().default("cribl.logstream."),
-  fullFidelity: z.boolean().default(true),
-  metadata: z.array(z.lazy(() => InputCriblmetricsMetadatum$outboundSchema))
-    .optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  prefix: z.string().optional(),
+  fullFidelity: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 

@@ -3,31 +3,17 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetConfigGroupConfigVersionByProductAndIdRequest = {
   /**
-   * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+   * Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.
    */
   product: models.ProductsCore;
   /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to get the configuration version for.
+   * The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to get the configuration version for.
    */
   id: string;
-};
-
-/**
- * a list of string objects
- */
-export type GetConfigGroupConfigVersionByProductAndIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -55,32 +41,5 @@ export function getConfigGroupConfigVersionByProductAndIdRequestToJSON(
     GetConfigGroupConfigVersionByProductAndIdRequest$outboundSchema.parse(
       getConfigGroupConfigVersionByProductAndIdRequest,
     ),
-  );
-}
-
-/** @internal */
-export const GetConfigGroupConfigVersionByProductAndIdResponse$inboundSchema:
-  z.ZodType<
-    GetConfigGroupConfigVersionByProductAndIdResponse,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    count: z.number().int().optional(),
-    items: z.array(z.string()).optional(),
-  });
-
-export function getConfigGroupConfigVersionByProductAndIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  GetConfigGroupConfigVersionByProductAndIdResponse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      GetConfigGroupConfigVersionByProductAndIdResponse$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'GetConfigGroupConfigVersionByProductAndIdResponse' from JSON`,
   );
 }
