@@ -28,11 +28,10 @@
 
 import {
   ConfigGroup,
-  InputTcpjson,
-  OutputFilesystem,
   Pipeline,
   RoutesRoute,
 } from "../dist/esm/models";
+import { InputTcpjson, OutputFilesystem } from "../dist/esm/models/operations";
 import { baseUrl, createCriblClient } from "./auth";
 
 const PORT = 9020;
@@ -49,6 +48,7 @@ const myWorkerGroup: ConfigGroup = {
 const tcpJsonSource: InputTcpjson = {
   id: "my-tcp-json",
   type: "tcpjson",
+  host: "0.0.0.0",
   port: PORT,
   authType: "manual",
   authToken: AUTH_TOKEN,
@@ -66,6 +66,7 @@ const pipeline: Pipeline = {
   id: "my-pipeline",
   conf: {
     asyncFuncTimeout: 1000,
+    output: "default",
       functions: [{
         filter: "true",
         conf: {
