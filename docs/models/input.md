@@ -3862,6 +3862,7 @@ const value: models.InputFile = {
   depth: 8613.44,
   suppressMissingPathErrors: false,
   deleteFiles: false,
+  saltHash: true,
   includeUnidentifiableBinary: true,
 };
 ```

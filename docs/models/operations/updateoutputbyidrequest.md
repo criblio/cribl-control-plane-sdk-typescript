@@ -38,6 +38,13 @@ let value: UpdateOutputByIdRequest = {
     deadletterEnabled: false,
     onDiskFullBackpressure: "drop",
     forceCloseOnShutdown: false,
+    retrySettings: {
+      enabled: false,
+      initialBackoffMs: 192.63,
+      backoffMultiplier: 5447.21,
+      maxBackoffMs: 1266.88,
+      jitterPercent: 3342.59,
+    },
     workspaceId: "<id>",
     scope: "<value>",
     clientId: "<id>",

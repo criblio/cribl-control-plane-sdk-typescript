@@ -76,6 +76,12 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
+  RetrySettingsType,
+  RetrySettingsType$inboundSchema,
+  RetrySettingsType$Outbound,
+  RetrySettingsType$outboundSchema,
+} from "./retrysettingstype.js";
+import {
   TimeoutRetrySettingsType,
   TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
@@ -402,6 +408,7 @@ export type OutputAzureDataExplorer = {
    * Add the Output ID value to staging location
    */
   addIdToStagePath?: boolean | undefined;
+  retrySettings?: RetrySettingsType | undefined;
   /**
    * Amount of time, in seconds, to wait for a request to complete before canceling it
    */
@@ -832,6 +839,7 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   maxConcurrentFileParts: z.number().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.optional(),
   addIdToStagePath: z.boolean().optional(),
+  retrySettings: RetrySettingsType$inboundSchema.optional(),
   timeoutSec: z.number().optional(),
   flushImmediately: z.boolean().optional(),
   retainBlobOnSuccess: z.boolean().optional(),
@@ -922,6 +930,7 @@ export type OutputAzureDataExplorer$Outbound = {
   maxConcurrentFileParts?: number | undefined;
   onDiskFullBackpressure?: string | undefined;
   addIdToStagePath?: boolean | undefined;
+  retrySettings?: RetrySettingsType$Outbound | undefined;
   timeoutSec?: number | undefined;
   flushImmediately?: boolean | undefined;
   retainBlobOnSuccess?: boolean | undefined;
@@ -1017,6 +1026,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   maxConcurrentFileParts: z.number().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   addIdToStagePath: z.boolean().optional(),
+  retrySettings: RetrySettingsType$outboundSchema.optional(),
   timeoutSec: z.number().optional(),
   flushImmediately: z.boolean().optional(),
   retainBlobOnSuccess: z.boolean().optional(),

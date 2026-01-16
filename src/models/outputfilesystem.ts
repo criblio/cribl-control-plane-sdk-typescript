@@ -47,6 +47,12 @@ import {
   ParquetVersionOptions$inboundSchema,
   ParquetVersionOptions$outboundSchema,
 } from "./parquetversionoptions.js";
+import {
+  RetrySettingsType,
+  RetrySettingsType$inboundSchema,
+  RetrySettingsType$Outbound,
+  RetrySettingsType$outboundSchema,
+} from "./retrysettingstype.js";
 
 export type OutputFilesystem = {
   /**
@@ -142,6 +148,7 @@ export type OutputFilesystem = {
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: RetrySettingsType | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -243,6 +250,7 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: RetrySettingsType$inboundSchema.optional(),
   description: z.string().optional(),
   compress: CompressionOptions2$inboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$inboundSchema.optional(),
@@ -288,6 +296,7 @@ export type OutputFilesystem$Outbound = {
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: RetrySettingsType$Outbound | undefined;
   description?: string | undefined;
   compress?: string | undefined;
   compressionLevel?: string | undefined;
@@ -338,6 +347,7 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
   forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: RetrySettingsType$outboundSchema.optional(),
   description: z.string().optional(),
   compress: CompressionOptions2$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),

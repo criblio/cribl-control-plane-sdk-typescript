@@ -22,6 +22,12 @@ import {
   ObjectAclOptions1$outboundSchema,
 } from "./objectacloptions1.js";
 import {
+  RetrySettingsType,
+  RetrySettingsType$inboundSchema,
+  RetrySettingsType$Outbound,
+  RetrySettingsType$outboundSchema,
+} from "./retrysettingstype.js";
+import {
   SignatureVersionOptions4,
   SignatureVersionOptions4$inboundSchema,
   SignatureVersionOptions4$outboundSchema,
@@ -122,6 +128,7 @@ export type OutputExabeam = {
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
   onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
+  retrySettings?: RetrySettingsType | undefined;
   /**
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
    */
@@ -201,6 +208,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   onBackpressure: BackpressureBehaviorOptions1$inboundSchema.optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.optional(),
+  retrySettings: RetrySettingsType$inboundSchema.optional(),
   maxFileSizeMB: z.number().optional(),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),
@@ -240,6 +248,7 @@ export type OutputExabeam$Outbound = {
   onBackpressure?: string | undefined;
   deadletterEnabled?: boolean | undefined;
   onDiskFullBackpressure?: string | undefined;
+  retrySettings?: RetrySettingsType$Outbound | undefined;
   maxFileSizeMB?: number | undefined;
   encodedConfiguration?: string | undefined;
   collectorInstanceId: string;
@@ -284,6 +293,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
   deadletterEnabled: z.boolean().optional(),
   onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
+  retrySettings: RetrySettingsType$outboundSchema.optional(),
   maxFileSizeMB: z.number().optional(),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),
