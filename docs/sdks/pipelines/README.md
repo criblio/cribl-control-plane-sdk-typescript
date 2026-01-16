@@ -78,7 +78,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListPipelineResponse](../../models/operations/listpipelineresponse.md)\>**
+**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
 
 ### Errors
 
@@ -106,29 +106,15 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.pipelines.create({
-    id: "<id>",
+    id: "empty-pipeline",
     conf: {
-      asyncFuncTimeout: 905091,
-      description: "next tightly positively",
-      streamtags: [
-        "<value 1>",
-      ],
-      functions: [
-        {
-          id: "<id>",
-          description: "academics woot finally woot queasy bah",
-          disabled: false,
-          final: false,
-          conf: {},
-          groupId: "<id>",
-        },
-      ],
+      asyncFuncTimeout: 1000,
+      output: "default",
+      description: "",
+      streamtags: [],
+      functions: [],
       groups: {
-        "key": {
-          name: "<value>",
-          description: "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet",
-          disabled: true,
-        },
+
       },
     },
   });
@@ -158,29 +144,15 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await pipelinesCreate(criblControlPlane, {
-    id: "<id>",
+    id: "empty-pipeline",
     conf: {
-      asyncFuncTimeout: 905091,
-      description: "next tightly positively",
-      streamtags: [
-        "<value 1>",
-      ],
-      functions: [
-        {
-          id: "<id>",
-          description: "academics woot finally woot queasy bah",
-          disabled: false,
-          final: false,
-          conf: {},
-          groupId: "<id>",
-        },
-      ],
+      asyncFuncTimeout: 1000,
+      output: "default",
+      description: "",
+      streamtags: [],
+      functions: [],
       groups: {
-        "key": {
-          name: "<value>",
-          description: "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet",
-          disabled: true,
-        },
+  
       },
     },
   });
@@ -199,14 +171,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.Pipeline](../../models/pipeline.md)                                                                                                                                    | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [models.PipelineInput](../../models/pipelineinput.md)                                                                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.CreatePipelineResponse](../../models/operations/createpipelineresponse.md)\>**
+**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
 
 ### Errors
 
@@ -286,7 +258,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetPipelineByIdResponse](../../models/operations/getpipelinebyidresponse.md)\>**
+**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
 
 ### Errors
 
@@ -316,29 +288,15 @@ async function run() {
   const result = await criblControlPlane.pipelines.update({
     id: "<id>",
     pipeline: {
-      id: "<id>",
+      id: "empty-pipeline",
       conf: {
-        asyncFuncTimeout: 430119,
-        description: "reflecting for productive extroverted instead upwardly",
-        streamtags: [
-          "<value 1>",
-        ],
-        functions: [
-          {
-            id: "<id>",
-            description: "mozzarella boohoo possession as grok",
-            disabled: false,
-            final: false,
-            conf: {},
-            groupId: "<id>",
-          },
-        ],
+        asyncFuncTimeout: 1000,
+        output: "default",
+        description: "",
+        streamtags: [],
+        functions: [],
         groups: {
-          "key": {
-            name: "<value>",
-            description: "definitive ew but busily freely scaly indeed",
-            disabled: true,
-          },
+
         },
       },
     },
@@ -371,29 +329,15 @@ async function run() {
   const res = await pipelinesUpdate(criblControlPlane, {
     id: "<id>",
     pipeline: {
-      id: "<id>",
+      id: "empty-pipeline",
       conf: {
-        asyncFuncTimeout: 430119,
-        description: "reflecting for productive extroverted instead upwardly",
-        streamtags: [
-          "<value 1>",
-        ],
-        functions: [
-          {
-            id: "<id>",
-            description: "mozzarella boohoo possession as grok",
-            disabled: false,
-            final: false,
-            conf: {},
-            groupId: "<id>",
-          },
-        ],
+        asyncFuncTimeout: 1000,
+        output: "default",
+        description: "",
+        streamtags: [],
+        functions: [],
         groups: {
-          "key": {
-            name: "<value>",
-            description: "definitive ew but busily freely scaly indeed",
-            disabled: true,
-          },
+  
         },
       },
     },
@@ -420,7 +364,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdatePipelineByIdResponse](../../models/operations/updatepipelinebyidresponse.md)\>**
+**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
 
 ### Errors
 
@@ -500,7 +444,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeletePipelineByIdResponse](../../models/operations/deletepipelinebyidresponse.md)\>**
+**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
 
 ### Errors
 

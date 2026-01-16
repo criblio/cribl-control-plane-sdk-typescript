@@ -10,27 +10,40 @@ let value: UpdatePipelineByIdRequest = {
   pipeline: {
     id: "<id>",
     conf: {
-      asyncFuncTimeout: 963474,
-      description: "shinny where seldom",
+      asyncFuncTimeout: 603520,
+      output: "<value>",
+      description: "republican subsidy marketplace uh-huh",
       streamtags: [
         "<value 1>",
         "<value 2>",
       ],
       functions: [
         {
-          id: "<id>",
-          description: "regarding structure but squiggly soupy equally",
+          filter: "<value>",
+          id: "tee",
+          description: "per decision truthfully abnormally woot zealous limply",
           disabled: false,
-          final: true,
-          conf: {},
+          final: false,
+          conf: {
+            command: "<value>",
+            args: [
+              "<value 1>",
+            ],
+            restartOnExit: true,
+            env: {
+              "key": "<value>",
+              "key1": "<value>",
+            },
+          },
           groupId: "<id>",
         },
       ],
       groups: {
         "key": {
           name: "<value>",
-          description: "dream wildly but rag boohoo fondly huff",
-          disabled: false,
+          description:
+            "march meanwhile potentially although trouser wearily furthermore weary whereas",
+          disabled: true,
         },
       },
     },
@@ -40,7 +53,7 @@ let value: UpdatePipelineByIdRequest = {
 
 ## Fields
 
-| Field                                          | Type                                           | Required                                       | Description                                    |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `id`                                           | *string*                                       | :heavy_check_mark:                             | The <code>id</code> of the Pipeline to update. |
-| `pipeline`                                     | [models.Pipeline](../../models/pipeline.md)    | :heavy_check_mark:                             | Pipeline object                                |
+| Field                                                 | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | The <code>id</code> of the Pipeline to update.        |
+| `pipeline`                                            | [models.PipelineInput](../../models/pipelineinput.md) | :heavy_check_mark:                                    | Pipeline object                                       |

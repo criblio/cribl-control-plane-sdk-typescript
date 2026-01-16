@@ -8,10 +8,15 @@ import { InputWef } from "cribl-control-plane/models";
 let value: InputWef = {
   id: "<id>",
   type: "wef",
+  disabled: true,
   pipeline: "<value>",
+  sendToRoutes: false,
   environment: "<value>",
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -20,37 +25,74 @@ let value: InputWef = {
     },
   ],
   pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
     pqControls: {},
   },
+  host: "stiff-baseboard.biz",
+  port: 1432.95,
+  authMethod: "kerberos",
   tls: {
+    disabled: true,
+    rejectUnauthorized: true,
+    requestCert: false,
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
+    commonNameRegex: "<value>",
     minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
+    ocspCheck: true,
     keytab: "<value>",
     principal: "<value>",
+    ocspCheckFailClose: true,
   },
+  maxActiveReq: 433.31,
+  maxRequestsPerSocket: 881300,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  keepAliveTimeout: 3234.04,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  socketTimeout: 6412.18,
   caFingerprint: "<value>",
   keytab: "<value>",
   principal: "<value>",
+  allowMachineIdMismatch: false,
   subscriptions: [
     {
       subscriptionName: "<value>",
       version: "<value>",
-      targets: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
+      contentFormat: "RenderedText",
+      heartbeatInterval: 2153.04,
+      batchTimeout: 5580.43,
+      readExistingEvents: true,
+      sendBookmarks: false,
+      compress: false,
+      targets: [],
+      locale: "nl",
+      querySelector: "xml",
       metadata: [
         {
           name: "<value>",
           value: "<value>",
         },
       ],
+      queries: [
+        {
+          path: "/usr/libexec",
+          queryExpression: "<value>",
+        },
+      ],
+      xmlQuery: "<value>",
     },
   ],
   metadata: [
@@ -59,7 +101,9 @@ let value: InputWef = {
       value: "<value>",
     },
   ],
-  description: "bah mmm ecstatic",
+  description:
+    "pivot slight coincide when neatly obediently upbeat evenly blind saturate",
+  logFingerprintMismatch: false,
 };
 ```
 
@@ -75,10 +119,10 @@ let value: InputWef = {
 | `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
 | `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
 | `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
-| `connections`                                                                                                                                                                                                                                | [models.InputWefConnection](../models/inputwefconnection.md)[]                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
-| `pq`                                                                                                                                                                                                                                         | [models.InputWefPq](../models/inputwefpq.md)                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
-| `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
+| `connections`                                                                                                                                                                                                                                | [models.ItemsTypeConnectionsOptional](../models/itemstypeconnectionsoptional.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
+| `pq`                                                                                                                                                                                                                                         | [models.PqType](../models/pqtype.md)                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
+| `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
 | `authMethod`                                                                                                                                                                                                                                 | [models.InputWefAuthenticationMethod](../models/inputwefauthenticationmethod.md)                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | How to authenticate incoming client connections                                                                                                                                                                                              |
 | `tls`                                                                                                                                                                                                                                        | [models.MTLSSettings](../models/mtlssettings.md)                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `maxActiveReq`                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.                      |
@@ -95,6 +139,6 @@ let value: InputWef = {
 | `principal`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>                                                                                                                                                    |
 | `allowMachineIdMismatch`                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Allow events to be ingested even if their MachineID does not match the client certificate CN                                                                                                                                                 |
 | `subscriptions`                                                                                                                                                                                                                              | [models.Subscription](../models/subscription.md)[]                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                           | Subscriptions to events on forwarding endpoints                                                                                                                                                                                              |
-| `metadata`                                                                                                                                                                                                                                   | [models.InputWefMetadatum](../models/inputwefmetadatum.md)[]                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `logFingerprintMismatch`                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.                                                      |

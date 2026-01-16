@@ -1,0 +1,17 @@
+# RestCollectMethodOtherDiscovery
+
+## Example Usage
+
+```typescript
+import { RestCollectMethodOtherDiscovery } from "cribl-control-plane/models";
+
+let value: RestCollectMethodOtherDiscovery = {
+  discoverType: "none",
+};
+```
+
+## Fields
+
+| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `discoverType`                                                                                                             | [models.RestCollectMethodOtherDiscoverType](../models/restcollectmethodotherdiscovertype.md)                               | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |

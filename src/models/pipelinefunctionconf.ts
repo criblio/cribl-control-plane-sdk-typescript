@@ -6,117 +6,401 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  PipelineFunctionAggregateMetrics,
+  PipelineFunctionAggregateMetrics$inboundSchema,
+} from "./pipelinefunctionaggregatemetrics.js";
+import {
+  PipelineFunctionAggregation,
+  PipelineFunctionAggregation$inboundSchema,
+} from "./pipelinefunctionaggregation.js";
+import {
+  PipelineFunctionAutoTimestamp,
+  PipelineFunctionAutoTimestamp$inboundSchema,
+} from "./pipelinefunctionautotimestamp.js";
+import {
+  PipelineFunctionCef,
+  PipelineFunctionCef$inboundSchema,
+} from "./pipelinefunctioncef.js";
+import {
+  PipelineFunctionChain,
+  PipelineFunctionChain$inboundSchema,
+} from "./pipelinefunctionchain.js";
+import {
+  PipelineFunctionClone,
+  PipelineFunctionClone$inboundSchema,
+} from "./pipelinefunctionclone.js";
+import {
+  PipelineFunctionCode,
+  PipelineFunctionCode$inboundSchema,
+} from "./pipelinefunctioncode.js";
+import {
+  PipelineFunctionComment,
+  PipelineFunctionComment$inboundSchema,
+} from "./pipelinefunctioncomment.js";
+import {
+  PipelineFunctionDistinct,
+  PipelineFunctionDistinct$inboundSchema,
+} from "./pipelinefunctiondistinct.js";
+import {
+  PipelineFunctionDnsLookup,
+  PipelineFunctionDnsLookup$inboundSchema,
+} from "./pipelinefunctiondnslookup.js";
+import {
+  PipelineFunctionDrop,
+  PipelineFunctionDrop$inboundSchema,
+} from "./pipelinefunctiondrop.js";
+import {
+  PipelineFunctionDropDimensions,
+  PipelineFunctionDropDimensions$inboundSchema,
+} from "./pipelinefunctiondropdimensions.js";
+import {
+  PipelineFunctionDynamicSampling,
+  PipelineFunctionDynamicSampling$inboundSchema,
+} from "./pipelinefunctiondynamicsampling.js";
+import {
+  PipelineFunctionEval,
+  PipelineFunctionEval$inboundSchema,
+} from "./pipelinefunctioneval.js";
+import {
+  PipelineFunctionEventBreaker,
+  PipelineFunctionEventBreaker$inboundSchema,
+} from "./pipelinefunctioneventbreaker.js";
+import {
+  PipelineFunctionEventstats,
+  PipelineFunctionEventstats$inboundSchema,
+} from "./pipelinefunctioneventstats.js";
+import {
+  PipelineFunctionExternaldata,
+  PipelineFunctionExternaldata$inboundSchema,
+} from "./pipelinefunctionexternaldata.js";
+import {
+  PipelineFunctionFlatten,
+  PipelineFunctionFlatten$inboundSchema,
+} from "./pipelinefunctionflatten.js";
+import {
+  PipelineFunctionFoldkeys,
+  PipelineFunctionFoldkeys$inboundSchema,
+} from "./pipelinefunctionfoldkeys.js";
+import {
+  PipelineFunctionGenStats,
+  PipelineFunctionGenStats$inboundSchema,
+} from "./pipelinefunctiongenstats.js";
+import {
+  PipelineFunctionGeoip,
+  PipelineFunctionGeoip$inboundSchema,
+} from "./pipelinefunctiongeoip.js";
+import {
+  PipelineFunctionGrok,
+  PipelineFunctionGrok$inboundSchema,
+} from "./pipelinefunctiongrok.js";
+import {
+  PipelineFunctionHandlebars,
+  PipelineFunctionHandlebars$inboundSchema,
+} from "./pipelinefunctionhandlebars.js";
+import {
+  PipelineFunctionJoin,
+  PipelineFunctionJoin$inboundSchema,
+} from "./pipelinefunctionjoin.js";
+import {
+  PipelineFunctionJsonUnroll,
+  PipelineFunctionJsonUnroll$inboundSchema,
+} from "./pipelinefunctionjsonunroll.js";
+import {
+  PipelineFunctionLakeExport,
+  PipelineFunctionLakeExport$inboundSchema,
+} from "./pipelinefunctionlakeexport.js";
+import {
+  PipelineFunctionLimit,
+  PipelineFunctionLimit$inboundSchema,
+} from "./pipelinefunctionlimit.js";
+import {
+  PipelineFunctionLocalSearchDatatypeParser,
+  PipelineFunctionLocalSearchDatatypeParser$inboundSchema,
+} from "./pipelinefunctionlocalsearchdatatypeparser.js";
+import {
+  PipelineFunctionLocalSearchRulesetRunner,
+  PipelineFunctionLocalSearchRulesetRunner$inboundSchema,
+} from "./pipelinefunctionlocalsearchrulesetrunner.js";
+import {
+  PipelineFunctionLookup,
+  PipelineFunctionLookup$inboundSchema,
+} from "./pipelinefunctionlookup.js";
+import {
+  PipelineFunctionMask,
+  PipelineFunctionMask$inboundSchema,
+} from "./pipelinefunctionmask.js";
+import {
+  PipelineFunctionMvExpand,
+  PipelineFunctionMvExpand$inboundSchema,
+} from "./pipelinefunctionmvexpand.js";
+import {
+  PipelineFunctionMvPull,
+  PipelineFunctionMvPull$inboundSchema,
+} from "./pipelinefunctionmvpull.js";
+import {
+  PipelineFunctionNotificationPolicies,
+  PipelineFunctionNotificationPolicies$inboundSchema,
+} from "./pipelinefunctionnotificationpolicies.js";
+import {
+  PipelineFunctionNotifications,
+  PipelineFunctionNotifications$inboundSchema,
+} from "./pipelinefunctionnotifications.js";
+import {
+  PipelineFunctionNotify,
+  PipelineFunctionNotify$inboundSchema,
+} from "./pipelinefunctionnotify.js";
+import {
+  PipelineFunctionNumerify,
+  PipelineFunctionNumerify$inboundSchema,
+} from "./pipelinefunctionnumerify.js";
+import {
+  PipelineFunctionOtlpLogs,
+  PipelineFunctionOtlpLogs$inboundSchema,
+} from "./pipelinefunctionotlplogs.js";
+import {
+  PipelineFunctionOtlpMetrics,
+  PipelineFunctionOtlpMetrics$inboundSchema,
+} from "./pipelinefunctionotlpmetrics.js";
+import {
+  PipelineFunctionOtlpTraces,
+  PipelineFunctionOtlpTraces$inboundSchema,
+} from "./pipelinefunctionotlptraces.js";
+import {
+  PipelineFunctionPack,
+  PipelineFunctionPack$inboundSchema,
+} from "./pipelinefunctionpack.js";
+import {
+  PipelineFunctionPivot,
+  PipelineFunctionPivot$inboundSchema,
+} from "./pipelinefunctionpivot.js";
+import {
+  PipelineFunctionPublishMetrics,
+  PipelineFunctionPublishMetrics$inboundSchema,
+} from "./pipelinefunctionpublishmetrics.js";
+import {
+  PipelineFunctionRedis,
+  PipelineFunctionRedis$inboundSchema,
+} from "./pipelinefunctionredis.js";
+import {
+  PipelineFunctionRegexExtract,
+  PipelineFunctionRegexExtract$inboundSchema,
+} from "./pipelinefunctionregexextract.js";
+import {
+  PipelineFunctionRegexFilter,
+  PipelineFunctionRegexFilter$inboundSchema,
+} from "./pipelinefunctionregexfilter.js";
+import {
+  PipelineFunctionRename,
+  PipelineFunctionRename$inboundSchema,
+} from "./pipelinefunctionrename.js";
+import {
+  PipelineFunctionRollupMetrics,
+  PipelineFunctionRollupMetrics$inboundSchema,
+} from "./pipelinefunctionrollupmetrics.js";
+import {
+  PipelineFunctionSampling,
+  PipelineFunctionSampling$inboundSchema,
+} from "./pipelinefunctionsampling.js";
+import {
+  PipelineFunctionSend,
+  PipelineFunctionSend$inboundSchema,
+} from "./pipelinefunctionsend.js";
+import {
+  PipelineFunctionSensitiveDataScanner,
+  PipelineFunctionSensitiveDataScanner$inboundSchema,
+} from "./pipelinefunctionsensitivedatascanner.js";
+import {
+  PipelineFunctionSerde,
+  PipelineFunctionSerde$inboundSchema,
+} from "./pipelinefunctionserde.js";
+import {
+  PipelineFunctionSerialize,
+  PipelineFunctionSerialize$inboundSchema,
+} from "./pipelinefunctionserialize.js";
+import {
+  PipelineFunctionSidlookup,
+  PipelineFunctionSidlookup$inboundSchema,
+} from "./pipelinefunctionsidlookup.js";
+import {
+  PipelineFunctionSnmpTrapSerialize,
+  PipelineFunctionSnmpTrapSerialize$inboundSchema,
+} from "./pipelinefunctionsnmptrapserialize.js";
+import {
+  PipelineFunctionSort,
+  PipelineFunctionSort$inboundSchema,
+} from "./pipelinefunctionsort.js";
+import {
+  PipelineFunctionStore,
+  PipelineFunctionStore$inboundSchema,
+} from "./pipelinefunctionstore.js";
+import {
+  PipelineFunctionSuppress,
+  PipelineFunctionSuppress$inboundSchema,
+} from "./pipelinefunctionsuppress.js";
+import {
+  PipelineFunctionTee,
+  PipelineFunctionTee$inboundSchema,
+} from "./pipelinefunctiontee.js";
+import {
+  PipelineFunctionTrimTimestamp,
+  PipelineFunctionTrimTimestamp$inboundSchema,
+} from "./pipelinefunctiontrimtimestamp.js";
+import {
+  PipelineFunctionUnion,
+  PipelineFunctionUnion$inboundSchema,
+} from "./pipelinefunctionunion.js";
+import {
+  PipelineFunctionUnroll,
+  PipelineFunctionUnroll$inboundSchema,
+} from "./pipelinefunctionunroll.js";
+import {
+  PipelineFunctionWindow,
+  PipelineFunctionWindow$inboundSchema,
+} from "./pipelinefunctionwindow.js";
+import {
+  PipelineFunctionXmlUnroll,
+  PipelineFunctionXmlUnroll$inboundSchema,
+} from "./pipelinefunctionxmlunroll.js";
 
-export type FunctionSpecificConfigs = {};
-
-export type PipelineFunctionConf = {
-  /**
-   * Filter that selects data to be fed through this Function
-   */
-  filter?: string | undefined;
-  /**
-   * Function ID
-   */
-  id: string;
-  /**
-   * Simple description of this step
-   */
-  description?: string | undefined;
-  /**
-   * If true, data will not be pushed through this function
-   */
-  disabled?: boolean | undefined;
-  /**
-   * If enabled, stops the results of this Function from being passed to the downstream Functions
-   */
-  final?: boolean | undefined;
-  conf: FunctionSpecificConfigs;
-  /**
-   * Group ID
-   */
-  groupId?: string | undefined;
-};
-
-/** @internal */
-export const FunctionSpecificConfigs$inboundSchema: z.ZodType<
-  FunctionSpecificConfigs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type FunctionSpecificConfigs$Outbound = {};
-
-/** @internal */
-export const FunctionSpecificConfigs$outboundSchema: z.ZodType<
-  FunctionSpecificConfigs$Outbound,
-  z.ZodTypeDef,
-  FunctionSpecificConfigs
-> = z.object({});
-
-export function functionSpecificConfigsToJSON(
-  functionSpecificConfigs: FunctionSpecificConfigs,
-): string {
-  return JSON.stringify(
-    FunctionSpecificConfigs$outboundSchema.parse(functionSpecificConfigs),
-  );
-}
-export function functionSpecificConfigsFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionSpecificConfigs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionSpecificConfigs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSpecificConfigs' from JSON`,
-  );
-}
+export type PipelineFunctionConf =
+  | PipelineFunctionAggregateMetrics
+  | PipelineFunctionAggregation
+  | PipelineFunctionAutoTimestamp
+  | PipelineFunctionCef
+  | PipelineFunctionChain
+  | PipelineFunctionClone
+  | PipelineFunctionCode
+  | PipelineFunctionComment
+  | PipelineFunctionDistinct
+  | PipelineFunctionDnsLookup
+  | PipelineFunctionDrop
+  | PipelineFunctionDropDimensions
+  | PipelineFunctionDynamicSampling
+  | PipelineFunctionEval
+  | PipelineFunctionEventBreaker
+  | PipelineFunctionEventstats
+  | PipelineFunctionExternaldata
+  | PipelineFunctionFlatten
+  | PipelineFunctionFoldkeys
+  | PipelineFunctionGenStats
+  | PipelineFunctionGeoip
+  | PipelineFunctionGrok
+  | PipelineFunctionHandlebars
+  | PipelineFunctionJoin
+  | PipelineFunctionJsonUnroll
+  | PipelineFunctionLakeExport
+  | PipelineFunctionLimit
+  | PipelineFunctionLocalSearchDatatypeParser
+  | PipelineFunctionLocalSearchRulesetRunner
+  | PipelineFunctionLookup
+  | PipelineFunctionMask
+  | PipelineFunctionMvExpand
+  | PipelineFunctionMvPull
+  | PipelineFunctionNotificationPolicies
+  | PipelineFunctionNotifications
+  | PipelineFunctionNotify
+  | PipelineFunctionNumerify
+  | PipelineFunctionOtlpLogs
+  | PipelineFunctionOtlpMetrics
+  | PipelineFunctionOtlpTraces
+  | PipelineFunctionPack
+  | PipelineFunctionPivot
+  | PipelineFunctionPublishMetrics
+  | PipelineFunctionRedis
+  | PipelineFunctionRegexExtract
+  | PipelineFunctionRegexFilter
+  | PipelineFunctionRename
+  | PipelineFunctionRollupMetrics
+  | PipelineFunctionSampling
+  | PipelineFunctionSend
+  | PipelineFunctionSensitiveDataScanner
+  | PipelineFunctionSerde
+  | PipelineFunctionSerialize
+  | PipelineFunctionSidlookup
+  | PipelineFunctionSnmpTrapSerialize
+  | PipelineFunctionSort
+  | PipelineFunctionStore
+  | PipelineFunctionSuppress
+  | PipelineFunctionTee
+  | PipelineFunctionTrimTimestamp
+  | PipelineFunctionUnion
+  | PipelineFunctionUnroll
+  | PipelineFunctionWindow
+  | PipelineFunctionXmlUnroll;
 
 /** @internal */
 export const PipelineFunctionConf$inboundSchema: z.ZodType<
   PipelineFunctionConf,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  filter: z.string().default("true"),
-  id: z.string(),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
-  conf: z.lazy(() => FunctionSpecificConfigs$inboundSchema),
-  groupId: z.string().optional(),
-});
-/** @internal */
-export type PipelineFunctionConf$Outbound = {
-  filter: string;
-  id: string;
-  description?: string | undefined;
-  disabled?: boolean | undefined;
-  final?: boolean | undefined;
-  conf: FunctionSpecificConfigs$Outbound;
-  groupId?: string | undefined;
-};
+> = z.union([
+  PipelineFunctionAggregateMetrics$inboundSchema,
+  PipelineFunctionAggregation$inboundSchema,
+  PipelineFunctionAutoTimestamp$inboundSchema,
+  PipelineFunctionCef$inboundSchema,
+  PipelineFunctionChain$inboundSchema,
+  PipelineFunctionClone$inboundSchema,
+  PipelineFunctionCode$inboundSchema,
+  PipelineFunctionComment$inboundSchema,
+  PipelineFunctionDistinct$inboundSchema,
+  PipelineFunctionDnsLookup$inboundSchema,
+  PipelineFunctionDrop$inboundSchema,
+  PipelineFunctionDropDimensions$inboundSchema,
+  PipelineFunctionDynamicSampling$inboundSchema,
+  PipelineFunctionEval$inboundSchema,
+  PipelineFunctionEventBreaker$inboundSchema,
+  PipelineFunctionEventstats$inboundSchema,
+  PipelineFunctionExternaldata$inboundSchema,
+  PipelineFunctionFlatten$inboundSchema,
+  PipelineFunctionFoldkeys$inboundSchema,
+  PipelineFunctionGenStats$inboundSchema,
+  PipelineFunctionGeoip$inboundSchema,
+  PipelineFunctionGrok$inboundSchema,
+  PipelineFunctionHandlebars$inboundSchema,
+  PipelineFunctionJoin$inboundSchema,
+  PipelineFunctionJsonUnroll$inboundSchema,
+  PipelineFunctionLakeExport$inboundSchema,
+  PipelineFunctionLimit$inboundSchema,
+  PipelineFunctionLocalSearchDatatypeParser$inboundSchema,
+  PipelineFunctionLocalSearchRulesetRunner$inboundSchema,
+  PipelineFunctionLookup$inboundSchema,
+  PipelineFunctionMask$inboundSchema,
+  PipelineFunctionMvExpand$inboundSchema,
+  PipelineFunctionMvPull$inboundSchema,
+  PipelineFunctionNotificationPolicies$inboundSchema,
+  PipelineFunctionNotifications$inboundSchema,
+  PipelineFunctionNotify$inboundSchema,
+  PipelineFunctionNumerify$inboundSchema,
+  PipelineFunctionOtlpLogs$inboundSchema,
+  PipelineFunctionOtlpMetrics$inboundSchema,
+  PipelineFunctionOtlpTraces$inboundSchema,
+  PipelineFunctionPack$inboundSchema,
+  PipelineFunctionPivot$inboundSchema,
+  PipelineFunctionPublishMetrics$inboundSchema,
+  PipelineFunctionRedis$inboundSchema,
+  PipelineFunctionRegexExtract$inboundSchema,
+  PipelineFunctionRegexFilter$inboundSchema,
+  PipelineFunctionRename$inboundSchema,
+  PipelineFunctionRollupMetrics$inboundSchema,
+  PipelineFunctionSampling$inboundSchema,
+  PipelineFunctionSend$inboundSchema,
+  PipelineFunctionSensitiveDataScanner$inboundSchema,
+  PipelineFunctionSerde$inboundSchema,
+  PipelineFunctionSerialize$inboundSchema,
+  PipelineFunctionSidlookup$inboundSchema,
+  PipelineFunctionSnmpTrapSerialize$inboundSchema,
+  PipelineFunctionSort$inboundSchema,
+  PipelineFunctionStore$inboundSchema,
+  PipelineFunctionSuppress$inboundSchema,
+  PipelineFunctionTee$inboundSchema,
+  PipelineFunctionTrimTimestamp$inboundSchema,
+  PipelineFunctionUnion$inboundSchema,
+  PipelineFunctionUnroll$inboundSchema,
+  PipelineFunctionWindow$inboundSchema,
+  PipelineFunctionXmlUnroll$inboundSchema,
+]);
 
-/** @internal */
-export const PipelineFunctionConf$outboundSchema: z.ZodType<
-  PipelineFunctionConf$Outbound,
-  z.ZodTypeDef,
-  PipelineFunctionConf
-> = z.object({
-  filter: z.string().default("true"),
-  id: z.string(),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
-  conf: z.lazy(() => FunctionSpecificConfigs$outboundSchema),
-  groupId: z.string().optional(),
-});
-
-export function pipelineFunctionConfToJSON(
-  pipelineFunctionConf: PipelineFunctionConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionConf$outboundSchema.parse(pipelineFunctionConf),
-  );
-}
 export function pipelineFunctionConfFromJSON(
   jsonString: string,
 ): SafeParseResult<PipelineFunctionConf, SDKValidationError> {

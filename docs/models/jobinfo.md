@@ -8,41 +8,43 @@ import { JobInfo } from "cribl-control-plane/models";
 let value: JobInfo = {
   args: {
     id: "<id>",
-    description: "astride where huzzah till",
-    type: "executor",
-    ttl: "4h",
-    ignoreGroupJobsLimit: false,
+    description: "microblog um furiously",
+    type: "scheduledSearch",
+    ttl: "<value>",
+    ignoreGroupJobsLimit: true,
     removeFields: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
-    resumeOnBoot: false,
+    resumeOnBoot: true,
     environment: "<value>",
     schedule: {
       enabled: true,
       skippable: true,
-      resumeMissed: false,
-      cronSchedule: "*/5 * * * *",
-      maxConcurrentRuns: 1,
+      resumeMissed: true,
+      cronSchedule: "<value>",
+      maxConcurrentRuns: 1167.02,
       run: {
         type: "collection",
-        rescheduleDroppedTasks: true,
-        maxTaskReschedule: 1,
+        rescheduleDroppedTasks: false,
+        maxTaskReschedule: 613.65,
         logLevel: "info",
-        jobTimeout: "0",
-        mode: "list",
-        timeRangeType: "relative",
-        earliest: 5516.53,
-        latest: 4479.75,
+        jobTimeout: "<value>",
+        mode: "<value>",
+        timeRangeType: "<value>",
+        earliest: 5558.09,
+        latest: 8290.6,
         timestampTimezone: "<value>",
         timeWarning: {},
-        expression: "true",
-        minTaskSize: "1MB",
-        maxTaskSize: "10MB",
+        expression: "<value>",
+        minTaskSize: "<value>",
+        maxTaskSize: "<value>",
       },
     },
     streamtags: [
       "<value 1>",
+      "<value 2>",
     ],
     executor: {
       type: "<value>",
@@ -51,9 +53,9 @@ let value: JobInfo = {
     },
     run: {
       rescheduleDroppedTasks: true,
-      maxTaskReschedule: 1,
-      logLevel: "info",
-      jobTimeout: "0",
+      maxTaskReschedule: 3930.98,
+      logLevel: "silly",
+      jobTimeout: "<value>",
     },
   },
   id: "<id>",
@@ -64,18 +66,19 @@ let value: JobInfo = {
   status: {
     reason: {
       "key": "<value>",
+      "key1": "<value>",
     },
-    state: 1,
+    state: 9,
   },
 };
 ```
 
 ## Fields
 
-| Field                                      | Type                                       | Required                                   | Description                                |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| `args`                                     | *models.RunnableJob*                       | :heavy_check_mark:                         | N/A                                        |
-| `id`                                       | *string*                                   | :heavy_check_mark:                         | N/A                                        |
-| `keep`                                     | *boolean*                                  | :heavy_minus_sign:                         | N/A                                        |
-| `stats`                                    | Record<string, *models.Stats*>             | :heavy_check_mark:                         | N/A                                        |
-| `status`                                   | [models.JobStatus](../models/jobstatus.md) | :heavy_check_mark:                         | N/A                                        |
+| Field                                                         | Type                                                          | Required                                                      | Description                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| `args`                                                        | *models.RunnableJob*                                          | :heavy_check_mark:                                            | N/A                                                           |
+| `id`                                                          | *string*                                                      | :heavy_check_mark:                                            | N/A                                                           |
+| `keep`                                                        | *boolean*                                                     | :heavy_minus_sign:                                            | N/A                                                           |
+| `stats`                                                       | Record<string, *models.AdditionalPropertiesTypeJobInfoStats*> | :heavy_check_mark:                                            | N/A                                                           |
+| `status`                                                      | [models.JobStatus](../models/jobstatus.md)                    | :heavy_check_mark:                                            | N/A                                                           |

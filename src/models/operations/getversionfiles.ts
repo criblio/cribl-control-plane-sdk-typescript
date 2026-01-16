@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetVersionFilesRequest = {
   /**
@@ -16,24 +12,13 @@ export type GetVersionFilesRequest = {
   /**
    * The Git commit hash to use as the starting point for the request.
    */
-  ID?: string | undefined;
-};
-
-/**
- * a list of GitFilesResponse objects
- */
-export type GetVersionFilesResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.GitFilesResponse> | undefined;
+  commit?: string | undefined;
 };
 
 /** @internal */
 export type GetVersionFilesRequest$Outbound = {
   groupId?: string | undefined;
-  ID?: string | undefined;
+  commit?: string | undefined;
 };
 
 /** @internal */
@@ -43,7 +28,7 @@ export const GetVersionFilesRequest$outboundSchema: z.ZodType<
   GetVersionFilesRequest
 > = z.object({
   groupId: z.string().optional(),
-  ID: z.string().optional(),
+  commit: z.string().optional(),
 });
 
 export function getVersionFilesRequestToJSON(
@@ -51,25 +36,5 @@ export function getVersionFilesRequestToJSON(
 ): string {
   return JSON.stringify(
     GetVersionFilesRequest$outboundSchema.parse(getVersionFilesRequest),
-  );
-}
-
-/** @internal */
-export const GetVersionFilesResponse$inboundSchema: z.ZodType<
-  GetVersionFilesResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitFilesResponse$inboundSchema).optional(),
-});
-
-export function getVersionFilesResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionFilesResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionFilesResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionFilesResponse' from JSON`,
   );
 }

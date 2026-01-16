@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetVersionCountRequest = {
   /**
@@ -16,24 +12,13 @@ export type GetVersionCountRequest = {
   /**
    * The Git commit hash to use as the starting point for the count.
    */
-  ID?: string | undefined;
-};
-
-/**
- * a list of GitCountResult objects
- */
-export type GetVersionCountResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.GitCountResult> | undefined;
+  commit?: string | undefined;
 };
 
 /** @internal */
 export type GetVersionCountRequest$Outbound = {
   groupId?: string | undefined;
-  ID?: string | undefined;
+  commit?: string | undefined;
 };
 
 /** @internal */
@@ -43,7 +28,7 @@ export const GetVersionCountRequest$outboundSchema: z.ZodType<
   GetVersionCountRequest
 > = z.object({
   groupId: z.string().optional(),
-  ID: z.string().optional(),
+  commit: z.string().optional(),
 });
 
 export function getVersionCountRequestToJSON(
@@ -51,25 +36,5 @@ export function getVersionCountRequestToJSON(
 ): string {
   return JSON.stringify(
     GetVersionCountRequest$outboundSchema.parse(getVersionCountRequest),
-  );
-}
-
-/** @internal */
-export const GetVersionCountResponse$inboundSchema: z.ZodType<
-  GetVersionCountResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitCountResult$inboundSchema).optional(),
-});
-
-export function getVersionCountResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionCountResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionCountResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionCountResponse' from JSON`,
   );
 }

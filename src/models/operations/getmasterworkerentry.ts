@@ -3,26 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetMasterWorkerEntryRequest = {
   /**
    * Filter expression to evaluate against Nodes for inclusion in the response.
    */
   filterExp?: string | undefined;
-};
-
-/**
- * a list of number objects
- */
-export type GetMasterWorkerEntryResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<number> | undefined;
 };
 
 /** @internal */
@@ -46,25 +32,5 @@ export function getMasterWorkerEntryRequestToJSON(
     GetMasterWorkerEntryRequest$outboundSchema.parse(
       getMasterWorkerEntryRequest,
     ),
-  );
-}
-
-/** @internal */
-export const GetMasterWorkerEntryResponse$inboundSchema: z.ZodType<
-  GetMasterWorkerEntryResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(z.number()).optional(),
-});
-
-export function getMasterWorkerEntryResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetMasterWorkerEntryResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetMasterWorkerEntryResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetMasterWorkerEntryResponse' from JSON`,
   );
 }

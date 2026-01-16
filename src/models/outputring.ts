@@ -7,6 +7,16 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions1,
+  BackpressureBehaviorOptions1$inboundSchema,
+  BackpressureBehaviorOptions1$outboundSchema,
+} from "./backpressurebehavioroptions1.js";
+import {
+  DataCompressionFormatOptionsPersistence,
+  DataCompressionFormatOptionsPersistence$inboundSchema,
+  DataCompressionFormatOptionsPersistence$outboundSchema,
+} from "./datacompressionformatoptionspersistence.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -20,34 +30,6 @@ export const OutputRingDataFormat = {
  * Format of the output data.
  */
 export type OutputRingDataFormat = OpenEnum<typeof OutputRingDataFormat>;
-
-export const OutputRingDataCompressionFormat = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-export type OutputRingDataCompressionFormat = OpenEnum<
-  typeof OutputRingDataCompressionFormat
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputRingBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputRingBackpressureBehavior = OpenEnum<
-  typeof OutputRingBackpressureBehavior
->;
 
 export type OutputRing = {
   /**
@@ -87,7 +69,7 @@ export type OutputRing = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: OutputRingDataCompressionFormat | undefined;
+  compress?: DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
    */
@@ -95,7 +77,7 @@ export type OutputRing = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputRingBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
   description?: string | undefined;
 };
 
@@ -113,32 +95,6 @@ export const OutputRingDataFormat$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputRingDataFormat);
 
 /** @internal */
-export const OutputRingDataCompressionFormat$inboundSchema: z.ZodType<
-  OutputRingDataCompressionFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputRingDataCompressionFormat);
-/** @internal */
-export const OutputRingDataCompressionFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputRingDataCompressionFormat
-> = openEnums.outboundSchema(OutputRingDataCompressionFormat);
-
-/** @internal */
-export const OutputRingBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputRingBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputRingBackpressureBehavior);
-/** @internal */
-export const OutputRingBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputRingBackpressureBehavior
-> = openEnums.outboundSchema(OutputRingBackpressureBehavior);
-
-/** @internal */
 export const OutputRing$inboundSchema: z.ZodType<
   OutputRing,
   z.ZodTypeDef,
@@ -150,13 +106,13 @@ export const OutputRing$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  format: OutputRingDataFormat$inboundSchema.default("json"),
+  format: OutputRingDataFormat$inboundSchema.optional(),
   partitionExpr: z.string().optional(),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: OutputRingDataCompressionFormat$inboundSchema.default("gzip"),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$inboundSchema.optional(),
   destPath: z.string().optional(),
-  onBackpressure: OutputRingBackpressureBehavior$inboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -167,13 +123,13 @@ export type OutputRing$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  format: string;
+  format?: string | undefined;
   partitionExpr?: string | undefined;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
   destPath?: string | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
 };
 
@@ -189,15 +145,13 @@ export const OutputRing$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  format: OutputRingDataFormat$outboundSchema.default("json"),
+  format: OutputRingDataFormat$outboundSchema.optional(),
   partitionExpr: z.string().optional(),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: OutputRingDataCompressionFormat$outboundSchema.default("gzip"),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$outboundSchema.optional(),
   destPath: z.string().optional(),
-  onBackpressure: OutputRingBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
   description: z.string().optional(),
 });
 

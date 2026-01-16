@@ -21,7 +21,7 @@ export class Pipelines extends ClientSDK {
    */
   async list(
     options?: RequestOptions,
-  ): Promise<operations.ListPipelineResponse> {
+  ): Promise<models.CountedPipeline> {
     return unwrapAsync(pipelinesList(
       this,
       options,
@@ -35,9 +35,9 @@ export class Pipelines extends ClientSDK {
    * Create a new Pipeline.
    */
   async create(
-    request: models.Pipeline,
+    request: models.PipelineInput,
     options?: RequestOptions,
-  ): Promise<operations.CreatePipelineResponse> {
+  ): Promise<models.CountedPipeline> {
     return unwrapAsync(pipelinesCreate(
       this,
       request,
@@ -54,7 +54,7 @@ export class Pipelines extends ClientSDK {
   async get(
     request: operations.GetPipelineByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetPipelineByIdResponse> {
+  ): Promise<models.CountedPipeline> {
     return unwrapAsync(pipelinesGet(
       this,
       request,
@@ -71,7 +71,7 @@ export class Pipelines extends ClientSDK {
   async update(
     request: operations.UpdatePipelineByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdatePipelineByIdResponse> {
+  ): Promise<models.CountedPipeline> {
     return unwrapAsync(pipelinesUpdate(
       this,
       request,
@@ -88,7 +88,7 @@ export class Pipelines extends ClientSDK {
   async delete(
     request: operations.DeletePipelineByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeletePipelineByIdResponse> {
+  ): Promise<models.CountedPipeline> {
     return unwrapAsync(pipelinesDelete(
       this,
       request,

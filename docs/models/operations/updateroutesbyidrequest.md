@@ -14,23 +14,27 @@ let value: UpdateRoutesByIdRequest = {
         id: "<id>",
         name: "<value>",
         disabled: false,
+        filter: "<value>",
         pipeline: "<value>",
+        enableOutputExpression: false,
         output: "<value>",
         outputExpression: "<value>",
-        description: "symbolise ack brr babyish congregate save supposing",
+        description: "how stay quickly perfectly lest self-assured gosh",
+        final: false,
       },
     ],
     groups: {
       "key": {
         name: "<value>",
-        description: "athwart joshingly whether inspection how highly",
-        disabled: false,
+        description:
+          "march meanwhile potentially although trouser wearily furthermore weary whereas",
+        disabled: true,
       },
     },
     comments: [
       {
         comment:
-          "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
+          "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
       },
     ],
   },

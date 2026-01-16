@@ -4,35 +4,21 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateConfigGroupByProductAndIdRequest = {
   /**
-   * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+   * Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.
    */
   product: models.ProductsCore;
   /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to update.
+   * The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to update.
    */
   id: string;
   /**
    * ConfigGroup object
    */
   configGroup: models.ConfigGroup;
-};
-
-/**
- * a list of ConfigGroup objects
- */
-export type UpdateConfigGroupByProductAndIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup> | undefined;
 };
 
 /** @internal */
@@ -65,31 +51,5 @@ export function updateConfigGroupByProductAndIdRequestToJSON(
     UpdateConfigGroupByProductAndIdRequest$outboundSchema.parse(
       updateConfigGroupByProductAndIdRequest,
     ),
-  );
-}
-
-/** @internal */
-export const UpdateConfigGroupByProductAndIdResponse$inboundSchema: z.ZodType<
-  UpdateConfigGroupByProductAndIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.ConfigGroup$inboundSchema).optional(),
-});
-
-export function updateConfigGroupByProductAndIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  UpdateConfigGroupByProductAndIdResponse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UpdateConfigGroupByProductAndIdResponse$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'UpdateConfigGroupByProductAndIdResponse' from JSON`,
   );
 }

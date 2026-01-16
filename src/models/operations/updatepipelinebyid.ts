@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdatePipelineByIdRequest = {
@@ -17,24 +14,13 @@ export type UpdatePipelineByIdRequest = {
   /**
    * Pipeline object
    */
-  pipeline: models.Pipeline;
-};
-
-/**
- * a list of Pipeline objects
- */
-export type UpdatePipelineByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.Pipeline> | undefined;
+  pipeline: models.PipelineInput;
 };
 
 /** @internal */
 export type UpdatePipelineByIdRequest$Outbound = {
   id: string;
-  Pipeline: models.Pipeline$Outbound;
+  Pipeline: models.PipelineInput$Outbound;
 };
 
 /** @internal */
@@ -44,7 +30,7 @@ export const UpdatePipelineByIdRequest$outboundSchema: z.ZodType<
   UpdatePipelineByIdRequest
 > = z.object({
   id: z.string(),
-  pipeline: models.Pipeline$outboundSchema,
+  pipeline: models.PipelineInput$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     pipeline: "Pipeline",
@@ -56,25 +42,5 @@ export function updatePipelineByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdatePipelineByIdRequest$outboundSchema.parse(updatePipelineByIdRequest),
-  );
-}
-
-/** @internal */
-export const UpdatePipelineByIdResponse$inboundSchema: z.ZodType<
-  UpdatePipelineByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Pipeline$inboundSchema).optional(),
-});
-
-export function updatePipelineByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePipelineByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePipelineByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePipelineByIdResponse' from JSON`,
   );
 }
