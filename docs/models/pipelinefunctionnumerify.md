@@ -12,14 +12,12 @@ let value: PipelineFunctionNumerify = {
   disabled: true,
   final: false,
   conf: {
-    depth: 724362,
+    depth: 543126,
     ignoreFields: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     filterExpr: "<value>",
-    format: "none",
+    format: "ceil",
   },
   groupId: "<id>",
 };

@@ -36,8 +36,7 @@ let value: ConfInput = {
   groups: {
     "key": {
       name: "<value>",
-      description:
-        "march meanwhile potentially although trouser wearily furthermore weary whereas",
+      description: "far-flung like instead zowie pertain concrete shovel",
       disabled: true,
     },
   },
