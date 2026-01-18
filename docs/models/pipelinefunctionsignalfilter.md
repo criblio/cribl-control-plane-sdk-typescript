@@ -1,32 +1,22 @@
-# PipelineFunctionNotify
+# PipelineFunctionSignalFilter
 
 ## Example Usage
 
 ```typescript
-import { PipelineFunctionNotify } from "cribl-control-plane/models";
+import { PipelineFunctionSignalFilter } from "cribl-control-plane/models";
 
-let value: PipelineFunctionNotify = {
+let value: PipelineFunctionSignalFilter = {
   filter: "<value>",
-  id: "notify",
-  description:
-    "friendly bathhouse but preside structure reprove scarily ouch jet pip",
-  disabled: false,
+  id: "signal_filter",
+  description: "notarize unlearn since lend serene dress er",
+  disabled: true,
   final: true,
   conf: {
-    group: "<value>",
-    notificationId: "<id>",
-    searchId: "<id>",
-    savedQueryId: "<id>",
-    trigger: "<value>",
-    triggerType: "resultsCount",
-    triggerComparator: "===",
-    triggerCount: 1191.97,
-    resultsLimit: 7066.61,
-    searchUrl: "https://silent-legend.org/",
-    message: "<value>",
-    authToken: "<value>",
-    messagesEndpoint: "<value>",
-    tenantId: "<id>",
+    signals: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
   },
   groupId: "<id>",
 };
@@ -37,9 +27,9 @@ let value: PipelineFunctionNotify = {
 | Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
 | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | `filter`                                                                                     | *string*                                                                                     | :heavy_minus_sign:                                                                           | Filter that selects data to be fed through this Function                                     |
-| `id`                                                                                         | *"notify"*                                                                                   | :heavy_check_mark:                                                                           | Function ID                                                                                  |
+| `id`                                                                                         | *"signal_filter"*                                                                            | :heavy_check_mark:                                                                           | Function ID                                                                                  |
 | `description`                                                                                | *string*                                                                                     | :heavy_minus_sign:                                                                           | Simple description of this step                                                              |
 | `disabled`                                                                                   | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If true, data will not be pushed through this function                                       |
 | `final`                                                                                      | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If enabled, stops the results of this Function from being passed to the downstream Functions |
-| `conf`                                                                                       | [models.NotifyConfiguration](../models/notifyconfiguration.md)                               | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `conf`                                                                                       | [models.FunctionConfSchemaSignalFilter](../models/functionconfschemasignalfilter.md)         | :heavy_check_mark:                                                                           | N/A                                                                                          |
 | `groupId`                                                                                    | *string*                                                                                     | :heavy_minus_sign:                                                                           | Group ID                                                                                     |

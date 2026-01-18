@@ -46,17 +46,6 @@ import {
   TlsSettingsClientSideType1$outboundSchema,
 } from "./tlssettingsclientsidetype1.js";
 
-export type OutputWizHecUrl = {
-  /**
-   * URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
-   */
-  url: string;
-  /**
-   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-   */
-  weight?: number | undefined;
-};
-
 export type OutputWizHec = {
   /**
    * Unique ID for this output
@@ -79,10 +68,7 @@ export type OutputWizHec = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  /**
-   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-   */
-  loadBalanced?: boolean | undefined;
+  loadBalanced?: any | undefined;
   /**
    * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
    */
@@ -136,10 +122,7 @@ export type OutputWizHec = {
    * List of headers that are safe to log in plain text
    */
   safeHeaders?: Array<string> | undefined;
-  /**
-   * Output metrics in multiple-metric format
-   */
-  enableMultiMetrics?: boolean | undefined;
+  enableMultiMetrics?: any | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -157,28 +140,20 @@ export type OutputWizHec = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  /**
+   * The unique identifier for the specific Cribl connector defined in your Wiz Settings. This is used to cross-validate the bearer token and ensure traffic is originating from the authorized integration.
+   */
+  wiz_connector_id: string;
+  /**
+   * Your Wiz deployment environment.
+   */
+  wiz_environment: string;
+  /**
+   * Your Wiz deployment data center (e.g., us1, us8, eu1). From Tenant Info → Data Center and Regions → Tenant Data Center in your Wiz console.
+   */
+  data_center: string;
+  wiz_sourcetype: string;
   description?: string | undefined;
-  /**
-   * URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
-   */
-  url?: string | undefined;
-  /**
-   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-   */
-  useRoundRobinDns?: boolean | undefined;
-  /**
-   * Exclude all IPs of the current host from the list of any resolved hostnames
-   */
-  excludeSelf?: boolean | undefined;
-  urls?: Array<OutputWizHecUrl> | undefined;
-  /**
-   * The interval in which to re-resolve any hostnames and pick up destinations from A records
-   */
-  dnsResolvePeriodSec?: number | undefined;
-  /**
-   * How far back in time to keep traffic stats for load balancing purposes
-   */
-  loadBalanceStatsPeriodSec?: number | undefined;
   /**
    * Wiz Defender Auth token
    */
@@ -188,46 +163,6 @@ export type OutputWizHec = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const OutputWizHecUrl$inboundSchema: z.ZodType<
-  OutputWizHecUrl,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: z.string(),
-  weight: z.number().optional(),
-});
-/** @internal */
-export type OutputWizHecUrl$Outbound = {
-  url: string;
-  weight?: number | undefined;
-};
-
-/** @internal */
-export const OutputWizHecUrl$outboundSchema: z.ZodType<
-  OutputWizHecUrl$Outbound,
-  z.ZodTypeDef,
-  OutputWizHecUrl
-> = z.object({
-  url: z.string(),
-  weight: z.number().optional(),
-});
-
-export function outputWizHecUrlToJSON(
-  outputWizHecUrl: OutputWizHecUrl,
-): string {
-  return JSON.stringify(OutputWizHecUrl$outboundSchema.parse(outputWizHecUrl));
-}
-export function outputWizHecUrlFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWizHecUrl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWizHecUrl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWizHecUrl' from JSON`,
-  );
-}
 
 /** @internal */
 export const OutputWizHec$inboundSchema: z.ZodType<
@@ -241,7 +176,7 @@ export const OutputWizHec$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().optional(),
+  loadBalanced: z.any().optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
   tls: TlsSettingsClientSideType1$inboundSchema.optional(),
@@ -256,20 +191,18 @@ export const OutputWizHec$inboundSchema: z.ZodType<
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  enableMultiMetrics: z.boolean().optional(),
+  enableMultiMetrics: z.any().optional(),
   authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
     .optional(),
   timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
+  wiz_connector_id: z.string(),
+  wiz_environment: z.string(),
+  data_center: z.string(),
+  wiz_sourcetype: z.string(),
   description: z.string().optional(),
-  url: z.string().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  excludeSelf: z.boolean().optional(),
-  urls: z.array(z.lazy(() => OutputWizHecUrl$inboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().optional(),
-  loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
 });
@@ -281,7 +214,7 @@ export type OutputWizHec$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced?: boolean | undefined;
+  loadBalanced?: any | undefined;
   nextQueue?: string | undefined;
   tcpRouting?: string | undefined;
   tls?: TlsSettingsClientSideType1$Outbound | undefined;
@@ -295,7 +228,7 @@ export type OutputWizHec$Outbound = {
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  enableMultiMetrics?: boolean | undefined;
+  enableMultiMetrics?: any | undefined;
   authType?: string | undefined;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
@@ -303,13 +236,11 @@ export type OutputWizHec$Outbound = {
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
   onBackpressure?: string | undefined;
+  wiz_connector_id: string;
+  wiz_environment: string;
+  data_center: string;
+  wiz_sourcetype: string;
   description?: string | undefined;
-  url?: string | undefined;
-  useRoundRobinDns?: boolean | undefined;
-  excludeSelf?: boolean | undefined;
-  urls?: Array<OutputWizHecUrl$Outbound> | undefined;
-  dnsResolvePeriodSec?: number | undefined;
-  loadBalanceStatsPeriodSec?: number | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
 };
@@ -326,7 +257,7 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().optional(),
+  loadBalanced: z.any().optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
   tls: TlsSettingsClientSideType1$outboundSchema.optional(),
@@ -342,7 +273,7 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  enableMultiMetrics: z.boolean().optional(),
+  enableMultiMetrics: z.any().optional(),
   authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
@@ -350,13 +281,11 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
+  wiz_connector_id: z.string(),
+  wiz_environment: z.string(),
+  data_center: z.string(),
+  wiz_sourcetype: z.string(),
   description: z.string().optional(),
-  url: z.string().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  excludeSelf: z.boolean().optional(),
-  urls: z.array(z.lazy(() => OutputWizHecUrl$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().optional(),
-  loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
 });

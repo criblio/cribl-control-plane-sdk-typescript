@@ -175,6 +175,10 @@ import {
   FunctionSidlookup$inboundSchema,
 } from "./functionsidlookup.js";
 import {
+  FunctionSignalFilter,
+  FunctionSignalFilter$inboundSchema,
+} from "./functionsignalfilter.js";
+import {
   FunctionSnmpTrapSerialize,
   FunctionSnmpTrapSerialize$inboundSchema,
 } from "./functionsnmptrapserialize.js";
@@ -258,6 +262,7 @@ export type FunctionResponse =
   | FunctionSerde
   | FunctionSerialize
   | FunctionSidlookup
+  | FunctionSignalFilter
   | FunctionSnmpTrapSerialize
   | FunctionSort
   | FunctionStore
@@ -329,6 +334,7 @@ export const FunctionResponse$inboundSchema: z.ZodType<
   FunctionSerde$inboundSchema,
   FunctionSerialize$inboundSchema,
   FunctionSidlookup$inboundSchema,
+  FunctionSignalFilter$inboundSchema,
   FunctionSnmpTrapSerialize$inboundSchema,
   FunctionSort$inboundSchema,
   FunctionStore$inboundSchema,
