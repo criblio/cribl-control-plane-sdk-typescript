@@ -274,6 +274,11 @@ import {
   PipelineFunctionSidlookup$outboundSchema,
 } from "./pipelinefunctionsidlookup.js";
 import {
+  PipelineFunctionSignalFilter,
+  PipelineFunctionSignalFilter$Outbound,
+  PipelineFunctionSignalFilter$outboundSchema,
+} from "./pipelinefunctionsignalfilter.js";
+import {
   PipelineFunctionSnmpTrapSerialize,
   PipelineFunctionSnmpTrapSerialize$Outbound,
   PipelineFunctionSnmpTrapSerialize$outboundSchema,
@@ -379,6 +384,7 @@ export type PipelineFunctionConfInput =
   | PipelineFunctionSerde
   | PipelineFunctionSerialize
   | PipelineFunctionSidlookup
+  | PipelineFunctionSignalFilter
   | PipelineFunctionSnmpTrapSerialize
   | PipelineFunctionSort
   | PipelineFunctionStore
@@ -446,6 +452,7 @@ export type PipelineFunctionConfInput$Outbound =
   | PipelineFunctionSerde$Outbound
   | PipelineFunctionSerialize$Outbound
   | PipelineFunctionSidlookup$Outbound
+  | PipelineFunctionSignalFilter$Outbound
   | PipelineFunctionSnmpTrapSerialize$Outbound
   | PipelineFunctionSort$Outbound
   | PipelineFunctionStore$Outbound
@@ -517,6 +524,7 @@ export const PipelineFunctionConfInput$outboundSchema: z.ZodType<
   PipelineFunctionSerde$outboundSchema,
   PipelineFunctionSerialize$outboundSchema,
   PipelineFunctionSidlookup$outboundSchema,
+  PipelineFunctionSignalFilter$outboundSchema,
   PipelineFunctionSnmpTrapSerialize$outboundSchema,
   PipelineFunctionSort$outboundSchema,
   PipelineFunctionStore$outboundSchema,
