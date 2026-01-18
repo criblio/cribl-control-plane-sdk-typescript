@@ -839,10 +839,10 @@ const value: models.PipelineFunctionNotify = {
     savedQueryId: "<id>",
     trigger: "<value>",
     triggerType: "resultsCount",
-    triggerComparator: ">",
-    triggerCount: 8364.23,
-    resultsLimit: 5484.73,
-    searchUrl: "https://equatorial-teammate.net/",
+    triggerComparator: "===",
+    triggerCount: 1191.97,
+    resultsLimit: 7066.61,
+    searchUrl: "https://silent-legend.org/",
     message: "<value>",
     authToken: "<value>",
     messagesEndpoint: "<value>",
@@ -862,14 +862,12 @@ const value: models.PipelineFunctionNumerify = {
   disabled: true,
   final: false,
   conf: {
-    depth: 724362,
+    depth: 543126,
     ignoreFields: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     filterExpr: "<value>",
-    format: "none",
+    format: "ceil",
   },
   groupId: "<id>",
 };
@@ -1280,6 +1278,26 @@ const value: models.PipelineFunctionSidlookup = {
         expr: "<value>",
         disabled: false,
       },
+    ],
+  },
+  groupId: "<id>",
+};
+```
+
+### `models.PipelineFunctionSignalFilter`
+
+```typescript
+const value: models.PipelineFunctionSignalFilter = {
+  filter: "<value>",
+  id: "signal_filter",
+  description: "notarize unlearn since lend serene dress er",
+  disabled: true,
+  final: true,
+  conf: {
+    signals: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
   },
   groupId: "<id>",
