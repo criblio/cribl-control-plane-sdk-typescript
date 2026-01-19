@@ -14782,7 +14782,29 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.pipelines.create()`: \n  *  `request.conf` **Changed** **Breaking** :warning:\n  *  `response.items.[].conf` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.nodes.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.versions.commits.files.list()`:  `request` **Changed** **Breaking** :warning:\n* `criblcontrolplane.versions.commits.files.count()`:  `request` **Changed** **Breaking** :warning:\n* `criblcontrolplane.packs.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.delete()`:  `response.items.[].conf` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.update()`: \n  *  `request.pipeline.conf` **Changed** **Breaking** :warning:\n  *  `response.items.[].conf` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.get()`:  `response.items.[].conf` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.list()`:  `response.items.[].conf` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.pq.get()`:  `response.items.[].args` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.samples.create()`: \n  *  `request.outputTestRequest.events.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.groups.deploy()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.versions.commits.get()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.functions.list()`: **Added**\n* `criblcontrolplane.functions.get()`: **Added**\n* `criblcontrolplane.system.settings.cribl.update()`: **Added**\n* `criblcontrolplane.routes.list()`:  `response.items.[].routes.[]` **Changed**\n* `criblcontrolplane.routes.get()`:  `response.items.[].routes.[]` **Changed**\n* `criblcontrolplane.routes.update()`: \n  *  `request.routes.routes.[]` **Changed**\n  *  `response.items.[].routes.[]` **Changed**\n* `criblcontrolplane.routes.append()`:  `response.items.[].routes.[]` **Changed**\n* `criblcontrolplane.system.settings.cribl.list()`: **Added**\n* `criblcontrolplane.versions.commits.create()`:  `response.items.[].files` **Changed**\n* `criblcontrolplane.collectors.list()`: **Added**\n* `criblcontrolplane.collectors.create()`: **Added**\n* `criblcontrolplane.collectors.get()`: **Added**\n* `criblcontrolplane.versions.commits.diff()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.collectors.delete()`: **Added**\n* `criblcontrolplane.groups.list()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.collectors.update()`: **Added**\n* `criblcontrolplane.groups.get()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.update()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.delete()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.create()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.configs.versions.get()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.acl.get()`: \n  *  `request.product` **Changed**\n* `criblcontrolplane.groups.acl.teams.get()`: \n  *  `request.product` **Changed**\n"
+releaseNotes: |
+  ## Typescript SDK Changes:
+
+  ### New APIs Added
+  * Functions:
+    * `criblcontrolplane.functions.list()`
+    * `criblcontrolplane.functions.get()`
+  * System Settings:
+    * `criblcontrolplane.system.settings.cribl.list()`
+    * `criblcontrolplane.system.settings.cribl.update()`
+  * Collectors:
+    * `criblcontrolplane.collectors.list()`
+    * `criblcontrolplane.collectors.create()`
+    * `criblcontrolplane.collectors.get()`
+    * `criblcontrolplane.collectors.update()`
+    * `criblcontrolplane.collectors.delete()`
+
+  ### Documentation & Examples
+  * Added request body examples for:
+    * Sources
+    * Destinations
+    * Pipelines
+    * Collectors
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
