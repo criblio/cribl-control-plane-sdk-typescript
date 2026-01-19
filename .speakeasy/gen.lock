@@ -5,15 +5,15 @@ management:
   docVersion: 4.17.0-alpha.1768691073650-d1087de6
   speakeasyVersion: 1.686.0
   generationVersion: 2.796.1
-  releaseVersion: 0.5.0-beta.26
-  configChecksum: 11c6bc7651ee5a7cd42e54948be6c0ec
+  releaseVersion: 0.5.0-beta.27
+  configChecksum: 2a463314dbf71a180938c9de0e9a35fa
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 43106d7c-23b1-43fe-b85d-ff32d38b79be
-  pristine_commit_hash: ccdede78a0a08f9c0188f9a565195f553a3adf07
-  pristine_tree_hash: 2856d65fdb3560f925bdf932852b530221c03ac6
+  generation_id: 5e97a520-6c6b-4c44-abd3-b7b6417ccdc1
+  pristine_commit_hash: df6d0af74cf5a2052043c2bb24625d1d789becc9
+  pristine_tree_hash: 3834d70595f5d826df3c58ce67028bf066e098a0
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -6930,12 +6930,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:d91dcf43fb7e64cdddeb855e6ed95874f748e65b
-    pristine_git_object: b1133acd34e204c31a0199fd6ff236cc4cd83396
+    last_write_checksum: sha1:ad932c64591ded4a20b490dd39b5b2555dee1557
+    pristine_git_object: 25bd8218c23b5c570fa1f62ac39ad0db04d4b2cf
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:06fe6a96dc979cb1b6f93620bc5b1da3748dce69
-    pristine_git_object: 17675cf79fab0256e3d27232fe76620df7f62169
+    last_write_checksum: sha1:a9ce1735e05245c240bc3a97a2578b260944f8dc
+    pristine_git_object: 918d9880cd88ec00a3502742e87fe9adb484f76f
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -7270,8 +7270,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:50e54e1bc4e29d7a3f71934e2d7876134701eb57
-    pristine_git_object: 982afafb297a62dede4ab9666d5b2a966fe1a079
+    last_write_checksum: sha1:c1671348a20f77d2249db2a18bbe7a32cc0ce2f6
+    pristine_git_object: f8c91ce213f617b2ba3cbce16ebc09fe8b153687
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -15083,7 +15083,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[wizHec]` **Changed** **Breaking** :warning:\n  *  `response.items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[wizHec]` **Changed** **Breaking** :warning:\n  *  `response.items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[wizHec]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.list()`:  `response.items.[].conf.functions.[].[signalFilter]` **Added**\n* `criblcontrolplane.databaseConnections.update()`: **Added**\n* `criblcontrolplane.databaseConnections.get()`: **Added**\n* `criblcontrolplane.databaseConnections.delete()`: **Added**\n* `criblcontrolplane.pipelines.create()`: \n  *  `request.conf.functions.[].[signalFilter]` **Added**\n  *  `response.items.[].conf.functions.[].[signalFilter]` **Added**\n* `criblcontrolplane.databaseConnections.create()`: **Added**\n* `criblcontrolplane.pipelines.get()`:  `response.items.[].conf.functions.[].[signalFilter]` **Added**\n* `criblcontrolplane.pipelines.update()`: \n  *  `request.pipeline.conf.functions.[].[signalFilter]` **Added**\n  *  `response.items.[].conf.functions.[].[signalFilter]` **Added**\n* `criblcontrolplane.pipelines.delete()`:  `response.items.[].conf.functions.[].[signalFilter]` **Added**\n* `criblcontrolplane.routes.append()`: \n  *  `request.requestBody.[].toGroupContext` **Added**\n* `criblcontrolplane.functions.get()`:  `response.items.[].[signalFilter]` **Added**\n* `criblcontrolplane.functions.list()`:  `response.items.[].[signalFilter]` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
