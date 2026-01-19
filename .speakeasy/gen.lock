@@ -14782,6 +14782,29 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: |
+  ## Typescript SDK Changes:
+
+  ### New APIs Added
+  * Functions:
+    * `criblcontrolplane.functions.list()`
+    * `criblcontrolplane.functions.get()`
+  * System Settings:
+    * `criblcontrolplane.system.settings.cribl.list()`
+    * `criblcontrolplane.system.settings.cribl.update()`
+  * Collectors:
+    * `criblcontrolplane.collectors.list()`
+    * `criblcontrolplane.collectors.create()`
+    * `criblcontrolplane.collectors.get()`
+    * `criblcontrolplane.collectors.update()`
+    * `criblcontrolplane.collectors.delete()`
+
+  ### Documentation & Examples
+  * Added request body examples for:
+    * Sources
+    * Destinations
+    * Pipelines
+    * Collectors
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
