@@ -8,81 +8,29 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputSqsConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputSqsMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputSqsMode = OpenEnum<typeof InputSqsMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputSqsCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputSqsCompression = OpenEnum<typeof InputSqsCompression>;
-
-export type InputSqsPqControls = {};
-
-export type InputSqsPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputSqsMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputSqsCompression | undefined;
-  pqControls?: InputSqsPqControls | undefined;
-};
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  SignatureVersionOptions3,
+  SignatureVersionOptions3$inboundSchema,
+  SignatureVersionOptions3$outboundSchema,
+} from "./signatureversionoptions3.js";
 
 /**
  * The queue type used (or created)
@@ -101,52 +49,6 @@ export const InputSqsQueueType = {
  * The queue type used (or created)
  */
 export type InputSqsQueueType = OpenEnum<typeof InputSqsQueueType>;
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const InputSqsAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type InputSqsAuthenticationMethod = OpenEnum<
-  typeof InputSqsAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing SQS requests
- */
-export const InputSqsSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing SQS requests
- */
-export type InputSqsSignatureVersion = OpenEnum<
-  typeof InputSqsSignatureVersion
->;
-
-export type InputSqsMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
 
 export type InputSqs = {
   /**
@@ -178,8 +80,8 @@ export type InputSqs = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputSqsConnection> | undefined;
-  pq?: InputSqsPq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -199,7 +101,7 @@ export type InputSqs = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: InputSqsAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -212,7 +114,7 @@ export type InputSqs = {
   /**
    * Signature version to use for signing SQS requests
    */
-  signatureVersion?: InputSqsSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions3 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -248,7 +150,7 @@ export type InputSqs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputSqsMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -266,163 +168,6 @@ export type InputSqs = {
 };
 
 /** @internal */
-export const InputSqsConnection$inboundSchema: z.ZodType<
-  InputSqsConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputSqsConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputSqsConnection$outboundSchema: z.ZodType<
-  InputSqsConnection$Outbound,
-  z.ZodTypeDef,
-  InputSqsConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputSqsConnectionToJSON(
-  inputSqsConnection: InputSqsConnection,
-): string {
-  return JSON.stringify(
-    InputSqsConnection$outboundSchema.parse(inputSqsConnection),
-  );
-}
-export function inputSqsConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSqsConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSqsConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSqsConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSqsMode$inboundSchema: z.ZodType<
-  InputSqsMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSqsMode);
-/** @internal */
-export const InputSqsMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSqsMode
-> = openEnums.outboundSchema(InputSqsMode);
-
-/** @internal */
-export const InputSqsCompression$inboundSchema: z.ZodType<
-  InputSqsCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSqsCompression);
-/** @internal */
-export const InputSqsCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSqsCompression
-> = openEnums.outboundSchema(InputSqsCompression);
-
-/** @internal */
-export const InputSqsPqControls$inboundSchema: z.ZodType<
-  InputSqsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputSqsPqControls$Outbound = {};
-
-/** @internal */
-export const InputSqsPqControls$outboundSchema: z.ZodType<
-  InputSqsPqControls$Outbound,
-  z.ZodTypeDef,
-  InputSqsPqControls
-> = z.object({});
-
-export function inputSqsPqControlsToJSON(
-  inputSqsPqControls: InputSqsPqControls,
-): string {
-  return JSON.stringify(
-    InputSqsPqControls$outboundSchema.parse(inputSqsPqControls),
-  );
-}
-export function inputSqsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSqsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSqsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSqsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSqsPq$inboundSchema: z.ZodType<
-  InputSqsPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputSqsMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSqsCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSqsPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputSqsPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputSqsPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputSqsPq$outboundSchema: z.ZodType<
-  InputSqsPq$Outbound,
-  z.ZodTypeDef,
-  InputSqsPq
-> = z.object({
-  mode: InputSqsMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSqsCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSqsPqControls$outboundSchema).optional(),
-});
-
-export function inputSqsPqToJSON(inputSqsPq: InputSqsPq): string {
-  return JSON.stringify(InputSqsPq$outboundSchema.parse(inputSqsPq));
-}
-export function inputSqsPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSqsPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSqsPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSqsPq' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputSqsQueueType$inboundSchema: z.ZodType<
   InputSqsQueueType,
   z.ZodTypeDef,
@@ -436,74 +181,6 @@ export const InputSqsQueueType$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(InputSqsQueueType);
 
 /** @internal */
-export const InputSqsAuthenticationMethod$inboundSchema: z.ZodType<
-  InputSqsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSqsAuthenticationMethod);
-/** @internal */
-export const InputSqsAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSqsAuthenticationMethod
-> = openEnums.outboundSchema(InputSqsAuthenticationMethod);
-
-/** @internal */
-export const InputSqsSignatureVersion$inboundSchema: z.ZodType<
-  InputSqsSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSqsSignatureVersion);
-/** @internal */
-export const InputSqsSignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSqsSignatureVersion
-> = openEnums.outboundSchema(InputSqsSignatureVersion);
-
-/** @internal */
-export const InputSqsMetadatum$inboundSchema: z.ZodType<
-  InputSqsMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputSqsMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputSqsMetadatum$outboundSchema: z.ZodType<
-  InputSqsMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputSqsMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputSqsMetadatumToJSON(
-  inputSqsMetadatum: InputSqsMetadatum,
-): string {
-  return JSON.stringify(
-    InputSqsMetadatum$outboundSchema.parse(inputSqsMetadatum),
-  );
-}
-export function inputSqsMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSqsMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSqsMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSqsMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputSqs$inboundSchema: z.ZodType<
   InputSqs,
   z.ZodTypeDef,
@@ -511,76 +188,73 @@ export const InputSqs$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("sqs"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSqsConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSqsPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   queueName: z.string(),
   queueType: InputSqsQueueType$inboundSchema,
   awsAccountId: z.string().optional(),
-  createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: InputSqsAuthenticationMethod$inboundSchema.default(
-    "auto",
-  ),
+  createQueue: z.boolean().optional(),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: InputSqsSignatureVersion$inboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions3$inboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxMessages: z.number().default(10),
-  visibilityTimeout: z.number().default(600),
-  metadata: z.array(z.lazy(() => InputSqsMetadatum$inboundSchema)).optional(),
-  pollTimeout: z.number().default(10),
+  durationSeconds: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  pollTimeout: z.number().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  numReceivers: z.number().default(3),
+  numReceivers: z.number().optional(),
 });
 /** @internal */
 export type InputSqs$Outbound = {
   id?: string | undefined;
   type: "sqs";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputSqsConnection$Outbound> | undefined;
-  pq?: InputSqsPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   queueName: string;
   queueType: string;
   awsAccountId?: string | undefined;
-  createQueue: boolean;
-  awsAuthenticationMethod: string;
+  createQueue?: boolean | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  maxMessages: number;
-  visibilityTimeout: number;
-  metadata?: Array<InputSqsMetadatum$Outbound> | undefined;
-  pollTimeout: number;
+  durationSeconds?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  pollTimeout?: number | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  numReceivers: number;
+  numReceivers?: number | undefined;
 };
 
 /** @internal */
@@ -591,40 +265,37 @@ export const InputSqs$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("sqs"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSqsConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSqsPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   queueName: z.string(),
   queueType: InputSqsQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
-  createQueue: z.boolean().default(false),
-  awsAuthenticationMethod: InputSqsAuthenticationMethod$outboundSchema.default(
-    "auto",
-  ),
+  createQueue: z.boolean().optional(),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: InputSqsSignatureVersion$outboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions3$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxMessages: z.number().default(10),
-  visibilityTimeout: z.number().default(600),
-  metadata: z.array(z.lazy(() => InputSqsMetadatum$outboundSchema)).optional(),
-  pollTimeout: z.number().default(10),
+  durationSeconds: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  pollTimeout: z.number().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  numReceivers: z.number().default(3),
+  numReceivers: z.number().optional(),
 });
 
 export function inputSqsToJSON(inputSqs: InputSqs): string {

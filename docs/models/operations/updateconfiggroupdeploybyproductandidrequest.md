@@ -6,7 +6,7 @@
 import { UpdateConfigGroupDeployByProductAndIdRequest } from "cribl-control-plane/models/operations";
 
 let value: UpdateConfigGroupDeployByProductAndIdRequest = {
-  product: "edge",
+  product: "outpost",
   id: "<id>",
   deployRequest: {
     lookups: [

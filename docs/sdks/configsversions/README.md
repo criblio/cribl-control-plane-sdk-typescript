@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [get](#get) - Get the configuration version for a Worker Group or Edge Fleet
+* [get](#get) - Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
 
 ## get
 
-Get the configuration version for the specified Worker Group or Edge Fleet.
+Get the configuration version for the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -79,7 +79,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetConfigGroupConfigVersionByProductAndIdResponse](../../models/operations/getconfiggroupconfigversionbyproductandidresponse.md)\>**
+**Promise\<[models.CountedString](../../models/countedstring.md)\>**
 
 ### Errors
 

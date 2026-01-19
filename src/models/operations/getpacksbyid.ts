@@ -3,27 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetPacksByIdRequest = {
   /**
    * The <code>id</code> of the Pack to get.
    */
   id: string;
-};
-
-/**
- * a list of PackInfo objects
- */
-export type GetPacksByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.PackInfo> | undefined;
 };
 
 /** @internal */
@@ -45,25 +30,5 @@ export function getPacksByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     GetPacksByIdRequest$outboundSchema.parse(getPacksByIdRequest),
-  );
-}
-
-/** @internal */
-export const GetPacksByIdResponse$inboundSchema: z.ZodType<
-  GetPacksByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.PackInfo$inboundSchema).optional(),
-});
-
-export function getPacksByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPacksByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPacksByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPacksByIdResponse' from JSON`,
   );
 }

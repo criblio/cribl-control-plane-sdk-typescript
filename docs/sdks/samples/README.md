@@ -78,7 +78,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetOutputSamplesByIdResponse](../../models/operations/getoutputsamplesbyidresponse.md)\>**
+**Promise\<[models.CountedOutputSamplesResponse](../../models/countedoutputsamplesresponse.md)\>**
 
 ### Errors
 
@@ -110,7 +110,7 @@ async function run() {
     outputTestRequest: {
       events: [
         {
-          _raw: "<value>",
+          "_raw": "<value>",
         },
       ],
     },
@@ -145,7 +145,7 @@ async function run() {
     outputTestRequest: {
       events: [
         {
-          _raw: "<value>",
+          "_raw": "<value>",
         },
       ],
     },
@@ -172,7 +172,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateOutputTestByIdResponse](../../models/operations/createoutputtestbyidresponse.md)\>**
+**Promise\<[models.CountedOutputTestResponse](../../models/countedoutputtestresponse.md)\>**
 
 ### Errors
 

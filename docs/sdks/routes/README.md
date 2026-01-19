@@ -77,7 +77,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListRoutesResponse](../../models/operations/listroutesresponse.md)\>**
+**Promise\<[models.CountedRoutes](../../models/countedroutes.md)\>**
 
 ### Errors
 
@@ -157,7 +157,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetRoutesByIdResponse](../../models/operations/getroutesbyidresponse.md)\>**
+**Promise\<[models.CountedRoutes](../../models/countedroutes.md)\>**
 
 ### Errors
 
@@ -187,18 +187,31 @@ async function run() {
   const result = await criblControlPlane.routes.update({
     id: "<id>",
     routes: {
-      id: "<id>",
-      routes: [],
+      id: "default",
+      routes: [
+        {
+          id: "default",
+          name: "my-route",
+          disabled: true,
+          filter: "source == \"access.log\"",
+          pipeline: "main",
+          enableOutputExpression: false,
+          output: "<value>",
+          outputExpression: "<value>",
+          description: "Route access logs to main pipeline",
+          final: true,
+        },
+      ],
       groups: {
         "key": {
           name: "<value>",
-          description: "where internationalize yesterday woefully tank underneath",
-          disabled: true,
+          description: "drat yet spectacles ha",
+          disabled: false,
         },
       },
       comments: [
         {
-          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+          comment: "The Football Is Good For Training And Recreational Purposes",
         },
       ],
     },
@@ -231,18 +244,31 @@ async function run() {
   const res = await routesUpdate(criblControlPlane, {
     id: "<id>",
     routes: {
-      id: "<id>",
-      routes: [],
+      id: "default",
+      routes: [
+        {
+          id: "default",
+          name: "my-route",
+          disabled: true,
+          filter: "source == \"access.log\"",
+          pipeline: "main",
+          enableOutputExpression: false,
+          output: "<value>",
+          outputExpression: "<value>",
+          description: "Route access logs to main pipeline",
+          final: true,
+        },
+      ],
       groups: {
         "key": {
           name: "<value>",
-          description: "where internationalize yesterday woefully tank underneath",
-          disabled: true,
+          description: "drat yet spectacles ha",
+          disabled: false,
         },
       },
       comments: [
         {
-          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+          comment: "The Football Is Good For Training And Recreational Purposes",
         },
       ],
     },
@@ -269,7 +295,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateRoutesByIdResponse](../../models/operations/updateroutesbyidresponse.md)\>**
+**Promise\<[models.CountedRoutes](../../models/countedroutes.md)\>**
 
 ### Errors
 
@@ -298,7 +324,30 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.routes.append({
     id: "<id>",
-    requestBody: [],
+    requestBody: [
+      {
+        clones: [
+          {
+            "key": "<value>",
+          },
+          {
+
+          },
+        ],
+        context: "<value>",
+        description: "Route new logs to main pipeline",
+        disabled: true,
+        enableOutputExpression: true,
+        filter: "source == \"new.log\"",
+        final: true,
+        groupId: "<id>",
+        id: "route-new",
+        name: "new-route",
+        output: "<value>",
+        outputExpression: "<value>",
+        pipeline: "main",
+      },
+    ],
   });
 
   console.log(result);
@@ -327,7 +376,30 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await routesAppend(criblControlPlane, {
     id: "<id>",
-    requestBody: [],
+    requestBody: [
+      {
+        clones: [
+          {
+            "key": "<value>",
+          },
+          {
+  
+          },
+        ],
+        context: "<value>",
+        description: "Route new logs to main pipeline",
+        disabled: true,
+        enableOutputExpression: true,
+        filter: "source == \"new.log\"",
+        final: true,
+        groupId: "<id>",
+        id: "route-new",
+        name: "new-route",
+        output: "<value>",
+        outputExpression: "<value>",
+        pipeline: "main",
+      },
+    ],
   });
   if (res.ok) {
     const { value: result } = res;
@@ -351,7 +423,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateRoutesAppendByIdResponse](../../models/operations/createroutesappendbyidresponse.md)\>**
+**Promise\<[models.CountedRoutes](../../models/countedroutes.md)\>**
 
 ### Errors
 

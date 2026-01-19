@@ -192,6 +192,14 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [get](docs/sdks/tokens/README.md#get) - Log in and fetch an authentication token
 
+### [Collectors](docs/sdks/collectors/README.md)
+
+* [create](docs/sdks/collectors/README.md#create) - Create a Collector
+* [list](docs/sdks/collectors/README.md#list) - List all Collectors
+* [delete](docs/sdks/collectors/README.md#delete) - Delete a Collector
+* [get](docs/sdks/collectors/README.md#get) - Get a Collector
+* [update](docs/sdks/collectors/README.md#update) - Update a Collector
+
 ### [Destinations](docs/sdks/destinations/README.md)
 
 * [list](docs/sdks/destinations/README.md#list) - List all Destinations
@@ -210,26 +218,31 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [get](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 * [create](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 
+### [Functions](docs/sdks/functions/README.md)
+
+* [get](docs/sdks/functions/README.md#get) - Get a Function
+* [list](docs/sdks/functions/README.md#list) - List all Functions
+
 ### [Groups](docs/sdks/groups/README.md)
 
-* [list](docs/sdks/groups/README.md#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
-* [create](docs/sdks/groups/README.md#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
-* [get](docs/sdks/groups/README.md#get) - Get a Worker Group or Edge Fleet
-* [update](docs/sdks/groups/README.md#update) - Update a Worker Group or Edge Fleet
-* [delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group or Edge Fleet
+* [list](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
+* [create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+* [get](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
+* [update](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
+* [delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
 * [deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group or Edge Fleet
 
 #### [Groups.Acl](docs/sdks/acl/README.md)
 
-* [get](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group or Edge Fleet
+* [get](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
 
 ##### [Groups.Acl.Teams](docs/sdks/teams/README.md)
 
-* [get](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
+* [get](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
 
 #### [Groups.Configs.Versions](docs/sdks/configsversions/README.md)
 
-* [get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group or Edge Fleet
+* [get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
 
 ### [Health](docs/sdks/health/README.md)
 
@@ -289,6 +302,11 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 
+### [System.Settings.Cribl](docs/sdks/cribl/README.md)
+
+* [list](docs/sdks/cribl/README.md#list) - Get Cribl system settings
+* [update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
+
 ### [Versions.Branches](docs/sdks/branches/README.md)
 
 * [list](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
@@ -336,6 +354,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 <summary>Available standalone functions</summary>
 
 - [`authTokensGet`](docs/sdks/tokens/README.md#get) - Log in and fetch an authentication token
+- [`collectorsCreate`](docs/sdks/collectors/README.md#create) - Create a Collector
+- [`collectorsDelete`](docs/sdks/collectors/README.md#delete) - Delete a Collector
+- [`collectorsGet`](docs/sdks/collectors/README.md#get) - Get a Collector
+- [`collectorsList`](docs/sdks/collectors/README.md#list) - List all Collectors
+- [`collectorsUpdate`](docs/sdks/collectors/README.md#update) - Update a Collector
 - [`destinationsCreate`](docs/sdks/destinations/README.md#create) - Create a Destination
 - [`destinationsDelete`](docs/sdks/destinations/README.md#delete) - Delete a Destination
 - [`destinationsGet`](docs/sdks/destinations/README.md#get) - Get a Destination
@@ -345,15 +368,17 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`destinationsSamplesCreate`](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 - [`destinationsSamplesGet`](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 - [`destinationsUpdate`](docs/sdks/destinations/README.md#update) - Update a Destination
-- [`groupsAclGet`](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group or Edge Fleet
-- [`groupsAclTeamsGet`](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
-- [`groupsConfigsVersionsGet`](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group or Edge Fleet
-- [`groupsCreate`](docs/sdks/groups/README.md#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
-- [`groupsDelete`](docs/sdks/groups/README.md#delete) - Delete a Worker Group or Edge Fleet
+- [`functionsGet`](docs/sdks/functions/README.md#get) - Get a Function
+- [`functionsList`](docs/sdks/functions/README.md#list) - List all Functions
+- [`groupsAclGet`](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
+- [`groupsAclTeamsGet`](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+- [`groupsConfigsVersionsGet`](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
+- [`groupsCreate`](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+- [`groupsDelete`](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
 - [`groupsDeploy`](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group or Edge Fleet
-- [`groupsGet`](docs/sdks/groups/README.md#get) - Get a Worker Group or Edge Fleet
-- [`groupsList`](docs/sdks/groups/README.md#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
-- [`groupsUpdate`](docs/sdks/groups/README.md#update) - Update a Worker Group or Edge Fleet
+- [`groupsGet`](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
+- [`groupsList`](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
+- [`groupsUpdate`](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 - [`healthGet`](docs/sdks/health/README.md#get) - Retrieve health status of the server
 - [`lakeDatasetsCreate`](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset
 - [`lakeDatasetsDelete`](docs/sdks/lakedatasets/README.md#delete) - Delete a Lake Dataset
@@ -385,6 +410,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesHecTokensUpdate`](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 - [`sourcesList`](docs/sdks/sources/README.md#list) - List all Sources
 - [`sourcesUpdate`](docs/sdks/sources/README.md#update) - Update a Source
+- [`systemSettingsCriblList`](docs/sdks/cribl/README.md#list) - Get Cribl system settings
+- [`systemSettingsCriblUpdate`](docs/sdks/cribl/README.md#update) - Update Cribl system settings
 - [`versionsBranchesGet`](docs/sdks/branches/README.md#get) - Get the name of the Git branch that the Cribl configuration is checked out to
 - [`versionsBranchesList`](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
 - [`versionsCommitsCreate`](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
@@ -741,7 +768,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthServerStatusError`](./src/models/errors/healthserverstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 63 methods.*
+* [`HealthServerStatusError`](./src/models/errors/healthserverstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 72 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

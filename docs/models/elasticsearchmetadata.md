@@ -7,6 +7,7 @@ import { ElasticsearchMetadata } from "cribl-control-plane/models";
 
 let value: ElasticsearchMetadata = {
   enabled: true,
+  defaultDataset: "<value>",
 };
 ```
 
@@ -15,3 +16,4 @@ let value: ElasticsearchMetadata = {
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
 | `enabled`          | *boolean*          | :heavy_minus_sign: | N/A                |
+| `defaultDataset`   | *string*           | :heavy_minus_sign: | N/A                |

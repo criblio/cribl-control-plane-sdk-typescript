@@ -78,7 +78,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListInputResponse](../../models/operations/listinputresponse.md)\>**
+**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
 
 ### Errors
 
@@ -106,8 +106,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.sources.create({
-    id: "<id>",
-    type: "tcp",
+    id: "appscope-source",
+    type: "appscope",
     disabled: false,
     pipeline: "<value>",
     sendToRoutes: true,
@@ -115,8 +115,6 @@ async function run() {
     pqEnabled: false,
     streamtags: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     connections: [
       {
@@ -125,35 +123,20 @@ async function run() {
       },
     ],
     pq: {
-      mode: "always",
-      maxBufferSize: 1000,
-      commitFrequency: 42,
-      maxFileSize: "1 MB",
-      maxSize: "5GB",
-      path: "$CRIBL_HOME/state/queues",
-      compress: "none",
+      mode: "smart",
+      maxBufferSize: 2055.73,
+      commitFrequency: 7905.42,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/bin",
+      compress: "gzip",
       pqControls: {},
     },
-    host: "0.0.0.0",
-    port: 301.76,
-    tls: {
-      disabled: true,
-      requestCert: false,
-      rejectUnauthorized: true,
-      commonNameRegex: "<value>",
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.1",
-    },
-    ipWhitelistRegex: "/.*/",
-    maxActiveCxn: 1000,
-    socketIdleTimeout: 0,
-    socketEndingMaxWait: 30,
-    socketMaxLifespan: 0,
+    ipWhitelistRegex: "<value>",
+    maxActiveCxn: 4887.41,
+    socketIdleTimeout: 2674.23,
+    socketEndingMaxWait: 7415.32,
+    socketMaxLifespan: 7847.75,
     enableProxyHeader: false,
     metadata: [
       {
@@ -164,20 +147,46 @@ async function run() {
     breakerRulesets: [
       "<value 1>",
     ],
-    staleChannelFlushMs: 10000,
-    enableHeader: false,
-    preprocess: {
-      disabled: true,
-      command: "<value>",
-      args: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
+    staleChannelFlushMs: 3076.3,
+    enableUnixPath: false,
+    filter: {
+      allow: [
+        {
+          procname: "<value>",
+          arg: "<value>",
+          config: "<value>",
+        },
       ],
+      transportURL: "https://pointed-napkin.info/",
     },
-    description: "classic pish supposing misguided carefully fen",
-    authToken: "",
+    persistence: {
+      enable: false,
+      timeWindow: "<value>",
+      maxDataSize: "<value>",
+      maxDataTime: "<value>",
+      compress: "none",
+      destPath: "<value>",
+    },
     authType: "manual",
+    description: "repeatedly urban incidentally clean up",
+    host: "0.0.0.0",
+    port: 9109,
+    tls: {
+      disabled: true,
+      requestCert: false,
+      rejectUnauthorized: true,
+      commonNameRegex: "<value>",
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.3",
+    },
+    unixSocketPath: "<value>",
+    unixSocketPerms: "<value>",
+    authToken: "<value>",
     textSecret: "<value>",
   });
 
@@ -206,8 +215,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await sourcesCreate(criblControlPlane, {
-    id: "<id>",
-    type: "tcp",
+    id: "appscope-source",
+    type: "appscope",
     disabled: false,
     pipeline: "<value>",
     sendToRoutes: true,
@@ -215,8 +224,6 @@ async function run() {
     pqEnabled: false,
     streamtags: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     connections: [
       {
@@ -225,35 +232,20 @@ async function run() {
       },
     ],
     pq: {
-      mode: "always",
-      maxBufferSize: 1000,
-      commitFrequency: 42,
-      maxFileSize: "1 MB",
-      maxSize: "5GB",
-      path: "$CRIBL_HOME/state/queues",
-      compress: "none",
+      mode: "smart",
+      maxBufferSize: 2055.73,
+      commitFrequency: 7905.42,
+      maxFileSize: "<value>",
+      maxSize: "<value>",
+      path: "/opt/bin",
+      compress: "gzip",
       pqControls: {},
     },
-    host: "0.0.0.0",
-    port: 301.76,
-    tls: {
-      disabled: true,
-      requestCert: false,
-      rejectUnauthorized: true,
-      commonNameRegex: "<value>",
-      certificateName: "<value>",
-      privKeyPath: "<value>",
-      passphrase: "<value>",
-      certPath: "<value>",
-      caPath: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.1",
-    },
-    ipWhitelistRegex: "/.*/",
-    maxActiveCxn: 1000,
-    socketIdleTimeout: 0,
-    socketEndingMaxWait: 30,
-    socketMaxLifespan: 0,
+    ipWhitelistRegex: "<value>",
+    maxActiveCxn: 4887.41,
+    socketIdleTimeout: 2674.23,
+    socketEndingMaxWait: 7415.32,
+    socketMaxLifespan: 7847.75,
     enableProxyHeader: false,
     metadata: [
       {
@@ -264,20 +256,46 @@ async function run() {
     breakerRulesets: [
       "<value 1>",
     ],
-    staleChannelFlushMs: 10000,
-    enableHeader: false,
-    preprocess: {
-      disabled: true,
-      command: "<value>",
-      args: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
+    staleChannelFlushMs: 3076.3,
+    enableUnixPath: false,
+    filter: {
+      allow: [
+        {
+          procname: "<value>",
+          arg: "<value>",
+          config: "<value>",
+        },
       ],
+      transportURL: "https://pointed-napkin.info/",
     },
-    description: "classic pish supposing misguided carefully fen",
-    authToken: "",
+    persistence: {
+      enable: false,
+      timeWindow: "<value>",
+      maxDataSize: "<value>",
+      maxDataTime: "<value>",
+      compress: "none",
+      destPath: "<value>",
+    },
     authType: "manual",
+    description: "repeatedly urban incidentally clean up",
+    host: "0.0.0.0",
+    port: 9109,
+    tls: {
+      disabled: true,
+      requestCert: false,
+      rejectUnauthorized: true,
+      commonNameRegex: "<value>",
+      certificateName: "<value>",
+      privKeyPath: "<value>",
+      passphrase: "<value>",
+      certPath: "<value>",
+      caPath: "<value>",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.3",
+    },
+    unixSocketPath: "<value>",
+    unixSocketPerms: "<value>",
+    authToken: "<value>",
     textSecret: "<value>",
   });
   if (res.ok) {
@@ -295,14 +313,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.Input](../../models/input.md)                                                                                                                                          | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateInputRequest](../../models/operations/createinputrequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.CreateInputResponse](../../models/operations/createinputresponse.md)\>**
+**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
 
 ### Errors
 
@@ -382,7 +400,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetInputByIdResponse](../../models/operations/getinputbyidresponse.md)\>**
+**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
 
 ### Errors
 
@@ -412,8 +430,8 @@ async function run() {
   const result = await criblControlPlane.sources.update({
     id: "<id>",
     input: {
-      id: "<id>",
-      type: "kube_events",
+      id: "appscope-source",
+      type: "appscope",
       disabled: false,
       pipeline: "<value>",
       sendToRoutes: true,
@@ -421,7 +439,6 @@ async function run() {
       pqEnabled: false,
       streamtags: [
         "<value 1>",
-        "<value 2>",
       ],
       connections: [
         {
@@ -430,28 +447,71 @@ async function run() {
         },
       ],
       pq: {
-        mode: "always",
-        maxBufferSize: 1000,
-        commitFrequency: 42,
-        maxFileSize: "1 MB",
-        maxSize: "5GB",
-        path: "$CRIBL_HOME/state/queues",
-        compress: "none",
+        mode: "smart",
+        maxBufferSize: 9959.95,
+        commitFrequency: 4085.76,
+        maxFileSize: "<value>",
+        maxSize: "<value>",
+        path: "/usr/obj",
+        compress: "gzip",
         pqControls: {},
       },
-      rules: [
-        {
-          filter: "<value>",
-          description: "invite meh corny incidentally down",
-        },
-      ],
+      ipWhitelistRegex: "<value>",
+      maxActiveCxn: 3417.54,
+      socketIdleTimeout: 4799.95,
+      socketEndingMaxWait: 3730.65,
+      socketMaxLifespan: 4634.53,
+      enableProxyHeader: true,
       metadata: [
         {
           name: "<value>",
           value: "<value>",
         },
       ],
-      description: "gown deployment portray gah mindless carp stabilise",
+      breakerRulesets: [
+        "<value 1>",
+      ],
+      staleChannelFlushMs: 3362.61,
+      enableUnixPath: false,
+      filter: {
+        allow: [
+          {
+            procname: "<value>",
+            arg: "<value>",
+            config: "<value>",
+          },
+        ],
+        transportURL: "https://distorted-translation.org/",
+      },
+      persistence: {
+        enable: false,
+        timeWindow: "<value>",
+        maxDataSize: "<value>",
+        maxDataTime: "<value>",
+        compress: "none",
+        destPath: "<value>",
+      },
+      authType: "secret",
+      description: "incidentally down versus blah",
+      host: "0.0.0.0",
+      port: 9109,
+      tls: {
+        disabled: true,
+        requestCert: true,
+        rejectUnauthorized: false,
+        commonNameRegex: "<value>",
+        certificateName: "<value>",
+        privKeyPath: "<value>",
+        passphrase: "<value>",
+        certPath: "<value>",
+        caPath: "<value>",
+        minVersion: "TLSv1",
+        maxVersion: "TLSv1",
+      },
+      unixSocketPath: "<value>",
+      unixSocketPerms: "<value>",
+      authToken: "<value>",
+      textSecret: "<value>",
     },
   });
 
@@ -482,8 +542,8 @@ async function run() {
   const res = await sourcesUpdate(criblControlPlane, {
     id: "<id>",
     input: {
-      id: "<id>",
-      type: "kube_events",
+      id: "appscope-source",
+      type: "appscope",
       disabled: false,
       pipeline: "<value>",
       sendToRoutes: true,
@@ -491,7 +551,6 @@ async function run() {
       pqEnabled: false,
       streamtags: [
         "<value 1>",
-        "<value 2>",
       ],
       connections: [
         {
@@ -500,28 +559,71 @@ async function run() {
         },
       ],
       pq: {
-        mode: "always",
-        maxBufferSize: 1000,
-        commitFrequency: 42,
-        maxFileSize: "1 MB",
-        maxSize: "5GB",
-        path: "$CRIBL_HOME/state/queues",
-        compress: "none",
+        mode: "smart",
+        maxBufferSize: 9959.95,
+        commitFrequency: 4085.76,
+        maxFileSize: "<value>",
+        maxSize: "<value>",
+        path: "/usr/obj",
+        compress: "gzip",
         pqControls: {},
       },
-      rules: [
-        {
-          filter: "<value>",
-          description: "invite meh corny incidentally down",
-        },
-      ],
+      ipWhitelistRegex: "<value>",
+      maxActiveCxn: 3417.54,
+      socketIdleTimeout: 4799.95,
+      socketEndingMaxWait: 3730.65,
+      socketMaxLifespan: 4634.53,
+      enableProxyHeader: true,
       metadata: [
         {
           name: "<value>",
           value: "<value>",
         },
       ],
-      description: "gown deployment portray gah mindless carp stabilise",
+      breakerRulesets: [
+        "<value 1>",
+      ],
+      staleChannelFlushMs: 3362.61,
+      enableUnixPath: false,
+      filter: {
+        allow: [
+          {
+            procname: "<value>",
+            arg: "<value>",
+            config: "<value>",
+          },
+        ],
+        transportURL: "https://distorted-translation.org/",
+      },
+      persistence: {
+        enable: false,
+        timeWindow: "<value>",
+        maxDataSize: "<value>",
+        maxDataTime: "<value>",
+        compress: "none",
+        destPath: "<value>",
+      },
+      authType: "secret",
+      description: "incidentally down versus blah",
+      host: "0.0.0.0",
+      port: 9109,
+      tls: {
+        disabled: true,
+        requestCert: true,
+        rejectUnauthorized: false,
+        commonNameRegex: "<value>",
+        certificateName: "<value>",
+        privKeyPath: "<value>",
+        passphrase: "<value>",
+        certPath: "<value>",
+        caPath: "<value>",
+        minVersion: "TLSv1",
+        maxVersion: "TLSv1",
+      },
+      unixSocketPath: "<value>",
+      unixSocketPerms: "<value>",
+      authToken: "<value>",
+      textSecret: "<value>",
     },
   });
   if (res.ok) {
@@ -546,7 +648,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateInputByIdResponse](../../models/operations/updateinputbyidresponse.md)\>**
+**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
 
 ### Errors
 
@@ -626,7 +728,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteInputByIdResponse](../../models/operations/deleteinputbyidresponse.md)\>**
+**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
 
 ### Errors
 

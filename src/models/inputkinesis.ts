@@ -8,81 +8,29 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputKinesisConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputKinesisMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputKinesisMode = OpenEnum<typeof InputKinesisMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputKinesisCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputKinesisCompression = OpenEnum<typeof InputKinesisCompression>;
-
-export type InputKinesisPqControls = {};
-
-export type InputKinesisPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputKinesisMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputKinesisCompression | undefined;
-  pqControls?: InputKinesisPqControls | undefined;
-};
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  SignatureVersionOptions2,
+  SignatureVersionOptions2$inboundSchema,
+  SignatureVersionOptions2$outboundSchema,
+} from "./signatureversionoptions2.js";
 
 /**
  * Location at which to start reading a shard for the first time
@@ -105,7 +53,7 @@ export type ShardIteratorStart = OpenEnum<typeof ShardIteratorStart>;
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export const InputKinesisRecordDataFormat = {
+export const RecordDataFormat = {
   /**
    * Cribl
    */
@@ -126,9 +74,7 @@ export const InputKinesisRecordDataFormat = {
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export type InputKinesisRecordDataFormat = OpenEnum<
-  typeof InputKinesisRecordDataFormat
->;
+export type RecordDataFormat = OpenEnum<typeof RecordDataFormat>;
 
 /**
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
@@ -147,52 +93,6 @@ export const ShardLoadBalancing = {
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
 export type ShardLoadBalancing = OpenEnum<typeof ShardLoadBalancing>;
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const InputKinesisAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type InputKinesisAuthenticationMethod = OpenEnum<
-  typeof InputKinesisAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing Kinesis stream requests
- */
-export const InputKinesisSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing Kinesis stream requests
- */
-export type InputKinesisSignatureVersion = OpenEnum<
-  typeof InputKinesisSignatureVersion
->;
-
-export type InputKinesisMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
 
 export type InputKinesis = {
   /**
@@ -224,8 +124,8 @@ export type InputKinesis = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputKinesisConnection> | undefined;
-  pq?: InputKinesisPq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Kinesis Data Stream to read data from
    */
@@ -245,7 +145,7 @@ export type InputKinesis = {
   /**
    * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
    */
-  payloadFormat?: InputKinesisRecordDataFormat | undefined;
+  payloadFormat?: RecordDataFormat | undefined;
   /**
    * Maximum number of records per getRecords call
    */
@@ -261,7 +161,7 @@ export type InputKinesis = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: InputKinesisAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -274,7 +174,7 @@ export type InputKinesis = {
   /**
    * Signature version to use for signing Kinesis stream requests
    */
-  signatureVersion?: InputKinesisSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions2 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -310,7 +210,7 @@ export type InputKinesis = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputKinesisMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -318,163 +218,6 @@ export type InputKinesis = {
    */
   awsSecret?: string | undefined;
 };
-
-/** @internal */
-export const InputKinesisConnection$inboundSchema: z.ZodType<
-  InputKinesisConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputKinesisConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputKinesisConnection$outboundSchema: z.ZodType<
-  InputKinesisConnection$Outbound,
-  z.ZodTypeDef,
-  InputKinesisConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputKinesisConnectionToJSON(
-  inputKinesisConnection: InputKinesisConnection,
-): string {
-  return JSON.stringify(
-    InputKinesisConnection$outboundSchema.parse(inputKinesisConnection),
-  );
-}
-export function inputKinesisConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKinesisConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKinesisConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKinesisConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKinesisMode$inboundSchema: z.ZodType<
-  InputKinesisMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputKinesisMode);
-/** @internal */
-export const InputKinesisMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputKinesisMode
-> = openEnums.outboundSchema(InputKinesisMode);
-
-/** @internal */
-export const InputKinesisCompression$inboundSchema: z.ZodType<
-  InputKinesisCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputKinesisCompression);
-/** @internal */
-export const InputKinesisCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputKinesisCompression
-> = openEnums.outboundSchema(InputKinesisCompression);
-
-/** @internal */
-export const InputKinesisPqControls$inboundSchema: z.ZodType<
-  InputKinesisPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputKinesisPqControls$Outbound = {};
-
-/** @internal */
-export const InputKinesisPqControls$outboundSchema: z.ZodType<
-  InputKinesisPqControls$Outbound,
-  z.ZodTypeDef,
-  InputKinesisPqControls
-> = z.object({});
-
-export function inputKinesisPqControlsToJSON(
-  inputKinesisPqControls: InputKinesisPqControls,
-): string {
-  return JSON.stringify(
-    InputKinesisPqControls$outboundSchema.parse(inputKinesisPqControls),
-  );
-}
-export function inputKinesisPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKinesisPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKinesisPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKinesisPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKinesisPq$inboundSchema: z.ZodType<
-  InputKinesisPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputKinesisMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputKinesisCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputKinesisPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputKinesisPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputKinesisPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputKinesisPq$outboundSchema: z.ZodType<
-  InputKinesisPq$Outbound,
-  z.ZodTypeDef,
-  InputKinesisPq
-> = z.object({
-  mode: InputKinesisMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputKinesisCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputKinesisPqControls$outboundSchema).optional(),
-});
-
-export function inputKinesisPqToJSON(inputKinesisPq: InputKinesisPq): string {
-  return JSON.stringify(InputKinesisPq$outboundSchema.parse(inputKinesisPq));
-}
-export function inputKinesisPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKinesisPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKinesisPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKinesisPq' from JSON`,
-  );
-}
 
 /** @internal */
 export const ShardIteratorStart$inboundSchema: z.ZodType<
@@ -490,17 +233,17 @@ export const ShardIteratorStart$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(ShardIteratorStart);
 
 /** @internal */
-export const InputKinesisRecordDataFormat$inboundSchema: z.ZodType<
-  InputKinesisRecordDataFormat,
+export const RecordDataFormat$inboundSchema: z.ZodType<
+  RecordDataFormat,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(InputKinesisRecordDataFormat);
+> = openEnums.inboundSchema(RecordDataFormat);
 /** @internal */
-export const InputKinesisRecordDataFormat$outboundSchema: z.ZodType<
+export const RecordDataFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  InputKinesisRecordDataFormat
-> = openEnums.outboundSchema(InputKinesisRecordDataFormat);
+  RecordDataFormat
+> = openEnums.outboundSchema(RecordDataFormat);
 
 /** @internal */
 export const ShardLoadBalancing$inboundSchema: z.ZodType<
@@ -516,74 +259,6 @@ export const ShardLoadBalancing$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(ShardLoadBalancing);
 
 /** @internal */
-export const InputKinesisAuthenticationMethod$inboundSchema: z.ZodType<
-  InputKinesisAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputKinesisAuthenticationMethod);
-/** @internal */
-export const InputKinesisAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputKinesisAuthenticationMethod
-> = openEnums.outboundSchema(InputKinesisAuthenticationMethod);
-
-/** @internal */
-export const InputKinesisSignatureVersion$inboundSchema: z.ZodType<
-  InputKinesisSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputKinesisSignatureVersion);
-/** @internal */
-export const InputKinesisSignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputKinesisSignatureVersion
-> = openEnums.outboundSchema(InputKinesisSignatureVersion);
-
-/** @internal */
-export const InputKinesisMetadatum$inboundSchema: z.ZodType<
-  InputKinesisMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputKinesisMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputKinesisMetadatum$outboundSchema: z.ZodType<
-  InputKinesisMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputKinesisMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputKinesisMetadatumToJSON(
-  inputKinesisMetadatum: InputKinesisMetadatum,
-): string {
-  return JSON.stringify(
-    InputKinesisMetadatum$outboundSchema.parse(inputKinesisMetadatum),
-  );
-}
-export function inputKinesisMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKinesisMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKinesisMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKinesisMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputKinesis$inboundSchema: z.ZodType<
   InputKinesis,
   z.ZodTypeDef,
@@ -591,41 +266,36 @@ export const InputKinesis$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("kinesis"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputKinesisConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputKinesisPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   streamName: z.string(),
-  serviceInterval: z.number().default(1),
-  shardExpr: z.string().default("true"),
-  shardIteratorType: ShardIteratorStart$inboundSchema.default("TRIM_HORIZON"),
-  payloadFormat: InputKinesisRecordDataFormat$inboundSchema.default("cribl"),
-  getRecordsLimit: z.number().default(5000),
-  getRecordsLimitTotal: z.number().default(20000),
-  loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.default(
-    "ConsistentHashing",
-  ),
-  awsAuthenticationMethod: InputKinesisAuthenticationMethod$inboundSchema
-    .default("auto"),
+  serviceInterval: z.number().optional(),
+  shardExpr: z.string().optional(),
+  shardIteratorType: ShardIteratorStart$inboundSchema.optional(),
+  payloadFormat: RecordDataFormat$inboundSchema.optional(),
+  getRecordsLimit: z.number().optional(),
+  getRecordsLimitTotal: z.number().optional(),
+  loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.optional(),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: InputKinesisSignatureVersion$inboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions2$inboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  verifyKPLCheckSums: z.boolean().default(false),
-  avoidDuplicates: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputKinesisMetadatum$inboundSchema))
-    .optional(),
+  durationSeconds: z.number().optional(),
+  verifyKPLCheckSums: z.boolean().optional(),
+  avoidDuplicates: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -634,36 +304,36 @@ export const InputKinesis$inboundSchema: z.ZodType<
 export type InputKinesis$Outbound = {
   id?: string | undefined;
   type: "kinesis";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputKinesisConnection$Outbound> | undefined;
-  pq?: InputKinesisPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   streamName: string;
-  serviceInterval: number;
-  shardExpr: string;
-  shardIteratorType: string;
-  payloadFormat: string;
-  getRecordsLimit: number;
-  getRecordsLimitTotal: number;
-  loadBalancingAlgorithm: string;
-  awsAuthenticationMethod: string;
+  serviceInterval?: number | undefined;
+  shardExpr?: string | undefined;
+  shardIteratorType?: string | undefined;
+  payloadFormat?: string | undefined;
+  getRecordsLimit?: number | undefined;
+  getRecordsLimitTotal?: number | undefined;
+  loadBalancingAlgorithm?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region: string;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  verifyKPLCheckSums: boolean;
-  avoidDuplicates: boolean;
-  metadata?: Array<InputKinesisMetadatum$Outbound> | undefined;
+  durationSeconds?: number | undefined;
+  verifyKPLCheckSums?: boolean | undefined;
+  avoidDuplicates?: boolean | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -677,41 +347,36 @@ export const InputKinesis$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("kinesis"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputKinesisConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputKinesisPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   streamName: z.string(),
-  serviceInterval: z.number().default(1),
-  shardExpr: z.string().default("true"),
-  shardIteratorType: ShardIteratorStart$outboundSchema.default("TRIM_HORIZON"),
-  payloadFormat: InputKinesisRecordDataFormat$outboundSchema.default("cribl"),
-  getRecordsLimit: z.number().default(5000),
-  getRecordsLimitTotal: z.number().default(20000),
-  loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
-    "ConsistentHashing",
-  ),
-  awsAuthenticationMethod: InputKinesisAuthenticationMethod$outboundSchema
-    .default("auto"),
+  serviceInterval: z.number().optional(),
+  shardExpr: z.string().optional(),
+  shardIteratorType: ShardIteratorStart$outboundSchema.optional(),
+  payloadFormat: RecordDataFormat$outboundSchema.optional(),
+  getRecordsLimit: z.number().optional(),
+  getRecordsLimitTotal: z.number().optional(),
+  loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.optional(),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: InputKinesisSignatureVersion$outboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions2$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  verifyKPLCheckSums: z.boolean().default(false),
-  avoidDuplicates: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputKinesisMetadatum$outboundSchema))
-    .optional(),
+  durationSeconds: z.number().optional(),
+  verifyKPLCheckSums: z.boolean().optional(),
+  avoidDuplicates: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),

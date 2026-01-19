@@ -4,220 +4,51 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptions1,
+  CompressionOptions1$inboundSchema,
+  CompressionOptions1$outboundSchema,
+} from "./compressionoptions1.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Codec to use to compress the data before sending
- */
-export const OutputCriblTcpCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the data before sending
- */
-export type OutputCriblTcpCompression = OpenEnum<
-  typeof OutputCriblTcpCompression
->;
-
-export const OutputCriblTcpMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputCriblTcpMinimumTLSVersion = OpenEnum<
-  typeof OutputCriblTcpMinimumTLSVersion
->;
-
-export const OutputCriblTcpMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputCriblTcpMaximumTLSVersion = OpenEnum<
-  typeof OutputCriblTcpMaximumTLSVersion
->;
-
-export type OutputCriblTcpTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-   *
-   * @remarks
-   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-   */
-  servername?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  minVersion?: OutputCriblTcpMinimumTLSVersion | undefined;
-  maxVersion?: OutputCriblTcpMaximumTLSVersion | undefined;
-};
-
-export type OutputCriblTcpAuthToken = {
-  /**
-   * Select or create a stored text secret
-   */
-  tokenSecret: string;
-  enabled?: boolean | undefined;
-  /**
-   * Optional token description
-   */
-  description?: string | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputCriblTcpBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputCriblTcpBackpressureBehavior = OpenEnum<
-  typeof OutputCriblTcpBackpressureBehavior
->;
-
-/**
- * Whether to inherit TLS configs from group setting or disable TLS
- */
-export const OutputCriblTcpTLS = {
-  Inherit: "inherit",
-  Off: "off",
-} as const;
-/**
- * Whether to inherit TLS configs from group setting or disable TLS
- */
-export type OutputCriblTcpTLS = OpenEnum<typeof OutputCriblTcpTLS>;
-
-export type OutputCriblTcpHost = {
-  /**
-   * The hostname of the receiver
-   */
-  host: string;
-  /**
-   * The port to connect to on the provided host
-   */
-  port?: number | undefined;
-  /**
-   * Whether to inherit TLS configs from group setting or disable TLS
-   */
-  tls?: OutputCriblTcpTLS | undefined;
-  /**
-   * Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings.
-   */
-  servername?: string | undefined;
-  /**
-   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-   */
-  weight?: number | undefined;
-};
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputCriblTcpMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputCriblTcpMode = OpenEnum<typeof OutputCriblTcpMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputCriblTcpPqCompressCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputCriblTcpPqCompressCompression = OpenEnum<
-  typeof OutputCriblTcpPqCompressCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputCriblTcpQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputCriblTcpQueueFullBehavior = OpenEnum<
-  typeof OutputCriblTcpQueueFullBehavior
->;
+import {
+  ItemsTypeAuthTokens,
+  ItemsTypeAuthTokens$inboundSchema,
+  ItemsTypeAuthTokens$Outbound,
+  ItemsTypeAuthTokens$outboundSchema,
+} from "./itemstypeauthtokens.js";
+import {
+  ItemsTypeHosts,
+  ItemsTypeHosts$inboundSchema,
+  ItemsTypeHosts$Outbound,
+  ItemsTypeHosts$outboundSchema,
+} from "./itemstypehosts.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TlsSettingsClientSideTypeKafkaSchemaRegistry,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound,
+  TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema,
+} from "./tlssettingsclientsidetypekafkaschemaregistry.js";
 
 export type OutputCriblTcpPqControls = {};
 
@@ -250,7 +81,7 @@ export type OutputCriblTcp = {
   /**
    * Codec to use to compress the data before sending
    */
-  compression?: OutputCriblTcpCompression | undefined;
+  compression?: CompressionOptions1 | undefined;
   /**
    * Use to troubleshoot issues with sending data
    */
@@ -259,7 +90,7 @@ export type OutputCriblTcp = {
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
   throttleRatePerSec?: string | undefined;
-  tls?: OutputCriblTcpTLSSettingsClientSide | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
   /**
    * Amount of time (milliseconds) to wait for the connection to establish before retrying
    */
@@ -275,7 +106,7 @@ export type OutputCriblTcp = {
   /**
    * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
    */
-  authTokens?: Array<OutputCriblTcpAuthToken> | undefined;
+  authTokens?: Array<ItemsTypeAuthTokens> | undefined;
   /**
    * Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
    */
@@ -283,7 +114,7 @@ export type OutputCriblTcp = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputCriblTcpBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   description?: string | undefined;
   /**
    * The hostname of the receiver
@@ -300,7 +131,7 @@ export type OutputCriblTcp = {
   /**
    * Set of hosts to load-balance data to
    */
-  hosts?: Array<OutputCriblTcpHost> | undefined;
+  hosts?: Array<ItemsTypeHosts> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -324,7 +155,7 @@ export type OutputCriblTcp = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputCriblTcpMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -348,282 +179,13 @@ export type OutputCriblTcp = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputCriblTcpPqCompressCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputCriblTcpQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputCriblTcpPqControls | undefined;
 };
-
-/** @internal */
-export const OutputCriblTcpCompression$inboundSchema: z.ZodType<
-  OutputCriblTcpCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputCriblTcpCompression);
-/** @internal */
-export const OutputCriblTcpCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCriblTcpCompression
-> = openEnums.outboundSchema(OutputCriblTcpCompression);
-
-/** @internal */
-export const OutputCriblTcpMinimumTLSVersion$inboundSchema: z.ZodType<
-  OutputCriblTcpMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputCriblTcpMinimumTLSVersion);
-/** @internal */
-export const OutputCriblTcpMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCriblTcpMinimumTLSVersion
-> = openEnums.outboundSchema(OutputCriblTcpMinimumTLSVersion);
-
-/** @internal */
-export const OutputCriblTcpMaximumTLSVersion$inboundSchema: z.ZodType<
-  OutputCriblTcpMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputCriblTcpMaximumTLSVersion);
-/** @internal */
-export const OutputCriblTcpMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCriblTcpMaximumTLSVersion
-> = openEnums.outboundSchema(OutputCriblTcpMaximumTLSVersion);
-
-/** @internal */
-export const OutputCriblTcpTLSSettingsClientSide$inboundSchema: z.ZodType<
-  OutputCriblTcpTLSSettingsClientSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputCriblTcpMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: OutputCriblTcpMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type OutputCriblTcpTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-  servername?: string | undefined;
-  certificateName?: string | undefined;
-  caPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  certPath?: string | undefined;
-  passphrase?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const OutputCriblTcpTLSSettingsClientSide$outboundSchema: z.ZodType<
-  OutputCriblTcpTLSSettingsClientSide$Outbound,
-  z.ZodTypeDef,
-  OutputCriblTcpTLSSettingsClientSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputCriblTcpMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: OutputCriblTcpMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function outputCriblTcpTLSSettingsClientSideToJSON(
-  outputCriblTcpTLSSettingsClientSide: OutputCriblTcpTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    OutputCriblTcpTLSSettingsClientSide$outboundSchema.parse(
-      outputCriblTcpTLSSettingsClientSide,
-    ),
-  );
-}
-export function outputCriblTcpTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblTcpTLSSettingsClientSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputCriblTcpTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblTcpTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputCriblTcpAuthToken$inboundSchema: z.ZodType<
-  OutputCriblTcpAuthToken,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  tokenSecret: z.string(),
-  enabled: z.boolean().default(true),
-  description: z.string().optional(),
-});
-/** @internal */
-export type OutputCriblTcpAuthToken$Outbound = {
-  tokenSecret: string;
-  enabled: boolean;
-  description?: string | undefined;
-};
-
-/** @internal */
-export const OutputCriblTcpAuthToken$outboundSchema: z.ZodType<
-  OutputCriblTcpAuthToken$Outbound,
-  z.ZodTypeDef,
-  OutputCriblTcpAuthToken
-> = z.object({
-  tokenSecret: z.string(),
-  enabled: z.boolean().default(true),
-  description: z.string().optional(),
-});
-
-export function outputCriblTcpAuthTokenToJSON(
-  outputCriblTcpAuthToken: OutputCriblTcpAuthToken,
-): string {
-  return JSON.stringify(
-    OutputCriblTcpAuthToken$outboundSchema.parse(outputCriblTcpAuthToken),
-  );
-}
-export function outputCriblTcpAuthTokenFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblTcpAuthToken, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCriblTcpAuthToken$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblTcpAuthToken' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputCriblTcpBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputCriblTcpBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputCriblTcpBackpressureBehavior);
-/** @internal */
-export const OutputCriblTcpBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCriblTcpBackpressureBehavior
-> = openEnums.outboundSchema(OutputCriblTcpBackpressureBehavior);
-
-/** @internal */
-export const OutputCriblTcpTLS$inboundSchema: z.ZodType<
-  OutputCriblTcpTLS,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputCriblTcpTLS);
-/** @internal */
-export const OutputCriblTcpTLS$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCriblTcpTLS
-> = openEnums.outboundSchema(OutputCriblTcpTLS);
-
-/** @internal */
-export const OutputCriblTcpHost$inboundSchema: z.ZodType<
-  OutputCriblTcpHost,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: z.string(),
-  port: z.number().default(10300),
-  tls: OutputCriblTcpTLS$inboundSchema.default("inherit"),
-  servername: z.string().optional(),
-  weight: z.number().default(1),
-});
-/** @internal */
-export type OutputCriblTcpHost$Outbound = {
-  host: string;
-  port: number;
-  tls: string;
-  servername?: string | undefined;
-  weight: number;
-};
-
-/** @internal */
-export const OutputCriblTcpHost$outboundSchema: z.ZodType<
-  OutputCriblTcpHost$Outbound,
-  z.ZodTypeDef,
-  OutputCriblTcpHost
-> = z.object({
-  host: z.string(),
-  port: z.number().default(10300),
-  tls: OutputCriblTcpTLS$outboundSchema.default("inherit"),
-  servername: z.string().optional(),
-  weight: z.number().default(1),
-});
-
-export function outputCriblTcpHostToJSON(
-  outputCriblTcpHost: OutputCriblTcpHost,
-): string {
-  return JSON.stringify(
-    OutputCriblTcpHost$outboundSchema.parse(outputCriblTcpHost),
-  );
-}
-export function outputCriblTcpHostFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCriblTcpHost, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCriblTcpHost$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCriblTcpHost' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputCriblTcpMode$inboundSchema: z.ZodType<
-  OutputCriblTcpMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputCriblTcpMode);
-/** @internal */
-export const OutputCriblTcpMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCriblTcpMode
-> = openEnums.outboundSchema(OutputCriblTcpMode);
-
-/** @internal */
-export const OutputCriblTcpPqCompressCompression$inboundSchema: z.ZodType<
-  OutputCriblTcpPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputCriblTcpPqCompressCompression);
-/** @internal */
-export const OutputCriblTcpPqCompressCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCriblTcpPqCompressCompression
-> = openEnums.outboundSchema(OutputCriblTcpPqCompressCompression);
-
-/** @internal */
-export const OutputCriblTcpQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputCriblTcpQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputCriblTcpQueueFullBehavior);
-/** @internal */
-export const OutputCriblTcpQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputCriblTcpQueueFullBehavior
-> = openEnums.outboundSchema(OutputCriblTcpQueueFullBehavior);
 
 /** @internal */
 export const OutputCriblTcpPqControls$inboundSchema: z.ZodType<
@@ -670,41 +232,35 @@ export const OutputCriblTcp$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(true),
-  compression: OutputCriblTcpCompression$inboundSchema.default("gzip"),
-  logFailedRequests: z.boolean().default(false),
-  throttleRatePerSec: z.string().default("0"),
-  tls: z.lazy(() => OutputCriblTcpTLSSettingsClientSide$inboundSchema)
-    .optional(),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
-  tokenTTLMinutes: z.number().default(60),
-  authTokens: z.array(z.lazy(() => OutputCriblTcpAuthToken$inboundSchema))
-    .optional(),
+  loadBalanced: z.boolean().optional(),
+  compression: CompressionOptions1$inboundSchema.optional(),
+  logFailedRequests: z.boolean().optional(),
+  throttleRatePerSec: z.string().optional(),
+  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  tokenTTLMinutes: z.number().optional(),
+  authTokens: z.array(ItemsTypeAuthTokens$inboundSchema).optional(),
   excludeFields: z.array(z.string()).optional(),
-  onBackpressure: OutputCriblTcpBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   description: z.string().optional(),
   host: z.string().optional(),
-  port: z.number().default(10300),
-  excludeSelf: z.boolean().default(false),
-  hosts: z.array(z.lazy(() => OutputCriblTcpHost$inboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputCriblTcpMode$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputCriblTcpPqCompressCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputCriblTcpQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
+  port: z.number().optional(),
+  excludeSelf: z.boolean().optional(),
+  hosts: z.array(ItemsTypeHosts$inboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputCriblTcpPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -715,35 +271,35 @@ export type OutputCriblTcp$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
-  compression: string;
-  logFailedRequests: boolean;
-  throttleRatePerSec: string;
-  tls?: OutputCriblTcpTLSSettingsClientSide$Outbound | undefined;
-  connectionTimeout: number;
-  writeTimeout: number;
-  tokenTTLMinutes: number;
-  authTokens?: Array<OutputCriblTcpAuthToken$Outbound> | undefined;
+  loadBalanced?: boolean | undefined;
+  compression?: string | undefined;
+  logFailedRequests?: boolean | undefined;
+  throttleRatePerSec?: string | undefined;
+  tls?: TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound | undefined;
+  connectionTimeout?: number | undefined;
+  writeTimeout?: number | undefined;
+  tokenTTLMinutes?: number | undefined;
+  authTokens?: Array<ItemsTypeAuthTokens$Outbound> | undefined;
   excludeFields?: Array<string> | undefined;
-  onBackpressure: string;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   host?: string | undefined;
-  port: number;
-  excludeSelf: boolean;
-  hosts?: Array<OutputCriblTcpHost$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
-  maxConcurrentSenders: number;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  port?: number | undefined;
+  excludeSelf?: boolean | undefined;
+  hosts?: Array<ItemsTypeHosts$Outbound> | undefined;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
+  maxConcurrentSenders?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputCriblTcpPqControls$Outbound | undefined;
 };
 
@@ -759,43 +315,35 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(true),
-  compression: OutputCriblTcpCompression$outboundSchema.default("gzip"),
-  logFailedRequests: z.boolean().default(false),
-  throttleRatePerSec: z.string().default("0"),
-  tls: z.lazy(() => OutputCriblTcpTLSSettingsClientSide$outboundSchema)
-    .optional(),
-  connectionTimeout: z.number().default(10000),
-  writeTimeout: z.number().default(60000),
-  tokenTTLMinutes: z.number().default(60),
-  authTokens: z.array(z.lazy(() => OutputCriblTcpAuthToken$outboundSchema))
-    .optional(),
+  loadBalanced: z.boolean().optional(),
+  compression: CompressionOptions1$outboundSchema.optional(),
+  logFailedRequests: z.boolean().optional(),
+  throttleRatePerSec: z.string().optional(),
+  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  writeTimeout: z.number().optional(),
+  tokenTTLMinutes: z.number().optional(),
+  authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
   excludeFields: z.array(z.string()).optional(),
-  onBackpressure: OutputCriblTcpBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   host: z.string().optional(),
-  port: z.number().default(10300),
-  excludeSelf: z.boolean().default(false),
-  hosts: z.array(z.lazy(() => OutputCriblTcpHost$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
-  maxConcurrentSenders: z.number().default(0),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputCriblTcpMode$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputCriblTcpPqCompressCompression$outboundSchema.default(
-    "none",
-  ),
-  pqOnBackpressure: OutputCriblTcpQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
+  port: z.number().optional(),
+  excludeSelf: z.boolean().optional(),
+  hosts: z.array(ItemsTypeHosts$outboundSchema).optional(),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
+  maxConcurrentSenders: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputCriblTcpPqControls$outboundSchema).optional(),
 });
 

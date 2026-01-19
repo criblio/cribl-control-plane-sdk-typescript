@@ -9,6 +9,7 @@ import { groupsGet } from "../funcs/groupsGet.js";
 import { groupsList } from "../funcs/groupsList.js";
 import { groupsUpdate } from "../funcs/groupsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { Acl } from "./acl.js";
@@ -26,15 +27,15 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * List all Worker Groups or Edge Fleets for the specified Cribl product
+   * List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
    *
    * @remarks
-   * Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
+   * Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product.
    */
   async list(
     request: operations.ListConfigGroupByProductRequest,
     options?: RequestOptions,
-  ): Promise<operations.ListConfigGroupByProductResponse> {
+  ): Promise<models.CountedConfigGroup> {
     return unwrapAsync(groupsList(
       this,
       request,
@@ -43,15 +44,15 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Create a Worker Group or Edge Fleet for the specified Cribl product
+   * Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
    *
    * @remarks
-   * Create a new Worker Group or Edge Fleet for the specified Cribl product.
+   * Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
    */
   async create(
     request: operations.CreateConfigGroupByProductRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateConfigGroupByProductResponse> {
+  ): Promise<models.CountedConfigGroup> {
     return unwrapAsync(groupsCreate(
       this,
       request,
@@ -60,15 +61,15 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Get a Worker Group or Edge Fleet
+   * Get a Worker Group, Outpost Group, or Edge Fleet
    *
    * @remarks
-   * Get the specified Worker Group or Edge Fleet.
+   * Get the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async get(
     request: operations.GetConfigGroupByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetConfigGroupByProductAndIdResponse> {
+  ): Promise<models.CountedConfigGroup> {
     return unwrapAsync(groupsGet(
       this,
       request,
@@ -77,15 +78,15 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Update a Worker Group or Edge Fleet
+   * Update a Worker Group, Outpost Group, or Edge Fleet
    *
    * @remarks
-   * Update the specified Worker Group or Edge Fleet.
+   * Update the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async update(
     request: operations.UpdateConfigGroupByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateConfigGroupByProductAndIdResponse> {
+  ): Promise<models.CountedConfigGroup> {
     return unwrapAsync(groupsUpdate(
       this,
       request,
@@ -94,15 +95,15 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Delete a Worker Group or Edge Fleet
+   * Delete a Worker Group, Outpost Group, or Edge Fleet
    *
    * @remarks
-   * Delete the specified Worker Group or Edge Fleet.
+   * Delete the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async delete(
     request: operations.DeleteConfigGroupByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.DeleteConfigGroupByProductAndIdResponse> {
+  ): Promise<models.CountedConfigGroup> {
     return unwrapAsync(groupsDelete(
       this,
       request,
@@ -119,7 +120,7 @@ export class Groups extends ClientSDK {
   async deploy(
     request: operations.UpdateConfigGroupDeployByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateConfigGroupDeployByProductAndIdResponse> {
+  ): Promise<models.CountedConfigGroup> {
     return unwrapAsync(groupsDeploy(
       this,
       request,

@@ -99,7 +99,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateVersionCommitResponse](../../models/operations/createversioncommitresponse.md)\>**
+**Promise\<[models.CountedGitCommitSummary](../../models/countedgitcommitsummary.md)\>**
 
 ### Errors
 
@@ -185,7 +185,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetVersionDiffResponse](../../models/operations/getversiondiffresponse.md)\>**
+**Promise\<[models.CountedGitDiffResult](../../models/countedgitdiffresult.md)\>**
 
 ### Errors
 
@@ -267,7 +267,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetVersionResponse](../../models/operations/getversionresponse.md)\>**
+**Promise\<[models.CountedGitLogResult](../../models/countedgitlogresult.md)\>**
 
 ### Errors
 
@@ -342,7 +342,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateVersionPushResponse](../../models/operations/createversionpushresponse.md)\>**
+**Promise\<[models.CountedString](../../models/countedstring.md)\>**
 
 ### Errors
 
@@ -432,7 +432,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateVersionRevertResponse](../../models/operations/createversionrevertresponse.md)\>**
+**Promise\<[models.CountedGitRevertResult](../../models/countedgitrevertresult.md)\>**
 
 ### Errors
 
@@ -518,7 +518,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetVersionShowResponse](../../models/operations/getversionshowresponse.md)\>**
+**Promise\<[models.CountedGitShowResult](../../models/countedgitshowresult.md)\>**
 
 ### Errors
 
@@ -598,7 +598,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateVersionUndoResponse](../../models/operations/createversionundoresponse.md)\>**
+**Promise\<[models.CountedObject](../../models/countedobject.md)\>**
 
 ### Errors
 

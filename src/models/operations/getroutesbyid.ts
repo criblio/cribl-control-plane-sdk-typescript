@@ -3,27 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetRoutesByIdRequest = {
   /**
    * The <code>id</code> of the Routing table to get. The supported value is <code>default</code>.
    */
   id: string;
-};
-
-/**
- * a list of Routes objects
- */
-export type GetRoutesByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.Routes> | undefined;
 };
 
 /** @internal */
@@ -45,25 +30,5 @@ export function getRoutesByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     GetRoutesByIdRequest$outboundSchema.parse(getRoutesByIdRequest),
-  );
-}
-
-/** @internal */
-export const GetRoutesByIdResponse$inboundSchema: z.ZodType<
-  GetRoutesByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Routes$inboundSchema).optional(),
-});
-
-export function getRoutesByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetRoutesByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetRoutesByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetRoutesByIdResponse' from JSON`,
   );
 }

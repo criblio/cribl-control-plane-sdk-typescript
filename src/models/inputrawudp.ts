@@ -4,93 +4,26 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputRawUdpConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputRawUdpMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputRawUdpMode = OpenEnum<typeof InputRawUdpMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputRawUdpCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputRawUdpCompression = OpenEnum<typeof InputRawUdpCompression>;
-
-export type InputRawUdpPqControls = {};
-
-export type InputRawUdpPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputRawUdpMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputRawUdpCompression | undefined;
-  pqControls?: InputRawUdpPqControls | undefined;
-};
-
-export type InputRawUdpMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
 export type InputRawUdp = {
   /**
@@ -122,12 +55,12 @@ export type InputRawUdp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputRawUdpConnection> | undefined;
-  pq?: InputRawUdpPq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -155,208 +88,9 @@ export type InputRawUdp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputRawUdpMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputRawUdpConnection$inboundSchema: z.ZodType<
-  InputRawUdpConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputRawUdpConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputRawUdpConnection$outboundSchema: z.ZodType<
-  InputRawUdpConnection$Outbound,
-  z.ZodTypeDef,
-  InputRawUdpConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputRawUdpConnectionToJSON(
-  inputRawUdpConnection: InputRawUdpConnection,
-): string {
-  return JSON.stringify(
-    InputRawUdpConnection$outboundSchema.parse(inputRawUdpConnection),
-  );
-}
-export function inputRawUdpConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputRawUdpConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputRawUdpConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputRawUdpConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputRawUdpMode$inboundSchema: z.ZodType<
-  InputRawUdpMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputRawUdpMode);
-/** @internal */
-export const InputRawUdpMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputRawUdpMode
-> = openEnums.outboundSchema(InputRawUdpMode);
-
-/** @internal */
-export const InputRawUdpCompression$inboundSchema: z.ZodType<
-  InputRawUdpCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputRawUdpCompression);
-/** @internal */
-export const InputRawUdpCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputRawUdpCompression
-> = openEnums.outboundSchema(InputRawUdpCompression);
-
-/** @internal */
-export const InputRawUdpPqControls$inboundSchema: z.ZodType<
-  InputRawUdpPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputRawUdpPqControls$Outbound = {};
-
-/** @internal */
-export const InputRawUdpPqControls$outboundSchema: z.ZodType<
-  InputRawUdpPqControls$Outbound,
-  z.ZodTypeDef,
-  InputRawUdpPqControls
-> = z.object({});
-
-export function inputRawUdpPqControlsToJSON(
-  inputRawUdpPqControls: InputRawUdpPqControls,
-): string {
-  return JSON.stringify(
-    InputRawUdpPqControls$outboundSchema.parse(inputRawUdpPqControls),
-  );
-}
-export function inputRawUdpPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputRawUdpPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputRawUdpPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputRawUdpPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputRawUdpPq$inboundSchema: z.ZodType<
-  InputRawUdpPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputRawUdpMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputRawUdpCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputRawUdpPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputRawUdpPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputRawUdpPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputRawUdpPq$outboundSchema: z.ZodType<
-  InputRawUdpPq$Outbound,
-  z.ZodTypeDef,
-  InputRawUdpPq
-> = z.object({
-  mode: InputRawUdpMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputRawUdpCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputRawUdpPqControls$outboundSchema).optional(),
-});
-
-export function inputRawUdpPqToJSON(inputRawUdpPq: InputRawUdpPq): string {
-  return JSON.stringify(InputRawUdpPq$outboundSchema.parse(inputRawUdpPq));
-}
-export function inputRawUdpPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputRawUdpPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputRawUdpPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputRawUdpPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputRawUdpMetadatum$inboundSchema: z.ZodType<
-  InputRawUdpMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputRawUdpMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputRawUdpMetadatum$outboundSchema: z.ZodType<
-  InputRawUdpMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputRawUdpMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputRawUdpMetadatumToJSON(
-  inputRawUdpMetadatum: InputRawUdpMetadatum,
-): string {
-  return JSON.stringify(
-    InputRawUdpMetadatum$outboundSchema.parse(inputRawUdpMetadatum),
-  );
-}
-export function inputRawUdpMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputRawUdpMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputRawUdpMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputRawUdpMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputRawUdp$inboundSchema: z.ZodType<
@@ -366,46 +100,44 @@ export const InputRawUdp$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("raw_udp"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputRawUdpConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputRawUdpPq$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string(),
   port: z.number(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  ingestRawBytes: z.boolean().default(false),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  ingestRawBytes: z.boolean().optional(),
   udpSocketRxBufSize: z.number().optional(),
-  metadata: z.array(z.lazy(() => InputRawUdpMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
 /** @internal */
 export type InputRawUdp$Outbound = {
   id?: string | undefined;
   type: "raw_udp";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputRawUdpConnection$Outbound> | undefined;
-  pq?: InputRawUdpPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
-  singleMsgUdpPackets: boolean;
-  ingestRawBytes: boolean;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  singleMsgUdpPackets?: boolean | undefined;
+  ingestRawBytes?: boolean | undefined;
   udpSocketRxBufSize?: number | undefined;
-  metadata?: Array<InputRawUdpMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -417,24 +149,22 @@ export const InputRawUdp$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("raw_udp"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputRawUdpConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputRawUdpPq$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string(),
   port: z.number(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  singleMsgUdpPackets: z.boolean().default(false),
-  ingestRawBytes: z.boolean().default(false),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  ingestRawBytes: z.boolean().optional(),
   udpSocketRxBufSize: z.number().optional(),
-  metadata: z.array(z.lazy(() => InputRawUdpMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 

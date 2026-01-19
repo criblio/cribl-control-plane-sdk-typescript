@@ -6,17 +6,14 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  FilesTypeGitCommitSummary,
+  FilesTypeGitCommitSummary$inboundSchema,
+} from "./filestypegitcommitsummary.js";
 
 export type Author = {
   email: string;
   name: string;
-};
-
-export type GitCommitSummaryFiles = {
-  created?: Array<string> | undefined;
-  deleted?: Array<string> | undefined;
-  modified?: Array<string> | undefined;
-  renamed?: Array<string> | undefined;
 };
 
 export type Summary = {
@@ -29,7 +26,7 @@ export type GitCommitSummary = {
   author?: Author | undefined;
   branch: string;
   commit: string;
-  files: GitCommitSummaryFiles;
+  files?: FilesTypeGitCommitSummary | undefined;
   summary: Summary;
 };
 
@@ -47,28 +44,6 @@ export function authorFromJSON(
     jsonString,
     (x) => Author$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Author' from JSON`,
-  );
-}
-
-/** @internal */
-export const GitCommitSummaryFiles$inboundSchema: z.ZodType<
-  GitCommitSummaryFiles,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  created: z.array(z.string()).optional(),
-  deleted: z.array(z.string()).optional(),
-  modified: z.array(z.string()).optional(),
-  renamed: z.array(z.string()).optional(),
-});
-
-export function gitCommitSummaryFilesFromJSON(
-  jsonString: string,
-): SafeParseResult<GitCommitSummaryFiles, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GitCommitSummaryFiles$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GitCommitSummaryFiles' from JSON`,
   );
 }
 
@@ -99,7 +74,7 @@ export const GitCommitSummary$inboundSchema: z.ZodType<
   author: z.lazy(() => Author$inboundSchema).optional(),
   branch: z.string(),
   commit: z.string(),
-  files: z.lazy(() => GitCommitSummaryFiles$inboundSchema),
+  files: FilesTypeGitCommitSummary$inboundSchema.optional(),
   summary: z.lazy(() => Summary$inboundSchema),
 });
 
