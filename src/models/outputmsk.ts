@@ -249,30 +249,6 @@ export type OutputMsk = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputMskPqControls | undefined;
-  /**
-   * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
-   */
-  __template_topic?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-   */
-  __template_assumeRoleArn?: string | undefined;
-  /**
-   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-   */
-  __template_assumeRoleExternalId?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -367,12 +343,6 @@ export const OutputMsk$inboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$inboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputMskPqControls$inboundSchema).optional(),
-  __template_topic: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 /** @internal */
 export type OutputMsk$Outbound = {
@@ -430,12 +400,6 @@ export type OutputMsk$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputMskPqControls$Outbound | undefined;
-  __template_topic?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_region?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -497,12 +461,6 @@ export const OutputMsk$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputMskPqControls$outboundSchema).optional(),
-  __template_topic: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputMskToJSON(outputMsk: OutputMsk): string {

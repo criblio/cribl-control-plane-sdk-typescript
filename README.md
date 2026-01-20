@@ -200,6 +200,13 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [get](docs/sdks/collectors/README.md#get) - Get a Collector
 * [update](docs/sdks/collectors/README.md#update) - Update a Collector
 
+### [DatabaseConnections](docs/sdks/databaseconnections/README.md)
+
+* [create](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
+* [delete](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
+* [get](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
+* [update](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
+
 ### [Destinations](docs/sdks/destinations/README.md)
 
 * [list](docs/sdks/destinations/README.md#list) - List all Destinations
@@ -359,6 +366,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`collectorsGet`](docs/sdks/collectors/README.md#get) - Get a Collector
 - [`collectorsList`](docs/sdks/collectors/README.md#list) - List all Collectors
 - [`collectorsUpdate`](docs/sdks/collectors/README.md#update) - Update a Collector
+- [`databaseConnectionsCreate`](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
+- [`databaseConnectionsDelete`](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
+- [`databaseConnectionsGet`](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
+- [`databaseConnectionsUpdate`](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
 - [`destinationsCreate`](docs/sdks/destinations/README.md#create) - Create a Destination
 - [`destinationsDelete`](docs/sdks/destinations/README.md#delete) - Delete a Destination
 - [`destinationsGet`](docs/sdks/destinations/README.md#get) - Get a Destination
@@ -768,7 +779,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthServerStatusError`](./src/models/errors/healthserverstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 72 methods.*
+* [`HealthServerStatusError`](./src/models/errors/healthserverstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 76 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

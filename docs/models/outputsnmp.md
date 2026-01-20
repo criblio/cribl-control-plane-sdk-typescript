@@ -22,8 +22,6 @@ let value: OutputSnmp = {
     {
       host: "gray-godparent.net",
       port: 4283.88,
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   ],
   dnsResolvePeriodSec: 5311.32,

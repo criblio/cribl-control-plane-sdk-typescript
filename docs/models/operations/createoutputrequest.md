@@ -142,14 +142,10 @@ const value: operations.OutputWebhook = {
     {
       url: "https://unfit-schnitzel.biz",
       weight: 7084.55,
-      __template_url: "https://tinted-cinema.org",
     },
   ],
-  dnsResolvePeriodSec: 7739.68,
-  loadBalanceStatsPeriodSec: 3072.97,
-  __template_loginUrl: "https://elegant-monocle.info",
-  __template_secret: "<value>",
-  __template_url: "https://steep-operating.name",
+  dnsResolvePeriodSec: 5841.89,
+  loadBalanceStatsPeriodSec: 8575.18,
 };
 ```
 
@@ -238,14 +234,6 @@ const value: operations.OutputSentinel = {
   dcrID: "<id>",
   dceEndpoint: "<value>",
   streamName: "<value>",
-  __template_loginUrl: "https://alienated-pacemaker.biz/",
-  __template_secret: "<value>",
-  __template_client_id: "<id>",
-  __template_scope: "<value>",
-  __template_url: "https://silver-tapioca.com/",
-  __template_dcrID: "<id>",
-  __template_dceEndpoint: "<value>",
-  __template_streamName: "<value>",
 };
 ```
 
@@ -307,8 +295,6 @@ const value: operations.OutputSyslog = {
       tls: "inherit",
       servername: "<value>",
       weight: 890.95,
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   ],
   dnsResolvePeriodSec: 6699.84,
@@ -343,8 +329,6 @@ const value: operations.OutputSyslog = {
   pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -404,8 +388,6 @@ const value: operations.OutputSplunk = {
   pqControls: {},
   authToken: "<value>",
   textSecret: "<value>",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -478,8 +460,6 @@ const value: operations.OutputSplunkLb = {
       tls: "inherit",
       servername: "<value>",
       weight: 890.95,
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   ],
   pqStrictOrdering: false,
@@ -571,25 +551,23 @@ const value: operations.OutputSplunkHec = {
     {
       url: "https://upbeat-hydrocarbon.info/",
       weight: 5712.22,
-      __template_url: "https://sleepy-integer.org",
     },
   ],
-  dnsResolvePeriodSec: 738.63,
-  loadBalanceStatsPeriodSec: 207.37,
+  dnsResolvePeriodSec: 5938.54,
+  loadBalanceStatsPeriodSec: 7528.8,
   token: "<value>",
   textSecret: "<value>",
-  pqStrictOrdering: false,
-  pqRatePerSec: 2857.11,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 2869.29,
-  pqMaxBackpressureSec: 3305.33,
+  pqStrictOrdering: true,
+  pqRatePerSec: 8442.99,
+  pqMode: "error",
+  pqMaxBufferSize: 207.37,
+  pqMaxBackpressureSec: 8482.52,
   pqMaxFileSize: "<value>",
   pqMaxSize: "<value>",
   pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "block",
+  pqCompress: "none",
+  pqOnBackpressure: "drop",
   pqControls: {},
-  __template_url: "https://candid-cosset.name",
 };
 ```
 
@@ -608,7 +586,7 @@ const value: operations.OutputWizHec = {
     "<value 1>",
     "<value 2>",
   ],
-  loadBalanced: false,
+  loadBalanced: "<value>",
   nextQueue: "<value>",
   tcpRouting: "<value>",
   tls: {
@@ -622,24 +600,25 @@ const value: operations.OutputWizHec = {
     minVersion: "TLSv1.1",
     maxVersion: "TLSv1.1",
   },
-  concurrency: 7267.85,
-  maxPayloadSizeKB: 8195.84,
-  maxPayloadEvents: 6455.86,
+  concurrency: 8783.76,
+  maxPayloadSizeKB: 7267.85,
+  maxPayloadEvents: 8195.84,
   compress: false,
   rejectUnauthorized: false,
-  timeoutSec: 9513.59,
-  flushPeriodSec: 9969.3,
+  timeoutSec: 8319.64,
+  flushPeriodSec: 9513.59,
   extraHttpHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  failedRequestLoggingMode: "payloadAndHeaders",
+  failedRequestLoggingMode: "none",
   safeHeaders: [
     "<value 1>",
+    "<value 2>",
   ],
-  enableMultiMetrics: false,
+  enableMultiMetrics: "<value>",
   authType: "manual",
   responseRetrySettings: [
     {
@@ -655,24 +634,15 @@ const value: operations.OutputWizHec = {
     backoffRate: 7830.71,
     maxBackoff: 6330,
   },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "drop",
-  description: "with following serene",
-  url: "https://soupy-creator.net",
-  useRoundRobinDns: false,
-  excludeSelf: false,
-  urls: [
-    {
-      url: "https://worst-chap.net",
-      weight: 6711.27,
-      __template_url: "https://adolescent-mortise.com",
-    },
-  ],
-  dnsResolvePeriodSec: 3199.85,
-  loadBalanceStatsPeriodSec: 5642.54,
+  responseHonorRetryAfterHeader: false,
+  onBackpressure: "block",
+  wiz_connector_id: "<id>",
+  wiz_environment: "<value>",
+  data_center: "<value>",
+  wiz_sourcetype: "<value>",
+  description: "storyboard outlying purple when mmm eggplant",
   token: "<value>",
   textSecret: "<value>",
-  __template_url: "https://forceful-metabolite.net",
 };
 ```
 
@@ -724,8 +694,6 @@ const value: operations.OutputTcpjson = {
       tls: "inherit",
       servername: "<value>",
       weight: 890.95,
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   ],
   dnsResolvePeriodSec: 8388.2,
@@ -744,8 +712,6 @@ const value: operations.OutputTcpjson = {
   pqControls: {},
   authToken: "<value>",
   textSecret: "<value>",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -952,7 +918,6 @@ const value: operations.OutputFilesystem = {
   directoryBatchSize: 5180.41,
   deadletterPath: "<value>",
   maxRetryNum: 6777.92,
-  __template_format: "<value>",
 };
 ```
 
@@ -1040,13 +1005,6 @@ const value: operations.OutputS3 = {
   directoryBatchSize: 178.18,
   deadletterPath: "<value>",
   maxRetryNum: 4672.73,
-  __template_bucket: "<value>",
-  __template_region: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_format: "<value>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -1130,11 +1088,6 @@ const value: operations.OutputAzureBlob = {
   certificate: {
     certificateName: "<value>",
   },
-  __template_containerName: "<value>",
-  __template_format: "<value>",
-  __template_connectionString: "<value>",
-  __template_tenantId: "<id>",
-  __template_clientId: "<id>",
 };
 ```
 
@@ -1271,15 +1224,6 @@ const value: operations.OutputAzureDataExplorer = {
   pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_clusterUrl: "https://sardonic-object.com/",
-  __template_database: "<value>",
-  __template_table: "<value>",
-  __template_tenantId: "<id>",
-  __template_clientId: "<id>",
-  __template_scope: "<value>",
-  __template_clientSecret: "<value>",
-  __template_format: "<value>",
-  __template_ingestUrl: "https://unhappy-apricot.net",
 };
 ```
 
@@ -1354,8 +1298,6 @@ const value: operations.OutputAzureLogs = {
   workspaceId: "<id>",
   workspaceKey: "<value>",
   keypairSecret: "<value>",
-  __template_workspaceId: "<id>",
-  __template_workspaceKey: "<value>",
 };
 ```
 
@@ -1409,12 +1351,6 @@ const value: operations.OutputKinesis = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_streamName: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -1554,7 +1490,6 @@ const value: operations.OutputAzureEventhub = {
   pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_topic: "<value>",
 };
 ```
 
@@ -1646,9 +1581,6 @@ const value: operations.OutputGoogleChronicle = {
   pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_apiVersion: "<value>",
-  __template_region: "<value>",
-  __template_customerId: "<id>",
 };
 ```
 
@@ -1728,9 +1660,6 @@ const value: operations.OutputGoogleCloudStorage = {
   awsApiKey: "<value>",
   awsSecretKey: "<value>",
   awsSecret: "<value>",
-  __template_bucket: "<value>",
-  __template_region: "<value>",
-  __template_format: "<value>",
 };
 ```
 
@@ -1869,8 +1798,6 @@ const value: operations.OutputGooglePubsub = {
   pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_topicName: "<value>",
-  __template_region: "<value>",
 };
 ```
 
@@ -1927,7 +1854,6 @@ const value: operations.OutputExabeam = {
   directoryBatchSize: 5844.39,
   deadletterPath: "<value>",
   maxRetryNum: 1039.79,
-  __template_region: "<value>",
 };
 ```
 
@@ -2045,7 +1971,6 @@ const value: operations.OutputKafka = {
   pqCompress: "gzip",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_topic: "<value>",
 };
 ```
 
@@ -2165,7 +2090,6 @@ const value: operations.OutputConfluentCloud = {
   pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_topic: "<value>",
 };
 ```
 
@@ -2271,12 +2195,6 @@ const value: operations.OutputMsk = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_topic: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -2361,23 +2279,21 @@ const value: operations.OutputElastic = {
     {
       url: "https://yellow-gripper.info/",
       weight: 3952.06,
-      __template_url: "https://dearest-pacemaker.org/",
     },
   ],
-  dnsResolvePeriodSec: 7252.91,
-  loadBalanceStatsPeriodSec: 9783.9,
+  dnsResolvePeriodSec: 4516.09,
+  loadBalanceStatsPeriodSec: 1707.76,
   pqStrictOrdering: false,
-  pqRatePerSec: 7235.8,
+  pqRatePerSec: 9424.26,
   pqMode: "backpressure",
-  pqMaxBufferSize: 2511.84,
-  pqMaxBackpressureSec: 1041.03,
+  pqMaxBufferSize: 9783.9,
+  pqMaxBackpressureSec: 7581.41,
   pqMaxFileSize: "<value>",
   pqMaxSize: "<value>",
   pqPath: "<value>",
   pqCompress: "gzip",
-  pqOnBackpressure: "block",
+  pqOnBackpressure: "drop",
   pqControls: {},
-  __template_url: "https://eminent-sprinkles.net/",
 };
 ```
 
@@ -2549,9 +2465,6 @@ const value: operations.OutputNewrelic = {
   pqControls: {},
   apiKey: "<value>",
   textSecret: "<value>",
-  __template_region: "<value>",
-  __template_logType: "<value>",
-  __template_messageField: "<value>",
 };
 ```
 
@@ -2628,10 +2541,6 @@ const value: operations.OutputNewrelicEvents = {
   pqControls: {},
   apiKey: "<value>",
   textSecret: "<value>",
-  __template_region: "<value>",
-  __template_accountId: "<id>",
-  __template_eventType: "<value>",
-  __template_customUrl: "https://natural-transom.com",
 };
 ```
 
@@ -2729,11 +2638,6 @@ const value: operations.OutputInfluxdb = {
       value: "<value>",
     },
   ],
-  __template_url: "https://yellow-tool.net",
-  __template_database: "<value>",
-  __template_bucket: "<value>",
-  __template_loginUrl: "https://expensive-catalyst.org/",
-  __template_secret: "<value>",
 };
 ```
 
@@ -2782,11 +2686,6 @@ const value: operations.OutputCloudwatch = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -2869,10 +2768,6 @@ const value: operations.OutputMinio = {
   directoryBatchSize: 8354.75,
   deadletterPath: "<value>",
   maxRetryNum: 7292.77,
-  __template_bucket: "<value>",
-  __template_region: "<value>",
-  __template_format: "<value>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3061,11 +2956,6 @@ const value: operations.OutputSns = {
   pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3120,13 +3010,6 @@ const value: operations.OutputSqs = {
   pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_queueName: "<value>",
-  __template_awsAccountId: "<id>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3218,7 +3101,6 @@ const value: operations.OutputSumoLogic = {
   pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_url: "https://earnest-submitter.org",
 };
 ```
 
@@ -3398,8 +3280,6 @@ const value: operations.OutputGrafanaCloud = {
   pqCompress: "gzip",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_lokiUrl: "https://youthful-governance.com/",
-  __template_prometheusUrl: "https://curly-ownership.info/",
 };
 ```
 
@@ -3576,9 +3456,6 @@ const value: operations.OutputPrometheus = {
       value: "<value>",
     },
   ],
-  __template_url: "https://thrifty-nightlife.com",
-  __template_loginUrl: "https://humble-developmental.net/",
-  __template_secret: "<value>",
 };
 ```
 
@@ -3720,8 +3597,6 @@ const value: operations.OutputOpenTelemetry = {
   pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_loginUrl: "https://wonderful-drive.org",
-  __template_secret: "<value>",
 };
 ```
 
@@ -3901,7 +3776,6 @@ const value: operations.OutputDataset = {
   pqControls: {},
   apiKey: "<value>",
   textSecret: "<value>",
-  __template_customUrl: "https://secondary-forgery.net/",
 };
 ```
 
@@ -3965,8 +3839,6 @@ const value: operations.OutputCriblTcp = {
       tls: "inherit",
       servername: "<value>",
       weight: 890.95,
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   ],
   dnsResolvePeriodSec: 8374.93,
@@ -3983,8 +3855,6 @@ const value: operations.OutputCriblTcp = {
   pqCompress: "gzip",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -4073,7 +3943,6 @@ const value: operations.OutputCriblHttp = {
     {
       url: "https://imaginary-decision.net/",
       weight: 1083.02,
-      __template_url: "https://heavenly-repeat.net",
     },
   ],
   dnsResolvePeriodSec: 8100.98,
@@ -4089,7 +3958,6 @@ const value: operations.OutputCriblHttp = {
   pqCompress: "gzip",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_url: "https://shady-toaster.info/",
 };
 ```
 
@@ -4179,7 +4047,6 @@ const value: operations.OutputCriblSearchEngine = {
     {
       url: "https://imaginary-decision.net/",
       weight: 1083.02,
-      __template_url: "https://heavenly-repeat.net",
     },
   ],
   dnsResolvePeriodSec: 8556.84,
@@ -4195,7 +4062,6 @@ const value: operations.OutputCriblSearchEngine = {
   pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_url: "https://unpleasant-rawhide.name/",
 };
 ```
 
@@ -4267,7 +4133,6 @@ const value: operations.OutputHumioHec = {
   pqCompress: "gzip",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_url: "https://smoggy-hoof.com",
 };
 ```
 
@@ -4338,7 +4203,6 @@ const value: operations.OutputCrowdstrikeNextGenSiem = {
   pqCompress: "gzip",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_url: "https://meager-soliloquy.name",
 };
 ```
 
@@ -4430,13 +4294,6 @@ const value: operations.OutputDlS3 = {
   directoryBatchSize: 8408.32,
   deadletterPath: "<value>",
   maxRetryNum: 1273,
-  __template_bucket: "<value>",
-  __template_region: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_format: "<value>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -4520,12 +4377,6 @@ const value: operations.OutputSecurityLake = {
   parquetSchema: "<value>",
   deadletterPath: "<value>",
   maxRetryNum: 4421.63,
-  __template_bucket: "<value>",
-  __template_region: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -4593,12 +4444,6 @@ const value: operations.OutputCriblLake = {
   directoryBatchSize: 6114.57,
   deadletterPath: "<value>",
   maxRetryNum: 5963.76,
-  __template_bucket: "<value>",
-  __template_region: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_destPath: "<value>",
 };
 ```
 
@@ -4755,11 +4600,6 @@ const value: operations.OutputClickHouse = {
   pqCompress: "gzip",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_url: "https://lumbering-object.info/",
-  __template_database: "<value>",
-  __template_tableName: "<value>",
-  __template_loginUrl: "https://hollow-gazebo.biz/",
-  __template_secret: "<value>",
 };
 ```
 
@@ -4840,7 +4680,6 @@ const value: operations.OutputXsiam = {
   pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_url: "https://lustrous-pine.biz/",
 };
 ```
 
@@ -4865,8 +4704,6 @@ const value: operations.OutputNetflow = {
     {
       host: "wide-eyed-adult.name",
       port: 1165.51,
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   ],
   dnsResolvePeriodSec: 859.55,
@@ -4955,7 +4792,6 @@ const value: operations.OutputDynatraceHttp = {
   environmentId: "<id>",
   activeGateDomain: "<value>",
   url: "https://oily-interviewer.net",
-  __template_url: "https://zesty-e-mail.info",
 };
 ```
 
@@ -5211,7 +5047,6 @@ const value: operations.OutputChronicle = {
   pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_region: "<value>",
 };
 ```
 
@@ -5286,7 +5121,6 @@ const value: operations.OutputDatabricks = {
   directoryBatchSize: 7019.91,
   deadletterPath: "<value>",
   maxRetryNum: 5462.56,
-  __template_format: "<value>",
 };
 ```
 
@@ -5354,8 +5188,6 @@ const value: operations.OutputMicrosoftFabric = {
   pqCompress: "gzip",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_topic: "<value>",
-  __template_bootstrap_server: "<value>",
 };
 ```
 
@@ -5438,9 +5270,6 @@ const value: operations.OutputCloudflareR2 = {
   directoryBatchSize: 8097.89,
   deadletterPath: "<value>",
   maxRetryNum: 6435.18,
-  __template_bucket: "<value>",
-  __template_format: "<value>",
-  __template_awsApiKey: "<value>",
 };
 ```
 

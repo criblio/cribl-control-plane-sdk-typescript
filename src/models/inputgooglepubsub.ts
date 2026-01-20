@@ -119,18 +119,6 @@ export type InputGooglePubsub = {
    * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
    */
   orderedDelivery?: boolean | undefined;
-  /**
-   * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
-   */
-  __template_topicName?: string | undefined;
-  /**
-   * Binds 'subscriptionName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subscriptionName' at runtime.
-   */
-  __template_subscriptionName?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
 };
 
 /** @internal */
@@ -164,9 +152,6 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
   orderedDelivery: z.boolean().optional(),
-  __template_topicName: z.string().optional(),
-  __template_subscriptionName: z.string().optional(),
-  __template_region: z.string().optional(),
 });
 /** @internal */
 export type InputGooglePubsub$Outbound = {
@@ -195,9 +180,6 @@ export type InputGooglePubsub$Outbound = {
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
   orderedDelivery?: boolean | undefined;
-  __template_topicName?: string | undefined;
-  __template_subscriptionName?: string | undefined;
-  __template_region?: string | undefined;
 };
 
 /** @internal */
@@ -231,9 +213,6 @@ export const InputGooglePubsub$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   orderedDelivery: z.boolean().optional(),
-  __template_topicName: z.string().optional(),
-  __template_subscriptionName: z.string().optional(),
-  __template_region: z.string().optional(),
 });
 
 export function inputGooglePubsubToJSON(

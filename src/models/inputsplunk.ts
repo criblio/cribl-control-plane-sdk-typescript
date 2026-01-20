@@ -183,14 +183,6 @@ export type InputSplunk = {
    * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
    */
   compress?: InputSplunkCompression | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -297,8 +289,6 @@ export const InputSplunk$inboundSchema: z.ZodType<
   dropControlFields: z.boolean().optional(),
   extractMetrics: z.boolean().optional(),
   compress: InputSplunkCompression$inboundSchema.optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 /** @internal */
 export type InputSplunk$Outbound = {
@@ -331,8 +321,6 @@ export type InputSplunk$Outbound = {
   dropControlFields?: boolean | undefined;
   extractMetrics?: boolean | undefined;
   compress?: string | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -371,8 +359,6 @@ export const InputSplunk$outboundSchema: z.ZodType<
   dropControlFields: z.boolean().optional(),
   extractMetrics: z.boolean().optional(),
   compress: InputSplunkCompression$outboundSchema.optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function inputSplunkToJSON(inputSplunk: InputSplunk): string {

@@ -15,7 +15,7 @@ let value: CountedFunctionResponse = {
       disabled: true,
       group: "<value>",
       handleSignals: true,
-      id: "comment",
+      id: "distinct",
       loadTime: 555.8,
       modTime: 1576.77,
       name: "<value>",

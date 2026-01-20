@@ -88,22 +88,20 @@ const value: operations.InputGrafanaGrafana1 = {
         value: "<value>",
       },
     ],
-    __template_loginUrl: "https://cluttered-knuckle.com/",
-    __template_secret: "<value>",
   },
   lokiAuth: {
-    authType: "basic",
-    username: "Dwight.Schumm",
-    password: "JeNfbiSbBQOgQ5l",
+    authType: "credentialsSecret",
+    username: "Brad.Bogisich",
+    password: "nNQJeNfbiSbBQOg",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://sociable-junior.info/",
+    loginUrl: "https://cheap-custody.net",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
     authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 3047.02,
+    tokenTimeoutSecs: 3513.03,
     oauthParams: [
       {
         name: "<value>",
@@ -116,8 +114,6 @@ const value: operations.InputGrafanaGrafana1 = {
         value: "<value>",
       },
     ],
-    __template_loginUrl: "https://tempting-knitting.name",
-    __template_secret: "<value>",
   },
   metadata: [
     {
@@ -125,10 +121,7 @@ const value: operations.InputGrafanaGrafana1 = {
       value: "<value>",
     },
   ],
-  description:
-    "polyester than healthily upliftingly backburn folklore deafening scaffold slowly punctuation",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  description: "pretty yum accept broadly dish what gee unwritten as",
 };
 ```
 
@@ -216,22 +209,20 @@ const value: operations.InputGrafanaGrafana2 = {
         value: "<value>",
       },
     ],
-    __template_loginUrl: "https://superb-meander.name",
-    __template_secret: "<value>",
   },
   lokiAuth: {
     authType: "oauth",
-    username: "Lenny8",
-    password: "lBvHj1XjKBCN_o1",
+    username: "Ressie_Mills60",
+    password: "qlBvHj1XjKBCN_o",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://evil-vision.org/",
+    loginUrl: "https://devoted-design.org/",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
     authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 399.52,
+    tokenTimeoutSecs: 8551.08,
     oauthParams: [
       {
         name: "<value>",
@@ -244,8 +235,6 @@ const value: operations.InputGrafanaGrafana2 = {
         value: "<value>",
       },
     ],
-    __template_loginUrl: "https://wavy-flight.biz/",
-    __template_secret: "<value>",
   },
   metadata: [
     {
@@ -253,9 +242,7 @@ const value: operations.InputGrafanaGrafana2 = {
       value: "<value>",
     },
   ],
-  description: "catalyst afore meanwhile tensely utterly transparency",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  description: "swear doubtfully as",
 };
 ```
 
