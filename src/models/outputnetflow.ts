@@ -16,6 +16,14 @@ export type OutputNetflowHost = {
    * Destination port, default is 2055
    */
   port: number;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 export type OutputNetflow = {
@@ -67,11 +75,15 @@ export const OutputNetflowHost$inboundSchema: z.ZodType<
 > = z.object({
   host: z.string(),
   port: z.number(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 /** @internal */
 export type OutputNetflowHost$Outbound = {
   host: string;
   port: number;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -82,6 +94,8 @@ export const OutputNetflowHost$outboundSchema: z.ZodType<
 > = z.object({
   host: z.string(),
   port: z.number(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
 export function outputNetflowHostToJSON(

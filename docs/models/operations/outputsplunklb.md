@@ -71,6 +71,8 @@ let value: OutputSplunkLb = {
       tls: "inherit",
       servername: "<value>",
       weight: 890.95,
+      __template_host: "<value>",
+      __template_port: "<value>",
     },
   ],
   pqStrictOrdering: false,

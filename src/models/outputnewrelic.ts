@@ -238,6 +238,18 @@ export type OutputNewrelic = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'logType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logType' at runtime.
+   */
+  __template_logType?: string | undefined;
+  /**
+   * Binds 'messageField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'messageField' at runtime.
+   */
+  __template_messageField?: string | undefined;
 };
 
 /** @internal */
@@ -374,6 +386,9 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputNewrelicPqControls$inboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_logType: z.string().optional(),
+  __template_messageField: z.string().optional(),
 });
 /** @internal */
 export type OutputNewrelic$Outbound = {
@@ -421,6 +436,9 @@ export type OutputNewrelic$Outbound = {
   pqControls?: OutputNewrelicPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_region?: string | undefined;
+  __template_logType?: string | undefined;
+  __template_messageField?: string | undefined;
 };
 
 /** @internal */
@@ -474,6 +492,9 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputNewrelicPqControls$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_logType: z.string().optional(),
+  __template_messageField: z.string().optional(),
 });
 
 export function outputNewrelicToJSON(outputNewrelic: OutputNewrelic): string {

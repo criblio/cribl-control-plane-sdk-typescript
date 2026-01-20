@@ -207,6 +207,10 @@ export type OutputCrowdstrikeNextGenSiem = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputCrowdstrikeNextGenSiemPqControls | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -293,6 +297,7 @@ export const OutputCrowdstrikeNextGenSiem$inboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputCrowdstrikeNextGenSiemPqControls$inboundSchema)
     .optional(),
+  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputCrowdstrikeNextGenSiem$Outbound = {
@@ -336,6 +341,7 @@ export type OutputCrowdstrikeNextGenSiem$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputCrowdstrikeNextGenSiemPqControls$Outbound | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -388,6 +394,7 @@ export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
   pqControls: z.lazy(() =>
     OutputCrowdstrikeNextGenSiemPqControls$outboundSchema
   ).optional(),
+  __template_url: z.string().optional(),
 });
 
 export function outputCrowdstrikeNextGenSiemToJSON(

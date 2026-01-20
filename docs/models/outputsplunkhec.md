@@ -77,23 +77,25 @@ let value: OutputSplunkHec = {
     {
       url: "https://portly-decongestant.info/",
       weight: 8744.74,
+      __template_url: "https://jam-packed-wilderness.net/",
     },
   ],
-  dnsResolvePeriodSec: 1536.59,
-  loadBalanceStatsPeriodSec: 4353.66,
+  dnsResolvePeriodSec: 2112.1,
+  loadBalanceStatsPeriodSec: 1365.83,
   token: "<value>",
   textSecret: "<value>",
   pqStrictOrdering: false,
-  pqRatePerSec: 7629.47,
+  pqRatePerSec: 1842.12,
   pqMode: "error",
-  pqMaxBufferSize: 1365.83,
-  pqMaxBackpressureSec: 7837.4,
+  pqMaxBufferSize: 6248.84,
+  pqMaxBackpressureSec: 7453.7,
   pqMaxFileSize: "<value>",
   pqMaxSize: "<value>",
   pqPath: "<value>",
-  pqCompress: "none",
+  pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
+  __template_url: "https://astonishing-in-joke.name/",
 };
 ```
 
@@ -147,3 +149,4 @@ let value: OutputSplunkHec = {
 | `pqCompress`                                                                                                                                                                                                                                                                                                                                     | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                      |
 | `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                               | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                            |
 | `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputSplunkHecPqControls](../models/outputsplunkhecpqcontrols.md)                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `templateUrl`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.                                                                                                                                                              |
