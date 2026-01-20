@@ -77,6 +77,9 @@ const value: models.InputSyslogSyslog1 = {
   enableLoadBalancing: true,
   description: "absent judgementally grim",
   enableEnhancedProxyHeaderParsing: false,
+  __template_host: "<value>",
+  __template_udpPort: "<value>",
+  __template_tcpPort: "<value>",
 };
 ```
 
@@ -155,6 +158,9 @@ const value: models.InputSyslogSyslog2 = {
   enableLoadBalancing: false,
   description: "acidly forenenst spring afore atop provided",
   enableEnhancedProxyHeaderParsing: true,
+  __template_host: "<value>",
+  __template_udpPort: "<value>",
+  __template_tcpPort: "<value>",
 };
 ```
 

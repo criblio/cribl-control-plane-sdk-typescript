@@ -218,6 +218,10 @@ export type OutputFilesystem = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -269,6 +273,7 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_format: z.string().optional(),
 });
 /** @internal */
 export type OutputFilesystem$Outbound = {
@@ -315,6 +320,7 @@ export type OutputFilesystem$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -367,6 +373,7 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_format: z.string().optional(),
 });
 
 export function outputFilesystemToJSON(

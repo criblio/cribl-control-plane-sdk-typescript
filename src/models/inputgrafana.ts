@@ -110,6 +110,14 @@ export type PrometheusAuth2 = {
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+   */
+  __template_secret?: string | undefined;
 };
 
 export type LokiAuth2 = {
@@ -163,6 +171,14 @@ export type LokiAuth2 = {
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+   */
+  __template_secret?: string | undefined;
 };
 
 export type InputGrafanaGrafana2 = {
@@ -265,6 +281,14 @@ export type InputGrafanaGrafana2 = {
    */
   metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 export const InputGrafanaType1 = {
@@ -323,6 +347,14 @@ export type PrometheusAuth1 = {
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+   */
+  __template_secret?: string | undefined;
 };
 
 export type LokiAuth1 = {
@@ -376,6 +408,14 @@ export type LokiAuth1 = {
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+   */
+  __template_secret?: string | undefined;
 };
 
 export type InputGrafanaGrafana1 = {
@@ -478,6 +518,14 @@ export type InputGrafanaGrafana1 = {
    */
   metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 export type InputGrafana = InputGrafanaGrafana1 | InputGrafanaGrafana2;
@@ -511,6 +559,8 @@ export const PrometheusAuth2$inboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
 });
 /** @internal */
 export type PrometheusAuth2$Outbound = {
@@ -528,6 +578,8 @@ export type PrometheusAuth2$Outbound = {
   tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -550,6 +602,8 @@ export const PrometheusAuth2$outboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
 });
 
 export function prometheusAuth2ToJSON(
@@ -587,6 +641,8 @@ export const LokiAuth2$inboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
 });
 /** @internal */
 export type LokiAuth2$Outbound = {
@@ -604,6 +660,8 @@ export type LokiAuth2$Outbound = {
   tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -626,6 +684,8 @@ export const LokiAuth2$outboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
 });
 
 export function lokiAuth2ToJSON(lokiAuth2: LokiAuth2): string {
@@ -677,6 +737,8 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
   lokiAuth: z.lazy(() => LokiAuth2$inboundSchema).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 /** @internal */
 export type InputGrafanaGrafana2$Outbound = {
@@ -710,6 +772,8 @@ export type InputGrafanaGrafana2$Outbound = {
   lokiAuth?: LokiAuth2$Outbound | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -748,6 +812,8 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   lokiAuth: z.lazy(() => LokiAuth2$outboundSchema).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
 export function inputGrafanaGrafana2ToJSON(
@@ -796,6 +862,8 @@ export const PrometheusAuth1$inboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
 });
 /** @internal */
 export type PrometheusAuth1$Outbound = {
@@ -813,6 +881,8 @@ export type PrometheusAuth1$Outbound = {
   tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -835,6 +905,8 @@ export const PrometheusAuth1$outboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
 });
 
 export function prometheusAuth1ToJSON(
@@ -872,6 +944,8 @@ export const LokiAuth1$inboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
 });
 /** @internal */
 export type LokiAuth1$Outbound = {
@@ -889,6 +963,8 @@ export type LokiAuth1$Outbound = {
   tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -911,6 +987,8 @@ export const LokiAuth1$outboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
 });
 
 export function lokiAuth1ToJSON(lokiAuth1: LokiAuth1): string {
@@ -962,6 +1040,8 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
   lokiAuth: z.lazy(() => LokiAuth1$inboundSchema).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 /** @internal */
 export type InputGrafanaGrafana1$Outbound = {
@@ -995,6 +1075,8 @@ export type InputGrafanaGrafana1$Outbound = {
   lokiAuth?: LokiAuth1$Outbound | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -1033,6 +1115,8 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   lokiAuth: z.lazy(() => LokiAuth1$outboundSchema).optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
 export function inputGrafanaGrafana1ToJSON(
