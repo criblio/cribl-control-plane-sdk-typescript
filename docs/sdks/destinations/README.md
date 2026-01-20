@@ -150,8 +150,6 @@ async function run() {
         tls: "inherit",
         servername: "<value>",
         weight: 1,
-        __template_host: "<value>",
-        __template_port: "<value>",
       },
     ],
     dnsResolvePeriodSec: 600,
@@ -170,8 +168,6 @@ async function run() {
     pqControls: {},
     authToken: "",
     textSecret: "<value>",
-    __template_host: "<value>",
-    __template_port: "<value>",
   });
 
   console.log(result);
@@ -243,8 +239,6 @@ async function run() {
         tls: "inherit",
         servername: "<value>",
         weight: 1,
-        __template_host: "<value>",
-        __template_port: "<value>",
       },
     ],
     dnsResolvePeriodSec: 600,
@@ -263,8 +257,6 @@ async function run() {
     pqControls: {},
     authToken: "",
     textSecret: "<value>",
-    __template_host: "<value>",
-    __template_port: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;

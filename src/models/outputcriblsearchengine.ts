@@ -238,10 +238,6 @@ export type OutputCriblSearchEngine = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputCriblSearchEnginePqControls | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -332,7 +328,6 @@ export const OutputCriblSearchEngine$inboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputCriblSearchEnginePqControls$inboundSchema)
     .optional(),
-  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputCriblSearchEngine$Outbound = {
@@ -382,7 +377,6 @@ export type OutputCriblSearchEngine$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputCriblSearchEnginePqControls$Outbound | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -439,7 +433,6 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputCriblSearchEnginePqControls$outboundSchema)
     .optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputCriblSearchEngineToJSON(

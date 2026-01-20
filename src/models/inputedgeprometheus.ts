@@ -296,26 +296,6 @@ export type InputEdgePrometheus = {
    * Select or create a secret that references your credentials
    */
   credentialsSecret?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-   */
-  __template_assumeRoleArn?: string | undefined;
-  /**
-   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-   */
-  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -475,11 +455,6 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
 });
 /** @internal */
 export type InputEdgePrometheus$Outbound = {
@@ -529,11 +504,6 @@ export type InputEdgePrometheus$Outbound = {
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
-  __template_awsApiKey?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_region?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
@@ -588,11 +558,6 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
 });
 
 export function inputEdgePrometheusToJSON(

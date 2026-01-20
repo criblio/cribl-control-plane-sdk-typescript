@@ -122,14 +122,6 @@ export type InputTcpjson = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -163,8 +155,6 @@ export const InputTcpjson$inboundSchema: z.ZodType<
   description: z.string().optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 /** @internal */
 export type InputTcpjson$Outbound = {
@@ -193,8 +183,6 @@ export type InputTcpjson$Outbound = {
   description?: string | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -229,8 +217,6 @@ export const InputTcpjson$outboundSchema: z.ZodType<
   description: z.string().optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function inputTcpjsonToJSON(inputTcpjson: InputTcpjson): string {

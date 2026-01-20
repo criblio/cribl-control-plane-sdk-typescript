@@ -346,6 +346,7 @@ async function run() {
         output: "<value>",
         outputExpression: "<value>",
         pipeline: "main",
+        toGroupContext: true,
       },
     ],
   });
@@ -398,6 +399,7 @@ async function run() {
         output: "<value>",
         outputExpression: "<value>",
         pipeline: "main",
+        toGroupContext: true,
       },
     ],
   });

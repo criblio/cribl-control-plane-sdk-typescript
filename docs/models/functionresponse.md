@@ -1404,6 +1404,29 @@ const value: models.FunctionSidlookup = {
 };
 ```
 
+### `models.FunctionSignalFilter`
+
+```typescript
+const value: models.FunctionSignalFilter = {
+  __filename: "example.file",
+  asyncTimeout: 6904.9,
+  cribl_version: "<value>",
+  disabled: true,
+  group: "<value>",
+  handleSignals: true,
+  id: "signal_filter",
+  loadTime: 6530.09,
+  modTime: 966.75,
+  name: "<value>",
+  sync: true,
+  uischema: {},
+  version: "<value>",
+  schema: {
+    "key": "<value>",
+  },
+};
+```
+
 ### `models.FunctionSnmpTrapSerialize`
 
 ```typescript

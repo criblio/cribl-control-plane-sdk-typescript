@@ -245,22 +245,6 @@ export type InputOpenTelemetry = {
    * Enable to extract each incoming log record to a separate event
    */
   extractLogs?: boolean | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -341,10 +325,6 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
   extractLogs: z.boolean().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 /** @internal */
 export type InputOpenTelemetry$Outbound = {
@@ -394,10 +374,6 @@ export type InputOpenTelemetry$Outbound = {
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
   extractLogs?: boolean | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -452,10 +428,6 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
   extractLogs: z.boolean().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 
 export function inputOpenTelemetryToJSON(

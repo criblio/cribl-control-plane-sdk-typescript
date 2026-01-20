@@ -240,18 +240,6 @@ export type OutputCloudflareR2 = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 export const ClientSecretAuthTypeAuthenticationMethod = {
@@ -443,14 +431,6 @@ export type OutputMicrosoftFabric = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsMicrosoftFabric | undefined;
-  /**
-   * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
-   */
-  __template_topic?: string | undefined;
-  /**
-   * Binds 'bootstrap_server' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bootstrap_server' at runtime.
-   */
-  __template_bootstrap_server?: string | undefined;
 };
 
 export type OutputDatabricks = {
@@ -649,10 +629,6 @@ export type OutputDatabricks = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
 };
 
 export const AuthenticationMethodChronicle = {
@@ -844,10 +820,6 @@ export type OutputChronicle = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsChronicle | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
 };
 
 /**
@@ -1526,10 +1498,6 @@ export type OutputDynatraceHttp = {
    * URL to send events to. Can be overwritten by an event's __url field.
    */
   url?: string | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type HostNetflow = {
@@ -1541,14 +1509,6 @@ export type HostNetflow = {
    * Destination port, default is 2055
    */
   port: number;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
 };
 
 export type OutputNetflow = {
@@ -1780,10 +1740,6 @@ export type OutputXsiam = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsXsiam | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export const AuthenticationTypeClickHouse = {
@@ -2080,26 +2036,6 @@ export type OutputClickHouse = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsClickHouse | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
-  /**
-   * Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
-   */
-  __template_database?: string | undefined;
-  /**
-   * Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
-   */
-  __template_tableName?: string | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 export type OutputDiskSpool = {
@@ -2324,30 +2260,6 @@ export type OutputCriblLake = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
-   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-   */
-  __template_assumeRoleArn?: string | undefined;
-  /**
-   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-   */
-  __template_assumeRoleExternalId?: string | undefined;
-  /**
-   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
-   */
-  __template_destPath?: string | undefined;
 };
 
 /**
@@ -2592,30 +2504,6 @@ export type OutputSecurityLake = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
-   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-   */
-  __template_assumeRoleArn?: string | undefined;
-  /**
-   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-   */
-  __template_assumeRoleExternalId?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 export type OutputDlS3 = {
@@ -2865,34 +2753,6 @@ export type OutputDlS3 = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
-   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-   */
-  __template_assumeRoleArn?: string | undefined;
-  /**
-   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-   */
-  __template_assumeRoleExternalId?: string | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 export type PqControlsCrowdstrikeNextGenSiem = {};
@@ -3044,10 +2904,6 @@ export type OutputCrowdstrikeNextGenSiem = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsCrowdstrikeNextGenSiem | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type PqControlsHumioHec = {};
@@ -3199,10 +3055,6 @@ export type OutputHumioHec = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsHumioHec | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type PqControlsCriblSearchEngine = {};
@@ -3372,10 +3224,6 @@ export type OutputCriblSearchEngine = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsCriblSearchEngine | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type PqControlsCriblHTTP = {};
@@ -3545,10 +3393,6 @@ export type OutputCriblHttp = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsCriblHTTP | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type PqControlsCriblTCP = {};
@@ -3686,14 +3530,6 @@ export type OutputCriblTcp = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsCriblTCP | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
 };
 
 /**
@@ -3926,10 +3762,6 @@ export type OutputDataset = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.
-   */
-  __template_customUrl?: string | undefined;
 };
 
 export type PqControlsServiceNow = {};
@@ -4347,14 +4179,6 @@ export type OutputOpenTelemetry = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsOpenTelemetry | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 /**
@@ -4610,18 +4434,6 @@ export type OutputPrometheus = {
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 export type PqControlsLoki = {};
@@ -4962,14 +4774,6 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: OutputGrafanaCloudPqControls2 | undefined;
-  /**
-   * Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
-   */
-  __template_lokiUrl?: string | undefined;
-  /**
-   * Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
-   */
-  __template_prometheusUrl?: string | undefined;
 };
 
 export const OutputGrafanaCloudType1 = {
@@ -5134,14 +4938,6 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: OutputGrafanaCloudPqControls1 | undefined;
-  /**
-   * Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
-   */
-  __template_lokiUrl?: string | undefined;
-  /**
-   * Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
-   */
-  __template_prometheusUrl?: string | undefined;
 };
 
 export type OutputGrafanaCloud =
@@ -5605,10 +5401,6 @@ export type OutputSumoLogic = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsSumoLogic | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type HostSnmp = {
@@ -5620,14 +5412,6 @@ export type HostSnmp = {
    * Destination port, default is 162
    */
   port: number;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
 };
 
 export type OutputSnmp = {
@@ -5833,34 +5617,6 @@ export type OutputSqs = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsSqs | undefined;
-  /**
-   * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
-   */
-  __template_queueName?: string | undefined;
-  /**
-   * Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
-   */
-  __template_awsAccountId?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-   */
-  __template_assumeRoleArn?: string | undefined;
-  /**
-   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-   */
-  __template_assumeRoleExternalId?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 /**
@@ -6003,26 +5759,6 @@ export type OutputSns = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsSns | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-   */
-  __template_assumeRoleArn?: string | undefined;
-  /**
-   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-   */
-  __template_assumeRoleExternalId?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 export type CreateOutputRule = {
@@ -6621,22 +6357,6 @@ export type OutputMinio = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 export type PqControlsCloudwatch = {};
@@ -6771,26 +6491,6 @@ export type OutputCloudwatch = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsCloudwatch | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-   */
-  __template_assumeRoleArn?: string | undefined;
-  /**
-   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-   */
-  __template_assumeRoleExternalId?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 /**
@@ -7056,26 +6756,6 @@ export type OutputInfluxdb = {
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
-  /**
-   * Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
-   */
-  __template_database?: string | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 export type PqControlsNewrelicEvents = {};
@@ -7232,22 +6912,6 @@ export type OutputNewrelicEvents = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'accountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accountId' at runtime.
-   */
-  __template_accountId?: string | undefined;
-  /**
-   * Binds 'eventType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'eventType' at runtime.
-   */
-  __template_eventType?: string | undefined;
-  /**
-   * Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.
-   */
-  __template_customUrl?: string | undefined;
 };
 
 export const FieldName = {
@@ -7428,18 +7092,6 @@ export type OutputNewrelic = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'logType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logType' at runtime.
-   */
-  __template_logType?: string | undefined;
-  /**
-   * Binds 'messageField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'messageField' at runtime.
-   */
-  __template_messageField?: string | undefined;
 };
 
 export type PqControlsElasticCloud = {};
@@ -7639,10 +7291,6 @@ export type UrlElastic = {
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type PqControlsElastic = {};
@@ -7825,10 +7473,6 @@ export type OutputElastic = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsElastic | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type PqControlsMsk = {};
@@ -8023,30 +7667,6 @@ export type OutputMsk = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsMsk | undefined;
-  /**
-   * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
-   */
-  __template_topic?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-   */
-  __template_assumeRoleArn?: string | undefined;
-  /**
-   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-   */
-  __template_assumeRoleExternalId?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 export type PqControlsConfluentCloud = {};
@@ -8199,10 +7819,6 @@ export type OutputConfluentCloud = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsConfluentCloud | undefined;
-  /**
-   * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
-   */
-  __template_topic?: string | undefined;
 };
 
 export type PqControlsKafka = {};
@@ -8355,10 +7971,6 @@ export type OutputKafka = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsKafka | undefined;
-  /**
-   * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
-   */
-  __template_topic?: string | undefined;
 };
 
 export type OutputExabeam = {
@@ -8500,10 +8112,6 @@ export type OutputExabeam = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
 };
 
 export type PqControlsGooglePubsub = {};
@@ -8628,14 +8236,6 @@ export type OutputGooglePubsub = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsGooglePubsub | undefined;
-  /**
-   * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
-   */
-  __template_topicName?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
 };
 
 export const LogLocationType = {
@@ -9173,18 +8773,6 @@ export type OutputGoogleCloudStorage = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
 };
 
 export const CreateOutputAPIVersion = {
@@ -9434,18 +9022,6 @@ export type OutputGoogleChronicle = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsGoogleChronicle | undefined;
-  /**
-   * Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
-   */
-  __template_apiVersion?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'customerId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customerId' at runtime.
-   */
-  __template_customerId?: string | undefined;
 };
 
 export type PqControlsAzureEventhub = {};
@@ -9583,10 +9159,6 @@ export type OutputAzureEventhub = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsAzureEventhub | undefined;
-  /**
-   * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
-   */
-  __template_topic?: string | undefined;
 };
 
 export type PqControlsHoneycomb = {};
@@ -9902,30 +9474,6 @@ export type OutputKinesis = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsKinesis | undefined;
-  /**
-   * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
-   */
-  __template_streamName?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-   */
-  __template_assumeRoleArn?: string | undefined;
-  /**
-   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-   */
-  __template_assumeRoleExternalId?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 /**
@@ -10096,14 +9644,6 @@ export type OutputAzureLogs = {
    * Select or create a stored secret that references your access key and secret key
    */
   keypairSecret?: string | undefined;
-  /**
-   * Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
-   */
-  __template_workspaceId?: string | undefined;
-  /**
-   * Binds 'workspaceKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceKey' at runtime.
-   */
-  __template_workspaceKey?: string | undefined;
 };
 
 export const IngestionMode = {
@@ -10543,42 +10083,6 @@ export type OutputAzureDataExplorer = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsAzureDataExplorer | undefined;
-  /**
-   * Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
-   */
-  __template_clusterUrl?: string | undefined;
-  /**
-   * Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
-   */
-  __template_database?: string | undefined;
-  /**
-   * Binds 'table' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'table' at runtime.
-   */
-  __template_table?: string | undefined;
-  /**
-   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-   */
-  __template_tenantId?: string | undefined;
-  /**
-   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
-   */
-  __template_clientId?: string | undefined;
-  /**
-   * Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
-   */
-  __template_scope?: string | undefined;
-  /**
-   * Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
-   */
-  __template_clientSecret?: string | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
-  /**
-   * Binds 'ingestUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'ingestUrl' at runtime.
-   */
-  __template_ingestUrl?: string | undefined;
 };
 
 export const BlobAccessTier = {
@@ -10816,26 +10320,6 @@ export type OutputAzureBlob = {
    */
   clientTextSecret?: string | undefined;
   certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
-  /**
-   * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
-   */
-  __template_containerName?: string | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
-  /**
-   * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
-   */
-  __template_connectionString?: string | undefined;
-  /**
-   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-   */
-  __template_tenantId?: string | undefined;
-  /**
-   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
-   */
-  __template_clientId?: string | undefined;
 };
 
 export type OutputS3 = {
@@ -11085,34 +10569,6 @@ export type OutputS3 = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-   */
-  __template_awsSecretKey?: string | undefined;
-  /**
-   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-   */
-  __template_assumeRoleArn?: string | undefined;
-  /**
-   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-   */
-  __template_assumeRoleExternalId?: string | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 export type OutputFilesystem = {
@@ -11279,10 +10735,6 @@ export type OutputFilesystem = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
 };
 
 export type PqControlsSignalfx = {};
@@ -11722,29 +11174,6 @@ export type OutputTcpjson = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
-};
-
-export type UrlWizHec = {
-  /**
-   * URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
-   */
-  url: string;
-  /**
-   * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
-   */
-  weight?: number | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type OutputWizHec = {
@@ -11769,10 +11198,7 @@ export type OutputWizHec = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  /**
-   * Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-   */
-  loadBalanced?: boolean | undefined;
+  loadBalanced?: any | undefined;
   /**
    * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
    */
@@ -11826,10 +11252,7 @@ export type OutputWizHec = {
    * List of headers that are safe to log in plain text
    */
   safeHeaders?: Array<string> | undefined;
-  /**
-   * Output metrics in multiple-metric format
-   */
-  enableMultiMetrics?: boolean | undefined;
+  enableMultiMetrics?: any | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -11849,28 +11272,20 @@ export type OutputWizHec = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  /**
+   * The unique identifier for the specific Cribl connector defined in your Wiz Settings. This is used to cross-validate the bearer token and ensure traffic is originating from the authorized integration.
+   */
+  wiz_connector_id: string;
+  /**
+   * Your Wiz deployment environment.
+   */
+  wiz_environment: string;
+  /**
+   * Your Wiz deployment data center (e.g., us1, us8, eu1). From Tenant Info → Data Center and Regions → Tenant Data Center in your Wiz console.
+   */
+  data_center: string;
+  wiz_sourcetype: string;
   description?: string | undefined;
-  /**
-   * URL to an endpoint to send events to, such as http://localhost:8088/services/collector/event
-   */
-  url?: string | undefined;
-  /**
-   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-   */
-  useRoundRobinDns?: boolean | undefined;
-  /**
-   * Exclude all IPs of the current host from the list of any resolved hostnames
-   */
-  excludeSelf?: boolean | undefined;
-  urls?: Array<UrlWizHec> | undefined;
-  /**
-   * The interval in which to re-resolve any hostnames and pick up destinations from A records
-   */
-  dnsResolvePeriodSec?: number | undefined;
-  /**
-   * How far back in time to keep traffic stats for load balancing purposes
-   */
-  loadBalanceStatsPeriodSec?: number | undefined;
   /**
    * Wiz Defender Auth token
    */
@@ -11879,10 +11294,6 @@ export type OutputWizHec = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type UrlSplunkHec = {
@@ -11894,10 +11305,6 @@ export type UrlSplunkHec = {
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type PqControlsSplunkHec = {};
@@ -12075,10 +11482,6 @@ export type OutputSplunkHec = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsSplunkHec | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type CreateOutputAuthToken = {
@@ -12422,14 +11825,6 @@ export type OutputSplunk = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
 };
 
 /**
@@ -12719,14 +12114,6 @@ export type OutputSyslog = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsSyslog | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
 };
 
 export type OutputDevnull = {
@@ -12991,38 +12378,6 @@ export type OutputSentinel = {
    * The name of the stream (Sentinel table) in which to store the events
    */
   streamName?: string | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
-  /**
-   * Binds 'client_id' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'client_id' at runtime.
-   */
-  __template_client_id?: string | undefined;
-  /**
-   * Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
-   */
-  __template_scope?: string | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
-  /**
-   * Binds 'dcrID' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dcrID' at runtime.
-   */
-  __template_dcrID?: string | undefined;
-  /**
-   * Binds 'dceEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dceEndpoint' at runtime.
-   */
-  __template_dceEndpoint?: string | undefined;
-  /**
-   * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
-   */
-  __template_streamName?: string | undefined;
 };
 
 /**
@@ -13098,10 +12453,6 @@ export type UrlWebhook = {
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type OutputWebhook = {
@@ -13351,18 +12702,6 @@ export type OutputWebhook = {
    * How far back in time to keep traffic stats for load balancing purposes
    */
   loadBalanceStatsPeriodSec?: number | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type OutputDefault = {
@@ -13540,9 +12879,6 @@ export type OutputCloudflareR2$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_bucket?: string | undefined;
-  __template_format?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -13614,9 +12950,6 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_bucket: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputCloudflareR2ToJSON(
@@ -13737,8 +13070,6 @@ export type OutputMicrosoftFabric$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsMicrosoftFabric$Outbound | undefined;
-  __template_topic?: string | undefined;
-  __template_bootstrap_server?: string | undefined;
 };
 
 /** @internal */
@@ -13783,8 +13114,6 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsMicrosoftFabric$outboundSchema).optional(),
-  __template_topic: z.string().optional(),
-  __template_bootstrap_server: z.string().optional(),
 });
 
 export function outputMicrosoftFabricToJSON(
@@ -13850,7 +13179,6 @@ export type OutputDatabricks$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -13913,7 +13241,6 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_format: z.string().optional(),
 });
 
 export function outputDatabricksToJSON(
@@ -14023,7 +13350,6 @@ export type OutputChronicle$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsChronicle$Outbound | undefined;
-  __template_region?: string | undefined;
 };
 
 /** @internal */
@@ -14083,7 +13409,6 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsChronicle$outboundSchema).optional(),
-  __template_region: z.string().optional(),
 });
 
 export function outputChronicleToJSON(
@@ -14508,7 +13833,6 @@ export type OutputDynatraceHttp$Outbound = {
   environmentId?: string | undefined;
   activeGateDomain?: string | undefined;
   url?: string | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -14567,7 +13891,6 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   environmentId: z.string().optional(),
   activeGateDomain: z.string().optional(),
   url: z.string().optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputDynatraceHttpToJSON(
@@ -14582,8 +13905,6 @@ export function outputDynatraceHttpToJSON(
 export type HostNetflow$Outbound = {
   host: string;
   port: number;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -14594,8 +13915,6 @@ export const HostNetflow$outboundSchema: z.ZodType<
 > = z.object({
   host: z.string(),
   port: z.number(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function hostNetflowToJSON(hostNetflow: HostNetflow): string {
@@ -14732,7 +14051,6 @@ export type OutputXsiam$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsXsiam$Outbound | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -14789,7 +14107,6 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsXsiam$outboundSchema).optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputXsiamToJSON(outputXsiam: OutputXsiam): string {
@@ -14958,11 +14275,6 @@ export type OutputClickHouse$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsClickHouse$Outbound | undefined;
-  __template_url?: string | undefined;
-  __template_database?: string | undefined;
-  __template_tableName?: string | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -15038,11 +14350,6 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsClickHouse$outboundSchema).optional(),
-  __template_url: z.string().optional(),
-  __template_database: z.string().optional(),
-  __template_tableName: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 
 export function outputClickHouseToJSON(
@@ -15145,12 +14452,6 @@ export type OutputCriblLake$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_destPath?: string | undefined;
 };
 
 /** @internal */
@@ -15211,12 +14512,6 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_destPath: z.string().optional(),
 });
 
 export function outputCriblLakeToJSON(
@@ -15296,12 +14591,6 @@ export type OutputSecurityLake$Outbound = {
   parquetSchema?: string | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -15374,12 +14663,6 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   parquetSchema: z.string().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputSecurityLakeToJSON(
@@ -15458,13 +14741,6 @@ export type OutputDlS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_format?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -15542,13 +14818,6 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputDlS3ToJSON(outputDlS3: OutputDlS3): string {
@@ -15619,7 +14888,6 @@ export type OutputCrowdstrikeNextGenSiem$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsCrowdstrikeNextGenSiem$Outbound | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -15673,7 +14941,6 @@ export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsCrowdstrikeNextGenSiem$outboundSchema)
     .optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputCrowdstrikeNextGenSiemToJSON(
@@ -15748,7 +15015,6 @@ export type OutputHumioHec$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsHumioHec$Outbound | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -15801,7 +15067,6 @@ export const OutputHumioHec$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsHumioHec$outboundSchema).optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputHumioHecToJSON(outputHumioHec: OutputHumioHec): string {
@@ -15880,7 +15145,6 @@ export type OutputCriblSearchEngine$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsCriblSearchEngine$Outbound | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -15940,7 +15204,6 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsCriblSearchEngine$outboundSchema)
     .optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputCriblSearchEngineToJSON(
@@ -16021,7 +15284,6 @@ export type OutputCriblHttp$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsCriblHTTP$Outbound | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -16080,7 +15342,6 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsCriblHTTP$outboundSchema).optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputCriblHttpToJSON(
@@ -16147,8 +15408,6 @@ export type OutputCriblTcp$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsCriblTCP$Outbound | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -16194,8 +15453,6 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsCriblTCP$outboundSchema).optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function outputCriblTcpToJSON(outputCriblTcp: OutputCriblTcp): string {
@@ -16284,7 +15541,6 @@ export type OutputDataset$Outbound = {
   pqControls?: PqControlsDataset$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
-  __template_customUrl?: string | undefined;
 };
 
 /** @internal */
@@ -16342,7 +15598,6 @@ export const OutputDataset$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => PqControlsDataset$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_customUrl: z.string().optional(),
 });
 
 export function outputDatasetToJSON(outputDataset: OutputDataset): string {
@@ -16577,8 +15832,6 @@ export type OutputOpenTelemetry$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsOpenTelemetry$Outbound | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -16650,8 +15903,6 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsOpenTelemetry$outboundSchema).optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 
 export function outputOpenTelemetryToJSON(
@@ -16788,9 +16039,6 @@ export type OutputPrometheus$Outbound = {
   tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
-  __template_url?: string | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -16855,9 +16103,6 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
-  __template_url: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 
 export function outputPrometheusToJSON(
@@ -17070,8 +16315,6 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputGrafanaCloudPqControls2$Outbound | undefined;
-  __template_lokiUrl?: string | undefined;
-  __template_prometheusUrl?: string | undefined;
 };
 
 /** @internal */
@@ -17127,8 +16370,6 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls2$outboundSchema)
     .optional(),
-  __template_lokiUrl: z.string().optional(),
-  __template_prometheusUrl: z.string().optional(),
 });
 
 export function outputGrafanaCloudGrafanaCloud2ToJSON(
@@ -17213,8 +16454,6 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputGrafanaCloudPqControls1$Outbound | undefined;
-  __template_lokiUrl?: string | undefined;
-  __template_prometheusUrl?: string | undefined;
 };
 
 /** @internal */
@@ -17270,8 +16509,6 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls1$outboundSchema)
     .optional(),
-  __template_lokiUrl: z.string().optional(),
-  __template_prometheusUrl: z.string().optional(),
 });
 
 export function outputGrafanaCloudGrafanaCloud1ToJSON(
@@ -17538,7 +16775,6 @@ export type OutputSumoLogic$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSumoLogic$Outbound | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -17590,7 +16826,6 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSumoLogic$outboundSchema).optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputSumoLogicToJSON(
@@ -17603,8 +16838,6 @@ export function outputSumoLogicToJSON(
 export type HostSnmp$Outbound = {
   host: string;
   port: number;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -17615,8 +16848,6 @@ export const HostSnmp$outboundSchema: z.ZodType<
 > = z.object({
   host: z.string(),
   port: z.number(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function hostSnmpToJSON(hostSnmp: HostSnmp): string {
@@ -17721,13 +16952,6 @@ export type OutputSqs$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSqs$Outbound | undefined;
-  __template_queueName?: string | undefined;
-  __template_awsAccountId?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_region?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -17777,13 +17001,6 @@ export const OutputSqs$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSqs$outboundSchema).optional(),
-  __template_queueName: z.string().optional(),
-  __template_awsAccountId: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputSqsToJSON(outputSqs: OutputSqs): string {
@@ -17848,11 +17065,6 @@ export type OutputSns$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSns$Outbound | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_region?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -17896,11 +17108,6 @@ export const OutputSns$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSns$outboundSchema).optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputSnsToJSON(outputSns: OutputSns): string {
@@ -18301,10 +17508,6 @@ export type OutputMinio$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_format?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -18375,10 +17578,6 @@ export const OutputMinio$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputMinioToJSON(outputMinio: OutputMinio): string {
@@ -18441,11 +17640,6 @@ export type OutputCloudwatch$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsCloudwatch$Outbound | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_region?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -18490,11 +17684,6 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsCloudwatch$outboundSchema).optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputCloudwatchToJSON(
@@ -18598,11 +17787,6 @@ export type OutputInfluxdb$Outbound = {
   tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
-  __template_url?: string | undefined;
-  __template_database?: string | undefined;
-  __template_bucket?: string | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -18671,11 +17855,6 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
-  __template_url: z.string().optional(),
-  __template_database: z.string().optional(),
-  __template_bucket: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 
 export function outputInfluxdbToJSON(outputInfluxdb: OutputInfluxdb): string {
@@ -18746,10 +17925,6 @@ export type OutputNewrelicEvents$Outbound = {
   pqControls?: PqControlsNewrelicEvents$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
-  __template_region?: string | undefined;
-  __template_accountId?: string | undefined;
-  __template_eventType?: string | undefined;
-  __template_customUrl?: string | undefined;
 };
 
 /** @internal */
@@ -18803,10 +17978,6 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => PqControlsNewrelicEvents$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_accountId: z.string().optional(),
-  __template_eventType: z.string().optional(),
-  __template_customUrl: z.string().optional(),
 });
 
 export function outputNewrelicEventsToJSON(
@@ -18910,9 +18081,6 @@ export type OutputNewrelic$Outbound = {
   pqControls?: PqControlsNewrelic$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
-  __template_region?: string | undefined;
-  __template_logType?: string | undefined;
-  __template_messageField?: string | undefined;
 };
 
 /** @internal */
@@ -18968,9 +18136,6 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => PqControlsNewrelic$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_logType: z.string().optional(),
-  __template_messageField: z.string().optional(),
 });
 
 export function outputNewrelicToJSON(outputNewrelic: OutputNewrelic): string {
@@ -19119,7 +18284,6 @@ export const WriteAction$outboundSchema: z.ZodType<
 export type UrlElastic$Outbound = {
   url: string;
   weight?: number | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -19130,7 +18294,6 @@ export const UrlElastic$outboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
-  __template_url: z.string().optional(),
 });
 
 export function urlElasticToJSON(urlElastic: UrlElastic): string {
@@ -19209,7 +18372,6 @@ export type OutputElastic$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsElastic$Outbound | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -19272,7 +18434,6 @@ export const OutputElastic$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsElastic$outboundSchema).optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputElasticToJSON(outputElastic: OutputElastic): string {
@@ -19351,12 +18512,6 @@ export type OutputMsk$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsMsk$Outbound | undefined;
-  __template_topic?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_region?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -19419,12 +18574,6 @@ export const OutputMsk$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsMsk$outboundSchema).optional(),
-  __template_topic: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputMskToJSON(outputMsk: OutputMsk): string {
@@ -19495,7 +18644,6 @@ export type OutputConfluentCloud$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsConfluentCloud$Outbound | undefined;
-  __template_topic?: string | undefined;
 };
 
 /** @internal */
@@ -19546,7 +18694,6 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsConfluentCloud$outboundSchema).optional(),
-  __template_topic: z.string().optional(),
 });
 
 export function outputConfluentCloudToJSON(
@@ -19619,7 +18766,6 @@ export type OutputKafka$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsKafka$Outbound | undefined;
-  __template_topic?: string | undefined;
 };
 
 /** @internal */
@@ -19670,7 +18816,6 @@ export const OutputKafka$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsKafka$outboundSchema).optional(),
-  __template_topic: z.string().optional(),
 });
 
 export function outputKafkaToJSON(outputKafka: OutputKafka): string {
@@ -19716,7 +18861,6 @@ export type OutputExabeam$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_region?: string | undefined;
 };
 
 /** @internal */
@@ -19763,7 +18907,6 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_region: z.string().optional(),
 });
 
 export function outputExabeamToJSON(outputExabeam: OutputExabeam): string {
@@ -19822,8 +18965,6 @@ export type OutputGooglePubsub$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsGooglePubsub$Outbound | undefined;
-  __template_topicName?: string | undefined;
-  __template_region?: string | undefined;
 };
 
 /** @internal */
@@ -19865,8 +19006,6 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsGooglePubsub$outboundSchema).optional(),
-  __template_topicName: z.string().optional(),
-  __template_region: z.string().optional(),
 });
 
 export function outputGooglePubsubToJSON(
@@ -20139,9 +19278,6 @@ export type OutputGoogleCloudStorage$Outbound = {
   awsApiKey?: string | undefined;
   awsSecretKey?: string | undefined;
   awsSecret?: string | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -20210,9 +19346,6 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_format: z.string().optional(),
 });
 
 export function outputGoogleCloudStorageToJSON(
@@ -20341,9 +19474,6 @@ export type OutputGoogleChronicle$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsGoogleChronicle$Outbound | undefined;
-  __template_apiVersion?: string | undefined;
-  __template_region?: string | undefined;
-  __template_customerId?: string | undefined;
 };
 
 /** @internal */
@@ -20408,9 +19538,6 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsGoogleChronicle$outboundSchema).optional(),
-  __template_apiVersion: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_customerId: z.string().optional(),
 });
 
 export function outputGoogleChronicleToJSON(
@@ -20477,7 +19604,6 @@ export type OutputAzureEventhub$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsAzureEventhub$Outbound | undefined;
-  __template_topic?: string | undefined;
 };
 
 /** @internal */
@@ -20522,7 +19648,6 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsAzureEventhub$outboundSchema).optional(),
-  __template_topic: z.string().optional(),
 });
 
 export function outputAzureEventhubToJSON(
@@ -20719,12 +19844,6 @@ export type OutputKinesis$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsKinesis$Outbound | undefined;
-  __template_streamName?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_region?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -20773,12 +19892,6 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsKinesis$outboundSchema).optional(),
-  __template_streamName: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputKinesisToJSON(outputKinesis: OutputKinesis): string {
@@ -20856,8 +19969,6 @@ export type OutputAzureLogs$Outbound = {
   workspaceId?: string | undefined;
   workspaceKey?: string | undefined;
   keypairSecret?: string | undefined;
-  __template_workspaceId?: string | undefined;
-  __template_workspaceKey?: string | undefined;
 };
 
 /** @internal */
@@ -20911,8 +20022,6 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
   keypairSecret: z.string().optional(),
-  __template_workspaceId: z.string().optional(),
-  __template_workspaceKey: z.string().optional(),
 });
 
 export function outputAzureLogsToJSON(
@@ -21150,15 +20259,6 @@ export type OutputAzureDataExplorer$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsAzureDataExplorer$Outbound | undefined;
-  __template_clusterUrl?: string | undefined;
-  __template_database?: string | undefined;
-  __template_table?: string | undefined;
-  __template_tenantId?: string | undefined;
-  __template_clientId?: string | undefined;
-  __template_scope?: string | undefined;
-  __template_clientSecret?: string | undefined;
-  __template_format?: string | undefined;
-  __template_ingestUrl?: string | undefined;
 };
 
 /** @internal */
@@ -21261,15 +20361,6 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsAzureDataExplorer$outboundSchema)
     .optional(),
-  __template_clusterUrl: z.string().optional(),
-  __template_database: z.string().optional(),
-  __template_table: z.string().optional(),
-  __template_tenantId: z.string().optional(),
-  __template_clientId: z.string().optional(),
-  __template_scope: z.string().optional(),
-  __template_clientSecret: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_ingestUrl: z.string().optional(),
 });
 
 export function outputAzureDataExplorerToJSON(
@@ -21350,11 +20441,6 @@ export type OutputAzureBlob$Outbound = {
   certificate?:
     | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
     | undefined;
-  __template_containerName?: string | undefined;
-  __template_format?: string | undefined;
-  __template_connectionString?: string | undefined;
-  __template_tenantId?: string | undefined;
-  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -21424,11 +20510,6 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
-  __template_containerName: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_connectionString: z.string().optional(),
-  __template_tenantId: z.string().optional(),
-  __template_clientId: z.string().optional(),
 });
 
 export function outputAzureBlobToJSON(
@@ -21505,13 +20586,6 @@ export type OutputS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_awsSecretKey?: string | undefined;
-  __template_assumeRoleArn?: string | undefined;
-  __template_assumeRoleExternalId?: string | undefined;
-  __template_format?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -21589,13 +20663,6 @@ export const OutputS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_awsSecretKey: z.string().optional(),
-  __template_assumeRoleArn: z.string().optional(),
-  __template_assumeRoleExternalId: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputS3ToJSON(outputS3: OutputS3): string {
@@ -21649,7 +20716,6 @@ export type OutputFilesystem$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
-  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -21704,7 +20770,6 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
-  __template_format: z.string().optional(),
 });
 
 export function outputFilesystemToJSON(
@@ -22013,8 +21078,6 @@ export type OutputTcpjson$Outbound = {
   pqControls?: PqControlsTcpjson$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -22063,34 +21126,10 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => PqControlsTcpjson$outboundSchema).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function outputTcpjsonToJSON(outputTcpjson: OutputTcpjson): string {
   return JSON.stringify(OutputTcpjson$outboundSchema.parse(outputTcpjson));
-}
-
-/** @internal */
-export type UrlWizHec$Outbound = {
-  url: string;
-  weight?: number | undefined;
-  __template_url?: string | undefined;
-};
-
-/** @internal */
-export const UrlWizHec$outboundSchema: z.ZodType<
-  UrlWizHec$Outbound,
-  z.ZodTypeDef,
-  UrlWizHec
-> = z.object({
-  url: z.string(),
-  weight: z.number().optional(),
-  __template_url: z.string().optional(),
-});
-
-export function urlWizHecToJSON(urlWizHec: UrlWizHec): string {
-  return JSON.stringify(UrlWizHec$outboundSchema.parse(urlWizHec));
 }
 
 /** @internal */
@@ -22101,7 +21140,7 @@ export type OutputWizHec$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced?: boolean | undefined;
+  loadBalanced?: any | undefined;
   nextQueue?: string | undefined;
   tcpRouting?: string | undefined;
   tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
@@ -22117,7 +21156,7 @@ export type OutputWizHec$Outbound = {
     | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  enableMultiMetrics?: boolean | undefined;
+  enableMultiMetrics?: any | undefined;
   authType?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
@@ -22125,16 +21164,13 @@ export type OutputWizHec$Outbound = {
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
   onBackpressure?: string | undefined;
+  wiz_connector_id: string;
+  wiz_environment: string;
+  data_center: string;
+  wiz_sourcetype: string;
   description?: string | undefined;
-  url?: string | undefined;
-  useRoundRobinDns?: boolean | undefined;
-  excludeSelf?: boolean | undefined;
-  urls?: Array<UrlWizHec$Outbound> | undefined;
-  dnsResolvePeriodSec?: number | undefined;
-  loadBalanceStatsPeriodSec?: number | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -22149,7 +21185,7 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().optional(),
+  loadBalanced: z.any().optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
   tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
@@ -22165,7 +21201,7 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  enableMultiMetrics: z.boolean().optional(),
+  enableMultiMetrics: z.any().optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   responseRetrySettings: z.array(
@@ -22175,16 +21211,13 @@ export const OutputWizHec$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  wiz_connector_id: z.string(),
+  wiz_environment: z.string(),
+  data_center: z.string(),
+  wiz_sourcetype: z.string(),
   description: z.string().optional(),
-  url: z.string().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  excludeSelf: z.boolean().optional(),
-  urls: z.array(z.lazy(() => UrlWizHec$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().optional(),
-  loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {
@@ -22195,7 +21228,6 @@ export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {
 export type UrlSplunkHec$Outbound = {
   url: string;
   weight?: number | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -22206,7 +21238,6 @@ export const UrlSplunkHec$outboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
-  __template_url: z.string().optional(),
 });
 
 export function urlSplunkHecToJSON(urlSplunkHec: UrlSplunkHec): string {
@@ -22283,7 +21314,6 @@ export type OutputSplunkHec$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSplunkHec$Outbound | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -22344,7 +21374,6 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSplunkHec$outboundSchema).optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputSplunkHecToJSON(
@@ -22597,8 +21626,6 @@ export type OutputSplunk$Outbound = {
   pqControls?: PqControlsSplunk$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -22645,8 +21672,6 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => PqControlsSplunk$outboundSchema).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function outputSplunkToJSON(outputSplunk: OutputSplunk): string {
@@ -22752,8 +21777,6 @@ export type OutputSyslog$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsSyslog$Outbound | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -22805,8 +21828,6 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsSyslog$outboundSchema).optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function outputSyslogToJSON(outputSyslog: OutputSyslog): string {
@@ -22940,14 +21961,6 @@ export type OutputSentinel$Outbound = {
   dcrID?: string | undefined;
   dceEndpoint?: string | undefined;
   streamName?: string | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
-  __template_client_id?: string | undefined;
-  __template_scope?: string | undefined;
-  __template_url?: string | undefined;
-  __template_dcrID?: string | undefined;
-  __template_dceEndpoint?: string | undefined;
-  __template_streamName?: string | undefined;
 };
 
 /** @internal */
@@ -23015,14 +22028,6 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
   streamName: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
-  __template_client_id: z.string().optional(),
-  __template_scope: z.string().optional(),
-  __template_url: z.string().optional(),
-  __template_dcrID: z.string().optional(),
-  __template_dceEndpoint: z.string().optional(),
-  __template_streamName: z.string().optional(),
 });
 
 export function outputSentinelToJSON(outputSentinel: OutputSentinel): string {
@@ -23065,7 +22070,6 @@ export function pqControlsWebhookToJSON(
 export type UrlWebhook$Outbound = {
   url: string;
   weight?: number | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -23076,7 +22080,6 @@ export const UrlWebhook$outboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
-  __template_url: z.string().optional(),
 });
 
 export function urlWebhookToJSON(urlWebhook: UrlWebhook): string {
@@ -23155,9 +22158,6 @@ export type OutputWebhook$Outbound = {
   urls?: Array<UrlWebhook$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -23237,9 +22237,6 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   urls: z.array(z.lazy(() => UrlWebhook$outboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputWebhookToJSON(outputWebhook: OutputWebhook): string {

@@ -192,26 +192,6 @@ export type InputPrometheusRw = {
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
-  /**
-   * Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
-   */
-  __template_prometheusAPI?: string | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -261,11 +241,6 @@ export const InputPrometheusRw$inboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
-  __template_prometheusAPI: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 /** @internal */
 export type InputPrometheusRw$Outbound = {
@@ -310,11 +285,6 @@ export type InputPrometheusRw$Outbound = {
   tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
-  __template_prometheusAPI?: string | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -364,11 +334,6 @@ export const InputPrometheusRw$outboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
-  __template_prometheusAPI: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 
 export function inputPrometheusRwToJSON(

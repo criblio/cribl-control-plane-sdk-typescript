@@ -223,6 +223,10 @@ import {
   PipelineFunctionSidlookup$inboundSchema,
 } from "./pipelinefunctionsidlookup.js";
 import {
+  PipelineFunctionSignalFilter,
+  PipelineFunctionSignalFilter$inboundSchema,
+} from "./pipelinefunctionsignalfilter.js";
+import {
   PipelineFunctionSnmpTrapSerialize,
   PipelineFunctionSnmpTrapSerialize$inboundSchema,
 } from "./pipelinefunctionsnmptrapserialize.js";
@@ -318,6 +322,7 @@ export type PipelineFunctionConf =
   | PipelineFunctionSerde
   | PipelineFunctionSerialize
   | PipelineFunctionSidlookup
+  | PipelineFunctionSignalFilter
   | PipelineFunctionSnmpTrapSerialize
   | PipelineFunctionSort
   | PipelineFunctionStore
@@ -389,6 +394,7 @@ export const PipelineFunctionConf$inboundSchema: z.ZodType<
   PipelineFunctionSerde$inboundSchema,
   PipelineFunctionSerialize$inboundSchema,
   PipelineFunctionSidlookup$inboundSchema,
+  PipelineFunctionSignalFilter$inboundSchema,
   PipelineFunctionSnmpTrapSerialize$inboundSchema,
   PipelineFunctionSort$inboundSchema,
   PipelineFunctionStore$inboundSchema,

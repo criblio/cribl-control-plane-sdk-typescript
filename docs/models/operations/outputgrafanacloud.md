@@ -92,8 +92,6 @@ const value: operations.OutputGrafanaCloudGrafanaCloud1 = {
   pqCompress: "gzip",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_lokiUrl: "https://exotic-pepper.info",
-  __template_prometheusUrl: "https://slow-pigsty.net",
 };
 ```
 
@@ -186,8 +184,6 @@ const value: operations.OutputGrafanaCloudGrafanaCloud2 = {
   pqCompress: "gzip",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_lokiUrl: "https://severe-hovercraft.name",
-  __template_prometheusUrl: "https://fine-giant.net",
 };
 ```
 

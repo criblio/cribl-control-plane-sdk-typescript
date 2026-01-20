@@ -153,18 +153,6 @@ export type InputOffice365Service = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-   */
-  __template_tenantId?: string | undefined;
-  /**
-   * Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
-   */
-  __template_appId?: string | undefined;
-  /**
-   * Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
-   */
-  __template_clientSecret?: string | undefined;
 };
 
 /** @internal */
@@ -255,9 +243,6 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_tenantId: z.string().optional(),
-  __template_appId: z.string().optional(),
-  __template_clientSecret: z.string().optional(),
 });
 /** @internal */
 export type InputOffice365Service$Outbound = {
@@ -289,9 +274,6 @@ export type InputOffice365Service$Outbound = {
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
-  __template_tenantId?: string | undefined;
-  __template_appId?: string | undefined;
-  __template_clientSecret?: string | undefined;
 };
 
 /** @internal */
@@ -328,9 +310,6 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_tenantId: z.string().optional(),
-  __template_appId: z.string().optional(),
-  __template_clientSecret: z.string().optional(),
 });
 
 export function inputOffice365ServiceToJSON(

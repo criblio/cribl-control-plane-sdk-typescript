@@ -523,42 +523,6 @@ export type OutputAzureDataExplorer = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputAzureDataExplorerPqControls | undefined;
-  /**
-   * Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
-   */
-  __template_clusterUrl?: string | undefined;
-  /**
-   * Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
-   */
-  __template_database?: string | undefined;
-  /**
-   * Binds 'table' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'table' at runtime.
-   */
-  __template_table?: string | undefined;
-  /**
-   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
-   */
-  __template_tenantId?: string | undefined;
-  /**
-   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
-   */
-  __template_clientId?: string | undefined;
-  /**
-   * Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
-   */
-  __template_scope?: string | undefined;
-  /**
-   * Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
-   */
-  __template_clientSecret?: string | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
-  /**
-   * Binds 'ingestUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'ingestUrl' at runtime.
-   */
-  __template_ingestUrl?: string | undefined;
 };
 
 /** @internal */
@@ -909,15 +873,6 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputAzureDataExplorerPqControls$inboundSchema)
     .optional(),
-  __template_clusterUrl: z.string().optional(),
-  __template_database: z.string().optional(),
-  __template_table: z.string().optional(),
-  __template_tenantId: z.string().optional(),
-  __template_clientId: z.string().optional(),
-  __template_scope: z.string().optional(),
-  __template_clientSecret: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_ingestUrl: z.string().optional(),
 });
 /** @internal */
 export type OutputAzureDataExplorer$Outbound = {
@@ -1007,15 +962,6 @@ export type OutputAzureDataExplorer$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputAzureDataExplorerPqControls$Outbound | undefined;
-  __template_clusterUrl?: string | undefined;
-  __template_database?: string | undefined;
-  __template_table?: string | undefined;
-  __template_tenantId?: string | undefined;
-  __template_clientId?: string | undefined;
-  __template_scope?: string | undefined;
-  __template_clientSecret?: string | undefined;
-  __template_format?: string | undefined;
-  __template_ingestUrl?: string | undefined;
 };
 
 /** @internal */
@@ -1114,15 +1060,6 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputAzureDataExplorerPqControls$outboundSchema)
     .optional(),
-  __template_clusterUrl: z.string().optional(),
-  __template_database: z.string().optional(),
-  __template_table: z.string().optional(),
-  __template_tenantId: z.string().optional(),
-  __template_clientId: z.string().optional(),
-  __template_scope: z.string().optional(),
-  __template_clientSecret: z.string().optional(),
-  __template_format: z.string().optional(),
-  __template_ingestUrl: z.string().optional(),
 });
 
 export function outputAzureDataExplorerToJSON(

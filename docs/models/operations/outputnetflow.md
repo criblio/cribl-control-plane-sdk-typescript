@@ -23,8 +23,6 @@ let value: OutputNetflow = {
     {
       host: "wide-eyed-adult.name",
       port: 1165.51,
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   ],
   dnsResolvePeriodSec: 859.55,

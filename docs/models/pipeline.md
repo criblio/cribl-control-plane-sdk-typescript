@@ -20,26 +20,18 @@ let value: Pipeline = {
     functions: [
       {
         filter: "<value>",
-        id: "notify",
+        id: "numerify",
         description:
           "zen priesthood characterization fictionalize than exasperation oh fervently afterwards before",
         disabled: true,
         final: true,
         conf: {
-          group: "<value>",
-          notificationId: "<id>",
-          searchId: "<id>",
-          savedQueryId: "<id>",
-          trigger: "<value>",
-          triggerType: "resultsCount",
-          triggerComparator: ">",
-          triggerCount: 8364.23,
-          resultsLimit: 5484.73,
-          searchUrl: "https://equatorial-teammate.net/",
-          message: "<value>",
-          authToken: "<value>",
-          messagesEndpoint: "<value>",
-          tenantId: "<id>",
+          depth: 543126,
+          ignoreFields: [
+            "<value 1>",
+          ],
+          filterExpr: "<value>",
+          format: "ceil",
         },
         groupId: "<id>",
       },
@@ -47,8 +39,7 @@ let value: Pipeline = {
     groups: {
       "key": {
         name: "<value>",
-        description:
-          "march meanwhile potentially although trouser wearily furthermore weary whereas",
+        description: "far-flung like instead zowie pertain concrete shovel",
         disabled: true,
       },
     },
