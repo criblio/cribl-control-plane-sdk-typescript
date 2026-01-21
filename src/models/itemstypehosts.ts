@@ -33,6 +33,14 @@ export type ItemsTypeHosts = {
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -46,6 +54,8 @@ export const ItemsTypeHosts$inboundSchema: z.ZodType<
   tls: TlsOptionsHostsItems$inboundSchema.optional(),
   servername: z.string().optional(),
   weight: z.number().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 /** @internal */
 export type ItemsTypeHosts$Outbound = {
@@ -54,6 +64,8 @@ export type ItemsTypeHosts$Outbound = {
   tls?: string | undefined;
   servername?: string | undefined;
   weight?: number | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -67,6 +79,8 @@ export const ItemsTypeHosts$outboundSchema: z.ZodType<
   tls: TlsOptionsHostsItems$outboundSchema.optional(),
   servername: z.string().optional(),
   weight: z.number().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
 export function itemsTypeHostsToJSON(itemsTypeHosts: ItemsTypeHosts): string {

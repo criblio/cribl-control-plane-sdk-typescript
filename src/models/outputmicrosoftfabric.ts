@@ -242,6 +242,14 @@ export type OutputMicrosoftFabric = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputMicrosoftFabricPqControls | undefined;
+  /**
+   * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
+   */
+  __template_topic?: string | undefined;
+  /**
+   * Binds 'bootstrap_server' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bootstrap_server' at runtime.
+   */
+  __template_bootstrap_server?: string | undefined;
 };
 
 /** @internal */
@@ -419,6 +427,8 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputMicrosoftFabricPqControls$inboundSchema)
     .optional(),
+  __template_topic: z.string().optional(),
+  __template_bootstrap_server: z.string().optional(),
 });
 /** @internal */
 export type OutputMicrosoftFabric$Outbound = {
@@ -458,6 +468,8 @@ export type OutputMicrosoftFabric$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputMicrosoftFabricPqControls$Outbound | undefined;
+  __template_topic?: string | undefined;
+  __template_bootstrap_server?: string | undefined;
 };
 
 /** @internal */
@@ -504,6 +516,8 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputMicrosoftFabricPqControls$outboundSchema)
     .optional(),
+  __template_topic: z.string().optional(),
+  __template_bootstrap_server: z.string().optional(),
 });
 
 export function outputMicrosoftFabricToJSON(

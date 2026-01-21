@@ -325,6 +325,26 @@ export type OutputInfluxdb = {
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
+   */
+  __template_database?: string | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+   */
+  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -449,6 +469,11 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  __template_url: z.string().optional(),
+  __template_database: z.string().optional(),
+  __template_bucket: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
 });
 /** @internal */
 export type OutputInfluxdb$Outbound = {
@@ -509,6 +534,11 @@ export type OutputInfluxdb$Outbound = {
   tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  __template_url?: string | undefined;
+  __template_database?: string | undefined;
+  __template_bucket?: string | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -575,6 +605,11 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  __template_url: z.string().optional(),
+  __template_database: z.string().optional(),
+  __template_bucket: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
 });
 
 export function outputInfluxdbToJSON(outputInfluxdb: OutputInfluxdb): string {

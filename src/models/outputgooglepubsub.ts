@@ -154,6 +154,14 @@ export type OutputGooglePubsub = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputGooglePubsubPqControls | undefined;
+  /**
+   * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
+   */
+  __template_topicName?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
 };
 
 /** @internal */
@@ -230,6 +238,8 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputGooglePubsubPqControls$inboundSchema)
     .optional(),
+  __template_topicName: z.string().optional(),
+  __template_region: z.string().optional(),
 });
 /** @internal */
 export type OutputGooglePubsub$Outbound = {
@@ -265,6 +275,8 @@ export type OutputGooglePubsub$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputGooglePubsubPqControls$Outbound | undefined;
+  __template_topicName?: string | undefined;
+  __template_region?: string | undefined;
 };
 
 /** @internal */
@@ -306,6 +318,8 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGooglePubsubPqControls$outboundSchema)
     .optional(),
+  __template_topicName: z.string().optional(),
+  __template_region: z.string().optional(),
 });
 
 export function outputGooglePubsubToJSON(

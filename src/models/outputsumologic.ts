@@ -219,6 +219,10 @@ export type OutputSumoLogic = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputSumoLogicPqControls | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -313,6 +317,7 @@ export const OutputSumoLogic$inboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$inboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputSumoLogicPqControls$inboundSchema).optional(),
+  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputSumoLogic$Outbound = {
@@ -356,6 +361,7 @@ export type OutputSumoLogic$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputSumoLogicPqControls$Outbound | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -405,6 +411,7 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputSumoLogicPqControls$outboundSchema).optional(),
+  __template_url: z.string().optional(),
 });
 
 export function outputSumoLogicToJSON(

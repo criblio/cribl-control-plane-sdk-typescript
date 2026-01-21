@@ -85,21 +85,23 @@ let value: OutputCriblHttp = {
     {
       url: "https://imaginary-decision.net/",
       weight: 1083.02,
+      __template_url: "https://heavenly-repeat.net",
     },
   ],
-  dnsResolvePeriodSec: 9031.19,
-  loadBalanceStatsPeriodSec: 3625.72,
-  pqStrictOrdering: false,
-  pqRatePerSec: 8241.25,
-  pqMode: "always",
-  pqMaxBufferSize: 2370.38,
-  pqMaxBackpressureSec: 487.63,
+  dnsResolvePeriodSec: 5680.89,
+  loadBalanceStatsPeriodSec: 2370.38,
+  pqStrictOrdering: true,
+  pqRatePerSec: 2228.36,
+  pqMode: "backpressure",
+  pqMaxBufferSize: 4821.03,
+  pqMaxBackpressureSec: 5182.82,
   pqMaxFileSize: "<value>",
   pqMaxSize: "<value>",
   pqPath: "<value>",
-  pqCompress: "none",
+  pqCompress: "gzip",
   pqOnBackpressure: "drop",
   pqControls: {},
+  __template_url: "https://possible-widow.com/",
 };
 ```
 
@@ -151,3 +153,4 @@ let value: OutputCriblHttp = {
 | `pqCompress`                                                                                                                                                                                                                                                                                                                                     | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                      |
 | `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                               | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                            |
 | `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputCriblHttpPqControls](../models/outputcriblhttppqcontrols.md)                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `templateUrl`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.                                                                                                                                                              |

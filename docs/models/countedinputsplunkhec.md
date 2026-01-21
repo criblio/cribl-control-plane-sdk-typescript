@@ -113,6 +113,9 @@ let value: CountedInputSplunkHec = {
       emitTokenMetrics: true,
       description:
         "rapidly dismal while anti easily regularly crackle energetically save",
+      __template_host: "<value>",
+      __template_port: "<value>",
+      __template_splunkHecAPI: "<value>",
     },
   ],
 };
