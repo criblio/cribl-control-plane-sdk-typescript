@@ -88,6 +88,9 @@ let value: CountedInput = {
       description: "supposing certainly as",
       clientSecret: "<value>",
       textSecret: "<value>",
+      __template_endpoint: "<value>",
+      __template_authUrl: "https://serene-coliseum.info/",
+      __template_clientId: "<id>",
     },
   ],
 };

@@ -208,6 +208,10 @@ export type OutputKafka = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputKafkaPqControls | undefined;
+  /**
+   * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
+   */
+  __template_topic?: string | undefined;
 };
 
 /** @internal */
@@ -290,6 +294,7 @@ export const OutputKafka$inboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$inboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputKafkaPqControls$inboundSchema).optional(),
+  __template_topic: z.string().optional(),
 });
 /** @internal */
 export type OutputKafka$Outbound = {
@@ -335,6 +340,7 @@ export type OutputKafka$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputKafkaPqControls$Outbound | undefined;
+  __template_topic?: string | undefined;
 };
 
 /** @internal */
@@ -384,6 +390,7 @@ export const OutputKafka$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputKafkaPqControls$outboundSchema).optional(),
+  __template_topic: z.string().optional(),
 });
 
 export function outputKafkaToJSON(outputKafka: OutputKafka): string {

@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Deploy commits to a Worker Group or Edge Fleet
+ * Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
  *
  * @remarks
- * Deploy commits to the specified Worker Group or Edge Fleet.
+ * Deploy commits to the specified Worker Group, Outpost Group, or Edge Fleet.
  */
 export function groupsDeploy(
   client: CriblControlPlaneCore,

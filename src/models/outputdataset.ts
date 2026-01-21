@@ -285,6 +285,10 @@ export type OutputDataset = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.
+   */
+  __template_customUrl?: string | undefined;
 };
 
 /** @internal */
@@ -398,6 +402,7 @@ export const OutputDataset$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputDatasetPqControls$inboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_customUrl: z.string().optional(),
 });
 /** @internal */
 export type OutputDataset$Outbound = {
@@ -447,6 +452,7 @@ export type OutputDataset$Outbound = {
   pqControls?: OutputDatasetPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_customUrl?: string | undefined;
 };
 
 /** @internal */
@@ -502,6 +508,7 @@ export const OutputDataset$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputDatasetPqControls$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_customUrl: z.string().optional(),
 });
 
 export function outputDatasetToJSON(outputDataset: OutputDataset): string {

@@ -161,6 +161,18 @@ export type InputCriblLakeHttp = {
   metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   authTokensExt?: Array<AuthTokensExt> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+   */
+  __template_splunkHecAPI?: string | undefined;
 };
 
 /** @internal */
@@ -337,6 +349,9 @@ export const InputCriblLakeHttp$inboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   authTokensExt: z.array(z.lazy(() => AuthTokensExt$inboundSchema)).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_splunkHecAPI: z.string().optional(),
 });
 /** @internal */
 export type InputCriblLakeHttp$Outbound = {
@@ -372,6 +387,9 @@ export type InputCriblLakeHttp$Outbound = {
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   authTokensExt?: Array<AuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_splunkHecAPI?: string | undefined;
 };
 
 /** @internal */
@@ -412,6 +430,9 @@ export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema)).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_splunkHecAPI: z.string().optional(),
 });
 
 export function inputCriblLakeHttpToJSON(

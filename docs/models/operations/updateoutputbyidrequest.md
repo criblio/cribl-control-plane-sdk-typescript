@@ -76,6 +76,7 @@ let value: UpdateOutputByIdRequest = {
     directoryBatchSize: 4881.59,
     deadletterPath: "<value>",
     maxRetryNum: 6381.1,
+    __template_format: "<value>",
   },
 };
 ```
