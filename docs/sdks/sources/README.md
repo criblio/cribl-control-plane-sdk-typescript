@@ -190,8 +190,6 @@ async function run() {
     unixSocketPerms: "<value>",
     authToken: "",
     textSecret: "<value>",
-    __template_host: "<value>",
-    __template_port: "<value>",
   });
 
   console.log(result);
@@ -303,8 +301,6 @@ async function run() {
     unixSocketPerms: "<value>",
     authToken: "",
     textSecret: "<value>",
-    __template_host: "<value>",
-    __template_port: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -521,8 +517,6 @@ async function run() {
       unixSocketPerms: "<value>",
       authToken: "",
       textSecret: "<value>",
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   });
 
@@ -636,8 +630,6 @@ async function run() {
       unixSocketPerms: "<value>",
       authToken: "",
       textSecret: "<value>",
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   });
   if (res.ok) {

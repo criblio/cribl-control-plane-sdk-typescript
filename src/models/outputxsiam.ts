@@ -238,10 +238,6 @@ export type OutputXsiam = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputXsiamPqControls | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -379,7 +375,6 @@ export const OutputXsiam$inboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$inboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputXsiamPqControls$inboundSchema).optional(),
-  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputXsiam$Outbound = {
@@ -428,7 +423,6 @@ export type OutputXsiam$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputXsiamPqControls$Outbound | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -483,7 +477,6 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputXsiamPqControls$outboundSchema).optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputXsiamToJSON(outputXsiam: OutputXsiam): string {

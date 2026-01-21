@@ -1,17 +1,58 @@
 # HealthCheckCollectMethodGetDiscovery
 
-## Example Usage
+
+## Supported Types
+
+### `models.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp`
 
 ```typescript
-import { HealthCheckCollectMethodGetDiscovery } from "cribl-control-plane/models";
-
-let value: HealthCheckCollectMethodGetDiscovery = {
-  discoverType: "json",
-};
+const value:
+  models.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp = {
+    discoverMethod: "post_with_body",
+    discoverBody: "<value>",
+    discoverType: "none",
+    discoverUrl: "https://lavish-hubris.info",
+    discoverRequestParams: "<value>",
+    discoverRequestHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    discoverDataField: "<value>",
+  };
 ```
 
-## Fields
+### `models.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson`
 
-| Field                                                                                                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `discoverType`                                                                                                                                                                                                                                                                                                                                               | [models.HealthCheckCollectMethodGetDiscoverType](../models/healthcheckcollectmethodgetdiscovertype.md)                                                                                                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task. |
+```typescript
+const value:
+  models.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson = {
+    discoverType: "json",
+    manualDiscoverResult: "<value>",
+    discoverDataField: "<value>",
+  };
+```
+
+### `models.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList`
+
+```typescript
+const value:
+  models.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList = {
+    discoverType: "list",
+    itemList: [
+      "<value 1>",
+      "<value 2>",
+    ],
+  };
+```
+
+### `models.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone`
+
+```typescript
+const value:
+  models.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone = {
+    discoverType: "none",
+  };
+```
+

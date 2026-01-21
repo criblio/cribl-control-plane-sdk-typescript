@@ -80,23 +80,21 @@ let value: OutputElastic = {
     {
       url: "https://stale-habit.name",
       weight: 881.53,
-      __template_url: "https://pessimistic-diagram.name",
     },
   ],
-  dnsResolvePeriodSec: 6936.25,
-  loadBalanceStatsPeriodSec: 6942.02,
+  dnsResolvePeriodSec: 6649.53,
+  loadBalanceStatsPeriodSec: 6054.06,
   pqStrictOrdering: true,
-  pqRatePerSec: 7427.51,
-  pqMode: "error",
-  pqMaxBufferSize: 7215.13,
-  pqMaxBackpressureSec: 2583.65,
+  pqRatePerSec: 5180.15,
+  pqMode: "backpressure",
+  pqMaxBufferSize: 6942.02,
+  pqMaxBackpressureSec: 1658.24,
   pqMaxFileSize: "<value>",
   pqMaxSize: "<value>",
   pqPath: "<value>",
-  pqCompress: "none",
+  pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_url: "https://accurate-birth.com/",
 };
 ```
 
@@ -152,4 +150,3 @@ let value: OutputElastic = {
 | `pqCompress`                                                                                                                                                                                                                                                                                                                                     | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                      |
 | `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                               | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                            |
 | `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputElasticPqControls](../models/outputelasticpqcontrols.md)                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `templateUrl`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.                                                                                                                                                              |

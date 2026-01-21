@@ -9,9 +9,27 @@ let value: RestCollectMethodPostWithBody = {
   collectMethod: "other",
   collectBody: "<value>",
   discovery: {
+    discoverMethod: "post",
+    discoverRequestParams: "<value>",
     discoverType: "http",
+    discoverUrl: "https://likable-follower.com",
+    discoverVerb: "<value>",
+    discoverBody: "<value>",
+    discoverRequestHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    pagination: {
+      type: "<value>",
+    },
+    discoverDataField: "<value>",
+    enableStrictDiscoverParsing: false,
+    discoverResponseFormat: "<value>",
+    enableDiscoverCode: false,
   },
-  collectUrl: "https://ample-vol.info/",
+  collectUrl: "https://graceful-quit.net",
   collectVerb: "<value>",
   collectRequestParams: "<value>",
   collectRequestHeaders: [
@@ -21,22 +39,26 @@ let value: RestCollectMethodPostWithBody = {
     },
   ],
   pagination: {
-    type: "response_header",
+    type: "response_header_link",
+    nextRelationAttribute: "<value>",
+    curRelationAttribute: "<value>",
+    maxPages: 6562.77,
   },
-  authentication: "basic",
-  timeout: 8356.33,
+  authentication: "loginSecret",
+  timeout: 6932.73,
   useRoundRobinDns: false,
-  disableTimeFilter: false,
+  disableTimeFilter: true,
   decodeUrl: true,
-  rejectUnauthorized: false,
+  rejectUnauthorized: true,
   captureHeaders: false,
-  stopOnEmptyResults: false,
+  stopOnEmptyResults: true,
   safeHeaders: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   retryRules: {
-    type: "backoff",
+    type: "none",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -60,12 +82,12 @@ let value: RestCollectMethodPostWithBody = {
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `collectMethod`                                                                                                                                    | [models.RestCollectMethodPostWithBodyCollectMethod](../models/restcollectmethodpostwithbodycollectmethod.md)                                       | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
-| `discovery`                                                                                                                                        | [models.RestCollectMethodPostWithBodyDiscovery](../models/restcollectmethodpostwithbodydiscovery.md)                                               | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `discovery`                                                                                                                                        | *models.RestCollectMethodPostWithBodyDiscovery*                                                                                                    | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
 | `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestHeaders`                                                                                                                            | [models.ItemsTypeRestCollectMethodGetCollectRequestParams](../models/itemstyperestcollectmethodgetcollectrequestparams.md)[]                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `pagination`                                                                                                                                       | [models.RestCollectMethodPostWithBodyPagination](../models/restcollectmethodpostwithbodypagination.md)                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `pagination`                                                                                                                                       | *models.RestCollectMethodPostWithBodyPaginationUnion*                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `authentication`                                                                                                                                   | [models.RestCollectMethodPostWithBodyAuthentication](../models/restcollectmethodpostwithbodyauthentication.md)                                     | :heavy_check_mark:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |
 | `timeout`                                                                                                                                          | *number*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout. Use 0 to disable.                                                                                                 |
 | `useRoundRobinDns`                                                                                                                                 | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.                                                     |
@@ -75,5 +97,5 @@ let value: RestCollectMethodPostWithBody = {
 | `captureHeaders`                                                                                                                                   | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Enable to add response headers to the resHeaders field under the __collectible object                                                              |
 | `stopOnEmptyResults`                                                                                                                               | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Stop pagination when the Event Breaker produces no events                                                                                          |
 | `safeHeaders`                                                                                                                                      | *string*[]                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | List of headers that are safe to log in plain text                                                                                                 |
-| `retryRules`                                                                                                                                       | [models.RestCollectMethodPostWithBodyRetryRules](../models/restcollectmethodpostwithbodyretryrules.md)                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `retryRules`                                                                                                                                       | *models.RestCollectMethodPostWithBodyRetryRules*                                                                                                   | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `scheduling`                                                                                                                                       | [models.RestCollectMethodPostWithBodyScheduling](../models/restcollectmethodpostwithbodyscheduling.md)                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |

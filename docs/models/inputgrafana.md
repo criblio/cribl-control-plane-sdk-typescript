@@ -88,22 +88,20 @@ const value: models.InputGrafanaGrafana1 = {
         value: "<value>",
       },
     ],
-    __template_loginUrl: "https://live-impact.biz",
-    __template_secret: "<value>",
   },
   lokiAuth: {
-    authType: "textSecret",
-    username: "Daphnee.Cronin10",
-    password: "mdmcY5dZMn1QVML",
+    authType: "token",
+    username: "Jarvis_Greenholt",
+    password: "0GmdmcY5dZMn1QV",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://faraway-stool.name",
+    loginUrl: "https://well-off-igloo.net/",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
     authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 8825.72,
+    tokenTimeoutSecs: 2601.58,
     oauthParams: [
       {
         name: "<value>",
@@ -116,8 +114,6 @@ const value: models.InputGrafanaGrafana1 = {
         value: "<value>",
       },
     ],
-    __template_loginUrl: "https://internal-massage.name",
-    __template_secret: "<value>",
   },
   metadata: [
     {
@@ -126,8 +122,6 @@ const value: models.InputGrafanaGrafana1 = {
     },
   ],
   description: "lest inspect aw finally once laughter right ascribe sweetly",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -215,22 +209,20 @@ const value: models.InputGrafanaGrafana2 = {
         value: "<value>",
       },
     ],
-    __template_loginUrl: "https://superb-meander.name",
-    __template_secret: "<value>",
   },
   lokiAuth: {
     authType: "oauth",
-    username: "Lenny8",
-    password: "lBvHj1XjKBCN_o1",
+    username: "Ressie_Mills60",
+    password: "qlBvHj1XjKBCN_o",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://evil-vision.org/",
+    loginUrl: "https://devoted-design.org/",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
     authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 399.52,
+    tokenTimeoutSecs: 8551.08,
     oauthParams: [
       {
         name: "<value>",
@@ -243,8 +235,6 @@ const value: models.InputGrafanaGrafana2 = {
         value: "<value>",
       },
     ],
-    __template_loginUrl: "https://wavy-flight.biz/",
-    __template_secret: "<value>",
   },
   metadata: [
     {
@@ -252,9 +242,7 @@ const value: models.InputGrafanaGrafana2 = {
       value: "<value>",
     },
   ],
-  description: "catalyst afore meanwhile tensely utterly transparency",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  description: "swear doubtfully as",
 };
 ```
 

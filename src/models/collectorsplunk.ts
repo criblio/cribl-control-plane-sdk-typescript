@@ -22,6 +22,14 @@ export type CollectorSplunk = {
    */
   type: "splunk";
   conf: SplunkCollectorConf;
+  /**
+   * Delete any files collected (where applicable)
+   */
+  destructive?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data.
+   */
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -32,11 +40,15 @@ export const CollectorSplunk$inboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("splunk"),
   conf: SplunkCollectorConf$inboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 /** @internal */
 export type CollectorSplunk$Outbound = {
   type: "splunk";
   conf: SplunkCollectorConf$Outbound;
+  destructive?: boolean | undefined;
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -47,6 +59,8 @@ export const CollectorSplunk$outboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("splunk"),
   conf: SplunkCollectorConf$outboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 
 export function collectorSplunkToJSON(

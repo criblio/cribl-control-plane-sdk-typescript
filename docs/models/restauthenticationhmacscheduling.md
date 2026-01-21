@@ -7,7 +7,7 @@ import { RestAuthenticationHmacScheduling } from "cribl-control-plane/models";
 
 let value: RestAuthenticationHmacScheduling = {
   stateTracking: {
-    enabled: false,
+    enabled: true,
   },
 };
 ```

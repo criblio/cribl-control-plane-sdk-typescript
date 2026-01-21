@@ -13,9 +13,27 @@ let value: CollectorRest = {
     authentication: "hmac",
     hmacFunctionId: "<id>",
     discovery: {
+      discoverMethod: "post_with_body",
+      discoverBody: "<value>",
       discoverType: "http",
+      discoverUrl: "https://sweet-giant.info/",
+      discoverVerb: "<value>",
+      discoverRequestParams: "<value>",
+      discoverRequestHeaders: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      pagination: {
+        type: "<value>",
+      },
+      discoverDataField: "<value>",
+      enableStrictDiscoverParsing: true,
+      discoverResponseFormat: "<value>",
+      enableDiscoverCode: true,
     },
-    collectUrl: "https://close-decision.net",
+    collectUrl: "https://true-cow.name",
     collectMethod: "post",
     collectVerb: "<value>",
     collectRequestParams: "<value>",
@@ -27,43 +45,53 @@ let value: CollectorRest = {
       },
     ],
     pagination: {
-      type: "response_header",
+      type: "request_offset",
+      offsetField: "<value>",
+      offset: 2713.22,
+      limitField: "<value>",
+      limit: 8073.59,
+      totalRecordField: "<value>",
+      maxPages: 8005.17,
+      zeroIndexed: true,
     },
-    timeout: 4762.75,
+    timeout: 5200.78,
     useRoundRobinDns: true,
     disableTimeFilter: false,
-    decodeUrl: false,
+    decodeUrl: true,
     rejectUnauthorized: true,
     captureHeaders: false,
     stopOnEmptyResults: true,
     safeHeaders: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
     retryRules: {
-      type: "none",
+      type: "static",
       interval: "<value>",
       limit: "<value>",
-      multiplier: "<value>",
-      maxIntervalMs: "<value>",
       codes: "<value>",
       enableHeader: "<value>",
       retryConnectTimeout: "<value>",
       retryConnectReset: "<value>",
+      multiplier: "<value>",
+      maxIntervalMs: "<value>",
     },
     __scheduling: {
       stateTracking: {
-        enabled: false,
+        enabled: true,
       },
     },
   },
+  destructive: true,
+  encoding: "<value>",
 };
 ```
 
 ## Fields
 
-| Field                      | Type                       | Required                   | Description                |
-| -------------------------- | -------------------------- | -------------------------- | -------------------------- |
-| `type`                     | *"rest"*                   | :heavy_check_mark:         | Collector type             |
-| `conf`                     | *models.RestCollectorConf* | :heavy_check_mark:         | N/A                        |
+| Field                                                 | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `type`                                                | *"rest"*                                              | :heavy_check_mark:                                    | Collector type                                        |
+| `conf`                                                | *models.RestCollectorConf*                            | :heavy_check_mark:                                    | N/A                                                   |
+| `destructive`                                         | *boolean*                                             | :heavy_minus_sign:                                    | Delete any files collected (where applicable)         |
+| `encoding`                                            | *string*                                              | :heavy_minus_sign:                                    | Character encoding to use when parsing ingested data. |

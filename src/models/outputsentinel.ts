@@ -288,38 +288,6 @@ export type OutputSentinel = {
    * The name of the stream (Sentinel table) in which to store the events
    */
   streamName?: string | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
-  /**
-   * Binds 'client_id' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'client_id' at runtime.
-   */
-  __template_client_id?: string | undefined;
-  /**
-   * Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
-   */
-  __template_scope?: string | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
-  /**
-   * Binds 'dcrID' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dcrID' at runtime.
-   */
-  __template_dcrID?: string | undefined;
-  /**
-   * Binds 'dceEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dceEndpoint' at runtime.
-   */
-  __template_dceEndpoint?: string | undefined;
-  /**
-   * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
-   */
-  __template_streamName?: string | undefined;
 };
 
 /** @internal */
@@ -456,14 +424,6 @@ export const OutputSentinel$inboundSchema: z.ZodType<
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
   streamName: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
-  __template_client_id: z.string().optional(),
-  __template_scope: z.string().optional(),
-  __template_url: z.string().optional(),
-  __template_dcrID: z.string().optional(),
-  __template_dceEndpoint: z.string().optional(),
-  __template_streamName: z.string().optional(),
 });
 /** @internal */
 export type OutputSentinel$Outbound = {
@@ -523,14 +483,6 @@ export type OutputSentinel$Outbound = {
   dcrID?: string | undefined;
   dceEndpoint?: string | undefined;
   streamName?: string | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
-  __template_client_id?: string | undefined;
-  __template_scope?: string | undefined;
-  __template_url?: string | undefined;
-  __template_dcrID?: string | undefined;
-  __template_dceEndpoint?: string | undefined;
-  __template_streamName?: string | undefined;
 };
 
 /** @internal */
@@ -596,14 +548,6 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
   streamName: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
-  __template_client_id: z.string().optional(),
-  __template_scope: z.string().optional(),
-  __template_url: z.string().optional(),
-  __template_dcrID: z.string().optional(),
-  __template_dceEndpoint: z.string().optional(),
-  __template_streamName: z.string().optional(),
 });
 
 export function outputSentinelToJSON(outputSentinel: OutputSentinel): string {

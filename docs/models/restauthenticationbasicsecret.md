@@ -10,8 +10,12 @@ let value: RestAuthenticationBasicSecret = {
   credentialsSecret: "<value>",
   discovery: {
     discoverType: "list",
+    itemList: [
+      "<value 1>",
+      "<value 2>",
+    ],
   },
-  collectUrl: "https://official-mallard.biz",
+  collectUrl: "https://needy-disclosure.org",
   collectMethod: "other",
   collectVerb: "<value>",
   collectRequestParams: "<value>",
@@ -23,28 +27,32 @@ let value: RestAuthenticationBasicSecret = {
     },
   ],
   pagination: {
-    type: "request_page",
+    type: "response_header",
+    attribute: [
+      "<value 1>",
+    ],
+    maxPages: 7221.57,
   },
-  timeout: 3619.97,
+  timeout: 1508.43,
   useRoundRobinDns: true,
-  disableTimeFilter: false,
+  disableTimeFilter: true,
   decodeUrl: true,
   rejectUnauthorized: true,
   captureHeaders: true,
-  stopOnEmptyResults: true,
+  stopOnEmptyResults: false,
   safeHeaders: [
     "<value 1>",
   ],
   retryRules: {
-    type: "none",
+    type: "static",
     interval: "<value>",
     limit: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
     codes: "<value>",
     enableHeader: "<value>",
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
+    multiplier: "<value>",
+    maxIntervalMs: "<value>",
   },
   __scheduling: {
     stateTracking: {
@@ -60,14 +68,14 @@ let value: RestAuthenticationBasicSecret = {
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `authentication`                                                                                                                                   | *"basicSecret"*                                                                                                                                    | :heavy_check_mark:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |
 | `credentialsSecret`                                                                                                                                | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Select or create a stored secret that references your credentials                                                                                  |
-| `discovery`                                                                                                                                        | [models.RestAuthenticationBasicSecretDiscovery](../models/restauthenticationbasicsecretdiscovery.md)                                               | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `discovery`                                                                                                                                        | *models.RestAuthenticationBasicSecretDiscovery*                                                                                                    | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
 | `collectMethod`                                                                                                                                    | [models.RestAuthenticationBasicSecretCollectMethod](../models/restauthenticationbasicsecretcollectmethod.md)                                       | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestHeaders`                                                                                                                            | [models.ItemsTypeRestCollectMethodGetCollectRequestParams](../models/itemstyperestcollectmethodgetcollectrequestparams.md)[]                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `pagination`                                                                                                                                       | [models.RestAuthenticationBasicSecretPagination](../models/restauthenticationbasicsecretpagination.md)                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `pagination`                                                                                                                                       | *models.RestAuthenticationBasicSecretPaginationUnion*                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `timeout`                                                                                                                                          | *number*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout. Use 0 to disable.                                                                                                 |
 | `useRoundRobinDns`                                                                                                                                 | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.                                                     |
 | `disableTimeFilter`                                                                                                                                | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Disable Collector event time filtering when a date range is specified                                                                              |
@@ -76,5 +84,5 @@ let value: RestAuthenticationBasicSecret = {
 | `captureHeaders`                                                                                                                                   | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Enable to add response headers to the resHeaders field under the __collectible object                                                              |
 | `stopOnEmptyResults`                                                                                                                               | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Stop pagination when the Event Breaker produces no events                                                                                          |
 | `safeHeaders`                                                                                                                                      | *string*[]                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | List of headers that are safe to log in plain text                                                                                                 |
-| `retryRules`                                                                                                                                       | [models.RestAuthenticationBasicSecretRetryRules](../models/restauthenticationbasicsecretretryrules.md)                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `retryRules`                                                                                                                                       | *models.RestAuthenticationBasicSecretRetryRules*                                                                                                   | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `scheduling`                                                                                                                                       | [models.RestAuthenticationBasicSecretScheduling](../models/restauthenticationbasicsecretscheduling.md)                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |

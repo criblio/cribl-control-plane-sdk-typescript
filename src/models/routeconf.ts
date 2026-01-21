@@ -18,8 +18,6 @@ export type RouteConf = {
   output?: string | undefined;
   outputExpression?: string | undefined;
   pipeline: string;
-  toGroupContext?: boolean | undefined;
-  toPackContext?: boolean | undefined;
 };
 
 /** @internal */
@@ -37,8 +35,6 @@ export type RouteConf$Outbound = {
   output?: string | undefined;
   outputExpression?: string | undefined;
   pipeline: string;
-  toGroupContext?: boolean | undefined;
-  toPackContext?: boolean | undefined;
 };
 
 /** @internal */
@@ -60,8 +56,6 @@ export const RouteConf$outboundSchema: z.ZodType<
   output: z.string().optional(),
   outputExpression: z.string().optional(),
   pipeline: z.string(),
-  toGroupContext: z.boolean().optional(),
-  toPackContext: z.boolean().optional(),
 });
 
 export function routeConfToJSON(routeConf: RouteConf): string {

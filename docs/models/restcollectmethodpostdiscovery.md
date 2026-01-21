@@ -1,17 +1,62 @@
 # RestCollectMethodPostDiscovery
 
-## Example Usage
+
+## Supported Types
+
+### `models.RestCollectMethodPostRestDiscoveryDiscoverTypeHttp`
 
 ```typescript
-import { RestCollectMethodPostDiscovery } from "cribl-control-plane/models";
-
-let value: RestCollectMethodPostDiscovery = {
-  discoverType: "list",
+const value: models.RestCollectMethodPostRestDiscoveryDiscoverTypeHttp = {
+  discoverMethod: "get",
+  discoverRequestParams: "<value>",
+  discoverType: "http",
+  discoverUrl: "https://utter-roadway.biz/",
+  discoverVerb: "<value>",
+  discoverBody: "<value>",
+  discoverRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {
+    type: "<value>",
+  },
+  discoverDataField: "<value>",
+  enableStrictDiscoverParsing: false,
+  discoverResponseFormat: "<value>",
+  enableDiscoverCode: false,
 };
 ```
 
-## Fields
+### `models.RestCollectMethodPostRestDiscoveryDiscoverTypeJson`
 
-| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `discoverType`                                                                                                             | [models.RestCollectMethodPostDiscoverType](../models/restcollectmethodpostdiscovertype.md)                                 | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |
+```typescript
+const value: models.RestCollectMethodPostRestDiscoveryDiscoverTypeJson = {
+  discoverType: "json",
+  manualDiscoverResult: "<value>",
+  discoverDataField: "<value>",
+};
+```
+
+### `models.RestCollectMethodPostRestDiscoveryDiscoverTypeList`
+
+```typescript
+const value: models.RestCollectMethodPostRestDiscoveryDiscoverTypeList = {
+  discoverType: "list",
+  itemList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+};
+```
+
+### `models.RestCollectMethodPostRestDiscoveryDiscoverTypeNone`
+
+```typescript
+const value: models.RestCollectMethodPostRestDiscoveryDiscoverTypeNone = {
+  discoverType: "none",
+};
+```
+

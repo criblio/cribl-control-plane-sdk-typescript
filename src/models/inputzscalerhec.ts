@@ -176,18 +176,6 @@ export type InputZscalerHec = {
    */
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
-  /**
-   * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
-   */
-  __template_hecAPI?: string | undefined;
 };
 
 /** @internal */
@@ -288,9 +276,6 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
-  __template_hecAPI: z.string().optional(),
 });
 /** @internal */
 export type InputZscalerHec$Outbound = {
@@ -327,9 +312,6 @@ export type InputZscalerHec$Outbound = {
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
-  __template_hecAPI?: string | undefined;
 };
 
 /** @internal */
@@ -372,9 +354,6 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
-  __template_hecAPI: z.string().optional(),
 });
 
 export function inputZscalerHecToJSON(

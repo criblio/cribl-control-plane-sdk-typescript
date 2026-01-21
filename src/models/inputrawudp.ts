@@ -90,14 +90,6 @@ export type InputRawUdp = {
    */
   metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -125,8 +117,6 @@ export const InputRawUdp$inboundSchema: z.ZodType<
   udpSocketRxBufSize: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 /** @internal */
 export type InputRawUdp$Outbound = {
@@ -149,8 +139,6 @@ export type InputRawUdp$Outbound = {
   udpSocketRxBufSize?: number | undefined;
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -178,8 +166,6 @@ export const InputRawUdp$outboundSchema: z.ZodType<
   udpSocketRxBufSize: z.number().optional(),
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function inputRawUdpToJSON(inputRawUdp: InputRawUdp): string {

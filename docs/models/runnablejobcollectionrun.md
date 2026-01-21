@@ -21,9 +21,9 @@ let value: RunnableJobCollectionRun = {
   maxTaskSize: "<value>",
   discoverToRoutes: false,
   capture: {
-    duration: 2517.82,
-    maxEvents: 7307.09,
-    level: 2,
+    duration: 7307.09,
+    maxEvents: 5613.36,
+    level: 3,
   },
 };
 ```

@@ -272,14 +272,6 @@ export type InputSplunkSearch = {
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
   oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -439,8 +431,6 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 /** @internal */
 export type InputSplunkSearch$Outbound = {
@@ -492,8 +482,6 @@ export type InputSplunkSearch$Outbound = {
   tokenTimeoutSecs?: number | undefined;
   oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
   oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -552,8 +540,6 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   tokenTimeoutSecs: z.number().optional(),
   oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
   oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 
 export function inputSplunkSearchToJSON(

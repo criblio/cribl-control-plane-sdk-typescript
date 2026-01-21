@@ -305,18 +305,6 @@ export type OutputGoogleChronicle = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputGoogleChroniclePqControls | undefined;
-  /**
-   * Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
-   */
-  __template_apiVersion?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'customerId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customerId' at runtime.
-   */
-  __template_customerId?: string | undefined;
 };
 
 /** @internal */
@@ -495,9 +483,6 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputGoogleChroniclePqControls$inboundSchema)
     .optional(),
-  __template_apiVersion: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_customerId: z.string().optional(),
 });
 /** @internal */
 export type OutputGoogleChronicle$Outbound = {
@@ -552,9 +537,6 @@ export type OutputGoogleChronicle$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputGoogleChroniclePqControls$Outbound | undefined;
-  __template_apiVersion?: string | undefined;
-  __template_region?: string | undefined;
-  __template_customerId?: string | undefined;
 };
 
 /** @internal */
@@ -617,9 +599,6 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGoogleChroniclePqControls$outboundSchema)
     .optional(),
-  __template_apiVersion: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_customerId: z.string().optional(),
 });
 
 export function outputGoogleChronicleToJSON(

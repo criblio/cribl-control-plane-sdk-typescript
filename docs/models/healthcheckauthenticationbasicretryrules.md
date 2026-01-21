@@ -1,27 +1,47 @@
 # HealthCheckAuthenticationBasicRetryRules
 
-## Example Usage
+
+## Supported Types
+
+### `models.HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone`
 
 ```typescript
-import { HealthCheckAuthenticationBasicRetryRules } from "cribl-control-plane/models";
-
-let value: HealthCheckAuthenticationBasicRetryRules = {
-  type: "backoff",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-};
+const value:
+  models.HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone = {
+    type: "none",
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+  };
 ```
 
-## Fields
+### `models.HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic`
 
-| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                                       | [models.RetryTypeOptionsHealthCheckCollectorConfRetryRules](../models/retrytypeoptionshealthcheckcollectorconfretryrules.md) | :heavy_check_mark:                                                                                                           | The algorithm to use when performing HTTP retries                                                                            |
-| `interval`                                                                                                                   | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `limit`                                                                                                                      | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `multiplier`                                                                                                                 | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `codes`                                                                                                                      | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `enableHeader`                                                                                                               | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
+```typescript
+const value:
+  models.HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic = {
+    type: "static",
+    interval: "<value>",
+    limit: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    multiplier: "<value>",
+  };
+```
+
+### `models.HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff`
+
+```typescript
+const value:
+  models.HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff = {
+    type: "backoff",
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+  };
+```
+

@@ -207,10 +207,6 @@ export type OutputHumioHec = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputHumioHecPqControls | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -292,7 +288,6 @@ export const OutputHumioHec$inboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$inboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputHumioHecPqControls$inboundSchema).optional(),
-  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputHumioHec$Outbound = {
@@ -336,7 +331,6 @@ export type OutputHumioHec$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputHumioHecPqControls$Outbound | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -387,7 +381,6 @@ export const OutputHumioHec$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputHumioHecPqControls$outboundSchema).optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputHumioHecToJSON(outputHumioHec: OutputHumioHec): string {

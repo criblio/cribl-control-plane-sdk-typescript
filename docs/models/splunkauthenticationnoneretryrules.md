@@ -1,11 +1,12 @@
 # SplunkAuthenticationNoneRetryRules
 
-## Example Usage
+
+## Supported Types
+
+### `models.SplunkAuthenticationNoneSplunkRetryRulesTypeNone`
 
 ```typescript
-import { SplunkAuthenticationNoneRetryRules } from "cribl-control-plane/models";
-
-let value: SplunkAuthenticationNoneRetryRules = {
+const value: models.SplunkAuthenticationNoneSplunkRetryRulesTypeNone = {
   type: "none",
   interval: "<value>",
   limit: "<value>",
@@ -17,15 +18,33 @@ let value: SplunkAuthenticationNoneRetryRules = {
 };
 ```
 
-## Fields
+### `models.SplunkAuthenticationNoneSplunkRetryRulesTypeStatic`
 
-| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                                       | [models.RetryTypeOptionsHealthCheckCollectorConfRetryRules](../models/retrytypeoptionshealthcheckcollectorconfretryrules.md) | :heavy_check_mark:                                                                                                           | The algorithm to use when performing HTTP retries                                                                            |
-| `interval`                                                                                                                   | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `limit`                                                                                                                      | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `multiplier`                                                                                                                 | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `codes`                                                                                                                      | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `enableHeader`                                                                                                               | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `retryConnectTimeout`                                                                                                        | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `retryConnectReset`                                                                                                          | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
+```typescript
+const value: models.SplunkAuthenticationNoneSplunkRetryRulesTypeStatic = {
+  type: "static",
+  interval: "<value>",
+  limit: "<value>",
+  codes: "<value>",
+  enableHeader: "<value>",
+  retryConnectTimeout: "<value>",
+  retryConnectReset: "<value>",
+  multiplier: "<value>",
+};
+```
+
+### `models.SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff`
+
+```typescript
+const value: models.SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff = {
+  type: "backoff",
+  interval: "<value>",
+  limit: "<value>",
+  multiplier: "<value>",
+  codes: "<value>",
+  enableHeader: "<value>",
+  retryConnectTimeout: "<value>",
+  retryConnectReset: "<value>",
+};
+```
+

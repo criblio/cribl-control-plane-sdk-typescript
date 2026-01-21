@@ -346,8 +346,6 @@ async function run() {
         output: "<value>",
         outputExpression: "<value>",
         pipeline: "main",
-        toGroupContext: true,
-        toPackContext: true,
       },
     ],
   });
@@ -400,8 +398,6 @@ async function run() {
         output: "<value>",
         outputExpression: "<value>",
         pipeline: "main",
-        toGroupContext: true,
-        toPackContext: true,
       },
     ],
   });

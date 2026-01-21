@@ -85,14 +85,6 @@ export type InputModelDrivenTelemetry = {
    */
   shutdownTimeoutMs?: number | undefined;
   description?: string | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -118,8 +110,6 @@ export const InputModelDrivenTelemetry$inboundSchema: z.ZodType<
   maxActiveCxn: z.number().optional(),
   shutdownTimeoutMs: z.number().optional(),
   description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 /** @internal */
 export type InputModelDrivenTelemetry$Outbound = {
@@ -140,8 +130,6 @@ export type InputModelDrivenTelemetry$Outbound = {
   maxActiveCxn?: number | undefined;
   shutdownTimeoutMs?: number | undefined;
   description?: string | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -167,8 +155,6 @@ export const InputModelDrivenTelemetry$outboundSchema: z.ZodType<
   maxActiveCxn: z.number().optional(),
   shutdownTimeoutMs: z.number().optional(),
   description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function inputModelDrivenTelemetryToJSON(
