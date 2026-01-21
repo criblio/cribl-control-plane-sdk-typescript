@@ -32,6 +32,7 @@ let value: CreateRoutesAppendByIdRequest = {
       outputExpression: "<value>",
       pipeline: "<value>",
       toGroupContext: true,
+      toPackContext: false,
     },
   ],
 };

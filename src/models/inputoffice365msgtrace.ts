@@ -226,6 +226,22 @@ export type InputOffice365MsgTrace = {
    */
   textSecret?: string | undefined;
   certOptions?: CertOptions | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
+   */
+  __template_resource?: string | undefined;
 };
 
 /** @internal */
@@ -338,6 +354,10 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   planType: SubscriptionPlanOptions$inboundSchema.optional(),
   textSecret: z.string().optional(),
   certOptions: z.lazy(() => CertOptions$inboundSchema).optional(),
+  __template_url: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_resource: z.string().optional(),
 });
 /** @internal */
 export type InputOffice365MsgTrace$Outbound = {
@@ -379,6 +399,10 @@ export type InputOffice365MsgTrace$Outbound = {
   planType?: string | undefined;
   textSecret?: string | undefined;
   certOptions?: CertOptions$Outbound | undefined;
+  __template_url?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_resource?: string | undefined;
 };
 
 /** @internal */
@@ -426,6 +450,10 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   planType: SubscriptionPlanOptions$outboundSchema.optional(),
   textSecret: z.string().optional(),
   certOptions: z.lazy(() => CertOptions$outboundSchema).optional(),
+  __template_url: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_resource: z.string().optional(),
 });
 
 export function inputOffice365MsgTraceToJSON(
