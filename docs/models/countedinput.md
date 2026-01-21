@@ -86,6 +86,9 @@ let value: CountedInput = {
       description: "vivaciously broadly quizzically",
       clientSecret: "<value>",
       textSecret: "<value>",
+      __template_endpoint: "<value>",
+      __template_authUrl: "https://impure-quart.com/",
+      __template_clientId: "<id>",
     },
   ],
 };

@@ -212,6 +212,22 @@ export type OutputNewrelicEvents = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'accountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accountId' at runtime.
+   */
+  __template_accountId?: string | undefined;
+  /**
+   * Binds 'eventType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'eventType' at runtime.
+   */
+  __template_eventType?: string | undefined;
+  /**
+   * Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.
+   */
+  __template_customUrl?: string | undefined;
 };
 
 /** @internal */
@@ -298,6 +314,10 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
     .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_accountId: z.string().optional(),
+  __template_eventType: z.string().optional(),
+  __template_customUrl: z.string().optional(),
 });
 /** @internal */
 export type OutputNewrelicEvents$Outbound = {
@@ -343,6 +363,10 @@ export type OutputNewrelicEvents$Outbound = {
   pqControls?: OutputNewrelicEventsPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
+  __template_region?: string | undefined;
+  __template_accountId?: string | undefined;
+  __template_eventType?: string | undefined;
+  __template_customUrl?: string | undefined;
 };
 
 /** @internal */
@@ -395,6 +419,10 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
     .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_accountId: z.string().optional(),
+  __template_eventType: z.string().optional(),
+  __template_customUrl: z.string().optional(),
 });
 
 export function outputNewrelicEventsToJSON(
