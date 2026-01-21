@@ -1,12 +1,13 @@
 # RestAuthenticationLoginRetryRules
 
-## Example Usage
+
+## Supported Types
+
+### `models.RestAuthenticationLoginRestRetryRulesTypeNone`
 
 ```typescript
-import { RestAuthenticationLoginRetryRules } from "cribl-control-plane/models";
-
-let value: RestAuthenticationLoginRetryRules = {
-  type: "static",
+const value: models.RestAuthenticationLoginRestRetryRulesTypeNone = {
+  type: "none",
   interval: "<value>",
   limit: "<value>",
   multiplier: "<value>",
@@ -18,16 +19,35 @@ let value: RestAuthenticationLoginRetryRules = {
 };
 ```
 
-## Fields
+### `models.RestAuthenticationLoginRestRetryRulesTypeStatic`
 
-| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                                       | [models.RetryTypeOptionsHealthCheckCollectorConfRetryRules](../models/retrytypeoptionshealthcheckcollectorconfretryrules.md) | :heavy_check_mark:                                                                                                           | The algorithm to use when performing HTTP retries                                                                            |
-| `interval`                                                                                                                   | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `limit`                                                                                                                      | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `multiplier`                                                                                                                 | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `maxIntervalMs`                                                                                                              | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `codes`                                                                                                                      | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `enableHeader`                                                                                                               | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `retryConnectTimeout`                                                                                                        | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `retryConnectReset`                                                                                                          | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
+```typescript
+const value: models.RestAuthenticationLoginRestRetryRulesTypeStatic = {
+  type: "static",
+  interval: "<value>",
+  limit: "<value>",
+  codes: "<value>",
+  enableHeader: "<value>",
+  retryConnectTimeout: "<value>",
+  retryConnectReset: "<value>",
+  multiplier: "<value>",
+  maxIntervalMs: "<value>",
+};
+```
+
+### `models.RestAuthenticationLoginRestRetryRulesTypeBackoff`
+
+```typescript
+const value: models.RestAuthenticationLoginRestRetryRulesTypeBackoff = {
+  type: "backoff",
+  interval: "<value>",
+  limit: "<value>",
+  multiplier: "<value>",
+  maxIntervalMs: "<value>",
+  codes: "<value>",
+  enableHeader: "<value>",
+  retryConnectTimeout: "<value>",
+  retryConnectReset: "<value>",
+};
+```
+

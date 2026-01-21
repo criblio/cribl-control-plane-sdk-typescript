@@ -25,8 +25,6 @@ let value: RouteConf = {
   output: "<value>",
   outputExpression: "<value>",
   pipeline: "<value>",
-  toGroupContext: true,
-  toPackContext: false,
 };
 ```
 
@@ -47,5 +45,3 @@ let value: RouteConf = {
 | `output`                   | *string*                   | :heavy_minus_sign:         | N/A                        |
 | `outputExpression`         | *string*                   | :heavy_minus_sign:         | N/A                        |
 | `pipeline`                 | *string*                   | :heavy_check_mark:         | N/A                        |
-| `toGroupContext`           | *boolean*                  | :heavy_minus_sign:         | N/A                        |
-| `toPackContext`            | *boolean*                  | :heavy_minus_sign:         | N/A                        |

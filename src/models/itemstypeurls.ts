@@ -16,10 +16,6 @@ export type ItemsTypeUrls = {
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -30,13 +26,11 @@ export const ItemsTypeUrls$inboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
-  __template_url: z.string().optional(),
 });
 /** @internal */
 export type ItemsTypeUrls$Outbound = {
   url: string;
   weight?: number | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -47,7 +41,6 @@ export const ItemsTypeUrls$outboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
-  __template_url: z.string().optional(),
 });
 
 export function itemsTypeUrlsToJSON(itemsTypeUrls: ItemsTypeUrls): string {

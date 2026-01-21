@@ -5,7 +5,6 @@
 import { ClientSDK } from "../lib/sdks.js";
 import { Auth } from "./auth.js";
 import { Collectors } from "./collectors.js";
-import { DatabaseConnections } from "./databaseconnections.js";
 import { Destinations } from "./destinations.js";
 import { Functions } from "./functions.js";
 import { Groups } from "./groups.js";
@@ -28,13 +27,6 @@ export class CriblControlPlane extends ClientSDK {
   private _collectors?: Collectors;
   get collectors(): Collectors {
     return (this._collectors ??= new Collectors(this._options));
-  }
-
-  private _databaseConnections?: DatabaseConnections;
-  get databaseConnections(): DatabaseConnections {
-    return (this._databaseConnections ??= new DatabaseConnections(
-      this._options,
-    ));
   }
 
   private _sources?: Sources;

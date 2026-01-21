@@ -22,6 +22,14 @@ export type CollectorCriblLake = {
    */
   type: "cribl_lake";
   conf: CriblLakeCollectorConf;
+  /**
+   * Delete any files collected (where applicable)
+   */
+  destructive?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data.
+   */
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -32,11 +40,15 @@ export const CollectorCriblLake$inboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("cribl_lake"),
   conf: CriblLakeCollectorConf$inboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 /** @internal */
 export type CollectorCriblLake$Outbound = {
   type: "cribl_lake";
   conf: CriblLakeCollectorConf$Outbound;
+  destructive?: boolean | undefined;
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -47,6 +59,8 @@ export const CollectorCriblLake$outboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("cribl_lake"),
   conf: CriblLakeCollectorConf$outboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 
 export function collectorCriblLakeToJSON(

@@ -148,10 +148,6 @@ export type OutputWebhookUrl = {
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type OutputWebhook = {
@@ -399,18 +395,6 @@ export type OutputWebhook = {
    * How far back in time to keep traffic stats for load balancing purposes
    */
   loadBalanceStatsPeriodSec?: number | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -480,13 +464,11 @@ export const OutputWebhookUrl$inboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
-  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputWebhookUrl$Outbound = {
   url: string;
   weight?: number | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -497,7 +479,6 @@ export const OutputWebhookUrl$outboundSchema: z.ZodType<
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputWebhookUrlToJSON(
@@ -591,9 +572,6 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   urls: z.array(z.lazy(() => OutputWebhookUrl$inboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
-  __template_url: z.string().optional(),
 });
 /** @internal */
 export type OutputWebhook$Outbound = {
@@ -665,9 +643,6 @@ export type OutputWebhook$Outbound = {
   urls?: Array<OutputWebhookUrl$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -745,9 +720,6 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   urls: z.array(z.lazy(() => OutputWebhookUrl$outboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
-  __template_url: z.string().optional(),
 });
 
 export function outputWebhookToJSON(outputWebhook: OutputWebhook): string {

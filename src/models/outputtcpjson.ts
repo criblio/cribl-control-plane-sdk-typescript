@@ -192,14 +192,6 @@ export type OutputTcpjson = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -279,8 +271,6 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputTcpjsonPqControls$inboundSchema).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 /** @internal */
 export type OutputTcpjson$Outbound = {
@@ -322,8 +312,6 @@ export type OutputTcpjson$Outbound = {
   pqControls?: OutputTcpjsonPqControls$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -371,8 +359,6 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => OutputTcpjsonPqControls$outboundSchema).optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function outputTcpjsonToJSON(outputTcpjson: OutputTcpjson): string {

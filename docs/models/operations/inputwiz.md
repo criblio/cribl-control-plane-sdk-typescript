@@ -67,25 +67,24 @@ let value: InputWiz = {
     },
   ],
   retryRules: {
-    type: "none",
-    interval: 6996.29,
-    limit: 5006.8,
-    multiplier: 7560.55,
+    type: "<value>",
+    interval: 376.03,
+    limit: 6996.29,
+    multiplier: 5006.8,
     codes: [
+      2139.95,
       9559.24,
+      6726.47,
     ],
     enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: true,
+    retryConnectTimeout: true,
+    retryConnectReset: false,
   },
   authType: "secret",
   description:
     "furiously unfinished honestly pfft seemingly unearth remand foretell whoever",
   clientSecret: "<value>",
   textSecret: "<value>",
-  __template_endpoint: "<value>",
-  __template_authUrl: "https://self-assured-embarrassment.org/",
-  __template_clientId: "<id>",
 };
 ```
 
@@ -119,6 +118,3 @@ let value: InputWiz = {
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `clientSecret`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The client secret of the Wiz application                                                                                                                                                                                                     |
 | `textSecret`                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Select or create a stored text secret                                                                                                                                                                                                        |
-| `templateEndpoint`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.                                                |
-| `templateAuthUrl`                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'authUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authUrl' at runtime.                                                  |
-| `templateClientId`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.                                                |

@@ -218,14 +218,6 @@ export type OutputAzureLogs = {
    * Select or create a stored secret that references your access key and secret key
    */
   keypairSecret?: string | undefined;
-  /**
-   * Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
-   */
-  __template_workspaceId?: string | undefined;
-  /**
-   * Binds 'workspaceKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceKey' at runtime.
-   */
-  __template_workspaceKey?: string | undefined;
 };
 
 /** @internal */
@@ -322,8 +314,6 @@ export const OutputAzureLogs$inboundSchema: z.ZodType<
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
   keypairSecret: z.string().optional(),
-  __template_workspaceId: z.string().optional(),
-  __template_workspaceKey: z.string().optional(),
 });
 /** @internal */
 export type OutputAzureLogs$Outbound = {
@@ -369,8 +359,6 @@ export type OutputAzureLogs$Outbound = {
   workspaceId?: string | undefined;
   workspaceKey?: string | undefined;
   keypairSecret?: string | undefined;
-  __template_workspaceId?: string | undefined;
-  __template_workspaceKey?: string | undefined;
 };
 
 /** @internal */
@@ -422,8 +410,6 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
   keypairSecret: z.string().optional(),
-  __template_workspaceId: z.string().optional(),
-  __template_workspaceKey: z.string().optional(),
 });
 
 export function outputAzureLogsToJSON(

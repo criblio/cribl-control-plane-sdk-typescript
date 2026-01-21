@@ -22,6 +22,14 @@ export type CollectorDatabase = {
    */
   type: "database";
   conf: DatabaseCollectorConf;
+  /**
+   * Delete any files collected (where applicable)
+   */
+  destructive?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data.
+   */
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -32,11 +40,15 @@ export const CollectorDatabase$inboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("database"),
   conf: DatabaseCollectorConf$inboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 /** @internal */
 export type CollectorDatabase$Outbound = {
   type: "database";
   conf: DatabaseCollectorConf$Outbound;
+  destructive?: boolean | undefined;
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -47,6 +59,8 @@ export const CollectorDatabase$outboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("database"),
   conf: DatabaseCollectorConf$outboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 
 export function collectorDatabaseToJSON(

@@ -97,18 +97,6 @@ export type InputMetrics = {
    */
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
-   */
-  __template_udpPort?: string | undefined;
-  /**
-   * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
-   */
-  __template_tcpPort?: string | undefined;
 };
 
 /** @internal */
@@ -137,9 +125,6 @@ export const InputMetrics$inboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_udpPort: z.string().optional(),
-  __template_tcpPort: z.string().optional(),
 });
 /** @internal */
 export type InputMetrics$Outbound = {
@@ -163,9 +148,6 @@ export type InputMetrics$Outbound = {
   metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
-  __template_host?: string | undefined;
-  __template_udpPort?: string | undefined;
-  __template_tcpPort?: string | undefined;
 };
 
 /** @internal */
@@ -194,9 +176,6 @@ export const InputMetrics$outboundSchema: z.ZodType<
   metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_udpPort: z.string().optional(),
-  __template_tcpPort: z.string().optional(),
 });
 
 export function inputMetricsToJSON(inputMetrics: InputMetrics): string {

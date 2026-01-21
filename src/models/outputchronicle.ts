@@ -239,10 +239,6 @@ export type OutputChronicle = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputChroniclePqControls | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
 };
 
 /** @internal */
@@ -387,7 +383,6 @@ export const OutputChronicle$inboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$inboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputChroniclePqControls$inboundSchema).optional(),
-  __template_region: z.string().optional(),
 });
 /** @internal */
 export type OutputChronicle$Outbound = {
@@ -439,7 +434,6 @@ export type OutputChronicle$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputChroniclePqControls$Outbound | undefined;
-  __template_region?: string | undefined;
 };
 
 /** @internal */
@@ -498,7 +492,6 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputChroniclePqControls$outboundSchema).optional(),
-  __template_region: z.string().optional(),
 });
 
 export function outputChronicleToJSON(

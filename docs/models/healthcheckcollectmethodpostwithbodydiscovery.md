@@ -1,17 +1,62 @@
 # HealthCheckCollectMethodPostWithBodyDiscovery
 
-## Example Usage
+
+## Supported Types
+
+### `models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp`
 
 ```typescript
-import { HealthCheckCollectMethodPostWithBodyDiscovery } from "cribl-control-plane/models";
-
-let value: HealthCheckCollectMethodPostWithBodyDiscovery = {
-  discoverType: "http",
-};
+const value:
+  models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp =
+    {
+      discoverMethod: "post_with_body",
+      discoverBody: "<value>",
+      discoverType: "http",
+      discoverUrl: "https://exhausted-palate.net",
+      discoverRequestParams: "<value>",
+      discoverRequestHeaders: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      discoverDataField: "<value>",
+    };
 ```
 
-## Fields
+### `models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson`
 
-| Field                                                                                                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `discoverType`                                                                                                                                                                                                                                                                                                                                               | [models.HealthCheckCollectMethodPostWithBodyDiscoverType](../models/healthcheckcollectmethodpostwithbodydiscovertype.md)                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task. |
+```typescript
+const value:
+  models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson =
+    {
+      discoverType: "json",
+      manualDiscoverResult: "<value>",
+      discoverDataField: "<value>",
+    };
+```
+
+### `models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList`
+
+```typescript
+const value:
+  models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList =
+    {
+      discoverType: "list",
+      itemList: [
+        "<value 1>",
+        "<value 2>",
+      ],
+    };
+```
+
+### `models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone`
+
+```typescript
+const value:
+  models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone =
+    {
+      discoverType: "none",
+    };
+```
+

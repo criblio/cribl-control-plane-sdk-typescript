@@ -129,10 +129,6 @@ export type InputElasticProxyMode = {
    * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
    */
   timeoutSec?: number | undefined;
-  /**
-   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-   */
-  __template_url?: string | undefined;
 };
 
 export type InputElastic = {
@@ -253,14 +249,6 @@ export type InputElastic = {
    * Custom version information to respond to requests
    */
   customAPIVersion?: string | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -317,7 +305,6 @@ export const InputElasticProxyMode$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   removeHeaders: z.array(z.string()).optional(),
   timeoutSec: z.number().optional(),
-  __template_url: z.string().optional(),
 });
 /** @internal */
 export type InputElasticProxyMode$Outbound = {
@@ -330,7 +317,6 @@ export type InputElasticProxyMode$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   removeHeaders?: Array<string> | undefined;
   timeoutSec?: number | undefined;
-  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -348,7 +334,6 @@ export const InputElasticProxyMode$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   removeHeaders: z.array(z.string()).optional(),
   timeoutSec: z.number().optional(),
-  __template_url: z.string().optional(),
 });
 
 export function inputElasticProxyModeToJSON(
@@ -410,8 +395,6 @@ export const InputElastic$inboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
   authTokens: z.array(z.string()).optional(),
   customAPIVersion: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 /** @internal */
 export type InputElastic$Outbound = {
@@ -451,8 +434,6 @@ export type InputElastic$Outbound = {
   credentialsSecret?: string | undefined;
   authTokens?: Array<string> | undefined;
   customAPIVersion?: string | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -498,8 +479,6 @@ export const InputElastic$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
   authTokens: z.array(z.string()).optional(),
   customAPIVersion: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function inputElasticToJSON(inputElastic: InputElastic): string {

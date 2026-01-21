@@ -162,18 +162,6 @@ export type OutputWizHec = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * Binds 'wiz_environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_environment' at runtime.
-   */
-  __template_wiz_environment?: string | undefined;
-  /**
-   * Binds 'data_center' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'data_center' at runtime.
-   */
-  __template_data_center?: string | undefined;
-  /**
-   * Binds 'wiz_sourcetype' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_sourcetype' at runtime.
-   */
-  __template_wiz_sourcetype?: string | undefined;
 };
 
 /** @internal */
@@ -217,9 +205,6 @@ export const OutputWizHec$inboundSchema: z.ZodType<
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_wiz_environment: z.string().optional(),
-  __template_data_center: z.string().optional(),
-  __template_wiz_sourcetype: z.string().optional(),
 });
 /** @internal */
 export type OutputWizHec$Outbound = {
@@ -258,9 +243,6 @@ export type OutputWizHec$Outbound = {
   description?: string | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
-  __template_wiz_environment?: string | undefined;
-  __template_data_center?: string | undefined;
-  __template_wiz_sourcetype?: string | undefined;
 };
 
 /** @internal */
@@ -306,9 +288,6 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  __template_wiz_environment: z.string().optional(),
-  __template_data_center: z.string().optional(),
-  __template_wiz_sourcetype: z.string().optional(),
 });
 
 export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {

@@ -142,14 +142,10 @@ const value: models.OutputWebhook = {
     {
       url: "https://hefty-curl.org",
       weight: 3258.88,
-      __template_url: "https://unsightly-conservative.org",
     },
   ],
-  dnsResolvePeriodSec: 4115.44,
-  loadBalanceStatsPeriodSec: 4295.39,
-  __template_loginUrl: "https://creamy-birdbath.name/",
-  __template_secret: "<value>",
-  __template_url: "https://grounded-heartache.biz",
+  dnsResolvePeriodSec: 9591.75,
+  loadBalanceStatsPeriodSec: 9020.67,
 };
 ```
 
@@ -237,14 +233,6 @@ const value: models.OutputSentinel = {
   dcrID: "<id>",
   dceEndpoint: "<value>",
   streamName: "<value>",
-  __template_loginUrl: "https://muted-annual.name/",
-  __template_secret: "<value>",
-  __template_client_id: "<id>",
-  __template_scope: "<value>",
-  __template_url: "https://wavy-suv.biz/",
-  __template_dcrID: "<id>",
-  __template_dceEndpoint: "<value>",
-  __template_streamName: "<value>",
 };
 ```
 
@@ -302,8 +290,6 @@ const value: models.OutputSyslog = {
       tls: "inherit",
       servername: "<value>",
       weight: 890.95,
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   ],
   dnsResolvePeriodSec: 6040.13,
@@ -338,8 +324,6 @@ const value: models.OutputSyslog = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -399,8 +383,6 @@ const value: models.OutputSplunk = {
   pqControls: {},
   authToken: "<value>",
   textSecret: "<value>",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -559,25 +541,23 @@ const value: models.OutputSplunkHec = {
     {
       url: "https://portly-decongestant.info/",
       weight: 8744.74,
-      __template_url: "https://jam-packed-wilderness.net/",
     },
   ],
-  dnsResolvePeriodSec: 2112.1,
-  loadBalanceStatsPeriodSec: 1365.83,
+  dnsResolvePeriodSec: 1536.59,
+  loadBalanceStatsPeriodSec: 4353.66,
   token: "<value>",
   textSecret: "<value>",
   pqStrictOrdering: false,
-  pqRatePerSec: 1842.12,
+  pqRatePerSec: 7629.47,
   pqMode: "error",
-  pqMaxBufferSize: 6248.84,
-  pqMaxBackpressureSec: 7453.7,
+  pqMaxBufferSize: 1365.83,
+  pqMaxBackpressureSec: 7837.4,
   pqMaxFileSize: "<value>",
   pqMaxSize: "<value>",
   pqPath: "<value>",
-  pqCompress: "gzip",
+  pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_url: "https://astonishing-in-joke.name/",
 };
 ```
 
@@ -654,9 +634,6 @@ const value: models.OutputWizHec = {
   description: "improbable sadly now burly basic disrespect",
   token: "<value>",
   textSecret: "<value>",
-  __template_wiz_environment: "<value>",
-  __template_data_center: "<value>",
-  __template_wiz_sourcetype: "<value>",
 };
 ```
 
@@ -708,8 +685,6 @@ const value: models.OutputTcpjson = {
       tls: "inherit",
       servername: "<value>",
       weight: 890.95,
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   ],
   dnsResolvePeriodSec: 980.86,
@@ -728,8 +703,6 @@ const value: models.OutputTcpjson = {
   pqControls: {},
   authToken: "<value>",
   textSecret: "<value>",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -938,7 +911,6 @@ const value: models.OutputFilesystem = {
   directoryBatchSize: 9254.15,
   deadletterPath: "<value>",
   maxRetryNum: 728.34,
-  __template_format: "<value>",
 };
 ```
 
@@ -1029,13 +1001,6 @@ const value: models.OutputS3 = {
   directoryBatchSize: 9471.19,
   deadletterPath: "<value>",
   maxRetryNum: 1008.2,
-  __template_bucket: "<value>",
-  __template_region: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_format: "<value>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -1120,11 +1085,6 @@ const value: models.OutputAzureBlob = {
   certificate: {
     certificateName: "<value>",
   },
-  __template_containerName: "<value>",
-  __template_format: "<value>",
-  __template_connectionString: "<value>",
-  __template_tenantId: "<id>",
-  __template_clientId: "<id>",
 };
 ```
 
@@ -1260,15 +1220,6 @@ const value: models.OutputAzureDataExplorer = {
   pqCompress: "gzip",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_clusterUrl: "https://vivid-signature.biz/",
-  __template_database: "<value>",
-  __template_table: "<value>",
-  __template_tenantId: "<id>",
-  __template_clientId: "<id>",
-  __template_scope: "<value>",
-  __template_clientSecret: "<value>",
-  __template_format: "<value>",
-  __template_ingestUrl: "https://unhappy-adaptation.org",
 };
 ```
 
@@ -1343,8 +1294,6 @@ const value: models.OutputAzureLogs = {
   workspaceId: "<id>",
   workspaceKey: "<value>",
   keypairSecret: "<value>",
-  __template_workspaceId: "<id>",
-  __template_workspaceKey: "<value>",
 };
 ```
 
@@ -1396,12 +1345,6 @@ const value: models.OutputKinesis = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_streamName: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -1546,7 +1489,6 @@ const value: models.OutputAzureEventhub = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_topic: "<value>",
 };
 ```
 
@@ -1638,9 +1580,6 @@ const value: models.OutputGoogleChronicle = {
   pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_apiVersion: "<value>",
-  __template_region: "<value>",
-  __template_customerId: "<id>",
 };
 ```
 
@@ -1721,9 +1660,6 @@ const value: models.OutputGoogleCloudStorage = {
   awsApiKey: "<value>",
   awsSecretKey: "<value>",
   awsSecret: "<value>",
-  __template_bucket: "<value>",
-  __template_region: "<value>",
-  __template_format: "<value>",
 };
 ```
 
@@ -1862,8 +1798,6 @@ const value: models.OutputGooglePubsub = {
   pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_topicName: "<value>",
-  __template_region: "<value>",
 };
 ```
 
@@ -1920,7 +1854,6 @@ const value: models.OutputExabeam = {
   directoryBatchSize: 9153.8,
   deadletterPath: "<value>",
   maxRetryNum: 3934.32,
-  __template_region: "<value>",
 };
 ```
 
@@ -2041,7 +1974,6 @@ const value: models.OutputKafka = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_topic: "<value>",
 };
 ```
 
@@ -2160,7 +2092,6 @@ const value: models.OutputConfluentCloud = {
   pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_topic: "<value>",
 };
 ```
 
@@ -2264,12 +2195,6 @@ const value: models.OutputMsk = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_topic: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -2351,23 +2276,21 @@ const value: models.OutputElastic = {
     {
       url: "https://stale-habit.name",
       weight: 881.53,
-      __template_url: "https://pessimistic-diagram.name",
     },
   ],
-  dnsResolvePeriodSec: 6936.25,
-  loadBalanceStatsPeriodSec: 6942.02,
+  dnsResolvePeriodSec: 6649.53,
+  loadBalanceStatsPeriodSec: 6054.06,
   pqStrictOrdering: true,
-  pqRatePerSec: 7427.51,
-  pqMode: "error",
-  pqMaxBufferSize: 7215.13,
-  pqMaxBackpressureSec: 2583.65,
+  pqRatePerSec: 5180.15,
+  pqMode: "backpressure",
+  pqMaxBufferSize: 6942.02,
+  pqMaxBackpressureSec: 1658.24,
   pqMaxFileSize: "<value>",
   pqMaxSize: "<value>",
   pqPath: "<value>",
-  pqCompress: "none",
+  pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_url: "https://accurate-birth.com/",
 };
 ```
 
@@ -2533,9 +2456,6 @@ const value: models.OutputNewrelic = {
   pqControls: {},
   apiKey: "<value>",
   textSecret: "<value>",
-  __template_region: "<value>",
-  __template_logType: "<value>",
-  __template_messageField: "<value>",
 };
 ```
 
@@ -2611,10 +2531,6 @@ const value: models.OutputNewrelicEvents = {
   pqControls: {},
   apiKey: "<value>",
   textSecret: "<value>",
-  __template_region: "<value>",
-  __template_accountId: "<id>",
-  __template_eventType: "<value>",
-  __template_customUrl: "https://soggy-hamburger.info/",
 };
 ```
 
@@ -2712,11 +2628,6 @@ const value: models.OutputInfluxdb = {
       value: "<value>",
     },
   ],
-  __template_url: "https://emotional-tuber.name/",
-  __template_database: "<value>",
-  __template_bucket: "<value>",
-  __template_loginUrl: "https://abandoned-platypus.net",
-  __template_secret: "<value>",
 };
 ```
 
@@ -2766,11 +2677,6 @@ const value: models.OutputCloudwatch = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -2853,10 +2759,6 @@ const value: models.OutputMinio = {
   directoryBatchSize: 103.99,
   deadletterPath: "<value>",
   maxRetryNum: 3038.98,
-  __template_bucket: "<value>",
-  __template_region: "<value>",
-  __template_format: "<value>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3051,11 +2953,6 @@ const value: models.OutputSns = {
   pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3110,13 +3007,6 @@ const value: models.OutputSqs = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_queueName: "<value>",
-  __template_awsAccountId: "<id>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3140,8 +3030,6 @@ const value: models.OutputSnmp = {
     {
       host: "gray-godparent.net",
       port: 4283.88,
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   ],
   dnsResolvePeriodSec: 5311.32,
@@ -3215,7 +3103,6 @@ const value: models.OutputSumoLogic = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_url: "https://educated-doubter.net/",
 };
 ```
 
@@ -3390,8 +3277,6 @@ const value: models.OutputGrafanaCloud = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_lokiUrl: "https://tinted-community.biz",
-  __template_prometheusUrl: "https://blind-extent.biz",
 };
 ```
 
@@ -3568,9 +3453,6 @@ const value: models.OutputPrometheus = {
       value: "<value>",
     },
   ],
-  __template_url: "https://upset-term.biz",
-  __template_loginUrl: "https://sugary-fundraising.org",
-  __template_secret: "<value>",
 };
 ```
 
@@ -3710,8 +3592,6 @@ const value: models.OutputOpenTelemetry = {
   pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_loginUrl: "https://agreeable-t-shirt.name/",
-  __template_secret: "<value>",
 };
 ```
 
@@ -3884,7 +3764,6 @@ const value: models.OutputDataset = {
   pqControls: {},
   apiKey: "<value>",
   textSecret: "<value>",
-  __template_customUrl: "https://ugly-exploration.name",
 };
 ```
 
@@ -3947,8 +3826,6 @@ const value: models.OutputCriblTcp = {
       tls: "inherit",
       servername: "<value>",
       weight: 890.95,
-      __template_host: "<value>",
-      __template_port: "<value>",
     },
   ],
   dnsResolvePeriodSec: 2314.82,
@@ -3965,8 +3842,6 @@ const value: models.OutputCriblTcp = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -4053,23 +3928,21 @@ const value: models.OutputCriblHttp = {
     {
       url: "https://imaginary-decision.net/",
       weight: 1083.02,
-      __template_url: "https://heavenly-repeat.net",
     },
   ],
-  dnsResolvePeriodSec: 5680.89,
-  loadBalanceStatsPeriodSec: 2370.38,
-  pqStrictOrdering: true,
-  pqRatePerSec: 2228.36,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 4821.03,
-  pqMaxBackpressureSec: 5182.82,
+  dnsResolvePeriodSec: 9031.19,
+  loadBalanceStatsPeriodSec: 3625.72,
+  pqStrictOrdering: false,
+  pqRatePerSec: 8241.25,
+  pqMode: "always",
+  pqMaxBufferSize: 2370.38,
+  pqMaxBackpressureSec: 487.63,
   pqMaxFileSize: "<value>",
   pqMaxSize: "<value>",
   pqPath: "<value>",
-  pqCompress: "gzip",
+  pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_url: "https://possible-widow.com/",
 };
 ```
 
@@ -4155,7 +4028,6 @@ const value: models.OutputCriblSearchEngine = {
     {
       url: "https://imaginary-decision.net/",
       weight: 1083.02,
-      __template_url: "https://heavenly-repeat.net",
     },
   ],
   dnsResolvePeriodSec: 7770.21,
@@ -4171,7 +4043,6 @@ const value: models.OutputCriblSearchEngine = {
   pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_url: "https://good-grouper.info/",
 };
 ```
 
@@ -4244,7 +4115,6 @@ const value: models.OutputHumioHec = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_url: "https://black-postbox.biz",
 };
 ```
 
@@ -4315,7 +4185,6 @@ const value: models.OutputCrowdstrikeNextGenSiem = {
   pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_url: "https://shimmering-amendment.com",
 };
 ```
 
@@ -4406,13 +4275,6 @@ const value: models.OutputDlS3 = {
   directoryBatchSize: 1705.56,
   deadletterPath: "<value>",
   maxRetryNum: 1158.67,
-  __template_bucket: "<value>",
-  __template_region: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_format: "<value>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -4495,12 +4357,6 @@ const value: models.OutputSecurityLake = {
   parquetSchema: "<value>",
   deadletterPath: "<value>",
   maxRetryNum: 4378,
-  __template_bucket: "<value>",
-  __template_region: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -4566,12 +4422,6 @@ const value: models.OutputCriblLake = {
   directoryBatchSize: 7252.7,
   deadletterPath: "<value>",
   maxRetryNum: 1452.88,
-  __template_bucket: "<value>",
-  __template_region: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_destPath: "<value>",
 };
 ```
 
@@ -4730,11 +4580,6 @@ const value: models.OutputClickHouse = {
   pqCompress: "gzip",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_url: "https://courageous-wombat.org",
-  __template_database: "<value>",
-  __template_tableName: "<value>",
-  __template_loginUrl: "https://rural-effector.com",
-  __template_secret: "<value>",
 };
 ```
 
@@ -4816,7 +4661,6 @@ const value: models.OutputXsiam = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_url: "https://showy-passport.net",
 };
 ```
 
@@ -4923,7 +4767,6 @@ const value: models.OutputDynatraceHttp = {
   environmentId: "<id>",
   activeGateDomain: "<value>",
   url: "https://lighthearted-tentacle.name",
-  __template_url: "https://understated-elver.info/",
 };
 ```
 
@@ -5178,7 +5021,6 @@ const value: models.OutputChronicle = {
   pqCompress: "none",
   pqOnBackpressure: "block",
   pqControls: {},
-  __template_region: "<value>",
 };
 ```
 
@@ -5255,7 +5097,6 @@ const value: models.OutputDatabricks = {
   directoryBatchSize: 5366.36,
   deadletterPath: "<value>",
   maxRetryNum: 366.33,
-  __template_format: "<value>",
 };
 ```
 
@@ -5321,8 +5162,6 @@ const value: models.OutputMicrosoftFabric = {
   pqCompress: "none",
   pqOnBackpressure: "drop",
   pqControls: {},
-  __template_topic: "<value>",
-  __template_bootstrap_server: "<value>",
 };
 ```
 
@@ -5404,9 +5243,6 @@ const value: models.OutputCloudflareR2 = {
   directoryBatchSize: 3537.53,
   deadletterPath: "<value>",
   maxRetryNum: 7793.15,
-  __template_bucket: "<value>",
-  __template_format: "<value>",
-  __template_awsApiKey: "<value>",
 };
 ```
 

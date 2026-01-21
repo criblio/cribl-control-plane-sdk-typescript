@@ -70,16 +70,18 @@ let value: InputSplunkSearch = {
     },
   ],
   retryRules: {
-    type: "none",
-    interval: 6996.29,
-    limit: 5006.8,
-    multiplier: 7560.55,
+    type: "<value>",
+    interval: 376.03,
+    limit: 6996.29,
+    multiplier: 5006.8,
     codes: [
+      2139.95,
       9559.24,
+      6726.47,
     ],
     enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: true,
+    retryConnectTimeout: true,
+    retryConnectReset: false,
   },
   breakerRulesets: [
     "<value 1>",
@@ -112,8 +114,6 @@ let value: InputSplunkSearch = {
       value: "<value>",
     },
   ],
-  __template_loginUrl: "https://finished-steeple.org",
-  __template_secret: "<value>",
 };
 ```
 
@@ -169,5 +169,3 @@ let value: InputSplunkSearch = {
 | `tokenTimeoutSecs`                                                                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | How often the OAuth token should be refreshed.                                                                                                                                                                                                                                                                                          |
 | `oauthParams`                                                                                                                                                                                                                                                                                                                           | [models.ItemsTypeOauthParams](../../models/itemstypeoauthparams.md)[]                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request. |
 | `oauthHeaders`                                                                                                                                                                                                                                                                                                                          | [models.ItemsTypeOauthHeaders](../../models/itemstypeoauthheaders.md)[]                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                                                                                                                                         |
-| `templateLoginUrl`                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.                                                                                                                                           |
-| `templateSecret`                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                      | Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.                                                                                                                                               |

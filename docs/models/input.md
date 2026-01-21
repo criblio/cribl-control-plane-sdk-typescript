@@ -38,10 +38,11 @@ const value: models.InputCollection = {
   ],
   staleChannelFlushMs: 8467.21,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   throttleRatePerSec: "<value>",
@@ -296,11 +297,6 @@ const value: models.InputMsk = {
   description: "book delight positively majestically freezing beyond",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -386,9 +382,6 @@ const value: models.InputHttp = {
     },
   ],
   description: "despite if after hunt immediately so arcade",
-  __template_host: "<value>",
-  __template_port: "<value>",
-  __template_splunkHecAPI: "<value>",
 };
 ```
 
@@ -467,8 +460,6 @@ const value: models.InputSplunk = {
   dropControlFields: false,
   extractMetrics: false,
   compress: "always",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -538,16 +529,18 @@ const value: models.InputSplunkSearch = {
     },
   ],
   retryRules: {
-    type: "none",
-    interval: 6996.29,
-    limit: 5006.8,
-    multiplier: 7560.55,
+    type: "<value>",
+    interval: 376.03,
+    limit: 6996.29,
+    multiplier: 5006.8,
     codes: [
+      2139.95,
       9559.24,
+      6726.47,
     ],
     enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: true,
+    retryConnectTimeout: true,
+    retryConnectReset: false,
   },
   breakerRulesets: [
     "<value 1>",
@@ -578,8 +571,6 @@ const value: models.InputSplunkSearch = {
       value: "<value>",
     },
   ],
-  __template_loginUrl: "https://similar-cheese.com",
-  __template_secret: "<value>",
 };
 ```
 
@@ -690,9 +681,6 @@ const value: models.InputSplunkHec = {
   ],
   emitTokenMetrics: false,
   description: "entrench past lest morning boohoo yawningly meh marten",
-  __template_host: "<value>",
-  __template_port: "<value>",
-  __template_splunkHecAPI: "<value>",
 };
 ```
 
@@ -759,10 +747,6 @@ const value: models.InputAzureBlob = {
   certificate: {
     certificateName: "<value>",
   },
-  __template_queueName: "<value>",
-  __template_connectionString: "<value>",
-  __template_tenantId: "<id>",
-  __template_clientId: "<id>",
 };
 ```
 
@@ -850,20 +834,16 @@ const value: models.InputElastic = {
       "<value 2>",
     ],
     timeoutSec: 2929.22,
-    __template_url: "https://considerate-deployment.net",
   },
-  description: "save dual culminate where whose lid",
-  username: "Ashly38",
-  password: "fXqSUuye_60SNYF",
+  description:
+    "fly how incidentally fast furthermore repeatedly calmly starboard er waft",
+  username: "Emerson.Mertz",
+  password: "MrCR_bg74dlzuxm",
   credentialsSecret: "<value>",
   authTokens: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   customAPIVersion: "<value>",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -1082,22 +1062,20 @@ const value: models.InputGrafana = {
         value: "<value>",
       },
     ],
-    __template_loginUrl: "https://live-impact.biz",
-    __template_secret: "<value>",
   },
   lokiAuth: {
-    authType: "textSecret",
-    username: "Daphnee.Cronin10",
-    password: "mdmcY5dZMn1QVML",
+    authType: "token",
+    username: "Jarvis_Greenholt",
+    password: "0GmdmcY5dZMn1QV",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://faraway-stool.name",
+    loginUrl: "https://well-off-igloo.net/",
     secretParamName: "<value>",
     secret: "<value>",
     tokenAttributeName: "<value>",
     authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 8825.72,
+    tokenTimeoutSecs: 2601.58,
     oauthParams: [
       {
         name: "<value>",
@@ -1110,8 +1088,6 @@ const value: models.InputGrafana = {
         value: "<value>",
       },
     ],
-    __template_loginUrl: "https://internal-massage.name",
-    __template_secret: "<value>",
   },
   metadata: [
     {
@@ -1119,9 +1095,7 @@ const value: models.InputGrafana = {
       value: "<value>",
     },
   ],
-  description: "now e-mail corner only limping er brr except whereas fiercely",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  description: "upbeat now e-mail corner only limping er brr except",
 };
 ```
 
@@ -1213,10 +1187,6 @@ const value: models.InputLoki = {
       value: "<value>",
     },
   ],
-  __template_host: "<value>",
-  __template_port: "<value>",
-  __template_loginUrl: "https://smug-meatloaf.net",
-  __template_secret: "<value>",
 };
 ```
 
@@ -1308,11 +1278,6 @@ const value: models.InputPrometheusRw = {
       value: "<value>",
     },
   ],
-  __template_host: "<value>",
-  __template_port: "<value>",
-  __template_prometheusAPI: "<value>",
-  __template_loginUrl: "https://accomplished-independence.org",
-  __template_secret: "<value>",
 };
 ```
 
@@ -1404,12 +1369,6 @@ const value: models.InputPrometheus = {
   username: "Xander5",
   password: "th_udqpW8UBrZko",
   credentialsSecret: "<value>",
-  __template_logLevel: "<value>",
-  __template_awsApiKey: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
 };
 ```
 
@@ -1516,11 +1475,6 @@ const value: models.InputEdgePrometheus = {
   username: "Lindsay48",
   password: "YXAl8n5UV0w6JPk",
   credentialsSecret: "<value>",
-  __template_awsApiKey: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
 };
 ```
 
@@ -1581,25 +1535,24 @@ const value: models.InputOffice365Mgmt = {
   ],
   ingestionLag: 9152.34,
   retryRules: {
-    type: "backoff",
-    interval: 2107.49,
-    limit: 2764.09,
-    multiplier: 9039.82,
+    type: "<value>",
+    interval: 6390.37,
+    limit: 2107.49,
+    multiplier: 2764.09,
     codes: [
+      1648,
       6941.51,
+      1223.37,
     ],
     enableHeader: true,
     retryConnectTimeout: true,
     retryConnectReset: true,
   },
-  authType: "manual",
-  description: "caption aw chainstay vice soliloquy vivid without",
+  authType: "secret",
+  description:
+    "yowza amnesty yahoo wicked anenst far grouchy birdcage ha seemingly",
   clientSecret: "<value>",
   textSecret: "<value>",
-  __template_tenantId: "<id>",
-  __template_appId: "<id>",
-  __template_publisherIdentifier: "<value>",
-  __template_clientSecret: "<value>",
 };
 ```
 
@@ -1658,12 +1611,14 @@ const value: models.InputOffice365Service = {
     },
   ],
   retryRules: {
-    type: "backoff",
-    interval: 2107.49,
-    limit: 2764.09,
-    multiplier: 9039.82,
+    type: "<value>",
+    interval: 6390.37,
+    limit: 2107.49,
+    multiplier: 2764.09,
     codes: [
+      1648,
       6941.51,
+      1223.37,
     ],
     enableHeader: true,
     retryConnectTimeout: true,
@@ -1673,9 +1628,6 @@ const value: models.InputOffice365Service = {
   description: "as incidentally until bell",
   clientSecret: "<value>",
   textSecret: "<value>",
-  __template_tenantId: "<id>",
-  __template_appId: "<id>",
-  __template_clientSecret: "<value>",
 };
 ```
 
@@ -1731,12 +1683,14 @@ const value: models.InputOffice365MsgTrace = {
     },
   ],
   retryRules: {
-    type: "backoff",
-    interval: 2107.49,
-    limit: 2764.09,
-    multiplier: 9039.82,
+    type: "<value>",
+    interval: 6390.37,
+    limit: 2107.49,
+    multiplier: 2764.09,
     codes: [
+      1648,
       6941.51,
+      1223.37,
     ],
     enableHeader: true,
     retryConnectTimeout: true,
@@ -1759,10 +1713,6 @@ const value: models.InputOffice365MsgTrace = {
     passphrase: "<value>",
     certPath: "<value>",
   },
-  __template_url: "https://left-bran.net/",
-  __template_tenantId: "<id>",
-  __template_clientId: "<id>",
-  __template_resource: "<value>",
 };
 ```
 
@@ -1976,8 +1926,6 @@ const value: models.InputFirehose = {
   ],
   description:
     "meh grizzled righteously clonk against sternly oh whoever duh finally",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -2033,9 +1981,6 @@ const value: models.InputGooglePubsub = {
   ],
   description: "hence once vice",
   orderedDelivery: true,
-  __template_topicName: "<value>",
-  __template_subscriptionName: "<value>",
-  __template_region: "<value>",
 };
 ```
 
@@ -2148,8 +2093,6 @@ const value: models.InputCriblTcp = {
     },
   ],
   description: "embarrassment happily overspend by antique",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -2223,8 +2166,6 @@ const value: models.InputCriblHttp = {
     },
   ],
   description: "midst meh off aha",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -2323,9 +2264,6 @@ const value: models.InputCriblLakeHttp = {
     },
   ],
   description: "cute adult obediently consequently westernise",
-  __template_host: "<value>",
-  __template_port: "<value>",
-  __template_splunkHecAPI: "<value>",
 };
 ```
 
@@ -2394,8 +2332,6 @@ const value: models.InputTcpjson = {
     "snappy knitting absent denitrify furthermore dwell quietly elevation",
   authToken: "<value>",
   textSecret: "<value>",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -2929,10 +2865,11 @@ const value: models.InputCrowdstrike = {
   durationSeconds: 818.63,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [
@@ -2953,13 +2890,6 @@ const value: models.InputCrowdstrike = {
   tagAfterProcessing: "false",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
-  __template_queueName: "<value>",
-  __template_awsAccountId: "<id>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3033,8 +2963,6 @@ const value: models.InputDatadogAgent = {
   },
   description:
     "upright outflank mmm per successfully yum ape councilman between grandpa",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -3180,8 +3108,6 @@ const value: models.InputHttpRaw = {
     },
   ],
   description: "very incomparable stale sidetrack",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -3247,12 +3173,6 @@ const value: models.InputKinesis = {
   description: "as until hm",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-  __template_streamName: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3355,9 +3275,6 @@ const value: models.InputMetrics = {
   ],
   udpSocketRxBufSize: 9051.37,
   description: "aha off whose blah however",
-  __template_host: "<value>",
-  __template_udpPort: "<value>",
-  __template_tcpPort: "<value>",
 };
 ```
 
@@ -3419,10 +3336,11 @@ const value: models.InputS3 = {
   durationSeconds: 3111.12,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [
@@ -3446,13 +3364,6 @@ const value: models.InputS3 = {
   awsSecret: "<value>",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
-  __template_queueName: "<value>",
-  __template_awsAccountId: "<id>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3514,10 +3425,11 @@ const value: models.InputS3Inventory = {
   durationSeconds: 7697.09,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [
@@ -3542,13 +3454,6 @@ const value: models.InputS3Inventory = {
   tagAfterProcessing: "true",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
-  __template_queueName: "<value>",
-  __template_awsAccountId: "<id>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3610,8 +3515,6 @@ const value: models.InputSnmp = {
   varbindsWithTypes: false,
   bestEffortParsing: false,
   description: "possible merrily along below geez horse",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -3709,10 +3612,6 @@ const value: models.InputOpenTelemetry = {
     },
   ],
   extractLogs: false,
-  __template_host: "<value>",
-  __template_port: "<value>",
-  __template_loginUrl: "https://superficial-vicinity.com",
-  __template_secret: "<value>",
 };
 ```
 
@@ -3772,8 +3671,6 @@ const value: models.InputModelDrivenTelemetry = {
   maxActiveCxn: 1920.13,
   shutdownTimeoutMs: 6456.5,
   description: "suddenly while pace now bleak huzzah psst forenenst yet oof",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -3836,13 +3733,6 @@ const value: models.InputSqs = {
   awsApiKey: "<value>",
   awsSecret: "<value>",
   numReceivers: 9368.6,
-  __template_queueName: "<value>",
-  __template_awsAccountId: "<id>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -3920,9 +3810,6 @@ const value: models.InputSyslog = {
   enableLoadBalancing: true,
   description: "huzzah if though brook mid seemingly",
   enableEnhancedProxyHeaderParsing: true,
-  __template_host: "<value>",
-  __template_udpPort: "<value>",
-  __template_tcpPort: "<value>",
 };
 ```
 
@@ -4056,18 +3943,17 @@ const value: models.InputTcp = {
   staleChannelFlushMs: 3615.97,
   enableHeader: false,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   description: "meh pharmacopoeia yummy",
   authToken: "<value>",
   authType: "manual",
   textSecret: "<value>",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -4158,8 +4044,6 @@ const value: models.InputAppscope = {
   unixSocketPerms: "<value>",
   authToken: "<value>",
   textSecret: "<value>",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -4265,8 +4149,6 @@ const value: models.InputWef = {
   description:
     "pivot slight coincide when neatly obediently upbeat evenly blind saturate",
   logFingerprintMismatch: false,
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -4370,8 +4252,6 @@ const value: models.InputRawUdp = {
     },
   ],
   description: "motivate frank showy instead darn without aw beyond cop-out",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -4480,24 +4360,23 @@ const value: models.InputWiz = {
     },
   ],
   retryRules: {
-    type: "none",
-    interval: 6996.29,
-    limit: 5006.8,
-    multiplier: 7560.55,
+    type: "<value>",
+    interval: 376.03,
+    limit: 6996.29,
+    multiplier: 5006.8,
     codes: [
+      2139.95,
       9559.24,
+      6726.47,
     ],
     enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: true,
+    retryConnectTimeout: true,
+    retryConnectReset: false,
   },
   authType: "manual",
   description: "stark cannibalise flint fumigate",
   clientSecret: "<value>",
   textSecret: "<value>",
-  __template_endpoint: "<value>",
-  __template_authUrl: "https://elegant-operating.net",
-  __template_clientId: "<id>",
 };
 ```
 
@@ -4597,8 +4476,6 @@ const value: models.InputWizWebhook = {
     },
   ],
   description: "reckless acceptable pish and solemnly viciously descendant",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -4652,8 +4529,6 @@ const value: models.InputNetflow = {
   ],
   description:
     "incidentally gracefully sin if lest weekly certification blissfully considering",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
@@ -4717,10 +4592,11 @@ const value: models.InputSecurityLake = {
   durationSeconds: 1160.94,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [
@@ -4743,13 +4619,6 @@ const value: models.InputSecurityLake = {
   tagAfterProcessing: "false",
   processedTagKey: "<value>",
   processedTagValue: "<value>",
-  __template_queueName: "<value>",
-  __template_awsAccountId: "<id>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
 };
 ```
 
@@ -4849,9 +4718,6 @@ const value: models.InputZscalerHec = {
   ],
   emitTokenMetrics: true,
   description: "nice fax solidly fog brr doubtfully gee apud incline now",
-  __template_host: "<value>",
-  __template_port: "<value>",
-  __template_hecAPI: "<value>",
 };
 ```
 
@@ -4957,8 +4823,6 @@ const value: models.InputCloudflareHec = {
   ],
   emitTokenMetrics: true,
   description: "loose puzzled well but",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 

@@ -148,14 +148,6 @@ export type InputSnmp = {
    */
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
-  /**
-   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
-   */
-  __template_host?: string | undefined;
-  /**
-   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
-   */
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -291,8 +283,6 @@ export const InputSnmp$inboundSchema: z.ZodType<
   varbindsWithTypes: z.boolean().optional(),
   bestEffortParsing: z.boolean().optional(),
   description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 /** @internal */
 export type InputSnmp$Outbound = {
@@ -316,8 +306,6 @@ export type InputSnmp$Outbound = {
   varbindsWithTypes?: boolean | undefined;
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
-  __template_host?: string | undefined;
-  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -346,8 +334,6 @@ export const InputSnmp$outboundSchema: z.ZodType<
   varbindsWithTypes: z.boolean().optional(),
   bestEffortParsing: z.boolean().optional(),
   description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
 });
 
 export function inputSnmpToJSON(inputSnmp: InputSnmp): string {

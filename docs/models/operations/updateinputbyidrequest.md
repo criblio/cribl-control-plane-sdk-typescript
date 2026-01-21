@@ -82,8 +82,6 @@ let value: UpdateInputByIdRequest = {
     dropControlFields: false,
     extractMetrics: false,
     compress: "disabled",
-    __template_host: "<value>",
-    __template_port: "<value>",
   },
 };
 ```

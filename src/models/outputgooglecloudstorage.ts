@@ -304,18 +304,6 @@ export type OutputGoogleCloudStorage = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
-  /**
-   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-   */
-  __template_bucket?: string | undefined;
-  /**
-   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-   */
-  __template_region?: string | undefined;
-  /**
-   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
-   */
-  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -396,9 +384,6 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_format: z.string().optional(),
 });
 /** @internal */
 export type OutputGoogleCloudStorage$Outbound = {
@@ -458,9 +443,6 @@ export type OutputGoogleCloudStorage$Outbound = {
   awsApiKey?: string | undefined;
   awsSecretKey?: string | undefined;
   awsSecret?: string | undefined;
-  __template_bucket?: string | undefined;
-  __template_region?: string | undefined;
-  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -527,9 +509,6 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  __template_bucket: z.string().optional(),
-  __template_region: z.string().optional(),
-  __template_format: z.string().optional(),
 });
 
 export function outputGoogleCloudStorageToJSON(
