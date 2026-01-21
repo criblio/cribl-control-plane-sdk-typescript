@@ -1,17 +1,64 @@
 # RestAuthenticationOauthSecretDiscovery
 
-## Example Usage
+
+## Supported Types
+
+### `models.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttp`
 
 ```typescript
-import { RestAuthenticationOauthSecretDiscovery } from "cribl-control-plane/models";
-
-let value: RestAuthenticationOauthSecretDiscovery = {
-  discoverType: "none",
-};
+const value: models.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttp =
+  {
+    discoverMethod: "post",
+    discoverRequestParams: "<value>",
+    discoverType: "http",
+    discoverUrl: "https://defensive-scale.org/",
+    discoverVerb: "<value>",
+    discoverBody: "<value>",
+    discoverRequestHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    pagination: {
+      type: "<value>",
+    },
+    discoverDataField: "<value>",
+    enableStrictDiscoverParsing: false,
+    discoverResponseFormat: "<value>",
+    enableDiscoverCode: false,
+  };
 ```
 
-## Fields
+### `models.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJson`
 
-| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `discoverType`                                                                                                             | [models.RestAuthenticationOauthSecretDiscoverType](../models/restauthenticationoauthsecretdiscovertype.md)                 | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |
+```typescript
+const value: models.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJson =
+  {
+    discoverType: "json",
+    manualDiscoverResult: "<value>",
+    discoverDataField: "<value>",
+  };
+```
+
+### `models.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList`
+
+```typescript
+const value: models.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList =
+  {
+    discoverType: "list",
+    itemList: [
+      "<value 1>",
+    ],
+  };
+```
+
+### `models.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone`
+
+```typescript
+const value: models.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone =
+  {
+    discoverType: "none",
+  };
+```
+

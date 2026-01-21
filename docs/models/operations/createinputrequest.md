@@ -40,10 +40,11 @@ const value: operations.InputCollection = {
   ],
   staleChannelFlushMs: 5680.54,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   throttleRatePerSec: "<value>",
@@ -525,16 +526,18 @@ const value: operations.InputSplunkSearch = {
     },
   ],
   retryRules: {
-    type: "none",
-    interval: 6996.29,
-    limit: 5006.8,
-    multiplier: 7560.55,
+    type: "<value>",
+    interval: 376.03,
+    limit: 6996.29,
+    multiplier: 5006.8,
     codes: [
+      2139.95,
       9559.24,
+      6726.47,
     ],
     enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: true,
+    retryConnectTimeout: true,
+    retryConnectReset: false,
   },
   breakerRulesets: [
     "<value 1>",
@@ -1545,12 +1548,14 @@ const value: operations.InputOffice365Mgmt = {
   ],
   ingestionLag: 8240.57,
   retryRules: {
-    type: "backoff",
-    interval: 2107.49,
-    limit: 2764.09,
-    multiplier: 9039.82,
+    type: "<value>",
+    interval: 6390.37,
+    limit: 2107.49,
+    multiplier: 2764.09,
     codes: [
+      1648,
       6941.51,
+      1223.37,
     ],
     enableHeader: true,
     retryConnectTimeout: true,
@@ -1621,12 +1626,14 @@ const value: operations.InputOffice365Service = {
     },
   ],
   retryRules: {
-    type: "backoff",
-    interval: 2107.49,
-    limit: 2764.09,
-    multiplier: 9039.82,
+    type: "<value>",
+    interval: 6390.37,
+    limit: 2107.49,
+    multiplier: 2764.09,
     codes: [
+      1648,
       6941.51,
+      1223.37,
     ],
     enableHeader: true,
     retryConnectTimeout: true,
@@ -1693,12 +1700,14 @@ const value: operations.InputOffice365MsgTrace = {
     },
   ],
   retryRules: {
-    type: "backoff",
-    interval: 2107.49,
-    limit: 2764.09,
-    multiplier: 9039.82,
+    type: "<value>",
+    interval: 6390.37,
+    limit: 2107.49,
+    multiplier: 2764.09,
     codes: [
+      1648,
       6941.51,
+      1223.37,
     ],
     enableHeader: true,
     retryConnectTimeout: true,
@@ -2872,10 +2881,11 @@ const value: operations.InputCrowdstrike = {
   durationSeconds: 1140.91,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [
@@ -3341,10 +3351,11 @@ const value: operations.InputS3 = {
   durationSeconds: 2021.66,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [
@@ -3428,10 +3439,11 @@ const value: operations.InputS3Inventory = {
   durationSeconds: 4249.9,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [
@@ -3949,10 +3961,11 @@ const value: operations.InputTcp = {
   staleChannelFlushMs: 7437.62,
   enableHeader: true,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   description: "mmm than excepting",
@@ -4354,16 +4367,18 @@ const value: operations.InputWiz = {
     },
   ],
   retryRules: {
-    type: "none",
-    interval: 6996.29,
-    limit: 5006.8,
-    multiplier: 7560.55,
+    type: "<value>",
+    interval: 376.03,
+    limit: 6996.29,
+    multiplier: 5006.8,
     codes: [
+      2139.95,
       9559.24,
+      6726.47,
     ],
     enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: true,
+    retryConnectTimeout: true,
+    retryConnectReset: false,
   },
   authType: "secret",
   description:
@@ -4577,10 +4592,11 @@ const value: operations.InputSecurityLake = {
   durationSeconds: 9621.57,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [

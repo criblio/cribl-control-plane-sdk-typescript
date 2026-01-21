@@ -1,27 +1,48 @@
 # HealthCheckCollectMethodPostWithBodyRetryRules
 
-## Example Usage
+
+## Supported Types
+
+### `models.HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone`
 
 ```typescript
-import { HealthCheckCollectMethodPostWithBodyRetryRules } from "cribl-control-plane/models";
-
-let value: HealthCheckCollectMethodPostWithBodyRetryRules = {
-  type: "static",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-};
+const value:
+  models.HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone = {
+    type: "none",
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+  };
 ```
 
-## Fields
+### `models.HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic`
 
-| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                                       | [models.RetryTypeOptionsHealthCheckCollectorConfRetryRules](../models/retrytypeoptionshealthcheckcollectorconfretryrules.md) | :heavy_check_mark:                                                                                                           | The algorithm to use when performing HTTP retries                                                                            |
-| `interval`                                                                                                                   | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `limit`                                                                                                                      | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `multiplier`                                                                                                                 | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `codes`                                                                                                                      | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `enableHeader`                                                                                                               | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
+```typescript
+const value:
+  models.HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic = {
+    type: "static",
+    interval: "<value>",
+    limit: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    multiplier: "<value>",
+  };
+```
+
+### `models.HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff`
+
+```typescript
+const value:
+  models.HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff =
+    {
+      type: "backoff",
+      interval: "<value>",
+      limit: "<value>",
+      multiplier: "<value>",
+      codes: "<value>",
+      enableHeader: "<value>",
+    };
+```
+

@@ -112,10 +112,10 @@ export class Groups extends ClientSDK {
   }
 
   /**
-   * Deploy commits to a Worker Group or Edge Fleet
+   * Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
    *
    * @remarks
-   * Deploy commits to the specified Worker Group or Edge Fleet.
+   * Deploy commits to the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async deploy(
     request: operations.UpdateConfigGroupDeployByProductAndIdRequest,

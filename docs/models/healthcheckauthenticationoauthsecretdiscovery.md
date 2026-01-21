@@ -1,17 +1,59 @@
 # HealthCheckAuthenticationOauthSecretDiscovery
 
-## Example Usage
+
+## Supported Types
+
+### `models.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp`
 
 ```typescript
-import { HealthCheckAuthenticationOauthSecretDiscovery } from "cribl-control-plane/models";
-
-let value: HealthCheckAuthenticationOauthSecretDiscovery = {
-  discoverType: "http",
-};
+const value:
+  models.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp =
+    {
+      discoverMethod: "post",
+      discoverRequestParams: "<value>",
+      discoverType: "json",
+      discoverUrl: "https://warlike-supplier.org/",
+      discoverBody: "<value>",
+      discoverRequestHeaders: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      discoverDataField: "<value>",
+    };
 ```
 
-## Fields
+### `models.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson`
 
-| Field                                                                                                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `discoverType`                                                                                                                                                                                                                                                                                                                                               | [models.HealthCheckAuthenticationOauthSecretDiscoverType](../models/healthcheckauthenticationoauthsecretdiscovertype.md)                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task. |
+```typescript
+const value:
+  models.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson =
+    {
+      discoverType: "json",
+      manualDiscoverResult: "<value>",
+      discoverDataField: "<value>",
+    };
+```
+
+### `models.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList`
+
+```typescript
+const value:
+  models.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList =
+    {
+      discoverType: "list",
+      itemList: [],
+    };
+```
+
+### `models.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone`
+
+```typescript
+const value:
+  models.HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone =
+    {
+      discoverType: "none",
+    };
+```
+

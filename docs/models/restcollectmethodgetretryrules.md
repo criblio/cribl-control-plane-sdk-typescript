@@ -1,11 +1,44 @@
 # RestCollectMethodGetRetryRules
 
-## Example Usage
+
+## Supported Types
+
+### `models.RestCollectMethodGetRestRetryRulesTypeNone`
 
 ```typescript
-import { RestCollectMethodGetRetryRules } from "cribl-control-plane/models";
+const value: models.RestCollectMethodGetRestRetryRulesTypeNone = {
+  type: "none",
+  interval: "<value>",
+  limit: "<value>",
+  multiplier: "<value>",
+  maxIntervalMs: "<value>",
+  codes: "<value>",
+  enableHeader: "<value>",
+  retryConnectTimeout: "<value>",
+  retryConnectReset: "<value>",
+};
+```
 
-let value: RestCollectMethodGetRetryRules = {
+### `models.RestCollectMethodGetRestRetryRulesTypeStatic`
+
+```typescript
+const value: models.RestCollectMethodGetRestRetryRulesTypeStatic = {
+  type: "static",
+  interval: "<value>",
+  limit: "<value>",
+  codes: "<value>",
+  enableHeader: "<value>",
+  retryConnectTimeout: "<value>",
+  retryConnectReset: "<value>",
+  multiplier: "<value>",
+  maxIntervalMs: "<value>",
+};
+```
+
+### `models.RestCollectMethodGetRestRetryRulesTypeBackoff`
+
+```typescript
+const value: models.RestCollectMethodGetRestRetryRulesTypeBackoff = {
   type: "backoff",
   interval: "<value>",
   limit: "<value>",
@@ -18,16 +51,3 @@ let value: RestCollectMethodGetRetryRules = {
 };
 ```
 
-## Fields
-
-| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                                       | [models.RetryTypeOptionsHealthCheckCollectorConfRetryRules](../models/retrytypeoptionshealthcheckcollectorconfretryrules.md) | :heavy_check_mark:                                                                                                           | The algorithm to use when performing HTTP retries                                                                            |
-| `interval`                                                                                                                   | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `limit`                                                                                                                      | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `multiplier`                                                                                                                 | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `maxIntervalMs`                                                                                                              | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `codes`                                                                                                                      | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `enableHeader`                                                                                                               | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `retryConnectTimeout`                                                                                                        | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `retryConnectReset`                                                                                                          | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |

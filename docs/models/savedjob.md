@@ -98,19 +98,22 @@ const value: models.SavedJobCollection = {
         enableHeader: "<value>",
       },
     },
+    destructive: true,
+    encoding: "<value>",
   },
   input: {
     type: "collection",
     breakerRulesets: [
       "<value 1>",
     ],
-    staleChannelFlushMs: 640.43,
+    staleChannelFlushMs: 7596.83,
     sendToRoutes: false,
     preprocess: {
-      disabled: false,
+      disabled: true,
       command: "<value>",
       args: [
         "<value 1>",
+        "<value 2>",
       ],
     },
     throttleRatePerSec: "<value>",

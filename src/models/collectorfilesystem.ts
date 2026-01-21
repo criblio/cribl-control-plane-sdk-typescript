@@ -22,6 +22,14 @@ export type CollectorFilesystem = {
    */
   type: "filesystem";
   conf: FilesystemCollectorConf;
+  /**
+   * Delete any files collected (where applicable)
+   */
+  destructive?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data.
+   */
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -32,11 +40,15 @@ export const CollectorFilesystem$inboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("filesystem"),
   conf: FilesystemCollectorConf$inboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 /** @internal */
 export type CollectorFilesystem$Outbound = {
   type: "filesystem";
   conf: FilesystemCollectorConf$Outbound;
+  destructive?: boolean | undefined;
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -47,6 +59,8 @@ export const CollectorFilesystem$outboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("filesystem"),
   conf: FilesystemCollectorConf$outboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 
 export function collectorFilesystemToJSON(

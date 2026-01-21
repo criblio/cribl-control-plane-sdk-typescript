@@ -37,10 +37,11 @@ let value: InputCollection = {
   ],
   staleChannelFlushMs: 8467.21,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   throttleRatePerSec: "<value>",

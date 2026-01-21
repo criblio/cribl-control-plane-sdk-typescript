@@ -11,9 +11,11 @@ let value: RestCollectMethodOther = {
   collectBody: "<value>",
   collectRequestParams: "<value>",
   discovery: {
-    discoverType: "http",
+    discoverType: "json",
+    manualDiscoverResult: "<value>",
+    discoverDataField: "<value>",
   },
-  collectUrl: "https://limited-offset.info/",
+  collectUrl: "https://private-appliance.net/",
   collectRequestHeaders: [
     {
       name: "<value>",
@@ -21,19 +23,23 @@ let value: RestCollectMethodOther = {
     },
   ],
   pagination: {
-    type: "request_page",
+    type: "response_header_link",
+    nextRelationAttribute: "<value>",
+    curRelationAttribute: "<value>",
+    maxPages: 4831.74,
   },
-  authentication: "google_oauth",
-  timeout: 3551.2,
-  useRoundRobinDns: true,
+  authentication: "oauth",
+  timeout: 4293.89,
+  useRoundRobinDns: false,
   disableTimeFilter: true,
   decodeUrl: false,
-  rejectUnauthorized: true,
-  captureHeaders: false,
-  stopOnEmptyResults: false,
+  rejectUnauthorized: false,
+  captureHeaders: true,
+  stopOnEmptyResults: true,
   safeHeaders: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   retryRules: {
     type: "backoff",
@@ -62,10 +68,10 @@ let value: RestCollectMethodOther = {
 | `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `discovery`                                                                                                                                        | [models.RestCollectMethodOtherDiscovery](../models/restcollectmethodotherdiscovery.md)                                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `discovery`                                                                                                                                        | *models.RestCollectMethodOtherDiscovery*                                                                                                           | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
 | `collectRequestHeaders`                                                                                                                            | [models.ItemsTypeRestCollectMethodGetCollectRequestParams](../models/itemstyperestcollectmethodgetcollectrequestparams.md)[]                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `pagination`                                                                                                                                       | [models.RestCollectMethodOtherPagination](../models/restcollectmethodotherpagination.md)                                                           | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `pagination`                                                                                                                                       | *models.RestCollectMethodOtherPaginationUnion*                                                                                                     | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `authentication`                                                                                                                                   | [models.RestCollectMethodOtherAuthentication](../models/restcollectmethodotherauthentication.md)                                                   | :heavy_check_mark:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers. |
 | `timeout`                                                                                                                                          | *number*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout. Use 0 to disable.                                                                                                 |
 | `useRoundRobinDns`                                                                                                                                 | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.                                                     |
@@ -75,5 +81,5 @@ let value: RestCollectMethodOther = {
 | `captureHeaders`                                                                                                                                   | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Enable to add response headers to the resHeaders field under the __collectible object                                                              |
 | `stopOnEmptyResults`                                                                                                                               | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Stop pagination when the Event Breaker produces no events                                                                                          |
 | `safeHeaders`                                                                                                                                      | *string*[]                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | List of headers that are safe to log in plain text                                                                                                 |
-| `retryRules`                                                                                                                                       | [models.RestCollectMethodOtherRetryRules](../models/restcollectmethodotherretryrules.md)                                                           | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `retryRules`                                                                                                                                       | *models.RestCollectMethodOtherRetryRules*                                                                                                          | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `scheduling`                                                                                                                                       | [models.RestCollectMethodOtherScheduling](../models/restcollectmethodotherscheduling.md)                                                           | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |

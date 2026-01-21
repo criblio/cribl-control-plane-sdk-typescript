@@ -60,12 +60,14 @@ let value: InputOffice365Service = {
     },
   ],
   retryRules: {
-    type: "backoff",
-    interval: 2107.49,
-    limit: 2764.09,
-    multiplier: 9039.82,
+    type: "<value>",
+    interval: 6390.37,
+    limit: 2107.49,
+    multiplier: 2764.09,
     codes: [
+      1648,
       6941.51,
+      1223.37,
     ],
     enableHeader: true,
     retryConnectTimeout: true,

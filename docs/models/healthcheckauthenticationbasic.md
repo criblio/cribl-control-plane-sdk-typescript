@@ -11,9 +11,13 @@ let value: HealthCheckAuthenticationBasic = {
   password: "j8oqJdqwGmAtefF",
   discovery: {
     discoverType: "list",
+    itemList: [
+      "<value 1>",
+      "<value 2>",
+    ],
   },
-  collectUrl: "https://usable-replacement.net",
-  collectMethod: "get",
+  collectUrl: "https://silver-plain.com",
+  collectMethod: "post_with_body",
   collectRequestParams: "<value>",
   collectBody: "<value>",
   collectRequestHeaders: [
@@ -23,15 +27,14 @@ let value: HealthCheckAuthenticationBasic = {
     },
   ],
   authenticateCollect: false,
-  timeout: 7651.76,
+  timeout: 1066.62,
   rejectUnauthorized: true,
   defaultBreakers: "Cribl",
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
   retryRules: {
-    type: "none",
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -48,7 +51,7 @@ let value: HealthCheckAuthenticationBasic = {
 | `authentication`                                                                                                                                   | *"basic"*                                                                                                                                          | :heavy_check_mark:                                                                                                                                 | Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers. |
 | `username`                                                                                                                                         | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Basic authentication username                                                                                                                      |
 | `password`                                                                                                                                         | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Basic authentication password                                                                                                                      |
-| `discovery`                                                                                                                                        | [models.HealthCheckAuthenticationBasicDiscovery](../models/healthcheckauthenticationbasicdiscovery.md)                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `discovery`                                                                                                                                        | *models.HealthCheckAuthenticationBasicDiscovery*                                                                                                   | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Expression to derive URL to use for the health check operation (can be a constant).                                                                |
 | `collectMethod`                                                                                                                                    | [models.HealthCheckAuthenticationBasicHealthCheckMethod](../models/healthcheckauthenticationbasichealthcheckmethod.md)                             | :heavy_check_mark:                                                                                                                                 | Health check HTTP method.                                                                                                                          |
 | `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
@@ -59,4 +62,4 @@ let value: HealthCheckAuthenticationBasic = {
 | `rejectUnauthorized`                                                                                                                               | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).                                        |
 | `defaultBreakers`                                                                                                                                  | [models.HiddenDefaultBreakersOptionsDatabaseCollectorConf](../models/hiddendefaultbreakersoptionsdatabasecollectorconf.md)                         | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `safeHeaders`                                                                                                                                      | *string*[]                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | List of headers that are safe to log in plain text.                                                                                                |
-| `retryRules`                                                                                                                                       | [models.HealthCheckAuthenticationBasicRetryRules](../models/healthcheckauthenticationbasicretryrules.md)                                           | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `retryRules`                                                                                                                                       | *models.HealthCheckAuthenticationBasicRetryRules*                                                                                                  | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |

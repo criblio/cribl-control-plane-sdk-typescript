@@ -1,17 +1,59 @@
 # HealthCheckAuthenticationNoneDiscovery
 
-## Example Usage
+
+## Supported Types
+
+### `models.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp`
 
 ```typescript
-import { HealthCheckAuthenticationNoneDiscovery } from "cribl-control-plane/models";
-
-let value: HealthCheckAuthenticationNoneDiscovery = {
-  discoverType: "http",
-};
+const value:
+  models.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp = {
+    discoverMethod: "post_with_body",
+    discoverBody: "<value>",
+    discoverType: "list",
+    discoverUrl: "https://inferior-pecan.org",
+    discoverRequestParams: "<value>",
+    discoverRequestHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    discoverDataField: "<value>",
+  };
 ```
 
-## Fields
+### `models.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson`
 
-| Field                                                                                                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                                                                                  |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `discoverType`                                                                                                                                                                                                                                                                                                                                               | [models.HealthCheckAuthenticationNoneDiscoverType](../models/healthcheckauthenticationnonediscovertype.md)                                                                                                                                                                                                                                                   | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                           | Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task. |
+```typescript
+const value:
+  models.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson = {
+    discoverType: "json",
+    manualDiscoverResult: "<value>",
+    discoverDataField: "<value>",
+  };
+```
+
+### `models.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList`
+
+```typescript
+const value:
+  models.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList = {
+    discoverType: "list",
+    itemList: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+  };
+```
+
+### `models.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone`
+
+```typescript
+const value:
+  models.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone = {
+    discoverType: "none",
+  };
+```
+

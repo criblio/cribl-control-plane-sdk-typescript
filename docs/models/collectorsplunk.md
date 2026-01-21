@@ -37,22 +37,26 @@ let value: CollectorSplunk = {
     rejectUnauthorized: true,
     handleEscapedChars: false,
     retryRules: {
-      type: "backoff",
+      type: "static",
       interval: "<value>",
       limit: "<value>",
-      multiplier: "<value>",
       codes: "<value>",
       enableHeader: "<value>",
       retryConnectTimeout: "<value>",
       retryConnectReset: "<value>",
+      multiplier: "<value>",
     },
   },
+  destructive: true,
+  encoding: "<value>",
 };
 ```
 
 ## Fields
 
-| Field                        | Type                         | Required                     | Description                  |
-| ---------------------------- | ---------------------------- | ---------------------------- | ---------------------------- |
-| `type`                       | *"splunk"*                   | :heavy_check_mark:           | Collector type               |
-| `conf`                       | *models.SplunkCollectorConf* | :heavy_check_mark:           | N/A                          |
+| Field                                                 | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `type`                                                | *"splunk"*                                            | :heavy_check_mark:                                    | Collector type                                        |
+| `conf`                                                | *models.SplunkCollectorConf*                          | :heavy_check_mark:                                    | N/A                                                   |
+| `destructive`                                         | *boolean*                                             | :heavy_minus_sign:                                    | Delete any files collected (where applicable)         |
+| `encoding`                                            | *string*                                              | :heavy_minus_sign:                                    | Character encoding to use when parsing ingested data. |

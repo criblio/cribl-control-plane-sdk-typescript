@@ -36,6 +36,8 @@ const value: models.CollectorAzureBlob = {
     parquetChunkSizeMB: 3385.81,
     parquetChunkDownloadTimeout: 2527.71,
   },
+  destructive: false,
+  encoding: "<value>",
 };
 ```
 
@@ -47,6 +49,8 @@ const value: models.CollectorCriblLake = {
   conf: {
     dataset: "<value>",
   },
+  destructive: true,
+  encoding: "<value>",
 };
 ```
 
@@ -66,6 +70,8 @@ const value: models.CollectorDatabase = {
       },
     },
   },
+  destructive: true,
+  encoding: "<value>",
 };
 ```
 
@@ -86,6 +92,8 @@ const value: models.CollectorFilesystem = {
     recurse: false,
     maxBatchSize: 4087.23,
   },
+  destructive: true,
+  encoding: "<value>",
 };
 ```
 
@@ -113,6 +121,8 @@ const value: models.CollectorGoogleCloudStorage = {
     parquetChunkSizeMB: 2920.25,
     parquetChunkDownloadTimeout: 430.44,
   },
+  destructive: false,
+  encoding: "<value>",
 };
 ```
 
@@ -137,8 +147,11 @@ const value: models.CollectorHealthCheck = {
     ],
     discovery: {
       discoverType: "list",
+      itemList: [
+        "<value 1>",
+      ],
     },
-    collectUrl: "https://soupy-glider.org/",
+    collectUrl: "https://hungry-tomb.com",
     collectMethod: "get",
     collectRequestParams: "<value>",
     collectBody: "<value>",
@@ -148,22 +161,26 @@ const value: models.CollectorHealthCheck = {
         value: "<value>",
       },
     ],
-    authenticateCollect: true,
-    timeout: 9055.35,
-    rejectUnauthorized: false,
+    authenticateCollect: false,
+    timeout: 9325.47,
+    rejectUnauthorized: true,
     defaultBreakers: "Cribl",
     safeHeaders: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     retryRules: {
       type: "static",
       interval: "<value>",
       limit: "<value>",
-      multiplier: "<value>",
       codes: "<value>",
       enableHeader: "<value>",
+      multiplier: "<value>",
     },
   },
+  destructive: true,
+  encoding: "<value>",
 };
 ```
 
@@ -176,9 +193,27 @@ const value: models.CollectorRest = {
     authentication: "hmac",
     hmacFunctionId: "<id>",
     discovery: {
+      discoverMethod: "post_with_body",
+      discoverBody: "<value>",
       discoverType: "http",
+      discoverUrl: "https://sweet-giant.info/",
+      discoverVerb: "<value>",
+      discoverRequestParams: "<value>",
+      discoverRequestHeaders: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      pagination: {
+        type: "<value>",
+      },
+      discoverDataField: "<value>",
+      enableStrictDiscoverParsing: true,
+      discoverResponseFormat: "<value>",
+      enableDiscoverCode: true,
     },
-    collectUrl: "https://close-decision.net",
+    collectUrl: "https://true-cow.name",
     collectMethod: "post",
     collectVerb: "<value>",
     collectRequestParams: "<value>",
@@ -190,37 +225,45 @@ const value: models.CollectorRest = {
       },
     ],
     pagination: {
-      type: "response_header",
+      type: "request_offset",
+      offsetField: "<value>",
+      offset: 2713.22,
+      limitField: "<value>",
+      limit: 8073.59,
+      totalRecordField: "<value>",
+      maxPages: 8005.17,
+      zeroIndexed: true,
     },
-    timeout: 4762.75,
+    timeout: 5200.78,
     useRoundRobinDns: true,
     disableTimeFilter: false,
-    decodeUrl: false,
+    decodeUrl: true,
     rejectUnauthorized: true,
     captureHeaders: false,
     stopOnEmptyResults: true,
     safeHeaders: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
     retryRules: {
-      type: "none",
+      type: "static",
       interval: "<value>",
       limit: "<value>",
-      multiplier: "<value>",
-      maxIntervalMs: "<value>",
       codes: "<value>",
       enableHeader: "<value>",
       retryConnectTimeout: "<value>",
       retryConnectReset: "<value>",
+      multiplier: "<value>",
+      maxIntervalMs: "<value>",
     },
     __scheduling: {
       stateTracking: {
-        enabled: false,
+        enabled: true,
       },
     },
   },
+  destructive: true,
+  encoding: "<value>",
 };
 ```
 
@@ -257,6 +300,8 @@ const value: models.CollectorS3 = {
     verifyPermissions: false,
     disableTimeFilter: true,
   },
+  destructive: false,
+  encoding: "<value>",
 };
 ```
 
@@ -276,6 +321,8 @@ const value: models.CollectorScript = {
       },
     ],
   },
+  destructive: true,
+  encoding: "<value>",
 };
 ```
 
@@ -312,16 +359,18 @@ const value: models.CollectorSplunk = {
     rejectUnauthorized: true,
     handleEscapedChars: false,
     retryRules: {
-      type: "backoff",
+      type: "static",
       interval: "<value>",
       limit: "<value>",
-      multiplier: "<value>",
       codes: "<value>",
       enableHeader: "<value>",
       retryConnectTimeout: "<value>",
       retryConnectReset: "<value>",
+      multiplier: "<value>",
     },
   },
+  destructive: true,
+  encoding: "<value>",
 };
 ```
 

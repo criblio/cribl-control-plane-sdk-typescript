@@ -9,9 +9,20 @@ let value: HealthCheckCollectMethodPostWithBody = {
   collectMethod: "post",
   collectBody: "<value>",
   discovery: {
+    discoverMethod: "post",
+    discoverRequestParams: "<value>",
     discoverType: "http",
+    discoverUrl: "https://fussy-underneath.com/",
+    discoverBody: "<value>",
+    discoverRequestHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    discoverDataField: "<value>",
   },
-  collectUrl: "https://chilly-bog.biz/",
+  collectUrl: "https://probable-version.info/",
   collectRequestParams: "<value>",
   collectRequestHeaders: [
     {
@@ -19,18 +30,17 @@ let value: HealthCheckCollectMethodPostWithBody = {
       value: "<value>",
     },
   ],
-  authenticateCollect: false,
-  authentication: "none",
-  timeout: 4756.92,
-  rejectUnauthorized: false,
+  authenticateCollect: true,
+  authentication: "login",
+  timeout: 486.61,
+  rejectUnauthorized: true,
   defaultBreakers: "Cribl",
   safeHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   retryRules: {
-    type: "backoff",
+    type: "none",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -46,7 +56,7 @@ let value: HealthCheckCollectMethodPostWithBody = {
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `collectMethod`                                                                                                                                    | [models.HealthCheckCollectMethodPostWithBodyHealthCheckMethod](../models/healthcheckcollectmethodpostwithbodyhealthcheckmethod.md)                 | :heavy_check_mark:                                                                                                                                 | Health check HTTP method.                                                                                                                          |
 | `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `discovery`                                                                                                                                        | [models.HealthCheckCollectMethodPostWithBodyDiscovery](../models/healthcheckcollectmethodpostwithbodydiscovery.md)                                 | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `discovery`                                                                                                                                        | *models.HealthCheckCollectMethodPostWithBodyDiscovery*                                                                                             | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | Expression to derive URL to use for the health check operation (can be a constant).                                                                |
 | `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestHeaders`                                                                                                                            | [models.HealthCheckCollectMethodPostWithBodyCollectRequestHeader](../models/healthcheckcollectmethodpostwithbodycollectrequestheader.md)[]         | :heavy_minus_sign:                                                                                                                                 | Optional health check request headers.                                                                                                             |
@@ -56,4 +66,4 @@ let value: HealthCheckCollectMethodPostWithBody = {
 | `rejectUnauthorized`                                                                                                                               | *boolean*                                                                                                                                          | :heavy_minus_sign:                                                                                                                                 | Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).                                        |
 | `defaultBreakers`                                                                                                                                  | [models.HiddenDefaultBreakersOptionsDatabaseCollectorConf](../models/hiddendefaultbreakersoptionsdatabasecollectorconf.md)                         | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `safeHeaders`                                                                                                                                      | *string*[]                                                                                                                                         | :heavy_minus_sign:                                                                                                                                 | List of headers that are safe to log in plain text.                                                                                                |
-| `retryRules`                                                                                                                                       | [models.HealthCheckCollectMethodPostWithBodyRetryRules](../models/healthcheckcollectmethodpostwithbodyretryrules.md)                               | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
+| `retryRules`                                                                                                                                       | *models.HealthCheckCollectMethodPostWithBodyRetryRules*                                                                                            | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |

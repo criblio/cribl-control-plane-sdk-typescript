@@ -65,10 +65,11 @@ let value: InputTcp = {
   staleChannelFlushMs: 3615.97,
   enableHeader: false,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   description: "meh pharmacopoeia yummy",
