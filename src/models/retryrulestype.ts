@@ -6,17 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  RetryTypeOptionsHealthCheckCollectorConfRetryRules,
-  RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
-  RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
-} from "./retrytypeoptionshealthcheckcollectorconfretryrules.js";
 
 export type RetryRulesType = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules;
+  type: string;
   /**
    * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
    */
@@ -53,7 +48,7 @@ export const RetryRulesType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$inboundSchema,
+  type: z.string(),
   interval: z.number().optional(),
   limit: z.number().optional(),
   multiplier: z.number().optional(),
@@ -80,7 +75,7 @@ export const RetryRulesType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   RetryRulesType
 > = z.object({
-  type: RetryTypeOptionsHealthCheckCollectorConfRetryRules$outboundSchema,
+  type: z.string(),
   interval: z.number().optional(),
   limit: z.number().optional(),
   multiplier: z.number().optional(),

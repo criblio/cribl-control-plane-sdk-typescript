@@ -1,17 +1,61 @@
 # RestCollectMethodOtherDiscovery
 
-## Example Usage
+
+## Supported Types
+
+### `models.RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp`
 
 ```typescript
-import { RestCollectMethodOtherDiscovery } from "cribl-control-plane/models";
+const value: models.RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp = {
+  discoverMethod: "other",
+  discoverVerb: "<value>",
+  discoverBody: "<value>",
+  discoverRequestParams: "<value>",
+  discoverType: "none",
+  discoverUrl: "https://amused-swing.biz",
+  discoverRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {
+    type: "<value>",
+  },
+  discoverDataField: "<value>",
+  enableStrictDiscoverParsing: false,
+  discoverResponseFormat: "<value>",
+  enableDiscoverCode: true,
+};
+```
 
-let value: RestCollectMethodOtherDiscovery = {
+### `models.RestCollectMethodOtherRestDiscoveryDiscoverTypeJson`
+
+```typescript
+const value: models.RestCollectMethodOtherRestDiscoveryDiscoverTypeJson = {
+  discoverType: "json",
+  manualDiscoverResult: "<value>",
+  discoverDataField: "<value>",
+};
+```
+
+### `models.RestCollectMethodOtherRestDiscoveryDiscoverTypeList`
+
+```typescript
+const value: models.RestCollectMethodOtherRestDiscoveryDiscoverTypeList = {
+  discoverType: "list",
+  itemList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+};
+```
+
+### `models.RestCollectMethodOtherRestDiscoveryDiscoverTypeNone`
+
+```typescript
+const value: models.RestCollectMethodOtherRestDiscoveryDiscoverTypeNone = {
   discoverType: "none",
 };
 ```
 
-## Fields
-
-| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `discoverType`                                                                                                             | [models.RestCollectMethodOtherDiscoverType](../models/restcollectmethodotherdiscovertype.md)                               | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |

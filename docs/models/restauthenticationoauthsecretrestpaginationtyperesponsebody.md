@@ -1,0 +1,23 @@
+# RestAuthenticationOauthSecretRestPaginationTypeResponseBody
+
+## Example Usage
+
+```typescript
+import { RestAuthenticationOauthSecretRestPaginationTypeResponseBody } from "cribl-control-plane/models";
+
+let value: RestAuthenticationOauthSecretRestPaginationTypeResponseBody = {
+  type: "response_body",
+  attribute: [],
+  maxPages: 2704.2,
+  lastPageExpr: "<value>",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                         | Type                                                                                                                                                          | Required                                                                                                                                                      | Description                                                                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                                        | *"response_body"*                                                                                                                                             | :heavy_check_mark:                                                                                                                                            | N/A                                                                                                                                                           |
+| `attribute`                                                                                                                                                   | *string*[]                                                                                                                                                    | :heavy_check_mark:                                                                                                                                            | Names of attributes within the response that contain next-page information                                                                                    |
+| `maxPages`                                                                                                                                                    | *number*                                                                                                                                                      | :heavy_check_mark:                                                                                                                                            | Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.                                                |
+| `lastPageExpr`                                                                                                                                                | *string*                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                            | JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section. |

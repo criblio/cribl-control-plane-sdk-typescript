@@ -59,19 +59,22 @@ let value: InputOffice365Mgmt = {
   ],
   ingestionLag: 9152.34,
   retryRules: {
-    type: "backoff",
-    interval: 2107.49,
-    limit: 2764.09,
-    multiplier: 9039.82,
+    type: "<value>",
+    interval: 6390.37,
+    limit: 2107.49,
+    multiplier: 2764.09,
     codes: [
+      1648,
       6941.51,
+      1223.37,
     ],
     enableHeader: true,
     retryConnectTimeout: true,
     retryConnectReset: true,
   },
-  authType: "manual",
-  description: "caption aw chainstay vice soliloquy vivid without",
+  authType: "secret",
+  description:
+    "yowza amnesty yahoo wicked anenst far grouchy birdcage ha seemingly",
   clientSecret: "<value>",
   textSecret: "<value>",
 };

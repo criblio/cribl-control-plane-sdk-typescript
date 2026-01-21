@@ -1,12 +1,13 @@
 # SplunkAuthenticationBasicSecretRetryRules
 
-## Example Usage
+
+## Supported Types
+
+### `models.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone`
 
 ```typescript
-import { SplunkAuthenticationBasicSecretRetryRules } from "cribl-control-plane/models";
-
-let value: SplunkAuthenticationBasicSecretRetryRules = {
-  type: "static",
+const value: models.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone = {
+  type: "none",
   interval: "<value>",
   limit: "<value>",
   multiplier: "<value>",
@@ -17,15 +18,35 @@ let value: SplunkAuthenticationBasicSecretRetryRules = {
 };
 ```
 
-## Fields
+### `models.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic`
 
-| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                                       | [models.RetryTypeOptionsHealthCheckCollectorConfRetryRules](../models/retrytypeoptionshealthcheckcollectorconfretryrules.md) | :heavy_check_mark:                                                                                                           | The algorithm to use when performing HTTP retries                                                                            |
-| `interval`                                                                                                                   | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `limit`                                                                                                                      | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `multiplier`                                                                                                                 | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `codes`                                                                                                                      | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `enableHeader`                                                                                                               | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `retryConnectTimeout`                                                                                                        | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `retryConnectReset`                                                                                                          | *any*                                                                                                                        | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
+```typescript
+const value: models.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic =
+  {
+    type: "static",
+    interval: "<value>",
+    limit: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    retryConnectTimeout: "<value>",
+    retryConnectReset: "<value>",
+    multiplier: "<value>",
+  };
+```
+
+### `models.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff`
+
+```typescript
+const value: models.SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff =
+  {
+    type: "backoff",
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+    retryConnectTimeout: "<value>",
+    retryConnectReset: "<value>",
+  };
+```
+

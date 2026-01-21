@@ -22,6 +22,14 @@ export type CollectorGoogleCloudStorage = {
    */
   type: "google_cloud_storage";
   conf: GoogleCloudStorageCollectorConf;
+  /**
+   * Delete any files collected (where applicable)
+   */
+  destructive?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data.
+   */
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -32,11 +40,15 @@ export const CollectorGoogleCloudStorage$inboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("google_cloud_storage"),
   conf: GoogleCloudStorageCollectorConf$inboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 /** @internal */
 export type CollectorGoogleCloudStorage$Outbound = {
   type: "google_cloud_storage";
   conf: GoogleCloudStorageCollectorConf$Outbound;
+  destructive?: boolean | undefined;
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -47,6 +59,8 @@ export const CollectorGoogleCloudStorage$outboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("google_cloud_storage"),
   conf: GoogleCloudStorageCollectorConf$outboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 
 export function collectorGoogleCloudStorageToJSON(

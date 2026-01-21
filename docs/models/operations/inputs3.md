@@ -60,10 +60,11 @@ let value: InputS3 = {
   durationSeconds: 2021.66,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [

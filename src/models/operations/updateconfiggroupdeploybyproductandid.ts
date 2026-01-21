@@ -8,11 +8,11 @@ import * as models from "../index.js";
 
 export type UpdateConfigGroupDeployByProductAndIdRequest = {
   /**
-   * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+   * Name of the Cribl product to deploy commits to the Worker Groups, Outpost Groups, or Edge Fleets for.
    */
   product: models.ProductsCore;
   /**
-   * The <code>id</code> of the target Worker Group or Edge Fleet for commit deployment.
+   * The <code>id</code> of the target Worker Group, Outpost Group, or Edge Fleet for commit deployment.
    */
   id: string;
   /**

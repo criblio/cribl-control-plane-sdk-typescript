@@ -11,7 +11,7 @@ Actions related to Groups
 * [get](#get) - Get a Worker Group, Outpost Group, or Edge Fleet
 * [update](#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 * [delete](#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
-* [deploy](#deploy) - Deploy commits to a Worker Group or Edge Fleet
+* [deploy](#deploy) - Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
 
 ## list
 
@@ -633,7 +633,7 @@ run();
 
 ## deploy
 
-Deploy commits to the specified Worker Group or Edge Fleet.
+Deploy commits to the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 

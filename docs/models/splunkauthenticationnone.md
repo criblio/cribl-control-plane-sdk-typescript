@@ -31,7 +31,7 @@ let value: SplunkAuthenticationNone = {
   rejectUnauthorized: false,
   handleEscapedChars: false,
   retryRules: {
-    type: "static",
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -61,4 +61,4 @@ let value: SplunkAuthenticationNone = {
 | `disableTimeFilter`                                                                                                       | *boolean*                                                                                                                 | :heavy_minus_sign:                                                                                                        | Disable collector event time filtering when a date range is specified                                                     |
 | `rejectUnauthorized`                                                                                                      | *boolean*                                                                                                                 | :heavy_minus_sign:                                                                                                        | Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)                         |
 | `handleEscapedChars`                                                                                                      | *boolean*                                                                                                                 | :heavy_minus_sign:                                                                                                        | Escape characters (\") in search queries will be passed directly to Splunk                                                |
-| `retryRules`                                                                                                              | [models.SplunkAuthenticationNoneRetryRules](../models/splunkauthenticationnoneretryrules.md)                              | :heavy_minus_sign:                                                                                                        | N/A                                                                                                                       |
+| `retryRules`                                                                                                              | *models.SplunkAuthenticationNoneRetryRules*                                                                               | :heavy_minus_sign:                                                                                                        | N/A                                                                                                                       |
