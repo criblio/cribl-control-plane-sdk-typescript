@@ -587,6 +587,7 @@ export * from "./systemsettingsconf.js";
 export * from "./systemtypesystemsettingsconf.js";
 export * from "./tagafterprocessingoptions.js";
 export * from "./tagstypepackinstallinfo.js";
+export * from "./targetcontext.js";
 export * from "./teamaccesscontrollist.js";
 export * from "./timeoutretrysettingstype.js";
 export * from "./tlsoptionshostsitems.js";

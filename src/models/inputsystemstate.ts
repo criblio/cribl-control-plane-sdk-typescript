@@ -225,7 +225,7 @@ export type InputSystemState = {
    */
   disableNativeModule?: boolean | undefined;
   /**
-   * Enable to only use non-native API to collect LastLog events. This option will be unavailable in future releases. Please contact Support with any concerns about this deprecation. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   * Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
    */
   disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
