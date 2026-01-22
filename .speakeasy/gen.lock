@@ -5,15 +5,15 @@ management:
   docVersion: 4.16.0-alpha.1769021190029-fa2dbe7b
   speakeasyVersion: 1.690.0
   generationVersion: 2.797.1
-  releaseVersion: 0.5.0-alpha.12
-  configChecksum: a9cd0733519d4917dd27ae1311b67edb
+  releaseVersion: 0.5.0-alpha.13
+  configChecksum: c357ebc3e238b798588a6c65622118ed
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: a2b7bec3-b6a9-4eea-8040-809034a13577
-  pristine_commit_hash: 3fb9b92336d2d8ae4ca845c64cae7b580538a169
-  pristine_tree_hash: a17877f58e92177d6e59f2b4b378397af8df43a1
+  generation_id: c5478f2d-5505-4a9e-86c9-f23a70031ea4
+  pristine_commit_hash: 8ffede8311239a80d409e18a0cbb90faddbeb4ca
+  pristine_tree_hash: 1edf644c3f00522bb66cbcbdf2d6a7872b029913
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -8750,12 +8750,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:8931bed0bfbc2eae9403013b3a37444d6cc624ec
-    pristine_git_object: 3c9525094cdd32916d996fc75e34a34ef4082fbf
+    last_write_checksum: sha1:a57fb1db8c1d070dbb556f903fd8091f1b4aea93
+    pristine_git_object: 318bfb70ff9a980c38ed2baa78234b223d173a6b
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:2fc223560b2deda2389aba287410ee0b0fb9f418
-    pristine_git_object: 46b8ff236d72f30af83acb8cdf5986ba0cad0a0f
+    last_write_checksum: sha1:73af81ef880c46b050c47afe3f83c345419ff83e
+    pristine_git_object: 7a9df57ba343ceaef365508bbb9c560c225bf2c2
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -9074,8 +9074,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:733be59bb21e248e4c32ddd09bef6c21145caf69
-    pristine_git_object: 678a4ed3e445f87abf86cd07dff254cb5953e0be
+    last_write_checksum: sha1:c84efbcd21c5630184ceab3a633591411abbed30
+    pristine_git_object: f7393b1ac81c05a1778f290249ac72c5510ae2f4
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -16650,7 +16650,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.collectors.create()`: \n  *  `request.savedJob.[savedJobCollection].collector` **Changed** **Breaking** :warning:\n  *  `response.items.[].[savedJobCollection].collector` **Changed** **Breaking** :warning:\n* `criblcontrolplane.collectors.list()`:  `response.items.[].[savedJobCollection].collector` **Changed** **Breaking** :warning:\n* `criblcontrolplane.collectors.delete()`:  `response.items.[].[savedJobCollection].collector` **Changed** **Breaking** :warning:\n* `criblcontrolplane.collectors.get()`:  `response.items.[].[savedJobCollection].collector` **Changed** **Breaking** :warning:\n* `criblcontrolplane.collectors.update()`: \n  *  `request.savedJob.[savedJobCollection].collector` **Changed** **Breaking** :warning:\n  *  `response.items.[].[savedJobCollection].collector` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.list()`:  `response.items.[].[office365MsgTrace].retryRules.type` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request.[office365Mgmt].retryRules.type` **Changed** **Breaking** :warning:\n  *  `response.items.[].[wiz].retryRules.type` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[].[wiz].retryRules.type` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.[office365Mgmt].retryRules.type` **Changed** **Breaking** :warning:\n  *  `response.items.[].[office365Service].retryRules.type` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[].[office365Mgmt].retryRules.type` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.pq.get()`:  `response.items.[].args.[runnableJobCollection].collector` **Changed** **Breaking** :warning:\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
