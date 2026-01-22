@@ -63,60 +63,20 @@ let value: InputGrafanaGrafana1 = {
   prometheusAPI: "<value>",
   lokiAPI: "<value>",
   prometheusAuth: {
-    authType: "token",
+    authType: "credentialsSecret",
     username: "Dwight28",
     password: "AySqW5o8JbMBEn4",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://wide-eyed-rationale.info/",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 1516.76,
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    __template_loginUrl: "https://live-impact.biz",
-    __template_secret: "<value>",
   },
   lokiAuth: {
-    authType: "textSecret",
-    username: "Daphnee.Cronin10",
-    password: "mdmcY5dZMn1QVML",
+    authType: "basic",
+    username: "Vivian.Hayes",
+    password: "Lh60GmdmcY5dZMn",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://faraway-stool.name",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 8825.72,
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    __template_loginUrl: "https://internal-massage.name",
-    __template_secret: "<value>",
   },
   metadata: [
     {

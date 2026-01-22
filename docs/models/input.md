@@ -556,33 +556,13 @@ const value: models.InputSplunkSearch = {
     "<value 1>",
   ],
   staleChannelFlushMs: 3804.15,
-  authType: "oauth",
+  authType: "textSecret",
   description: "past cassava however tenderly considerate suitcase",
   username: "Twila_Homenick",
   password: "WHMIdyB7lUGpeaN",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://mealy-pile.info",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 2444.65,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  __template_loginUrl: "https://similar-cheese.com",
-  __template_secret: "<value>",
 };
 ```
 
@@ -1061,60 +1041,20 @@ const value: models.InputGrafana = {
   prometheusAPI: "<value>",
   lokiAPI: "<value>",
   prometheusAuth: {
-    authType: "token",
+    authType: "credentialsSecret",
     username: "Dwight28",
     password: "AySqW5o8JbMBEn4",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://wide-eyed-rationale.info/",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 1516.76,
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    __template_loginUrl: "https://live-impact.biz",
-    __template_secret: "<value>",
   },
   lokiAuth: {
-    authType: "textSecret",
-    username: "Daphnee.Cronin10",
-    password: "mdmcY5dZMn1QVML",
+    authType: "basic",
+    username: "Vivian.Hayes",
+    password: "Lh60GmdmcY5dZMn",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://faraway-stool.name",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 8825.72,
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    __template_loginUrl: "https://internal-massage.name",
-    __template_secret: "<value>",
   },
   metadata: [
     {
@@ -1122,7 +1062,7 @@ const value: models.InputGrafana = {
       value: "<value>",
     },
   ],
-  description: "now e-mail corner only limping er brr except whereas fiercely",
+  description: "through obscure since follower under nor subtle beside",
   __template_host: "<value>",
   __template_port: "<value>",
 };
@@ -1198,28 +1138,8 @@ const value: models.InputLoki = {
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://tepid-summer.org",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 2498.36,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
   __template_host: "<value>",
   __template_port: "<value>",
-  __template_loginUrl: "https://smug-meatloaf.net",
-  __template_secret: "<value>",
 };
 ```
 
@@ -1280,7 +1200,7 @@ const value: models.InputPrometheusRw = {
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   prometheusAPI: "<value>",
-  authType: "credentialsSecret",
+  authType: "basic",
   metadata: [
     {
       name: "<value>",
@@ -1293,29 +1213,9 @@ const value: models.InputPrometheusRw = {
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://radiant-hydrolyse.name",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 7170.49,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
   __template_host: "<value>",
   __template_port: "<value>",
   __template_prometheusAPI: "<value>",
-  __template_loginUrl: "https://accomplished-independence.org",
-  __template_secret: "<value>",
 };
 ```
 
@@ -3689,7 +3589,7 @@ const value: models.InputOpenTelemetry = {
   extractSpans: false,
   extractMetrics: false,
   otlpVersion: "0.10.0",
-  authType: "textSecret",
+  authType: "token",
   metadata: [
     {
       name: "<value>",
@@ -3703,29 +3603,9 @@ const value: models.InputOpenTelemetry = {
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://both-forager.org",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 9881.65,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
   extractLogs: false,
   __template_host: "<value>",
   __template_port: "<value>",
-  __template_loginUrl: "https://superficial-vicinity.com",
-  __template_secret: "<value>",
 };
 ```
 
@@ -4907,14 +4787,15 @@ const value: models.InputCloudflareHec = {
   port: 9753.01,
   authTokens: [
     {
-      authType: "manual",
+      authType: "secret",
       tokenSecret: "<value>",
       token: "<value>",
       enabled: false,
-      description: "pro pish equate cumbersome unwritten while unless right",
+      description: "vamoose woot vainly yellowish while scarily whenever",
       allowedIndexesAtToken: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
       metadata: [
         {
@@ -4937,14 +4818,14 @@ const value: models.InputCloudflareHec = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 4987.89,
-  maxRequestsPerSocket: 655252,
-  enableProxyHeader: false,
+  maxActiveReq: 9067.51,
+  maxRequestsPerSocket: 172617,
+  enableProxyHeader: true,
   captureHeaders: true,
-  activityLogSampleRate: 6374.67,
-  requestTimeout: 2259.74,
-  socketTimeout: 8058.3,
-  keepAliveTimeout: 7840.92,
+  activityLogSampleRate: 9421.24,
+  requestTimeout: 5776.74,
+  socketTimeout: 6846.76,
+  keepAliveTimeout: 5123.82,
   enableHealthCheck: "<value>",
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
@@ -4958,12 +4839,12 @@ const value: models.InputCloudflareHec = {
   allowedIndexes: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
-  staleChannelFlushMs: 9558.71,
+  staleChannelFlushMs: 8049.23,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
@@ -4973,7 +4854,7 @@ const value: models.InputCloudflareHec = {
     "<value 2>",
   ],
   emitTokenMetrics: true,
-  description: "loose puzzled well but",
+  description: "and ugh white besmirch brightly but afore libel cinch",
   __template_host: "<value>",
   __template_port: "<value>",
 };
