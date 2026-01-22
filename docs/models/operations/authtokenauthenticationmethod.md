@@ -7,7 +7,7 @@ Select Secret to use a text secret to authenticate
 ```typescript
 import { AuthTokenAuthenticationMethod } from "cribl-control-plane/models/operations";
 
-let value: AuthTokenAuthenticationMethod = "manual";
+let value: AuthTokenAuthenticationMethod = "secret";
 ```
 
 ## Values
@@ -15,5 +15,5 @@ let value: AuthTokenAuthenticationMethod = "manual";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"secret" | "manual" | Unrecognized<string>
+"secret" | Unrecognized<string>
 ```

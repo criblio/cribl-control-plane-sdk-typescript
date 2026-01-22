@@ -75,9 +75,14 @@ import {
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const OutputCloudflareR2AuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
-  Manual: "manual",
 } as const;
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -229,10 +234,6 @@ export type OutputCloudflareR2 = {
   maxConcurrentFileParts?: number | undefined;
   description?: string | undefined;
   /**
-   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-   */
-  awsApiKey?: string | undefined;
-  /**
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
@@ -312,10 +313,6 @@ export type OutputCloudflareR2 = {
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -377,7 +374,6 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
-  awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   compress: CompressionOptions2$inboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$inboundSchema.optional(),
@@ -398,7 +394,6 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   maxRetryNum: z.number().optional(),
   __template_bucket: z.string().optional(),
   __template_format: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 /** @internal */
 export type OutputCloudflareR2$Outbound = {
@@ -441,7 +436,6 @@ export type OutputCloudflareR2$Outbound = {
   maxFileIdleTimeSec?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
   description?: string | undefined;
-  awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   compress?: string | undefined;
   compressionLevel?: string | undefined;
@@ -462,7 +456,6 @@ export type OutputCloudflareR2$Outbound = {
   maxRetryNum?: number | undefined;
   __template_bucket?: string | undefined;
   __template_format?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -511,7 +504,6 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
-  awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   compress: CompressionOptions2$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
@@ -533,7 +525,6 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   maxRetryNum: z.number().optional(),
   __template_bucket: z.string().optional(),
   __template_format: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputCloudflareR2ToJSON(

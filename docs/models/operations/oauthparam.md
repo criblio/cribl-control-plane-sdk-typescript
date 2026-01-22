@@ -1,11 +1,11 @@
-# ItemsTypeOauthParams
+# OauthParam
 
 ## Example Usage
 
 ```typescript
-import { ItemsTypeOauthParams } from "cribl-control-plane/models";
+import { OauthParam } from "cribl-control-plane/models/operations";
 
-let value: ItemsTypeOauthParams = {
+let value: OauthParam = {
   name: "<value>",
   value: "<value>",
 };

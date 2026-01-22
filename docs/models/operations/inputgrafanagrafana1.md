@@ -63,60 +63,20 @@ let value: InputGrafanaGrafana1 = {
   prometheusAPI: "<value>",
   lokiAPI: "<value>",
   prometheusAuth: {
-    authType: "textSecret",
+    authType: "token",
     username: "Kameron.Krajcik",
     password: "TRzTJ4CieT2pr2j",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://unwilling-battle.com/",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 1451.34,
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    __template_loginUrl: "https://cluttered-knuckle.com/",
-    __template_secret: "<value>",
   },
   lokiAuth: {
-    authType: "basic",
-    username: "Dwight.Schumm",
-    password: "JeNfbiSbBQOgQ5l",
+    authType: "none",
+    username: "Tatum.Cormier46",
+    password: "P5YnNQJeNfbiSbB",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://sociable-junior.info/",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 3047.02,
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    __template_loginUrl: "https://tempting-knitting.name",
-    __template_secret: "<value>",
   },
   metadata: [
     {
@@ -124,8 +84,7 @@ let value: InputGrafanaGrafana1 = {
       value: "<value>",
     },
   ],
-  description:
-    "polyester than healthily upliftingly backburn folklore deafening scaffold slowly punctuation",
+  description: "sweetly times juvenile",
   __template_host: "<value>",
   __template_port: "<value>",
 };

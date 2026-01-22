@@ -562,26 +562,6 @@ const value: operations.InputSplunkSearch = {
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://self-reliant-chasuble.info",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 6490.55,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  __template_loginUrl: "https://finished-steeple.org",
-  __template_secret: "<value>",
 };
 ```
 
@@ -1060,60 +1040,20 @@ const value: operations.InputGrafana = {
   prometheusAPI: "<value>",
   lokiAPI: "<value>",
   prometheusAuth: {
-    authType: "textSecret",
+    authType: "token",
     username: "Kameron.Krajcik",
     password: "TRzTJ4CieT2pr2j",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://unwilling-battle.com/",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 1451.34,
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    __template_loginUrl: "https://cluttered-knuckle.com/",
-    __template_secret: "<value>",
   },
   lokiAuth: {
-    authType: "basic",
-    username: "Dwight.Schumm",
-    password: "JeNfbiSbBQOgQ5l",
+    authType: "none",
+    username: "Tatum.Cormier46",
+    password: "P5YnNQJeNfbiSbB",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
-    loginUrl: "https://sociable-junior.info/",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 3047.02,
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    __template_loginUrl: "https://tempting-knitting.name",
-    __template_secret: "<value>",
   },
   metadata: [
     {
@@ -1199,28 +1139,8 @@ const value: operations.InputLoki = {
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://oily-guacamole.com",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 6195.32,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
   __template_host: "<value>",
   __template_port: "<value>",
-  __template_loginUrl: "https://agitated-traditionalism.name/",
-  __template_secret: "<value>",
 };
 ```
 
@@ -1283,7 +1203,7 @@ const value: operations.InputPrometheusRw = {
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   prometheusAPI: "<value>",
-  authType: "token",
+  authType: "credentialsSecret",
   metadata: [
     {
       name: "<value>",
@@ -1296,29 +1216,9 @@ const value: operations.InputPrometheusRw = {
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://proper-experience.net",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 390.56,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
   __template_host: "<value>",
   __template_port: "<value>",
   __template_prometheusAPI: "<value>",
-  __template_loginUrl: "https://bogus-tune-up.name",
-  __template_secret: "<value>",
 };
 ```
 
@@ -3701,7 +3601,7 @@ const value: operations.InputOpenTelemetry = {
   extractSpans: false,
   extractMetrics: true,
   otlpVersion: "1.3.1",
-  authType: "token",
+  authType: "credentialsSecret",
   metadata: [
     {
       name: "<value>",
@@ -3715,29 +3615,9 @@ const value: operations.InputOpenTelemetry = {
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://pricey-lawmaker.com",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 8625.86,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
   extractLogs: false,
   __template_host: "<value>",
   __template_port: "<value>",
-  __template_loginUrl: "https://posh-nun.biz",
-  __template_secret: "<value>",
 };
 ```
 
@@ -4910,8 +4790,8 @@ const value: operations.InputCloudflareHec = {
       authType: "secret",
       tokenSecret: "<value>",
       token: "<value>",
-      enabled: false,
-      description: "as ugh furlough aw gosh release interviewer accept gosh",
+      enabled: true,
+      description: "yahoo incidentally verify gee once oof sell capitalise up",
       allowedIndexesAtToken: [
         "<value 1>",
         "<value 2>",
@@ -4938,14 +4818,14 @@ const value: operations.InputCloudflareHec = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 1311.84,
-  maxRequestsPerSocket: 751791,
+  maxActiveReq: 9647.87,
+  maxRequestsPerSocket: 131184,
   enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 3258.21,
-  requestTimeout: 9447.02,
-  socketTimeout: 7012.45,
-  keepAliveTimeout: 8953.57,
+  captureHeaders: false,
+  activityLogSampleRate: 1441.29,
+  requestTimeout: 3258.21,
+  socketTimeout: 9447.02,
+  keepAliveTimeout: 7012.45,
   enableHealthCheck: "<value>",
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
@@ -4958,21 +4838,22 @@ const value: operations.InputCloudflareHec = {
   ],
   allowedIndexes: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
   ],
-  staleChannelFlushMs: 5766.92,
+  staleChannelFlushMs: 2062.1,
   accessControlAllowOrigin: [
     "<value 1>",
+    "<value 2>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  emitTokenMetrics: true,
-  description: "slow hassle convalesce boohoo",
+  emitTokenMetrics: false,
+  description: "lounge surprisingly failing geez sonata",
   __template_host: "<value>",
   __template_port: "<value>",
 };

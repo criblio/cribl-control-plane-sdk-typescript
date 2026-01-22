@@ -38,7 +38,6 @@ import {
  */
 export const InputCloudflareHecAuthenticationMethod = {
   Secret: "secret",
-  Manual: "manual",
 } as const;
 /**
  * Select Secret to use a text secret to authenticate
@@ -56,10 +55,7 @@ export type InputCloudflareHecAuthToken = {
    * Select or create a stored text secret
    */
   tokenSecret?: string | undefined;
-  /**
-   * Shared secret to be provided by any client (Authorization: <token>)
-   */
-  token?: string | undefined;
+  token?: any | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   /**
@@ -222,7 +218,7 @@ export const InputCloudflareHecAuthToken$inboundSchema: z.ZodType<
 > = z.object({
   authType: InputCloudflareHecAuthenticationMethod$inboundSchema.optional(),
   tokenSecret: z.string().optional(),
-  token: z.string().optional(),
+  token: z.any().optional(),
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
@@ -232,7 +228,7 @@ export const InputCloudflareHecAuthToken$inboundSchema: z.ZodType<
 export type InputCloudflareHecAuthToken$Outbound = {
   authType?: string | undefined;
   tokenSecret?: string | undefined;
-  token?: string | undefined;
+  token?: any | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
@@ -247,7 +243,7 @@ export const InputCloudflareHecAuthToken$outboundSchema: z.ZodType<
 > = z.object({
   authType: InputCloudflareHecAuthenticationMethod$outboundSchema.optional(),
   tokenSecret: z.string().optional(),
-  token: z.string().optional(),
+  token: z.any().optional(),
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
