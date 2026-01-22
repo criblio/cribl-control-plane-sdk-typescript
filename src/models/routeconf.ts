@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import {
+  TargetContext,
+  TargetContext$outboundSchema,
+} from "./targetcontext.js";
 
 export type RouteConf = {
   clones?: Array<{ [k: string]: string }> | undefined;
@@ -18,8 +22,7 @@ export type RouteConf = {
   output?: string | undefined;
   outputExpression?: string | undefined;
   pipeline: string;
-  toGroupContext?: boolean | undefined;
-  toPackContext?: boolean | undefined;
+  targetContext?: TargetContext | undefined;
 };
 
 /** @internal */
@@ -37,8 +40,7 @@ export type RouteConf$Outbound = {
   output?: string | undefined;
   outputExpression?: string | undefined;
   pipeline: string;
-  toGroupContext?: boolean | undefined;
-  toPackContext?: boolean | undefined;
+  targetContext?: string | undefined;
 };
 
 /** @internal */
@@ -60,8 +62,7 @@ export const RouteConf$outboundSchema: z.ZodType<
   output: z.string().optional(),
   outputExpression: z.string().optional(),
   pipeline: z.string(),
-  toGroupContext: z.boolean().optional(),
-  toPackContext: z.boolean().optional(),
+  targetContext: TargetContext$outboundSchema.optional(),
 });
 
 export function routeConfToJSON(routeConf: RouteConf): string {

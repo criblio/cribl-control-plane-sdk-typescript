@@ -25,27 +25,25 @@ let value: RouteConf = {
   output: "<value>",
   outputExpression: "<value>",
   pipeline: "<value>",
-  toGroupContext: true,
-  toPackContext: false,
+  targetContext: "group",
 };
 ```
 
 ## Fields
 
-| Field                      | Type                       | Required                   | Description                |
-| -------------------------- | -------------------------- | -------------------------- | -------------------------- |
-| `clones`                   | Record<string, *string*>[] | :heavy_minus_sign:         | N/A                        |
-| `context`                  | *string*                   | :heavy_minus_sign:         | N/A                        |
-| `description`              | *string*                   | :heavy_minus_sign:         | N/A                        |
-| `disabled`                 | *boolean*                  | :heavy_minus_sign:         | N/A                        |
-| `enableOutputExpression`   | *boolean*                  | :heavy_minus_sign:         | N/A                        |
-| `filter`                   | *string*                   | :heavy_minus_sign:         | N/A                        |
-| `final`                    | *boolean*                  | :heavy_check_mark:         | N/A                        |
-| `groupId`                  | *string*                   | :heavy_minus_sign:         | N/A                        |
-| `id`                       | *string*                   | :heavy_check_mark:         | N/A                        |
-| `name`                     | *string*                   | :heavy_check_mark:         | N/A                        |
-| `output`                   | *string*                   | :heavy_minus_sign:         | N/A                        |
-| `outputExpression`         | *string*                   | :heavy_minus_sign:         | N/A                        |
-| `pipeline`                 | *string*                   | :heavy_check_mark:         | N/A                        |
-| `toGroupContext`           | *boolean*                  | :heavy_minus_sign:         | N/A                        |
-| `toPackContext`            | *boolean*                  | :heavy_minus_sign:         | N/A                        |
+| Field                                              | Type                                               | Required                                           | Description                                        |
+| -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
+| `clones`                                           | Record<string, *string*>[]                         | :heavy_minus_sign:                                 | N/A                                                |
+| `context`                                          | *string*                                           | :heavy_minus_sign:                                 | N/A                                                |
+| `description`                                      | *string*                                           | :heavy_minus_sign:                                 | N/A                                                |
+| `disabled`                                         | *boolean*                                          | :heavy_minus_sign:                                 | N/A                                                |
+| `enableOutputExpression`                           | *boolean*                                          | :heavy_minus_sign:                                 | N/A                                                |
+| `filter`                                           | *string*                                           | :heavy_minus_sign:                                 | N/A                                                |
+| `final`                                            | *boolean*                                          | :heavy_check_mark:                                 | N/A                                                |
+| `groupId`                                          | *string*                                           | :heavy_minus_sign:                                 | N/A                                                |
+| `id`                                               | *string*                                           | :heavy_check_mark:                                 | N/A                                                |
+| `name`                                             | *string*                                           | :heavy_check_mark:                                 | N/A                                                |
+| `output`                                           | *string*                                           | :heavy_minus_sign:                                 | N/A                                                |
+| `outputExpression`                                 | *string*                                           | :heavy_minus_sign:                                 | N/A                                                |
+| `pipeline`                                         | *string*                                           | :heavy_check_mark:                                 | N/A                                                |
+| `targetContext`                                    | [models.TargetContext](../models/targetcontext.md) | :heavy_minus_sign:                                 | N/A                                                |
