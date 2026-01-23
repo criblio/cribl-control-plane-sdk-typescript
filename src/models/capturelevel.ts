@@ -6,12 +6,30 @@ import * as z from "zod/v3";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
+/**
+ * Where to capture events
+ */
 export const CaptureLevel = {
-  Zero: 0,
-  One: 1,
-  Two: 2,
-  Three: 3,
+  /**
+   * 1. Before pre-processing Pipeline
+   */
+  BeforePreProcessingPipeline: 0,
+  /**
+   * 2. Before the Routes
+   */
+  BeforeRoutes: 1,
+  /**
+   * 3. Before post-processing Pipeline
+   */
+  BeforePostProcessingPipeline: 2,
+  /**
+   * 4. Before the Destination
+   */
+  BeforeDestination: 3,
 } as const;
+/**
+ * Where to capture events
+ */
 export type CaptureLevel = OpenEnum<typeof CaptureLevel>;
 
 /** @internal */

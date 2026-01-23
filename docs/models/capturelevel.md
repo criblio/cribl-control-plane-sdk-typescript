@@ -1,5 +1,7 @@
 # CaptureLevel
 
+Where to capture events
+
 ## Example Usage
 
 ```typescript
