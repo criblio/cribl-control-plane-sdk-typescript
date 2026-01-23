@@ -5,7 +5,7 @@
 ```typescript
 import { OutputClickHouseAuthenticationType } from "cribl-control-plane/models";
 
-let value: OutputClickHouseAuthenticationType = "textSecret";
+let value: OutputClickHouseAuthenticationType = "sslUserCertificate";
 ```
 
 ## Values
@@ -13,5 +13,5 @@ let value: OutputClickHouseAuthenticationType = "textSecret";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"none" | "basic" | "credentialsSecret" | "sslUserCertificate" | "token" | "textSecret" | "oauth" | Unrecognized<string>
+"none" | "basic" | "credentialsSecret" | "sslUserCertificate" | Unrecognized<string>
 ```

@@ -2685,7 +2685,7 @@ const value: operations.OutputInfluxdb = {
   },
   responseHonorRetryAfterHeader: true,
   onBackpressure: "drop",
-  authType: "credentialsSecret",
+  authType: "basic",
   description: "brr scorpion unto ignite geez deflate meh glum ectoderm phooey",
   database: "<value>",
   bucket: "<value>",
@@ -2706,29 +2706,9 @@ const value: operations.OutputInfluxdb = {
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://oddball-bandwidth.info",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 7243.32,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  __template_url: "https://yellow-tool.net",
+  __template_url: "https://oddball-bandwidth.info",
   __template_database: "<value>",
   __template_bucket: "<value>",
-  __template_loginUrl: "https://expensive-catalyst.org/",
-  __template_secret: "<value>",
 };
 ```
 
@@ -3533,7 +3513,7 @@ const value: operations.OutputPrometheus = {
   },
   responseHonorRetryAfterHeader: true,
   onBackpressure: "drop",
-  authType: "textSecret",
+  authType: "token",
   description:
     "massive grouchy gloom loudly rotating oof pleasant apropos tinderbox",
   metricsFlushPeriodSec: 8719.49,
@@ -3553,27 +3533,7 @@ const value: operations.OutputPrometheus = {
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://whimsical-polarisation.net/",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 3415.45,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  __template_url: "https://thrifty-nightlife.com",
-  __template_loginUrl: "https://humble-developmental.net/",
-  __template_secret: "<value>",
+  __template_url: "https://whimsical-polarisation.net/",
 };
 ```
 
@@ -3649,24 +3609,6 @@ const value: operations.OutputOpenTelemetry = {
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://well-worn-minor.org",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 9435.33,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
   rejectUnauthorized: false,
   useRoundRobinDns: false,
   extraHttpHeaders: [
@@ -3677,6 +3619,7 @@ const value: operations.OutputOpenTelemetry = {
   ],
   safeHeaders: [
     "<value 1>",
+    "<value 2>",
   ],
   responseRetrySettings: [
     {
@@ -3692,31 +3635,29 @@ const value: operations.OutputOpenTelemetry = {
     backoffRate: 7830.71,
     maxBackoff: 6330,
   },
-  responseHonorRetryAfterHeader: true,
+  responseHonorRetryAfterHeader: false,
   tls: {
-    disabled: false,
-    rejectUnauthorized: false,
+    disabled: true,
+    rejectUnauthorized: true,
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.3",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1",
   },
-  pqStrictOrdering: true,
-  pqRatePerSec: 5363.58,
+  pqStrictOrdering: false,
+  pqRatePerSec: 6097.92,
   pqMode: "backpressure",
-  pqMaxBufferSize: 4698.94,
-  pqMaxBackpressureSec: 2348.58,
+  pqMaxBufferSize: 132.41,
+  pqMaxBackpressureSec: 2982.18,
   pqMaxFileSize: "<value>",
   pqMaxSize: "<value>",
   pqPath: "<value>",
   pqCompress: "none",
-  pqOnBackpressure: "block",
+  pqOnBackpressure: "drop",
   pqControls: {},
-  __template_loginUrl: "https://wonderful-drive.org",
-  __template_secret: "<value>",
 };
 ```
 
@@ -3794,14 +3735,14 @@ const value: operations.OutputServiceNow = {
   },
   responseHonorRetryAfterHeader: true,
   tls: {
-    disabled: false,
-    rejectUnauthorized: false,
+    disabled: true,
+    rejectUnauthorized: true,
     certificateName: "<value>",
     caPath: "<value>",
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.3",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1",
   },
   pqStrictOrdering: true,
@@ -4639,7 +4580,7 @@ const value: operations.OutputClickHouse = {
     "<value 1>",
   ],
   url: "https://immense-place.biz/",
-  authType: "credentialsSecret",
+  authType: "basic",
   database: "<value>",
   tableName: "<value>",
   format: "json-each-row",
@@ -4703,33 +4644,12 @@ const value: operations.OutputClickHouse = {
   description: "exterior meanwhile crafty what nor",
   username: "Elisha_Breitenberg22",
   password: "XcMrb5Fskjx6_Au",
-  token: "<value>",
   credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://new-mobility.org",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 2840.74,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
   sqlUsername: "<value>",
-  waitForAsyncInserts: true,
+  waitForAsyncInserts: false,
   excludeMappingFields: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   describeTable: "<value>",
   columnMappings: [
@@ -4740,21 +4660,19 @@ const value: operations.OutputClickHouse = {
     },
   ],
   pqStrictOrdering: false,
-  pqRatePerSec: 168.13,
-  pqMode: "always",
-  pqMaxBufferSize: 5388.56,
-  pqMaxBackpressureSec: 1686.88,
+  pqRatePerSec: 8399.31,
+  pqMode: "error",
+  pqMaxBufferSize: 2504.16,
+  pqMaxBackpressureSec: 7960.17,
   pqMaxFileSize: "<value>",
   pqMaxSize: "<value>",
   pqPath: "<value>",
   pqCompress: "gzip",
-  pqOnBackpressure: "drop",
+  pqOnBackpressure: "block",
   pqControls: {},
-  __template_url: "https://lumbering-object.info/",
+  __template_url: "https://narrow-colonialism.org",
   __template_database: "<value>",
   __template_tableName: "<value>",
-  __template_loginUrl: "https://hollow-gazebo.biz/",
-  __template_secret: "<value>",
 };
 ```
 
@@ -5372,7 +5290,7 @@ const value: operations.OutputCloudflareR2 = {
   ],
   endpoint: "<value>",
   bucket: "<value>",
-  awsAuthenticationMethod: "manual",
+  awsAuthenticationMethod: "secret",
   awsSecretKey: "<value>",
   region: "<value>",
   stagePath: "<value>",
@@ -5409,7 +5327,6 @@ const value: operations.OutputCloudflareR2 = {
   maxFileIdleTimeSec: 7504.56,
   maxConcurrentFileParts: 2829.8,
   description: "the heartache far knife lounge geez watery cruel decisive",
-  awsApiKey: "<value>",
   awsSecret: "<value>",
   compress: "gzip",
   compressionLevel: "best_speed",
@@ -5435,7 +5352,6 @@ const value: operations.OutputCloudflareR2 = {
   maxRetryNum: 6435.18,
   __template_bucket: "<value>",
   __template_format: "<value>",
-  __template_awsApiKey: "<value>",
 };
 ```
 

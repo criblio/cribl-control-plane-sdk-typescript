@@ -11,9 +11,14 @@ import * as models from "../index.js";
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const AuthenticationMethodCloudflareR2 = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
-  Manual: "manual",
 } as const;
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -165,10 +170,6 @@ export type OutputCloudflareR2 = {
   maxConcurrentFileParts?: number | undefined;
   description?: string | undefined;
   /**
-   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-   */
-  awsApiKey?: string | undefined;
-  /**
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
@@ -248,10 +249,6 @@ export type OutputCloudflareR2 = {
    * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
    */
   __template_format?: string | undefined;
-  /**
-   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-   */
-  __template_awsApiKey?: string | undefined;
 };
 
 export const ClientSecretAuthTypeAuthenticationMethod = {
@@ -1787,13 +1784,22 @@ export type OutputXsiam = {
 };
 
 export const AuthenticationTypeClickHouse = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
+  /**
+   * SSL User Certificate
+   */
   SslUserCertificate: "sslUserCertificate",
-  Token: "token",
-  TextSecret: "textSecret",
-  Oauth: "oauth",
 } as const;
 export type AuthenticationTypeClickHouse = OpenEnum<
   typeof AuthenticationTypeClickHouse
@@ -1979,49 +1985,9 @@ export type OutputClickHouse = {
   username?: string | undefined;
   password?: string | undefined;
   /**
-   * Bearer token to include in the authorization header
-   */
-  token?: string | undefined;
-  /**
    * Select or create a secret that references your credentials
    */
   credentialsSecret?: string | undefined;
-  /**
-   * Select or create a stored text secret
-   */
-  textSecret?: string | undefined;
-  /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
   /**
    * Username for certificate authentication
    */
@@ -2092,14 +2058,6 @@ export type OutputClickHouse = {
    * Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
    */
   __template_tableName?: string | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 export type OutputDiskSpool = {
@@ -4243,38 +4201,6 @@ export type OutputOpenTelemetry = {
    */
   textSecret?: string | undefined;
   /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
-  /**
    * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
    *
    * @remarks
@@ -4347,14 +4273,6 @@ export type OutputOpenTelemetry = {
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
   pqControls?: PqControlsOpenTelemetry | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 /**
@@ -4579,49 +4497,9 @@ export type OutputPrometheus = {
    */
   textSecret?: string | undefined;
   /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
-  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 export type PqControlsLoki = {};
@@ -6831,12 +6709,26 @@ export type TimestampPrecision = OpenEnum<typeof TimestampPrecision>;
  * InfluxDB authentication type
  */
 export const AuthenticationTypeInfluxdb = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
   Token: "token",
+  /**
+   * Token (text secret)
+   */
   TextSecret: "textSecret",
-  Oauth: "oauth",
 } as const;
 /**
  * InfluxDB authentication type
@@ -7025,38 +6917,6 @@ export type OutputInfluxdb = {
    */
   textSecret?: string | undefined;
   /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
-  /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
@@ -7068,14 +6928,6 @@ export type OutputInfluxdb = {
    * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
    */
   __template_bucket?: string | undefined;
-  /**
-   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-   */
-  __template_loginUrl?: string | undefined;
-  /**
-   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-   */
-  __template_secret?: string | undefined;
 };
 
 export type PqControlsNewrelicEvents = {};
@@ -13068,6 +12920,28 @@ export type AuthenticationTypeWebhook = OpenEnum<
 
 export type PqControlsWebhook = {};
 
+export type OauthParam = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type OauthHeader = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
+
 export type UrlWebhook = {
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
@@ -13308,11 +13182,11 @@ export type OutputWebhook = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<OauthParam> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<OauthHeader> | undefined;
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -13498,7 +13372,6 @@ export type OutputCloudflareR2$Outbound = {
   maxFileIdleTimeSec?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
   description?: string | undefined;
-  awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   compress?: string | undefined;
   compressionLevel?: string | undefined;
@@ -13521,7 +13394,6 @@ export type OutputCloudflareR2$Outbound = {
   maxRetryNum?: number | undefined;
   __template_bucket?: string | undefined;
   __template_format?: string | undefined;
-  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
@@ -13572,7 +13444,6 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
-  awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   compress: models.CompressionOptions2$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
@@ -13595,7 +13466,6 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   maxRetryNum: z.number().optional(),
   __template_bucket: z.string().optional(),
   __template_format: z.string().optional(),
-  __template_awsApiKey: z.string().optional(),
 });
 
 export function outputCloudflareR2ToJSON(
@@ -14910,17 +14780,7 @@ export type OutputClickHouse$Outbound = {
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
-  token?: string | undefined;
   credentialsSecret?: string | undefined;
-  textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
   sqlUsername?: string | undefined;
   waitForAsyncInserts?: boolean | undefined;
   excludeMappingFields?: Array<string> | undefined;
@@ -14940,8 +14800,6 @@ export type OutputClickHouse$Outbound = {
   __template_url?: string | undefined;
   __template_database?: string | undefined;
   __template_tableName?: string | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -14989,17 +14847,7 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
-  token: z.string().optional(),
   credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
   sqlUsername: z.string().optional(),
   waitForAsyncInserts: z.boolean().optional(),
   excludeMappingFields: z.array(z.string()).optional(),
@@ -15020,8 +14868,6 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   __template_url: z.string().optional(),
   __template_database: z.string().optional(),
   __template_tableName: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 
 export function outputClickHouseToJSON(
@@ -16525,14 +16371,6 @@ export type OutputOpenTelemetry$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
   rejectUnauthorized?: boolean | undefined;
   useRoundRobinDns?: boolean | undefined;
   extraHttpHeaders?:
@@ -16556,8 +16394,6 @@ export type OutputOpenTelemetry$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: PqControlsOpenTelemetry$Outbound | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -16598,14 +16434,6 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
   rejectUnauthorized: z.boolean().optional(),
   useRoundRobinDns: z.boolean().optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
@@ -16629,8 +16457,6 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => PqControlsOpenTelemetry$outboundSchema).optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 
 export function outputOpenTelemetryToJSON(
@@ -16759,17 +16585,7 @@ export type OutputPrometheus$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
   __template_url?: string | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -16826,17 +16642,7 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
   __template_url: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 
 export function outputPrometheusToJSON(
@@ -18569,19 +18375,9 @@ export type OutputInfluxdb$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
   __template_url?: string | undefined;
   __template_database?: string | undefined;
   __template_bucket?: string | undefined;
-  __template_loginUrl?: string | undefined;
-  __template_secret?: string | undefined;
 };
 
 /** @internal */
@@ -18642,19 +18438,9 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
   __template_url: z.string().optional(),
   __template_database: z.string().optional(),
   __template_bucket: z.string().optional(),
-  __template_loginUrl: z.string().optional(),
-  __template_secret: z.string().optional(),
 });
 
 export function outputInfluxdbToJSON(outputInfluxdb: OutputInfluxdb): string {
@@ -23019,6 +22805,46 @@ export function pqControlsWebhookToJSON(
 }
 
 /** @internal */
+export type OauthParam$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OauthParam$outboundSchema: z.ZodType<
+  OauthParam$Outbound,
+  z.ZodTypeDef,
+  OauthParam
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function oauthParamToJSON(oauthParam: OauthParam): string {
+  return JSON.stringify(OauthParam$outboundSchema.parse(oauthParam));
+}
+
+/** @internal */
+export type OauthHeader$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const OauthHeader$outboundSchema: z.ZodType<
+  OauthHeader$Outbound,
+  z.ZodTypeDef,
+  OauthHeader
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function oauthHeaderToJSON(oauthHeader: OauthHeader): string {
+  return JSON.stringify(OauthHeader$outboundSchema.parse(oauthHeader));
+}
+
+/** @internal */
 export type UrlWebhook$Outbound = {
   url: string;
   weight?: number | undefined;
@@ -23105,8 +22931,8 @@ export type OutputWebhook$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr?: string | undefined;
   tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<OauthParam$Outbound> | undefined;
+  oauthHeaders?: Array<OauthHeader$Outbound> | undefined;
   url?: string | undefined;
   excludeSelf?: boolean | undefined;
   urls?: Array<UrlWebhook$Outbound> | undefined;
@@ -23187,8 +23013,8 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => OauthParam$outboundSchema)).optional(),
+  oauthHeaders: z.array(z.lazy(() => OauthHeader$outboundSchema)).optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => UrlWebhook$outboundSchema)).optional(),

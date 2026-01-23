@@ -37,14 +37,15 @@ let value: InputCloudflareHec = {
   port: 9753.01,
   authTokens: [
     {
-      authType: "manual",
+      authType: "secret",
       tokenSecret: "<value>",
       token: "<value>",
       enabled: false,
-      description: "pro pish equate cumbersome unwritten while unless right",
+      description: "vamoose woot vainly yellowish while scarily whenever",
       allowedIndexesAtToken: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
       metadata: [
         {
@@ -67,14 +68,14 @@ let value: InputCloudflareHec = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 4987.89,
-  maxRequestsPerSocket: 655252,
-  enableProxyHeader: false,
+  maxActiveReq: 9067.51,
+  maxRequestsPerSocket: 172617,
+  enableProxyHeader: true,
   captureHeaders: true,
-  activityLogSampleRate: 6374.67,
-  requestTimeout: 2259.74,
-  socketTimeout: 8058.3,
-  keepAliveTimeout: 7840.92,
+  activityLogSampleRate: 9421.24,
+  requestTimeout: 5776.74,
+  socketTimeout: 6846.76,
+  keepAliveTimeout: 5123.82,
   enableHealthCheck: "<value>",
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
@@ -88,12 +89,12 @@ let value: InputCloudflareHec = {
   allowedIndexes: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
-  staleChannelFlushMs: 9558.71,
+  staleChannelFlushMs: 8049.23,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
@@ -103,7 +104,7 @@ let value: InputCloudflareHec = {
     "<value 2>",
   ],
   emitTokenMetrics: true,
-  description: "loose puzzled well but",
+  description: "and ugh white besmirch brightly but afore libel cinch",
   __template_host: "<value>",
   __template_port: "<value>",
 };
