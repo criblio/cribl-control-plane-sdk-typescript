@@ -14,10 +14,11 @@ let value: TypeCollectionWithBreakerRulesetsConstraint = {
   staleChannelFlushMs: 3385.32,
   sendToRoutes: true,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   throttleRatePerSec: "<value>",

@@ -1,17 +1,58 @@
 # RestAuthenticationNoneDiscovery
 
-## Example Usage
+
+## Supported Types
+
+### `models.RestAuthenticationNoneRestDiscoveryDiscoverTypeHttp`
 
 ```typescript
-import { RestAuthenticationNoneDiscovery } from "cribl-control-plane/models";
-
-let value: RestAuthenticationNoneDiscovery = {
+const value: models.RestAuthenticationNoneRestDiscoveryDiscoverTypeHttp = {
+  discoverMethod: "other",
+  discoverVerb: "<value>",
+  discoverBody: "<value>",
+  discoverRequestParams: "<value>",
   discoverType: "http",
+  discoverUrl: "https://aged-government.biz",
+  discoverRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {
+    type: "<value>",
+  },
+  discoverDataField: "<value>",
+  enableStrictDiscoverParsing: true,
+  discoverResponseFormat: "<value>",
+  enableDiscoverCode: false,
 };
 ```
 
-## Fields
+### `models.RestAuthenticationNoneRestDiscoveryDiscoverTypeJson`
 
-| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `discoverType`                                                                                                             | [models.RestAuthenticationNoneDiscoverType](../models/restauthenticationnonediscovertype.md)                               | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |
+```typescript
+const value: models.RestAuthenticationNoneRestDiscoveryDiscoverTypeJson = {
+  discoverType: "json",
+  manualDiscoverResult: "<value>",
+  discoverDataField: "<value>",
+};
+```
+
+### `models.RestAuthenticationNoneRestDiscoveryDiscoverTypeList`
+
+```typescript
+const value: models.RestAuthenticationNoneRestDiscoveryDiscoverTypeList = {
+  discoverType: "list",
+  itemList: [],
+};
+```
+
+### `models.RestAuthenticationNoneRestDiscoveryDiscoverTypeNone`
+
+```typescript
+const value: models.RestAuthenticationNoneRestDiscoveryDiscoverTypeNone = {
+  discoverType: "none",
+};
+```
+

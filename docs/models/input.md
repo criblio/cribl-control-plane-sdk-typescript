@@ -38,10 +38,11 @@ const value: models.InputCollection = {
   ],
   staleChannelFlushMs: 8467.21,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   throttleRatePerSec: "<value>",
@@ -538,16 +539,18 @@ const value: models.InputSplunkSearch = {
     },
   ],
   retryRules: {
-    type: "none",
-    interval: 6996.29,
-    limit: 5006.8,
-    multiplier: 7560.55,
+    type: "<value>",
+    interval: 376.03,
+    limit: 6996.29,
+    multiplier: 5006.8,
     codes: [
+      2139.95,
       9559.24,
+      6726.47,
     ],
     enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: true,
+    retryConnectTimeout: true,
+    retryConnectReset: false,
   },
   breakerRulesets: [
     "<value 1>",
@@ -1481,19 +1484,22 @@ const value: models.InputOffice365Mgmt = {
   ],
   ingestionLag: 9152.34,
   retryRules: {
-    type: "backoff",
-    interval: 2107.49,
-    limit: 2764.09,
-    multiplier: 9039.82,
+    type: "<value>",
+    interval: 6390.37,
+    limit: 2107.49,
+    multiplier: 2764.09,
     codes: [
+      1648,
       6941.51,
+      1223.37,
     ],
     enableHeader: true,
     retryConnectTimeout: true,
     retryConnectReset: true,
   },
-  authType: "manual",
-  description: "caption aw chainstay vice soliloquy vivid without",
+  authType: "secret",
+  description:
+    "yowza amnesty yahoo wicked anenst far grouchy birdcage ha seemingly",
   clientSecret: "<value>",
   textSecret: "<value>",
   __template_tenantId: "<id>",
@@ -1558,12 +1564,14 @@ const value: models.InputOffice365Service = {
     },
   ],
   retryRules: {
-    type: "backoff",
-    interval: 2107.49,
-    limit: 2764.09,
-    multiplier: 9039.82,
+    type: "<value>",
+    interval: 6390.37,
+    limit: 2107.49,
+    multiplier: 2764.09,
     codes: [
+      1648,
       6941.51,
+      1223.37,
     ],
     enableHeader: true,
     retryConnectTimeout: true,
@@ -1631,12 +1639,14 @@ const value: models.InputOffice365MsgTrace = {
     },
   ],
   retryRules: {
-    type: "backoff",
-    interval: 2107.49,
-    limit: 2764.09,
-    multiplier: 9039.82,
+    type: "<value>",
+    interval: 6390.37,
+    limit: 2107.49,
+    multiplier: 2764.09,
     codes: [
+      1648,
       6941.51,
+      1223.37,
     ],
     enableHeader: true,
     retryConnectTimeout: true,
@@ -2829,10 +2839,11 @@ const value: models.InputCrowdstrike = {
   durationSeconds: 818.63,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [
@@ -3319,10 +3330,11 @@ const value: models.InputS3 = {
   durationSeconds: 3111.12,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [
@@ -3414,10 +3426,11 @@ const value: models.InputS3Inventory = {
   durationSeconds: 7697.09,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [
@@ -3936,10 +3949,11 @@ const value: models.InputTcp = {
   staleChannelFlushMs: 3615.97,
   enableHeader: false,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   description: "meh pharmacopoeia yummy",
@@ -4360,16 +4374,18 @@ const value: models.InputWiz = {
     },
   ],
   retryRules: {
-    type: "none",
-    interval: 6996.29,
-    limit: 5006.8,
-    multiplier: 7560.55,
+    type: "<value>",
+    interval: 376.03,
+    limit: 6996.29,
+    multiplier: 5006.8,
     codes: [
+      2139.95,
       9559.24,
+      6726.47,
     ],
     enableHeader: false,
-    retryConnectTimeout: false,
-    retryConnectReset: true,
+    retryConnectTimeout: true,
+    retryConnectReset: false,
   },
   authType: "manual",
   description: "stark cannibalise flint fumigate",
@@ -4597,10 +4613,11 @@ const value: models.InputSecurityLake = {
   durationSeconds: 1160.94,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [

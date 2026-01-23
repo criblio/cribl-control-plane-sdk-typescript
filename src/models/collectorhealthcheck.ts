@@ -22,6 +22,14 @@ export type CollectorHealthCheck = {
    */
   type: "health_check";
   conf: HealthCheckCollectorConf;
+  /**
+   * Delete any files collected (where applicable)
+   */
+  destructive?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data.
+   */
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -32,11 +40,15 @@ export const CollectorHealthCheck$inboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("health_check"),
   conf: HealthCheckCollectorConf$inboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 /** @internal */
 export type CollectorHealthCheck$Outbound = {
   type: "health_check";
   conf: HealthCheckCollectorConf$Outbound;
+  destructive?: boolean | undefined;
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -47,6 +59,8 @@ export const CollectorHealthCheck$outboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("health_check"),
   conf: HealthCheckCollectorConf$outboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 
 export function collectorHealthCheckToJSON(

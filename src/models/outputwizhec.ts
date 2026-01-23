@@ -15,6 +15,11 @@ import {
   BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
 } from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FailedRequestLoggingModeOptions,
@@ -34,6 +39,16 @@ import {
   ItemsTypeResponseRetrySettings$outboundSchema,
 } from "./itemstyperesponseretrysettings.js";
 import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
   TimeoutRetrySettingsType,
   TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
@@ -45,6 +60,8 @@ import {
   TlsSettingsClientSideType1$Outbound,
   TlsSettingsClientSideType1$outboundSchema,
 } from "./tlssettingsclientsidetype1.js";
+
+export type OutputWizHecPqControls = {};
 
 export type OutputWizHec = {
   /**
@@ -155,7 +172,48 @@ export type OutputWizHec = {
   wiz_sourcetype: string;
   description?: string | undefined;
   /**
-   * Wiz Defender Auth token
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  pqControls?: OutputWizHecPqControls | undefined;
+  /**
+   * Wiz Defend Auth token
    */
   token?: string | undefined;
   /**
@@ -175,6 +233,39 @@ export type OutputWizHec = {
    */
   __template_wiz_sourcetype?: string | undefined;
 };
+
+/** @internal */
+export const OutputWizHecPqControls$inboundSchema: z.ZodType<
+  OutputWizHecPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type OutputWizHecPqControls$Outbound = {};
+
+/** @internal */
+export const OutputWizHecPqControls$outboundSchema: z.ZodType<
+  OutputWizHecPqControls$Outbound,
+  z.ZodTypeDef,
+  OutputWizHecPqControls
+> = z.object({});
+
+export function outputWizHecPqControlsToJSON(
+  outputWizHecPqControls: OutputWizHecPqControls,
+): string {
+  return JSON.stringify(
+    OutputWizHecPqControls$outboundSchema.parse(outputWizHecPqControls),
+  );
+}
+export function outputWizHecPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputWizHecPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputWizHecPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputWizHecPqControls' from JSON`,
+  );
+}
 
 /** @internal */
 export const OutputWizHec$inboundSchema: z.ZodType<
@@ -215,6 +306,17 @@ export const OutputWizHec$inboundSchema: z.ZodType<
   data_center: z.string(),
   wiz_sourcetype: z.string(),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
+  pqControls: z.lazy(() => OutputWizHecPqControls$inboundSchema).optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   __template_wiz_environment: z.string().optional(),
@@ -256,6 +358,17 @@ export type OutputWizHec$Outbound = {
   data_center: string;
   wiz_sourcetype: string;
   description?: string | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: OutputWizHecPqControls$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
   __template_wiz_environment?: string | undefined;
@@ -304,6 +417,17 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   data_center: z.string(),
   wiz_sourcetype: z.string(),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => OutputWizHecPqControls$outboundSchema).optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   __template_wiz_environment: z.string().optional(),

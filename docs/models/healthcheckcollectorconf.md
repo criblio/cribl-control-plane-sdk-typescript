@@ -10,6 +10,8 @@ const value: models.HealthCheckAuthenticationNone = {
   authentication: "none",
   discovery: {
     discoverType: "json",
+    manualDiscoverResult: "<value>",
+    discoverDataField: "<value>",
   },
   collectUrl: "https://untried-marketplace.info/",
   collectMethod: "post",
@@ -49,9 +51,13 @@ const value: models.HealthCheckAuthenticationBasic = {
   password: "j8oqJdqwGmAtefF",
   discovery: {
     discoverType: "list",
+    itemList: [
+      "<value 1>",
+      "<value 2>",
+    ],
   },
-  collectUrl: "https://usable-replacement.net",
-  collectMethod: "get",
+  collectUrl: "https://silver-plain.com",
+  collectMethod: "post_with_body",
   collectRequestParams: "<value>",
   collectBody: "<value>",
   collectRequestHeaders: [
@@ -61,15 +67,14 @@ const value: models.HealthCheckAuthenticationBasic = {
     },
   ],
   authenticateCollect: false,
-  timeout: 7651.76,
+  timeout: 1066.62,
   rejectUnauthorized: true,
   defaultBreakers: "Cribl",
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
   retryRules: {
-    type: "none",
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -86,10 +91,10 @@ const value: models.HealthCheckAuthenticationBasicSecret = {
   authentication: "basicSecret",
   credentialsSecret: "<value>",
   discovery: {
-    discoverType: "http",
+    discoverType: "none",
   },
-  collectUrl: "https://stale-deck.org/",
-  collectMethod: "post",
+  collectUrl: "https://legal-chiffonier.info/",
+  collectMethod: "post_with_body",
   collectRequestParams: "<value>",
   collectBody: "<value>",
   collectRequestHeaders: [
@@ -98,20 +103,22 @@ const value: models.HealthCheckAuthenticationBasicSecret = {
       value: "<value>",
     },
   ],
-  authenticateCollect: false,
-  timeout: 172.59,
+  authenticateCollect: true,
+  timeout: 9116.25,
   rejectUnauthorized: true,
   defaultBreakers: "Cribl",
   safeHeaders: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   retryRules: {
-    type: "backoff",
+    type: "static",
     interval: "<value>",
     limit: "<value>",
-    multiplier: "<value>",
     codes: "<value>",
     enableHeader: "<value>",
+    multiplier: "<value>",
   },
 };
 ```
@@ -135,9 +142,14 @@ const value: models.HealthCheckAuthenticationLogin = {
   ],
   discovery: {
     discoverType: "list",
+    itemList: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
   },
-  collectUrl: "https://worst-minion.org",
-  collectMethod: "get",
+  collectUrl: "https://whispered-conversation.biz",
+  collectMethod: "post",
   collectRequestParams: "<value>",
   collectBody: "<value>",
   collectRequestHeaders: [
@@ -147,14 +159,15 @@ const value: models.HealthCheckAuthenticationLogin = {
     },
   ],
   authenticateCollect: true,
-  timeout: 3710.02,
+  timeout: 587.2,
   rejectUnauthorized: true,
   defaultBreakers: "Cribl",
   safeHeaders: [
     "<value 1>",
+    "<value 2>",
   ],
   retryRules: {
-    type: "static",
+    type: "none",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -203,7 +216,7 @@ const value: models.HealthCheckAuthenticationLoginSecret = {
     "<value 3>",
   ],
   retryRules: {
-    type: "static",
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -236,10 +249,12 @@ const value: models.HealthCheckAuthenticationOauth = {
     },
   ],
   discovery: {
-    discoverType: "none",
+    discoverType: "json",
+    manualDiscoverResult: "<value>",
+    discoverDataField: "<value>",
   },
-  collectUrl: "https://incomparable-populist.info/",
-  collectMethod: "get",
+  collectUrl: "https://rowdy-hose.biz/",
+  collectMethod: "post",
   collectRequestParams: "<value>",
   collectBody: "<value>",
   collectRequestHeaders: [
@@ -249,21 +264,19 @@ const value: models.HealthCheckAuthenticationOauth = {
     },
   ],
   authenticateCollect: true,
-  timeout: 122.25,
+  timeout: 8452.96,
   rejectUnauthorized: false,
   defaultBreakers: "Cribl",
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   retryRules: {
-    type: "none",
+    type: "static",
     interval: "<value>",
     limit: "<value>",
-    multiplier: "<value>",
     codes: "<value>",
     enableHeader: "<value>",
+    multiplier: "<value>",
   },
 };
 ```
@@ -291,10 +304,12 @@ const value: models.HealthCheckAuthenticationOauthSecret = {
     },
   ],
   discovery: {
-    discoverType: "http",
+    discoverType: "json",
+    manualDiscoverResult: "<value>",
+    discoverDataField: "<value>",
   },
-  collectUrl: "https://far-coal.info",
-  collectMethod: "post",
+  collectUrl: "https://smooth-mixture.info/",
+  collectMethod: "get",
   collectRequestParams: "<value>",
   collectBody: "<value>",
   collectRequestHeaders: [
@@ -303,21 +318,20 @@ const value: models.HealthCheckAuthenticationOauthSecret = {
       value: "<value>",
     },
   ],
-  authenticateCollect: true,
-  timeout: 1898.29,
-  rejectUnauthorized: false,
+  authenticateCollect: false,
+  timeout: 4422.82,
+  rejectUnauthorized: true,
   defaultBreakers: "Cribl",
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
   retryRules: {
-    type: "backoff",
+    type: "static",
     interval: "<value>",
     limit: "<value>",
-    multiplier: "<value>",
     codes: "<value>",
     enableHeader: "<value>",
+    multiplier: "<value>",
   },
 };
 ```

@@ -58,10 +58,11 @@ let value: InputCrowdstrike = {
   durationSeconds: 1140.91,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [

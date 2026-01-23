@@ -22,6 +22,14 @@ export type CollectorAzureBlob = {
    */
   type: "azure_blob";
   conf: AzureBlobCollectorConf;
+  /**
+   * Delete any files collected (where applicable)
+   */
+  destructive?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data.
+   */
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -32,11 +40,15 @@ export const CollectorAzureBlob$inboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("azure_blob"),
   conf: AzureBlobCollectorConf$inboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 /** @internal */
 export type CollectorAzureBlob$Outbound = {
   type: "azure_blob";
   conf: AzureBlobCollectorConf$Outbound;
+  destructive?: boolean | undefined;
+  encoding?: string | undefined;
 };
 
 /** @internal */
@@ -47,6 +59,8 @@ export const CollectorAzureBlob$outboundSchema: z.ZodType<
 > = z.object({
   type: z.literal("azure_blob"),
   conf: AzureBlobCollectorConf$outboundSchema,
+  destructive: z.boolean().optional(),
+  encoding: z.string().optional(),
 });
 
 export function collectorAzureBlobToJSON(

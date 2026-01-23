@@ -1,17 +1,58 @@
 # RestAuthenticationLoginDiscovery
 
-## Example Usage
+
+## Supported Types
+
+### `models.RestAuthenticationLoginRestDiscoveryDiscoverTypeHttp`
 
 ```typescript
-import { RestAuthenticationLoginDiscovery } from "cribl-control-plane/models";
-
-let value: RestAuthenticationLoginDiscovery = {
-  discoverType: "json",
+const value: models.RestAuthenticationLoginRestDiscoveryDiscoverTypeHttp = {
+  discoverMethod: "get",
+  discoverRequestParams: "<value>",
+  discoverType: "list",
+  discoverUrl: "https://salty-translation.info/",
+  discoverVerb: "<value>",
+  discoverBody: "<value>",
+  discoverRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {
+    type: "<value>",
+  },
+  discoverDataField: "<value>",
+  enableStrictDiscoverParsing: false,
+  discoverResponseFormat: "<value>",
+  enableDiscoverCode: false,
 };
 ```
 
-## Fields
+### `models.RestAuthenticationLoginRestDiscoveryDiscoverTypeJson`
 
-| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `discoverType`                                                                                                             | [models.RestAuthenticationLoginDiscoverType](../models/restauthenticationlogindiscovertype.md)                             | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |
+```typescript
+const value: models.RestAuthenticationLoginRestDiscoveryDiscoverTypeJson = {
+  discoverType: "json",
+  manualDiscoverResult: "<value>",
+  discoverDataField: "<value>",
+};
+```
+
+### `models.RestAuthenticationLoginRestDiscoveryDiscoverTypeList`
+
+```typescript
+const value: models.RestAuthenticationLoginRestDiscoveryDiscoverTypeList = {
+  discoverType: "list",
+  itemList: [],
+};
+```
+
+### `models.RestAuthenticationLoginRestDiscoveryDiscoverTypeNone`
+
+```typescript
+const value: models.RestAuthenticationLoginRestDiscoveryDiscoverTypeNone = {
+  discoverType: "none",
+};
+```
+
