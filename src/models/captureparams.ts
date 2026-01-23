@@ -14,6 +14,9 @@ export type CaptureParams = {
    * Filter expression to capture events
    */
   filter: string;
+  /**
+   * Where to capture events
+   */
   level: CaptureLevel;
   /**
    * Maximum number of events to capture
