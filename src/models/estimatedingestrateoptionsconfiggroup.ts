@@ -7,7 +7,7 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 /**
- * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+ * Estimated ingest rate for Cloud Groups, in GB/sec.
  */
 export const EstimatedIngestRateOptionsConfigGroup = {
   /**
@@ -48,7 +48,7 @@ export const EstimatedIngestRateOptionsConfigGroup = {
   Rate180MBPerSec: 15360,
 } as const;
 /**
- * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+ * Estimated ingest rate for Cloud Groups, in GB/sec.
  */
 export type EstimatedIngestRateOptionsConfigGroup = OpenEnum<
   typeof EstimatedIngestRateOptionsConfigGroup

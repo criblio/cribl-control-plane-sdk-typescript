@@ -16,15 +16,15 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
     configVersion: "<value>",
     deployingWorkerCount: 8420.35,
     description: "monster off valiantly lest offset highly fatal",
-    estimatedIngestRate: 5120,
+    estimatedIngestRate: 4096,
     git: {
       commit: "<value>",
-      localChanges: 2849.05,
+      localChanges: 3203.95,
       log: [
         {
           author_email: "<value>",
           author_name: "<value>",
-          date: "2024-12-12",
+          date: "2024-04-14",
           hash: "<value>",
           message: "<value>",
           short: "<value>",
@@ -32,10 +32,8 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
       ],
     },
     id: "<id>",
-    incompatibleWorkerCount: 4580.35,
+    incompatibleWorkerCount: 5516.93,
     inherits: "<value>",
-    isFleet: false,
-    isSearch: true,
     lookupDeployments: [
       {
         context: "<value>",
@@ -57,9 +55,9 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
       "<value 2>",
     ],
     tags: "<value>",
-    type: "local_search",
+    type: "outpost",
     upgradeVersion: "<value>",
-    workerCount: 3493.89,
+    workerCount: 5461.18,
     workerRemoteAccess: true,
   },
 };

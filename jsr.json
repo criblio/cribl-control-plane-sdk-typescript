@@ -2,7 +2,7 @@
 
 {
   "name": "cribl-control-plane",
-  "version": "0.5.0-rc.32",
+  "version": "0.5.0-rc.33",
   "exports": {
     ".": "./src/index.ts",    
     "./models/errors": "./src/models/errors/index.ts",    
