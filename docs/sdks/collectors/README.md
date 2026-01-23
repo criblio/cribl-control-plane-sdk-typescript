@@ -85,6 +85,8 @@ async function run() {
             },
           },
         },
+        destructive: true,
+        encoding: "<value>",
       },
       input: {
         type: "collection",
@@ -192,6 +194,8 @@ async function run() {
             },
           },
         },
+        destructive: true,
+        encoding: "<value>",
       },
       input: {
         type: "collection",
@@ -574,6 +578,8 @@ async function run() {
             },
           },
         },
+        destructive: true,
+        encoding: "<value>",
       },
       input: {
         type: "collection",
@@ -685,6 +691,8 @@ async function run() {
             },
           },
         },
+        destructive: true,
+        encoding: "<value>",
       },
       input: {
         type: "collection",

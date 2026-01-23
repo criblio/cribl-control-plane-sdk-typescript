@@ -1,17 +1,58 @@
 # RestAuthenticationBasicDiscovery
 
-## Example Usage
+
+## Supported Types
+
+### `models.RestAuthenticationBasicRestDiscoveryDiscoverTypeHttp`
 
 ```typescript
-import { RestAuthenticationBasicDiscovery } from "cribl-control-plane/models";
+const value: models.RestAuthenticationBasicRestDiscoveryDiscoverTypeHttp = {
+  discoverMethod: "post",
+  discoverRequestParams: "<value>",
+  discoverType: "json",
+  discoverUrl: "https://colorful-willow.com",
+  discoverVerb: "<value>",
+  discoverBody: "<value>",
+  discoverRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pagination: {
+    type: "<value>",
+  },
+  discoverDataField: "<value>",
+  enableStrictDiscoverParsing: false,
+  discoverResponseFormat: "<value>",
+  enableDiscoverCode: false,
+};
+```
 
-let value: RestAuthenticationBasicDiscovery = {
+### `models.RestAuthenticationBasicRestDiscoveryDiscoverTypeJson`
+
+```typescript
+const value: models.RestAuthenticationBasicRestDiscoveryDiscoverTypeJson = {
+  discoverType: "json",
+  manualDiscoverResult: "<value>",
+  discoverDataField: "<value>",
+};
+```
+
+### `models.RestAuthenticationBasicRestDiscoveryDiscoverTypeList`
+
+```typescript
+const value: models.RestAuthenticationBasicRestDiscoveryDiscoverTypeList = {
+  discoverType: "list",
+  itemList: [],
+};
+```
+
+### `models.RestAuthenticationBasicRestDiscoveryDiscoverTypeNone`
+
+```typescript
+const value: models.RestAuthenticationBasicRestDiscoveryDiscoverTypeNone = {
   discoverType: "none",
 };
 ```
 
-## Fields
-
-| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
-| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `discoverType`                                                                                                             | [models.RestAuthenticationBasicDiscoverType](../models/restauthenticationbasicdiscovertype.md)                             | :heavy_check_mark:                                                                                                         | Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task. |

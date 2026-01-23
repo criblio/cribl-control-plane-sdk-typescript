@@ -60,10 +60,11 @@ let value: InputSecurityLake = {
   durationSeconds: 9621.57,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [

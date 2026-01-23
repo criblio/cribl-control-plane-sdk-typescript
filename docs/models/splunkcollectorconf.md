@@ -32,7 +32,7 @@ const value: models.SplunkAuthenticationNone = {
   rejectUnauthorized: false,
   handleEscapedChars: false,
   retryRules: {
-    type: "static",
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -75,7 +75,7 @@ const value: models.SplunkAuthenticationBasic = {
   rejectUnauthorized: false,
   handleEscapedChars: true,
   retryRules: {
-    type: "backoff",
+    type: "none",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -201,7 +201,7 @@ const value: models.SplunkAuthenticationTokenSecret = {
   rejectUnauthorized: true,
   handleEscapedChars: false,
   retryRules: {
-    type: "static",
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -248,14 +248,14 @@ const value: models.SplunkAuthenticationLogin = {
   rejectUnauthorized: true,
   handleEscapedChars: true,
   retryRules: {
-    type: "backoff",
+    type: "static",
     interval: "<value>",
     limit: "<value>",
-    multiplier: "<value>",
     codes: "<value>",
     enableHeader: "<value>",
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
+    multiplier: "<value>",
   },
 };
 ```
@@ -294,7 +294,7 @@ const value: models.SplunkAuthenticationLoginSecret = {
   rejectUnauthorized: true,
   handleEscapedChars: false,
   retryRules: {
-    type: "static",
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",

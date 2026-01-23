@@ -20,6 +20,8 @@ let value: CollectorScript = {
       },
     ],
   },
+  destructive: true,
+  encoding: "<value>",
 };
 ```
 
@@ -29,3 +31,5 @@ let value: CollectorScript = {
 | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
 | `type`                                                         | *"script"*                                                     | :heavy_check_mark:                                             | Collector type                                                 |
 | `conf`                                                         | [models.ScriptCollectorConf](../models/scriptcollectorconf.md) | :heavy_check_mark:                                             | N/A                                                            |
+| `destructive`                                                  | *boolean*                                                      | :heavy_minus_sign:                                             | Delete any files collected (where applicable)                  |
+| `encoding`                                                     | *string*                                                       | :heavy_minus_sign:                                             | Character encoding to use when parsing ingested data.          |

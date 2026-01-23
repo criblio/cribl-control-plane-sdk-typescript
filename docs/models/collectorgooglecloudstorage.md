@@ -28,12 +28,16 @@ let value: CollectorGoogleCloudStorage = {
     parquetChunkSizeMB: 2920.25,
     parquetChunkDownloadTimeout: 430.44,
   },
+  destructive: false,
+  encoding: "<value>",
 };
 ```
 
 ## Fields
 
-| Field                                    | Type                                     | Required                                 | Description                              |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| `type`                                   | *"google_cloud_storage"*                 | :heavy_check_mark:                       | Collector type                           |
-| `conf`                                   | *models.GoogleCloudStorageCollectorConf* | :heavy_check_mark:                       | N/A                                      |
+| Field                                                 | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `type`                                                | *"google_cloud_storage"*                              | :heavy_check_mark:                                    | Collector type                                        |
+| `conf`                                                | *models.GoogleCloudStorageCollectorConf*              | :heavy_check_mark:                                    | N/A                                                   |
+| `destructive`                                         | *boolean*                                             | :heavy_minus_sign:                                    | Delete any files collected (where applicable)         |
+| `encoding`                                            | *string*                                              | :heavy_minus_sign:                                    | Character encoding to use when parsing ingested data. |

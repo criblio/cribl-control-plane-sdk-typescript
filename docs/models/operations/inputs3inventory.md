@@ -60,10 +60,11 @@ let value: InputS3Inventory = {
   durationSeconds: 4249.9,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: false,
+    disabled: true,
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [
