@@ -17,15 +17,15 @@ let value: CountedConfigGroup = {
       deployingWorkerCount: 7401.8,
       description:
         "corrupt indeed brightly yippee ick that proceed deck indeed",
-      estimatedIngestRate: 3072,
+      estimatedIngestRate: 4096,
       git: {
         commit: "<value>",
-        localChanges: 2849.05,
+        localChanges: 3203.95,
         log: [
           {
             author_email: "<value>",
             author_name: "<value>",
-            date: "2024-12-12",
+            date: "2024-04-14",
             hash: "<value>",
             message: "<value>",
             short: "<value>",
@@ -33,10 +33,8 @@ let value: CountedConfigGroup = {
         ],
       },
       id: "<id>",
-      incompatibleWorkerCount: 5276.4,
+      incompatibleWorkerCount: 9454.96,
       inherits: "<value>",
-      isFleet: true,
-      isSearch: true,
       lookupDeployments: [
         {
           context: "<value>",
@@ -51,16 +49,16 @@ let value: CountedConfigGroup = {
       ],
       maxWorkerAge: "<value>",
       name: "<value>",
-      onPrem: false,
-      provisioned: false,
+      onPrem: true,
+      provisioned: true,
       streamtags: [
         "<value 1>",
         "<value 2>",
       ],
       tags: "<value>",
-      type: "edge",
+      type: "lake_access",
       upgradeVersion: "<value>",
-      workerCount: 927.49,
+      workerCount: 6448.97,
       workerRemoteAccess: true,
     },
   ],
