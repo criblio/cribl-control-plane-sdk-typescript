@@ -321,8 +321,6 @@ export * from "./itemstypekeyvaluemetadata.js";
 export * from "./itemstypelabels.js";
 export * from "./itemstypeloglabels.js";
 export * from "./itemstypenotificationmetadata.js";
-export * from "./itemstypeoauthheaders.js";
-export * from "./itemstypeoauthparams.js";
 export * from "./itemstypepoliciesitemstemplatetargetpairs.js";
 export * from "./itemstypeprocesssets.js";
 export * from "./itemstyperesponseretrysettings.js";

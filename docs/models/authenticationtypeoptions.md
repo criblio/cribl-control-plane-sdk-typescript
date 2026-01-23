@@ -7,7 +7,7 @@ OpenTelemetry authentication type
 ```typescript
 import { AuthenticationTypeOptions } from "cribl-control-plane/models";
 
-let value: AuthenticationTypeOptions = "oauth";
+let value: AuthenticationTypeOptions = "textSecret";
 ```
 
 ## Values
@@ -15,5 +15,5 @@ let value: AuthenticationTypeOptions = "oauth";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"none" | "basic" | "credentialsSecret" | "token" | "textSecret" | "oauth" | Unrecognized<string>
+"none" | "basic" | "credentialsSecret" | "token" | "textSecret" | Unrecognized<string>
 ```
