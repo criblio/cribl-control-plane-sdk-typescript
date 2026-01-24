@@ -41,14 +41,24 @@ export type ConfigGroup = {
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
   /**
-   * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+   * Estimated ingest rate for Cloud Groups, in GB/sec.
    */
   estimatedIngestRate?: EstimatedIngestRateOptionsConfigGroup | undefined;
   git?: GitTypeConfigGroup | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
   inherits?: string | undefined;
+  /**
+   * Indicates whether this is an Edge Fleet. This flag is deprecated — use to identify Edge Fleets.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
   isFleet?: boolean | undefined;
+  /**
+   * Indicates whether this is an internal Search Group. This flag is deprecated — use to identify Search Groups.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
   isSearch?: boolean | undefined;
   lookupDeployments?: Array<ConfigGroupLookups> | undefined;
   maxWorkerAge?: string | undefined;
