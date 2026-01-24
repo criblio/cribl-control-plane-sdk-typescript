@@ -14,15 +14,15 @@ let value: CreateConfigGroupByProductRequest = {
     },
     deployingWorkerCount: 1686.56,
     description: "reorient honestly bewail yummy athwart",
-    estimatedIngestRate: 5120,
+    estimatedIngestRate: 4096,
     git: {
       commit: "<value>",
-      localChanges: 2849.05,
+      localChanges: 3203.95,
       log: [
         {
           author_email: "<value>",
           author_name: "<value>",
-          date: "2024-12-12",
+          date: "2024-04-14",
           hash: "<value>",
           message: "<value>",
           short: "<value>",
@@ -30,10 +30,8 @@ let value: CreateConfigGroupByProductRequest = {
       ],
     },
     id: "<id>",
-    incompatibleWorkerCount: 4323.13,
+    incompatibleWorkerCount: 4612.22,
     inherits: "<value>",
-    isFleet: true,
-    isSearch: true,
     lookupDeployments: [
       {
         context: "<value>",
@@ -48,18 +46,16 @@ let value: CreateConfigGroupByProductRequest = {
     ],
     maxWorkerAge: "<value>",
     name: "<value>",
-    onPrem: false,
+    onPrem: true,
     provisioned: true,
     sourceGroupId: "<id>",
     streamtags: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     tags: "<value>",
-    type: "lake_access",
+    type: "local_search",
     upgradeVersion: "<value>",
-    workerCount: 5687.41,
+    workerCount: 417.31,
     workerRemoteAccess: false,
   },
 };
