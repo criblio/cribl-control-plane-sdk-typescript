@@ -57,7 +57,6 @@ typescript:
   formStringArrayEncodeMode: encoded-string
   forwardCompatibleEnumsByDefault: true
   forwardCompatibleUnionsByDefault: tagged-only
-  laxMode: lax
   generateExamples: true
   imports:
     option: openapi
@@ -70,7 +69,7 @@ typescript:
   inferUnionDiscriminators: true
   inputModelSuffix: input
   jsonpath: rfc9535
-  laxMode: strict
+  laxMode: lax
   maxMethodParams: 0
   methodArguments: infer-optional-args
   modelPropertyCasing: camel
