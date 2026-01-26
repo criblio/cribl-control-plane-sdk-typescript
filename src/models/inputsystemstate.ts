@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   DataCompressionFormatOptionsPersistence,
   DataCompressionFormatOptionsPersistence$inboundSchema,
@@ -237,7 +238,7 @@ export const HostsFile$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
+  enable: types.optional(types.boolean()),
 });
 /** @internal */
 export type HostsFile$Outbound = {
@@ -272,7 +273,7 @@ export const Interfaces$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
+  enable: types.optional(types.boolean()),
 });
 /** @internal */
 export type Interfaces$Outbound = {
@@ -307,7 +308,7 @@ export const DisksAndFileSystems$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
+  enable: types.optional(types.boolean()),
 });
 /** @internal */
 export type DisksAndFileSystems$Outbound = {
@@ -346,7 +347,7 @@ export const HostInfo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
+  enable: types.optional(types.boolean()),
 });
 /** @internal */
 export type HostInfo$Outbound = {
@@ -381,7 +382,7 @@ export const InputSystemStateRoutes$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
+  enable: types.optional(types.boolean()),
 });
 /** @internal */
 export type InputSystemStateRoutes$Outbound = {
@@ -417,7 +418,7 @@ export function inputSystemStateRoutesFromJSON(
 /** @internal */
 export const Dns$inboundSchema: z.ZodType<Dns, z.ZodTypeDef, unknown> = z
   .object({
-    enable: z.boolean().optional(),
+    enable: types.optional(types.boolean()),
   });
 /** @internal */
 export type Dns$Outbound = {
@@ -449,7 +450,7 @@ export const UsersAndGroups$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
+  enable: types.optional(types.boolean()),
 });
 /** @internal */
 export type UsersAndGroups$Outbound = {
@@ -484,7 +485,7 @@ export const Firewall$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
+  enable: types.optional(types.boolean()),
 });
 /** @internal */
 export type Firewall$Outbound = {
@@ -519,7 +520,7 @@ export const Services$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
+  enable: types.optional(types.boolean()),
 });
 /** @internal */
 export type Services$Outbound = {
@@ -554,7 +555,7 @@ export const ListeningPorts$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
+  enable: types.optional(types.boolean()),
 });
 /** @internal */
 export type ListeningPorts$Outbound = {
@@ -589,7 +590,7 @@ export const LoggedInUsers$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
+  enable: types.optional(types.boolean()),
 });
 /** @internal */
 export type LoggedInUsers$Outbound = {
@@ -624,17 +625,17 @@ export const Collectors$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  hostsfile: z.lazy(() => HostsFile$inboundSchema).optional(),
-  interfaces: z.lazy(() => Interfaces$inboundSchema).optional(),
-  disk: z.lazy(() => DisksAndFileSystems$inboundSchema).optional(),
-  metadata: z.lazy(() => HostInfo$inboundSchema).optional(),
-  routes: z.lazy(() => InputSystemStateRoutes$inboundSchema).optional(),
-  dns: z.lazy(() => Dns$inboundSchema).optional(),
-  user: z.lazy(() => UsersAndGroups$inboundSchema).optional(),
-  firewall: z.lazy(() => Firewall$inboundSchema).optional(),
-  services: z.lazy(() => Services$inboundSchema).optional(),
-  ports: z.lazy(() => ListeningPorts$inboundSchema).optional(),
-  loginUsers: z.lazy(() => LoggedInUsers$inboundSchema).optional(),
+  hostsfile: types.optional(z.lazy(() => HostsFile$inboundSchema)),
+  interfaces: types.optional(z.lazy(() => Interfaces$inboundSchema)),
+  disk: types.optional(z.lazy(() => DisksAndFileSystems$inboundSchema)),
+  metadata: types.optional(z.lazy(() => HostInfo$inboundSchema)),
+  routes: types.optional(z.lazy(() => InputSystemStateRoutes$inboundSchema)),
+  dns: types.optional(z.lazy(() => Dns$inboundSchema)),
+  user: types.optional(z.lazy(() => UsersAndGroups$inboundSchema)),
+  firewall: types.optional(z.lazy(() => Firewall$inboundSchema)),
+  services: types.optional(z.lazy(() => Services$inboundSchema)),
+  ports: types.optional(z.lazy(() => ListeningPorts$inboundSchema)),
+  loginUsers: types.optional(z.lazy(() => LoggedInUsers$inboundSchema)),
 });
 /** @internal */
 export type Collectors$Outbound = {
@@ -689,12 +690,14 @@ export const InputSystemStatePersistence$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
-  timeWindow: z.string().optional(),
-  maxDataSize: z.string().optional(),
-  maxDataTime: z.string().optional(),
-  compress: DataCompressionFormatOptionsPersistence$inboundSchema.optional(),
-  destPath: z.string().optional(),
+  enable: types.optional(types.boolean()),
+  timeWindow: types.optional(types.string()),
+  maxDataSize: types.optional(types.string()),
+  maxDataTime: types.optional(types.string()),
+  compress: types.optional(
+    DataCompressionFormatOptionsPersistence$inboundSchema,
+  ),
+  destPath: types.optional(types.string()),
 });
 /** @internal */
 export type InputSystemStatePersistence$Outbound = {
@@ -745,24 +748,29 @@ export const InputSystemState$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("system_state"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  interval: z.number().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  collectors: z.lazy(() => Collectors$inboundSchema).optional(),
-  persistence: z.lazy(() => InputSystemStatePersistence$inboundSchema)
-    .optional(),
-  disableNativeModule: z.boolean().optional(),
-  disableNativeLastLogModule: z.boolean().optional(),
-  description: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("system_state"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  interval: types.optional(types.number()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  collectors: types.optional(z.lazy(() => Collectors$inboundSchema)),
+  persistence: types.optional(
+    z.lazy(() => InputSystemStatePersistence$inboundSchema),
+  ),
+  disableNativeModule: types.optional(types.boolean()),
+  disableNativeLastLogModule: types.optional(types.boolean()),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type InputSystemState$Outbound = {

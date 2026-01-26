@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   CacheConnection,
   CacheConnection$inboundSchema,
@@ -52,19 +53,19 @@ export const CriblLakeDataset$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  acceleratedFields: z.array(z.string()).optional(),
-  bucketName: z.string().optional(),
-  cacheConnection: CacheConnection$inboundSchema.optional(),
-  deletionStartedAt: z.number().optional(),
-  description: z.string().optional(),
-  format: FormatOptionsCriblLakeDataset$inboundSchema.optional(),
-  httpDAUsed: z.boolean().optional(),
-  id: z.string(),
-  metrics: LakeDatasetMetrics$inboundSchema.optional(),
-  retentionPeriodInDays: z.number().optional(),
-  searchConfig: LakeDatasetSearchConfig$inboundSchema.optional(),
-  storageLocationId: z.string().optional(),
-  viewName: z.string().optional(),
+  acceleratedFields: types.optional(z.array(types.string())),
+  bucketName: types.optional(types.string()),
+  cacheConnection: types.optional(CacheConnection$inboundSchema),
+  deletionStartedAt: types.optional(types.number()),
+  description: types.optional(types.string()),
+  format: types.optional(FormatOptionsCriblLakeDataset$inboundSchema),
+  httpDAUsed: types.optional(types.boolean()),
+  id: types.string(),
+  metrics: types.optional(LakeDatasetMetrics$inboundSchema),
+  retentionPeriodInDays: types.optional(types.number()),
+  searchConfig: types.optional(LakeDatasetSearchConfig$inboundSchema),
+  storageLocationId: types.optional(types.string()),
+  viewName: types.optional(types.string()),
 });
 /** @internal */
 export type CriblLakeDataset$Outbound = {

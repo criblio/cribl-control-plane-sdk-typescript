@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type Command = {
@@ -120,10 +121,10 @@ export type PipelineFunctionRedis = {
 /** @internal */
 export const Command$inboundSchema: z.ZodType<Command, z.ZodTypeDef, unknown> =
   z.object({
-    outField: z.string().optional(),
-    command: z.string(),
-    keyExpr: z.string(),
-    argsExpr: z.string().optional(),
+    outField: types.optional(types.string()),
+    command: types.string(),
+    keyExpr: types.string(),
+    argsExpr: types.optional(types.string()),
   });
 /** @internal */
 export type Command$Outbound = {
@@ -189,10 +190,12 @@ export const PipelineFunctionRedisConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   commands: z.array(z.lazy(() => Command$inboundSchema)),
-  deploymentType: DeploymentType$inboundSchema.optional(),
-  authType: PipelineFunctionRedisAuthenticationMethod$inboundSchema.optional(),
-  maxBlockSecs: z.number().optional(),
-  enableClientSideCaching: z.boolean().optional(),
+  deploymentType: types.optional(DeploymentType$inboundSchema),
+  authType: types.optional(
+    PipelineFunctionRedisAuthenticationMethod$inboundSchema,
+  ),
+  maxBlockSecs: types.optional(types.number()),
+  enableClientSideCaching: types.optional(types.boolean()),
 });
 /** @internal */
 export type PipelineFunctionRedisConf$Outbound = {
@@ -239,13 +242,13 @@ export const PipelineFunctionRedis$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("redis"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("redis"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionRedisConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionRedis$Outbound = {

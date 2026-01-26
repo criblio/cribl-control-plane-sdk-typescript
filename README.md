@@ -312,7 +312,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [System.Captures](docs/sdks/captures/README.md)
 
-* [get](docs/sdks/captures/README.md#get) - Capture live incoming data
+* [create](docs/sdks/captures/README.md#create) - Capture live incoming data
 
 ### [System.Settings.Cribl](docs/sdks/cribl/README.md)
 
@@ -426,7 +426,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesHecTokensUpdate`](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 - [`sourcesList`](docs/sdks/sources/README.md#list) - List all Sources
 - [`sourcesUpdate`](docs/sdks/sources/README.md#update) - Update a Source
-- [`systemCapturesGet`](docs/sdks/captures/README.md#get) - Capture live incoming data
+- [`systemCapturesCreate`](docs/sdks/captures/README.md#create) - Capture live incoming data
 - [`systemSettingsCriblList`](docs/sdks/cribl/README.md#list) - Get Cribl system settings
 - [`systemSettingsCriblUpdate`](docs/sdks/cribl/README.md#update) - Update Cribl system settings
 - [`versionsBranchesGet`](docs/sdks/branches/README.md#get) - Get the name of the Git branch that the Cribl configuration is checked out to
@@ -464,7 +464,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.system.captures.get({
+  const result = await criblControlPlane.system.captures.create({
     duration: 5,
     filter: "true",
     level: 0,

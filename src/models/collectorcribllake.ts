@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   CriblLakeCollectorConf,
   CriblLakeCollectorConf$inboundSchema,
@@ -38,10 +39,10 @@ export const CollectorCriblLake$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.literal("cribl_lake"),
+  type: types.literal("cribl_lake"),
   conf: CriblLakeCollectorConf$inboundSchema,
-  destructive: z.boolean().optional(),
-  encoding: z.string().optional(),
+  destructive: types.optional(types.boolean()),
+  encoding: types.optional(types.string()),
 });
 /** @internal */
 export type CollectorCriblLake$Outbound = {

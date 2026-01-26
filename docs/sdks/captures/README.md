@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [get](#get) - Capture live incoming data
+* [create](#create) - Capture live incoming data
 
-## get
+## create
 
-Capture live incoming data
+Initiate a live data capture from Cribl Workers.Returns a stream of captured events in NDJSON format that match the parameters specified in the request body.
 
 ### Example Usage
 
@@ -24,7 +24,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.system.captures.get({
+  const result = await criblControlPlane.system.captures.create({
     duration: 5,
     filter: "true",
     level: 0,
@@ -49,7 +49,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { systemCapturesGet } from "cribl-control-plane/funcs/systemCapturesGet.js";
+import { systemCapturesCreate } from "cribl-control-plane/funcs/systemCapturesCreate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -61,7 +61,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await systemCapturesGet(criblControlPlane, {
+  const res = await systemCapturesCreate(criblControlPlane, {
     duration: 5,
     filter: "true",
     level: 0,
@@ -77,7 +77,7 @@ async function run() {
     console.log(event);
   }
   } else {
-    console.log("systemCapturesGet failed:", res.error);
+    console.log("systemCapturesCreate failed:", res.error);
   }
 }
 

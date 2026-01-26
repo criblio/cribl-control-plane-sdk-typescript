@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionConfSchemaFoldkeys = {
@@ -28,9 +29,9 @@ export const FunctionConfSchemaFoldkeys$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  deleteOriginal: z.boolean().optional(),
-  separator: z.string().optional(),
-  selectionRegExp: z.string().optional(),
+  deleteOriginal: types.optional(types.boolean()),
+  separator: types.optional(types.string()),
+  selectionRegExp: types.optional(types.string()),
 });
 /** @internal */
 export type FunctionConfSchemaFoldkeys$Outbound = {

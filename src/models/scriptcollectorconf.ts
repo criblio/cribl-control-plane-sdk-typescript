@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type EnvVar = {
@@ -40,8 +41,8 @@ export type ScriptCollectorConf = {
 /** @internal */
 export const EnvVar$inboundSchema: z.ZodType<EnvVar, z.ZodTypeDef, unknown> = z
   .object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type EnvVar$Outbound = {
@@ -78,10 +79,10 @@ export const ScriptCollectorConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  discoverScript: z.string(),
-  collectScript: z.string(),
-  shell: z.string().optional(),
-  envVars: z.array(z.lazy(() => EnvVar$inboundSchema)).optional(),
+  discoverScript: types.string(),
+  collectScript: types.string(),
+  shell: types.optional(types.string()),
+  envVars: types.optional(z.array(z.lazy(() => EnvVar$inboundSchema))),
 });
 /** @internal */
 export type ScriptCollectorConf$Outbound = {

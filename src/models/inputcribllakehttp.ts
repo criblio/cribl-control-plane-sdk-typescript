@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -181,9 +182,9 @@ export const SplunkHecMetadata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
-  defaultDataset: z.string().optional(),
-  allowedIndexesAtToken: z.array(z.string()).optional(),
+  enabled: types.optional(types.boolean()),
+  defaultDataset: types.optional(types.string()),
+  allowedIndexesAtToken: types.optional(z.array(types.string())),
 });
 /** @internal */
 export type SplunkHecMetadata$Outbound = {
@@ -226,8 +227,8 @@ export const ElasticsearchMetadata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
-  defaultDataset: z.string().optional(),
+  enabled: types.optional(types.boolean()),
+  defaultDataset: types.optional(types.string()),
 });
 /** @internal */
 export type ElasticsearchMetadata$Outbound = {
@@ -268,12 +269,17 @@ export const AuthTokensExt$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  token: z.string(),
-  description: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  splunkHecMetadata: z.lazy(() => SplunkHecMetadata$inboundSchema).optional(),
-  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata$inboundSchema)
-    .optional(),
+  token: types.string(),
+  description: types.optional(types.string()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  splunkHecMetadata: types.optional(
+    z.lazy(() => SplunkHecMetadata$inboundSchema),
+  ),
+  elasticsearchMetadata: types.optional(
+    z.lazy(() => ElasticsearchMetadata$inboundSchema),
+  ),
 });
 /** @internal */
 export type AuthTokensExt$Outbound = {
@@ -317,41 +323,47 @@ export const InputCriblLakeHttp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("cribl_lake_http"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string(),
-  port: z.number(),
-  authTokens: z.array(z.string()).optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().optional(),
-  maxRequestsPerSocket: z.number().int().optional(),
-  enableProxyHeader: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  activityLogSampleRate: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  socketTimeout: z.number().optional(),
-  keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.boolean().optional(),
-  ipAllowlistRegex: z.string().optional(),
-  ipDenylistRegex: z.string().optional(),
-  criblAPI: z.string().optional(),
-  elasticAPI: z.string().optional(),
-  splunkHecAPI: z.string().optional(),
-  splunkHecAcks: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  authTokensExt: z.array(z.lazy(() => AuthTokensExt$inboundSchema)).optional(),
-  description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
-  __template_splunkHecAPI: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("cribl_lake_http"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(z.array(types.string())),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  criblAPI: types.optional(types.string()),
+  elasticAPI: types.optional(types.string()),
+  splunkHecAPI: types.optional(types.string()),
+  splunkHecAcks: types.optional(types.boolean()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  authTokensExt: types.optional(
+    z.array(z.lazy(() => AuthTokensExt$inboundSchema)),
+  ),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  __template_splunkHecAPI: types.optional(types.string()),
 });
 /** @internal */
 export type InputCriblLakeHttp$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionConfSchemaFlatten = {
@@ -32,10 +33,10 @@ export const FunctionConfSchemaFlatten$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  fields: z.array(z.string()).optional(),
-  prefix: z.string().optional(),
-  depth: z.number().optional(),
-  delimiter: z.string().optional(),
+  fields: types.optional(z.array(types.string())),
+  prefix: types.optional(types.string()),
+  depth: types.optional(types.number()),
+  delimiter: types.optional(types.string()),
 });
 /** @internal */
 export type FunctionConfSchemaFlatten$Outbound = {

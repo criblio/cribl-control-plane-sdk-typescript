@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type TlsSettingsClientSideType = {
@@ -21,8 +22,8 @@ export const TlsSettingsClientSideType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean(),
-  rejectUnauthorized: z.boolean().optional(),
+  disabled: types.boolean(),
+  rejectUnauthorized: types.optional(types.boolean()),
 });
 /** @internal */
 export type TlsSettingsClientSideType$Outbound = {

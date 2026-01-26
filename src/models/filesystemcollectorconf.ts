@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FilesystemCollectorConfExtractor = {
@@ -47,8 +48,8 @@ export const FilesystemCollectorConfExtractor$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  key: z.string(),
-  expression: z.string(),
+  key: types.string(),
+  expression: types.string(),
 });
 /** @internal */
 export type FilesystemCollectorConfExtractor$Outbound = {
@@ -91,13 +92,13 @@ export const FilesystemCollectorConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  outputName: z.string().optional(),
-  path: z.string(),
-  extractors: z.array(
-    z.lazy(() => FilesystemCollectorConfExtractor$inboundSchema),
-  ).optional(),
-  recurse: z.boolean().optional(),
-  maxBatchSize: z.number().optional(),
+  outputName: types.optional(types.string()),
+  path: types.string(),
+  extractors: types.optional(
+    z.array(z.lazy(() => FilesystemCollectorConfExtractor$inboundSchema)),
+  ),
+  recurse: types.optional(types.boolean()),
+  maxBatchSize: types.optional(types.number()),
 });
 /** @internal */
 export type FilesystemCollectorConf$Outbound = {

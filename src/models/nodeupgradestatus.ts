@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   NodeActiveUpgradeStatus,
@@ -37,11 +38,11 @@ export const NodeUpgradeStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  active: NodeActiveUpgradeStatus$inboundSchema.optional(),
-  failed: NodeFailedUpgradeStatus$inboundSchema.optional(),
-  skipped: NodeSkippedUpgradeStatus$inboundSchema.optional(),
+  active: types.optional(NodeActiveUpgradeStatus$inboundSchema),
+  failed: types.optional(NodeFailedUpgradeStatus$inboundSchema),
+  skipped: types.optional(NodeSkippedUpgradeStatus$inboundSchema),
   state: NodeUpgradeState$inboundSchema,
-  timestamp: z.number(),
+  timestamp: types.number(),
 });
 
 export function nodeUpgradeStatusFromJSON(

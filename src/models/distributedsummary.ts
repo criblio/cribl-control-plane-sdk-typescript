@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type Groups = {
@@ -35,13 +36,13 @@ export type DistributedSummary = {
 /** @internal */
 export const Groups$inboundSchema: z.ZodType<Groups, z.ZodTypeDef, unknown> = z
   .object({
-    count: z.number(),
-    destinations: z.number(),
-    packs: z.number(),
-    pipelines: z.number(),
-    quickConnects: z.number(),
-    routes: z.number(),
-    sources: z.number(),
+    count: types.number(),
+    destinations: types.number(),
+    packs: types.number(),
+    pipelines: types.number(),
+    quickConnects: types.number(),
+    routes: types.number(),
+    sources: types.number(),
   });
 
 export function groupsFromJSON(
@@ -60,13 +61,13 @@ export const DistributedSummaryWorkers$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  alive: z.number(),
-  confVersions: z.number(),
-  count: z.number(),
-  disconnectedCount: z.number(),
-  groups: z.number(),
-  softwareVersions: z.number(),
-  unhealthy: z.number(),
+  alive: types.number(),
+  confVersions: types.number(),
+  count: types.number(),
+  disconnectedCount: types.number(),
+  groups: types.number(),
+  softwareVersions: types.number(),
+  unhealthy: types.number(),
 });
 
 export function distributedSummaryWorkersFromJSON(
