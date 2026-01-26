@@ -55,8 +55,9 @@ typescript:
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   formStringArrayEncodeMode: encoded-string
-  forwardCompatibleEnumsByDefault: false
-  forwardCompatibleUnionsByDefault: "false"
+  forwardCompatibleEnumsByDefault: true
+  forwardCompatibleUnionsByDefault: tagged-only
+  laxMode: lax
   generateExamples: true
   imports:
     option: openapi
@@ -82,7 +83,7 @@ typescript:
   responseFormat: flat
   sseFlatResponse: false
   templateVersion: v2
-  unionStrategy: left-to-right
+  unionStrategy: populated-fields
   usageSDKInitImports: []
   useIndexModules: true
   zodVersion: v3
