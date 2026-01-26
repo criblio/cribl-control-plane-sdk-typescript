@@ -7,36 +7,50 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type OutputXsiamExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputXsiamFailedRequestLoggingMode = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputXsiamFailedRequestLoggingMode = OpenEnum<
-  typeof OutputXsiamFailedRequestLoggingMode
->;
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 /**
  * Enter a token directly, or provide a secret referencing a token
@@ -52,65 +66,6 @@ export type OutputXsiamAuthenticationMethod = OpenEnum<
   typeof OutputXsiamAuthenticationMethod
 >;
 
-export type OutputXsiamResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputXsiamTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputXsiamBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputXsiamBackpressureBehavior = OpenEnum<
-  typeof OutputXsiamBackpressureBehavior
->;
-
 export type OutputXsiamUrl = {
   url?: any | undefined;
   /**
@@ -118,66 +73,6 @@ export type OutputXsiamUrl = {
    */
   weight?: number | undefined;
 };
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputXsiamMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputXsiamMode = OpenEnum<typeof OutputXsiamMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputXsiamCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputXsiamCompression = OpenEnum<typeof OutputXsiamCompression>;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputXsiamQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputXsiamQueueFullBehavior = OpenEnum<
-  typeof OutputXsiamQueueFullBehavior
->;
 
 export type OutputXsiamPqControls = {};
 
@@ -238,11 +133,11 @@ export type OutputXsiam = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputXsiamExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputXsiamFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -254,8 +149,8 @@ export type OutputXsiam = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputXsiamResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputXsiamTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -267,7 +162,7 @@ export type OutputXsiam = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputXsiamBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -313,7 +208,7 @@ export type OutputXsiam = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputXsiamMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -337,68 +232,13 @@ export type OutputXsiam = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputXsiamCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputXsiamQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputXsiamPqControls | undefined;
 };
-
-/** @internal */
-export const OutputXsiamExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputXsiamExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputXsiamExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputXsiamExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputXsiamExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputXsiamExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputXsiamExtraHttpHeaderToJSON(
-  outputXsiamExtraHttpHeader: OutputXsiamExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputXsiamExtraHttpHeader$outboundSchema.parse(outputXsiamExtraHttpHeader),
-  );
-}
-export function outputXsiamExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputXsiamExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputXsiamExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputXsiamExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputXsiamFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputXsiamFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputXsiamFailedRequestLoggingMode);
-/** @internal */
-export const OutputXsiamFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputXsiamFailedRequestLoggingMode
-> = openEnums.outboundSchema(OutputXsiamFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputXsiamAuthenticationMethod$inboundSchema: z.ZodType<
@@ -414,131 +254,18 @@ export const OutputXsiamAuthenticationMethod$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputXsiamAuthenticationMethod);
 
 /** @internal */
-export const OutputXsiamResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputXsiamResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputXsiamResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputXsiamResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputXsiamResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputXsiamResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputXsiamResponseRetrySettingToJSON(
-  outputXsiamResponseRetrySetting: OutputXsiamResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputXsiamResponseRetrySetting$outboundSchema.parse(
-      outputXsiamResponseRetrySetting,
-    ),
-  );
-}
-export function outputXsiamResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputXsiamResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputXsiamResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputXsiamResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputXsiamTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputXsiamTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputXsiamTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputXsiamTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputXsiamTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputXsiamTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputXsiamTimeoutRetrySettingsToJSON(
-  outputXsiamTimeoutRetrySettings: OutputXsiamTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputXsiamTimeoutRetrySettings$outboundSchema.parse(
-      outputXsiamTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputXsiamTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputXsiamTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputXsiamTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputXsiamTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputXsiamBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputXsiamBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputXsiamBackpressureBehavior);
-/** @internal */
-export const OutputXsiamBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputXsiamBackpressureBehavior
-> = openEnums.outboundSchema(OutputXsiamBackpressureBehavior);
-
-/** @internal */
 export const OutputXsiamUrl$inboundSchema: z.ZodType<
   OutputXsiamUrl,
   z.ZodTypeDef,
   unknown
 > = z.object({
   url: z.any().optional(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 /** @internal */
 export type OutputXsiamUrl$Outbound = {
   url?: any | undefined;
-  weight: number;
+  weight?: number | undefined;
 };
 
 /** @internal */
@@ -548,7 +275,7 @@ export const OutputXsiamUrl$outboundSchema: z.ZodType<
   OutputXsiamUrl
 > = z.object({
   url: z.any().optional(),
-  weight: z.number().default(1),
+  weight: z.number().optional(),
 });
 
 export function outputXsiamUrlToJSON(outputXsiamUrl: OutputXsiamUrl): string {
@@ -563,45 +290,6 @@ export function outputXsiamUrlFromJSON(
     `Failed to parse 'OutputXsiamUrl' from JSON`,
   );
 }
-
-/** @internal */
-export const OutputXsiamMode$inboundSchema: z.ZodType<
-  OutputXsiamMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputXsiamMode);
-/** @internal */
-export const OutputXsiamMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputXsiamMode
-> = openEnums.outboundSchema(OutputXsiamMode);
-
-/** @internal */
-export const OutputXsiamCompression$inboundSchema: z.ZodType<
-  OutputXsiamCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputXsiamCompression);
-/** @internal */
-export const OutputXsiamCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputXsiamCompression
-> = openEnums.outboundSchema(OutputXsiamCompression);
-
-/** @internal */
-export const OutputXsiamQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputXsiamQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputXsiamQueueFullBehavior);
-/** @internal */
-export const OutputXsiamQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputXsiamQueueFullBehavior
-> = openEnums.outboundSchema(OutputXsiamQueueFullBehavior);
 
 /** @internal */
 export const OutputXsiamPqControls$inboundSchema: z.ZodType<
@@ -648,51 +336,44 @@ export const OutputXsiam$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(false),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(10000),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputXsiamExtraHttpHeader$inboundSchema),
-  ).optional(),
-  failedRequestLoggingMode: OutputXsiamFailedRequestLoggingMode$inboundSchema
-    .default("none"),
+  loadBalanced: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  authType: OutputXsiamAuthenticationMethod$inboundSchema.default("token"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputXsiamResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputXsiamTimeoutRetrySettings$inboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  throttleRateReqPerSec: z.number().int().default(400),
-  onBackpressure: OutputXsiamBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
+  authType: OutputXsiamAuthenticationMethod$inboundSchema.optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  throttleRateReqPerSec: z.number().int().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  url: z.string().default("http://localhost:8088/logs/v1/event"),
-  useRoundRobinDns: z.boolean().default(false),
-  excludeSelf: z.boolean().default(false),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => OutputXsiamUrl$inboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputXsiamMode$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputXsiamCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputXsiamQueueFullBehavior$inboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputXsiamPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -703,44 +384,44 @@ export type OutputXsiam$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced: boolean;
-  concurrency: number;
-  maxPayloadSizeKB: number;
-  maxPayloadEvents: number;
-  rejectUnauthorized: boolean;
-  timeoutSec: number;
-  flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputXsiamExtraHttpHeader$Outbound> | undefined;
-  failedRequestLoggingMode: string;
+  loadBalanced?: boolean | undefined;
+  concurrency?: number | undefined;
+  maxPayloadSizeKB?: number | undefined;
+  maxPayloadEvents?: number | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  timeoutSec?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  authType: string;
+  authType?: string | undefined;
   responseRetrySettings?:
-    | Array<OutputXsiamResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?: OutputXsiamTimeoutRetrySettings$Outbound | undefined;
-  responseHonorRetryAfterHeader: boolean;
-  throttleRateReqPerSec: number;
-  onBackpressure: string;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  throttleRateReqPerSec?: number | undefined;
+  onBackpressure?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  url: string;
-  useRoundRobinDns: boolean;
-  excludeSelf: boolean;
+  url?: string | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  excludeSelf?: boolean | undefined;
   urls?: Array<OutputXsiamUrl$Outbound> | undefined;
-  dnsResolvePeriodSec: number;
-  loadBalanceStatsPeriodSec: number;
+  dnsResolvePeriodSec?: number | undefined;
+  loadBalanceStatsPeriodSec?: number | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputXsiamPqControls$Outbound | undefined;
 };
 
@@ -756,53 +437,45 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.boolean().default(false),
-  concurrency: z.number().default(5),
-  maxPayloadSizeKB: z.number().default(10000),
-  maxPayloadEvents: z.number().default(0),
-  rejectUnauthorized: z.boolean().default(true),
-  timeoutSec: z.number().default(30),
-  flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputXsiamExtraHttpHeader$outboundSchema),
-  ).optional(),
-  failedRequestLoggingMode: OutputXsiamFailedRequestLoggingMode$outboundSchema
-    .default("none"),
+  loadBalanced: z.boolean().optional(),
+  concurrency: z.number().optional(),
+  maxPayloadSizeKB: z.number().optional(),
+  maxPayloadEvents: z.number().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  timeoutSec: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  authType: OutputXsiamAuthenticationMethod$outboundSchema.default("token"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputXsiamResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputXsiamTimeoutRetrySettings$outboundSchema
-  ).optional(),
-  responseHonorRetryAfterHeader: z.boolean().default(true),
-  throttleRateReqPerSec: z.number().int().default(400),
-  onBackpressure: OutputXsiamBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  authType: OutputXsiamAuthenticationMethod$outboundSchema.optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().optional(),
+  throttleRateReqPerSec: z.number().int().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  url: z.string().default("http://localhost:8088/logs/v1/event"),
-  useRoundRobinDns: z.boolean().default(false),
-  excludeSelf: z.boolean().default(false),
+  url: z.string().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  excludeSelf: z.boolean().optional(),
   urls: z.array(z.lazy(() => OutputXsiamUrl$outboundSchema)).optional(),
-  dnsResolvePeriodSec: z.number().default(600),
-  loadBalanceStatsPeriodSec: z.number().default(300),
+  dnsResolvePeriodSec: z.number().optional(),
+  loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputXsiamMode$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputXsiamCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputXsiamQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputXsiamPqControls$outboundSchema).optional(),
 });
 

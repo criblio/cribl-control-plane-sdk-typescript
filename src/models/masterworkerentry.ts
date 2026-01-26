@@ -21,8 +21,6 @@ import {
   NodeUpgradeStatus$inboundSchema,
 } from "./nodeupgradestatus.js";
 
-export type LastMetrics = {};
-
 export const MasterWorkerEntryType = {
   Info: "info",
   Req: "req",
@@ -41,7 +39,7 @@ export type MasterWorkerEntry = {
   group: string;
   id: string;
   info: NodeProvidedInfo;
-  lastMetrics?: LastMetrics | undefined;
+  lastMetrics?: { [k: string]: any } | undefined;
   lastMsgTime: number;
   metadata?: HeartbeatMetadata | undefined;
   nodeUpgradeStatus?: NodeUpgradeStatus | undefined;
@@ -50,23 +48,6 @@ export type MasterWorkerEntry = {
   workerProcesses: number;
   workers?: MasterWorkerEntryWorkers | undefined;
 };
-
-/** @internal */
-export const LastMetrics$inboundSchema: z.ZodType<
-  LastMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function lastMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<LastMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => LastMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'LastMetrics' from JSON`,
-  );
-}
 
 /** @internal */
 export const MasterWorkerEntryType$inboundSchema: z.ZodType<
@@ -106,7 +87,7 @@ export const MasterWorkerEntry$inboundSchema: z.ZodType<
   group: z.string(),
   id: z.string(),
   info: NodeProvidedInfo$inboundSchema,
-  lastMetrics: z.lazy(() => LastMetrics$inboundSchema).optional(),
+  lastMetrics: z.record(z.any()).optional(),
   lastMsgTime: z.number(),
   metadata: HeartbeatMetadata$inboundSchema.optional(),
   nodeUpgradeStatus: NodeUpgradeStatus$inboundSchema.optional(),

@@ -21,8 +21,8 @@ import { CriblControlPlane } from "../dist/esm";
 
 // On-prem configuration: Replace the placeholder values
 const ONPREM_SERVER_URL: string = "http://localhost:9000";  // Replace with your server URL
-const ONPREM_USERNAME: string = "admin"; // Replace with your username
-const ONPREM_PASSWORD: string = "admin"; // Replace with your password
+const ONPREM_USERNAME: string = "admin" // Replace with your username
+const ONPREM_PASSWORD: string = "admin" // Replace with your password
 
 const BASE_URL: string = `${ONPREM_SERVER_URL}/api/v1`;
 
@@ -61,7 +61,7 @@ async function main() {
       username: ONPREM_USERNAME,
       password: ONPREM_PASSWORD,
     });
-    const token = response.token;
+    const token = response.result.token;
     _tokenExpiresAt = _getJwtExp(token);
     _cachedToken = token;
     return { bearerAuth: token };

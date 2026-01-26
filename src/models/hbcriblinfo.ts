@@ -4,15 +4,13 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { HBLeaderInfo, HBLeaderInfo$inboundSchema } from "./hbleaderinfo.js";
 import {
-  LookupVersions,
-  LookupVersions$inboundSchema,
-} from "./lookupversions.js";
+  ModeOptionsInstanceSettingsSchema,
+  ModeOptionsInstanceSettingsSchema$inboundSchema,
+} from "./modeoptionsinstancesettingsschema.js";
 
 export type Config = {
   featuresRev?: string | undefined;
@@ -22,27 +20,16 @@ export type Config = {
   version?: string | undefined;
 };
 
-export const DistMode = {
-  Edge: "edge",
-  Worker: "worker",
-  Single: "single",
-  Master: "master",
-  ManagedEdge: "managed-edge",
-  Outpost: "outpost",
-  SearchSupervisor: "search-supervisor",
-} as const;
-export type DistMode = OpenEnum<typeof DistMode>;
-
 export type HBCriblInfo = {
   config: Config;
   deploymentId?: string | undefined;
   disableSNIRouting?: boolean | undefined;
-  distMode: DistMode;
+  distMode: ModeOptionsInstanceSettingsSchema;
   edgeNodes?: number | undefined;
   group: string;
   guid: string;
   installType?: string | undefined;
-  lookupVersions?: LookupVersions | undefined;
+  lookupVersions?: { [k: string]: { [k: string]: string } } | undefined;
   master?: HBLeaderInfo | undefined;
   pid?: number | undefined;
   socksEnabled?: boolean | undefined;
@@ -72,13 +59,6 @@ export function configFromJSON(
 }
 
 /** @internal */
-export const DistMode$inboundSchema: z.ZodType<
-  DistMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(DistMode);
-
-/** @internal */
 export const HBCriblInfo$inboundSchema: z.ZodType<
   HBCriblInfo,
   z.ZodTypeDef,
@@ -87,12 +67,12 @@ export const HBCriblInfo$inboundSchema: z.ZodType<
   config: z.lazy(() => Config$inboundSchema),
   deploymentId: z.string().optional(),
   disableSNIRouting: z.boolean().optional(),
-  distMode: DistMode$inboundSchema,
+  distMode: ModeOptionsInstanceSettingsSchema$inboundSchema,
   edgeNodes: z.number().optional(),
   group: z.string(),
   guid: z.string(),
   installType: z.string().optional(),
-  lookupVersions: LookupVersions$inboundSchema.optional(),
+  lookupVersions: z.record(z.record(z.string())).optional(),
   master: HBLeaderInfo$inboundSchema.optional(),
   pid: z.number().optional(),
   socksEnabled: z.boolean().optional(),

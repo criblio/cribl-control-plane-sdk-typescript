@@ -6,10 +6,10 @@
 import { CreateConfigGroupByProductRequest } from "cribl-control-plane/models/operations";
 
 let value: CreateConfigGroupByProductRequest = {
-  product: "edge",
+  product: "outpost",
   groupCreateRequest: {
     cloud: {
-      provider: "aws",
+      provider: "azure",
       region: "<value>",
     },
     deployingWorkerCount: 1686.56,
@@ -17,12 +17,12 @@ let value: CreateConfigGroupByProductRequest = {
     estimatedIngestRate: 5120,
     git: {
       commit: "<value>",
-      localChanges: 4323.13,
+      localChanges: 2849.05,
       log: [
         {
           author_email: "<value>",
           author_name: "<value>",
-          date: "2024-12-24",
+          date: "2024-12-12",
           hash: "<value>",
           message: "<value>",
           short: "<value>",
@@ -30,10 +30,10 @@ let value: CreateConfigGroupByProductRequest = {
       ],
     },
     id: "<id>",
-    incompatibleWorkerCount: 4943.01,
+    incompatibleWorkerCount: 4323.13,
     inherits: "<value>",
     isFleet: true,
-    isSearch: false,
+    isSearch: true,
     lookupDeployments: [
       {
         context: "<value>",
@@ -48,8 +48,8 @@ let value: CreateConfigGroupByProductRequest = {
     ],
     maxWorkerAge: "<value>",
     name: "<value>",
-    onPrem: true,
-    provisioned: false,
+    onPrem: false,
+    provisioned: true,
     sourceGroupId: "<id>",
     streamtags: [
       "<value 1>",
@@ -67,7 +67,7 @@ let value: CreateConfigGroupByProductRequest = {
 
 ## Fields
 
-| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
-| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| `product`                                                                    | [models.ProductsCore](../../models/productscore.md)                          | :heavy_check_mark:                                                           | required Name of the Cribl product to add the Worker Group or Edge Fleet to. |
-| `groupCreateRequest`                                                         | [models.GroupCreateRequest](../../models/groupcreaterequest.md)              | :heavy_check_mark:                                                           | GroupCreateRequest object                                                    |
+| Field                                                                               | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `product`                                                                           | [models.ProductsCore](../../models/productscore.md)                                 | :heavy_check_mark:                                                                  | Name of the Cribl product to add the Worker Group, Outpost Group, or Edge Fleet to. |
+| `groupCreateRequest`                                                                | [models.GroupCreateRequest](../../models/groupcreaterequest.md)                     | :heavy_check_mark:                                                                  | GroupCreateRequest object                                                           |

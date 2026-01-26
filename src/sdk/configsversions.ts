@@ -4,20 +4,21 @@
 
 import { groupsConfigsVersionsGet } from "../funcs/groupsConfigsVersionsGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class ConfigsVersions extends ClientSDK {
   /**
-   * Get the configuration version for a Worker Group or Edge Fleet
+   * Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
    *
    * @remarks
-   * Get the configuration version for the specified Worker Group or Edge Fleet.
+   * Get the configuration version for the specified Worker Group, Outpost Group, or Edge Fleet.
    */
   async get(
     request: operations.GetConfigGroupConfigVersionByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetConfigGroupConfigVersionByProductAndIdResponse> {
+  ): Promise<models.CountedString> {
     return unwrapAsync(groupsConfigsVersionsGet(
       this,
       request,

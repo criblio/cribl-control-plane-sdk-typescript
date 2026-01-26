@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
-import { Commit, Commit$Outbound, Commit$outboundSchema } from "./commit.js";
 import {
   ConfigGroupCloud,
   ConfigGroupCloud$Outbound,
@@ -16,65 +13,19 @@ import {
   ConfigGroupLookups$Outbound,
   ConfigGroupLookups$outboundSchema,
 } from "./configgrouplookups.js";
-
-/**
- * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
- */
-export const GroupCreateRequestEstimatedIngestRate = {
-  /**
-   * 12 MB/sec
-   */
-  Rate12MBPerSec: 1024,
-  /**
-   * 24 MB/sec
-   */
-  Rate24MBPerSec: 2048,
-  /**
-   * 36 MB/sec
-   */
-  Rate36MBPerSec: 3072,
-  /**
-   * 48 MB/sec
-   */
-  Rate48MBPerSec: 4096,
-  /**
-   * 60 MB/sec
-   */
-  Rate60MBPerSec: 5120,
-  /**
-   * 84 MB/sec
-   */
-  Rate84MBPerSec: 7168,
-  /**
-   * 120 MB/sec
-   */
-  Rate120MBPerSec: 10240,
-  /**
-   * 156 MB/sec
-   */
-  Rate156MBPerSec: 13312,
-  /**
-   * 180 MB/sec
-   */
-  Rate180MBPerSec: 15360,
-} as const;
-/**
- * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
- */
-export type GroupCreateRequestEstimatedIngestRate = OpenEnum<
-  typeof GroupCreateRequestEstimatedIngestRate
->;
-
-export type GroupCreateRequestGit = {
-  commit?: string | undefined;
-  localChanges?: number | undefined;
-  log?: Array<Commit> | undefined;
-};
-
-export const GroupCreateRequestType = {
-  LakeAccess: "lake_access",
-} as const;
-export type GroupCreateRequestType = OpenEnum<typeof GroupCreateRequestType>;
+import {
+  EstimatedIngestRateOptionsConfigGroup,
+  EstimatedIngestRateOptionsConfigGroup$outboundSchema,
+} from "./estimatedingestrateoptionsconfiggroup.js";
+import {
+  GitTypeConfigGroup,
+  GitTypeConfigGroup$Outbound,
+  GitTypeConfigGroup$outboundSchema,
+} from "./gittypeconfiggroup.js";
+import {
+  TypeOptionsConfigGroup,
+  TypeOptionsConfigGroup$outboundSchema,
+} from "./typeoptionsconfiggroup.js";
 
 export type GroupCreateRequest = {
   cloud?: ConfigGroupCloud | undefined;
@@ -83,8 +34,8 @@ export type GroupCreateRequest = {
   /**
    * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
    */
-  estimatedIngestRate?: GroupCreateRequestEstimatedIngestRate | undefined;
-  git?: GroupCreateRequestGit | undefined;
+  estimatedIngestRate?: EstimatedIngestRateOptionsConfigGroup | undefined;
+  git?: GitTypeConfigGroup | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
   inherits?: string | undefined;
@@ -98,51 +49,11 @@ export type GroupCreateRequest = {
   sourceGroupId?: string | undefined;
   streamtags?: Array<string> | undefined;
   tags?: string | undefined;
-  type?: GroupCreateRequestType | undefined;
+  type?: TypeOptionsConfigGroup | undefined;
   upgradeVersion?: string | undefined;
   workerCount?: number | undefined;
   workerRemoteAccess?: boolean | undefined;
 };
-
-/** @internal */
-export const GroupCreateRequestEstimatedIngestRate$outboundSchema: z.ZodType<
-  number,
-  z.ZodTypeDef,
-  GroupCreateRequestEstimatedIngestRate
-> = openEnums.outboundSchemaInt(GroupCreateRequestEstimatedIngestRate);
-
-/** @internal */
-export type GroupCreateRequestGit$Outbound = {
-  commit?: string | undefined;
-  localChanges?: number | undefined;
-  log?: Array<Commit$Outbound> | undefined;
-};
-
-/** @internal */
-export const GroupCreateRequestGit$outboundSchema: z.ZodType<
-  GroupCreateRequestGit$Outbound,
-  z.ZodTypeDef,
-  GroupCreateRequestGit
-> = z.object({
-  commit: z.string().optional(),
-  localChanges: z.number().optional(),
-  log: z.array(Commit$outboundSchema).optional(),
-});
-
-export function groupCreateRequestGitToJSON(
-  groupCreateRequestGit: GroupCreateRequestGit,
-): string {
-  return JSON.stringify(
-    GroupCreateRequestGit$outboundSchema.parse(groupCreateRequestGit),
-  );
-}
-
-/** @internal */
-export const GroupCreateRequestType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  GroupCreateRequestType
-> = openEnums.outboundSchema(GroupCreateRequestType);
 
 /** @internal */
 export type GroupCreateRequest$Outbound = {
@@ -150,7 +61,7 @@ export type GroupCreateRequest$Outbound = {
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
   estimatedIngestRate?: number | undefined;
-  git?: GroupCreateRequestGit$Outbound | undefined;
+  git?: GitTypeConfigGroup$Outbound | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
   inherits?: string | undefined;
@@ -179,9 +90,9 @@ export const GroupCreateRequest$outboundSchema: z.ZodType<
   cloud: ConfigGroupCloud$outboundSchema.optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngestRate: GroupCreateRequestEstimatedIngestRate$outboundSchema
+  estimatedIngestRate: EstimatedIngestRateOptionsConfigGroup$outboundSchema
     .optional(),
-  git: z.lazy(() => GroupCreateRequestGit$outboundSchema).optional(),
+  git: GitTypeConfigGroup$outboundSchema.optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),
   inherits: z.string().optional(),
@@ -195,7 +106,7 @@ export const GroupCreateRequest$outboundSchema: z.ZodType<
   sourceGroupId: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   tags: z.string().optional(),
-  type: GroupCreateRequestType$outboundSchema.optional(),
+  type: TypeOptionsConfigGroup$outboundSchema.optional(),
   upgradeVersion: z.string().optional(),
   workerCount: z.number().optional(),
   workerRemoteAccess: z.boolean().optional(),

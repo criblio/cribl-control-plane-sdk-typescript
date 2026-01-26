@@ -78,7 +78,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListOutputResponse](../../models/operations/listoutputresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 
@@ -106,8 +106,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.destinations.create({
-    id: "<id>",
-    type: "elastic_cloud",
+    id: "tcpjson-output",
+    type: "tcpjson",
     pipeline: "<value>",
     systemFields: [
       "<value 1>",
@@ -117,71 +117,57 @@ async function run() {
     streamtags: [
       "<value 1>",
     ],
-    url: "https://probable-rationale.com/",
-    index: "<value>",
-    concurrency: 5,
-    maxPayloadSizeKB: 4096,
-    maxPayloadEvents: 0,
-    compress: true,
-    rejectUnauthorized: true,
-    timeoutSec: 30,
-    flushPeriodSec: 1,
-    extraHttpHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    failedRequestLoggingMode: "none",
-    safeHeaders: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    extraParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    auth: {
+    loadBalanced: false,
+    compression: "gzip",
+    logFailedRequests: true,
+    throttleRatePerSec: "<value>",
+    tls: {
       disabled: false,
-      username: "Imogene1",
-      password: "tA9DUjJtHSnXqh9",
-      authType: "manual",
-      credentialsSecret: "<value>",
-      manualAPIKey: "<value>",
-      textSecret: "<value>",
+      rejectUnauthorized: true,
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.3",
+      maxVersion: "TLSv1.3",
     },
-    elasticPipeline: "<value>",
-    includeDocId: true,
-    responseRetrySettings: [
+    connectionTimeout: 861.22,
+    writeTimeout: 588.22,
+    tokenTTLMinutes: 3391.17,
+    sendHeader: true,
+    onBackpressure: "block",
+    authType: "manual",
+    description: "suckle parsnip even engage lest",
+    host: "localhost",
+    port: 10090,
+    excludeSelf: true,
+    hosts: [
       {
-        httpStatus: 7295.73,
-        initialBackoff: 1000,
-        backoffRate: 2,
-        maxBackoff: 10000,
+        host: "proper-prohibition.com",
+        port: 7840.9,
+        tls: "inherit",
+        servername: "<value>",
+        weight: 3441.24,
       },
     ],
-    timeoutRetrySettings: {
-      timeoutRetry: false,
-      initialBackoff: 1000,
-      backoffRate: 2,
-      maxBackoff: 10000,
-    },
-    responseHonorRetryAfterHeader: false,
-    onBackpressure: "block",
-    description: "hourly about into",
+    dnsResolvePeriodSec: 9682.2,
+    loadBalanceStatsPeriodSec: 6468.68,
+    maxConcurrentSenders: 2841.6,
     pqStrictOrdering: true,
-    pqRatePerSec: 0,
-    pqMode: "error",
-    pqMaxBufferSize: 42,
-    pqMaxBackpressureSec: 30,
-    pqMaxFileSize: "1 MB",
-    pqMaxSize: "5GB",
-    pqPath: "$CRIBL_HOME/state/queues",
+    pqRatePerSec: 5558.99,
+    pqMode: "backpressure",
+    pqMaxBufferSize: 7385.62,
+    pqMaxBackpressureSec: 5308.79,
+    pqMaxFileSize: "<value>",
+    pqMaxSize: "<value>",
+    pqPath: "<value>",
     pqCompress: "none",
-    pqOnBackpressure: "block",
+    pqOnBackpressure: "drop",
     pqControls: {},
+    authToken: "<value>",
+    textSecret: "<value>",
   });
 
   console.log(result);
@@ -209,8 +195,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await destinationsCreate(criblControlPlane, {
-    id: "<id>",
-    type: "elastic_cloud",
+    id: "tcpjson-output",
+    type: "tcpjson",
     pipeline: "<value>",
     systemFields: [
       "<value 1>",
@@ -220,71 +206,57 @@ async function run() {
     streamtags: [
       "<value 1>",
     ],
-    url: "https://probable-rationale.com/",
-    index: "<value>",
-    concurrency: 5,
-    maxPayloadSizeKB: 4096,
-    maxPayloadEvents: 0,
-    compress: true,
-    rejectUnauthorized: true,
-    timeoutSec: 30,
-    flushPeriodSec: 1,
-    extraHttpHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    failedRequestLoggingMode: "none",
-    safeHeaders: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    extraParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    auth: {
+    loadBalanced: false,
+    compression: "gzip",
+    logFailedRequests: true,
+    throttleRatePerSec: "<value>",
+    tls: {
       disabled: false,
-      username: "Imogene1",
-      password: "tA9DUjJtHSnXqh9",
-      authType: "manual",
-      credentialsSecret: "<value>",
-      manualAPIKey: "<value>",
-      textSecret: "<value>",
+      rejectUnauthorized: true,
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.3",
+      maxVersion: "TLSv1.3",
     },
-    elasticPipeline: "<value>",
-    includeDocId: true,
-    responseRetrySettings: [
+    connectionTimeout: 861.22,
+    writeTimeout: 588.22,
+    tokenTTLMinutes: 3391.17,
+    sendHeader: true,
+    onBackpressure: "block",
+    authType: "manual",
+    description: "suckle parsnip even engage lest",
+    host: "localhost",
+    port: 10090,
+    excludeSelf: true,
+    hosts: [
       {
-        httpStatus: 7295.73,
-        initialBackoff: 1000,
-        backoffRate: 2,
-        maxBackoff: 10000,
+        host: "proper-prohibition.com",
+        port: 7840.9,
+        tls: "inherit",
+        servername: "<value>",
+        weight: 3441.24,
       },
     ],
-    timeoutRetrySettings: {
-      timeoutRetry: false,
-      initialBackoff: 1000,
-      backoffRate: 2,
-      maxBackoff: 10000,
-    },
-    responseHonorRetryAfterHeader: false,
-    onBackpressure: "block",
-    description: "hourly about into",
+    dnsResolvePeriodSec: 9682.2,
+    loadBalanceStatsPeriodSec: 6468.68,
+    maxConcurrentSenders: 2841.6,
     pqStrictOrdering: true,
-    pqRatePerSec: 0,
-    pqMode: "error",
-    pqMaxBufferSize: 42,
-    pqMaxBackpressureSec: 30,
-    pqMaxFileSize: "1 MB",
-    pqMaxSize: "5GB",
-    pqPath: "$CRIBL_HOME/state/queues",
+    pqRatePerSec: 5558.99,
+    pqMode: "backpressure",
+    pqMaxBufferSize: 7385.62,
+    pqMaxBackpressureSec: 5308.79,
+    pqMaxFileSize: "<value>",
+    pqMaxSize: "<value>",
+    pqPath: "<value>",
     pqCompress: "none",
-    pqOnBackpressure: "block",
+    pqOnBackpressure: "drop",
     pqControls: {},
+    authToken: "<value>",
+    textSecret: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -301,14 +273,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [models.Output](../../models/output.md)                                                                                                                                        | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.CreateOutputRequest](../../models/operations/createoutputrequest.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.CreateOutputResponse](../../models/operations/createoutputresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 
@@ -388,7 +360,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetOutputByIdResponse](../../models/operations/getoutputbyidresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 
@@ -418,8 +390,8 @@ async function run() {
   const result = await criblControlPlane.destinations.update({
     id: "<id>",
     output: {
-      id: "<id>",
-      type: "signalfx",
+      id: "default-output",
+      type: "default",
       pipeline: "<value>",
       systemFields: [
         "<value 1>",
@@ -429,56 +401,7 @@ async function run() {
         "<value 1>",
         "<value 2>",
       ],
-      authType: "manual",
-      realm: "us0",
-      concurrency: 5,
-      maxPayloadSizeKB: 4096,
-      maxPayloadEvents: 0,
-      compress: true,
-      rejectUnauthorized: true,
-      timeoutSec: 30,
-      flushPeriodSec: 1,
-      extraHttpHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      useRoundRobinDns: false,
-      failedRequestLoggingMode: "none",
-      safeHeaders: [
-        "<value 1>",
-      ],
-      responseRetrySettings: [
-        {
-          httpStatus: 2924.72,
-          initialBackoff: 1000,
-          backoffRate: 2,
-          maxBackoff: 10000,
-        },
-      ],
-      timeoutRetrySettings: {
-        timeoutRetry: false,
-        initialBackoff: 1000,
-        backoffRate: 2,
-        maxBackoff: 10000,
-      },
-      responseHonorRetryAfterHeader: false,
-      onBackpressure: "block",
-      description: "phooey positively a consequently meh until",
-      token: "<value>",
-      textSecret: "<value>",
-      pqStrictOrdering: true,
-      pqRatePerSec: 0,
-      pqMode: "error",
-      pqMaxBufferSize: 42,
-      pqMaxBackpressureSec: 30,
-      pqMaxFileSize: "1 MB",
-      pqMaxSize: "5GB",
-      pqPath: "$CRIBL_HOME/state/queues",
-      pqCompress: "none",
-      pqOnBackpressure: "block",
-      pqControls: {},
+      defaultId: "my-default-output",
     },
   });
 
@@ -509,8 +432,8 @@ async function run() {
   const res = await destinationsUpdate(criblControlPlane, {
     id: "<id>",
     output: {
-      id: "<id>",
-      type: "signalfx",
+      id: "default-output",
+      type: "default",
       pipeline: "<value>",
       systemFields: [
         "<value 1>",
@@ -520,56 +443,7 @@ async function run() {
         "<value 1>",
         "<value 2>",
       ],
-      authType: "manual",
-      realm: "us0",
-      concurrency: 5,
-      maxPayloadSizeKB: 4096,
-      maxPayloadEvents: 0,
-      compress: true,
-      rejectUnauthorized: true,
-      timeoutSec: 30,
-      flushPeriodSec: 1,
-      extraHttpHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      useRoundRobinDns: false,
-      failedRequestLoggingMode: "none",
-      safeHeaders: [
-        "<value 1>",
-      ],
-      responseRetrySettings: [
-        {
-          httpStatus: 2924.72,
-          initialBackoff: 1000,
-          backoffRate: 2,
-          maxBackoff: 10000,
-        },
-      ],
-      timeoutRetrySettings: {
-        timeoutRetry: false,
-        initialBackoff: 1000,
-        backoffRate: 2,
-        maxBackoff: 10000,
-      },
-      responseHonorRetryAfterHeader: false,
-      onBackpressure: "block",
-      description: "phooey positively a consequently meh until",
-      token: "<value>",
-      textSecret: "<value>",
-      pqStrictOrdering: true,
-      pqRatePerSec: 0,
-      pqMode: "error",
-      pqMaxBufferSize: 42,
-      pqMaxBackpressureSec: 30,
-      pqMaxFileSize: "1 MB",
-      pqMaxSize: "5GB",
-      pqPath: "$CRIBL_HOME/state/queues",
-      pqCompress: "none",
-      pqOnBackpressure: "block",
-      pqControls: {},
+      defaultId: "my-default-output",
     },
   });
   if (res.ok) {
@@ -594,7 +468,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateOutputByIdResponse](../../models/operations/updateoutputbyidresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 
@@ -674,7 +548,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteOutputByIdResponse](../../models/operations/deleteoutputbyidresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 

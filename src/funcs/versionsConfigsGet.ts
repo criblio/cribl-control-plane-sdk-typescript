@@ -19,7 +19,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as operations from "../models/operations/index.js";
+import * as models from "../models/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -34,7 +34,7 @@ export function versionsConfigsGet(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetVersionInfoResponse,
+    models.CountedGitInfo,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -58,7 +58,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.GetVersionInfoResponse,
+      models.CountedGitInfo,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -92,8 +92,18 @@ async function $do(
     securitySource: client._options.security,
     retryConfig: options?.retries
       || client._options.retryConfig
+      || {
+        strategy: "backoff",
+        backoff: {
+          initialInterval: 500,
+          maxInterval: 60000,
+          exponent: 1.5,
+          maxElapsedTime: 3600000,
+        },
+        retryConnectionErrors: true,
+      }
       || { strategy: "none" },
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryCodes: options?.retryCodes || ["429"],
   };
 
   const requestRes = client._createRequest(context, {
@@ -126,7 +136,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetVersionInfoResponse,
+    models.CountedGitInfo,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -137,7 +147,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetVersionInfoResponse$inboundSchema),
+    M.json(200, models.CountedGitInfo$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

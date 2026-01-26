@@ -1,0 +1,25 @@
+# RetrySettingsType
+
+## Example Usage
+
+```typescript
+import { RetrySettingsType } from "cribl-control-plane/models";
+
+let value: RetrySettingsType = {
+  enabled: true,
+  initialBackoffMs: 5368.19,
+  backoffMultiplier: 5517.11,
+  maxBackoffMs: 1383.39,
+  jitterPercent: 3646.66,
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                 | Type                                                                                                                                                                  | Required                                                                                                                                                              | Description                                                                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `enabled`                                                                                                                                                             | *boolean*                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                    | Apply exponential backoff with jitter when file uploads fail repeatedly.                                                                                              |
+| `initialBackoffMs`                                                                                                                                                    | *number*                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                    | Initial delay before first retry attempt. Valid range: 1s-5min (1000-300000ms). Values outside this range will be clamped to the nearest valid value.                 |
+| `backoffMultiplier`                                                                                                                                                   | *number*                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                    | Multiplier applied to backoff delay after each retry. Valid range: 1-10. Values outside this range will be clamped to the nearest valid value.                        |
+| `maxBackoffMs`                                                                                                                                                        | *number*                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                    | Maximum delay between retry attempts. Valid range: 1s-10min (1000-600000ms). Values outside this range will be clamped to the nearest valid value.                    |
+| `jitterPercent`                                                                                                                                                       | *number*                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                    | Random jitter percentage added to backoff delay to prevent thundering herd. Valid range: 0-100. Values outside this range will be clamped to the nearest valid value. |

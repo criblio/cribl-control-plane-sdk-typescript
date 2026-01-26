@@ -7,7 +7,32 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  SignatureVersionOptions3,
+  SignatureVersionOptions3$inboundSchema,
+  SignatureVersionOptions3$outboundSchema,
+} from "./signatureversionoptions3.js";
 
 /**
  * The queue type used (or created). Defaults to Standard.
@@ -26,128 +51,6 @@ export const OutputSqsQueueType = {
  * The queue type used (or created). Defaults to Standard.
  */
 export type OutputSqsQueueType = OpenEnum<typeof OutputSqsQueueType>;
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputSqsAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputSqsAuthenticationMethod = OpenEnum<
-  typeof OutputSqsAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing SQS requests
- */
-export const OutputSqsSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing SQS requests
- */
-export type OutputSqsSignatureVersion = OpenEnum<
-  typeof OutputSqsSignatureVersion
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSqsBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSqsBackpressureBehavior = OpenEnum<
-  typeof OutputSqsBackpressureBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSqsMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSqsMode = OpenEnum<typeof OutputSqsMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputSqsCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputSqsCompression = OpenEnum<typeof OutputSqsCompression>;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputSqsQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputSqsQueueFullBehavior = OpenEnum<
-  typeof OutputSqsQueueFullBehavior
->;
 
 export type OutputSqsPqControls = {};
 
@@ -196,7 +99,7 @@ export type OutputSqs = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputSqsAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -209,7 +112,7 @@ export type OutputSqs = {
   /**
    * Signature version to use for signing SQS requests
    */
-  signatureVersion?: OutputSqsSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions3 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -253,7 +156,7 @@ export type OutputSqs = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputSqsBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -271,7 +174,7 @@ export type OutputSqs = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputSqsMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -295,11 +198,11 @@ export type OutputSqs = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputSqsCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputSqsQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputSqsPqControls | undefined;
 };
 
@@ -315,84 +218,6 @@ export const OutputSqsQueueType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputSqsQueueType
 > = openEnums.outboundSchema(OutputSqsQueueType);
-
-/** @internal */
-export const OutputSqsAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputSqsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSqsAuthenticationMethod);
-/** @internal */
-export const OutputSqsAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSqsAuthenticationMethod
-> = openEnums.outboundSchema(OutputSqsAuthenticationMethod);
-
-/** @internal */
-export const OutputSqsSignatureVersion$inboundSchema: z.ZodType<
-  OutputSqsSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSqsSignatureVersion);
-/** @internal */
-export const OutputSqsSignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSqsSignatureVersion
-> = openEnums.outboundSchema(OutputSqsSignatureVersion);
-
-/** @internal */
-export const OutputSqsBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSqsBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSqsBackpressureBehavior);
-/** @internal */
-export const OutputSqsBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSqsBackpressureBehavior
-> = openEnums.outboundSchema(OutputSqsBackpressureBehavior);
-
-/** @internal */
-export const OutputSqsMode$inboundSchema: z.ZodType<
-  OutputSqsMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSqsMode);
-/** @internal */
-export const OutputSqsMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSqsMode
-> = openEnums.outboundSchema(OutputSqsMode);
-
-/** @internal */
-export const OutputSqsCompression$inboundSchema: z.ZodType<
-  OutputSqsCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSqsCompression);
-/** @internal */
-export const OutputSqsCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSqsCompression
-> = openEnums.outboundSchema(OutputSqsCompression);
-
-/** @internal */
-export const OutputSqsQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSqsQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSqsQueueFullBehavior);
-/** @internal */
-export const OutputSqsQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSqsQueueFullBehavior
-> = openEnums.outboundSchema(OutputSqsQueueFullBehavior);
 
 /** @internal */
 export const OutputSqsPqControls$inboundSchema: z.ZodType<
@@ -442,39 +267,37 @@ export const OutputSqs$inboundSchema: z.ZodType<
   queueName: z.string(),
   queueType: OutputSqsQueueType$inboundSchema,
   awsAccountId: z.string().optional(),
-  messageGroupId: z.string().default("cribl"),
-  createQueue: z.boolean().default(true),
-  awsAuthenticationMethod: OutputSqsAuthenticationMethod$inboundSchema.default(
-    "auto",
-  ),
+  messageGroupId: z.string().optional(),
+  createQueue: z.boolean().optional(),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputSqsSignatureVersion$inboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions3$inboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxQueueSize: z.number().default(100),
-  maxRecordSizeKB: z.number().default(256),
-  flushPeriodSec: z.number().default(1),
-  maxInProgress: z.number().default(10),
-  onBackpressure: OutputSqsBackpressureBehavior$inboundSchema.default("block"),
+  durationSeconds: z.number().optional(),
+  maxQueueSize: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  maxInProgress: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputSqsMode$inboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSqsCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputSqsQueueFullBehavior$inboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$inboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
   pqControls: z.lazy(() => OutputSqsPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -488,37 +311,37 @@ export type OutputSqs$Outbound = {
   queueName: string;
   queueType: string;
   awsAccountId?: string | undefined;
-  messageGroupId: string;
-  createQueue: boolean;
-  awsAuthenticationMethod: string;
+  messageGroupId?: string | undefined;
+  createQueue?: boolean | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  maxQueueSize: number;
-  maxRecordSizeKB: number;
-  flushPeriodSec: number;
-  maxInProgress: number;
-  onBackpressure: string;
+  durationSeconds?: number | undefined;
+  maxQueueSize?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  maxInProgress?: number | undefined;
+  onBackpressure?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  pqStrictOrdering: boolean;
-  pqRatePerSec: number;
-  pqMode: string;
-  pqMaxBufferSize: number;
-  pqMaxBackpressureSec: number;
-  pqMaxFileSize: string;
-  pqMaxSize: string;
-  pqPath: string;
-  pqCompress: string;
-  pqOnBackpressure: string;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
   pqControls?: OutputSqsPqControls$Outbound | undefined;
 };
 
@@ -537,39 +360,37 @@ export const OutputSqs$outboundSchema: z.ZodType<
   queueName: z.string(),
   queueType: OutputSqsQueueType$outboundSchema,
   awsAccountId: z.string().optional(),
-  messageGroupId: z.string().default("cribl"),
-  createQueue: z.boolean().default(true),
-  awsAuthenticationMethod: OutputSqsAuthenticationMethod$outboundSchema.default(
-    "auto",
-  ),
+  messageGroupId: z.string().optional(),
+  createQueue: z.boolean().optional(),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputSqsSignatureVersion$outboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions3$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  maxQueueSize: z.number().default(100),
-  maxRecordSizeKB: z.number().default(256),
-  flushPeriodSec: z.number().default(1),
-  maxInProgress: z.number().default(10),
-  onBackpressure: OutputSqsBackpressureBehavior$outboundSchema.default("block"),
+  durationSeconds: z.number().optional(),
+  maxQueueSize: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  maxInProgress: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().default(true),
-  pqRatePerSec: z.number().default(0),
-  pqMode: OutputSqsMode$outboundSchema.default("error"),
-  pqMaxBufferSize: z.number().default(42),
-  pqMaxBackpressureSec: z.number().default(30),
-  pqMaxFileSize: z.string().default("1 MB"),
-  pqMaxSize: z.string().default("5GB"),
-  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSqsCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputSqsQueueFullBehavior$outboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputSqsPqControls$outboundSchema).optional(),
 });
 

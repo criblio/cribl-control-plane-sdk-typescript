@@ -22,9 +22,9 @@
 import { CriblControlPlane } from "../dist/esm";
 
 // Cribl.Cloud and hybrid configuration: Replace the placeholder values
+const ORG_ID = "your-org-id"; // Replace with your Organization ID
 const CLIENT_ID = "your-client-id"; // Replace with your OAuth2 Client ID
 const CLIENT_SECRET = "your-client-secret"; // Replace with your OAuth2 Client Secret
-const ORG_ID = "your-org-id"; // Replace with your Organization ID
 const WORKSPACE_NAME = "main"; // Replace with your Workspace name
 
 const baseUrl = `https://${WORKSPACE_NAME}-${ORG_ID}.cribl.cloud/api/v1`;

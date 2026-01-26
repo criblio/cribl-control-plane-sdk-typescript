@@ -45,26 +45,26 @@ export const RoutesRoute$inboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.string(),
   disabled: z.boolean().optional(),
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   pipeline: z.string(),
-  enableOutputExpression: z.boolean().default(false),
+  enableOutputExpression: z.boolean().optional(),
   output: z.any().optional(),
   outputExpression: z.any().optional(),
   description: z.string().optional(),
-  final: z.boolean().default(true),
+  final: z.boolean().optional(),
 }).catchall(z.any());
 /** @internal */
 export type RoutesRoute$Outbound = {
   id?: string | undefined;
   name: string;
   disabled?: boolean | undefined;
-  filter: string;
+  filter?: string | undefined;
   pipeline: string;
-  enableOutputExpression: boolean;
+  enableOutputExpression?: boolean | undefined;
   output?: any | undefined;
   outputExpression?: any | undefined;
   description?: string | undefined;
-  final: boolean;
+  final?: boolean | undefined;
   [additionalProperties: string]: unknown;
 };
 
@@ -77,13 +77,13 @@ export const RoutesRoute$outboundSchema: z.ZodType<
   id: z.string().optional(),
   name: z.string(),
   disabled: z.boolean().optional(),
-  filter: z.string().default("true"),
+  filter: z.string().optional(),
   pipeline: z.string(),
-  enableOutputExpression: z.boolean().default(false),
+  enableOutputExpression: z.boolean().optional(),
   output: z.any().optional(),
   outputExpression: z.any().optional(),
   description: z.string().optional(),
-  final: z.boolean().default(true),
+  final: z.boolean().optional(),
 }).catchall(z.any());
 
 export function routesRouteToJSON(routesRoute: RoutesRoute): string {

@@ -7,84 +7,46 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptionsSasl,
+  AuthenticationMethodOptionsSasl$inboundSchema,
+  AuthenticationMethodOptionsSasl$outboundSchema,
+} from "./authenticationmethodoptionssasl.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputPrometheusConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputPrometheusMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputPrometheusMode = OpenEnum<typeof InputPrometheusMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputPrometheusCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputPrometheusCompression = OpenEnum<
-  typeof InputPrometheusCompression
->;
-
-export type InputPrometheusPqControls = {};
-
-export type InputPrometheusPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputPrometheusMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputPrometheusCompression | undefined;
-  pqControls?: InputPrometheusPqControls | undefined;
-};
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  ItemsTypeSearchFilter,
+  ItemsTypeSearchFilter$inboundSchema,
+  ItemsTypeSearchFilter$Outbound,
+  ItemsTypeSearchFilter$outboundSchema,
+} from "./itemstypesearchfilter.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  RecordTypeOptions,
+  RecordTypeOptions$inboundSchema,
+  RecordTypeOptions$outboundSchema,
+} from "./recordtypeoptions.js";
+import {
+  SignatureVersionOptions1,
+  SignatureVersionOptions1$inboundSchema,
+  SignatureVersionOptions1$outboundSchema,
+} from "./signatureversionoptions1.js";
 
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
@@ -111,7 +73,7 @@ export type InputPrometheusDiscoveryType = OpenEnum<
 >;
 
 /**
- * Collector runtime Log Level
+ * Collector runtime log level
  */
 export const InputPrometheusLogLevel = {
   Error: "error",
@@ -120,46 +82,9 @@ export const InputPrometheusLogLevel = {
   Debug: "debug",
 } as const;
 /**
- * Collector runtime Log Level
+ * Collector runtime log level
  */
 export type InputPrometheusLogLevel = OpenEnum<typeof InputPrometheusLogLevel>;
-
-export type InputPrometheusMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-/**
- * Enter credentials directly, or select a stored secret
- */
-export const InputPrometheusAuthTypeAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Enter credentials directly, or select a stored secret
- */
-export type InputPrometheusAuthTypeAuthenticationMethod = OpenEnum<
-  typeof InputPrometheusAuthTypeAuthenticationMethod
->;
-
-/**
- * DNS Record type to resolve
- */
-export const InputPrometheusRecordType = {
-  Srv: "SRV",
-  A: "A",
-  Aaaa: "AAAA",
-} as const;
-/**
- * DNS Record type to resolve
- */
-export type InputPrometheusRecordType = OpenEnum<
-  typeof InputPrometheusRecordType
->;
 
 /**
  * Protocol to use when collecting metrics
@@ -172,54 +97,6 @@ export const MetricsProtocol = {
  * Protocol to use when collecting metrics
  */
 export type MetricsProtocol = OpenEnum<typeof MetricsProtocol>;
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const InputPrometheusAwsAuthenticationMethodAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type InputPrometheusAwsAuthenticationMethodAuthenticationMethod =
-  OpenEnum<typeof InputPrometheusAwsAuthenticationMethodAuthenticationMethod>;
-
-export type InputPrometheusSearchFilter = {
-  /**
-   * Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
-   */
-  Name: string;
-  /**
-   * Search Filter Values, if empty only "running" EC2 instances will be returned
-   */
-  Values: Array<string>;
-};
-
-/**
- * Signature version to use for signing EC2 requests
- */
-export const InputPrometheusSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing EC2 requests
- */
-export type InputPrometheusSignatureVersion = OpenEnum<
-  typeof InputPrometheusSignatureVersion
->;
 
 export type InputPrometheus = {
   /**
@@ -251,8 +128,8 @@ export type InputPrometheus = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputPrometheusConnection> | undefined;
-  pq?: InputPrometheusPq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Other dimensions to include in events
    */
@@ -262,17 +139,21 @@ export type InputPrometheus = {
    */
   discoveryType?: InputPrometheusDiscoveryType | undefined;
   /**
-   * How often in minutes to scrape targets for metrics, 60 must be evenly divisible by the value or save will fail.
+   * How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
    */
-  interval?: number | undefined;
+  interval: number;
   /**
-   * Collector runtime Log Level
+   * Collector runtime log level
    */
-  logLevel?: InputPrometheusLogLevel | undefined;
+  logLevel: InputPrometheusLogLevel;
   /**
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
   rejectUnauthorized?: boolean | undefined;
+  /**
+   * Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
+   */
+  timeout?: number | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
@@ -296,22 +177,22 @@ export type InputPrometheus = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputPrometheusMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
-  authType?: InputPrometheusAuthTypeAuthenticationMethod | undefined;
+  authType?: AuthenticationMethodOptionsSasl | undefined;
   description?: string | undefined;
   /**
    * List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
    */
   targetList?: Array<string> | undefined;
   /**
-   * DNS Record type to resolve
+   * DNS record type to resolve
    */
-  recordType?: InputPrometheusRecordType | undefined;
+  recordType?: RecordTypeOptions | undefined;
   /**
-   * The port number in the metrics URL for discovered targets.
+   * The port number in the metrics URL for discovered targets
    */
   scrapePort?: number | undefined;
   /**
@@ -329,22 +210,20 @@ export type InputPrometheus = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?:
-    | InputPrometheusAwsAuthenticationMethodAuthenticationMethod
-    | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
   /**
-   * Use public IP address for discovered targets. Set to false if the private IP address should be used.
+   * Use public IP address for discovered targets. Disable to use the private IP address.
    */
   usePublicIp?: boolean | undefined;
   /**
-   * EC2 Instance Search Filter
+   * Filter to apply when searching for EC2 instances
    */
-  searchFilter?: Array<InputPrometheusSearchFilter> | undefined;
+  searchFilter?: Array<ItemsTypeSearchFilter> | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -357,7 +236,7 @@ export type InputPrometheus = {
   /**
    * Signature version to use for signing EC2 requests
    */
-  signatureVersion?: InputPrometheusSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions1 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -393,167 +272,6 @@ export type InputPrometheus = {
 };
 
 /** @internal */
-export const InputPrometheusConnection$inboundSchema: z.ZodType<
-  InputPrometheusConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputPrometheusConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputPrometheusConnection$outboundSchema: z.ZodType<
-  InputPrometheusConnection$Outbound,
-  z.ZodTypeDef,
-  InputPrometheusConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputPrometheusConnectionToJSON(
-  inputPrometheusConnection: InputPrometheusConnection,
-): string {
-  return JSON.stringify(
-    InputPrometheusConnection$outboundSchema.parse(inputPrometheusConnection),
-  );
-}
-export function inputPrometheusConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputPrometheusConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputPrometheusConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputPrometheusConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputPrometheusMode$inboundSchema: z.ZodType<
-  InputPrometheusMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputPrometheusMode);
-/** @internal */
-export const InputPrometheusMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputPrometheusMode
-> = openEnums.outboundSchema(InputPrometheusMode);
-
-/** @internal */
-export const InputPrometheusCompression$inboundSchema: z.ZodType<
-  InputPrometheusCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputPrometheusCompression);
-/** @internal */
-export const InputPrometheusCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputPrometheusCompression
-> = openEnums.outboundSchema(InputPrometheusCompression);
-
-/** @internal */
-export const InputPrometheusPqControls$inboundSchema: z.ZodType<
-  InputPrometheusPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputPrometheusPqControls$Outbound = {};
-
-/** @internal */
-export const InputPrometheusPqControls$outboundSchema: z.ZodType<
-  InputPrometheusPqControls$Outbound,
-  z.ZodTypeDef,
-  InputPrometheusPqControls
-> = z.object({});
-
-export function inputPrometheusPqControlsToJSON(
-  inputPrometheusPqControls: InputPrometheusPqControls,
-): string {
-  return JSON.stringify(
-    InputPrometheusPqControls$outboundSchema.parse(inputPrometheusPqControls),
-  );
-}
-export function inputPrometheusPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputPrometheusPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputPrometheusPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputPrometheusPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputPrometheusPq$inboundSchema: z.ZodType<
-  InputPrometheusPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputPrometheusMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputPrometheusCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputPrometheusPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputPrometheusPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputPrometheusPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputPrometheusPq$outboundSchema: z.ZodType<
-  InputPrometheusPq$Outbound,
-  z.ZodTypeDef,
-  InputPrometheusPq
-> = z.object({
-  mode: InputPrometheusMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputPrometheusCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputPrometheusPqControls$outboundSchema).optional(),
-});
-
-export function inputPrometheusPqToJSON(
-  inputPrometheusPq: InputPrometheusPq,
-): string {
-  return JSON.stringify(
-    InputPrometheusPq$outboundSchema.parse(inputPrometheusPq),
-  );
-}
-export function inputPrometheusPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputPrometheusPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputPrometheusPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputPrometheusPq' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputPrometheusDiscoveryType$inboundSchema: z.ZodType<
   InputPrometheusDiscoveryType,
   z.ZodTypeDef,
@@ -580,73 +298,6 @@ export const InputPrometheusLogLevel$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(InputPrometheusLogLevel);
 
 /** @internal */
-export const InputPrometheusMetadatum$inboundSchema: z.ZodType<
-  InputPrometheusMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputPrometheusMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputPrometheusMetadatum$outboundSchema: z.ZodType<
-  InputPrometheusMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputPrometheusMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputPrometheusMetadatumToJSON(
-  inputPrometheusMetadatum: InputPrometheusMetadatum,
-): string {
-  return JSON.stringify(
-    InputPrometheusMetadatum$outboundSchema.parse(inputPrometheusMetadatum),
-  );
-}
-export function inputPrometheusMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputPrometheusMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputPrometheusMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputPrometheusMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputPrometheusAuthTypeAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    InputPrometheusAuthTypeAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(InputPrometheusAuthTypeAuthenticationMethod);
-/** @internal */
-export const InputPrometheusAuthTypeAuthenticationMethod$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, InputPrometheusAuthTypeAuthenticationMethod> =
-    openEnums.outboundSchema(InputPrometheusAuthTypeAuthenticationMethod);
-
-/** @internal */
-export const InputPrometheusRecordType$inboundSchema: z.ZodType<
-  InputPrometheusRecordType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputPrometheusRecordType);
-/** @internal */
-export const InputPrometheusRecordType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputPrometheusRecordType
-> = openEnums.outboundSchema(InputPrometheusRecordType);
-
-/** @internal */
 export const MetricsProtocol$inboundSchema: z.ZodType<
   MetricsProtocol,
   z.ZodTypeDef,
@@ -660,82 +311,6 @@ export const MetricsProtocol$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(MetricsProtocol);
 
 /** @internal */
-export const InputPrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    InputPrometheusAwsAuthenticationMethodAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    InputPrometheusAwsAuthenticationMethodAuthenticationMethod,
-  );
-/** @internal */
-export const InputPrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    InputPrometheusAwsAuthenticationMethodAuthenticationMethod
-  > = openEnums.outboundSchema(
-    InputPrometheusAwsAuthenticationMethodAuthenticationMethod,
-  );
-
-/** @internal */
-export const InputPrometheusSearchFilter$inboundSchema: z.ZodType<
-  InputPrometheusSearchFilter,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  Name: z.string(),
-  Values: z.array(z.string()),
-});
-/** @internal */
-export type InputPrometheusSearchFilter$Outbound = {
-  Name: string;
-  Values: Array<string>;
-};
-
-/** @internal */
-export const InputPrometheusSearchFilter$outboundSchema: z.ZodType<
-  InputPrometheusSearchFilter$Outbound,
-  z.ZodTypeDef,
-  InputPrometheusSearchFilter
-> = z.object({
-  Name: z.string(),
-  Values: z.array(z.string()),
-});
-
-export function inputPrometheusSearchFilterToJSON(
-  inputPrometheusSearchFilter: InputPrometheusSearchFilter,
-): string {
-  return JSON.stringify(
-    InputPrometheusSearchFilter$outboundSchema.parse(
-      inputPrometheusSearchFilter,
-    ),
-  );
-}
-export function inputPrometheusSearchFilterFromJSON(
-  jsonString: string,
-): SafeParseResult<InputPrometheusSearchFilter, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputPrometheusSearchFilter$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputPrometheusSearchFilter' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputPrometheusSignatureVersion$inboundSchema: z.ZodType<
-  InputPrometheusSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputPrometheusSignatureVersion);
-/** @internal */
-export const InputPrometheusSignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputPrometheusSignatureVersion
-> = openEnums.outboundSchema(InputPrometheusSignatureVersion);
-
-/** @internal */
 export const InputPrometheus$inboundSchema: z.ZodType<
   InputPrometheus,
   z.ZodTypeDef,
@@ -743,54 +318,48 @@ export const InputPrometheus$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("prometheus"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputPrometheusConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputPrometheusPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
-  discoveryType: InputPrometheusDiscoveryType$inboundSchema.default("static"),
-  interval: z.number().default(15),
-  logLevel: InputPrometheusLogLevel$inboundSchema.default("info"),
-  rejectUnauthorized: z.boolean().default(true),
-  keepAliveTime: z.number().default(30),
-  jobTimeout: z.string().default("0"),
-  maxMissedKeepAlives: z.number().default(3),
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputPrometheusMetadatum$inboundSchema))
-    .optional(),
-  authType: InputPrometheusAuthTypeAuthenticationMethod$inboundSchema.default(
-    "manual",
-  ),
+  discoveryType: InputPrometheusDiscoveryType$inboundSchema.optional(),
+  interval: z.number(),
+  logLevel: InputPrometheusLogLevel$inboundSchema,
+  rejectUnauthorized: z.boolean().optional(),
+  timeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  authType: AuthenticationMethodOptionsSasl$inboundSchema.optional(),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
-  recordType: InputPrometheusRecordType$inboundSchema.default("SRV"),
-  scrapePort: z.number().default(9090),
+  recordType: RecordTypeOptions$inboundSchema.optional(),
+  scrapePort: z.number().optional(),
   nameList: z.array(z.string()).optional(),
-  scrapeProtocol: MetricsProtocol$inboundSchema.default("http"),
-  scrapePath: z.string().default("/metrics"),
-  awsAuthenticationMethod:
-    InputPrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema
-      .default("auto"),
+  scrapeProtocol: MetricsProtocol$inboundSchema.optional(),
+  scrapePath: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  usePublicIp: z.boolean().default(true),
-  searchFilter: z.array(z.lazy(() => InputPrometheusSearchFilter$inboundSchema))
-    .optional(),
+  usePublicIp: z.boolean().optional(),
+  searchFilter: z.array(ItemsTypeSearchFilter$inboundSchema).optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: InputPrometheusSignatureVersion$inboundSchema.default("v4"),
-  reuseConnections: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions1$inboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
+  durationSeconds: z.number().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -799,47 +368,48 @@ export const InputPrometheus$inboundSchema: z.ZodType<
 export type InputPrometheus$Outbound = {
   id?: string | undefined;
   type: "prometheus";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputPrometheusConnection$Outbound> | undefined;
-  pq?: InputPrometheusPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   dimensionList?: Array<string> | undefined;
-  discoveryType: string;
+  discoveryType?: string | undefined;
   interval: number;
   logLevel: string;
-  rejectUnauthorized: boolean;
-  keepAliveTime: number;
-  jobTimeout: string;
-  maxMissedKeepAlives: number;
-  ttl: string;
-  ignoreGroupJobsLimit: boolean;
-  metadata?: Array<InputPrometheusMetadatum$Outbound> | undefined;
-  authType: string;
+  rejectUnauthorized?: boolean | undefined;
+  timeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  authType?: string | undefined;
   description?: string | undefined;
   targetList?: Array<string> | undefined;
-  recordType: string;
-  scrapePort: number;
+  recordType?: string | undefined;
+  scrapePort?: number | undefined;
   nameList?: Array<string> | undefined;
-  scrapeProtocol: string;
-  scrapePath: string;
-  awsAuthenticationMethod: string;
+  scrapeProtocol?: string | undefined;
+  scrapePath?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
-  usePublicIp: boolean;
-  searchFilter?: Array<InputPrometheusSearchFilter$Outbound> | undefined;
+  usePublicIp?: boolean | undefined;
+  searchFilter?: Array<ItemsTypeSearchFilter$Outbound> | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  enableAssumeRole: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
+  durationSeconds?: number | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
@@ -853,57 +423,48 @@ export const InputPrometheus$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("prometheus"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputPrometheusConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputPrometheusPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
-  discoveryType: InputPrometheusDiscoveryType$outboundSchema.default("static"),
-  interval: z.number().default(15),
-  logLevel: InputPrometheusLogLevel$outboundSchema.default("info"),
-  rejectUnauthorized: z.boolean().default(true),
-  keepAliveTime: z.number().default(30),
-  jobTimeout: z.string().default("0"),
-  maxMissedKeepAlives: z.number().default(3),
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputPrometheusMetadatum$outboundSchema))
-    .optional(),
-  authType: InputPrometheusAuthTypeAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
+  discoveryType: InputPrometheusDiscoveryType$outboundSchema.optional(),
+  interval: z.number(),
+  logLevel: InputPrometheusLogLevel$outboundSchema,
+  rejectUnauthorized: z.boolean().optional(),
+  timeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  authType: AuthenticationMethodOptionsSasl$outboundSchema.optional(),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
-  recordType: InputPrometheusRecordType$outboundSchema.default("SRV"),
-  scrapePort: z.number().default(9090),
+  recordType: RecordTypeOptions$outboundSchema.optional(),
+  scrapePort: z.number().optional(),
   nameList: z.array(z.string()).optional(),
-  scrapeProtocol: MetricsProtocol$outboundSchema.default("http"),
-  scrapePath: z.string().default("/metrics"),
-  awsAuthenticationMethod:
-    InputPrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema
-      .default("auto"),
+  scrapeProtocol: MetricsProtocol$outboundSchema.optional(),
+  scrapePath: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  usePublicIp: z.boolean().default(true),
-  searchFilter: z.array(
-    z.lazy(() => InputPrometheusSearchFilter$outboundSchema),
-  ).optional(),
+  usePublicIp: z.boolean().optional(),
+  searchFilter: z.array(ItemsTypeSearchFilter$outboundSchema).optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: InputPrometheusSignatureVersion$outboundSchema.default(
-    "v4",
-  ),
-  reuseConnections: z.boolean().default(true),
-  enableAssumeRole: z.boolean().default(false),
+  signatureVersion: SignatureVersionOptions1$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
+  durationSeconds: z.number().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),

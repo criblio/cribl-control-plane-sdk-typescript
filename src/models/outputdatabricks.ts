@@ -4,161 +4,55 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions1,
+  BackpressureBehaviorOptions1$inboundSchema,
+  BackpressureBehaviorOptions1$outboundSchema,
+} from "./backpressurebehavioroptions1.js";
+import {
+  CompressionLevelOptions,
+  CompressionLevelOptions$inboundSchema,
+  CompressionLevelOptions$outboundSchema,
+} from "./compressionleveloptions.js";
+import {
+  CompressionOptions2,
+  CompressionOptions2$inboundSchema,
+  CompressionOptions2$outboundSchema,
+} from "./compressionoptions2.js";
+import {
+  DataFormatOptions,
+  DataFormatOptions$inboundSchema,
+  DataFormatOptions$outboundSchema,
+} from "./dataformatoptions.js";
+import {
+  DataPageVersionOptions,
+  DataPageVersionOptions$inboundSchema,
+  DataPageVersionOptions$outboundSchema,
+} from "./datapageversionoptions.js";
+import {
+  DiskSpaceProtectionOptions,
+  DiskSpaceProtectionOptions$inboundSchema,
+  DiskSpaceProtectionOptions$outboundSchema,
+} from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Format of the output data
- */
-export const OutputDatabricksDataFormat = {
-  /**
-   * JSON
-   */
-  Json: "json",
-  /**
-   * Raw
-   */
-  Raw: "raw",
-  /**
-   * Parquet
-   */
-  Parquet: "parquet",
-} as const;
-/**
- * Format of the output data
- */
-export type OutputDatabricksDataFormat = OpenEnum<
-  typeof OutputDatabricksDataFormat
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputDatabricksBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputDatabricksBackpressureBehavior = OpenEnum<
-  typeof OutputDatabricksBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputDatabricksDiskSpaceProtection = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputDatabricksDiskSpaceProtection = OpenEnum<
-  typeof OutputDatabricksDiskSpaceProtection
->;
-
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export const OutputDatabricksCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export type OutputDatabricksCompression = OpenEnum<
-  typeof OutputDatabricksCompression
->;
-
-/**
- * Compression level to apply before moving files to final destination
- */
-export const OutputDatabricksCompressionLevel = {
-  /**
-   * Best Speed
-   */
-  BestSpeed: "best_speed",
-  /**
-   * Normal
-   */
-  Normal: "normal",
-  /**
-   * Best Compression
-   */
-  BestCompression: "best_compression",
-} as const;
-/**
- * Compression level to apply before moving files to final destination
- */
-export type OutputDatabricksCompressionLevel = OpenEnum<
-  typeof OutputDatabricksCompressionLevel
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputDatabricksParquetVersion = {
-  /**
-   * 1.0
-   */
-  Parquet10: "PARQUET_1_0",
-  /**
-   * 2.4
-   */
-  Parquet24: "PARQUET_2_4",
-  /**
-   * 2.6
-   */
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputDatabricksParquetVersion = OpenEnum<
-  typeof OutputDatabricksParquetVersion
->;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputDatabricksDataPageVersion = {
-  /**
-   * V1
-   */
-  DataPageV1: "DATA_PAGE_V1",
-  /**
-   * V2
-   */
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputDatabricksDataPageVersion = OpenEnum<
-  typeof OutputDatabricksDataPageVersion
->;
-
-export type OutputDatabricksKeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
+import {
+  ItemsTypeKeyValueMetadata,
+  ItemsTypeKeyValueMetadata$inboundSchema,
+  ItemsTypeKeyValueMetadata$Outbound,
+  ItemsTypeKeyValueMetadata$outboundSchema,
+} from "./itemstypekeyvaluemetadata.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
+import {
+  RetrySettingsType,
+  RetrySettingsType$inboundSchema,
+  RetrySettingsType$Outbound,
+  RetrySettingsType$outboundSchema,
+} from "./retrysettingstype.js";
 
 export type OutputDatabricks = {
   /**
@@ -205,7 +99,7 @@ export type OutputDatabricks = {
   /**
    * Format of the output data
    */
-  format?: OutputDatabricksDataFormat | undefined;
+  format?: DataFormatOptions | undefined;
   /**
    * JavaScript expression to define the output filename prefix (can be constant)
    */
@@ -241,7 +135,7 @@ export type OutputDatabricks = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputDatabricksBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -249,11 +143,12 @@ export type OutputDatabricks = {
   /**
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
-  onDiskFullBackpressure?: OutputDatabricksDiskSpaceProtection | undefined;
+  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
   /**
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: RetrySettingsType | undefined;
   /**
    * Databricks workspace ID
    */
@@ -261,7 +156,7 @@ export type OutputDatabricks = {
   /**
    * OAuth scope for Unity Catalog authentication
    */
-  scope?: string | undefined;
+  scope: string;
   /**
    * OAuth client ID for Unity Catalog authentication
    */
@@ -269,15 +164,15 @@ export type OutputDatabricks = {
   /**
    * Name of the catalog to use for the output
    */
-  catalog?: string | undefined;
+  catalog: string;
   /**
    * Name of the catalog schema to use for the output
    */
-  schema?: string | undefined;
+  schema: string;
   /**
    * Name of the events volume in Databricks
    */
-  eventsVolumeName?: string | undefined;
+  eventsVolumeName: string;
   /**
    * OAuth client secret for Unity Catalog authentication
    */
@@ -290,11 +185,11 @@ export type OutputDatabricks = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: OutputDatabricksCompression | undefined;
+  compress?: CompressionOptions2 | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: OutputDatabricksCompressionLevel | undefined;
+  compressionLevel?: CompressionLevelOptions | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
@@ -306,11 +201,11 @@ export type OutputDatabricks = {
   /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputDatabricksParquetVersion | undefined;
+  parquetVersion?: ParquetVersionOptions | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputDatabricksDataPageVersion | undefined;
+  parquetDataPageVersion?: DataPageVersionOptions | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -326,7 +221,7 @@ export type OutputDatabricks = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<OutputDatabricksKeyValueMetadatum> | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -358,141 +253,6 @@ export type OutputDatabricks = {
 };
 
 /** @internal */
-export const OutputDatabricksDataFormat$inboundSchema: z.ZodType<
-  OutputDatabricksDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatabricksDataFormat);
-/** @internal */
-export const OutputDatabricksDataFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatabricksDataFormat
-> = openEnums.outboundSchema(OutputDatabricksDataFormat);
-
-/** @internal */
-export const OutputDatabricksBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputDatabricksBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatabricksBackpressureBehavior);
-/** @internal */
-export const OutputDatabricksBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatabricksBackpressureBehavior
-> = openEnums.outboundSchema(OutputDatabricksBackpressureBehavior);
-
-/** @internal */
-export const OutputDatabricksDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputDatabricksDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatabricksDiskSpaceProtection);
-/** @internal */
-export const OutputDatabricksDiskSpaceProtection$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatabricksDiskSpaceProtection
-> = openEnums.outboundSchema(OutputDatabricksDiskSpaceProtection);
-
-/** @internal */
-export const OutputDatabricksCompression$inboundSchema: z.ZodType<
-  OutputDatabricksCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatabricksCompression);
-/** @internal */
-export const OutputDatabricksCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatabricksCompression
-> = openEnums.outboundSchema(OutputDatabricksCompression);
-
-/** @internal */
-export const OutputDatabricksCompressionLevel$inboundSchema: z.ZodType<
-  OutputDatabricksCompressionLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatabricksCompressionLevel);
-/** @internal */
-export const OutputDatabricksCompressionLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatabricksCompressionLevel
-> = openEnums.outboundSchema(OutputDatabricksCompressionLevel);
-
-/** @internal */
-export const OutputDatabricksParquetVersion$inboundSchema: z.ZodType<
-  OutputDatabricksParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatabricksParquetVersion);
-/** @internal */
-export const OutputDatabricksParquetVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatabricksParquetVersion
-> = openEnums.outboundSchema(OutputDatabricksParquetVersion);
-
-/** @internal */
-export const OutputDatabricksDataPageVersion$inboundSchema: z.ZodType<
-  OutputDatabricksDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatabricksDataPageVersion);
-/** @internal */
-export const OutputDatabricksDataPageVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatabricksDataPageVersion
-> = openEnums.outboundSchema(OutputDatabricksDataPageVersion);
-
-/** @internal */
-export const OutputDatabricksKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputDatabricksKeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-/** @internal */
-export type OutputDatabricksKeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputDatabricksKeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputDatabricksKeyValueMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputDatabricksKeyValueMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-export function outputDatabricksKeyValueMetadatumToJSON(
-  outputDatabricksKeyValueMetadatum: OutputDatabricksKeyValueMetadatum,
-): string {
-  return JSON.stringify(
-    OutputDatabricksKeyValueMetadatum$outboundSchema.parse(
-      outputDatabricksKeyValueMetadatum,
-    ),
-  );
-}
-export function outputDatabricksKeyValueMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatabricksKeyValueMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatabricksKeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatabricksKeyValueMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const OutputDatabricks$inboundSchema: z.ZodType<
   OutputDatabricks,
   z.ZodTypeDef,
@@ -504,65 +264,51 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  destPath: z.string().default(""),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: OutputDatabricksDataFormat$inboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputDatabricksBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputDatabricksDiskSpaceProtection$inboundSchema
-    .default("block"),
-  forceCloseOnShutdown: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: DataFormatOptions$inboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: RetrySettingsType$inboundSchema.optional(),
   workspaceId: z.string(),
-  scope: z.string().default("all-apis"),
+  scope: z.string(),
   clientId: z.string(),
-  catalog: z.string().default("main"),
-  schema: z.string().default("external"),
-  eventsVolumeName: z.string().default("events"),
+  catalog: z.string(),
+  schema: z.string(),
+  eventsVolumeName: z.string(),
   clientTextSecret: z.string(),
-  timeoutSec: z.number().default(60),
+  timeoutSec: z.number().optional(),
   description: z.string().optional(),
-  compress: OutputDatabricksCompression$inboundSchema.default("gzip"),
-  compressionLevel: OutputDatabricksCompressionLevel$inboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  compress: CompressionOptions2$inboundSchema.optional(),
+  compressionLevel: CompressionLevelOptions$inboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputDatabricksParquetVersion$inboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputDatabricksDataPageVersion$inboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: ParquetVersionOptions$inboundSchema.optional(),
+  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputDatabricksKeyValueMetadatum$inboundSchema),
-  ).optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 /** @internal */
 export type OutputDatabricks$Outbound = {
@@ -572,24 +318,25 @@ export type OutputDatabricks$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  destPath: string;
-  stagePath: string;
-  addIdToStagePath: boolean;
-  removeEmptyDirs: boolean;
-  partitionExpr: string;
-  format: string;
-  baseFileName: string;
-  fileNameSuffix: string;
-  maxFileSizeMB: number;
-  maxFileOpenTimeSec: number;
-  maxFileIdleTimeSec: number;
-  maxOpenFiles: number;
-  headerLine: string;
-  writeHighWaterMark: number;
-  onBackpressure: string;
-  deadletterEnabled: boolean;
-  onDiskFullBackpressure: string;
-  forceCloseOnShutdown: boolean;
+  destPath?: string | undefined;
+  stagePath?: string | undefined;
+  addIdToStagePath?: boolean | undefined;
+  removeEmptyDirs?: boolean | undefined;
+  partitionExpr?: string | undefined;
+  format?: string | undefined;
+  baseFileName?: string | undefined;
+  fileNameSuffix?: string | undefined;
+  maxFileSizeMB?: number | undefined;
+  maxFileOpenTimeSec?: number | undefined;
+  maxFileIdleTimeSec?: number | undefined;
+  maxOpenFiles?: number | undefined;
+  headerLine?: string | undefined;
+  writeHighWaterMark?: number | undefined;
+  onBackpressure?: string | undefined;
+  deadletterEnabled?: boolean | undefined;
+  onDiskFullBackpressure?: string | undefined;
+  forceCloseOnShutdown?: boolean | undefined;
+  retrySettings?: RetrySettingsType$Outbound | undefined;
   workspaceId: string;
   scope: string;
   clientId: string;
@@ -597,27 +344,25 @@ export type OutputDatabricks$Outbound = {
   schema: string;
   eventsVolumeName: string;
   clientTextSecret: string;
-  timeoutSec: number;
+  timeoutSec?: number | undefined;
   description?: string | undefined;
-  compress: string;
-  compressionLevel: string;
-  automaticSchema: boolean;
+  compress?: string | undefined;
+  compressionLevel?: string | undefined;
+  automaticSchema?: boolean | undefined;
   parquetSchema?: string | undefined;
-  parquetVersion: string;
-  parquetDataPageVersion: string;
-  parquetRowGroupLength: number;
-  parquetPageSize: string;
+  parquetVersion?: string | undefined;
+  parquetDataPageVersion?: string | undefined;
+  parquetRowGroupLength?: number | undefined;
+  parquetPageSize?: string | undefined;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?:
-    | Array<OutputDatabricksKeyValueMetadatum$Outbound>
-    | undefined;
-  enableStatistics: boolean;
-  enableWritePageIndex: boolean;
-  enablePageChecksum: boolean;
-  emptyDirCleanupSec: number;
-  directoryBatchSize: number;
-  deadletterPath: string;
-  maxRetryNum: number;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
+  enableStatistics?: boolean | undefined;
+  enableWritePageIndex?: boolean | undefined;
+  enablePageChecksum?: boolean | undefined;
+  emptyDirCleanupSec?: number | undefined;
+  directoryBatchSize?: number | undefined;
+  deadletterPath?: string | undefined;
+  maxRetryNum?: number | undefined;
 };
 
 /** @internal */
@@ -632,64 +377,52 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  destPath: z.string().default(""),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: OutputDatabricksDataFormat$outboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputDatabricksBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputDatabricksDiskSpaceProtection$outboundSchema
-    .default("block"),
-  forceCloseOnShutdown: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().optional(),
+  removeEmptyDirs: z.boolean().optional(),
+  partitionExpr: z.string().optional(),
+  format: DataFormatOptions$outboundSchema.optional(),
+  baseFileName: z.string().optional(),
+  fileNameSuffix: z.string().optional(),
+  maxFileSizeMB: z.number().optional(),
+  maxFileOpenTimeSec: z.number().optional(),
+  maxFileIdleTimeSec: z.number().optional(),
+  maxOpenFiles: z.number().optional(),
+  headerLine: z.string().optional(),
+  writeHighWaterMark: z.number().optional(),
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.optional(),
+  deadletterEnabled: z.boolean().optional(),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.optional(),
+  forceCloseOnShutdown: z.boolean().optional(),
+  retrySettings: RetrySettingsType$outboundSchema.optional(),
   workspaceId: z.string(),
-  scope: z.string().default("all-apis"),
+  scope: z.string(),
   clientId: z.string(),
-  catalog: z.string().default("main"),
-  schema: z.string().default("external"),
-  eventsVolumeName: z.string().default("events"),
+  catalog: z.string(),
+  schema: z.string(),
+  eventsVolumeName: z.string(),
   clientTextSecret: z.string(),
-  timeoutSec: z.number().default(60),
+  timeoutSec: z.number().optional(),
   description: z.string().optional(),
-  compress: OutputDatabricksCompression$outboundSchema.default("gzip"),
-  compressionLevel: OutputDatabricksCompressionLevel$outboundSchema.default(
-    "best_speed",
-  ),
-  automaticSchema: z.boolean().default(false),
+  compress: CompressionOptions2$outboundSchema.optional(),
+  compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
+  automaticSchema: z.boolean().optional(),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputDatabricksParquetVersion$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputDatabricksDataPageVersion$outboundSchema
-    .default("DATA_PAGE_V2"),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
+  parquetVersion: ParquetVersionOptions$outboundSchema.optional(),
+  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.optional(),
+  parquetRowGroupLength: z.number().optional(),
+  parquetPageSize: z.string().optional(),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputDatabricksKeyValueMetadatum$outboundSchema),
-  ).optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  directoryBatchSize: z.number().default(1000),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
+  enableStatistics: z.boolean().optional(),
+  enableWritePageIndex: z.boolean().optional(),
+  enablePageChecksum: z.boolean().optional(),
+  emptyDirCleanupSec: z.number().optional(),
+  directoryBatchSize: z.number().optional(),
+  deadletterPath: z.string().optional(),
+  maxRetryNum: z.number().optional(),
 });
 
 export function outputDatabricksToJSON(

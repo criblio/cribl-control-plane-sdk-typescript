@@ -49,13 +49,13 @@ async function run() {
         "delectable-transom.com",
         "radiant-sightseeing.info",
       ],
-      technology: [
-        "<value 1>",
-      ],
       streamtags: [
         "<value 1>",
         "<value 2>",
         "<value 3>",
+      ],
+      technology: [
+        "<value 1>",
       ],
     },
     allowCustomFunctions: true,
@@ -104,13 +104,13 @@ async function run() {
         "delectable-transom.com",
         "radiant-sightseeing.info",
       ],
-      technology: [
-        "<value 1>",
-      ],
       streamtags: [
         "<value 1>",
         "<value 2>",
         "<value 3>",
+      ],
+      technology: [
+        "<value 1>",
       ],
     },
     allowCustomFunctions: true,
@@ -138,7 +138,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreatePacksResponse](../../models/operations/createpacksresponse.md)\>**
+**Promise\<[models.CountedPackInstallInfo](../../models/countedpackinstallinfo.md)\>**
 
 ### Errors
 
@@ -218,7 +218,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetPacksResponse](../../models/operations/getpacksresponse.md)\>**
+**Promise\<[models.CountedPackInfo](../../models/countedpackinfo.md)\>**
 
 ### Errors
 
@@ -382,7 +382,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeletePacksByIdResponse](../../models/operations/deletepacksbyidresponse.md)\>**
+**Promise\<[models.CountedPackUninstallInfo](../../models/countedpackuninstallinfo.md)\>**
 
 ### Errors
 
@@ -462,7 +462,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetPacksByIdResponse](../../models/operations/getpacksbyidresponse.md)\>**
+**Promise\<[models.CountedPackInfo](../../models/countedpackinfo.md)\>**
 
 ### Errors
 
@@ -554,7 +554,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdatePacksByIdResponse](../../models/operations/updatepacksbyidresponse.md)\>**
+**Promise\<[models.CountedPackInfo](../../models/countedpackinfo.md)\>**
 
 ### Errors
 
