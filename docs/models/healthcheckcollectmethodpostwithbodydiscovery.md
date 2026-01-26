@@ -1,0 +1,62 @@
+# HealthCheckCollectMethodPostWithBodyDiscovery
+
+
+## Supported Types
+
+### `models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp`
+
+```typescript
+const value:
+  models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp =
+    {
+      discoverMethod: "post_with_body",
+      discoverBody: "<value>",
+      discoverType: "http",
+      discoverUrl: "https://exhausted-palate.net",
+      discoverRequestParams: "<value>",
+      discoverRequestHeaders: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      discoverDataField: "<value>",
+    };
+```
+
+### `models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson`
+
+```typescript
+const value:
+  models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson =
+    {
+      discoverType: "json",
+      manualDiscoverResult: "<value>",
+      discoverDataField: "<value>",
+    };
+```
+
+### `models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList`
+
+```typescript
+const value:
+  models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList =
+    {
+      discoverType: "list",
+      itemList: [
+        "<value 1>",
+        "<value 2>",
+      ],
+    };
+```
+
+### `models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone`
+
+```typescript
+const value:
+  models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone =
+    {
+      discoverType: "none",
+    };
+```
+

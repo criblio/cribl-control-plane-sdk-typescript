@@ -7,6 +7,7 @@ import { OutputWebhookUrl } from "cribl-control-plane/models";
 
 let value: OutputWebhookUrl = {
   url: "https://different-cheese.net",
+  weight: 4905.86,
 };
 ```
 

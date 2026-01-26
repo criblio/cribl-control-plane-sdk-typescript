@@ -1,0 +1,33 @@
+# RestCollectMethodPostRestPaginationTypeRequestPage
+
+## Example Usage
+
+```typescript
+import { RestCollectMethodPostRestPaginationTypeRequestPage } from "cribl-control-plane/models";
+
+let value: RestCollectMethodPostRestPaginationTypeRequestPage = {
+  type: "request_page",
+  pageField: "<value>",
+  page: 8836.54,
+  sizeField: "<value>",
+  size: 9484.68,
+  totalPageField: "<value>",
+  totalRecordField: "<value>",
+  maxPages: 6431.81,
+  zeroIndexed: false,
+};
+```
+
+## Fields
+
+| Field                                                                                                                                       | Type                                                                                                                                        | Required                                                                                                                                    | Description                                                                                                                                 |
+| ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                                      | *"request_page"*                                                                                                                            | :heavy_check_mark:                                                                                                                          | N/A                                                                                                                                         |
+| `pageField`                                                                                                                                 | *string*                                                                                                                                    | :heavy_check_mark:                                                                                                                          | Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0               |
+| `page`                                                                                                                                      | *number*                                                                                                                                    | :heavy_minus_sign:                                                                                                                          | Page number from which to start request. Defaults to undefined, which will start collection from the first page.                            |
+| `sizeField`                                                                                                                                 | *string*                                                                                                                                    | :heavy_check_mark:                                                                                                                          | Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0 |
+| `size`                                                                                                                                      | *number*                                                                                                                                    | :heavy_check_mark:                                                                                                                          | Maximum number of records to collect per page                                                                                               |
+| `totalPageField`                                                                                                                            | *string*                                                                                                                                    | :heavy_minus_sign:                                                                                                                          | Name of the attribute in the response that contains the total number of pages for the query                                                 |
+| `totalRecordField`                                                                                                                          | *string*                                                                                                                                    | :heavy_minus_sign:                                                                                                                          | Name of the attribute in the response that contains the total number of records for the query                                               |
+| `maxPages`                                                                                                                                  | *number*                                                                                                                                    | :heavy_check_mark:                                                                                                                          | Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.                              |
+| `zeroIndexed`                                                                                                                               | *boolean*                                                                                                                                   | :heavy_check_mark:                                                                                                                          | Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.                   |

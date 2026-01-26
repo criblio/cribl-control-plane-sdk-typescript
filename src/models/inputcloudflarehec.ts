@@ -8,89 +8,37 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputCloudflareHecConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputCloudflareHecMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputCloudflareHecMode = OpenEnum<typeof InputCloudflareHecMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputCloudflareHecCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputCloudflareHecCompression = OpenEnum<
-  typeof InputCloudflareHecCompression
->;
-
-export type InputCloudflareHecPqControls = {};
-
-export type InputCloudflareHecPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputCloudflareHecMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputCloudflareHecCompression | undefined;
-  pqControls?: InputCloudflareHecPqControls | undefined;
-};
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  TlsSettingsServerSideType,
+  TlsSettingsServerSideType$inboundSchema,
+  TlsSettingsServerSideType$Outbound,
+  TlsSettingsServerSideType$outboundSchema,
+} from "./tlssettingsserversidetype.js";
 
 /**
  * Select Secret to use a text secret to authenticate
  */
 export const InputCloudflareHecAuthenticationMethod = {
   Secret: "secret",
+  Manual: "manual",
 } as const;
 /**
  * Select Secret to use a text secret to authenticate
@@ -99,21 +47,19 @@ export type InputCloudflareHecAuthenticationMethod = OpenEnum<
   typeof InputCloudflareHecAuthenticationMethod
 >;
 
-export type InputCloudflareHecAuthTokenMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
 export type InputCloudflareHecAuthToken = {
   /**
    * Select Secret to use a text secret to authenticate
    */
   authType?: InputCloudflareHecAuthenticationMethod | undefined;
-  tokenSecret?: any | undefined;
-  token?: any | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   /**
@@ -123,73 +69,7 @@ export type InputCloudflareHecAuthToken = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<InputCloudflareHecAuthTokenMetadatum> | undefined;
-};
-
-export const InputCloudflareHecMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputCloudflareHecMinimumTLSVersion = OpenEnum<
-  typeof InputCloudflareHecMinimumTLSVersion
->;
-
-export const InputCloudflareHecMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputCloudflareHecMaximumTLSVersion = OpenEnum<
-  typeof InputCloudflareHecMaximumTLSVersion
->;
-
-export type InputCloudflareHecTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Regex matching allowable common names in peer certificates' subject attribute
-   */
-  commonNameRegex?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  minVersion?: InputCloudflareHecMinimumTLSVersion | undefined;
-  maxVersion?: InputCloudflareHecMaximumTLSVersion | undefined;
-};
-
-export type InputCloudflareHecMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
 };
 
 export type InputCloudflareHec = {
@@ -222,12 +102,12 @@ export type InputCloudflareHec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputCloudflareHecConnection> | undefined;
-  pq?: InputCloudflareHecPq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
@@ -236,7 +116,7 @@ export type InputCloudflareHec = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<InputCloudflareHecAuthToken> | undefined;
-  tls?: InputCloudflareHecTLSSettingsServerSide | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -285,7 +165,7 @@ export type InputCloudflareHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<InputCloudflareHecMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -314,173 +194,6 @@ export type InputCloudflareHec = {
 };
 
 /** @internal */
-export const InputCloudflareHecConnection$inboundSchema: z.ZodType<
-  InputCloudflareHecConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputCloudflareHecConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputCloudflareHecConnection$outboundSchema: z.ZodType<
-  InputCloudflareHecConnection$Outbound,
-  z.ZodTypeDef,
-  InputCloudflareHecConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputCloudflareHecConnectionToJSON(
-  inputCloudflareHecConnection: InputCloudflareHecConnection,
-): string {
-  return JSON.stringify(
-    InputCloudflareHecConnection$outboundSchema.parse(
-      inputCloudflareHecConnection,
-    ),
-  );
-}
-export function inputCloudflareHecConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCloudflareHecConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCloudflareHecConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCloudflareHecConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCloudflareHecMode$inboundSchema: z.ZodType<
-  InputCloudflareHecMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCloudflareHecMode);
-/** @internal */
-export const InputCloudflareHecMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCloudflareHecMode
-> = openEnums.outboundSchema(InputCloudflareHecMode);
-
-/** @internal */
-export const InputCloudflareHecCompression$inboundSchema: z.ZodType<
-  InputCloudflareHecCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCloudflareHecCompression);
-/** @internal */
-export const InputCloudflareHecCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCloudflareHecCompression
-> = openEnums.outboundSchema(InputCloudflareHecCompression);
-
-/** @internal */
-export const InputCloudflareHecPqControls$inboundSchema: z.ZodType<
-  InputCloudflareHecPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputCloudflareHecPqControls$Outbound = {};
-
-/** @internal */
-export const InputCloudflareHecPqControls$outboundSchema: z.ZodType<
-  InputCloudflareHecPqControls$Outbound,
-  z.ZodTypeDef,
-  InputCloudflareHecPqControls
-> = z.object({});
-
-export function inputCloudflareHecPqControlsToJSON(
-  inputCloudflareHecPqControls: InputCloudflareHecPqControls,
-): string {
-  return JSON.stringify(
-    InputCloudflareHecPqControls$outboundSchema.parse(
-      inputCloudflareHecPqControls,
-    ),
-  );
-}
-export function inputCloudflareHecPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCloudflareHecPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCloudflareHecPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCloudflareHecPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCloudflareHecPq$inboundSchema: z.ZodType<
-  InputCloudflareHecPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputCloudflareHecMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCloudflareHecCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCloudflareHecPqControls$inboundSchema)
-    .optional(),
-});
-/** @internal */
-export type InputCloudflareHecPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputCloudflareHecPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputCloudflareHecPq$outboundSchema: z.ZodType<
-  InputCloudflareHecPq$Outbound,
-  z.ZodTypeDef,
-  InputCloudflareHecPq
-> = z.object({
-  mode: InputCloudflareHecMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCloudflareHecCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCloudflareHecPqControls$outboundSchema)
-    .optional(),
-});
-
-export function inputCloudflareHecPqToJSON(
-  inputCloudflareHecPq: InputCloudflareHecPq,
-): string {
-  return JSON.stringify(
-    InputCloudflareHecPq$outboundSchema.parse(inputCloudflareHecPq),
-  );
-}
-export function inputCloudflareHecPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCloudflareHecPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCloudflareHecPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCloudflareHecPq' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputCloudflareHecAuthenticationMethod$inboundSchema: z.ZodType<
   InputCloudflareHecAuthenticationMethod,
   z.ZodTypeDef,
@@ -494,77 +207,28 @@ export const InputCloudflareHecAuthenticationMethod$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(InputCloudflareHecAuthenticationMethod);
 
 /** @internal */
-export const InputCloudflareHecAuthTokenMetadatum$inboundSchema: z.ZodType<
-  InputCloudflareHecAuthTokenMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputCloudflareHecAuthTokenMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputCloudflareHecAuthTokenMetadatum$outboundSchema: z.ZodType<
-  InputCloudflareHecAuthTokenMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputCloudflareHecAuthTokenMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputCloudflareHecAuthTokenMetadatumToJSON(
-  inputCloudflareHecAuthTokenMetadatum: InputCloudflareHecAuthTokenMetadatum,
-): string {
-  return JSON.stringify(
-    InputCloudflareHecAuthTokenMetadatum$outboundSchema.parse(
-      inputCloudflareHecAuthTokenMetadatum,
-    ),
-  );
-}
-export function inputCloudflareHecAuthTokenMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCloudflareHecAuthTokenMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCloudflareHecAuthTokenMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCloudflareHecAuthTokenMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputCloudflareHecAuthToken$inboundSchema: z.ZodType<
   InputCloudflareHecAuthToken,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: InputCloudflareHecAuthenticationMethod$inboundSchema.default(
-    "secret",
-  ),
-  tokenSecret: z.any().optional(),
-  token: z.any().optional(),
-  enabled: z.boolean().default(true),
+  authType: InputCloudflareHecAuthenticationMethod$inboundSchema.optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string().optional(),
+  enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(
-    z.lazy(() => InputCloudflareHecAuthTokenMetadatum$inboundSchema),
-  ).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
 });
 /** @internal */
 export type InputCloudflareHecAuthToken$Outbound = {
-  authType: string;
-  tokenSecret?: any | undefined;
-  token?: any | undefined;
-  enabled: boolean;
+  authType?: string | undefined;
+  tokenSecret?: string | undefined;
+  token?: string | undefined;
+  enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<InputCloudflareHecAuthTokenMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
 };
 
 /** @internal */
@@ -573,17 +237,13 @@ export const InputCloudflareHecAuthToken$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputCloudflareHecAuthToken
 > = z.object({
-  authType: InputCloudflareHecAuthenticationMethod$outboundSchema.default(
-    "secret",
-  ),
-  tokenSecret: z.any().optional(),
-  token: z.any().optional(),
-  enabled: z.boolean().default(true),
+  authType: InputCloudflareHecAuthenticationMethod$outboundSchema.optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string().optional(),
+  enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(
-    z.lazy(() => InputCloudflareHecAuthTokenMetadatum$outboundSchema),
-  ).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
 });
 
 export function inputCloudflareHecAuthTokenToJSON(
@@ -606,154 +266,6 @@ export function inputCloudflareHecAuthTokenFromJSON(
 }
 
 /** @internal */
-export const InputCloudflareHecMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputCloudflareHecMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCloudflareHecMinimumTLSVersion);
-/** @internal */
-export const InputCloudflareHecMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCloudflareHecMinimumTLSVersion
-> = openEnums.outboundSchema(InputCloudflareHecMinimumTLSVersion);
-
-/** @internal */
-export const InputCloudflareHecMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputCloudflareHecMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCloudflareHecMaximumTLSVersion);
-/** @internal */
-export const InputCloudflareHecMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCloudflareHecMaximumTLSVersion
-> = openEnums.outboundSchema(InputCloudflareHecMaximumTLSVersion);
-
-/** @internal */
-export const InputCloudflareHecTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputCloudflareHecTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputCloudflareHecMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputCloudflareHecMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type InputCloudflareHecTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputCloudflareHecTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputCloudflareHecTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputCloudflareHecTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputCloudflareHecMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputCloudflareHecMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function inputCloudflareHecTLSSettingsServerSideToJSON(
-  inputCloudflareHecTLSSettingsServerSide:
-    InputCloudflareHecTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputCloudflareHecTLSSettingsServerSide$outboundSchema.parse(
-      inputCloudflareHecTLSSettingsServerSide,
-    ),
-  );
-}
-export function inputCloudflareHecTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputCloudflareHecTLSSettingsServerSide,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputCloudflareHecTLSSettingsServerSide$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputCloudflareHecTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCloudflareHecMetadatum$inboundSchema: z.ZodType<
-  InputCloudflareHecMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputCloudflareHecMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputCloudflareHecMetadatum$outboundSchema: z.ZodType<
-  InputCloudflareHecMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputCloudflareHecMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputCloudflareHecMetadatumToJSON(
-  inputCloudflareHecMetadatum: InputCloudflareHecMetadatum,
-): string {
-  return JSON.stringify(
-    InputCloudflareHecMetadatum$outboundSchema.parse(
-      inputCloudflareHecMetadatum,
-    ),
-  );
-}
-export function inputCloudflareHecMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCloudflareHecMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCloudflareHecMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCloudflareHecMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputCloudflareHec$inboundSchema: z.ZodType<
   InputCloudflareHec,
   z.ZodTypeDef,
@@ -761,78 +273,75 @@ export const InputCloudflareHec$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("cloudflare_hec"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputCloudflareHecConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputCloudflareHecPq$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string(),
   port: z.number(),
   authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$inboundSchema))
     .optional(),
-  tls: z.lazy(() => InputCloudflareHecTLSSettingsServerSide$inboundSchema)
-    .optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
   enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
   hecAPI: z.string(),
-  metadata: z.array(z.lazy(() => InputCloudflareHecMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
   accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
+  emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
 });
 /** @internal */
 export type InputCloudflareHec$Outbound = {
   id?: string | undefined;
   type: "cloudflare_hec";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputCloudflareHecConnection$Outbound> | undefined;
-  pq?: InputCloudflareHecPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<InputCloudflareHecAuthToken$Outbound> | undefined;
-  tls?: InputCloudflareHecTLSSettingsServerSide$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
   enableHealthCheck?: any | undefined;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   hecAPI: string;
-  metadata?: Array<InputCloudflareHecMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
+  staleChannelFlushMs?: number | undefined;
   accessControlAllowOrigin?: Array<string> | undefined;
   accessControlAllowHeaders?: Array<string> | undefined;
-  emitTokenMetrics: boolean;
+  emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -844,42 +353,38 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("cloudflare_hec"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputCloudflareHecConnection$outboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputCloudflareHecPq$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string(),
   port: z.number(),
   authTokens: z.array(z.lazy(() => InputCloudflareHecAuthToken$outboundSchema))
     .optional(),
-  tls: z.lazy(() => InputCloudflareHecTLSSettingsServerSide$outboundSchema)
-    .optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
   enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
   hecAPI: z.string(),
-  metadata: z.array(z.lazy(() => InputCloudflareHecMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
+  staleChannelFlushMs: z.number().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
   accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().default(false),
+  emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
 });
 

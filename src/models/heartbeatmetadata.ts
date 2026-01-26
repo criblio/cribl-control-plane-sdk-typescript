@@ -5,182 +5,31 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AwsTypeHeartbeatMetadata,
+  AwsTypeHeartbeatMetadata$inboundSchema,
+} from "./awstypeheartbeatmetadata.js";
+import {
+  AzureTypeHeartbeatMetadata,
+  AzureTypeHeartbeatMetadata$inboundSchema,
+} from "./azuretypeheartbeatmetadata.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type HeartbeatMetadataTags = {};
-
-export type HeartbeatMetadataAws = {
-  enabled: boolean;
-  instanceId: string;
-  region: string;
-  tags?: HeartbeatMetadataTags | undefined;
-  type: string;
-  zone: string;
-};
-
-export type HeartbeatMetadataHostOs = {
-  addresses: Array<string>;
-  enabled: boolean;
-  id: string;
-  version: string;
-};
-
-export type HeartbeatMetadataOwner = {
-  kind: string;
-  name: string;
-};
-
-export type HeartbeatMetadataKube = {
-  enabled: boolean;
-  namespace: string;
-  node: string;
-  owner?: HeartbeatMetadataOwner | undefined;
-  pod: string;
-  source: string;
-};
-
-export type HeartbeatMetadataOs = {
-  addresses: Array<string>;
-  enabled: boolean;
-  id: string;
-  version: string;
-};
+import {
+  HostOsTypeHeartbeatMetadata,
+  HostOsTypeHeartbeatMetadata$inboundSchema,
+} from "./hostostypeheartbeatmetadata.js";
+import {
+  KubeTypeHeartbeatMetadata,
+  KubeTypeHeartbeatMetadata$inboundSchema,
+} from "./kubetypeheartbeatmetadata.js";
 
 export type HeartbeatMetadata = {
-  aws?: HeartbeatMetadataAws | undefined;
-  hostOs?: HeartbeatMetadataHostOs | undefined;
-  kube?: HeartbeatMetadataKube | undefined;
-  os?: HeartbeatMetadataOs | undefined;
+  aws?: AwsTypeHeartbeatMetadata | undefined;
+  azure?: AzureTypeHeartbeatMetadata | undefined;
+  hostOs?: HostOsTypeHeartbeatMetadata | undefined;
+  kube?: KubeTypeHeartbeatMetadata | undefined;
+  os?: HostOsTypeHeartbeatMetadata | undefined;
 };
-
-/** @internal */
-export const HeartbeatMetadataTags$inboundSchema: z.ZodType<
-  HeartbeatMetadataTags,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function heartbeatMetadataTagsFromJSON(
-  jsonString: string,
-): SafeParseResult<HeartbeatMetadataTags, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => HeartbeatMetadataTags$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HeartbeatMetadataTags' from JSON`,
-  );
-}
-
-/** @internal */
-export const HeartbeatMetadataAws$inboundSchema: z.ZodType<
-  HeartbeatMetadataAws,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean(),
-  instanceId: z.string(),
-  region: z.string(),
-  tags: z.lazy(() => HeartbeatMetadataTags$inboundSchema).optional(),
-  type: z.string(),
-  zone: z.string(),
-});
-
-export function heartbeatMetadataAwsFromJSON(
-  jsonString: string,
-): SafeParseResult<HeartbeatMetadataAws, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => HeartbeatMetadataAws$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HeartbeatMetadataAws' from JSON`,
-  );
-}
-
-/** @internal */
-export const HeartbeatMetadataHostOs$inboundSchema: z.ZodType<
-  HeartbeatMetadataHostOs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  addresses: z.array(z.string()),
-  enabled: z.boolean(),
-  id: z.string(),
-  version: z.string(),
-});
-
-export function heartbeatMetadataHostOsFromJSON(
-  jsonString: string,
-): SafeParseResult<HeartbeatMetadataHostOs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => HeartbeatMetadataHostOs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HeartbeatMetadataHostOs' from JSON`,
-  );
-}
-
-/** @internal */
-export const HeartbeatMetadataOwner$inboundSchema: z.ZodType<
-  HeartbeatMetadataOwner,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  kind: z.string(),
-  name: z.string(),
-});
-
-export function heartbeatMetadataOwnerFromJSON(
-  jsonString: string,
-): SafeParseResult<HeartbeatMetadataOwner, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => HeartbeatMetadataOwner$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HeartbeatMetadataOwner' from JSON`,
-  );
-}
-
-/** @internal */
-export const HeartbeatMetadataKube$inboundSchema: z.ZodType<
-  HeartbeatMetadataKube,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean(),
-  namespace: z.string(),
-  node: z.string(),
-  owner: z.lazy(() => HeartbeatMetadataOwner$inboundSchema).optional(),
-  pod: z.string(),
-  source: z.string(),
-});
-
-export function heartbeatMetadataKubeFromJSON(
-  jsonString: string,
-): SafeParseResult<HeartbeatMetadataKube, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => HeartbeatMetadataKube$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HeartbeatMetadataKube' from JSON`,
-  );
-}
-
-/** @internal */
-export const HeartbeatMetadataOs$inboundSchema: z.ZodType<
-  HeartbeatMetadataOs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  addresses: z.array(z.string()),
-  enabled: z.boolean(),
-  id: z.string(),
-  version: z.string(),
-});
-
-export function heartbeatMetadataOsFromJSON(
-  jsonString: string,
-): SafeParseResult<HeartbeatMetadataOs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => HeartbeatMetadataOs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HeartbeatMetadataOs' from JSON`,
-  );
-}
 
 /** @internal */
 export const HeartbeatMetadata$inboundSchema: z.ZodType<
@@ -188,10 +37,11 @@ export const HeartbeatMetadata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  aws: z.lazy(() => HeartbeatMetadataAws$inboundSchema).optional(),
-  hostOs: z.lazy(() => HeartbeatMetadataHostOs$inboundSchema).optional(),
-  kube: z.lazy(() => HeartbeatMetadataKube$inboundSchema).optional(),
-  os: z.lazy(() => HeartbeatMetadataOs$inboundSchema).optional(),
+  aws: AwsTypeHeartbeatMetadata$inboundSchema.optional(),
+  azure: AzureTypeHeartbeatMetadata$inboundSchema.optional(),
+  hostOs: HostOsTypeHeartbeatMetadata$inboundSchema.optional(),
+  kube: KubeTypeHeartbeatMetadata$inboundSchema.optional(),
+  os: HostOsTypeHeartbeatMetadata$inboundSchema.optional(),
 });
 
 export function heartbeatMetadataFromJSON(

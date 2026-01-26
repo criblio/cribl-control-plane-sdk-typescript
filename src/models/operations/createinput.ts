@@ -3,38 +3,15861 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import * as openEnums from "../../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../../types/enums.js";
 import * as models from "../index.js";
 
 /**
- * a list of Source objects
+ * Select Secret to use a text secret to authenticate
  */
-export type CreateInputResponse = {
+export const AuthTokenAuthenticationMethod = {
+  Secret: "secret",
+  Manual: "manual",
+} as const;
+/**
+ * Select Secret to use a text secret to authenticate
+ */
+export type AuthTokenAuthenticationMethod = OpenEnum<
+  typeof AuthTokenAuthenticationMethod
+>;
+
+export type AuthTokenCloudflareHec = {
   /**
-   * number of items present in the items array
+   * Select Secret to use a text secret to authenticate
    */
-  count?: number | undefined;
-  items?: Array<models.Input> | undefined;
+  authType?: AuthTokenAuthenticationMethod | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token?: string | undefined;
+  enabled?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
+   */
+  allowedIndexesAtToken?: Array<string> | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+};
+
+export type InputCloudflareHec = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "cloudflare_hec";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<AuthTokenCloudflareHec> | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: any | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
+   */
+  hecAPI: string;
+  /**
+   * Fields to add to every event. May be overridden by fields added at the token or request level.
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+   */
+  allowedIndexes?: Array<string> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   */
+  accessControlAllowOrigin?: Array<string> | undefined;
+  /**
+   * HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   */
+  accessControlAllowHeaders?: Array<string> | undefined;
+  /**
+   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   */
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type AuthTokenZscalerHec = {
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token: string;
+  enabled?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
+   */
+  allowedIndexesAtToken?: Array<string> | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+};
+
+export type InputZscalerHec = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "zscaler_hec";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<AuthTokenZscalerHec> | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: any | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
+   */
+  hecAPI: string;
+  /**
+   * Fields to add to every event. May be overridden by fields added at the token or request level.
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+   */
+  allowedIndexes?: Array<string> | undefined;
+  /**
+   * Whether to enable Zscaler HEC acknowledgements
+   */
+  hecAcks?: boolean | undefined;
+  /**
+   * Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   */
+  accessControlAllowOrigin?: Array<string> | undefined;
+  /**
+   * Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   */
+  accessControlAllowHeaders?: Array<string> | undefined;
+  /**
+   * Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   */
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputSecurityLake = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "security_lake";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * Regex matching file names to download and process. Defaults to: .*
+   */
+  fileFilter?: string | undefined;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+  /**
+   * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+   */
+  skipOnError?: boolean | undefined;
+  /**
+   * Attach SQS notification metadata to a __sqsMetadata field on each event
+   */
+  includeSqsMetadata?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Amazon S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Use Assume Role credentials when accessing Amazon SQS
+   */
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  checkpointing?: models.CheckpointingType | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  tagAfterProcessing?: models.TagAfterProcessingOptions | undefined;
+  /**
+   * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+   */
+  processedTagKey?: string | undefined;
+  /**
+   * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+   */
+  processedTagValue?: string | undefined;
+};
+
+export type InputNetflow = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "netflow";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Allow forwarding of events to a NetFlow destination. Enabling this feature will generate an extra event containing __netflowRaw which can be routed to a NetFlow destination. Note that these events will not count against ingest quota.
+   */
+  enablePassThrough?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * Specifies how many minutes NetFlow v9 templates are cached before being discarded if not refreshed. Adjust based on your network's template update frequency to optimize performance and memory usage.
+   */
+  templateCacheMinutes?: number | undefined;
+  /**
+   * Accept messages in Netflow V5 format.
+   */
+  v5Enabled?: boolean | undefined;
+  /**
+   * Accept messages in Netflow V9 format.
+   */
+  v9Enabled?: boolean | undefined;
+  /**
+   * Accept messages in IPFIX format.
+   */
+  ipfixEnabled?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputWizWebhook = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "wiz_webhook";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * List of URI paths accepted by this input. Wildcards are supported (such as /api/v* /hook). Defaults to allow all.
+   */
+  allowedPaths?: Array<string> | undefined;
+  /**
+   * List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
+   */
+  allowedMethods?: Array<string> | undefined;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
+  description?: string | undefined;
+};
+
+export type ManageState = {};
+
+/**
+ * Collector runtime log level
+ */
+export const ContentConfigLogLevel = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Collector runtime log level
+ */
+export type ContentConfigLogLevel = OpenEnum<typeof ContentConfigLogLevel>;
+
+export type ContentConfigWiz = {
+  /**
+   * The name of the Wiz query
+   */
+  contentType: string;
+  contentDescription?: string | undefined;
+  enabled?: boolean | undefined;
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  stateTracking?: boolean | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
+   */
+  stateMergeExpression?: string | undefined;
+  manageState?: ManageState | undefined;
+  /**
+   * Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
+   */
+  contentQuery: string;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule: string;
+  /**
+   * Earliest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+   */
+  earliest: string;
+  /**
+   * Latest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+   */
+  latest: string;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Units default to seconds if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * Collector runtime log level
+   */
+  logLevel?: ContentConfigLogLevel | undefined;
+  /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
+};
+
+export type InputWiz = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "wiz";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
+   */
+  endpoint: string;
+  /**
+   * The authentication URL to generate an OAuth token
+   */
+  authUrl: string;
+  /**
+   * The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
+   */
+  authAudienceOverride?: string | undefined;
+  /**
+   * The client ID of the Wiz application
+   */
+  clientId: string;
+  contentConfig: Array<ContentConfigWiz>;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  retryRules?: models.RetryRulesType | undefined;
+  /**
+   * Enter client secret directly, or select a stored secret
+   */
+  authType?: models.AuthenticationMethodOptions1 | undefined;
+  description?: string | undefined;
+  /**
+   * The client secret of the Wiz application
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type InputJournalFilesRule = {
+  /**
+   * JavaScript expression applied to Journal objects. Return 'true' to include it.
+   */
+  filter: string;
+  /**
+   * Optional description of this rule's purpose
+   */
+  description?: string | undefined;
+};
+
+export type InputJournalFiles = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "journal_files";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
+   */
+  path: string;
+  /**
+   * Time, in seconds, between scanning for journals.
+   */
+  interval?: number | undefined;
+  /**
+   * The full path of discovered journals are matched against this wildcard list.
+   */
+  journals: Array<string>;
+  /**
+   * Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
+   */
+  rules?: Array<InputJournalFilesRule> | undefined;
+  /**
+   * Skip log messages that are not part of the current boot session.
+   */
+  currentBoot?: boolean | undefined;
+  /**
+   * The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
+   */
+  maxAgeDur?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputRawUdp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "raw_udp";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Maximum number of events to buffer when downstream is blocking.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * If true, each UDP packet is assumed to contain a single message. If false, each UDP packet is assumed to contain multiple messages, separated by newlines.
+   */
+  singleMsgUdpPackets?: boolean | undefined;
+  /**
+   * If true, a __rawBytes field will be added to each event containing the raw bytes of the datagram.
+   */
+  ingestRawBytes?: boolean | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+/**
+ * Read all stored and future event logs, or only future events
+ */
+export const ReadMode = {
+  /**
+   * Entire log
+   */
+  Oldest: "oldest",
+  /**
+   * From last entry
+   */
+  Newest: "newest",
+} as const;
+/**
+ * Read all stored and future event logs, or only future events
+ */
+export type ReadMode = OpenEnum<typeof ReadMode>;
+
+/**
+ * Format of individual events
+ */
+export const EventFormat = {
+  /**
+   * JSON
+   */
+  Json: "json",
+  /**
+   * XML
+   */
+  Xml: "xml",
+} as const;
+/**
+ * Format of individual events
+ */
+export type EventFormat = OpenEnum<typeof EventFormat>;
+
+export type InputWinEventLogs = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "win_event_logs";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
+   */
+  logNames: Array<string>;
+  /**
+   * Read all stored and future event logs, or only future events
+   */
+  readMode?: ReadMode | undefined;
+  /**
+   * Format of individual events
+   */
+  eventFormat?: EventFormat | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
+   */
+  disableNativeModule?: boolean | undefined;
+  /**
+   * Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
+   */
+  batchSize?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * The maximum number of bytes in an event before it is flushed to the pipelines
+   */
+  maxEventBytes?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+   */
+  disableJsonRendering?: boolean | undefined;
+  /**
+   * Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
+   */
+  disableXmlRendering?: boolean | undefined;
+};
+
+/**
+ * How to authenticate incoming client connections
+ */
+export const AuthMethodAuthenticationMethod = {
+  /**
+   * Client certificate
+   */
+  ClientCert: "clientCert",
+  /**
+   * Kerberos
+   */
+  Kerberos: "kerberos",
+} as const;
+/**
+ * How to authenticate incoming client connections
+ */
+export type AuthMethodAuthenticationMethod = OpenEnum<
+  typeof AuthMethodAuthenticationMethod
+>;
+
+export type MTLSSettings = {
+  /**
+   * Enable TLS
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Required for WEF certificate authentication
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Required for WEF certificate authentication
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+  /**
+   * Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
+   */
+  caPath: string;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  minVersion?:
+    | models.MinimumTlsVersionOptionsKafkaSchemaRegistryTls
+    | undefined;
+  maxVersion?:
+    | models.MaximumTlsVersionOptionsKafkaSchemaRegistryTls
+    | undefined;
+  /**
+   * Enable OCSP check of certificate
+   */
+  ocspCheck?: boolean | undefined;
+  keytab?: any | undefined;
+  principal?: any | undefined;
+  /**
+   * If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
+   */
+  ocspCheckFailClose?: boolean | undefined;
+};
+
+/**
+ * Content format in which the endpoint should deliver events
+ */
+export const CreateInputFormat = {
+  Raw: "Raw",
+  RenderedText: "RenderedText",
+} as const;
+/**
+ * Content format in which the endpoint should deliver events
+ */
+export type CreateInputFormat = OpenEnum<typeof CreateInputFormat>;
+
+export const QueryBuilderMode = {
+  Simple: "simple",
+  Xml: "xml",
+} as const;
+export type QueryBuilderMode = OpenEnum<typeof QueryBuilderMode>;
+
+export type Query = {
+  /**
+   * The Path attribute from the relevant XML Select element
+   */
+  path: string;
+  /**
+   * The XPath query inside the relevant XML Select element
+   */
+  queryExpression: string;
+};
+
+export type Subscription = {
+  subscriptionName: string;
+  /**
+   * Version UUID for this subscription. If any subscription parameters are modified, this value will change.
+   */
+  version?: string | undefined;
+  /**
+   * Content format in which the endpoint should deliver events
+   */
+  contentFormat: CreateInputFormat;
+  /**
+   * Maximum time (in seconds) between endpoint checkins before considering it unavailable
+   */
+  heartbeatInterval: number;
+  /**
+   * Interval (in seconds) over which the endpoint should collect events before sending them to Stream
+   */
+  batchTimeout: number;
+  /**
+   * Newly subscribed endpoints will send previously existing events. Disable to receive new events only.
+   */
+  readExistingEvents?: boolean | undefined;
+  /**
+   * Keep track of which events have been received, resuming from that point after a re-subscription. This setting takes precedence over 'Read existing events'. See [Cribl Docs](https://docs.cribl.io/stream/sources-wef/#subscriptions) for more details.
+   */
+  sendBookmarks?: boolean | undefined;
+  /**
+   * Receive compressed events from the source
+   */
+  compress?: boolean | undefined;
+  /**
+   * The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
+   */
+  targets: Array<string>;
+  /**
+   * The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
+   */
+  locale?: string | undefined;
+  querySelector?: QueryBuilderMode | undefined;
+  /**
+   * Fields to add to events ingested under this subscription
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  queries?: Array<Query> | undefined;
+  /**
+   * The XPath query to use for selecting events
+   */
+  xmlQuery?: string | undefined;
+};
+
+export type InputWef = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "wef";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * How to authenticate incoming client connections
+   */
+  authMethod?: AuthMethodAuthenticationMethod | undefined;
+  tls?: MTLSSettings | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+   */
+  caFingerprint?: string | undefined;
+  /**
+   * Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+   */
+  keytab?: string | undefined;
+  /**
+   * Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+   */
+  principal?: string | undefined;
+  /**
+   * Allow events to be ingested even if their MachineID does not match the client certificate CN
+   */
+  allowMachineIdMismatch?: boolean | undefined;
+  /**
+   * Subscriptions to events on forwarding endpoints
+   */
+  subscriptions: Array<Subscription>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+   */
+  logFingerprintMismatch?: boolean | undefined;
+};
+
+export type Allow = {
+  /**
+   * Specify the name of a process or family of processes.
+   */
+  procname: string;
+  /**
+   * Specify a string to substring-match against process command-line.
+   */
+  arg?: string | undefined;
+  /**
+   * Choose a config to apply to processes that match the process name and/or argument.
+   */
+  config: string;
+};
+
+export type FilterAppscope = {
+  /**
+   * Specify processes that AppScope should be loaded into, and the config to use.
+   */
+  allow?: Array<Allow> | undefined;
+  /**
+   * To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
+   */
+  transportURL?: string | undefined;
+};
+
+export type PersistenceAppscope = {
+  /**
+   * Spool events and metrics on disk for Cribl Edge and Search
+   */
+  enable?: boolean | undefined;
+  /**
+   * Time span for each file bucket
+   */
+  timeWindow?: string | undefined;
+  /**
+   * Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
+   */
+  maxDataSize?: string | undefined;
+  /**
+   * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
+   */
+  maxDataTime?: string | undefined;
+  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
+  /**
+   * Path to use to write metrics. Defaults to $CRIBL_HOME/state/appscope
+   */
+  destPath?: string | undefined;
+};
+
+export type InputAppscope = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "appscope";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+   */
+  enableUnixPath?: boolean | undefined;
+  filter?: FilterAppscope | undefined;
+  persistence?: PersistenceAppscope | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  description?: string | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Path to the UNIX domain socket to listen on.
+   */
+  unixSocketPath?: string | undefined;
+  /**
+   * Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+   */
+  unixSocketPerms?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type InputTcp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "tcp";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
+   */
+  enableHeader?: boolean | undefined;
+  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  description?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+/**
+ * Choose how to discover files to monitor
+ */
+export const InputFileMode = {
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Auto
+   */
+  Auto: "auto",
+} as const;
+/**
+ * Choose how to discover files to monitor
+ */
+export type InputFileMode = OpenEnum<typeof InputFileMode>;
+
+export type InputFile = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "file";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Choose how to discover files to monitor
+   */
+  mode?: InputFileMode | undefined;
+  /**
+   * Time, in seconds, between scanning for files
+   */
+  interval?: number | undefined;
+  /**
+   * The full path of discovered files are matched against this wildcard list
+   */
+  filenames?: Array<string> | undefined;
+  /**
+   * Apply filename allowlist to file entries in archive file types, like tar or zip.
+   */
+  filterArchivedFiles?: boolean | undefined;
+  /**
+   * Read only new entries at the end of all files discovered at next startup. @{product} will then read newly discovered files from the head. Disable this to resume reading all files from head.
+   */
+  tailOnly?: boolean | undefined;
+  /**
+   * Time, in seconds, before an idle file is closed
+   */
+  idleTimeout?: number | undefined;
+  /**
+   * The minimum age of files to monitor. Format examples: 30s, 15m, 1h. Age is relative to file modification time. Leave empty to apply no age filters.
+   */
+  minAgeDur?: string | undefined;
+  /**
+   * The maximum age of event timestamps to collect. Format examples: 60s, 4h, 3d, 1w. Can be used in conjuction with "Check file modification times". Leave empty to apply no age filters.
+   */
+  maxAgeDur?: string | undefined;
+  /**
+   * Skip files with modification times earlier than the maximum age duration
+   */
+  checkFileModTime?: boolean | undefined;
+  /**
+   * Forces files containing binary data to be streamed as text
+   */
+  forceText?: boolean | undefined;
+  /**
+   * Length of file header bytes to use in hash for unique file identification
+   */
+  hashLen?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Directory path to search for files. Environment variables will be resolved, e.g. $CRIBL_HOME/log/.
+   */
+  path?: string | undefined;
+  /**
+   * Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
+   */
+  depth?: number | undefined;
+  suppressMissingPathErrors?: boolean | undefined;
+  /**
+   * Delete files after they have been collected
+   */
+  deleteFiles?: boolean | undefined;
+  /**
+   * Salt the file hash with the Source file path. Ensures that all files with the same header hash, such as CSV files, are ingested. Moving or renaming the file, or toggling this after starting the Source will cause re-ingestion.
+   */
+  saltHash?: boolean | undefined;
+  /**
+   * Stream binary files as Base64-encoded chunks.
+   */
+  includeUnidentifiableBinary?: boolean | undefined;
+};
+
+export const InputSyslogType2 = {
+  Syslog: "syslog",
+} as const;
+export type InputSyslogType2 = ClosedEnum<typeof InputSyslogType2>;
+
+export type InputSyslogSyslog2 = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: InputSyslogType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host: string;
+  /**
+   * Enter UDP port number to listen on. Not required if listening on TCP.
+   */
+  udpPort?: number | undefined;
+  /**
+   * Enter TCP port number to listen on. Not required if listening on UDP.
+   */
+  tcpPort: number;
+  /**
+   * Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Timezone to assign to timestamps without timezone info
+   */
+  timestampTimezone?: string | undefined;
+  /**
+   * Treat UDP packet data received as full syslog message
+   */
+  singleMsgUdpPackets?: boolean | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Wildcard list of fields to keep from source data; * = ALL (default)
+   */
+  keepFieldsList?: Array<string> | undefined;
+  /**
+   * Enable if incoming messages use octet counting per RFC 6587.
+   */
+  octetCounting?: boolean | undefined;
+  /**
+   * Enable if we should infer the syslog framing of the incoming messages.
+   */
+  inferFraming?: boolean | undefined;
+  /**
+   * Enable if we should infer octet counting only if the messages comply with RFC 5424.
+   */
+  strictlyInferOctetCounting?: boolean | undefined;
+  /**
+   * Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
+   */
+  allowNonStandardAppName?: boolean | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * Load balance traffic across all Worker Processes
+   */
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
+   */
+  enableEnhancedProxyHeaderParsing?: boolean | undefined;
+};
+
+export const InputSyslogType1 = {
+  Syslog: "syslog",
+} as const;
+export type InputSyslogType1 = ClosedEnum<typeof InputSyslogType1>;
+
+export type InputSyslogSyslog1 = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: InputSyslogType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host: string;
+  /**
+   * Enter UDP port number to listen on. Not required if listening on TCP.
+   */
+  udpPort: number;
+  /**
+   * Enter TCP port number to listen on. Not required if listening on UDP.
+   */
+  tcpPort?: number | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Timezone to assign to timestamps without timezone info
+   */
+  timestampTimezone?: string | undefined;
+  /**
+   * Treat UDP packet data received as full syslog message
+   */
+  singleMsgUdpPackets?: boolean | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Wildcard list of fields to keep from source data; * = ALL (default)
+   */
+  keepFieldsList?: Array<string> | undefined;
+  /**
+   * Enable if incoming messages use octet counting per RFC 6587.
+   */
+  octetCounting?: boolean | undefined;
+  /**
+   * Enable if we should infer the syslog framing of the incoming messages.
+   */
+  inferFraming?: boolean | undefined;
+  /**
+   * Enable if we should infer octet counting only if the messages comply with RFC 5424.
+   */
+  strictlyInferOctetCounting?: boolean | undefined;
+  /**
+   * Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
+   */
+  allowNonStandardAppName?: boolean | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * Load balance traffic across all Worker Processes
+   */
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
+   */
+  enableEnhancedProxyHeaderParsing?: boolean | undefined;
+};
+
+export type InputSyslog = InputSyslogSyslog1 | InputSyslogSyslog2;
+
+/**
+ * The queue type used (or created)
+ */
+export const CreateInputQueueType = {
+  /**
+   * Standard
+   */
+  Standard: "standard",
+  /**
+   * FIFO
+   */
+  Fifo: "fifo",
+} as const;
+/**
+ * The queue type used (or created)
+ */
+export type CreateInputQueueType = OpenEnum<typeof CreateInputQueueType>;
+
+export type InputSqs = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "sqs";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: CreateInputQueueType;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * Create queue if it does not exist
+   */
+  createQueue?: boolean | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing SQS requests
+   */
+  signatureVersion?: models.SignatureVersionOptions3 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+};
+
+export type InputModelDrivenTelemetry = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "model_driven_telemetry";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
+   */
+  shutdownTimeoutMs?: number | undefined;
+  description?: string | undefined;
+};
+
+/**
+ * Select whether to leverage gRPC or HTTP for OpenTelemetry
+ */
+export const CreateInputProtocol = {
+  /**
+   * gRPC
+   */
+  Grpc: "grpc",
+  /**
+   * HTTP
+   */
+  Http: "http",
+} as const;
+/**
+ * Select whether to leverage gRPC or HTTP for OpenTelemetry
+ */
+export type CreateInputProtocol = OpenEnum<typeof CreateInputProtocol>;
+
+/**
+ * The version of OTLP Protobuf definitions to use when interpreting received data
+ */
+export const CreateInputOTLPVersion = {
+  /**
+   * 0.10.0
+   */
+  ZeroDot10Dot0: "0.10.0",
+  /**
+   * 1.3.1
+   */
+  OneDot3Dot1: "1.3.1",
+} as const;
+/**
+ * The version of OTLP Protobuf definitions to use when interpreting received data
+ */
+export type CreateInputOTLPVersion = OpenEnum<typeof CreateInputOTLPVersion>;
+
+export type InputOpenTelemetry = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "open_telemetry";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: CreateInputProtocol | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: CreateInputOTLPVersion | undefined;
+  /**
+   * OpenTelemetry authentication type
+   */
+  authType?: models.AuthenticationTypeOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
+};
+
+export const PrivacyProtocol = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * DES
+   */
+  Des: "des",
+  /**
+   * AES128
+   */
+  Aes: "aes",
+  /**
+   * AES256b (Blumenthal)
+   */
+  Aes256b: "aes256b",
+  /**
+   * AES256r (Reeder)
+   */
+  Aes256r: "aes256r",
+} as const;
+export type PrivacyProtocol = OpenEnum<typeof PrivacyProtocol>;
+
+export type V3User = {
+  name: string;
+  authProtocol?: models.AuthenticationProtocolOptionsV3User | undefined;
+  authKey?: string | undefined;
+  privProtocol?: PrivacyProtocol | undefined;
+  privKey?: string | undefined;
+};
+
+/**
+ * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
+ */
+export type SNMPv3Authentication = {
+  v3AuthEnabled: boolean;
+  /**
+   * Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
+   */
+  allowUnmatchedTrap?: boolean | undefined;
+  /**
+   * User credentials for receiving v3 traps
+   */
+  v3Users?: Array<V3User> | undefined;
+};
+
+export type InputSnmp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "snmp";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host: string;
+  /**
+   * UDP port to receive SNMP traps on. Defaults to 162.
+   */
+  port: number;
+  /**
+   * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
+   */
+  snmpV3Auth?: SNMPv3Authentication | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  /**
+   * If enabled, parses varbinds as an array of objects that include OID, value, and type
+   */
+  varbindsWithTypes?: boolean | undefined;
+  /**
+   * If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
+   */
+  bestEffortParsing?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputS3Inventory = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "s3_inventory";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * Regex matching file names to download and process. Defaults to: .*
+   */
+  fileFilter?: string | undefined;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+  /**
+   * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+   */
+  skipOnError?: boolean | undefined;
+  /**
+   * Attach SQS notification metadata to a __sqsMetadata field on each event
+   */
+  includeSqsMetadata?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Amazon S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Use Assume Role credentials when accessing Amazon SQS
+   */
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  checkpointing?: models.CheckpointingType | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  /**
+   * Filename suffix of the manifest checksum file. If a filename matching this suffix is received        in the queue, the matching manifest file will be downloaded and validated against its value. Defaults to "checksum"
+   */
+  checksumSuffix?: string | undefined;
+  /**
+   * Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
+   */
+  maxManifestSizeKB?: number | undefined;
+  /**
+   * If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
+   */
+  validateInventoryFiles?: boolean | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  tagAfterProcessing?: models.TagAfterProcessingOptions | undefined;
+  /**
+   * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+   */
+  processedTagKey?: string | undefined;
+  /**
+   * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+   */
+  processedTagValue?: string | undefined;
+};
+
+export type InputS3 = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "s3";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * Regex matching file names to download and process. Defaults to: .*
+   */
+  fileFilter?: string | undefined;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+  /**
+   * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+   */
+  skipOnError?: boolean | undefined;
+  /**
+   * Attach SQS notification metadata to a __sqsMetadata field on each event
+   */
+  includeSqsMetadata?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Amazon S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Use Assume Role credentials when accessing Amazon SQS
+   */
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  checkpointing?: models.CheckpointingType | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  /**
+   * Add a tag to processed S3 objects. Requires s3:GetObjectTagging and s3:PutObjectTagging AWS permissions.
+   */
+  tagAfterProcessing?: boolean | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+   */
+  processedTagKey?: string | undefined;
+  /**
+   * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+   */
+  processedTagValue?: string | undefined;
+};
+
+export type InputMetrics = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "metrics";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host: string;
+  /**
+   * Enter UDP port number to listen on. Not required if listening on TCP.
+   */
+  udpPort?: number | undefined;
+  /**
+   * Enter TCP port number to listen on. Not required if listening on UDP.
+   */
+  tcpPort?: number | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+   */
+  enableProxyHeader?: boolean | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+};
+
+export type InputCriblmetrics = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "criblmetrics";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * A prefix that is applied to the metrics provided by Cribl Stream
+   */
+  prefix?: string | undefined;
+  /**
+   * Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
+   */
+  fullFidelity?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export const ShardIteratorStart = {
+  /**
+   * Earliest record
+   */
+  TrimHorizon: "TRIM_HORIZON",
+  /**
+   * Latest record
+   */
+  Latest: "LATEST",
+} as const;
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export type ShardIteratorStart = OpenEnum<typeof ShardIteratorStart>;
+
+/**
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+ */
+export const RecordDataFormat = {
+  /**
+   * Cribl
+   */
+  Cribl: "cribl",
+  /**
+   * Newline JSON
+   */
+  Ndjson: "ndjson",
+  /**
+   * Cloudwatch Logs
+   */
+  Cloudwatch: "cloudwatch",
+  /**
+   * Event per line
+   */
+  Line: "line",
+} as const;
+/**
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+ */
+export type RecordDataFormat = OpenEnum<typeof RecordDataFormat>;
+
+/**
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+ */
+export const ShardLoadBalancing = {
+  /**
+   * Consistent Hashing
+   */
+  ConsistentHashing: "ConsistentHashing",
+  /**
+   * Round Robin
+   */
+  RoundRobin: "RoundRobin",
+} as const;
+/**
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+ */
+export type ShardLoadBalancing = OpenEnum<typeof ShardLoadBalancing>;
+
+export type InputKinesis = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "kinesis";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Kinesis Data Stream to read data from
+   */
+  streamName: string;
+  /**
+   * Time interval in minutes between consecutive service calls
+   */
+  serviceInterval?: number | undefined;
+  /**
+   * A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
+   */
+  shardExpr?: string | undefined;
+  /**
+   * Location at which to start reading a shard for the first time
+   */
+  shardIteratorType?: ShardIteratorStart | undefined;
+  /**
+   * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+   */
+  payloadFormat?: RecordDataFormat | undefined;
+  /**
+   * Maximum number of records per getRecords call
+   */
+  getRecordsLimit?: number | undefined;
+  /**
+   * Maximum number of records, across all shards, to pull down at once per Worker Process
+   */
+  getRecordsLimitTotal?: number | undefined;
+  /**
+   * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+   */
+  loadBalancingAlgorithm?: ShardLoadBalancing | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing Kinesis stream requests
+   */
+  signatureVersion?: models.SignatureVersionOptions2 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Verify Kinesis Producer Library (KPL) event checksums
+   */
+  verifyKPLCheckSums?: boolean | undefined;
+  /**
+   * When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
+   */
+  avoidDuplicates?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export type InputHttpRaw = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "http_raw";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * List of URI paths accepted by this input, wildcards are supported, e.g /api/v* /hook. Defaults to allow all.
+   */
+  allowedPaths?: Array<string> | undefined;
+  /**
+   * List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
+   */
+  allowedMethods?: Array<string> | undefined;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
+  description?: string | undefined;
+};
+
+export type Sample = {
+  sample: string;
+  /**
+   * Maximum number of events to generate per second per Worker Node. Defaults to 10.
+   */
+  eventsPerSec: number;
+};
+
+export type InputDatagen = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "datagen";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  samples: Array<Sample>;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type ProxyModeDatadogAgent = {
+  /**
+   * Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
+   */
+  enabled: boolean;
+  /**
+   * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+   */
+  rejectUnauthorized?: boolean | undefined;
+};
+
+export type InputDatadogAgent = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "datadog_agent";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  proxyMode?: ProxyModeDatadogAgent | undefined;
+  description?: string | undefined;
+};
+
+export type InputCrowdstrike = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "crowdstrike";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * Regex matching file names to download and process. Defaults to: .*
+   */
+  fileFilter?: string | undefined;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: models.SignatureVersionOptionsS3CollectorConf | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * The maximum number of messages SQS should return in a poll request. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+  /**
+   * Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+   */
+  skipOnError?: boolean | undefined;
+  /**
+   * Attach SQS notification metadata to a __sqsMetadata field on each event
+   */
+  includeSqsMetadata?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Amazon S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Use Assume Role credentials when accessing Amazon SQS
+   */
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  checkpointing?: models.CheckpointingType | undefined;
+  /**
+   * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
+   */
+  pollTimeout?: number | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  tagAfterProcessing?: models.TagAfterProcessingOptions | undefined;
+  /**
+   * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+   */
+  processedTagKey?: string | undefined;
+  /**
+   * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
+   */
+  processedTagValue?: string | undefined;
+};
+
+/**
+ * Select the level of details for system metrics
+ */
+export const SystemModeWindowsMetrics = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of details for system metrics
+ */
+export type SystemModeWindowsMetrics = OpenEnum<
+  typeof SystemModeWindowsMetrics
+>;
+
+export type SystemWindowsMetrics = {
+  /**
+   * Select the level of details for system metrics
+   */
+  mode?: SystemModeWindowsMetrics | undefined;
+  /**
+   * Generate metrics for all system information
+   */
+  detail?: boolean | undefined;
+};
+
+/**
+ * Select the level of details for CPU metrics
+ */
+export const CpuModeWindowsMetrics = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of details for CPU metrics
+ */
+export type CpuModeWindowsMetrics = OpenEnum<typeof CpuModeWindowsMetrics>;
+
+export type CpuWindowsMetrics = {
+  /**
+   * Select the level of details for CPU metrics
+   */
+  mode?: CpuModeWindowsMetrics | undefined;
+  /**
+   * Generate metrics for each CPU
+   */
+  perCpu?: boolean | undefined;
+  /**
+   * Generate metrics for all CPU states
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate raw, monotonic CPU time counters
+   */
+  time?: boolean | undefined;
+};
+
+/**
+ * Select the level of details for memory metrics
+ */
+export const MemoryModeWindowsMetrics = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of details for memory metrics
+ */
+export type MemoryModeWindowsMetrics = OpenEnum<
+  typeof MemoryModeWindowsMetrics
+>;
+
+export type MemoryWindowsMetrics = {
+  /**
+   * Select the level of details for memory metrics
+   */
+  mode?: MemoryModeWindowsMetrics | undefined;
+  /**
+   * Generate metrics for all memory states
+   */
+  detail?: boolean | undefined;
+};
+
+/**
+ * Select the level of details for network metrics
+ */
+export const NetworkModeWindowsMetrics = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of details for network metrics
+ */
+export type NetworkModeWindowsMetrics = OpenEnum<
+  typeof NetworkModeWindowsMetrics
+>;
+
+export type NetworkWindowsMetrics = {
+  /**
+   * Select the level of details for network metrics
+   */
+  mode?: NetworkModeWindowsMetrics | undefined;
+  /**
+   * Generate full network metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+   */
+  protocols?: boolean | undefined;
+  /**
+   * Network interfaces to include/exclude. All interfaces are included if this list is empty.
+   */
+  devices?: Array<string> | undefined;
+  /**
+   * Generate separate metrics for each interface
+   */
+  perInterface?: boolean | undefined;
+};
+
+/**
+ * Select the level of details for disk metrics
+ */
+export const DiskModeWindowsMetrics = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of details for disk metrics
+ */
+export type DiskModeWindowsMetrics = OpenEnum<typeof DiskModeWindowsMetrics>;
+
+export type DiskWindowsMetrics = {
+  /**
+   * Select the level of details for disk metrics
+   */
+  mode?: DiskModeWindowsMetrics | undefined;
+  /**
+   * Generate separate metrics for each volume
+   */
+  perVolume?: boolean | undefined;
+  /**
+   * Generate full disk metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Windows volumes to include/exclude. E.g.: C:, !E:, etc. Wildcards and ! (not) operators are supported. All volumes are included if this list is empty.
+   */
+  volumes?: Array<string> | undefined;
+};
+
+export type CustomWindowsMetrics = {
+  system?: SystemWindowsMetrics | undefined;
+  cpu?: CpuWindowsMetrics | undefined;
+  memory?: MemoryWindowsMetrics | undefined;
+  network?: NetworkWindowsMetrics | undefined;
+  disk?: DiskWindowsMetrics | undefined;
+};
+
+export type HostWindowsMetrics = {
+  /**
+   * Select level of detail for host metrics
+   */
+  mode?: models.ModeOptionsHost | undefined;
+  custom?: CustomWindowsMetrics | undefined;
+};
+
+export type PersistenceWindowsMetrics = {
+  /**
+   * Spool metrics to disk for Cribl Edge and Search
+   */
+  enable?: boolean | undefined;
+  /**
+   * Time span for each file bucket
+   */
+  timeWindow?: string | undefined;
+  /**
+   * Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
+   */
+  maxDataSize?: string | undefined;
+  /**
+   * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
+   */
+  maxDataTime?: string | undefined;
+  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
+  /**
+   * Path to use to write metrics. Defaults to $CRIBL_HOME/state/windows_metrics
+   */
+  destPath?: string | undefined;
+};
+
+export type InputWindowsMetrics = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "windows_metrics";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+   */
+  interval?: number | undefined;
+  host?: HostWindowsMetrics | undefined;
+  process?: models.ProcessType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  persistence?: PersistenceWindowsMetrics | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
+   */
+  disableNativeModule?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputKubeEvents = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "kube_events";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Filtering on event fields
+   */
+  rules?: Array<models.ItemsTypeRules> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type RuleKubeLogs = {
+  /**
+   * JavaScript expression applied to Pod objects. Return 'true' to include it.
+   */
+  filter: string;
+  /**
+   * Optional description of this rule's purpose
+   */
+  description?: string | undefined;
+};
+
+export type InputKubeLogs = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "kube_logs";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Time, in seconds, between checks for new containers. Default is 15 secs.
+   */
+  interval?: number | undefined;
+  /**
+   * Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
+   */
+  rules?: Array<RuleKubeLogs> | undefined;
+  /**
+   * For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
+   */
+  timestamps?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  persistence?: models.DiskSpoolingType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Load balance traffic across all Worker Processes
+   */
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type PersistenceKubeMetrics = {
+  /**
+   * Spool metrics on disk for Cribl Search
+   */
+  enable?: boolean | undefined;
+  /**
+   * Time span for each file bucket
+   */
+  timeWindow?: string | undefined;
+  /**
+   * Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
+   */
+  maxDataSize?: string | undefined;
+  /**
+   * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
+   */
+  maxDataTime?: string | undefined;
+  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
+  /**
+   * Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
+   */
+  destPath?: string | undefined;
+};
+
+export type InputKubeMetrics = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "kube_metrics";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+   */
+  interval?: number | undefined;
+  /**
+   * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+   */
+  rules?: Array<models.ItemsTypeRules> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  persistence?: PersistenceKubeMetrics | undefined;
+  description?: string | undefined;
+};
+
+/**
+ * Creates events based on entries collected from the hosts file
+ */
+export type HostsFile = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for each of the host’s network interfaces
+ */
+export type Interfaces = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for physical disks, partitions, and file systems
+ */
+export type DisksAndFileSystems = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events based on the host system’s current state
+ */
+export type HostInfo = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events based on entries collected from the host’s network routes
+ */
+export type Routes = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for DNS resolvers and search entries
+ */
+export type Dns = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for local users and groups
+ */
+export type UsersAndGroups = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for Firewall rules entries
+ */
+export type Firewall = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events from the list of services
+ */
+export type Services = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events from list of listening ports
+ */
+export type ListeningPorts = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events from list of logged-in users
+ */
+export type LoggedInUsers = {
+  enable?: boolean | undefined;
+};
+
+export type Collectors = {
+  /**
+   * Creates events based on entries collected from the hosts file
+   */
+  hostsfile?: HostsFile | undefined;
+  /**
+   * Creates events for each of the host’s network interfaces
+   */
+  interfaces?: Interfaces | undefined;
+  /**
+   * Creates events for physical disks, partitions, and file systems
+   */
+  disk?: DisksAndFileSystems | undefined;
+  /**
+   * Creates events based on the host system’s current state
+   */
+  metadata?: HostInfo | undefined;
+  /**
+   * Creates events based on entries collected from the host’s network routes
+   */
+  routes?: Routes | undefined;
+  /**
+   * Creates events for DNS resolvers and search entries
+   */
+  dns?: Dns | undefined;
+  /**
+   * Creates events for local users and groups
+   */
+  user?: UsersAndGroups | undefined;
+  /**
+   * Creates events for Firewall rules entries
+   */
+  firewall?: Firewall | undefined;
+  /**
+   * Creates events from the list of services
+   */
+  services?: Services | undefined;
+  /**
+   * Creates events from list of listening ports
+   */
+  ports?: ListeningPorts | undefined;
+  /**
+   * Creates events from list of logged-in users
+   */
+  loginUsers?: LoggedInUsers | undefined;
+};
+
+export type PersistenceSystemState = {
+  /**
+   * Spool metrics to disk for Cribl Edge and Search
+   */
+  enable?: boolean | undefined;
+  /**
+   * Time span for each file bucket
+   */
+  timeWindow?: string | undefined;
+  /**
+   * Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
+   */
+  maxDataSize?: string | undefined;
+  /**
+   * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
+   */
+  maxDataTime?: string | undefined;
+  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
+  /**
+   * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
+   */
+  destPath?: string | undefined;
+};
+
+export type InputSystemState = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "system_state";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+   */
+  interval?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  collectors?: Collectors | undefined;
+  persistence?: PersistenceSystemState | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeModule?: boolean | undefined;
+  /**
+   * Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeLastLogModule?: boolean | undefined;
+  description?: string | undefined;
+};
+
+/**
+ * Select the level of detail for system metrics
+ */
+export const SystemModeSystemMetrics = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for system metrics
+ */
+export type SystemModeSystemMetrics = OpenEnum<typeof SystemModeSystemMetrics>;
+
+export type SystemSystemMetrics = {
+  /**
+   * Select the level of detail for system metrics
+   */
+  mode?: SystemModeSystemMetrics | undefined;
+  /**
+   * Generate metrics for the numbers of processes in various states
+   */
+  processes?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for CPU metrics
+ */
+export const CpuModeSystemMetrics = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for CPU metrics
+ */
+export type CpuModeSystemMetrics = OpenEnum<typeof CpuModeSystemMetrics>;
+
+export type CpuSystemMetrics = {
+  /**
+   * Select the level of detail for CPU metrics
+   */
+  mode?: CpuModeSystemMetrics | undefined;
+  /**
+   * Generate metrics for each CPU
+   */
+  perCpu?: boolean | undefined;
+  /**
+   * Generate metrics for all CPU states
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate raw, monotonic CPU time counters
+   */
+  time?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for memory metrics
+ */
+export const MemoryModeSystemMetrics = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for memory metrics
+ */
+export type MemoryModeSystemMetrics = OpenEnum<typeof MemoryModeSystemMetrics>;
+
+export type MemorySystemMetrics = {
+  /**
+   * Select the level of detail for memory metrics
+   */
+  mode?: MemoryModeSystemMetrics | undefined;
+  /**
+   * Generate metrics for all memory states
+   */
+  detail?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for network metrics
+ */
+export const NetworkModeSystemMetrics = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for network metrics
+ */
+export type NetworkModeSystemMetrics = OpenEnum<
+  typeof NetworkModeSystemMetrics
+>;
+
+export type NetworkSystemMetrics = {
+  /**
+   * Select the level of detail for network metrics
+   */
+  mode?: NetworkModeSystemMetrics | undefined;
+  /**
+   * Generate full network metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
+   */
+  protocols?: boolean | undefined;
+  /**
+   * Network interfaces to include/exclude. Examples: eth0, !lo. All interfaces are included if this list is empty.
+   */
+  devices?: Array<string> | undefined;
+  /**
+   * Generate separate metrics for each interface
+   */
+  perInterface?: boolean | undefined;
+};
+
+/**
+ * Select the level of detail for disk metrics
+ */
+export const DiskModeSystemMetrics = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for disk metrics
+ */
+export type DiskModeSystemMetrics = OpenEnum<typeof DiskModeSystemMetrics>;
+
+export type DiskSystemMetrics = {
+  /**
+   * Select the level of detail for disk metrics
+   */
+  mode?: DiskModeSystemMetrics | undefined;
+  /**
+   * Generate full disk metrics
+   */
+  detail?: boolean | undefined;
+  /**
+   * Generate filesystem inode metrics
+   */
+  inodes?: boolean | undefined;
+  /**
+   * Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.
+   */
+  devices?: Array<string> | undefined;
+  /**
+   * Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty.
+   */
+  mountpoints?: Array<string> | undefined;
+  /**
+   * Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.
+   */
+  fstypes?: Array<string> | undefined;
+  /**
+   * Generate separate metrics for each device
+   */
+  perDevice?: boolean | undefined;
+};
+
+export type CustomSystemMetrics = {
+  system?: SystemSystemMetrics | undefined;
+  cpu?: CpuSystemMetrics | undefined;
+  memory?: MemorySystemMetrics | undefined;
+  network?: NetworkSystemMetrics | undefined;
+  disk?: DiskSystemMetrics | undefined;
+};
+
+export type HostSystemMetrics = {
+  /**
+   * Select level of detail for host metrics
+   */
+  mode?: models.ModeOptionsHost | undefined;
+  custom?: CustomSystemMetrics | undefined;
+};
+
+/**
+ * Select the level of detail for container metrics
+ */
+export const ContainerMode = {
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * All
+   */
+  All: "all",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+} as const;
+/**
+ * Select the level of detail for container metrics
+ */
+export type ContainerMode = OpenEnum<typeof ContainerMode>;
+
+export type ContainerFilter = {
+  expr: string;
+};
+
+export type Container = {
+  /**
+   * Select the level of detail for container metrics
+   */
+  mode?: ContainerMode | undefined;
+  /**
+   * Full paths for Docker's UNIX-domain socket
+   */
+  dockerSocket?: Array<string> | undefined;
+  /**
+   * Timeout, in seconds, for the Docker API
+   */
+  dockerTimeout?: number | undefined;
+  /**
+   * Containers matching any of these will be included. All are included if no filters are added.
+   */
+  filters?: Array<ContainerFilter> | undefined;
+  /**
+   * Include stopped and paused containers
+   */
+  allContainers?: boolean | undefined;
+  /**
+   * Generate separate metrics for each device
+   */
+  perDevice?: boolean | undefined;
+  /**
+   * Generate full container metrics
+   */
+  detail?: boolean | undefined;
+};
+
+export type PersistenceSystemMetrics = {
+  /**
+   * Spool metrics to disk for Cribl Edge and Search
+   */
+  enable?: boolean | undefined;
+  /**
+   * Time span for each file bucket
+   */
+  timeWindow?: string | undefined;
+  /**
+   * Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
+   */
+  maxDataSize?: string | undefined;
+  /**
+   * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
+   */
+  maxDataTime?: string | undefined;
+  compress?: models.DataCompressionFormatOptionsPersistence | undefined;
+  /**
+   * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
+   */
+  destPath?: string | undefined;
+};
+
+export type InputSystemMetrics = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "system_metrics";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+   */
+  interval?: number | undefined;
+  host?: HostSystemMetrics | undefined;
+  process?: models.ProcessType | undefined;
+  container?: Container | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  persistence?: PersistenceSystemMetrics | undefined;
+  description?: string | undefined;
+};
+
+export type InputTcpjson = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "tcpjson";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Load balance traffic across all Worker Processes
+   */
+  enableLoadBalancing?: boolean | undefined;
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  description?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type SplunkHecMetadata = {
+  enabled?: boolean | undefined;
+  defaultDataset?: string | undefined;
+  allowedIndexesAtToken?: Array<string> | undefined;
+};
+
+export type ElasticsearchMetadata = {
+  enabled?: boolean | undefined;
+  defaultDataset?: string | undefined;
+};
+
+export type AuthTokensExt = {
+  token: string;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  splunkHecMetadata?: SplunkHecMetadata | undefined;
+  elasticsearchMetadata?: ElasticsearchMetadata | undefined;
+};
+
+export type InputCriblLakeHttp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "cribl_lake_http";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  authTokensExt?: Array<AuthTokensExt> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCriblHttp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "cribl_http";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
+   */
+  authTokens?: Array<models.ItemsTypeAuthTokens> | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCriblTcp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "cribl_tcp";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Load balance traffic across all Worker Processes
+   */
+  enableLoadBalancing?: boolean | undefined;
+  /**
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
+   */
+  authTokens?: Array<models.ItemsTypeAuthTokens> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCribl = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "cribl";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  filter?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputGooglePubsub = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "google_pubsub";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
+   */
+  topicName: string;
+  /**
+   * ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
+   */
+  subscriptionName: string;
+  /**
+   * Use when the subscription is not created by this Source and topic is not known
+   */
+  monitorSubscription?: boolean | undefined;
+  /**
+   * Create topic if it does not exist
+   */
+  createTopic?: boolean | undefined;
+  /**
+   * Create subscription if it does not exist
+   */
+  createSubscription?: boolean | undefined;
+  /**
+   * Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+   */
+  region?: string | undefined;
+  /**
+   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   */
+  googleAuthMethod?: models.GoogleAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
+   */
+  maxBacklog?: number | undefined;
+  /**
+   * How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Pull request timeout, in milliseconds
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
+   */
+  orderedDelivery?: boolean | undefined;
+};
+
+export type InputFirehose = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "firehose";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export const ScheduleType = {
+  Interval: "interval",
+  CronSchedule: "cronSchedule",
+} as const;
+/**
+ * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+ */
+export type ScheduleType = OpenEnum<typeof ScheduleType>;
+
+export type InputExec = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "exec";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Command to execute; supports Bourne shell (or CMD on Windows) syntax
+   */
+  command: string;
+  /**
+   * Maximum number of retry attempts in the event that the command fails
+   */
+  retries?: number | undefined;
+  /**
+   * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+   */
+  scheduleType?: ScheduleType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  /**
+   * Interval between command executions in seconds.
+   */
+  interval?: number | undefined;
+  /**
+   * Cron schedule to execute the command on.
+   */
+  cronSchedule?: string | undefined;
+};
+
+export type InputEventhub = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "eventhub";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
+   */
+  brokers: Array<string>;
+  /**
+   * The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
+   */
+  topics: Array<string>;
+  /**
+   * The consumer group this instance belongs to. Default is 'Cribl'.
+   */
+  groupId?: string | undefined;
+  /**
+   * Start reading from earliest available data; relevant only during initial subscription
+   */
+  fromBeginning?: boolean | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+   */
+  sasl?: models.AuthenticationType1 | undefined;
+  tls?: models.TlsSettingsClientSideType | undefined;
+  /**
+   *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
+   *       Value must be lower than rebalanceTimeout.
+   *       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   */
+  sessionTimeout?: number | undefined;
+  /**
+   *       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
+   *
+   * @remarks
+   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   */
+  rebalanceTimeout?: number | undefined;
+  /**
+   *       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitInterval?: number | undefined;
+  /**
+   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitThreshold?: number | undefined;
+  /**
+   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+   */
+  maxBytesPerPartition?: number | undefined;
+  /**
+   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+   */
+  maxBytes?: number | undefined;
+  /**
+   * Maximum number of network errors before the consumer re-creates a socket
+   */
+  maxSocketErrors?: number | undefined;
+  /**
+   * Minimize duplicate events by starting only one consumer for each topic partition
+   */
+  minimizeDuplicates?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+/**
+ * Select authentication method.
+ */
+export const AuthenticationMethodOffice365MsgTrace = {
+  Manual: "manual",
+  Secret: "secret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+  OauthCert: "oauthCert",
+} as const;
+/**
+ * Select authentication method.
+ */
+export type AuthenticationMethodOffice365MsgTrace = OpenEnum<
+  typeof AuthenticationMethodOffice365MsgTrace
+>;
+
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export const LogLevelOffice365MsgTrace = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Log Level (verbosity) for collection runtime behavior.
+ */
+export type LogLevelOffice365MsgTrace = OpenEnum<
+  typeof LogLevelOffice365MsgTrace
+>;
+
+export type CertOptions = {
+  /**
+   * The name of the predefined certificate.
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path to the private key to use. Key should be in PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath: string;
+  /**
+   * Passphrase to use to decrypt the private key.
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path to the certificate to use. Certificate should be in PEM format. Can reference $ENV_VARS.
+   */
+  certPath: string;
+};
+
+export type InputOffice365MsgTrace = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "office365_msg_trace";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * URL to use when retrieving report data.
+   */
+  url: string;
+  /**
+   * How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+   */
+  interval: number;
+  /**
+   * Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+   */
+  startDate?: string | undefined;
+  /**
+   * Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+   */
+  endDate?: string | undefined;
+  /**
+   * HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+   */
+  timeout?: number | undefined;
+  /**
+   * Disables time filtering of events when a date range is specified.
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Select authentication method.
+   */
+  authType?: AuthenticationMethodOffice365MsgTrace | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Log Level (verbosity) for collection runtime behavior.
+   */
+  logLevel?: LogLevelOffice365MsgTrace | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  retryRules?: models.RetryRulesType1 | undefined;
+  description?: string | undefined;
+  /**
+   * Username to run Message Trace API call.
+   */
+  username?: string | undefined;
+  /**
+   * Password to run Message Trace API call.
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials.
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter.
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory.
+   */
+  tenantId?: string | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter.
+   */
+  clientId?: string | undefined;
+  /**
+   * Resource to pass in the OAuth request parameter.
+   */
+  resource?: string | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: models.SubscriptionPlanOptions | undefined;
+  /**
+   * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+   */
+  textSecret?: string | undefined;
+  certOptions?: CertOptions | undefined;
+};
+
+export type ContentConfigOffice365Service = {
+  /**
+   * Office 365 Services API Content Type
+   */
+  contentType?: string | undefined;
+  /**
+   * If interval type is minutes the value entered must evenly divisible by 60 or save will fail
+   */
+  description?: string | undefined;
+  interval?: number | undefined;
+  /**
+   * Collector runtime Log Level
+   */
+  logLevel?: models.LogLevelOptionsContentConfigItems | undefined;
+  enabled?: boolean | undefined;
+};
+
+export type InputOffice365Service = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "office365_service";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType?: models.SubscriptionPlanOptions | undefined;
+  /**
+   * Office 365 Azure Tenant ID
+   */
+  tenantId: string;
+  /**
+   * Office 365 Azure Application ID
+   */
+  appId: string;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
+   */
+  contentConfig?: Array<ContentConfigOffice365Service> | undefined;
+  retryRules?: models.RetryRulesType1 | undefined;
+  /**
+   * Enter client secret directly, or select a stored secret
+   */
+  authType?: models.AuthenticationMethodOptions1 | undefined;
+  description?: string | undefined;
+  /**
+   * Office 365 Azure client secret
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export type ContentConfigOffice365Mgmt = {
+  /**
+   * Office 365 Management Activity API Content Type
+   */
+  contentType?: string | undefined;
+  /**
+   * If interval type is minutes the value entered must evenly divisible by 60 or save will fail
+   */
+  description?: string | undefined;
+  interval?: number | undefined;
+  /**
+   * Collector runtime Log Level
+   */
+  logLevel?: models.LogLevelOptionsContentConfigItems | undefined;
+  enabled?: boolean | undefined;
+};
+
+export type InputOffice365Mgmt = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "office365_mgmt";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Office 365 subscription plan for your organization, typically Office 365 Enterprise
+   */
+  planType: models.SubscriptionPlanOptions;
+  /**
+   * Office 365 Azure Tenant ID
+   */
+  tenantId: string;
+  /**
+   * Office 365 Azure Application ID
+   */
+  appId: string;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
+   */
+  publisherIdentifier?: string | undefined;
+  /**
+   * Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
+   */
+  contentConfig?: Array<ContentConfigOffice365Mgmt> | undefined;
+  /**
+   * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
+   */
+  ingestionLag?: number | undefined;
+  retryRules?: models.RetryRulesType1 | undefined;
+  /**
+   * Enter client secret directly, or select a stored secret
+   */
+  authType?: models.AuthenticationMethodOptions1 | undefined;
+  description?: string | undefined;
+  /**
+   * Office 365 Azure client secret
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+/**
+ * Target discovery mechanism. Use static to manually enter a list of targets.
+ */
+export const DiscoveryTypeEdgePrometheus = {
+  /**
+   * Static
+   */
+  Static: "static",
+  /**
+   * DNS
+   */
+  Dns: "dns",
+  /**
+   * AWS EC2
+   */
+  Ec2: "ec2",
+  /**
+   * Kubernetes Node
+   */
+  K8sNode: "k8s-node",
+  /**
+   * Kubernetes Pods
+   */
+  K8sPods: "k8s-pods",
+} as const;
+/**
+ * Target discovery mechanism. Use static to manually enter a list of targets.
+ */
+export type DiscoveryTypeEdgePrometheus = OpenEnum<
+  typeof DiscoveryTypeEdgePrometheus
+>;
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const AuthenticationMethodEdgePrometheus = {
+  Manual: "manual",
+  Secret: "secret",
+  Kubernetes: "kubernetes",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type AuthenticationMethodEdgePrometheus = OpenEnum<
+  typeof AuthenticationMethodEdgePrometheus
+>;
+
+export type Target = {
+  /**
+   * Protocol to use when collecting metrics
+   */
+  protocol?: models.ProtocolOptionsTargetsItems | undefined;
+  /**
+   * Name of host from which to pull metrics.
+   */
+  host: string;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  port?: number | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  path?: string | undefined;
+};
+
+export type PodFilter = {
+  /**
+   * JavaScript expression applied to pods objects. Return 'true' to include it.
+   */
+  filter: string;
+  /**
+   * Optional description of this rule's purpose
+   */
+  description?: string | undefined;
+};
+
+export type InputEdgePrometheus = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "edge_prometheus";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Other dimensions to include in events
+   */
+  dimensionList?: Array<string> | undefined;
+  /**
+   * Target discovery mechanism. Use static to manually enter a list of targets.
+   */
+  discoveryType: DiscoveryTypeEdgePrometheus;
+  /**
+   * How often in seconds to scrape targets for metrics.
+   */
+  interval: number;
+  /**
+   * Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
+   */
+  timeout?: number | undefined;
+  persistence?: models.DiskSpoolingType | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthenticationMethodEdgePrometheus | undefined;
+  description?: string | undefined;
+  targets?: Array<Target> | undefined;
+  /**
+   * DNS record type to resolve
+   */
+  recordType?: models.RecordTypeOptions | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePort?: number | undefined;
+  /**
+   * List of DNS names to resolve
+   */
+  nameList?: Array<string> | undefined;
+  /**
+   * Protocol to use when collecting metrics
+   */
+  scrapeProtocol?: models.ProtocolOptionsTargetsItems | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  scrapePath?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use public IP address for discovered targets. Disable to use the private IP address.
+   */
+  usePublicIp?: boolean | undefined;
+  /**
+   * Filter to apply when searching for EC2 instances
+   */
+  searchFilter?: Array<models.ItemsTypeSearchFilter> | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the EC2 is located
+   */
+  region?: string | undefined;
+  /**
+   * EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing EC2 requests
+   */
+  signatureVersion?: models.SignatureVersionOptions1 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access EC2
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Protocol to use when collecting metrics
+   */
+  scrapeProtocolExpr?: string | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePortExpr?: string | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  scrapePathExpr?: string | undefined;
+  /**
+   *   Add rules to decide which pods to discover for metrics.
+   *
+   * @remarks
+   *   Pods are searched if no rules are given or of all the rules'
+   *   expressions evaluate to true.
+   */
+  podFilter?: Array<PodFilter> | undefined;
+  /**
+   * Username for Prometheus Basic authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password for Prometheus Basic authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
+/**
+ * Target discovery mechanism. Use static to manually enter a list of targets.
+ */
+export const DiscoveryTypePrometheus = {
+  /**
+   * Static
+   */
+  Static: "static",
+  /**
+   * DNS
+   */
+  Dns: "dns",
+  /**
+   * AWS EC2
+   */
+  Ec2: "ec2",
+} as const;
+/**
+ * Target discovery mechanism. Use static to manually enter a list of targets.
+ */
+export type DiscoveryTypePrometheus = OpenEnum<typeof DiscoveryTypePrometheus>;
+
+/**
+ * Collector runtime log level
+ */
+export const LogLevelPrometheus = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+} as const;
+/**
+ * Collector runtime log level
+ */
+export type LogLevelPrometheus = OpenEnum<typeof LogLevelPrometheus>;
+
+/**
+ * Protocol to use when collecting metrics
+ */
+export const MetricsProtocol = {
+  Http: "http",
+  Https: "https",
+} as const;
+/**
+ * Protocol to use when collecting metrics
+ */
+export type MetricsProtocol = OpenEnum<typeof MetricsProtocol>;
+
+export type InputPrometheus = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "prometheus";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Other dimensions to include in events
+   */
+  dimensionList?: Array<string> | undefined;
+  /**
+   * Target discovery mechanism. Use static to manually enter a list of targets.
+   */
+  discoveryType?: DiscoveryTypePrometheus | undefined;
+  /**
+   * How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
+   */
+  interval: number;
+  /**
+   * Collector runtime log level
+   */
+  logLevel: LogLevelPrometheus;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
+   */
+  timeout?: number | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: models.AuthenticationMethodOptionsSasl | undefined;
+  description?: string | undefined;
+  /**
+   * List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
+   */
+  targetList?: Array<string> | undefined;
+  /**
+   * DNS record type to resolve
+   */
+  recordType?: models.RecordTypeOptions | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets
+   */
+  scrapePort?: number | undefined;
+  /**
+   * List of DNS names to resolve
+   */
+  nameList?: Array<string> | undefined;
+  /**
+   * Protocol to use when collecting metrics
+   */
+  scrapeProtocol?: MetricsProtocol | undefined;
+  /**
+   * Path to use when collecting metrics from discovered targets
+   */
+  scrapePath?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use public IP address for discovered targets. Disable to use the private IP address.
+   */
+  usePublicIp?: boolean | undefined;
+  /**
+   * Filter to apply when searching for EC2 instances
+   */
+  searchFilter?: Array<models.ItemsTypeSearchFilter> | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the EC2 is located
+   */
+  region?: string | undefined;
+  /**
+   * EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing EC2 requests
+   */
+  signatureVersion?: models.SignatureVersionOptions1 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access EC2
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Username for Prometheus Basic authentication
+   */
+  username?: string | undefined;
+  /**
+   * Password for Prometheus Basic authentication
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
+export type InputPrometheusRw = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "prometheus_rw";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Prometheus requests. Defaults to /write, which will expand as: http://<your‑upstream‑URL>:<your‑port>/write.
+   */
+  prometheusAPI: string;
+  /**
+   * Remote Write authentication type
+   */
+  authType?: models.AuthenticationTypeOptionsPrometheusAuth | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+};
+
+export type InputLoki = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "loki";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'.
+   */
+  lokiAPI: string;
+  /**
+   * Loki logs authentication type
+   */
+  authType?: models.AuthenticationTypeOptionsLokiAuth | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+};
+
+export const InputGrafanaType2 = {
+  Grafana: "grafana",
+} as const;
+export type InputGrafanaType2 = ClosedEnum<typeof InputGrafanaType2>;
+
+export type PrometheusAuth2 = {
+  /**
+   * Remote Write authentication type
+   */
+  authType?: models.AuthenticationTypeOptionsPrometheusAuth | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+};
+
+export type LokiAuth2 = {
+  /**
+   * Loki logs authentication type
+   */
+  authType?: models.AuthenticationTypeOptionsLokiAuth | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+};
+
+export type InputGrafanaGrafana2 = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: InputGrafanaType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for additional data, after the last response was sent, before closing a socket connection. This can be very useful when Grafana Agent remote write's request frequency is high so, reusing connections, would help mitigating the cost of creating a new connection per request. Note that Grafana Agent's embedded Prometheus would attempt to keep connections open for up to 5 minutes.
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
+   */
+  prometheusAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
+   */
+  lokiAPI: string;
+  prometheusAuth?: PrometheusAuth2 | undefined;
+  lokiAuth?: LokiAuth2 | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export const InputGrafanaType1 = {
+  Grafana: "grafana",
+} as const;
+export type InputGrafanaType1 = ClosedEnum<typeof InputGrafanaType1>;
+
+export type PrometheusAuth1 = {
+  /**
+   * Remote Write authentication type
+   */
+  authType?: models.AuthenticationTypeOptionsPrometheusAuth | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+};
+
+export type LokiAuth1 = {
+  /**
+   * Loki logs authentication type
+   */
+  authType?: models.AuthenticationTypeOptionsLokiAuth | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+};
+
+export type InputGrafanaGrafana1 = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: InputGrafanaType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for additional data, after the last response was sent, before closing a socket connection. This can be very useful when Grafana Agent remote write's request frequency is high so, reusing connections, would help mitigating the cost of creating a new connection per request. Note that Grafana Agent's embedded Prometheus would attempt to keep connections open for up to 5 minutes.
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Grafana Agent's Remote Write requests. Defaults to /api/prom/push, which will expand as: 'http://<your‑upstream‑URL>:<your‑port>/api/prom/push'. Either this field or 'Logs API endpoint' must be configured.
+   */
+  prometheusAPI: string;
+  /**
+   * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
+   */
+  lokiAPI?: string | undefined;
+  prometheusAuth?: PrometheusAuth1 | undefined;
+  lokiAuth?: LokiAuth1 | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputGrafana = InputGrafanaGrafana1 | InputGrafanaGrafana2;
+
+export type InputConfluentCloud = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "confluent_cloud";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
+   */
+  brokers: Array<string>;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+   */
+  topics: Array<string>;
+  /**
+   * The consumer group to which this instance belongs. Defaults to 'Cribl'.
+   */
+  groupId?: string | undefined;
+  /**
+   * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+   */
+  fromBeginning?: boolean | undefined;
+  kafkaSchemaRegistry?:
+    | models.KafkaSchemaRegistryAuthenticationType
+    | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+   */
+  sasl?: models.AuthenticationType | undefined;
+  /**
+   * @remarks
+   *       Timeout used to detect client failures when using Kafka's group-management facilities.
+   *       If the client sends no heartbeats to the broker before the timeout expires,
+   *       the broker will remove the client from the group and initiate a rebalance.
+   *       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+   */
+  sessionTimeout?: number | undefined;
+  /**
+   *       Maximum allowed time for each worker to join the group after a rebalance begins.
+   *
+   * @remarks
+   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+   */
+  rebalanceTimeout?: number | undefined;
+  /**
+   *       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitInterval?: number | undefined;
+  /**
+   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitThreshold?: number | undefined;
+  /**
+   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+   */
+  maxBytesPerPartition?: number | undefined;
+  /**
+   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+   */
+  maxBytes?: number | undefined;
+  /**
+   * Maximum number of network errors before the consumer re-creates a socket
+   */
+  maxSocketErrors?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export const AuthenticationTypeElastic = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
+  AuthTokens: "authTokens",
+} as const;
+export type AuthenticationTypeElastic = OpenEnum<
+  typeof AuthenticationTypeElastic
+>;
+
+/**
+ * The API version to use for communicating with the server
+ */
+export const CreateInputAPIVersion = {
+  /**
+   * 6.8.4
+   */
+  SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
+  EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * The API version to use for communicating with the server
+ */
+export type CreateInputAPIVersion = OpenEnum<typeof CreateInputAPIVersion>;
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const ProxyModeAuthenticationMethod = {
+  None: "none",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type ProxyModeAuthenticationMethod = OpenEnum<
+  typeof ProxyModeAuthenticationMethod
+>;
+
+export type ProxyModeElastic = {
+  /**
+   * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
+   */
+  enabled: boolean;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: ProxyModeAuthenticationMethod | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
+   */
+  url?: string | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * List of headers to remove from the request to proxy
+   */
+  removeHeaders?: Array<string> | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+};
+
+export type InputElastic = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "elastic";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+   */
+  elasticAPI: string;
+  authType?: AuthenticationTypeElastic | undefined;
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: CreateInputAPIVersion | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<models.ItemsTypeExtraHttpHeaders> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  proxyMode?: ProxyModeElastic | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Bearer tokens to include in the authorization header
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * Custom version information to respond to requests
+   */
+  customAPIVersion?: string | undefined;
+};
+
+export type InputAzureBlob = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "azure_blob";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
+   */
+  queueName: string;
+  /**
+   * Regex matching file names to download and process. Defaults to: .*
+   */
+  fileFilter?: string | undefined;
+  /**
+   * The duration (in seconds) that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request.
+   */
+  visibilityTimeout?: number | undefined;
+  /**
+   * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
+   */
+  numReceivers?: number | undefined;
+  /**
+   * The maximum number of messages to return in a poll request. Azure storage queues never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 32.
+   */
+  maxMessages?: number | undefined;
+  /**
+   * The duration (in seconds) which pollers should be validated and restarted if exited
+   */
+  servicePeriodSecs?: number | undefined;
+  /**
+   * Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
+   */
+  skipOnError?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  authType?: models.AuthenticationMethodOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+};
+
+export type AuthTokenSplunkHec = {
+  /**
+   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   */
+  authType?: models.AuthenticationMethodOptionsAuthTokensItems | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token: string;
+  enabled?: boolean | undefined;
+  /**
+   * Optional token description
+   */
+  description?: string | undefined;
+  /**
+   * Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
+   */
+  allowedIndexesAtToken?: Array<string> | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+};
+
+export type InputSplunkHec = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "splunk_hec";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<AuthTokenSplunkHec> | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: any | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
+   */
+  splunkHecAPI: string;
+  /**
+   * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+   */
+  allowedIndexes?: Array<string> | undefined;
+  /**
+   * Enable Splunk HEC acknowledgements
+   */
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
+   */
+  useFwdTimezone?: boolean | undefined;
+  /**
+   * Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
+   */
+  dropControlFields?: boolean | undefined;
+  /**
+   * Extract and process Splunk-generated metrics as Cribl metrics
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+   */
+  accessControlAllowOrigin?: Array<string> | undefined;
+  /**
+   * Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+   */
+  accessControlAllowHeaders?: Array<string> | undefined;
+  /**
+   * Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+   */
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type EndpointParam = {
+  name: string;
+  /**
+   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+export type EndpointHeader = {
+  name: string;
+  /**
+   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+/**
+ * Collector runtime log level (verbosity)
+ */
+export const LogLevelSplunkSearch = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+} as const;
+/**
+ * Collector runtime log level (verbosity)
+ */
+export type LogLevelSplunkSearch = OpenEnum<typeof LogLevelSplunkSearch>;
+
+/**
+ * Splunk Search authentication type
+ */
+export const AuthenticationTypeSplunkSearch = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * Splunk Search authentication type
+ */
+export type AuthenticationTypeSplunkSearch = OpenEnum<
+  typeof AuthenticationTypeSplunkSearch
+>;
+
+export type InputSplunkSearch = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "splunk_search";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead: string;
+  /**
+   * Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule: string;
+  /**
+   * REST API used to create a search
+   */
+  endpoint: string;
+  /**
+   * Format of the returned output
+   */
+  outputMode: models.OutputModeOptionsSplunkCollectorConf;
+  /**
+   * Optional request parameters to send to the endpoint
+   */
+  endpointParams?: Array<EndpointParam> | undefined;
+  /**
+   * Optional request headers to send to the endpoint
+   */
+  endpointHeaders?: Array<EndpointHeader> | undefined;
+  /**
+   * Collector runtime log level (verbosity)
+   */
+  logLevel?: LogLevelSplunkSearch | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  retryRules?: models.RetryRulesType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthenticationTypeSplunkSearch | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+};
+
+export type AuthTokenSplunk = {
+  /**
+   * Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
+   */
+  token: string;
+  description?: string | undefined;
+};
+
+/**
+ * The highest S2S protocol version to advertise during handshake
+ */
+export const MaxS2SVersion = {
+  /**
+   * v3
+   */
+  V3: "v3",
+  /**
+   * v4
+   */
+  V4: "v4",
+} as const;
+/**
+ * The highest S2S protocol version to advertise during handshake
+ */
+export type MaxS2SVersion = OpenEnum<typeof MaxS2SVersion>;
+
+/**
+ * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+ */
+export const CreateInputCompression = {
+  /**
+   * Disabled
+   */
+  Disabled: "disabled",
+  /**
+   * Automatic
+   */
+  Auto: "auto",
+  /**
+   * Always
+   */
+  Always: "always",
+} as const;
+/**
+ * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+ */
+export type CreateInputCompression = OpenEnum<typeof CreateInputCompression>;
+
+export type InputSplunk = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "splunk";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to establish a connection
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+   */
+  socketIdleTimeout?: number | undefined;
+  /**
+   * How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+   */
+  socketEndingMaxWait?: number | undefined;
+  /**
+   * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+   */
+  socketMaxLifespan?: number | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<AuthTokenSplunk> | undefined;
+  /**
+   * The highest S2S protocol version to advertise during handshake
+   */
+  maxS2Sversion?: MaxS2SVersion | undefined;
+  description?: string | undefined;
+  /**
+   * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
+   */
+  useFwdTimezone?: boolean | undefined;
+  /**
+   * Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
+   */
+  dropControlFields?: boolean | undefined;
+  /**
+   * Extract and process Splunk-generated metrics as Cribl metrics
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+   */
+  compress?: CreateInputCompression | undefined;
+};
+
+export type InputHttp = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "http";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host: string;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Cribl HTTP API requests. Only _bulk (default /cribl/_bulk) is available. Use empty string to disable.
+   */
+  criblAPI?: string | undefined;
+  /**
+   * Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
+   */
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
+  description?: string | undefined;
+};
+
+export type InputMsk = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "msk";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+   */
+  brokers: Array<string>;
+  /**
+   * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+   */
+  topics: Array<string>;
+  /**
+   * The consumer group to which this instance belongs. Defaults to 'Cribl'.
+   */
+  groupId?: string | undefined;
+  /**
+   * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+   */
+  fromBeginning?: boolean | undefined;
+  /**
+   * @remarks
+   *       Timeout used to detect client failures when using Kafka's group-management facilities.
+   *       If the client sends no heartbeats to the broker before the timeout expires,
+   *       the broker will remove the client from the group and initiate a rebalance.
+   *       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+   */
+  sessionTimeout?: number | undefined;
+  /**
+   *       Maximum allowed time for each worker to join the group after a rebalance begins.
+   *
+   * @remarks
+   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+   */
+  rebalanceTimeout?: number | undefined;
+  /**
+   *       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  kafkaSchemaRegistry?:
+    | models.KafkaSchemaRegistryAuthenticationType
+    | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MSK cluster is located
+   */
+  region: string;
+  /**
+   * MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: models.SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access MSK
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitInterval?: number | undefined;
+  /**
+   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitThreshold?: number | undefined;
+  /**
+   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+   */
+  maxBytesPerPartition?: number | undefined;
+  /**
+   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+   */
+  maxBytes?: number | undefined;
+  /**
+   * Maximum number of network errors before the consumer re-creates a socket
+   */
+  maxSocketErrors?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export type InputKafka = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "kafka";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
+   */
+  brokers: Array<string>;
+  /**
+   * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
+   */
+  topics: Array<string>;
+  /**
+   * The consumer group to which this instance belongs. Defaults to 'Cribl'.
+   */
+  groupId?: string | undefined;
+  /**
+   * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
+   */
+  fromBeginning?: boolean | undefined;
+  kafkaSchemaRegistry?:
+    | models.KafkaSchemaRegistryAuthenticationType
+    | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+   */
+  sasl?: models.AuthenticationType | undefined;
+  tls?: models.TlsSettingsClientSideTypeKafkaSchemaRegistry | undefined;
+  /**
+   * @remarks
+   *       Timeout used to detect client failures when using Kafka's group-management facilities.
+   *       If the client sends no heartbeats to the broker before the timeout expires,
+   *       the broker will remove the client from the group and initiate a rebalance.
+   *       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
+   */
+  sessionTimeout?: number | undefined;
+  /**
+   *       Maximum allowed time for each worker to join the group after a rebalance begins.
+   *
+   * @remarks
+   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+   */
+  rebalanceTimeout?: number | undefined;
+  /**
+   *       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+   *       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitInterval?: number | undefined;
+  /**
+   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitThreshold?: number | undefined;
+  /**
+   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+   */
+  maxBytesPerPartition?: number | undefined;
+  /**
+   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+   */
+  maxBytes?: number | undefined;
+  /**
+   * Maximum number of network errors before the consumer re-creates a socket
+   */
+  maxSocketErrors?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  description?: string | undefined;
+};
+
+export type InputCollection = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "collection";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process results
+   */
+  pipeline?: string | undefined;
+  /**
+   * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  /**
+   * Destination to send results to
+   */
+  output?: string | undefined;
+};
+
+/**
+ * Input object
+ */
+export type CreateInputRequest =
+  | InputCollection
+  | InputKafka
+  | InputMsk
+  | InputHttp
+  | InputSplunk
+  | InputSplunkSearch
+  | InputSplunkHec
+  | InputAzureBlob
+  | InputElastic
+  | InputConfluentCloud
+  | (InputGrafanaGrafana1 | InputGrafanaGrafana2 & { type: "grafana" })
+  | InputLoki
+  | InputPrometheusRw
+  | InputPrometheus
+  | InputEdgePrometheus
+  | InputOffice365Mgmt
+  | InputOffice365Service
+  | InputOffice365MsgTrace
+  | InputEventhub
+  | InputExec
+  | InputFirehose
+  | InputGooglePubsub
+  | InputCribl
+  | InputCriblTcp
+  | InputCriblHttp
+  | InputCriblLakeHttp
+  | InputTcpjson
+  | InputSystemMetrics
+  | InputSystemState
+  | InputKubeMetrics
+  | InputKubeLogs
+  | InputKubeEvents
+  | InputWindowsMetrics
+  | InputCrowdstrike
+  | InputDatadogAgent
+  | InputDatagen
+  | InputHttpRaw
+  | InputKinesis
+  | InputCriblmetrics
+  | InputMetrics
+  | InputS3
+  | InputS3Inventory
+  | InputSnmp
+  | InputOpenTelemetry
+  | InputModelDrivenTelemetry
+  | InputSqs
+  | (InputSyslogSyslog1 | InputSyslogSyslog2 & { type: "syslog" })
+  | InputFile
+  | InputTcp
+  | InputAppscope
+  | InputWef
+  | InputWinEventLogs
+  | InputRawUdp
+  | InputJournalFiles
+  | InputWiz
+  | InputWizWebhook
+  | InputNetflow
+  | InputSecurityLake
+  | InputZscalerHec
+  | InputCloudflareHec;
+
+/** @internal */
+export const AuthTokenAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthTokenAuthenticationMethod
+> = openEnums.outboundSchema(AuthTokenAuthenticationMethod);
+
+/** @internal */
+export type AuthTokenCloudflareHec$Outbound = {
+  authType?: string | undefined;
+  tokenSecret?: string | undefined;
+  token?: string | undefined;
+  enabled?: boolean | undefined;
+  description?: string | undefined;
+  allowedIndexesAtToken?: Array<string> | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
 };
 
 /** @internal */
-export const CreateInputResponse$inboundSchema: z.ZodType<
-  CreateInputResponse,
+export const AuthTokenCloudflareHec$outboundSchema: z.ZodType<
+  AuthTokenCloudflareHec$Outbound,
   z.ZodTypeDef,
-  unknown
+  AuthTokenCloudflareHec
 > = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Input$inboundSchema).optional(),
+  authType: AuthTokenAuthenticationMethod$outboundSchema.optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string().optional(),
+  enabled: z.boolean().optional(),
+  description: z.string().optional(),
+  allowedIndexesAtToken: z.array(z.string()).optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
 });
 
-export function createInputResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateInputResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateInputResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateInputResponse' from JSON`,
+export function authTokenCloudflareHecToJSON(
+  authTokenCloudflareHec: AuthTokenCloudflareHec,
+): string {
+  return JSON.stringify(
+    AuthTokenCloudflareHec$outboundSchema.parse(authTokenCloudflareHec),
+  );
+}
+
+/** @internal */
+export type InputCloudflareHec$Outbound = {
+  id: string;
+  type: "cloudflare_hec";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<AuthTokenCloudflareHec$Outbound> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: any | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  hecAPI: string;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  allowedIndexes?: Array<string> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  accessControlAllowOrigin?: Array<string> | undefined;
+  accessControlAllowHeaders?: Array<string> | undefined;
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCloudflareHec$outboundSchema: z.ZodType<
+  InputCloudflareHec$Outbound,
+  z.ZodTypeDef,
+  InputCloudflareHec
+> = z.object({
+  id: z.string(),
+  type: z.literal("cloudflare_hec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.lazy(() => AuthTokenCloudflareHec$outboundSchema))
+    .optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.any().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  hecAPI: z.string(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().optional(),
+  description: z.string().optional(),
+});
+
+export function inputCloudflareHecToJSON(
+  inputCloudflareHec: InputCloudflareHec,
+): string {
+  return JSON.stringify(
+    InputCloudflareHec$outboundSchema.parse(inputCloudflareHec),
+  );
+}
+
+/** @internal */
+export type AuthTokenZscalerHec$Outbound = {
+  authType?: string | undefined;
+  tokenSecret?: string | undefined;
+  token: string;
+  enabled?: boolean | undefined;
+  description?: string | undefined;
+  allowedIndexesAtToken?: Array<string> | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+};
+
+/** @internal */
+export const AuthTokenZscalerHec$outboundSchema: z.ZodType<
+  AuthTokenZscalerHec$Outbound,
+  z.ZodTypeDef,
+  AuthTokenZscalerHec
+> = z.object({
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string(),
+  enabled: z.boolean().optional(),
+  description: z.string().optional(),
+  allowedIndexesAtToken: z.array(z.string()).optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+});
+
+export function authTokenZscalerHecToJSON(
+  authTokenZscalerHec: AuthTokenZscalerHec,
+): string {
+  return JSON.stringify(
+    AuthTokenZscalerHec$outboundSchema.parse(authTokenZscalerHec),
+  );
+}
+
+/** @internal */
+export type InputZscalerHec$Outbound = {
+  id: string;
+  type: "zscaler_hec";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<AuthTokenZscalerHec$Outbound> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: any | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  hecAPI: string;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  allowedIndexes?: Array<string> | undefined;
+  hecAcks?: boolean | undefined;
+  accessControlAllowOrigin?: Array<string> | undefined;
+  accessControlAllowHeaders?: Array<string> | undefined;
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputZscalerHec$outboundSchema: z.ZodType<
+  InputZscalerHec$Outbound,
+  z.ZodTypeDef,
+  InputZscalerHec
+> = z.object({
+  id: z.string(),
+  type: z.literal("zscaler_hec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.lazy(() => AuthTokenZscalerHec$outboundSchema))
+    .optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.any().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  hecAPI: z.string(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  hecAcks: z.boolean().optional(),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().optional(),
+  description: z.string().optional(),
+});
+
+export function inputZscalerHecToJSON(
+  inputZscalerHec: InputZscalerHec,
+): string {
+  return JSON.stringify(InputZscalerHec$outboundSchema.parse(inputZscalerHec));
+}
+
+/** @internal */
+export type InputSecurityLake$Outbound = {
+  id: string;
+  type: "security_lake";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  queueName: string;
+  fileFilter?: string | undefined;
+  awsAccountId?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?:
+    | models.PreprocessTypeSavedJobCollectionInput$Outbound
+    | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  checkpointing?: models.CheckpointingType$Outbound | undefined;
+  pollTimeout?: number | undefined;
+  encoding?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  tagAfterProcessing?: string | undefined;
+  processedTagKey?: string | undefined;
+  processedTagValue?: string | undefined;
+};
+
+/** @internal */
+export const InputSecurityLake$outboundSchema: z.ZodType<
+  InputSecurityLake$Outbound,
+  z.ZodTypeDef,
+  InputSecurityLake
+> = z.object({
+  id: z.string(),
+  type: z.literal("security_lake"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  fileFilter: z.string().optional(),
+  awsAccountId: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
+  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
+    .optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  checkpointing: models.CheckpointingType$outboundSchema.optional(),
+  pollTimeout: z.number().optional(),
+  encoding: z.string().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  tagAfterProcessing: models.TagAfterProcessingOptions$outboundSchema
+    .optional(),
+  processedTagKey: z.string().optional(),
+  processedTagValue: z.string().optional(),
+});
+
+export function inputSecurityLakeToJSON(
+  inputSecurityLake: InputSecurityLake,
+): string {
+  return JSON.stringify(
+    InputSecurityLake$outboundSchema.parse(inputSecurityLake),
+  );
+}
+
+/** @internal */
+export type InputNetflow$Outbound = {
+  id: string;
+  type: "netflow";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  enablePassThrough?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  templateCacheMinutes?: number | undefined;
+  v5Enabled?: boolean | undefined;
+  v9Enabled?: boolean | undefined;
+  ipfixEnabled?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputNetflow$outboundSchema: z.ZodType<
+  InputNetflow$Outbound,
+  z.ZodTypeDef,
+  InputNetflow
+> = z.object({
+  id: z.string(),
+  type: z.literal("netflow"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  enablePassThrough: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  templateCacheMinutes: z.number().optional(),
+  v5Enabled: z.boolean().optional(),
+  v9Enabled: z.boolean().optional(),
+  ipfixEnabled: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputNetflowToJSON(inputNetflow: InputNetflow): string {
+  return JSON.stringify(InputNetflow$outboundSchema.parse(inputNetflow));
+}
+
+/** @internal */
+export type InputWizWebhook$Outbound = {
+  id: string;
+  type: "wiz_webhook";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  allowedPaths?: Array<string> | undefined;
+  allowedMethods?: Array<string> | undefined;
+  authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputWizWebhook$outboundSchema: z.ZodType<
+  InputWizWebhook$Outbound,
+  z.ZodTypeDef,
+  InputWizWebhook
+> = z.object({
+  id: z.string(),
+  type: z.literal("wiz_webhook"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  allowedPaths: z.array(z.string()).optional(),
+  allowedMethods: z.array(z.string()).optional(),
+  authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputWizWebhookToJSON(
+  inputWizWebhook: InputWizWebhook,
+): string {
+  return JSON.stringify(InputWizWebhook$outboundSchema.parse(inputWizWebhook));
+}
+
+/** @internal */
+export type ManageState$Outbound = {};
+
+/** @internal */
+export const ManageState$outboundSchema: z.ZodType<
+  ManageState$Outbound,
+  z.ZodTypeDef,
+  ManageState
+> = z.object({});
+
+export function manageStateToJSON(manageState: ManageState): string {
+  return JSON.stringify(ManageState$outboundSchema.parse(manageState));
+}
+
+/** @internal */
+export const ContentConfigLogLevel$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ContentConfigLogLevel
+> = openEnums.outboundSchema(ContentConfigLogLevel);
+
+/** @internal */
+export type ContentConfigWiz$Outbound = {
+  contentType: string;
+  contentDescription?: string | undefined;
+  enabled?: boolean | undefined;
+  stateTracking?: boolean | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?: ManageState$Outbound | undefined;
+  contentQuery: string;
+  cronSchedule: string;
+  earliest: string;
+  latest: string;
+  jobTimeout?: string | undefined;
+  logLevel?: string | undefined;
+  maxPages?: number | undefined;
+};
+
+/** @internal */
+export const ContentConfigWiz$outboundSchema: z.ZodType<
+  ContentConfigWiz$Outbound,
+  z.ZodTypeDef,
+  ContentConfigWiz
+> = z.object({
+  contentType: z.string(),
+  contentDescription: z.string().optional(),
+  enabled: z.boolean().optional(),
+  stateTracking: z.boolean().optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() => ManageState$outboundSchema).optional(),
+  contentQuery: z.string(),
+  cronSchedule: z.string(),
+  earliest: z.string(),
+  latest: z.string(),
+  jobTimeout: z.string().optional(),
+  logLevel: ContentConfigLogLevel$outboundSchema.optional(),
+  maxPages: z.number().optional(),
+});
+
+export function contentConfigWizToJSON(
+  contentConfigWiz: ContentConfigWiz,
+): string {
+  return JSON.stringify(
+    ContentConfigWiz$outboundSchema.parse(contentConfigWiz),
+  );
+}
+
+/** @internal */
+export type InputWiz$Outbound = {
+  id: string;
+  type: "wiz";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  endpoint: string;
+  authUrl: string;
+  authAudienceOverride?: string | undefined;
+  clientId: string;
+  contentConfig: Array<ContentConfigWiz$Outbound>;
+  requestTimeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputWiz$outboundSchema: z.ZodType<
+  InputWiz$Outbound,
+  z.ZodTypeDef,
+  InputWiz
+> = z.object({
+  id: z.string(),
+  type: z.literal("wiz"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  endpoint: z.string(),
+  authUrl: z.string(),
+  authAudienceOverride: z.string().optional(),
+  clientId: z.string(),
+  contentConfig: z.array(z.lazy(() => ContentConfigWiz$outboundSchema)),
+  requestTimeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function inputWizToJSON(inputWiz: InputWiz): string {
+  return JSON.stringify(InputWiz$outboundSchema.parse(inputWiz));
+}
+
+/** @internal */
+export type InputJournalFilesRule$Outbound = {
+  filter: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputJournalFilesRule$outboundSchema: z.ZodType<
+  InputJournalFilesRule$Outbound,
+  z.ZodTypeDef,
+  InputJournalFilesRule
+> = z.object({
+  filter: z.string(),
+  description: z.string().optional(),
+});
+
+export function inputJournalFilesRuleToJSON(
+  inputJournalFilesRule: InputJournalFilesRule,
+): string {
+  return JSON.stringify(
+    InputJournalFilesRule$outboundSchema.parse(inputJournalFilesRule),
+  );
+}
+
+/** @internal */
+export type InputJournalFiles$Outbound = {
+  id: string;
+  type: "journal_files";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  path: string;
+  interval?: number | undefined;
+  journals: Array<string>;
+  rules?: Array<InputJournalFilesRule$Outbound> | undefined;
+  currentBoot?: boolean | undefined;
+  maxAgeDur?: string | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputJournalFiles$outboundSchema: z.ZodType<
+  InputJournalFiles$Outbound,
+  z.ZodTypeDef,
+  InputJournalFiles
+> = z.object({
+  id: z.string(),
+  type: z.literal("journal_files"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  path: z.string(),
+  interval: z.number().optional(),
+  journals: z.array(z.string()),
+  rules: z.array(z.lazy(() => InputJournalFilesRule$outboundSchema)).optional(),
+  currentBoot: z.boolean().optional(),
+  maxAgeDur: z.string().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputJournalFilesToJSON(
+  inputJournalFiles: InputJournalFiles,
+): string {
+  return JSON.stringify(
+    InputJournalFiles$outboundSchema.parse(inputJournalFiles),
+  );
+}
+
+/** @internal */
+export type InputRawUdp$Outbound = {
+  id: string;
+  type: "raw_udp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  singleMsgUdpPackets?: boolean | undefined;
+  ingestRawBytes?: boolean | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputRawUdp$outboundSchema: z.ZodType<
+  InputRawUdp$Outbound,
+  z.ZodTypeDef,
+  InputRawUdp
+> = z.object({
+  id: z.string(),
+  type: z.literal("raw_udp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  ingestRawBytes: z.boolean().optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputRawUdpToJSON(inputRawUdp: InputRawUdp): string {
+  return JSON.stringify(InputRawUdp$outboundSchema.parse(inputRawUdp));
+}
+
+/** @internal */
+export const ReadMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ReadMode
+> = openEnums.outboundSchema(ReadMode);
+
+/** @internal */
+export const EventFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  EventFormat
+> = openEnums.outboundSchema(EventFormat);
+
+/** @internal */
+export type InputWinEventLogs$Outbound = {
+  id: string;
+  type: "win_event_logs";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  logNames: Array<string>;
+  readMode?: string | undefined;
+  eventFormat?: string | undefined;
+  disableNativeModule?: boolean | undefined;
+  interval?: number | undefined;
+  batchSize?: number | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  maxEventBytes?: number | undefined;
+  description?: string | undefined;
+  disableJsonRendering?: boolean | undefined;
+  disableXmlRendering?: boolean | undefined;
+};
+
+/** @internal */
+export const InputWinEventLogs$outboundSchema: z.ZodType<
+  InputWinEventLogs$Outbound,
+  z.ZodTypeDef,
+  InputWinEventLogs
+> = z.object({
+  id: z.string(),
+  type: z.literal("win_event_logs"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  logNames: z.array(z.string()),
+  readMode: ReadMode$outboundSchema.optional(),
+  eventFormat: EventFormat$outboundSchema.optional(),
+  disableNativeModule: z.boolean().optional(),
+  interval: z.number().optional(),
+  batchSize: z.number().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  maxEventBytes: z.number().optional(),
+  description: z.string().optional(),
+  disableJsonRendering: z.boolean().optional(),
+  disableXmlRendering: z.boolean().optional(),
+});
+
+export function inputWinEventLogsToJSON(
+  inputWinEventLogs: InputWinEventLogs,
+): string {
+  return JSON.stringify(
+    InputWinEventLogs$outboundSchema.parse(inputWinEventLogs),
+  );
+}
+
+/** @internal */
+export const AuthMethodAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthMethodAuthenticationMethod
+> = openEnums.outboundSchema(AuthMethodAuthenticationMethod);
+
+/** @internal */
+export type MTLSSettings$Outbound = {
+  disabled?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  requestCert?: boolean | undefined;
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+  caPath: string;
+  commonNameRegex?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+  ocspCheck?: boolean | undefined;
+  keytab?: any | undefined;
+  principal?: any | undefined;
+  ocspCheckFailClose?: boolean | undefined;
+};
+
+/** @internal */
+export const MTLSSettings$outboundSchema: z.ZodType<
+  MTLSSettings$Outbound,
+  z.ZodTypeDef,
+  MTLSSettings
+> = z.object({
+  disabled: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  requestCert: z.boolean().optional(),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+  caPath: z.string(),
+  commonNameRegex: z.string().optional(),
+  minVersion: models
+    .MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+  maxVersion: models
+    .MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+  ocspCheck: z.boolean().optional(),
+  keytab: z.any().optional(),
+  principal: z.any().optional(),
+  ocspCheckFailClose: z.boolean().optional(),
+});
+
+export function mTLSSettingsToJSON(mtlsSettings: MTLSSettings): string {
+  return JSON.stringify(MTLSSettings$outboundSchema.parse(mtlsSettings));
+}
+
+/** @internal */
+export const CreateInputFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputFormat
+> = openEnums.outboundSchema(CreateInputFormat);
+
+/** @internal */
+export const QueryBuilderMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  QueryBuilderMode
+> = openEnums.outboundSchema(QueryBuilderMode);
+
+/** @internal */
+export type Query$Outbound = {
+  path: string;
+  queryExpression: string;
+};
+
+/** @internal */
+export const Query$outboundSchema: z.ZodType<
+  Query$Outbound,
+  z.ZodTypeDef,
+  Query
+> = z.object({
+  path: z.string(),
+  queryExpression: z.string(),
+});
+
+export function queryToJSON(query: Query): string {
+  return JSON.stringify(Query$outboundSchema.parse(query));
+}
+
+/** @internal */
+export type Subscription$Outbound = {
+  subscriptionName: string;
+  version?: string | undefined;
+  contentFormat: string;
+  heartbeatInterval: number;
+  batchTimeout: number;
+  readExistingEvents?: boolean | undefined;
+  sendBookmarks?: boolean | undefined;
+  compress?: boolean | undefined;
+  targets: Array<string>;
+  locale?: string | undefined;
+  querySelector?: string | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  queries?: Array<Query$Outbound> | undefined;
+  xmlQuery?: string | undefined;
+};
+
+/** @internal */
+export const Subscription$outboundSchema: z.ZodType<
+  Subscription$Outbound,
+  z.ZodTypeDef,
+  Subscription
+> = z.object({
+  subscriptionName: z.string(),
+  version: z.string().optional(),
+  contentFormat: CreateInputFormat$outboundSchema,
+  heartbeatInterval: z.number(),
+  batchTimeout: z.number(),
+  readExistingEvents: z.boolean().optional(),
+  sendBookmarks: z.boolean().optional(),
+  compress: z.boolean().optional(),
+  targets: z.array(z.string()),
+  locale: z.string().optional(),
+  querySelector: QueryBuilderMode$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  queries: z.array(z.lazy(() => Query$outboundSchema)).optional(),
+  xmlQuery: z.string().optional(),
+});
+
+export function subscriptionToJSON(subscription: Subscription): string {
+  return JSON.stringify(Subscription$outboundSchema.parse(subscription));
+}
+
+/** @internal */
+export type InputWef$Outbound = {
+  id: string;
+  type: "wef";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authMethod?: string | undefined;
+  tls?: MTLSSettings$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  socketTimeout?: number | undefined;
+  caFingerprint?: string | undefined;
+  keytab?: string | undefined;
+  principal?: string | undefined;
+  allowMachineIdMismatch?: boolean | undefined;
+  subscriptions: Array<Subscription$Outbound>;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  logFingerprintMismatch?: boolean | undefined;
+};
+
+/** @internal */
+export const InputWef$outboundSchema: z.ZodType<
+  InputWef$Outbound,
+  z.ZodTypeDef,
+  InputWef
+> = z.object({
+  id: z.string(),
+  type: z.literal("wef"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authMethod: AuthMethodAuthenticationMethod$outboundSchema.optional(),
+  tls: z.lazy(() => MTLSSettings$outboundSchema).optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  socketTimeout: z.number().optional(),
+  caFingerprint: z.string().optional(),
+  keytab: z.string().optional(),
+  principal: z.string().optional(),
+  allowMachineIdMismatch: z.boolean().optional(),
+  subscriptions: z.array(z.lazy(() => Subscription$outboundSchema)),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  logFingerprintMismatch: z.boolean().optional(),
+});
+
+export function inputWefToJSON(inputWef: InputWef): string {
+  return JSON.stringify(InputWef$outboundSchema.parse(inputWef));
+}
+
+/** @internal */
+export type Allow$Outbound = {
+  procname: string;
+  arg?: string | undefined;
+  config: string;
+};
+
+/** @internal */
+export const Allow$outboundSchema: z.ZodType<
+  Allow$Outbound,
+  z.ZodTypeDef,
+  Allow
+> = z.object({
+  procname: z.string(),
+  arg: z.string().optional(),
+  config: z.string(),
+});
+
+export function allowToJSON(allow: Allow): string {
+  return JSON.stringify(Allow$outboundSchema.parse(allow));
+}
+
+/** @internal */
+export type FilterAppscope$Outbound = {
+  allow?: Array<Allow$Outbound> | undefined;
+  transportURL?: string | undefined;
+};
+
+/** @internal */
+export const FilterAppscope$outboundSchema: z.ZodType<
+  FilterAppscope$Outbound,
+  z.ZodTypeDef,
+  FilterAppscope
+> = z.object({
+  allow: z.array(z.lazy(() => Allow$outboundSchema)).optional(),
+  transportURL: z.string().optional(),
+});
+
+export function filterAppscopeToJSON(filterAppscope: FilterAppscope): string {
+  return JSON.stringify(FilterAppscope$outboundSchema.parse(filterAppscope));
+}
+
+/** @internal */
+export type PersistenceAppscope$Outbound = {
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
+};
+
+/** @internal */
+export const PersistenceAppscope$outboundSchema: z.ZodType<
+  PersistenceAppscope$Outbound,
+  z.ZodTypeDef,
+  PersistenceAppscope
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
+
+export function persistenceAppscopeToJSON(
+  persistenceAppscope: PersistenceAppscope,
+): string {
+  return JSON.stringify(
+    PersistenceAppscope$outboundSchema.parse(persistenceAppscope),
+  );
+}
+
+/** @internal */
+export type InputAppscope$Outbound = {
+  id: string;
+  type: "appscope";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  enableUnixPath?: boolean | undefined;
+  filter?: FilterAppscope$Outbound | undefined;
+  persistence?: PersistenceAppscope$Outbound | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  host?: string | undefined;
+  port?: number | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  unixSocketPath?: string | undefined;
+  unixSocketPerms?: string | undefined;
+  authToken?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputAppscope$outboundSchema: z.ZodType<
+  InputAppscope$Outbound,
+  z.ZodTypeDef,
+  InputAppscope
+> = z.object({
+  id: z.string(),
+  type: z.literal("appscope"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  enableUnixPath: z.boolean().optional(),
+  filter: z.lazy(() => FilterAppscope$outboundSchema).optional(),
+  persistence: z.lazy(() => PersistenceAppscope$outboundSchema).optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  description: z.string().optional(),
+  host: z.string().optional(),
+  port: z.number().optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  unixSocketPath: z.string().optional(),
+  unixSocketPerms: z.string().optional(),
+  authToken: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function inputAppscopeToJSON(inputAppscope: InputAppscope): string {
+  return JSON.stringify(InputAppscope$outboundSchema.parse(inputAppscope));
+}
+
+/** @internal */
+export type InputTcp$Outbound = {
+  id: string;
+  type: "tcp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  enableHeader?: boolean | undefined;
+  preprocess?:
+    | models.PreprocessTypeSavedJobCollectionInput$Outbound
+    | undefined;
+  description?: string | undefined;
+  authToken?: string | undefined;
+  authType?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputTcp$outboundSchema: z.ZodType<
+  InputTcp$Outbound,
+  z.ZodTypeDef,
+  InputTcp
+> = z.object({
+  id: z.string(),
+  type: z.literal("tcp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  enableHeader: z.boolean().optional(),
+  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
+    .optional(),
+  description: z.string().optional(),
+  authToken: z.string().optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  textSecret: z.string().optional(),
+});
+
+export function inputTcpToJSON(inputTcp: InputTcp): string {
+  return JSON.stringify(InputTcp$outboundSchema.parse(inputTcp));
+}
+
+/** @internal */
+export const InputFileMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputFileMode
+> = openEnums.outboundSchema(InputFileMode);
+
+/** @internal */
+export type InputFile$Outbound = {
+  id: string;
+  type: "file";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  mode?: string | undefined;
+  interval?: number | undefined;
+  filenames?: Array<string> | undefined;
+  filterArchivedFiles?: boolean | undefined;
+  tailOnly?: boolean | undefined;
+  idleTimeout?: number | undefined;
+  minAgeDur?: string | undefined;
+  maxAgeDur?: string | undefined;
+  checkFileModTime?: boolean | undefined;
+  forceText?: boolean | undefined;
+  hashLen?: number | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  description?: string | undefined;
+  path?: string | undefined;
+  depth?: number | undefined;
+  suppressMissingPathErrors?: boolean | undefined;
+  deleteFiles?: boolean | undefined;
+  saltHash?: boolean | undefined;
+  includeUnidentifiableBinary?: boolean | undefined;
+};
+
+/** @internal */
+export const InputFile$outboundSchema: z.ZodType<
+  InputFile$Outbound,
+  z.ZodTypeDef,
+  InputFile
+> = z.object({
+  id: z.string(),
+  type: z.literal("file"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  mode: InputFileMode$outboundSchema.optional(),
+  interval: z.number().optional(),
+  filenames: z.array(z.string()).optional(),
+  filterArchivedFiles: z.boolean().optional(),
+  tailOnly: z.boolean().optional(),
+  idleTimeout: z.number().optional(),
+  minAgeDur: z.string().optional(),
+  maxAgeDur: z.string().optional(),
+  checkFileModTime: z.boolean().optional(),
+  forceText: z.boolean().optional(),
+  hashLen: z.number().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  description: z.string().optional(),
+  path: z.string().optional(),
+  depth: z.number().optional(),
+  suppressMissingPathErrors: z.boolean().optional(),
+  deleteFiles: z.boolean().optional(),
+  saltHash: z.boolean().optional(),
+  includeUnidentifiableBinary: z.boolean().optional(),
+});
+
+export function inputFileToJSON(inputFile: InputFile): string {
+  return JSON.stringify(InputFile$outboundSchema.parse(inputFile));
+}
+
+/** @internal */
+export const InputSyslogType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogType2
+> = z.nativeEnum(InputSyslogType2);
+
+/** @internal */
+export type InputSyslogSyslog2$Outbound = {
+  id: string;
+  type: string;
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  udpPort?: number | undefined;
+  tcpPort: number;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  timestampTimezone?: string | undefined;
+  singleMsgUdpPackets?: boolean | undefined;
+  enableProxyHeader?: boolean | undefined;
+  keepFieldsList?: Array<string> | undefined;
+  octetCounting?: boolean | undefined;
+  inferFraming?: boolean | undefined;
+  strictlyInferOctetCounting?: boolean | undefined;
+  allowNonStandardAppName?: boolean | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+  enableEnhancedProxyHeaderParsing?: boolean | undefined;
+};
+
+/** @internal */
+export const InputSyslogSyslog2$outboundSchema: z.ZodType<
+  InputSyslogSyslog2$Outbound,
+  z.ZodTypeDef,
+  InputSyslogSyslog2
+> = z.object({
+  id: z.string(),
+  type: InputSyslogType2$outboundSchema,
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  udpPort: z.number().optional(),
+  tcpPort: z.number(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  timestampTimezone: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  keepFieldsList: z.array(z.string()).optional(),
+  octetCounting: z.boolean().optional(),
+  inferFraming: z.boolean().optional(),
+  strictlyInferOctetCounting: z.boolean().optional(),
+  allowNonStandardAppName: z.boolean().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  description: z.string().optional(),
+  enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+});
+
+export function inputSyslogSyslog2ToJSON(
+  inputSyslogSyslog2: InputSyslogSyslog2,
+): string {
+  return JSON.stringify(
+    InputSyslogSyslog2$outboundSchema.parse(inputSyslogSyslog2),
+  );
+}
+
+/** @internal */
+export const InputSyslogType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputSyslogType1
+> = z.nativeEnum(InputSyslogType1);
+
+/** @internal */
+export type InputSyslogSyslog1$Outbound = {
+  id: string;
+  type: string;
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  udpPort: number;
+  tcpPort?: number | undefined;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  timestampTimezone?: string | undefined;
+  singleMsgUdpPackets?: boolean | undefined;
+  enableProxyHeader?: boolean | undefined;
+  keepFieldsList?: Array<string> | undefined;
+  octetCounting?: boolean | undefined;
+  inferFraming?: boolean | undefined;
+  strictlyInferOctetCounting?: boolean | undefined;
+  allowNonStandardAppName?: boolean | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+  enableEnhancedProxyHeaderParsing?: boolean | undefined;
+};
+
+/** @internal */
+export const InputSyslogSyslog1$outboundSchema: z.ZodType<
+  InputSyslogSyslog1$Outbound,
+  z.ZodTypeDef,
+  InputSyslogSyslog1
+> = z.object({
+  id: z.string(),
+  type: InputSyslogType1$outboundSchema,
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  udpPort: z.number(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  timestampTimezone: z.string().optional(),
+  singleMsgUdpPackets: z.boolean().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  keepFieldsList: z.array(z.string()).optional(),
+  octetCounting: z.boolean().optional(),
+  inferFraming: z.boolean().optional(),
+  strictlyInferOctetCounting: z.boolean().optional(),
+  allowNonStandardAppName: z.boolean().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  description: z.string().optional(),
+  enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+});
+
+export function inputSyslogSyslog1ToJSON(
+  inputSyslogSyslog1: InputSyslogSyslog1,
+): string {
+  return JSON.stringify(
+    InputSyslogSyslog1$outboundSchema.parse(inputSyslogSyslog1),
+  );
+}
+
+/** @internal */
+export type InputSyslog$Outbound =
+  | InputSyslogSyslog1$Outbound
+  | InputSyslogSyslog2$Outbound;
+
+/** @internal */
+export const InputSyslog$outboundSchema: z.ZodType<
+  InputSyslog$Outbound,
+  z.ZodTypeDef,
+  InputSyslog
+> = z.union([
+  z.lazy(() => InputSyslogSyslog1$outboundSchema),
+  z.lazy(() => InputSyslogSyslog2$outboundSchema),
+]);
+
+export function inputSyslogToJSON(inputSyslog: InputSyslog): string {
+  return JSON.stringify(InputSyslog$outboundSchema.parse(inputSyslog));
+}
+
+/** @internal */
+export const CreateInputQueueType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputQueueType
+> = openEnums.outboundSchema(CreateInputQueueType);
+
+/** @internal */
+export type InputSqs$Outbound = {
+  id: string;
+  type: "sqs";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  createQueue?: boolean | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  pollTimeout?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  numReceivers?: number | undefined;
+};
+
+/** @internal */
+export const InputSqs$outboundSchema: z.ZodType<
+  InputSqs$Outbound,
+  z.ZodTypeDef,
+  InputSqs
+> = z.object({
+  id: z.string(),
+  type: z.literal("sqs"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  queueType: CreateInputQueueType$outboundSchema,
+  awsAccountId: z.string().optional(),
+  createQueue: z.boolean().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptions3$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  pollTimeout: z.number().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  numReceivers: z.number().optional(),
+});
+
+export function inputSqsToJSON(inputSqs: InputSqs): string {
+  return JSON.stringify(InputSqs$outboundSchema.parse(inputSqs));
+}
+
+/** @internal */
+export type InputModelDrivenTelemetry$Outbound = {
+  id: string;
+  type: "model_driven_telemetry";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  maxActiveCxn?: number | undefined;
+  shutdownTimeoutMs?: number | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputModelDrivenTelemetry$outboundSchema: z.ZodType<
+  InputModelDrivenTelemetry$Outbound,
+  z.ZodTypeDef,
+  InputModelDrivenTelemetry
+> = z.object({
+  id: z.string(),
+  type: z.literal("model_driven_telemetry"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  maxActiveCxn: z.number().optional(),
+  shutdownTimeoutMs: z.number().optional(),
+  description: z.string().optional(),
+});
+
+export function inputModelDrivenTelemetryToJSON(
+  inputModelDrivenTelemetry: InputModelDrivenTelemetry,
+): string {
+  return JSON.stringify(
+    InputModelDrivenTelemetry$outboundSchema.parse(inputModelDrivenTelemetry),
+  );
+}
+
+/** @internal */
+export const CreateInputProtocol$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputProtocol
+> = openEnums.outboundSchema(CreateInputProtocol);
+
+/** @internal */
+export const CreateInputOTLPVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputOTLPVersion
+> = openEnums.outboundSchema(CreateInputOTLPVersion);
+
+/** @internal */
+export type InputOpenTelemetry$Outbound = {
+  id: string;
+  type: "open_telemetry";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  protocol?: string | undefined;
+  extractSpans?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
+  otlpVersion?: string | undefined;
+  authType?: string | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  extractLogs?: boolean | undefined;
+};
+
+/** @internal */
+export const InputOpenTelemetry$outboundSchema: z.ZodType<
+  InputOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetry
+> = z.object({
+  id: z.string(),
+  type: z.literal("open_telemetry"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  protocol: CreateInputProtocol$outboundSchema.optional(),
+  extractSpans: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  otlpVersion: CreateInputOTLPVersion$outboundSchema.optional(),
+  authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  maxActiveCxn: z.number().optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  extractLogs: z.boolean().optional(),
+});
+
+export function inputOpenTelemetryToJSON(
+  inputOpenTelemetry: InputOpenTelemetry,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetry$outboundSchema.parse(inputOpenTelemetry),
+  );
+}
+
+/** @internal */
+export const PrivacyProtocol$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PrivacyProtocol
+> = openEnums.outboundSchema(PrivacyProtocol);
+
+/** @internal */
+export type V3User$Outbound = {
+  name: string;
+  authProtocol?: string | undefined;
+  authKey?: string | undefined;
+  privProtocol?: string | undefined;
+  privKey?: string | undefined;
+};
+
+/** @internal */
+export const V3User$outboundSchema: z.ZodType<
+  V3User$Outbound,
+  z.ZodTypeDef,
+  V3User
+> = z.object({
+  name: z.string(),
+  authProtocol: models.AuthenticationProtocolOptionsV3User$outboundSchema
+    .optional(),
+  authKey: z.string().optional(),
+  privProtocol: PrivacyProtocol$outboundSchema.optional(),
+  privKey: z.string().optional(),
+});
+
+export function v3UserToJSON(v3User: V3User): string {
+  return JSON.stringify(V3User$outboundSchema.parse(v3User));
+}
+
+/** @internal */
+export type SNMPv3Authentication$Outbound = {
+  v3AuthEnabled: boolean;
+  allowUnmatchedTrap?: boolean | undefined;
+  v3Users?: Array<V3User$Outbound> | undefined;
+};
+
+/** @internal */
+export const SNMPv3Authentication$outboundSchema: z.ZodType<
+  SNMPv3Authentication$Outbound,
+  z.ZodTypeDef,
+  SNMPv3Authentication
+> = z.object({
+  v3AuthEnabled: z.boolean(),
+  allowUnmatchedTrap: z.boolean().optional(),
+  v3Users: z.array(z.lazy(() => V3User$outboundSchema)).optional(),
+});
+
+export function snmPv3AuthenticationToJSON(
+  snmPv3Authentication: SNMPv3Authentication,
+): string {
+  return JSON.stringify(
+    SNMPv3Authentication$outboundSchema.parse(snmPv3Authentication),
+  );
+}
+
+/** @internal */
+export type InputSnmp$Outbound = {
+  id: string;
+  type: "snmp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  varbindsWithTypes?: boolean | undefined;
+  bestEffortParsing?: boolean | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSnmp$outboundSchema: z.ZodType<
+  InputSnmp$Outbound,
+  z.ZodTypeDef,
+  InputSnmp
+> = z.object({
+  id: z.string(),
+  type: z.literal("snmp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  varbindsWithTypes: z.boolean().optional(),
+  bestEffortParsing: z.boolean().optional(),
+  description: z.string().optional(),
+});
+
+export function inputSnmpToJSON(inputSnmp: InputSnmp): string {
+  return JSON.stringify(InputSnmp$outboundSchema.parse(inputSnmp));
+}
+
+/** @internal */
+export type InputS3Inventory$Outbound = {
+  id: string;
+  type: "s3_inventory";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  queueName: string;
+  fileFilter?: string | undefined;
+  awsAccountId?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?:
+    | models.PreprocessTypeSavedJobCollectionInput$Outbound
+    | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  checkpointing?: models.CheckpointingType$Outbound | undefined;
+  pollTimeout?: number | undefined;
+  checksumSuffix?: string | undefined;
+  maxManifestSizeKB?: number | undefined;
+  validateInventoryFiles?: boolean | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  tagAfterProcessing?: string | undefined;
+  processedTagKey?: string | undefined;
+  processedTagValue?: string | undefined;
+};
+
+/** @internal */
+export const InputS3Inventory$outboundSchema: z.ZodType<
+  InputS3Inventory$Outbound,
+  z.ZodTypeDef,
+  InputS3Inventory
+> = z.object({
+  id: z.string(),
+  type: z.literal("s3_inventory"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  fileFilter: z.string().optional(),
+  awsAccountId: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
+  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
+    .optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  checkpointing: models.CheckpointingType$outboundSchema.optional(),
+  pollTimeout: z.number().optional(),
+  checksumSuffix: z.string().optional(),
+  maxManifestSizeKB: z.number().int().optional(),
+  validateInventoryFiles: z.boolean().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  tagAfterProcessing: models.TagAfterProcessingOptions$outboundSchema
+    .optional(),
+  processedTagKey: z.string().optional(),
+  processedTagValue: z.string().optional(),
+});
+
+export function inputS3InventoryToJSON(
+  inputS3Inventory: InputS3Inventory,
+): string {
+  return JSON.stringify(
+    InputS3Inventory$outboundSchema.parse(inputS3Inventory),
+  );
+}
+
+/** @internal */
+export type InputS3$Outbound = {
+  id: string;
+  type: "s3";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  queueName: string;
+  fileFilter?: string | undefined;
+  awsAccountId?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?:
+    | models.PreprocessTypeSavedJobCollectionInput$Outbound
+    | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  checkpointing?: models.CheckpointingType$Outbound | undefined;
+  pollTimeout?: number | undefined;
+  encoding?: string | undefined;
+  tagAfterProcessing?: boolean | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  processedTagKey?: string | undefined;
+  processedTagValue?: string | undefined;
+};
+
+/** @internal */
+export const InputS3$outboundSchema: z.ZodType<
+  InputS3$Outbound,
+  z.ZodTypeDef,
+  InputS3
+> = z.object({
+  id: z.string(),
+  type: z.literal("s3"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  fileFilter: z.string().optional(),
+  awsAccountId: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
+  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
+    .optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  checkpointing: models.CheckpointingType$outboundSchema.optional(),
+  pollTimeout: z.number().optional(),
+  encoding: z.string().optional(),
+  tagAfterProcessing: z.boolean().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  processedTagKey: z.string().optional(),
+  processedTagValue: z.string().optional(),
+});
+
+export function inputS3ToJSON(inputS3: InputS3): string {
+  return JSON.stringify(InputS3$outboundSchema.parse(inputS3));
+}
+
+/** @internal */
+export type InputMetrics$Outbound = {
+  id: string;
+  type: "metrics";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  udpPort?: number | undefined;
+  tcpPort?: number | undefined;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  enableProxyHeader?: boolean | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputMetrics$outboundSchema: z.ZodType<
+  InputMetrics$Outbound,
+  z.ZodTypeDef,
+  InputMetrics
+> = z.object({
+  id: z.string(),
+  type: z.literal("metrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
+});
+
+export function inputMetricsToJSON(inputMetrics: InputMetrics): string {
+  return JSON.stringify(InputMetrics$outboundSchema.parse(inputMetrics));
+}
+
+/** @internal */
+export type InputCriblmetrics$Outbound = {
+  id: string;
+  type: "criblmetrics";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  prefix?: string | undefined;
+  fullFidelity?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblmetrics$outboundSchema: z.ZodType<
+  InputCriblmetrics$Outbound,
+  z.ZodTypeDef,
+  InputCriblmetrics
+> = z.object({
+  id: z.string(),
+  type: z.literal("criblmetrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  prefix: z.string().optional(),
+  fullFidelity: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputCriblmetricsToJSON(
+  inputCriblmetrics: InputCriblmetrics,
+): string {
+  return JSON.stringify(
+    InputCriblmetrics$outboundSchema.parse(inputCriblmetrics),
+  );
+}
+
+/** @internal */
+export const ShardIteratorStart$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ShardIteratorStart
+> = openEnums.outboundSchema(ShardIteratorStart);
+
+/** @internal */
+export const RecordDataFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RecordDataFormat
+> = openEnums.outboundSchema(RecordDataFormat);
+
+/** @internal */
+export const ShardLoadBalancing$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ShardLoadBalancing
+> = openEnums.outboundSchema(ShardLoadBalancing);
+
+/** @internal */
+export type InputKinesis$Outbound = {
+  id: string;
+  type: "kinesis";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  streamName: string;
+  serviceInterval?: number | undefined;
+  shardExpr?: string | undefined;
+  shardIteratorType?: string | undefined;
+  payloadFormat?: string | undefined;
+  getRecordsLimit?: number | undefined;
+  getRecordsLimitTotal?: number | undefined;
+  loadBalancingAlgorithm?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  verifyKPLCheckSums?: boolean | undefined;
+  avoidDuplicates?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputKinesis$outboundSchema: z.ZodType<
+  InputKinesis$Outbound,
+  z.ZodTypeDef,
+  InputKinesis
+> = z.object({
+  id: z.string(),
+  type: z.literal("kinesis"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().optional(),
+  shardExpr: z.string().optional(),
+  shardIteratorType: ShardIteratorStart$outboundSchema.optional(),
+  payloadFormat: RecordDataFormat$outboundSchema.optional(),
+  getRecordsLimit: z.number().optional(),
+  getRecordsLimitTotal: z.number().optional(),
+  loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptions2$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  verifyKPLCheckSums: z.boolean().optional(),
+  avoidDuplicates: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+
+export function inputKinesisToJSON(inputKinesis: InputKinesis): string {
+  return JSON.stringify(InputKinesis$outboundSchema.parse(inputKinesis));
+}
+
+/** @internal */
+export type InputHttpRaw$Outbound = {
+  id: string;
+  type: "http_raw";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  allowedPaths?: Array<string> | undefined;
+  allowedMethods?: Array<string> | undefined;
+  authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputHttpRaw$outboundSchema: z.ZodType<
+  InputHttpRaw$Outbound,
+  z.ZodTypeDef,
+  InputHttpRaw
+> = z.object({
+  id: z.string(),
+  type: z.literal("http_raw"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  allowedPaths: z.array(z.string()).optional(),
+  allowedMethods: z.array(z.string()).optional(),
+  authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputHttpRawToJSON(inputHttpRaw: InputHttpRaw): string {
+  return JSON.stringify(InputHttpRaw$outboundSchema.parse(inputHttpRaw));
+}
+
+/** @internal */
+export type Sample$Outbound = {
+  sample: string;
+  eventsPerSec: number;
+};
+
+/** @internal */
+export const Sample$outboundSchema: z.ZodType<
+  Sample$Outbound,
+  z.ZodTypeDef,
+  Sample
+> = z.object({
+  sample: z.string(),
+  eventsPerSec: z.number(),
+});
+
+export function sampleToJSON(sample: Sample): string {
+  return JSON.stringify(Sample$outboundSchema.parse(sample));
+}
+
+/** @internal */
+export type InputDatagen$Outbound = {
+  id: string;
+  type: "datagen";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  samples: Array<Sample$Outbound>;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputDatagen$outboundSchema: z.ZodType<
+  InputDatagen$Outbound,
+  z.ZodTypeDef,
+  InputDatagen
+> = z.object({
+  id: z.string(),
+  type: z.literal("datagen"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  samples: z.array(z.lazy(() => Sample$outboundSchema)),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputDatagenToJSON(inputDatagen: InputDatagen): string {
+  return JSON.stringify(InputDatagen$outboundSchema.parse(inputDatagen));
+}
+
+/** @internal */
+export type ProxyModeDatadogAgent$Outbound = {
+  enabled: boolean;
+  rejectUnauthorized?: boolean | undefined;
+};
+
+/** @internal */
+export const ProxyModeDatadogAgent$outboundSchema: z.ZodType<
+  ProxyModeDatadogAgent$Outbound,
+  z.ZodTypeDef,
+  ProxyModeDatadogAgent
+> = z.object({
+  enabled: z.boolean(),
+  rejectUnauthorized: z.boolean().optional(),
+});
+
+export function proxyModeDatadogAgentToJSON(
+  proxyModeDatadogAgent: ProxyModeDatadogAgent,
+): string {
+  return JSON.stringify(
+    ProxyModeDatadogAgent$outboundSchema.parse(proxyModeDatadogAgent),
+  );
+}
+
+/** @internal */
+export type InputDatadogAgent$Outbound = {
+  id: string;
+  type: "datadog_agent";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  extractMetrics?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  proxyMode?: ProxyModeDatadogAgent$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputDatadogAgent$outboundSchema: z.ZodType<
+  InputDatadogAgent$Outbound,
+  z.ZodTypeDef,
+  InputDatadogAgent
+> = z.object({
+  id: z.string(),
+  type: z.literal("datadog_agent"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  extractMetrics: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  proxyMode: z.lazy(() => ProxyModeDatadogAgent$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputDatadogAgentToJSON(
+  inputDatadogAgent: InputDatadogAgent,
+): string {
+  return JSON.stringify(
+    InputDatadogAgent$outboundSchema.parse(inputDatadogAgent),
+  );
+}
+
+/** @internal */
+export type InputCrowdstrike$Outbound = {
+  id: string;
+  type: "crowdstrike";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  queueName: string;
+  fileFilter?: string | undefined;
+  awsAccountId?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?:
+    | models.PreprocessTypeSavedJobCollectionInput$Outbound
+    | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  checkpointing?: models.CheckpointingType$Outbound | undefined;
+  pollTimeout?: number | undefined;
+  encoding?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  tagAfterProcessing?: string | undefined;
+  processedTagKey?: string | undefined;
+  processedTagValue?: string | undefined;
+};
+
+/** @internal */
+export const InputCrowdstrike$outboundSchema: z.ZodType<
+  InputCrowdstrike$Outbound,
+  z.ZodTypeDef,
+  InputCrowdstrike
+> = z.object({
+  id: z.string(),
+  type: z.literal("crowdstrike"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  fileFilter: z.string().optional(),
+  awsAccountId: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
+  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
+    .optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  checkpointing: models.CheckpointingType$outboundSchema.optional(),
+  pollTimeout: z.number().optional(),
+  encoding: z.string().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  tagAfterProcessing: models.TagAfterProcessingOptions$outboundSchema
+    .optional(),
+  processedTagKey: z.string().optional(),
+  processedTagValue: z.string().optional(),
+});
+
+export function inputCrowdstrikeToJSON(
+  inputCrowdstrike: InputCrowdstrike,
+): string {
+  return JSON.stringify(
+    InputCrowdstrike$outboundSchema.parse(inputCrowdstrike),
+  );
+}
+
+/** @internal */
+export const SystemModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SystemModeWindowsMetrics
+> = openEnums.outboundSchema(SystemModeWindowsMetrics);
+
+/** @internal */
+export type SystemWindowsMetrics$Outbound = {
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+};
+
+/** @internal */
+export const SystemWindowsMetrics$outboundSchema: z.ZodType<
+  SystemWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  SystemWindowsMetrics
+> = z.object({
+  mode: SystemModeWindowsMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+});
+
+export function systemWindowsMetricsToJSON(
+  systemWindowsMetrics: SystemWindowsMetrics,
+): string {
+  return JSON.stringify(
+    SystemWindowsMetrics$outboundSchema.parse(systemWindowsMetrics),
+  );
+}
+
+/** @internal */
+export const CpuModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CpuModeWindowsMetrics
+> = openEnums.outboundSchema(CpuModeWindowsMetrics);
+
+/** @internal */
+export type CpuWindowsMetrics$Outbound = {
+  mode?: string | undefined;
+  perCpu?: boolean | undefined;
+  detail?: boolean | undefined;
+  time?: boolean | undefined;
+};
+
+/** @internal */
+export const CpuWindowsMetrics$outboundSchema: z.ZodType<
+  CpuWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CpuWindowsMetrics
+> = z.object({
+  mode: CpuModeWindowsMetrics$outboundSchema.optional(),
+  perCpu: z.boolean().optional(),
+  detail: z.boolean().optional(),
+  time: z.boolean().optional(),
+});
+
+export function cpuWindowsMetricsToJSON(
+  cpuWindowsMetrics: CpuWindowsMetrics,
+): string {
+  return JSON.stringify(
+    CpuWindowsMetrics$outboundSchema.parse(cpuWindowsMetrics),
+  );
+}
+
+/** @internal */
+export const MemoryModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MemoryModeWindowsMetrics
+> = openEnums.outboundSchema(MemoryModeWindowsMetrics);
+
+/** @internal */
+export type MemoryWindowsMetrics$Outbound = {
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+};
+
+/** @internal */
+export const MemoryWindowsMetrics$outboundSchema: z.ZodType<
+  MemoryWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  MemoryWindowsMetrics
+> = z.object({
+  mode: MemoryModeWindowsMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+});
+
+export function memoryWindowsMetricsToJSON(
+  memoryWindowsMetrics: MemoryWindowsMetrics,
+): string {
+  return JSON.stringify(
+    MemoryWindowsMetrics$outboundSchema.parse(memoryWindowsMetrics),
+  );
+}
+
+/** @internal */
+export const NetworkModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  NetworkModeWindowsMetrics
+> = openEnums.outboundSchema(NetworkModeWindowsMetrics);
+
+/** @internal */
+export type NetworkWindowsMetrics$Outbound = {
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+  protocols?: boolean | undefined;
+  devices?: Array<string> | undefined;
+  perInterface?: boolean | undefined;
+};
+
+/** @internal */
+export const NetworkWindowsMetrics$outboundSchema: z.ZodType<
+  NetworkWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  NetworkWindowsMetrics
+> = z.object({
+  mode: NetworkModeWindowsMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+  protocols: z.boolean().optional(),
+  devices: z.array(z.string()).optional(),
+  perInterface: z.boolean().optional(),
+});
+
+export function networkWindowsMetricsToJSON(
+  networkWindowsMetrics: NetworkWindowsMetrics,
+): string {
+  return JSON.stringify(
+    NetworkWindowsMetrics$outboundSchema.parse(networkWindowsMetrics),
+  );
+}
+
+/** @internal */
+export const DiskModeWindowsMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DiskModeWindowsMetrics
+> = openEnums.outboundSchema(DiskModeWindowsMetrics);
+
+/** @internal */
+export type DiskWindowsMetrics$Outbound = {
+  mode?: string | undefined;
+  perVolume?: boolean | undefined;
+  detail?: boolean | undefined;
+  volumes?: Array<string> | undefined;
+};
+
+/** @internal */
+export const DiskWindowsMetrics$outboundSchema: z.ZodType<
+  DiskWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  DiskWindowsMetrics
+> = z.object({
+  mode: DiskModeWindowsMetrics$outboundSchema.optional(),
+  perVolume: z.boolean().optional(),
+  detail: z.boolean().optional(),
+  volumes: z.array(z.string()).optional(),
+});
+
+export function diskWindowsMetricsToJSON(
+  diskWindowsMetrics: DiskWindowsMetrics,
+): string {
+  return JSON.stringify(
+    DiskWindowsMetrics$outboundSchema.parse(diskWindowsMetrics),
+  );
+}
+
+/** @internal */
+export type CustomWindowsMetrics$Outbound = {
+  system?: SystemWindowsMetrics$Outbound | undefined;
+  cpu?: CpuWindowsMetrics$Outbound | undefined;
+  memory?: MemoryWindowsMetrics$Outbound | undefined;
+  network?: NetworkWindowsMetrics$Outbound | undefined;
+  disk?: DiskWindowsMetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const CustomWindowsMetrics$outboundSchema: z.ZodType<
+  CustomWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  CustomWindowsMetrics
+> = z.object({
+  system: z.lazy(() => SystemWindowsMetrics$outboundSchema).optional(),
+  cpu: z.lazy(() => CpuWindowsMetrics$outboundSchema).optional(),
+  memory: z.lazy(() => MemoryWindowsMetrics$outboundSchema).optional(),
+  network: z.lazy(() => NetworkWindowsMetrics$outboundSchema).optional(),
+  disk: z.lazy(() => DiskWindowsMetrics$outboundSchema).optional(),
+});
+
+export function customWindowsMetricsToJSON(
+  customWindowsMetrics: CustomWindowsMetrics,
+): string {
+  return JSON.stringify(
+    CustomWindowsMetrics$outboundSchema.parse(customWindowsMetrics),
+  );
+}
+
+/** @internal */
+export type HostWindowsMetrics$Outbound = {
+  mode?: string | undefined;
+  custom?: CustomWindowsMetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const HostWindowsMetrics$outboundSchema: z.ZodType<
+  HostWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  HostWindowsMetrics
+> = z.object({
+  mode: models.ModeOptionsHost$outboundSchema.optional(),
+  custom: z.lazy(() => CustomWindowsMetrics$outboundSchema).optional(),
+});
+
+export function hostWindowsMetricsToJSON(
+  hostWindowsMetrics: HostWindowsMetrics,
+): string {
+  return JSON.stringify(
+    HostWindowsMetrics$outboundSchema.parse(hostWindowsMetrics),
+  );
+}
+
+/** @internal */
+export type PersistenceWindowsMetrics$Outbound = {
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
+};
+
+/** @internal */
+export const PersistenceWindowsMetrics$outboundSchema: z.ZodType<
+  PersistenceWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  PersistenceWindowsMetrics
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
+
+export function persistenceWindowsMetricsToJSON(
+  persistenceWindowsMetrics: PersistenceWindowsMetrics,
+): string {
+  return JSON.stringify(
+    PersistenceWindowsMetrics$outboundSchema.parse(persistenceWindowsMetrics),
+  );
+}
+
+/** @internal */
+export type InputWindowsMetrics$Outbound = {
+  id: string;
+  type: "windows_metrics";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  interval?: number | undefined;
+  host?: HostWindowsMetrics$Outbound | undefined;
+  process?: models.ProcessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  persistence?: PersistenceWindowsMetrics$Outbound | undefined;
+  disableNativeModule?: boolean | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputWindowsMetrics$outboundSchema: z.ZodType<
+  InputWindowsMetrics$Outbound,
+  z.ZodTypeDef,
+  InputWindowsMetrics
+> = z.object({
+  id: z.string(),
+  type: z.literal("windows_metrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  host: z.lazy(() => HostWindowsMetrics$outboundSchema).optional(),
+  process: models.ProcessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  persistence: z.lazy(() => PersistenceWindowsMetrics$outboundSchema)
+    .optional(),
+  disableNativeModule: z.boolean().optional(),
+  description: z.string().optional(),
+});
+
+export function inputWindowsMetricsToJSON(
+  inputWindowsMetrics: InputWindowsMetrics,
+): string {
+  return JSON.stringify(
+    InputWindowsMetrics$outboundSchema.parse(inputWindowsMetrics),
+  );
+}
+
+/** @internal */
+export type InputKubeEvents$Outbound = {
+  id: string;
+  type: "kube_events";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  rules?: Array<models.ItemsTypeRules$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKubeEvents$outboundSchema: z.ZodType<
+  InputKubeEvents$Outbound,
+  z.ZodTypeDef,
+  InputKubeEvents
+> = z.object({
+  id: z.string(),
+  type: z.literal("kube_events"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  rules: z.array(models.ItemsTypeRules$outboundSchema).optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputKubeEventsToJSON(
+  inputKubeEvents: InputKubeEvents,
+): string {
+  return JSON.stringify(InputKubeEvents$outboundSchema.parse(inputKubeEvents));
+}
+
+/** @internal */
+export type RuleKubeLogs$Outbound = {
+  filter: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const RuleKubeLogs$outboundSchema: z.ZodType<
+  RuleKubeLogs$Outbound,
+  z.ZodTypeDef,
+  RuleKubeLogs
+> = z.object({
+  filter: z.string(),
+  description: z.string().optional(),
+});
+
+export function ruleKubeLogsToJSON(ruleKubeLogs: RuleKubeLogs): string {
+  return JSON.stringify(RuleKubeLogs$outboundSchema.parse(ruleKubeLogs));
+}
+
+/** @internal */
+export type InputKubeLogs$Outbound = {
+  id: string;
+  type: "kube_logs";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  interval?: number | undefined;
+  rules?: Array<RuleKubeLogs$Outbound> | undefined;
+  timestamps?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  persistence?: models.DiskSpoolingType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKubeLogs$outboundSchema: z.ZodType<
+  InputKubeLogs$Outbound,
+  z.ZodTypeDef,
+  InputKubeLogs
+> = z.object({
+  id: z.string(),
+  type: z.literal("kube_logs"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  rules: z.array(z.lazy(() => RuleKubeLogs$outboundSchema)).optional(),
+  timestamps: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  persistence: models.DiskSpoolingType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  description: z.string().optional(),
+});
+
+export function inputKubeLogsToJSON(inputKubeLogs: InputKubeLogs): string {
+  return JSON.stringify(InputKubeLogs$outboundSchema.parse(inputKubeLogs));
+}
+
+/** @internal */
+export type PersistenceKubeMetrics$Outbound = {
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
+};
+
+/** @internal */
+export const PersistenceKubeMetrics$outboundSchema: z.ZodType<
+  PersistenceKubeMetrics$Outbound,
+  z.ZodTypeDef,
+  PersistenceKubeMetrics
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
+
+export function persistenceKubeMetricsToJSON(
+  persistenceKubeMetrics: PersistenceKubeMetrics,
+): string {
+  return JSON.stringify(
+    PersistenceKubeMetrics$outboundSchema.parse(persistenceKubeMetrics),
+  );
+}
+
+/** @internal */
+export type InputKubeMetrics$Outbound = {
+  id: string;
+  type: "kube_metrics";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  interval?: number | undefined;
+  rules?: Array<models.ItemsTypeRules$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  persistence?: PersistenceKubeMetrics$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKubeMetrics$outboundSchema: z.ZodType<
+  InputKubeMetrics$Outbound,
+  z.ZodTypeDef,
+  InputKubeMetrics
+> = z.object({
+  id: z.string(),
+  type: z.literal("kube_metrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  rules: z.array(models.ItemsTypeRules$outboundSchema).optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  persistence: z.lazy(() => PersistenceKubeMetrics$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputKubeMetricsToJSON(
+  inputKubeMetrics: InputKubeMetrics,
+): string {
+  return JSON.stringify(
+    InputKubeMetrics$outboundSchema.parse(inputKubeMetrics),
+  );
+}
+
+/** @internal */
+export type HostsFile$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const HostsFile$outboundSchema: z.ZodType<
+  HostsFile$Outbound,
+  z.ZodTypeDef,
+  HostsFile
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function hostsFileToJSON(hostsFile: HostsFile): string {
+  return JSON.stringify(HostsFile$outboundSchema.parse(hostsFile));
+}
+
+/** @internal */
+export type Interfaces$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const Interfaces$outboundSchema: z.ZodType<
+  Interfaces$Outbound,
+  z.ZodTypeDef,
+  Interfaces
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function interfacesToJSON(interfaces: Interfaces): string {
+  return JSON.stringify(Interfaces$outboundSchema.parse(interfaces));
+}
+
+/** @internal */
+export type DisksAndFileSystems$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const DisksAndFileSystems$outboundSchema: z.ZodType<
+  DisksAndFileSystems$Outbound,
+  z.ZodTypeDef,
+  DisksAndFileSystems
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function disksAndFileSystemsToJSON(
+  disksAndFileSystems: DisksAndFileSystems,
+): string {
+  return JSON.stringify(
+    DisksAndFileSystems$outboundSchema.parse(disksAndFileSystems),
+  );
+}
+
+/** @internal */
+export type HostInfo$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const HostInfo$outboundSchema: z.ZodType<
+  HostInfo$Outbound,
+  z.ZodTypeDef,
+  HostInfo
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function hostInfoToJSON(hostInfo: HostInfo): string {
+  return JSON.stringify(HostInfo$outboundSchema.parse(hostInfo));
+}
+
+/** @internal */
+export type Routes$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const Routes$outboundSchema: z.ZodType<
+  Routes$Outbound,
+  z.ZodTypeDef,
+  Routes
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function routesToJSON(routes: Routes): string {
+  return JSON.stringify(Routes$outboundSchema.parse(routes));
+}
+
+/** @internal */
+export type Dns$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const Dns$outboundSchema: z.ZodType<Dns$Outbound, z.ZodTypeDef, Dns> = z
+  .object({
+    enable: z.boolean().optional(),
+  });
+
+export function dnsToJSON(dns: Dns): string {
+  return JSON.stringify(Dns$outboundSchema.parse(dns));
+}
+
+/** @internal */
+export type UsersAndGroups$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const UsersAndGroups$outboundSchema: z.ZodType<
+  UsersAndGroups$Outbound,
+  z.ZodTypeDef,
+  UsersAndGroups
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function usersAndGroupsToJSON(usersAndGroups: UsersAndGroups): string {
+  return JSON.stringify(UsersAndGroups$outboundSchema.parse(usersAndGroups));
+}
+
+/** @internal */
+export type Firewall$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const Firewall$outboundSchema: z.ZodType<
+  Firewall$Outbound,
+  z.ZodTypeDef,
+  Firewall
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function firewallToJSON(firewall: Firewall): string {
+  return JSON.stringify(Firewall$outboundSchema.parse(firewall));
+}
+
+/** @internal */
+export type Services$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const Services$outboundSchema: z.ZodType<
+  Services$Outbound,
+  z.ZodTypeDef,
+  Services
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function servicesToJSON(services: Services): string {
+  return JSON.stringify(Services$outboundSchema.parse(services));
+}
+
+/** @internal */
+export type ListeningPorts$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const ListeningPorts$outboundSchema: z.ZodType<
+  ListeningPorts$Outbound,
+  z.ZodTypeDef,
+  ListeningPorts
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function listeningPortsToJSON(listeningPorts: ListeningPorts): string {
+  return JSON.stringify(ListeningPorts$outboundSchema.parse(listeningPorts));
+}
+
+/** @internal */
+export type LoggedInUsers$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const LoggedInUsers$outboundSchema: z.ZodType<
+  LoggedInUsers$Outbound,
+  z.ZodTypeDef,
+  LoggedInUsers
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function loggedInUsersToJSON(loggedInUsers: LoggedInUsers): string {
+  return JSON.stringify(LoggedInUsers$outboundSchema.parse(loggedInUsers));
+}
+
+/** @internal */
+export type Collectors$Outbound = {
+  hostsfile?: HostsFile$Outbound | undefined;
+  interfaces?: Interfaces$Outbound | undefined;
+  disk?: DisksAndFileSystems$Outbound | undefined;
+  metadata?: HostInfo$Outbound | undefined;
+  routes?: Routes$Outbound | undefined;
+  dns?: Dns$Outbound | undefined;
+  user?: UsersAndGroups$Outbound | undefined;
+  firewall?: Firewall$Outbound | undefined;
+  services?: Services$Outbound | undefined;
+  ports?: ListeningPorts$Outbound | undefined;
+  loginUsers?: LoggedInUsers$Outbound | undefined;
+};
+
+/** @internal */
+export const Collectors$outboundSchema: z.ZodType<
+  Collectors$Outbound,
+  z.ZodTypeDef,
+  Collectors
+> = z.object({
+  hostsfile: z.lazy(() => HostsFile$outboundSchema).optional(),
+  interfaces: z.lazy(() => Interfaces$outboundSchema).optional(),
+  disk: z.lazy(() => DisksAndFileSystems$outboundSchema).optional(),
+  metadata: z.lazy(() => HostInfo$outboundSchema).optional(),
+  routes: z.lazy(() => Routes$outboundSchema).optional(),
+  dns: z.lazy(() => Dns$outboundSchema).optional(),
+  user: z.lazy(() => UsersAndGroups$outboundSchema).optional(),
+  firewall: z.lazy(() => Firewall$outboundSchema).optional(),
+  services: z.lazy(() => Services$outboundSchema).optional(),
+  ports: z.lazy(() => ListeningPorts$outboundSchema).optional(),
+  loginUsers: z.lazy(() => LoggedInUsers$outboundSchema).optional(),
+});
+
+export function collectorsToJSON(collectors: Collectors): string {
+  return JSON.stringify(Collectors$outboundSchema.parse(collectors));
+}
+
+/** @internal */
+export type PersistenceSystemState$Outbound = {
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
+};
+
+/** @internal */
+export const PersistenceSystemState$outboundSchema: z.ZodType<
+  PersistenceSystemState$Outbound,
+  z.ZodTypeDef,
+  PersistenceSystemState
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
+
+export function persistenceSystemStateToJSON(
+  persistenceSystemState: PersistenceSystemState,
+): string {
+  return JSON.stringify(
+    PersistenceSystemState$outboundSchema.parse(persistenceSystemState),
+  );
+}
+
+/** @internal */
+export type InputSystemState$Outbound = {
+  id: string;
+  type: "system_state";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  interval?: number | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  collectors?: Collectors$Outbound | undefined;
+  persistence?: PersistenceSystemState$Outbound | undefined;
+  disableNativeModule?: boolean | undefined;
+  disableNativeLastLogModule?: boolean | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemState$outboundSchema: z.ZodType<
+  InputSystemState$Outbound,
+  z.ZodTypeDef,
+  InputSystemState
+> = z.object({
+  id: z.string(),
+  type: z.literal("system_state"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  collectors: z.lazy(() => Collectors$outboundSchema).optional(),
+  persistence: z.lazy(() => PersistenceSystemState$outboundSchema).optional(),
+  disableNativeModule: z.boolean().optional(),
+  disableNativeLastLogModule: z.boolean().optional(),
+  description: z.string().optional(),
+});
+
+export function inputSystemStateToJSON(
+  inputSystemState: InputSystemState,
+): string {
+  return JSON.stringify(
+    InputSystemState$outboundSchema.parse(inputSystemState),
+  );
+}
+
+/** @internal */
+export const SystemModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SystemModeSystemMetrics
+> = openEnums.outboundSchema(SystemModeSystemMetrics);
+
+/** @internal */
+export type SystemSystemMetrics$Outbound = {
+  mode?: string | undefined;
+  processes?: boolean | undefined;
+};
+
+/** @internal */
+export const SystemSystemMetrics$outboundSchema: z.ZodType<
+  SystemSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  SystemSystemMetrics
+> = z.object({
+  mode: SystemModeSystemMetrics$outboundSchema.optional(),
+  processes: z.boolean().optional(),
+});
+
+export function systemSystemMetricsToJSON(
+  systemSystemMetrics: SystemSystemMetrics,
+): string {
+  return JSON.stringify(
+    SystemSystemMetrics$outboundSchema.parse(systemSystemMetrics),
+  );
+}
+
+/** @internal */
+export const CpuModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CpuModeSystemMetrics
+> = openEnums.outboundSchema(CpuModeSystemMetrics);
+
+/** @internal */
+export type CpuSystemMetrics$Outbound = {
+  mode?: string | undefined;
+  perCpu?: boolean | undefined;
+  detail?: boolean | undefined;
+  time?: boolean | undefined;
+};
+
+/** @internal */
+export const CpuSystemMetrics$outboundSchema: z.ZodType<
+  CpuSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CpuSystemMetrics
+> = z.object({
+  mode: CpuModeSystemMetrics$outboundSchema.optional(),
+  perCpu: z.boolean().optional(),
+  detail: z.boolean().optional(),
+  time: z.boolean().optional(),
+});
+
+export function cpuSystemMetricsToJSON(
+  cpuSystemMetrics: CpuSystemMetrics,
+): string {
+  return JSON.stringify(
+    CpuSystemMetrics$outboundSchema.parse(cpuSystemMetrics),
+  );
+}
+
+/** @internal */
+export const MemoryModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MemoryModeSystemMetrics
+> = openEnums.outboundSchema(MemoryModeSystemMetrics);
+
+/** @internal */
+export type MemorySystemMetrics$Outbound = {
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+};
+
+/** @internal */
+export const MemorySystemMetrics$outboundSchema: z.ZodType<
+  MemorySystemMetrics$Outbound,
+  z.ZodTypeDef,
+  MemorySystemMetrics
+> = z.object({
+  mode: MemoryModeSystemMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+});
+
+export function memorySystemMetricsToJSON(
+  memorySystemMetrics: MemorySystemMetrics,
+): string {
+  return JSON.stringify(
+    MemorySystemMetrics$outboundSchema.parse(memorySystemMetrics),
+  );
+}
+
+/** @internal */
+export const NetworkModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  NetworkModeSystemMetrics
+> = openEnums.outboundSchema(NetworkModeSystemMetrics);
+
+/** @internal */
+export type NetworkSystemMetrics$Outbound = {
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+  protocols?: boolean | undefined;
+  devices?: Array<string> | undefined;
+  perInterface?: boolean | undefined;
+};
+
+/** @internal */
+export const NetworkSystemMetrics$outboundSchema: z.ZodType<
+  NetworkSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  NetworkSystemMetrics
+> = z.object({
+  mode: NetworkModeSystemMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+  protocols: z.boolean().optional(),
+  devices: z.array(z.string()).optional(),
+  perInterface: z.boolean().optional(),
+});
+
+export function networkSystemMetricsToJSON(
+  networkSystemMetrics: NetworkSystemMetrics,
+): string {
+  return JSON.stringify(
+    NetworkSystemMetrics$outboundSchema.parse(networkSystemMetrics),
+  );
+}
+
+/** @internal */
+export const DiskModeSystemMetrics$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DiskModeSystemMetrics
+> = openEnums.outboundSchema(DiskModeSystemMetrics);
+
+/** @internal */
+export type DiskSystemMetrics$Outbound = {
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+  inodes?: boolean | undefined;
+  devices?: Array<string> | undefined;
+  mountpoints?: Array<string> | undefined;
+  fstypes?: Array<string> | undefined;
+  perDevice?: boolean | undefined;
+};
+
+/** @internal */
+export const DiskSystemMetrics$outboundSchema: z.ZodType<
+  DiskSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  DiskSystemMetrics
+> = z.object({
+  mode: DiskModeSystemMetrics$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+  inodes: z.boolean().optional(),
+  devices: z.array(z.string()).optional(),
+  mountpoints: z.array(z.string()).optional(),
+  fstypes: z.array(z.string()).optional(),
+  perDevice: z.boolean().optional(),
+});
+
+export function diskSystemMetricsToJSON(
+  diskSystemMetrics: DiskSystemMetrics,
+): string {
+  return JSON.stringify(
+    DiskSystemMetrics$outboundSchema.parse(diskSystemMetrics),
+  );
+}
+
+/** @internal */
+export type CustomSystemMetrics$Outbound = {
+  system?: SystemSystemMetrics$Outbound | undefined;
+  cpu?: CpuSystemMetrics$Outbound | undefined;
+  memory?: MemorySystemMetrics$Outbound | undefined;
+  network?: NetworkSystemMetrics$Outbound | undefined;
+  disk?: DiskSystemMetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const CustomSystemMetrics$outboundSchema: z.ZodType<
+  CustomSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  CustomSystemMetrics
+> = z.object({
+  system: z.lazy(() => SystemSystemMetrics$outboundSchema).optional(),
+  cpu: z.lazy(() => CpuSystemMetrics$outboundSchema).optional(),
+  memory: z.lazy(() => MemorySystemMetrics$outboundSchema).optional(),
+  network: z.lazy(() => NetworkSystemMetrics$outboundSchema).optional(),
+  disk: z.lazy(() => DiskSystemMetrics$outboundSchema).optional(),
+});
+
+export function customSystemMetricsToJSON(
+  customSystemMetrics: CustomSystemMetrics,
+): string {
+  return JSON.stringify(
+    CustomSystemMetrics$outboundSchema.parse(customSystemMetrics),
+  );
+}
+
+/** @internal */
+export type HostSystemMetrics$Outbound = {
+  mode?: string | undefined;
+  custom?: CustomSystemMetrics$Outbound | undefined;
+};
+
+/** @internal */
+export const HostSystemMetrics$outboundSchema: z.ZodType<
+  HostSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  HostSystemMetrics
+> = z.object({
+  mode: models.ModeOptionsHost$outboundSchema.optional(),
+  custom: z.lazy(() => CustomSystemMetrics$outboundSchema).optional(),
+});
+
+export function hostSystemMetricsToJSON(
+  hostSystemMetrics: HostSystemMetrics,
+): string {
+  return JSON.stringify(
+    HostSystemMetrics$outboundSchema.parse(hostSystemMetrics),
+  );
+}
+
+/** @internal */
+export const ContainerMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ContainerMode
+> = openEnums.outboundSchema(ContainerMode);
+
+/** @internal */
+export type ContainerFilter$Outbound = {
+  expr: string;
+};
+
+/** @internal */
+export const ContainerFilter$outboundSchema: z.ZodType<
+  ContainerFilter$Outbound,
+  z.ZodTypeDef,
+  ContainerFilter
+> = z.object({
+  expr: z.string(),
+});
+
+export function containerFilterToJSON(
+  containerFilter: ContainerFilter,
+): string {
+  return JSON.stringify(ContainerFilter$outboundSchema.parse(containerFilter));
+}
+
+/** @internal */
+export type Container$Outbound = {
+  mode?: string | undefined;
+  dockerSocket?: Array<string> | undefined;
+  dockerTimeout?: number | undefined;
+  filters?: Array<ContainerFilter$Outbound> | undefined;
+  allContainers?: boolean | undefined;
+  perDevice?: boolean | undefined;
+  detail?: boolean | undefined;
+};
+
+/** @internal */
+export const Container$outboundSchema: z.ZodType<
+  Container$Outbound,
+  z.ZodTypeDef,
+  Container
+> = z.object({
+  mode: ContainerMode$outboundSchema.optional(),
+  dockerSocket: z.array(z.string()).optional(),
+  dockerTimeout: z.number().optional(),
+  filters: z.array(z.lazy(() => ContainerFilter$outboundSchema)).optional(),
+  allContainers: z.boolean().optional(),
+  perDevice: z.boolean().optional(),
+  detail: z.boolean().optional(),
+});
+
+export function containerToJSON(container: Container): string {
+  return JSON.stringify(Container$outboundSchema.parse(container));
+}
+
+/** @internal */
+export type PersistenceSystemMetrics$Outbound = {
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
+};
+
+/** @internal */
+export const PersistenceSystemMetrics$outboundSchema: z.ZodType<
+  PersistenceSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  PersistenceSystemMetrics
+> = z.object({
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: models.DataCompressionFormatOptionsPersistence$outboundSchema
+    .optional(),
+  destPath: z.string().optional(),
+});
+
+export function persistenceSystemMetricsToJSON(
+  persistenceSystemMetrics: PersistenceSystemMetrics,
+): string {
+  return JSON.stringify(
+    PersistenceSystemMetrics$outboundSchema.parse(persistenceSystemMetrics),
+  );
+}
+
+/** @internal */
+export type InputSystemMetrics$Outbound = {
+  id: string;
+  type: "system_metrics";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  interval?: number | undefined;
+  host?: HostSystemMetrics$Outbound | undefined;
+  process?: models.ProcessType$Outbound | undefined;
+  container?: Container$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  persistence?: PersistenceSystemMetrics$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemMetrics$outboundSchema: z.ZodType<
+  InputSystemMetrics$Outbound,
+  z.ZodTypeDef,
+  InputSystemMetrics
+> = z.object({
+  id: z.string(),
+  type: z.literal("system_metrics"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
+  host: z.lazy(() => HostSystemMetrics$outboundSchema).optional(),
+  process: models.ProcessType$outboundSchema.optional(),
+  container: z.lazy(() => Container$outboundSchema).optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  persistence: z.lazy(() => PersistenceSystemMetrics$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputSystemMetricsToJSON(
+  inputSystemMetrics: InputSystemMetrics,
+): string {
+  return JSON.stringify(
+    InputSystemMetrics$outboundSchema.parse(inputSystemMetrics),
+  );
+}
+
+/** @internal */
+export type InputTcpjson$Outbound = {
+  id: string;
+  type: "tcpjson";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  authToken?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputTcpjson$outboundSchema: z.ZodType<
+  InputTcpjson$Outbound,
+  z.ZodTypeDef,
+  InputTcpjson
+> = z.object({
+  id: z.string(),
+  type: z.literal("tcpjson"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  description: z.string().optional(),
+  authToken: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function inputTcpjsonToJSON(inputTcpjson: InputTcpjson): string {
+  return JSON.stringify(InputTcpjson$outboundSchema.parse(inputTcpjson));
+}
+
+/** @internal */
+export type SplunkHecMetadata$Outbound = {
+  enabled?: boolean | undefined;
+  defaultDataset?: string | undefined;
+  allowedIndexesAtToken?: Array<string> | undefined;
+};
+
+/** @internal */
+export const SplunkHecMetadata$outboundSchema: z.ZodType<
+  SplunkHecMetadata$Outbound,
+  z.ZodTypeDef,
+  SplunkHecMetadata
+> = z.object({
+  enabled: z.boolean().optional(),
+  defaultDataset: z.string().optional(),
+  allowedIndexesAtToken: z.array(z.string()).optional(),
+});
+
+export function splunkHecMetadataToJSON(
+  splunkHecMetadata: SplunkHecMetadata,
+): string {
+  return JSON.stringify(
+    SplunkHecMetadata$outboundSchema.parse(splunkHecMetadata),
+  );
+}
+
+/** @internal */
+export type ElasticsearchMetadata$Outbound = {
+  enabled?: boolean | undefined;
+  defaultDataset?: string | undefined;
+};
+
+/** @internal */
+export const ElasticsearchMetadata$outboundSchema: z.ZodType<
+  ElasticsearchMetadata$Outbound,
+  z.ZodTypeDef,
+  ElasticsearchMetadata
+> = z.object({
+  enabled: z.boolean().optional(),
+  defaultDataset: z.string().optional(),
+});
+
+export function elasticsearchMetadataToJSON(
+  elasticsearchMetadata: ElasticsearchMetadata,
+): string {
+  return JSON.stringify(
+    ElasticsearchMetadata$outboundSchema.parse(elasticsearchMetadata),
+  );
+}
+
+/** @internal */
+export type AuthTokensExt$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  splunkHecMetadata?: SplunkHecMetadata$Outbound | undefined;
+  elasticsearchMetadata?: ElasticsearchMetadata$Outbound | undefined;
+};
+
+/** @internal */
+export const AuthTokensExt$outboundSchema: z.ZodType<
+  AuthTokensExt$Outbound,
+  z.ZodTypeDef,
+  AuthTokensExt
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  splunkHecMetadata: z.lazy(() => SplunkHecMetadata$outboundSchema).optional(),
+  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata$outboundSchema)
+    .optional(),
+});
+
+export function authTokensExtToJSON(authTokensExt: AuthTokensExt): string {
+  return JSON.stringify(AuthTokensExt$outboundSchema.parse(authTokensExt));
+}
+
+/** @internal */
+export type InputCriblLakeHttp$Outbound = {
+  id: string;
+  type: "cribl_lake_http";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  criblAPI?: string | undefined;
+  elasticAPI?: string | undefined;
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExt$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblLakeHttp$outboundSchema: z.ZodType<
+  InputCriblLakeHttp$Outbound,
+  z.ZodTypeDef,
+  InputCriblLakeHttp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_lake_http"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  criblAPI: z.string().optional(),
+  elasticAPI: z.string().optional(),
+  splunkHecAPI: z.string().optional(),
+  splunkHecAcks: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema)).optional(),
+  description: z.string().optional(),
+});
+
+export function inputCriblLakeHttpToJSON(
+  inputCriblLakeHttp: InputCriblLakeHttp,
+): string {
+  return JSON.stringify(
+    InputCriblLakeHttp$outboundSchema.parse(inputCriblLakeHttp),
+  );
+}
+
+/** @internal */
+export type InputCriblHttp$Outbound = {
+  id: string;
+  type: "cribl_http";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<models.ItemsTypeAuthTokens$Outbound> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblHttp$outboundSchema: z.ZodType<
+  InputCriblHttp$Outbound,
+  z.ZodTypeDef,
+  InputCriblHttp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_http"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(models.ItemsTypeAuthTokens$outboundSchema).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputCriblHttpToJSON(inputCriblHttp: InputCriblHttp): string {
+  return JSON.stringify(InputCriblHttp$outboundSchema.parse(inputCriblHttp));
+}
+
+/** @internal */
+export type InputCriblTcp$Outbound = {
+  id: string;
+  type: "cribl_tcp";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  enableLoadBalancing?: boolean | undefined;
+  authTokens?: Array<models.ItemsTypeAuthTokens$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCriblTcp$outboundSchema: z.ZodType<
+  InputCriblTcp$Outbound,
+  z.ZodTypeDef,
+  InputCriblTcp
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl_tcp"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  enableLoadBalancing: z.boolean().optional(),
+  authTokens: z.array(models.ItemsTypeAuthTokens$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputCriblTcpToJSON(inputCriblTcp: InputCriblTcp): string {
+  return JSON.stringify(InputCriblTcp$outboundSchema.parse(inputCriblTcp));
+}
+
+/** @internal */
+export type InputCribl$Outbound = {
+  id: string;
+  type: "cribl";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  filter?: string | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputCribl$outboundSchema: z.ZodType<
+  InputCribl$Outbound,
+  z.ZodTypeDef,
+  InputCribl
+> = z.object({
+  id: z.string(),
+  type: z.literal("cribl"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  filter: z.string().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputCriblToJSON(inputCribl: InputCribl): string {
+  return JSON.stringify(InputCribl$outboundSchema.parse(inputCribl));
+}
+
+/** @internal */
+export type InputGooglePubsub$Outbound = {
+  id: string;
+  type: "google_pubsub";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  topicName: string;
+  subscriptionName: string;
+  monitorSubscription?: boolean | undefined;
+  createTopic?: boolean | undefined;
+  createSubscription?: boolean | undefined;
+  region?: string | undefined;
+  googleAuthMethod?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  maxBacklog?: number | undefined;
+  concurrency?: number | undefined;
+  requestTimeout?: number | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  orderedDelivery?: boolean | undefined;
+};
+
+/** @internal */
+export const InputGooglePubsub$outboundSchema: z.ZodType<
+  InputGooglePubsub$Outbound,
+  z.ZodTypeDef,
+  InputGooglePubsub
+> = z.object({
+  id: z.string(),
+  type: z.literal("google_pubsub"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  topicName: z.string(),
+  subscriptionName: z.string(),
+  monitorSubscription: z.boolean().optional(),
+  createTopic: z.boolean().optional(),
+  createSubscription: z.boolean().optional(),
+  region: z.string().optional(),
+  googleAuthMethod: models.GoogleAuthenticationMethodOptions$outboundSchema
+    .optional(),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string().optional(),
+  maxBacklog: z.number().optional(),
+  concurrency: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  orderedDelivery: z.boolean().optional(),
+});
+
+export function inputGooglePubsubToJSON(
+  inputGooglePubsub: InputGooglePubsub,
+): string {
+  return JSON.stringify(
+    InputGooglePubsub$outboundSchema.parse(inputGooglePubsub),
+  );
+}
+
+/** @internal */
+export type InputFirehose$Outbound = {
+  id: string;
+  type: "firehose";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputFirehose$outboundSchema: z.ZodType<
+  InputFirehose$Outbound,
+  z.ZodTypeDef,
+  InputFirehose
+> = z.object({
+  id: z.string(),
+  type: z.literal("firehose"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputFirehoseToJSON(inputFirehose: InputFirehose): string {
+  return JSON.stringify(InputFirehose$outboundSchema.parse(inputFirehose));
+}
+
+/** @internal */
+export const ScheduleType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ScheduleType
+> = openEnums.outboundSchema(ScheduleType);
+
+/** @internal */
+export type InputExec$Outbound = {
+  id: string;
+  type: "exec";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  command: string;
+  retries?: number | undefined;
+  scheduleType?: string | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  interval?: number | undefined;
+  cronSchedule?: string | undefined;
+};
+
+/** @internal */
+export const InputExec$outboundSchema: z.ZodType<
+  InputExec$Outbound,
+  z.ZodTypeDef,
+  InputExec
+> = z.object({
+  id: z.string(),
+  type: z.literal("exec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  command: z.string(),
+  retries: z.number().optional(),
+  scheduleType: ScheduleType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  interval: z.number().optional(),
+  cronSchedule: z.string().optional(),
+});
+
+export function inputExecToJSON(inputExec: InputExec): string {
+  return JSON.stringify(InputExec$outboundSchema.parse(inputExec));
+}
+
+/** @internal */
+export type InputEventhub$Outbound = {
+  id: string;
+  type: "eventhub";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  brokers: Array<string>;
+  topics: Array<string>;
+  groupId?: string | undefined;
+  fromBeginning?: boolean | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
+  sasl?: models.AuthenticationType1$Outbound | undefined;
+  tls?: models.TlsSettingsClientSideType$Outbound | undefined;
+  sessionTimeout?: number | undefined;
+  rebalanceTimeout?: number | undefined;
+  heartbeatInterval?: number | undefined;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition?: number | undefined;
+  maxBytes?: number | undefined;
+  maxSocketErrors?: number | undefined;
+  minimizeDuplicates?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputEventhub$outboundSchema: z.ZodType<
+  InputEventhub$Outbound,
+  z.ZodTypeDef,
+  InputEventhub
+> = z.object({
+  id: z.string(),
+  type: z.literal("eventhub"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().optional(),
+  fromBeginning: z.boolean().optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  sasl: models.AuthenticationType1$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
+  sessionTimeout: z.number().optional(),
+  rebalanceTimeout: z.number().optional(),
+  heartbeatInterval: z.number().optional(),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().optional(),
+  maxBytes: z.number().optional(),
+  maxSocketErrors: z.number().optional(),
+  minimizeDuplicates: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputEventhubToJSON(inputEventhub: InputEventhub): string {
+  return JSON.stringify(InputEventhub$outboundSchema.parse(inputEventhub));
+}
+
+/** @internal */
+export const AuthenticationMethodOffice365MsgTrace$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodOffice365MsgTrace
+> = openEnums.outboundSchema(AuthenticationMethodOffice365MsgTrace);
+
+/** @internal */
+export const LogLevelOffice365MsgTrace$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  LogLevelOffice365MsgTrace
+> = openEnums.outboundSchema(LogLevelOffice365MsgTrace);
+
+/** @internal */
+export type CertOptions$Outbound = {
+  certificateName?: string | undefined;
+  privKeyPath: string;
+  passphrase?: string | undefined;
+  certPath: string;
+};
+
+/** @internal */
+export const CertOptions$outboundSchema: z.ZodType<
+  CertOptions$Outbound,
+  z.ZodTypeDef,
+  CertOptions
+> = z.object({
+  certificateName: z.string().optional(),
+  privKeyPath: z.string(),
+  passphrase: z.string().optional(),
+  certPath: z.string(),
+});
+
+export function certOptionsToJSON(certOptions: CertOptions): string {
+  return JSON.stringify(CertOptions$outboundSchema.parse(certOptions));
+}
+
+/** @internal */
+export type InputOffice365MsgTrace$Outbound = {
+  id: string;
+  type: "office365_msg_trace";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  url: string;
+  interval: number;
+  startDate?: string | undefined;
+  endDate?: string | undefined;
+  timeout?: number | undefined;
+  disableTimeFilter?: boolean | undefined;
+  authType?: string | undefined;
+  rescheduleDroppedTasks?: boolean | undefined;
+  maxTaskReschedule?: number | undefined;
+  logLevel?: string | undefined;
+  jobTimeout?: string | undefined;
+  keepAliveTime?: number | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  clientSecret?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  resource?: string | undefined;
+  planType?: string | undefined;
+  textSecret?: string | undefined;
+  certOptions?: CertOptions$Outbound | undefined;
+};
+
+/** @internal */
+export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
+  InputOffice365MsgTrace$Outbound,
+  z.ZodTypeDef,
+  InputOffice365MsgTrace
+> = z.object({
+  id: z.string(),
+  type: z.literal("office365_msg_trace"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  url: z.string(),
+  interval: z.number(),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  timeout: z.number().optional(),
+  disableTimeFilter: z.boolean().optional(),
+  authType: AuthenticationMethodOffice365MsgTrace$outboundSchema.optional(),
+  rescheduleDroppedTasks: z.boolean().optional(),
+  maxTaskReschedule: z.number().optional(),
+  logLevel: LogLevelOffice365MsgTrace$outboundSchema.optional(),
+  jobTimeout: z.string().optional(),
+  keepAliveTime: z.number().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  retryRules: models.RetryRulesType1$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  clientSecret: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  resource: z.string().optional(),
+  planType: models.SubscriptionPlanOptions$outboundSchema.optional(),
+  textSecret: z.string().optional(),
+  certOptions: z.lazy(() => CertOptions$outboundSchema).optional(),
+});
+
+export function inputOffice365MsgTraceToJSON(
+  inputOffice365MsgTrace: InputOffice365MsgTrace,
+): string {
+  return JSON.stringify(
+    InputOffice365MsgTrace$outboundSchema.parse(inputOffice365MsgTrace),
+  );
+}
+
+/** @internal */
+export type ContentConfigOffice365Service$Outbound = {
+  contentType?: string | undefined;
+  description?: string | undefined;
+  interval?: number | undefined;
+  logLevel?: string | undefined;
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const ContentConfigOffice365Service$outboundSchema: z.ZodType<
+  ContentConfigOffice365Service$Outbound,
+  z.ZodTypeDef,
+  ContentConfigOffice365Service
+> = z.object({
+  contentType: z.string().optional(),
+  description: z.string().optional(),
+  interval: z.number().optional(),
+  logLevel: models.LogLevelOptionsContentConfigItems$outboundSchema.optional(),
+  enabled: z.boolean().optional(),
+});
+
+export function contentConfigOffice365ServiceToJSON(
+  contentConfigOffice365Service: ContentConfigOffice365Service,
+): string {
+  return JSON.stringify(
+    ContentConfigOffice365Service$outboundSchema.parse(
+      contentConfigOffice365Service,
+    ),
+  );
+}
+
+/** @internal */
+export type InputOffice365Service$Outbound = {
+  id: string;
+  type: "office365_service";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  planType?: string | undefined;
+  tenantId: string;
+  appId: string;
+  timeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  contentConfig?: Array<ContentConfigOffice365Service$Outbound> | undefined;
+  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputOffice365Service$outboundSchema: z.ZodType<
+  InputOffice365Service$Outbound,
+  z.ZodTypeDef,
+  InputOffice365Service
+> = z.object({
+  id: z.string(),
+  type: z.literal("office365_service"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  planType: models.SubscriptionPlanOptions$outboundSchema.optional(),
+  tenantId: z.string(),
+  appId: z.string(),
+  timeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  contentConfig: z.array(
+    z.lazy(() => ContentConfigOffice365Service$outboundSchema),
+  ).optional(),
+  retryRules: models.RetryRulesType1$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function inputOffice365ServiceToJSON(
+  inputOffice365Service: InputOffice365Service,
+): string {
+  return JSON.stringify(
+    InputOffice365Service$outboundSchema.parse(inputOffice365Service),
+  );
+}
+
+/** @internal */
+export type ContentConfigOffice365Mgmt$Outbound = {
+  contentType?: string | undefined;
+  description?: string | undefined;
+  interval?: number | undefined;
+  logLevel?: string | undefined;
+  enabled?: boolean | undefined;
+};
+
+/** @internal */
+export const ContentConfigOffice365Mgmt$outboundSchema: z.ZodType<
+  ContentConfigOffice365Mgmt$Outbound,
+  z.ZodTypeDef,
+  ContentConfigOffice365Mgmt
+> = z.object({
+  contentType: z.string().optional(),
+  description: z.string().optional(),
+  interval: z.number().optional(),
+  logLevel: models.LogLevelOptionsContentConfigItems$outboundSchema.optional(),
+  enabled: z.boolean().optional(),
+});
+
+export function contentConfigOffice365MgmtToJSON(
+  contentConfigOffice365Mgmt: ContentConfigOffice365Mgmt,
+): string {
+  return JSON.stringify(
+    ContentConfigOffice365Mgmt$outboundSchema.parse(contentConfigOffice365Mgmt),
+  );
+}
+
+/** @internal */
+export type InputOffice365Mgmt$Outbound = {
+  id: string;
+  type: "office365_mgmt";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  planType: string;
+  tenantId: string;
+  appId: string;
+  timeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  publisherIdentifier?: string | undefined;
+  contentConfig?: Array<ContentConfigOffice365Mgmt$Outbound> | undefined;
+  ingestionLag?: number | undefined;
+  retryRules?: models.RetryRulesType1$Outbound | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputOffice365Mgmt$outboundSchema: z.ZodType<
+  InputOffice365Mgmt$Outbound,
+  z.ZodTypeDef,
+  InputOffice365Mgmt
+> = z.object({
+  id: z.string(),
+  type: z.literal("office365_mgmt"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  planType: models.SubscriptionPlanOptions$outboundSchema,
+  tenantId: z.string(),
+  appId: z.string(),
+  timeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  publisherIdentifier: z.string().optional(),
+  contentConfig: z.array(
+    z.lazy(() => ContentConfigOffice365Mgmt$outboundSchema),
+  ).optional(),
+  ingestionLag: z.number().optional(),
+  retryRules: models.RetryRulesType1$outboundSchema.optional(),
+  authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function inputOffice365MgmtToJSON(
+  inputOffice365Mgmt: InputOffice365Mgmt,
+): string {
+  return JSON.stringify(
+    InputOffice365Mgmt$outboundSchema.parse(inputOffice365Mgmt),
+  );
+}
+
+/** @internal */
+export const DiscoveryTypeEdgePrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DiscoveryTypeEdgePrometheus
+> = openEnums.outboundSchema(DiscoveryTypeEdgePrometheus);
+
+/** @internal */
+export const AuthenticationMethodEdgePrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationMethodEdgePrometheus
+> = openEnums.outboundSchema(AuthenticationMethodEdgePrometheus);
+
+/** @internal */
+export type Target$Outbound = {
+  protocol?: string | undefined;
+  host: string;
+  port?: number | undefined;
+  path?: string | undefined;
+};
+
+/** @internal */
+export const Target$outboundSchema: z.ZodType<
+  Target$Outbound,
+  z.ZodTypeDef,
+  Target
+> = z.object({
+  protocol: models.ProtocolOptionsTargetsItems$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number().optional(),
+  path: z.string().optional(),
+});
+
+export function targetToJSON(target: Target): string {
+  return JSON.stringify(Target$outboundSchema.parse(target));
+}
+
+/** @internal */
+export type PodFilter$Outbound = {
+  filter: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const PodFilter$outboundSchema: z.ZodType<
+  PodFilter$Outbound,
+  z.ZodTypeDef,
+  PodFilter
+> = z.object({
+  filter: z.string(),
+  description: z.string().optional(),
+});
+
+export function podFilterToJSON(podFilter: PodFilter): string {
+  return JSON.stringify(PodFilter$outboundSchema.parse(podFilter));
+}
+
+/** @internal */
+export type InputEdgePrometheus$Outbound = {
+  id: string;
+  type: "edge_prometheus";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  dimensionList?: Array<string> | undefined;
+  discoveryType: string;
+  interval: number;
+  timeout?: number | undefined;
+  persistence?: models.DiskSpoolingType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  targets?: Array<Target$Outbound> | undefined;
+  recordType?: string | undefined;
+  scrapePort?: number | undefined;
+  nameList?: Array<string> | undefined;
+  scrapeProtocol?: string | undefined;
+  scrapePath?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  usePublicIp?: boolean | undefined;
+  searchFilter?: Array<models.ItemsTypeSearchFilter$Outbound> | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  scrapeProtocolExpr?: string | undefined;
+  scrapePortExpr?: string | undefined;
+  scrapePathExpr?: string | undefined;
+  podFilter?: Array<PodFilter$Outbound> | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputEdgePrometheus$outboundSchema: z.ZodType<
+  InputEdgePrometheus$Outbound,
+  z.ZodTypeDef,
+  InputEdgePrometheus
+> = z.object({
+  id: z.string(),
+  type: z.literal("edge_prometheus"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  dimensionList: z.array(z.string()).optional(),
+  discoveryType: DiscoveryTypeEdgePrometheus$outboundSchema,
+  interval: z.number(),
+  timeout: z.number().optional(),
+  persistence: models.DiskSpoolingType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  authType: AuthenticationMethodEdgePrometheus$outboundSchema.optional(),
+  description: z.string().optional(),
+  targets: z.array(z.lazy(() => Target$outboundSchema)).optional(),
+  recordType: models.RecordTypeOptions$outboundSchema.optional(),
+  scrapePort: z.number().optional(),
+  nameList: z.array(z.string()).optional(),
+  scrapeProtocol: models.ProtocolOptionsTargetsItems$outboundSchema.optional(),
+  scrapePath: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  usePublicIp: z.boolean().optional(),
+  searchFilter: z.array(models.ItemsTypeSearchFilter$outboundSchema).optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptions1$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  scrapeProtocolExpr: z.string().optional(),
+  scrapePortExpr: z.string().optional(),
+  scrapePathExpr: z.string().optional(),
+  podFilter: z.array(z.lazy(() => PodFilter$outboundSchema)).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+});
+
+export function inputEdgePrometheusToJSON(
+  inputEdgePrometheus: InputEdgePrometheus,
+): string {
+  return JSON.stringify(
+    InputEdgePrometheus$outboundSchema.parse(inputEdgePrometheus),
+  );
+}
+
+/** @internal */
+export const DiscoveryTypePrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DiscoveryTypePrometheus
+> = openEnums.outboundSchema(DiscoveryTypePrometheus);
+
+/** @internal */
+export const LogLevelPrometheus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  LogLevelPrometheus
+> = openEnums.outboundSchema(LogLevelPrometheus);
+
+/** @internal */
+export const MetricsProtocol$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MetricsProtocol
+> = openEnums.outboundSchema(MetricsProtocol);
+
+/** @internal */
+export type InputPrometheus$Outbound = {
+  id: string;
+  type: "prometheus";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  dimensionList?: Array<string> | undefined;
+  discoveryType?: string | undefined;
+  interval: number;
+  logLevel: string;
+  rejectUnauthorized?: boolean | undefined;
+  timeout?: number | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  targetList?: Array<string> | undefined;
+  recordType?: string | undefined;
+  scrapePort?: number | undefined;
+  nameList?: Array<string> | undefined;
+  scrapeProtocol?: string | undefined;
+  scrapePath?: string | undefined;
+  awsAuthenticationMethod?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  usePublicIp?: boolean | undefined;
+  searchFilter?: Array<models.ItemsTypeSearchFilter$Outbound> | undefined;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputPrometheus$outboundSchema: z.ZodType<
+  InputPrometheus$Outbound,
+  z.ZodTypeDef,
+  InputPrometheus
+> = z.object({
+  id: z.string(),
+  type: z.literal("prometheus"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  dimensionList: z.array(z.string()).optional(),
+  discoveryType: DiscoveryTypePrometheus$outboundSchema.optional(),
+  interval: z.number(),
+  logLevel: LogLevelPrometheus$outboundSchema,
+  rejectUnauthorized: z.boolean().optional(),
+  timeout: z.number().optional(),
+  keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  authType: models.AuthenticationMethodOptionsSasl$outboundSchema.optional(),
+  description: z.string().optional(),
+  targetList: z.array(z.string()).optional(),
+  recordType: models.RecordTypeOptions$outboundSchema.optional(),
+  scrapePort: z.number().optional(),
+  nameList: z.array(z.string()).optional(),
+  scrapeProtocol: MetricsProtocol$outboundSchema.optional(),
+  scrapePath: z.string().optional(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  usePublicIp: z.boolean().optional(),
+  searchFilter: z.array(models.ItemsTypeSearchFilter$outboundSchema).optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptions1$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+});
+
+export function inputPrometheusToJSON(
+  inputPrometheus: InputPrometheus,
+): string {
+  return JSON.stringify(InputPrometheus$outboundSchema.parse(inputPrometheus));
+}
+
+/** @internal */
+export type InputPrometheusRw$Outbound = {
+  id: string;
+  type: "prometheus_rw";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  prometheusAPI: string;
+  authType?: string | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputPrometheusRw$outboundSchema: z.ZodType<
+  InputPrometheusRw$Outbound,
+  z.ZodTypeDef,
+  InputPrometheusRw
+> = z.object({
+  id: z.string(),
+  type: z.literal("prometheus_rw"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  prometheusAPI: z.string(),
+  authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
+    .optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+});
+
+export function inputPrometheusRwToJSON(
+  inputPrometheusRw: InputPrometheusRw,
+): string {
+  return JSON.stringify(
+    InputPrometheusRw$outboundSchema.parse(inputPrometheusRw),
+  );
+}
+
+/** @internal */
+export type InputLoki$Outbound = {
+  id: string;
+  type: "loki";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  lokiAPI: string;
+  authType?: string | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputLoki$outboundSchema: z.ZodType<
+  InputLoki$Outbound,
+  z.ZodTypeDef,
+  InputLoki
+> = z.object({
+  id: z.string(),
+  type: z.literal("loki"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  lokiAPI: z.string(),
+  authType: models.AuthenticationTypeOptionsLokiAuth$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+});
+
+export function inputLokiToJSON(inputLoki: InputLoki): string {
+  return JSON.stringify(InputLoki$outboundSchema.parse(inputLoki));
+}
+
+/** @internal */
+export const InputGrafanaType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputGrafanaType2
+> = z.nativeEnum(InputGrafanaType2);
+
+/** @internal */
+export type PrometheusAuth2$Outbound = {
+  authType?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+};
+
+/** @internal */
+export const PrometheusAuth2$outboundSchema: z.ZodType<
+  PrometheusAuth2$Outbound,
+  z.ZodTypeDef,
+  PrometheusAuth2
+> = z.object({
+  authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+});
+
+export function prometheusAuth2ToJSON(
+  prometheusAuth2: PrometheusAuth2,
+): string {
+  return JSON.stringify(PrometheusAuth2$outboundSchema.parse(prometheusAuth2));
+}
+
+/** @internal */
+export type LokiAuth2$Outbound = {
+  authType?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+};
+
+/** @internal */
+export const LokiAuth2$outboundSchema: z.ZodType<
+  LokiAuth2$Outbound,
+  z.ZodTypeDef,
+  LokiAuth2
+> = z.object({
+  authType: models.AuthenticationTypeOptionsLokiAuth$outboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+});
+
+export function lokiAuth2ToJSON(lokiAuth2: LokiAuth2): string {
+  return JSON.stringify(LokiAuth2$outboundSchema.parse(lokiAuth2));
+}
+
+/** @internal */
+export type InputGrafanaGrafana2$Outbound = {
+  id: string;
+  type: string;
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  prometheusAPI?: string | undefined;
+  lokiAPI: string;
+  prometheusAuth?: PrometheusAuth2$Outbound | undefined;
+  lokiAuth?: LokiAuth2$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
+  InputGrafanaGrafana2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaGrafana2
+> = z.object({
+  id: z.string(),
+  type: InputGrafanaType2$outboundSchema,
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  prometheusAPI: z.string().optional(),
+  lokiAPI: z.string(),
+  prometheusAuth: z.lazy(() => PrometheusAuth2$outboundSchema).optional(),
+  lokiAuth: z.lazy(() => LokiAuth2$outboundSchema).optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputGrafanaGrafana2ToJSON(
+  inputGrafanaGrafana2: InputGrafanaGrafana2,
+): string {
+  return JSON.stringify(
+    InputGrafanaGrafana2$outboundSchema.parse(inputGrafanaGrafana2),
+  );
+}
+
+/** @internal */
+export const InputGrafanaType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputGrafanaType1
+> = z.nativeEnum(InputGrafanaType1);
+
+/** @internal */
+export type PrometheusAuth1$Outbound = {
+  authType?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+};
+
+/** @internal */
+export const PrometheusAuth1$outboundSchema: z.ZodType<
+  PrometheusAuth1$Outbound,
+  z.ZodTypeDef,
+  PrometheusAuth1
+> = z.object({
+  authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+});
+
+export function prometheusAuth1ToJSON(
+  prometheusAuth1: PrometheusAuth1,
+): string {
+  return JSON.stringify(PrometheusAuth1$outboundSchema.parse(prometheusAuth1));
+}
+
+/** @internal */
+export type LokiAuth1$Outbound = {
+  authType?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+};
+
+/** @internal */
+export const LokiAuth1$outboundSchema: z.ZodType<
+  LokiAuth1$Outbound,
+  z.ZodTypeDef,
+  LokiAuth1
+> = z.object({
+  authType: models.AuthenticationTypeOptionsLokiAuth$outboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+});
+
+export function lokiAuth1ToJSON(lokiAuth1: LokiAuth1): string {
+  return JSON.stringify(LokiAuth1$outboundSchema.parse(lokiAuth1));
+}
+
+/** @internal */
+export type InputGrafanaGrafana1$Outbound = {
+  id: string;
+  type: string;
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  prometheusAPI: string;
+  lokiAPI?: string | undefined;
+  prometheusAuth?: PrometheusAuth1$Outbound | undefined;
+  lokiAuth?: LokiAuth1$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
+  InputGrafanaGrafana1$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaGrafana1
+> = z.object({
+  id: z.string(),
+  type: InputGrafanaType1$outboundSchema,
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  prometheusAPI: z.string(),
+  lokiAPI: z.string().optional(),
+  prometheusAuth: z.lazy(() => PrometheusAuth1$outboundSchema).optional(),
+  lokiAuth: z.lazy(() => LokiAuth1$outboundSchema).optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputGrafanaGrafana1ToJSON(
+  inputGrafanaGrafana1: InputGrafanaGrafana1,
+): string {
+  return JSON.stringify(
+    InputGrafanaGrafana1$outboundSchema.parse(inputGrafanaGrafana1),
+  );
+}
+
+/** @internal */
+export type InputGrafana$Outbound =
+  | InputGrafanaGrafana1$Outbound
+  | InputGrafanaGrafana2$Outbound;
+
+/** @internal */
+export const InputGrafana$outboundSchema: z.ZodType<
+  InputGrafana$Outbound,
+  z.ZodTypeDef,
+  InputGrafana
+> = z.union([
+  z.lazy(() => InputGrafanaGrafana1$outboundSchema),
+  z.lazy(() => InputGrafanaGrafana2$outboundSchema),
+]);
+
+export function inputGrafanaToJSON(inputGrafana: InputGrafana): string {
+  return JSON.stringify(InputGrafana$outboundSchema.parse(inputGrafana));
+}
+
+/** @internal */
+export type InputConfluentCloud$Outbound = {
+  id: string;
+  type: "confluent_cloud";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  brokers: Array<string>;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  topics: Array<string>;
+  groupId?: string | undefined;
+  fromBeginning?: boolean | undefined;
+  kafkaSchemaRegistry?:
+    | models.KafkaSchemaRegistryAuthenticationType$Outbound
+    | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
+  sasl?: models.AuthenticationType$Outbound | undefined;
+  sessionTimeout?: number | undefined;
+  rebalanceTimeout?: number | undefined;
+  heartbeatInterval?: number | undefined;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition?: number | undefined;
+  maxBytes?: number | undefined;
+  maxSocketErrors?: number | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputConfluentCloud$outboundSchema: z.ZodType<
+  InputConfluentCloud$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloud
+> = z.object({
+  id: z.string(),
+  type: z.literal("confluent_cloud"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  topics: z.array(z.string()),
+  groupId: z.string().optional(),
+  fromBeginning: z.boolean().optional(),
+  kafkaSchemaRegistry: models
+    .KafkaSchemaRegistryAuthenticationType$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  sasl: models.AuthenticationType$outboundSchema.optional(),
+  sessionTimeout: z.number().optional(),
+  rebalanceTimeout: z.number().optional(),
+  heartbeatInterval: z.number().optional(),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().optional(),
+  maxBytes: z.number().optional(),
+  maxSocketErrors: z.number().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputConfluentCloudToJSON(
+  inputConfluentCloud: InputConfluentCloud,
+): string {
+  return JSON.stringify(
+    InputConfluentCloud$outboundSchema.parse(inputConfluentCloud),
+  );
+}
+
+/** @internal */
+export const AuthenticationTypeElastic$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationTypeElastic
+> = openEnums.outboundSchema(AuthenticationTypeElastic);
+
+/** @internal */
+export const CreateInputAPIVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputAPIVersion
+> = openEnums.outboundSchema(CreateInputAPIVersion);
+
+/** @internal */
+export const ProxyModeAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ProxyModeAuthenticationMethod
+> = openEnums.outboundSchema(ProxyModeAuthenticationMethod);
+
+/** @internal */
+export type ProxyModeElastic$Outbound = {
+  enabled: boolean;
+  authType?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  url?: string | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  removeHeaders?: Array<string> | undefined;
+  timeoutSec?: number | undefined;
+};
+
+/** @internal */
+export const ProxyModeElastic$outboundSchema: z.ZodType<
+  ProxyModeElastic$Outbound,
+  z.ZodTypeDef,
+  ProxyModeElastic
+> = z.object({
+  enabled: z.boolean(),
+  authType: ProxyModeAuthenticationMethod$outboundSchema.optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().optional(),
+});
+
+export function proxyModeElasticToJSON(
+  proxyModeElastic: ProxyModeElastic,
+): string {
+  return JSON.stringify(
+    ProxyModeElastic$outboundSchema.parse(proxyModeElastic),
+  );
+}
+
+/** @internal */
+export type InputElastic$Outbound = {
+  id: string;
+  type: "elastic";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  elasticAPI: string;
+  authType?: string | undefined;
+  apiVersion?: string | undefined;
+  extraHttpHeaders?:
+    | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
+    | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  proxyMode?: ProxyModeElastic$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  authTokens?: Array<string> | undefined;
+  customAPIVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputElastic$outboundSchema: z.ZodType<
+  InputElastic$Outbound,
+  z.ZodTypeDef,
+  InputElastic
+> = z.object({
+  id: z.string(),
+  type: z.literal("elastic"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  elasticAPI: z.string(),
+  authType: AuthenticationTypeElastic$outboundSchema.optional(),
+  apiVersion: CreateInputAPIVersion$outboundSchema.optional(),
+  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  proxyMode: z.lazy(() => ProxyModeElastic$outboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().optional(),
+});
+
+export function inputElasticToJSON(inputElastic: InputElastic): string {
+  return JSON.stringify(InputElastic$outboundSchema.parse(inputElastic));
+}
+
+/** @internal */
+export type InputAzureBlob$Outbound = {
+  id: string;
+  type: "azure_blob";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  queueName: string;
+  fileFilter?: string | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  maxMessages?: number | undefined;
+  servicePeriodSecs?: number | undefined;
+  skipOnError?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?:
+    | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
+    | undefined;
+};
+
+/** @internal */
+export const InputAzureBlob$outboundSchema: z.ZodType<
+  InputAzureBlob$Outbound,
+  z.ZodTypeDef,
+  InputAzureBlob
+> = z.object({
+  id: z.string(),
+  type: z.literal("azure_blob"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  queueName: z.string(),
+  fileFilter: z.string().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  maxMessages: z.number().optional(),
+  servicePeriodSecs: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  authType: models.AuthenticationMethodOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
+    .optional(),
+});
+
+export function inputAzureBlobToJSON(inputAzureBlob: InputAzureBlob): string {
+  return JSON.stringify(InputAzureBlob$outboundSchema.parse(inputAzureBlob));
+}
+
+/** @internal */
+export type AuthTokenSplunkHec$Outbound = {
+  authType?: string | undefined;
+  tokenSecret?: string | undefined;
+  token: string;
+  enabled?: boolean | undefined;
+  description?: string | undefined;
+  allowedIndexesAtToken?: Array<string> | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+};
+
+/** @internal */
+export const AuthTokenSplunkHec$outboundSchema: z.ZodType<
+  AuthTokenSplunkHec$Outbound,
+  z.ZodTypeDef,
+  AuthTokenSplunkHec
+> = z.object({
+  authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
+    .optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string(),
+  enabled: z.boolean().optional(),
+  description: z.string().optional(),
+  allowedIndexesAtToken: z.array(z.string()).optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+});
+
+export function authTokenSplunkHecToJSON(
+  authTokenSplunkHec: AuthTokenSplunkHec,
+): string {
+  return JSON.stringify(
+    AuthTokenSplunkHec$outboundSchema.parse(authTokenSplunkHec),
+  );
+}
+
+/** @internal */
+export type InputSplunkHec$Outbound = {
+  id: string;
+  type: "splunk_hec";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<AuthTokenSplunkHec$Outbound> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: any | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  splunkHecAPI: string;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  allowedIndexes?: Array<string> | undefined;
+  splunkHecAcks?: boolean | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  useFwdTimezone?: boolean | undefined;
+  dropControlFields?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
+  accessControlAllowOrigin?: Array<string> | undefined;
+  accessControlAllowHeaders?: Array<string> | undefined;
+  emitTokenMetrics?: boolean | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSplunkHec$outboundSchema: z.ZodType<
+  InputSplunkHec$Outbound,
+  z.ZodTypeDef,
+  InputSplunkHec
+> = z.object({
+  id: z.string(),
+  type: z.literal("splunk_hec"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.lazy(() => AuthTokenSplunkHec$outboundSchema))
+    .optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.any().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  splunkHecAPI: z.string(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  allowedIndexes: z.array(z.string()).optional(),
+  splunkHecAcks: z.boolean().optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  useFwdTimezone: z.boolean().optional(),
+  dropControlFields: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  accessControlAllowOrigin: z.array(z.string()).optional(),
+  accessControlAllowHeaders: z.array(z.string()).optional(),
+  emitTokenMetrics: z.boolean().optional(),
+  description: z.string().optional(),
+});
+
+export function inputSplunkHecToJSON(inputSplunkHec: InputSplunkHec): string {
+  return JSON.stringify(InputSplunkHec$outboundSchema.parse(inputSplunkHec));
+}
+
+/** @internal */
+export type EndpointParam$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const EndpointParam$outboundSchema: z.ZodType<
+  EndpointParam$Outbound,
+  z.ZodTypeDef,
+  EndpointParam
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function endpointParamToJSON(endpointParam: EndpointParam): string {
+  return JSON.stringify(EndpointParam$outboundSchema.parse(endpointParam));
+}
+
+/** @internal */
+export type EndpointHeader$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const EndpointHeader$outboundSchema: z.ZodType<
+  EndpointHeader$Outbound,
+  z.ZodTypeDef,
+  EndpointHeader
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function endpointHeaderToJSON(endpointHeader: EndpointHeader): string {
+  return JSON.stringify(EndpointHeader$outboundSchema.parse(endpointHeader));
+}
+
+/** @internal */
+export const LogLevelSplunkSearch$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  LogLevelSplunkSearch
+> = openEnums.outboundSchema(LogLevelSplunkSearch);
+
+/** @internal */
+export const AuthenticationTypeSplunkSearch$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationTypeSplunkSearch
+> = openEnums.outboundSchema(AuthenticationTypeSplunkSearch);
+
+/** @internal */
+export type InputSplunkSearch$Outbound = {
+  id: string;
+  type: "splunk_search";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  searchHead: string;
+  search: string;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  cronSchedule: string;
+  endpoint: string;
+  outputMode: string;
+  endpointParams?: Array<EndpointParam$Outbound> | undefined;
+  endpointHeaders?: Array<EndpointHeader$Outbound> | undefined;
+  logLevel?: string | undefined;
+  requestTimeout?: number | undefined;
+  useRoundRobinDns?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  encoding?: string | undefined;
+  keepAliveTime?: number | undefined;
+  jobTimeout?: string | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  authType?: string | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputSplunkSearch$outboundSchema: z.ZodType<
+  InputSplunkSearch$Outbound,
+  z.ZodTypeDef,
+  InputSplunkSearch
+> = z.object({
+  id: z.string(),
+  type: z.literal("splunk_search"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  searchHead: z.string(),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  cronSchedule: z.string(),
+  endpoint: z.string(),
+  outputMode: models.OutputModeOptionsSplunkCollectorConf$outboundSchema,
+  endpointParams: z.array(z.lazy(() => EndpointParam$outboundSchema))
+    .optional(),
+  endpointHeaders: z.array(z.lazy(() => EndpointHeader$outboundSchema))
+    .optional(),
+  logLevel: LogLevelSplunkSearch$outboundSchema.optional(),
+  requestTimeout: z.number().optional(),
+  useRoundRobinDns: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().optional(),
+  jobTimeout: z.string().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  authType: AuthenticationTypeSplunkSearch$outboundSchema.optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+});
+
+export function inputSplunkSearchToJSON(
+  inputSplunkSearch: InputSplunkSearch,
+): string {
+  return JSON.stringify(
+    InputSplunkSearch$outboundSchema.parse(inputSplunkSearch),
+  );
+}
+
+/** @internal */
+export type AuthTokenSplunk$Outbound = {
+  token: string;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const AuthTokenSplunk$outboundSchema: z.ZodType<
+  AuthTokenSplunk$Outbound,
+  z.ZodTypeDef,
+  AuthTokenSplunk
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+});
+
+export function authTokenSplunkToJSON(
+  authTokenSplunk: AuthTokenSplunk,
+): string {
+  return JSON.stringify(AuthTokenSplunk$outboundSchema.parse(authTokenSplunk));
+}
+
+/** @internal */
+export const MaxS2SVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MaxS2SVersion
+> = openEnums.outboundSchema(MaxS2SVersion);
+
+/** @internal */
+export const CreateInputCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputCompression
+> = openEnums.outboundSchema(CreateInputCompression);
+
+/** @internal */
+export type InputSplunk$Outbound = {
+  id: string;
+  type: "splunk";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  ipWhitelistRegex?: string | undefined;
+  maxActiveCxn?: number | undefined;
+  socketIdleTimeout?: number | undefined;
+  socketEndingMaxWait?: number | undefined;
+  socketMaxLifespan?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  authTokens?: Array<AuthTokenSplunk$Outbound> | undefined;
+  maxS2Sversion?: string | undefined;
+  description?: string | undefined;
+  useFwdTimezone?: boolean | undefined;
+  dropControlFields?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
+  compress?: string | undefined;
+};
+
+/** @internal */
+export const InputSplunk$outboundSchema: z.ZodType<
+  InputSplunk$Outbound,
+  z.ZodTypeDef,
+  InputSplunk
+> = z.object({
+  id: z.string(),
+  type: z.literal("splunk"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  ipWhitelistRegex: z.string().optional(),
+  maxActiveCxn: z.number().optional(),
+  socketIdleTimeout: z.number().optional(),
+  socketEndingMaxWait: z.number().optional(),
+  socketMaxLifespan: z.number().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  authTokens: z.array(z.lazy(() => AuthTokenSplunk$outboundSchema)).optional(),
+  maxS2Sversion: MaxS2SVersion$outboundSchema.optional(),
+  description: z.string().optional(),
+  useFwdTimezone: z.boolean().optional(),
+  dropControlFields: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  compress: CreateInputCompression$outboundSchema.optional(),
+});
+
+export function inputSplunkToJSON(inputSplunk: InputSplunk): string {
+  return JSON.stringify(InputSplunk$outboundSchema.parse(inputSplunk));
+}
+
+/** @internal */
+export type InputHttp$Outbound = {
+  id: string;
+  type: "http";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  criblAPI?: string | undefined;
+  elasticAPI?: string | undefined;
+  splunkHecAPI?: string | undefined;
+  splunkHecAcks?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputHttp$outboundSchema: z.ZodType<
+  InputHttp$Outbound,
+  z.ZodTypeDef,
+  InputHttp
+> = z.object({
+  id: z.string(),
+  type: z.literal("http"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  criblAPI: z.string().optional(),
+  elasticAPI: z.string().optional(),
+  splunkHecAPI: z.string().optional(),
+  splunkHecAcks: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputHttpToJSON(inputHttp: InputHttp): string {
+  return JSON.stringify(InputHttp$outboundSchema.parse(inputHttp));
+}
+
+/** @internal */
+export type InputMsk$Outbound = {
+  id: string;
+  type: "msk";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  brokers: Array<string>;
+  topics: Array<string>;
+  groupId?: string | undefined;
+  fromBeginning?: boolean | undefined;
+  sessionTimeout?: number | undefined;
+  rebalanceTimeout?: number | undefined;
+  heartbeatInterval?: number | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  kafkaSchemaRegistry?:
+    | models.KafkaSchemaRegistryAuthenticationType$Outbound
+    | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition?: number | undefined;
+  maxBytes?: number | undefined;
+  maxSocketErrors?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputMsk$outboundSchema: z.ZodType<
+  InputMsk$Outbound,
+  z.ZodTypeDef,
+  InputMsk
+> = z.object({
+  id: z.string(),
+  type: z.literal("msk"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().optional(),
+  fromBeginning: z.boolean().optional(),
+  sessionTimeout: z.number().optional(),
+  rebalanceTimeout: z.number().optional(),
+  heartbeatInterval: z.number().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  kafkaSchemaRegistry: models
+    .KafkaSchemaRegistryAuthenticationType$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  awsAuthenticationMethod: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptions$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().optional(),
+  maxBytes: z.number().optional(),
+  maxSocketErrors: z.number().optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+
+export function inputMskToJSON(inputMsk: InputMsk): string {
+  return JSON.stringify(InputMsk$outboundSchema.parse(inputMsk));
+}
+
+/** @internal */
+export type InputKafka$Outbound = {
+  id: string;
+  type: "kafka";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  brokers: Array<string>;
+  topics: Array<string>;
+  groupId?: string | undefined;
+  fromBeginning?: boolean | undefined;
+  kafkaSchemaRegistry?:
+    | models.KafkaSchemaRegistryAuthenticationType$Outbound
+    | undefined;
+  connectionTimeout?: number | undefined;
+  requestTimeout?: number | undefined;
+  maxRetries?: number | undefined;
+  maxBackOff?: number | undefined;
+  initialBackoff?: number | undefined;
+  backoffRate?: number | undefined;
+  authenticationTimeout?: number | undefined;
+  reauthenticationThreshold?: number | undefined;
+  sasl?: models.AuthenticationType$Outbound | undefined;
+  tls?:
+    | models.TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound
+    | undefined;
+  sessionTimeout?: number | undefined;
+  rebalanceTimeout?: number | undefined;
+  heartbeatInterval?: number | undefined;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition?: number | undefined;
+  maxBytes?: number | undefined;
+  maxSocketErrors?: number | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKafka$outboundSchema: z.ZodType<
+  InputKafka$Outbound,
+  z.ZodTypeDef,
+  InputKafka
+> = z.object({
+  id: z.string(),
+  type: z.literal("kafka"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().optional(),
+  fromBeginning: z.boolean().optional(),
+  kafkaSchemaRegistry: models
+    .KafkaSchemaRegistryAuthenticationType$outboundSchema.optional(),
+  connectionTimeout: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  maxRetries: z.number().optional(),
+  maxBackOff: z.number().optional(),
+  initialBackoff: z.number().optional(),
+  backoffRate: z.number().optional(),
+  authenticationTimeout: z.number().optional(),
+  reauthenticationThreshold: z.number().optional(),
+  sasl: models.AuthenticationType$outboundSchema.optional(),
+  tls: models.TlsSettingsClientSideTypeKafkaSchemaRegistry$outboundSchema
+    .optional(),
+  sessionTimeout: z.number().optional(),
+  rebalanceTimeout: z.number().optional(),
+  heartbeatInterval: z.number().optional(),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().optional(),
+  maxBytes: z.number().optional(),
+  maxSocketErrors: z.number().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  description: z.string().optional(),
+});
+
+export function inputKafkaToJSON(inputKafka: InputKafka): string {
+  return JSON.stringify(InputKafka$outboundSchema.parse(inputKafka));
+}
+
+/** @internal */
+export type InputCollection$Outbound = {
+  id: string;
+  type: "collection";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  preprocess?:
+    | models.PreprocessTypeSavedJobCollectionInput$Outbound
+    | undefined;
+  throttleRatePerSec?: string | undefined;
+  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  output?: string | undefined;
+};
+
+/** @internal */
+export const InputCollection$outboundSchema: z.ZodType<
+  InputCollection$Outbound,
+  z.ZodTypeDef,
+  InputCollection
+> = z.object({
+  id: z.string(),
+  type: z.literal("collection"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
+    .optional(),
+  throttleRatePerSec: z.string().optional(),
+  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+    .optional(),
+  output: z.string().optional(),
+});
+
+export function inputCollectionToJSON(
+  inputCollection: InputCollection,
+): string {
+  return JSON.stringify(InputCollection$outboundSchema.parse(inputCollection));
+}
+
+/** @internal */
+export type CreateInputRequest$Outbound =
+  | InputCollection$Outbound
+  | InputKafka$Outbound
+  | InputMsk$Outbound
+  | InputHttp$Outbound
+  | InputSplunk$Outbound
+  | InputSplunkSearch$Outbound
+  | InputSplunkHec$Outbound
+  | InputAzureBlob$Outbound
+  | InputElastic$Outbound
+  | InputConfluentCloud$Outbound
+  | (
+    | InputGrafanaGrafana1$Outbound
+    | InputGrafanaGrafana2$Outbound & { type: "grafana" }
+  )
+  | InputLoki$Outbound
+  | InputPrometheusRw$Outbound
+  | InputPrometheus$Outbound
+  | InputEdgePrometheus$Outbound
+  | InputOffice365Mgmt$Outbound
+  | InputOffice365Service$Outbound
+  | InputOffice365MsgTrace$Outbound
+  | InputEventhub$Outbound
+  | InputExec$Outbound
+  | InputFirehose$Outbound
+  | InputGooglePubsub$Outbound
+  | InputCribl$Outbound
+  | InputCriblTcp$Outbound
+  | InputCriblHttp$Outbound
+  | InputCriblLakeHttp$Outbound
+  | InputTcpjson$Outbound
+  | InputSystemMetrics$Outbound
+  | InputSystemState$Outbound
+  | InputKubeMetrics$Outbound
+  | InputKubeLogs$Outbound
+  | InputKubeEvents$Outbound
+  | InputWindowsMetrics$Outbound
+  | InputCrowdstrike$Outbound
+  | InputDatadogAgent$Outbound
+  | InputDatagen$Outbound
+  | InputHttpRaw$Outbound
+  | InputKinesis$Outbound
+  | InputCriblmetrics$Outbound
+  | InputMetrics$Outbound
+  | InputS3$Outbound
+  | InputS3Inventory$Outbound
+  | InputSnmp$Outbound
+  | InputOpenTelemetry$Outbound
+  | InputModelDrivenTelemetry$Outbound
+  | InputSqs$Outbound
+  | (
+    | InputSyslogSyslog1$Outbound
+    | InputSyslogSyslog2$Outbound & { type: "syslog" }
+  )
+  | InputFile$Outbound
+  | InputTcp$Outbound
+  | InputAppscope$Outbound
+  | InputWef$Outbound
+  | InputWinEventLogs$Outbound
+  | InputRawUdp$Outbound
+  | InputJournalFiles$Outbound
+  | InputWiz$Outbound
+  | InputWizWebhook$Outbound
+  | InputNetflow$Outbound
+  | InputSecurityLake$Outbound
+  | InputZscalerHec$Outbound
+  | InputCloudflareHec$Outbound;
+
+/** @internal */
+export const CreateInputRequest$outboundSchema: z.ZodType<
+  CreateInputRequest$Outbound,
+  z.ZodTypeDef,
+  CreateInputRequest
+> = z.union([
+  z.lazy(() => InputCollection$outboundSchema),
+  z.lazy(() => InputKafka$outboundSchema),
+  z.lazy(() => InputMsk$outboundSchema),
+  z.lazy(() => InputHttp$outboundSchema),
+  z.lazy(() => InputSplunk$outboundSchema),
+  z.lazy(() => InputSplunkSearch$outboundSchema),
+  z.lazy(() => InputSplunkHec$outboundSchema),
+  z.lazy(() => InputAzureBlob$outboundSchema),
+  z.lazy(() => InputElastic$outboundSchema),
+  z.lazy(() => InputConfluentCloud$outboundSchema),
+  z.union([
+    z.lazy(() => InputGrafanaGrafana1$outboundSchema),
+    z.lazy(() => InputGrafanaGrafana2$outboundSchema),
+  ]).and(z.object({ type: z.literal("grafana") })),
+  z.lazy(() => InputLoki$outboundSchema),
+  z.lazy(() => InputPrometheusRw$outboundSchema),
+  z.lazy(() => InputPrometheus$outboundSchema),
+  z.lazy(() => InputEdgePrometheus$outboundSchema),
+  z.lazy(() => InputOffice365Mgmt$outboundSchema),
+  z.lazy(() => InputOffice365Service$outboundSchema),
+  z.lazy(() => InputOffice365MsgTrace$outboundSchema),
+  z.lazy(() => InputEventhub$outboundSchema),
+  z.lazy(() => InputExec$outboundSchema),
+  z.lazy(() => InputFirehose$outboundSchema),
+  z.lazy(() => InputGooglePubsub$outboundSchema),
+  z.lazy(() => InputCribl$outboundSchema),
+  z.lazy(() => InputCriblTcp$outboundSchema),
+  z.lazy(() => InputCriblHttp$outboundSchema),
+  z.lazy(() => InputCriblLakeHttp$outboundSchema),
+  z.lazy(() => InputTcpjson$outboundSchema),
+  z.lazy(() => InputSystemMetrics$outboundSchema),
+  z.lazy(() => InputSystemState$outboundSchema),
+  z.lazy(() => InputKubeMetrics$outboundSchema),
+  z.lazy(() => InputKubeLogs$outboundSchema),
+  z.lazy(() => InputKubeEvents$outboundSchema),
+  z.lazy(() => InputWindowsMetrics$outboundSchema),
+  z.lazy(() => InputCrowdstrike$outboundSchema),
+  z.lazy(() => InputDatadogAgent$outboundSchema),
+  z.lazy(() => InputDatagen$outboundSchema),
+  z.lazy(() => InputHttpRaw$outboundSchema),
+  z.lazy(() => InputKinesis$outboundSchema),
+  z.lazy(() => InputCriblmetrics$outboundSchema),
+  z.lazy(() => InputMetrics$outboundSchema),
+  z.lazy(() => InputS3$outboundSchema),
+  z.lazy(() => InputS3Inventory$outboundSchema),
+  z.lazy(() => InputSnmp$outboundSchema),
+  z.lazy(() => InputOpenTelemetry$outboundSchema),
+  z.lazy(() => InputModelDrivenTelemetry$outboundSchema),
+  z.lazy(() => InputSqs$outboundSchema),
+  z.union([
+    z.lazy(() => InputSyslogSyslog1$outboundSchema),
+    z.lazy(() => InputSyslogSyslog2$outboundSchema),
+  ]).and(z.object({ type: z.literal("syslog") })),
+  z.lazy(() => InputFile$outboundSchema),
+  z.lazy(() => InputTcp$outboundSchema),
+  z.lazy(() => InputAppscope$outboundSchema),
+  z.lazy(() => InputWef$outboundSchema),
+  z.lazy(() => InputWinEventLogs$outboundSchema),
+  z.lazy(() => InputRawUdp$outboundSchema),
+  z.lazy(() => InputJournalFiles$outboundSchema),
+  z.lazy(() => InputWiz$outboundSchema),
+  z.lazy(() => InputWizWebhook$outboundSchema),
+  z.lazy(() => InputNetflow$outboundSchema),
+  z.lazy(() => InputSecurityLake$outboundSchema),
+  z.lazy(() => InputZscalerHec$outboundSchema),
+  z.lazy(() => InputCloudflareHec$outboundSchema),
+]);
+
+export function createInputRequestToJSON(
+  createInputRequest: CreateInputRequest,
+): string {
+  return JSON.stringify(
+    CreateInputRequest$outboundSchema.parse(createInputRequest),
   );
 }

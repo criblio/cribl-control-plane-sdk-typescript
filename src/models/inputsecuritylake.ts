@@ -4,164 +4,48 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  CheckpointingType,
+  CheckpointingType$inboundSchema,
+  CheckpointingType$Outbound,
+  CheckpointingType$outboundSchema,
+} from "./checkpointingtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputSecurityLakeConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputSecurityLakeMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputSecurityLakeMode = OpenEnum<typeof InputSecurityLakeMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputSecurityLakeCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputSecurityLakeCompression = OpenEnum<
-  typeof InputSecurityLakeCompression
->;
-
-export type InputSecurityLakePqControls = {};
-
-export type InputSecurityLakePq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputSecurityLakeMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputSecurityLakeCompression | undefined;
-  pqControls?: InputSecurityLakePqControls | undefined;
-};
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const InputSecurityLakeAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type InputSecurityLakeAuthenticationMethod = OpenEnum<
-  typeof InputSecurityLakeAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing S3 requests
- */
-export const InputSecurityLakeSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type InputSecurityLakeSignatureVersion = OpenEnum<
-  typeof InputSecurityLakeSignatureVersion
->;
-
-export type InputSecurityLakePreprocess = {
-  disabled?: boolean | undefined;
-  /**
-   * Command to feed the data through (via stdin) and process its output (stdout)
-   */
-  command?: string | undefined;
-  /**
-   * Arguments to be added to the custom command
-   */
-  args?: Array<string> | undefined;
-};
-
-export type InputSecurityLakeMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputSecurityLakeCheckpointing = {
-  /**
-   * Resume processing files after an interruption
-   */
-  enabled?: boolean | undefined;
-  /**
-   * The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
-   */
-  retries?: number | undefined;
-};
-
-export const InputSecurityLakeTagAfterProcessing = {
-  False: "false",
-  True: "true",
-} as const;
-export type InputSecurityLakeTagAfterProcessing = OpenEnum<
-  typeof InputSecurityLakeTagAfterProcessing
->;
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  PreprocessTypeSavedJobCollectionInput,
+  PreprocessTypeSavedJobCollectionInput$inboundSchema,
+  PreprocessTypeSavedJobCollectionInput$Outbound,
+  PreprocessTypeSavedJobCollectionInput$outboundSchema,
+} from "./preprocesstypesavedjobcollectioninput.js";
+import {
+  SignatureVersionOptionsS3CollectorConf,
+  SignatureVersionOptionsS3CollectorConf$inboundSchema,
+  SignatureVersionOptionsS3CollectorConf$outboundSchema,
+} from "./signatureversionoptionss3collectorconf.js";
+import {
+  TagAfterProcessingOptions,
+  TagAfterProcessingOptions$inboundSchema,
+  TagAfterProcessingOptions$outboundSchema,
+} from "./tagafterprocessingoptions.js";
 
 export type InputSecurityLake = {
   /**
@@ -193,8 +77,8 @@ export type InputSecurityLake = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputSecurityLakeConnection> | undefined;
-  pq?: InputSecurityLakePq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -210,7 +94,7 @@ export type InputSecurityLake = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: InputSecurityLakeAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -223,7 +107,7 @@ export type InputSecurityLake = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: InputSecurityLakeSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptionsS3CollectorConf | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -284,11 +168,11 @@ export type InputSecurityLake = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: InputSecurityLakePreprocess | undefined;
+  preprocess?: PreprocessTypeSavedJobCollectionInput | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputSecurityLakeMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -297,7 +181,7 @@ export type InputSecurityLake = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  checkpointing?: InputSecurityLakeCheckpointing | undefined;
+  checkpointing?: CheckpointingType | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -312,7 +196,7 @@ export type InputSecurityLake = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
-  tagAfterProcessing?: InputSecurityLakeTagAfterProcessing | undefined;
+  tagAfterProcessing?: TagAfterProcessingOptions | undefined;
   /**
    * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
@@ -324,345 +208,6 @@ export type InputSecurityLake = {
 };
 
 /** @internal */
-export const InputSecurityLakeConnection$inboundSchema: z.ZodType<
-  InputSecurityLakeConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputSecurityLakeConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputSecurityLakeConnection$outboundSchema: z.ZodType<
-  InputSecurityLakeConnection$Outbound,
-  z.ZodTypeDef,
-  InputSecurityLakeConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputSecurityLakeConnectionToJSON(
-  inputSecurityLakeConnection: InputSecurityLakeConnection,
-): string {
-  return JSON.stringify(
-    InputSecurityLakeConnection$outboundSchema.parse(
-      inputSecurityLakeConnection,
-    ),
-  );
-}
-export function inputSecurityLakeConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSecurityLakeConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSecurityLakeConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSecurityLakeConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSecurityLakeMode$inboundSchema: z.ZodType<
-  InputSecurityLakeMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSecurityLakeMode);
-/** @internal */
-export const InputSecurityLakeMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSecurityLakeMode
-> = openEnums.outboundSchema(InputSecurityLakeMode);
-
-/** @internal */
-export const InputSecurityLakeCompression$inboundSchema: z.ZodType<
-  InputSecurityLakeCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSecurityLakeCompression);
-/** @internal */
-export const InputSecurityLakeCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSecurityLakeCompression
-> = openEnums.outboundSchema(InputSecurityLakeCompression);
-
-/** @internal */
-export const InputSecurityLakePqControls$inboundSchema: z.ZodType<
-  InputSecurityLakePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputSecurityLakePqControls$Outbound = {};
-
-/** @internal */
-export const InputSecurityLakePqControls$outboundSchema: z.ZodType<
-  InputSecurityLakePqControls$Outbound,
-  z.ZodTypeDef,
-  InputSecurityLakePqControls
-> = z.object({});
-
-export function inputSecurityLakePqControlsToJSON(
-  inputSecurityLakePqControls: InputSecurityLakePqControls,
-): string {
-  return JSON.stringify(
-    InputSecurityLakePqControls$outboundSchema.parse(
-      inputSecurityLakePqControls,
-    ),
-  );
-}
-export function inputSecurityLakePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSecurityLakePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSecurityLakePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSecurityLakePqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSecurityLakePq$inboundSchema: z.ZodType<
-  InputSecurityLakePq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputSecurityLakeMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSecurityLakeCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSecurityLakePqControls$inboundSchema)
-    .optional(),
-});
-/** @internal */
-export type InputSecurityLakePq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputSecurityLakePqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputSecurityLakePq$outboundSchema: z.ZodType<
-  InputSecurityLakePq$Outbound,
-  z.ZodTypeDef,
-  InputSecurityLakePq
-> = z.object({
-  mode: InputSecurityLakeMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSecurityLakeCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSecurityLakePqControls$outboundSchema)
-    .optional(),
-});
-
-export function inputSecurityLakePqToJSON(
-  inputSecurityLakePq: InputSecurityLakePq,
-): string {
-  return JSON.stringify(
-    InputSecurityLakePq$outboundSchema.parse(inputSecurityLakePq),
-  );
-}
-export function inputSecurityLakePqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSecurityLakePq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSecurityLakePq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSecurityLakePq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSecurityLakeAuthenticationMethod$inboundSchema: z.ZodType<
-  InputSecurityLakeAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSecurityLakeAuthenticationMethod);
-/** @internal */
-export const InputSecurityLakeAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSecurityLakeAuthenticationMethod
-> = openEnums.outboundSchema(InputSecurityLakeAuthenticationMethod);
-
-/** @internal */
-export const InputSecurityLakeSignatureVersion$inboundSchema: z.ZodType<
-  InputSecurityLakeSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSecurityLakeSignatureVersion);
-/** @internal */
-export const InputSecurityLakeSignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSecurityLakeSignatureVersion
-> = openEnums.outboundSchema(InputSecurityLakeSignatureVersion);
-
-/** @internal */
-export const InputSecurityLakePreprocess$inboundSchema: z.ZodType<
-  InputSecurityLakePreprocess,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
-});
-/** @internal */
-export type InputSecurityLakePreprocess$Outbound = {
-  disabled: boolean;
-  command?: string | undefined;
-  args?: Array<string> | undefined;
-};
-
-/** @internal */
-export const InputSecurityLakePreprocess$outboundSchema: z.ZodType<
-  InputSecurityLakePreprocess$Outbound,
-  z.ZodTypeDef,
-  InputSecurityLakePreprocess
-> = z.object({
-  disabled: z.boolean().default(true),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
-});
-
-export function inputSecurityLakePreprocessToJSON(
-  inputSecurityLakePreprocess: InputSecurityLakePreprocess,
-): string {
-  return JSON.stringify(
-    InputSecurityLakePreprocess$outboundSchema.parse(
-      inputSecurityLakePreprocess,
-    ),
-  );
-}
-export function inputSecurityLakePreprocessFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSecurityLakePreprocess, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSecurityLakePreprocess$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSecurityLakePreprocess' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSecurityLakeMetadatum$inboundSchema: z.ZodType<
-  InputSecurityLakeMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputSecurityLakeMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputSecurityLakeMetadatum$outboundSchema: z.ZodType<
-  InputSecurityLakeMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputSecurityLakeMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputSecurityLakeMetadatumToJSON(
-  inputSecurityLakeMetadatum: InputSecurityLakeMetadatum,
-): string {
-  return JSON.stringify(
-    InputSecurityLakeMetadatum$outboundSchema.parse(inputSecurityLakeMetadatum),
-  );
-}
-export function inputSecurityLakeMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSecurityLakeMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSecurityLakeMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSecurityLakeMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSecurityLakeCheckpointing$inboundSchema: z.ZodType<
-  InputSecurityLakeCheckpointing,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean().default(false),
-  retries: z.number().default(5),
-});
-/** @internal */
-export type InputSecurityLakeCheckpointing$Outbound = {
-  enabled: boolean;
-  retries: number;
-};
-
-/** @internal */
-export const InputSecurityLakeCheckpointing$outboundSchema: z.ZodType<
-  InputSecurityLakeCheckpointing$Outbound,
-  z.ZodTypeDef,
-  InputSecurityLakeCheckpointing
-> = z.object({
-  enabled: z.boolean().default(false),
-  retries: z.number().default(5),
-});
-
-export function inputSecurityLakeCheckpointingToJSON(
-  inputSecurityLakeCheckpointing: InputSecurityLakeCheckpointing,
-): string {
-  return JSON.stringify(
-    InputSecurityLakeCheckpointing$outboundSchema.parse(
-      inputSecurityLakeCheckpointing,
-    ),
-  );
-}
-export function inputSecurityLakeCheckpointingFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSecurityLakeCheckpointing, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSecurityLakeCheckpointing$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSecurityLakeCheckpointing' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSecurityLakeTagAfterProcessing$inboundSchema: z.ZodType<
-  InputSecurityLakeTagAfterProcessing,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputSecurityLakeTagAfterProcessing);
-/** @internal */
-export const InputSecurityLakeTagAfterProcessing$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputSecurityLakeTagAfterProcessing
-> = openEnums.outboundSchema(InputSecurityLakeTagAfterProcessing);
-
-/** @internal */
 export const InputSecurityLake$inboundSchema: z.ZodType<
   InputSecurityLake,
   z.ZodTypeDef,
@@ -670,56 +215,49 @@ export const InputSecurityLake$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("security_lake"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSecurityLakeConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSecurityLakePq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
+  fileFilter: z.string().optional(),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: InputSecurityLakeAuthenticationMethod$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: InputSecurityLakeSignatureVersion$inboundSchema.default(
-    "v4",
-  ),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$inboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  maxMessages: z.number().default(1),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  socketTimeout: z.number().default(300),
-  skipOnError: z.boolean().default(false),
-  includeSqsMetadata: z.boolean().default(false),
-  enableAssumeRole: z.boolean().default(true),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  enableSQSAssumeRole: z.boolean().default(false),
-  preprocess: z.lazy(() => InputSecurityLakePreprocess$inboundSchema)
-    .optional(),
-  metadata: z.array(z.lazy(() => InputSecurityLakeMetadatum$inboundSchema))
-    .optional(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  checkpointing: z.lazy(() => InputSecurityLakeCheckpointing$inboundSchema)
-    .optional(),
-  pollTimeout: z.number().default(10),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
+  preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  checkpointing: CheckpointingType$inboundSchema.optional(),
+  pollTimeout: z.number().optional(),
   encoding: z.string().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  tagAfterProcessing: InputSecurityLakeTagAfterProcessing$inboundSchema
-    .optional(),
+  tagAfterProcessing: TagAfterProcessingOptions$inboundSchema.optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
 });
@@ -727,43 +265,43 @@ export const InputSecurityLake$inboundSchema: z.ZodType<
 export type InputSecurityLake$Outbound = {
   id?: string | undefined;
   type: "security_lake";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputSecurityLakeConnection$Outbound> | undefined;
-  pq?: InputSecurityLakePq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   queueName: string;
-  fileFilter: string;
+  fileFilter?: string | undefined;
   awsAccountId?: string | undefined;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
-  signatureVersion: string;
-  reuseConnections: boolean;
-  rejectUnauthorized: boolean;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  maxMessages: number;
-  visibilityTimeout: number;
-  numReceivers: number;
-  socketTimeout: number;
-  skipOnError: boolean;
-  includeSqsMetadata: boolean;
-  enableAssumeRole: boolean;
+  staleChannelFlushMs?: number | undefined;
+  maxMessages?: number | undefined;
+  visibilityTimeout?: number | undefined;
+  numReceivers?: number | undefined;
+  socketTimeout?: number | undefined;
+  skipOnError?: boolean | undefined;
+  includeSqsMetadata?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
-  durationSeconds: number;
-  enableSQSAssumeRole: boolean;
-  preprocess?: InputSecurityLakePreprocess$Outbound | undefined;
-  metadata?: Array<InputSecurityLakeMetadatum$Outbound> | undefined;
-  parquetChunkSizeMB: number;
-  parquetChunkDownloadTimeout: number;
-  checkpointing?: InputSecurityLakeCheckpointing$Outbound | undefined;
-  pollTimeout: number;
+  durationSeconds?: number | undefined;
+  enableSQSAssumeRole?: boolean | undefined;
+  preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  parquetChunkSizeMB?: number | undefined;
+  parquetChunkDownloadTimeout?: number | undefined;
+  checkpointing?: CheckpointingType$Outbound | undefined;
+  pollTimeout?: number | undefined;
   encoding?: string | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
@@ -781,56 +319,49 @@ export const InputSecurityLake$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("security_lake"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSecurityLakeConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSecurityLakePq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   queueName: z.string(),
-  fileFilter: z.string().default("/.*/"),
+  fileFilter: z.string().optional(),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: InputSecurityLakeAuthenticationMethod$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: InputSecurityLakeSignatureVersion$outboundSchema.default(
-    "v4",
-  ),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
+  signatureVersion: SignatureVersionOptionsS3CollectorConf$outboundSchema
+    .optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  maxMessages: z.number().default(1),
-  visibilityTimeout: z.number().default(600),
-  numReceivers: z.number().default(1),
-  socketTimeout: z.number().default(300),
-  skipOnError: z.boolean().default(false),
-  includeSqsMetadata: z.boolean().default(false),
-  enableAssumeRole: z.boolean().default(true),
+  staleChannelFlushMs: z.number().optional(),
+  maxMessages: z.number().optional(),
+  visibilityTimeout: z.number().optional(),
+  numReceivers: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  skipOnError: z.boolean().optional(),
+  includeSqsMetadata: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().default(3600),
-  enableSQSAssumeRole: z.boolean().default(false),
-  preprocess: z.lazy(() => InputSecurityLakePreprocess$outboundSchema)
-    .optional(),
-  metadata: z.array(z.lazy(() => InputSecurityLakeMetadatum$outboundSchema))
-    .optional(),
-  parquetChunkSizeMB: z.number().default(5),
-  parquetChunkDownloadTimeout: z.number().default(600),
-  checkpointing: z.lazy(() => InputSecurityLakeCheckpointing$outboundSchema)
-    .optional(),
-  pollTimeout: z.number().default(10),
+  durationSeconds: z.number().optional(),
+  enableSQSAssumeRole: z.boolean().optional(),
+  preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  parquetChunkSizeMB: z.number().optional(),
+  parquetChunkDownloadTimeout: z.number().optional(),
+  checkpointing: CheckpointingType$outboundSchema.optional(),
+  pollTimeout: z.number().optional(),
   encoding: z.string().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  tagAfterProcessing: InputSecurityLakeTagAfterProcessing$outboundSchema
-    .optional(),
+  tagAfterProcessing: TagAfterProcessingOptions$outboundSchema.optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
 });

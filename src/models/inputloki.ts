@@ -4,191 +4,49 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationTypeOptionsLokiAuth,
+  AuthenticationTypeOptionsLokiAuth$inboundSchema,
+  AuthenticationTypeOptionsLokiAuth$outboundSchema,
+} from "./authenticationtypeoptionslokiauth.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputLokiConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputLokiMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputLokiMode = OpenEnum<typeof InputLokiMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputLokiCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputLokiCompression = OpenEnum<typeof InputLokiCompression>;
-
-export type InputLokiPqControls = {};
-
-export type InputLokiPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputLokiMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputLokiCompression | undefined;
-  pqControls?: InputLokiPqControls | undefined;
-};
-
-export const InputLokiMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputLokiMinimumTLSVersion = OpenEnum<
-  typeof InputLokiMinimumTLSVersion
->;
-
-export const InputLokiMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputLokiMaximumTLSVersion = OpenEnum<
-  typeof InputLokiMaximumTLSVersion
->;
-
-export type InputLokiTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Regex matching allowable common names in peer certificates' subject attribute
-   */
-  commonNameRegex?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  minVersion?: InputLokiMinimumTLSVersion | undefined;
-  maxVersion?: InputLokiMaximumTLSVersion | undefined;
-};
-
-/**
- * Loki logs authentication type
- */
-export const InputLokiAuthenticationType = {
-  None: "none",
-  Basic: "basic",
-  CredentialsSecret: "credentialsSecret",
-  Token: "token",
-  TextSecret: "textSecret",
-  Oauth: "oauth",
-} as const;
-/**
- * Loki logs authentication type
- */
-export type InputLokiAuthenticationType = OpenEnum<
-  typeof InputLokiAuthenticationType
->;
-
-export type InputLokiMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputLokiOauthParam = {
-  /**
-   * OAuth parameter name
-   */
-  name: string;
-  /**
-   * OAuth parameter value
-   */
-  value: string;
-};
-
-export type InputLokiOauthHeader = {
-  /**
-   * OAuth header name
-   */
-  name: string;
-  /**
-   * OAuth header value
-   */
-  value: string;
-};
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  ItemsTypeOauthHeaders,
+  ItemsTypeOauthHeaders$inboundSchema,
+  ItemsTypeOauthHeaders$Outbound,
+  ItemsTypeOauthHeaders$outboundSchema,
+} from "./itemstypeoauthheaders.js";
+import {
+  ItemsTypeOauthParams,
+  ItemsTypeOauthParams$inboundSchema,
+  ItemsTypeOauthParams$Outbound,
+  ItemsTypeOauthParams$outboundSchema,
+} from "./itemstypeoauthparams.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  TlsSettingsServerSideType,
+  TlsSettingsServerSideType$inboundSchema,
+  TlsSettingsServerSideType$Outbound,
+  TlsSettingsServerSideType$outboundSchema,
+} from "./tlssettingsserversidetype.js";
 
 export type InputLoki = {
   /**
@@ -220,17 +78,17 @@ export type InputLoki = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputLokiConnection> | undefined;
-  pq?: InputLokiPq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
   port: number;
-  tls?: InputLokiTLSSettingsServerSide | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -278,15 +136,15 @@ export type InputLoki = {
   /**
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'.
    */
-  lokiAPI?: string | undefined;
+  lokiAPI: string;
   /**
    * Loki logs authentication type
    */
-  authType?: InputLokiAuthenticationType | undefined;
+  authType?: AuthenticationTypeOptionsLokiAuth | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputLokiMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -329,405 +187,12 @@ export type InputLoki = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<InputLokiOauthParam> | undefined;
+  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<InputLokiOauthHeader> | undefined;
+  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
 };
-
-/** @internal */
-export const InputLokiConnection$inboundSchema: z.ZodType<
-  InputLokiConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputLokiConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputLokiConnection$outboundSchema: z.ZodType<
-  InputLokiConnection$Outbound,
-  z.ZodTypeDef,
-  InputLokiConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputLokiConnectionToJSON(
-  inputLokiConnection: InputLokiConnection,
-): string {
-  return JSON.stringify(
-    InputLokiConnection$outboundSchema.parse(inputLokiConnection),
-  );
-}
-export function inputLokiConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputLokiConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputLokiConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputLokiConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputLokiMode$inboundSchema: z.ZodType<
-  InputLokiMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputLokiMode);
-/** @internal */
-export const InputLokiMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputLokiMode
-> = openEnums.outboundSchema(InputLokiMode);
-
-/** @internal */
-export const InputLokiCompression$inboundSchema: z.ZodType<
-  InputLokiCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputLokiCompression);
-/** @internal */
-export const InputLokiCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputLokiCompression
-> = openEnums.outboundSchema(InputLokiCompression);
-
-/** @internal */
-export const InputLokiPqControls$inboundSchema: z.ZodType<
-  InputLokiPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputLokiPqControls$Outbound = {};
-
-/** @internal */
-export const InputLokiPqControls$outboundSchema: z.ZodType<
-  InputLokiPqControls$Outbound,
-  z.ZodTypeDef,
-  InputLokiPqControls
-> = z.object({});
-
-export function inputLokiPqControlsToJSON(
-  inputLokiPqControls: InputLokiPqControls,
-): string {
-  return JSON.stringify(
-    InputLokiPqControls$outboundSchema.parse(inputLokiPqControls),
-  );
-}
-export function inputLokiPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputLokiPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputLokiPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputLokiPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputLokiPq$inboundSchema: z.ZodType<
-  InputLokiPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputLokiMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputLokiCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputLokiPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputLokiPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputLokiPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputLokiPq$outboundSchema: z.ZodType<
-  InputLokiPq$Outbound,
-  z.ZodTypeDef,
-  InputLokiPq
-> = z.object({
-  mode: InputLokiMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputLokiCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputLokiPqControls$outboundSchema).optional(),
-});
-
-export function inputLokiPqToJSON(inputLokiPq: InputLokiPq): string {
-  return JSON.stringify(InputLokiPq$outboundSchema.parse(inputLokiPq));
-}
-export function inputLokiPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputLokiPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputLokiPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputLokiPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputLokiMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputLokiMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputLokiMinimumTLSVersion);
-/** @internal */
-export const InputLokiMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputLokiMinimumTLSVersion
-> = openEnums.outboundSchema(InputLokiMinimumTLSVersion);
-
-/** @internal */
-export const InputLokiMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputLokiMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputLokiMaximumTLSVersion);
-/** @internal */
-export const InputLokiMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputLokiMaximumTLSVersion
-> = openEnums.outboundSchema(InputLokiMaximumTLSVersion);
-
-/** @internal */
-export const InputLokiTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputLokiTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputLokiMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputLokiMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type InputLokiTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputLokiTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputLokiTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputLokiTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputLokiMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputLokiMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function inputLokiTLSSettingsServerSideToJSON(
-  inputLokiTLSSettingsServerSide: InputLokiTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputLokiTLSSettingsServerSide$outboundSchema.parse(
-      inputLokiTLSSettingsServerSide,
-    ),
-  );
-}
-export function inputLokiTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputLokiTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputLokiTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputLokiTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputLokiAuthenticationType$inboundSchema: z.ZodType<
-  InputLokiAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputLokiAuthenticationType);
-/** @internal */
-export const InputLokiAuthenticationType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputLokiAuthenticationType
-> = openEnums.outboundSchema(InputLokiAuthenticationType);
-
-/** @internal */
-export const InputLokiMetadatum$inboundSchema: z.ZodType<
-  InputLokiMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputLokiMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputLokiMetadatum$outboundSchema: z.ZodType<
-  InputLokiMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputLokiMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputLokiMetadatumToJSON(
-  inputLokiMetadatum: InputLokiMetadatum,
-): string {
-  return JSON.stringify(
-    InputLokiMetadatum$outboundSchema.parse(inputLokiMetadatum),
-  );
-}
-export function inputLokiMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputLokiMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputLokiMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputLokiMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputLokiOauthParam$inboundSchema: z.ZodType<
-  InputLokiOauthParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputLokiOauthParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputLokiOauthParam$outboundSchema: z.ZodType<
-  InputLokiOauthParam$Outbound,
-  z.ZodTypeDef,
-  InputLokiOauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputLokiOauthParamToJSON(
-  inputLokiOauthParam: InputLokiOauthParam,
-): string {
-  return JSON.stringify(
-    InputLokiOauthParam$outboundSchema.parse(inputLokiOauthParam),
-  );
-}
-export function inputLokiOauthParamFromJSON(
-  jsonString: string,
-): SafeParseResult<InputLokiOauthParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputLokiOauthParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputLokiOauthParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputLokiOauthHeader$inboundSchema: z.ZodType<
-  InputLokiOauthHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputLokiOauthHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputLokiOauthHeader$outboundSchema: z.ZodType<
-  InputLokiOauthHeader$Outbound,
-  z.ZodTypeDef,
-  InputLokiOauthHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputLokiOauthHeaderToJSON(
-  inputLokiOauthHeader: InputLokiOauthHeader,
-): string {
-  return JSON.stringify(
-    InputLokiOauthHeader$outboundSchema.parse(inputLokiOauthHeader),
-  );
-}
-export function inputLokiOauthHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<InputLokiOauthHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputLokiOauthHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputLokiOauthHeader' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputLoki$inboundSchema: z.ZodType<
@@ -737,32 +202,31 @@ export const InputLoki$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("loki"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputLokiConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputLokiPq$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string(),
   port: z.number(),
-  tls: z.lazy(() => InputLokiTLSSettingsServerSide$inboundSchema).optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  lokiAPI: z.string().default("/loki/api/v1/push"),
-  authType: InputLokiAuthenticationType$inboundSchema.default("none"),
-  metadata: z.array(z.lazy(() => InputLokiMetadatum$inboundSchema)).optional(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  lokiAPI: z.string(),
+  authType: AuthenticationTypeOptionsLokiAuth$inboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -773,42 +237,40 @@ export const InputLoki$inboundSchema: z.ZodType<
   secretParamName: z.string().optional(),
   secret: z.string().optional(),
   tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => InputLokiOauthParam$inboundSchema))
-    .optional(),
-  oauthHeaders: z.array(z.lazy(() => InputLokiOauthHeader$inboundSchema))
-    .optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
+  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
 });
 /** @internal */
 export type InputLoki$Outbound = {
   id?: string | undefined;
   type: "loki";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputLokiConnection$Outbound> | undefined;
-  pq?: InputLokiPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
-  tls?: InputLokiTLSSettingsServerSide$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
-  enableProxyHeader: boolean;
-  captureHeaders: boolean;
-  activityLogSampleRate: number;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: boolean | undefined;
+  captureHeaders?: boolean | undefined;
+  activityLogSampleRate?: number | undefined;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
   lokiAPI: string;
-  authType: string;
-  metadata?: Array<InputLokiMetadatum$Outbound> | undefined;
+  authType?: string | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -819,10 +281,10 @@ export type InputLoki$Outbound = {
   secretParamName?: string | undefined;
   secret?: string | undefined;
   tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
-  oauthParams?: Array<InputLokiOauthParam$Outbound> | undefined;
-  oauthHeaders?: Array<InputLokiOauthHeader$Outbound> | undefined;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
 };
 
 /** @internal */
@@ -833,32 +295,31 @@ export const InputLoki$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("loki"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputLokiConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputLokiPq$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string(),
   port: z.number(),
-  tls: z.lazy(() => InputLokiTLSSettingsServerSide$outboundSchema).optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
-  enableProxyHeader: z.boolean().default(false),
-  captureHeaders: z.boolean().default(false),
-  activityLogSampleRate: z.number().default(100),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(5),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  lokiAPI: z.string().default("/loki/api/v1/push"),
-  authType: InputLokiAuthenticationType$outboundSchema.default("none"),
-  metadata: z.array(z.lazy(() => InputLokiMetadatum$outboundSchema)).optional(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  captureHeaders: z.boolean().optional(),
+  activityLogSampleRate: z.number().optional(),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  lokiAPI: z.string(),
+  authType: AuthenticationTypeOptionsLokiAuth$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -869,12 +330,10 @@ export const InputLoki$outboundSchema: z.ZodType<
   secretParamName: z.string().optional(),
   secret: z.string().optional(),
   tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => InputLokiOauthParam$outboundSchema))
-    .optional(),
-  oauthHeaders: z.array(z.lazy(() => InputLokiOauthHeader$outboundSchema))
-    .optional(),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
 export function inputLokiToJSON(inputLoki: InputLoki): string {

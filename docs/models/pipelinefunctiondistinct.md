@@ -1,0 +1,37 @@
+# PipelineFunctionDistinct
+
+## Example Usage
+
+```typescript
+import { PipelineFunctionDistinct } from "cribl-control-plane/models";
+
+let value: PipelineFunctionDistinct = {
+  filter: "<value>",
+  id: "distinct",
+  description: "fooey ha beside saw sustenance",
+  disabled: true,
+  final: false,
+  conf: {
+    groupBy: [
+      "<value 1>",
+    ],
+    maxCombinations: 4306.99,
+    maxDepth: 7679.52,
+    isFederated: false,
+    suppressPreviews: false,
+  },
+  groupId: "<id>",
+};
+```
+
+## Fields
+
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `filter`                                                                                     | *string*                                                                                     | :heavy_minus_sign:                                                                           | Filter that selects data to be fed through this Function                                     |
+| `id`                                                                                         | *"distinct"*                                                                                 | :heavy_check_mark:                                                                           | Function ID                                                                                  |
+| `description`                                                                                | *string*                                                                                     | :heavy_minus_sign:                                                                           | Simple description of this step                                                              |
+| `disabled`                                                                                   | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If true, data will not be pushed through this function                                       |
+| `final`                                                                                      | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If enabled, stops the results of this Function from being passed to the downstream Functions |
+| `conf`                                                                                       | [models.DistinctConfiguration](../models/distinctconfiguration.md)                           | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `groupId`                                                                                    | *string*                                                                                     | :heavy_minus_sign:                                                                           | Group ID                                                                                     |

@@ -1,0 +1,23 @@
+# FunctionConfSchemaCode
+
+## Example Usage
+
+```typescript
+import { FunctionConfSchemaCode } from "cribl-control-plane/models";
+
+let value: FunctionConfSchemaCode = {
+  code: "<value>",
+  maxNumOfIterations: 2342.64,
+  activeLogSampleRate: 6336.62,
+  useUniqueLogChannel: true,
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                          | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `code`                                                                                                                                                                         | *string*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Caution: This Function will be evaluated in an unprotected context. This means that you will be able to execute almost any JavaScript code.                                    |
+| `maxNumOfIterations`                                                                                                                                                           | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | The maximum number of allowed iterations within this Function. Defaults to 5,000.                                                                                              |
+| `activeLogSampleRate`                                                                                                                                                          | *number*                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                             | Rate at which this Function logs errors. For example, a value of 1 (the default) logs every error, a value of 10 logs every tenth error, and so on.                            |
+| `useUniqueLogChannel`                                                                                                                                                          | *boolean*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                             | Logs from this Function will be sent to a unique channel in the form `func:code:${pipelineName}:${functionIndex}`. Disable to use the generic `func:code` log channel instead. |

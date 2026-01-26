@@ -15,7 +15,7 @@ export type OutputNetflowHost = {
   /**
    * Destination port, default is 2055
    */
-  port?: number | undefined;
+  port: number;
 };
 
 export type OutputNetflow = {
@@ -41,14 +41,22 @@ export type OutputNetflow = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * One or more NetFlow destinations to forward events to
+   * One or more NetFlow Destinations to forward events to
    */
   hosts: Array<OutputNetflowHost>;
   /**
    * How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every datagram sent will incur a DNS lookup.
    */
   dnsResolvePeriodSec?: number | undefined;
+  /**
+   * Send NetFlow traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+   */
+  enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * MTU in bytes. The actual maximum NetFlow payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). For example, with the default MTU of 1500, the max payload is 1472 bytes for IPv4. Payloads exceeding this limit will be dropped.
+   */
+  maxRecordSize?: number | undefined;
 };
 
 /** @internal */
@@ -58,7 +66,7 @@ export const OutputNetflowHost$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   host: z.string(),
-  port: z.number().default(2055),
+  port: z.number(),
 });
 /** @internal */
 export type OutputNetflowHost$Outbound = {
@@ -73,7 +81,7 @@ export const OutputNetflowHost$outboundSchema: z.ZodType<
   OutputNetflowHost
 > = z.object({
   host: z.string(),
-  port: z.number().default(2055),
+  port: z.number(),
 });
 
 export function outputNetflowHostToJSON(
@@ -106,8 +114,10 @@ export const OutputNetflow$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   hosts: z.array(z.lazy(() => OutputNetflowHost$inboundSchema)),
-  dnsResolvePeriodSec: z.number().default(0),
+  dnsResolvePeriodSec: z.number().optional(),
+  enableIpSpoofing: z.boolean().optional(),
   description: z.string().optional(),
+  maxRecordSize: z.number().optional(),
 });
 /** @internal */
 export type OutputNetflow$Outbound = {
@@ -118,8 +128,10 @@ export type OutputNetflow$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   hosts: Array<OutputNetflowHost$Outbound>;
-  dnsResolvePeriodSec: number;
+  dnsResolvePeriodSec?: number | undefined;
+  enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
+  maxRecordSize?: number | undefined;
 };
 
 /** @internal */
@@ -135,8 +147,10 @@ export const OutputNetflow$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   hosts: z.array(z.lazy(() => OutputNetflowHost$outboundSchema)),
-  dnsResolvePeriodSec: z.number().default(0),
+  dnsResolvePeriodSec: z.number().optional(),
+  enableIpSpoofing: z.boolean().optional(),
   description: z.string().optional(),
+  maxRecordSize: z.number().optional(),
 });
 
 export function outputNetflowToJSON(outputNetflow: OutputNetflow): string {

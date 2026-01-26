@@ -7,142 +7,48 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationTypeOptions,
+  AuthenticationTypeOptions$inboundSchema,
+  AuthenticationTypeOptions$outboundSchema,
+} from "./authenticationtypeoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputOpenTelemetryConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputOpenTelemetryMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputOpenTelemetryMode = OpenEnum<typeof InputOpenTelemetryMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputOpenTelemetryCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputOpenTelemetryCompression = OpenEnum<
-  typeof InputOpenTelemetryCompression
->;
-
-export type InputOpenTelemetryPqControls = {};
-
-export type InputOpenTelemetryPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputOpenTelemetryMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputOpenTelemetryCompression | undefined;
-  pqControls?: InputOpenTelemetryPqControls | undefined;
-};
-
-export const InputOpenTelemetryMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputOpenTelemetryMinimumTLSVersion = OpenEnum<
-  typeof InputOpenTelemetryMinimumTLSVersion
->;
-
-export const InputOpenTelemetryMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputOpenTelemetryMaximumTLSVersion = OpenEnum<
-  typeof InputOpenTelemetryMaximumTLSVersion
->;
-
-export type InputOpenTelemetryTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Regex matching allowable common names in peer certificates' subject attribute
-   */
-  commonNameRegex?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  minVersion?: InputOpenTelemetryMinimumTLSVersion | undefined;
-  maxVersion?: InputOpenTelemetryMaximumTLSVersion | undefined;
-};
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  ItemsTypeOauthHeaders,
+  ItemsTypeOauthHeaders$inboundSchema,
+  ItemsTypeOauthHeaders$Outbound,
+  ItemsTypeOauthHeaders$outboundSchema,
+} from "./itemstypeoauthheaders.js";
+import {
+  ItemsTypeOauthParams,
+  ItemsTypeOauthParams$inboundSchema,
+  ItemsTypeOauthParams$Outbound,
+  ItemsTypeOauthParams$outboundSchema,
+} from "./itemstypeoauthparams.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  TlsSettingsServerSideType,
+  TlsSettingsServerSideType$inboundSchema,
+  TlsSettingsServerSideType$Outbound,
+  TlsSettingsServerSideType$outboundSchema,
+} from "./tlssettingsserversidetype.js";
 
 /**
  * Select whether to leverage gRPC or HTTP for OpenTelemetry
@@ -184,54 +90,6 @@ export type InputOpenTelemetryOTLPVersion = OpenEnum<
   typeof InputOpenTelemetryOTLPVersion
 >;
 
-/**
- * OpenTelemetry authentication type
- */
-export const InputOpenTelemetryAuthenticationType = {
-  None: "none",
-  Basic: "basic",
-  CredentialsSecret: "credentialsSecret",
-  Token: "token",
-  TextSecret: "textSecret",
-  Oauth: "oauth",
-} as const;
-/**
- * OpenTelemetry authentication type
- */
-export type InputOpenTelemetryAuthenticationType = OpenEnum<
-  typeof InputOpenTelemetryAuthenticationType
->;
-
-export type InputOpenTelemetryMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputOpenTelemetryOauthParam = {
-  /**
-   * OAuth parameter name
-   */
-  name: string;
-  /**
-   * OAuth parameter value
-   */
-  value: string;
-};
-
-export type InputOpenTelemetryOauthHeader = {
-  /**
-   * OAuth header name
-   */
-  name: string;
-  /**
-   * OAuth header value
-   */
-  value: string;
-};
-
 export type InputOpenTelemetry = {
   /**
    * Unique ID for this input
@@ -262,17 +120,17 @@ export type InputOpenTelemetry = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputOpenTelemetryConnection> | undefined;
-  pq?: InputOpenTelemetryPq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Port to listen on
    */
-  port?: number | undefined;
-  tls?: InputOpenTelemetryTLSSettingsServerSide | undefined;
+  port: number;
+  tls?: TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -327,11 +185,11 @@ export type InputOpenTelemetry = {
   /**
    * OpenTelemetry authentication type
    */
-  authType?: InputOpenTelemetryAuthenticationType | undefined;
+  authType?: AuthenticationTypeOptions | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputOpenTelemetryMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -378,287 +236,16 @@ export type InputOpenTelemetry = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<InputOpenTelemetryOauthParam> | undefined;
+  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<InputOpenTelemetryOauthHeader> | undefined;
+  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
   /**
    * Enable to extract each incoming log record to a separate event
    */
   extractLogs?: boolean | undefined;
 };
-
-/** @internal */
-export const InputOpenTelemetryConnection$inboundSchema: z.ZodType<
-  InputOpenTelemetryConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputOpenTelemetryConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputOpenTelemetryConnection$outboundSchema: z.ZodType<
-  InputOpenTelemetryConnection$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputOpenTelemetryConnectionToJSON(
-  inputOpenTelemetryConnection: InputOpenTelemetryConnection,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryConnection$outboundSchema.parse(
-      inputOpenTelemetryConnection,
-    ),
-  );
-}
-export function inputOpenTelemetryConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetryConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetryConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetryConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOpenTelemetryMode$inboundSchema: z.ZodType<
-  InputOpenTelemetryMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputOpenTelemetryMode);
-/** @internal */
-export const InputOpenTelemetryMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputOpenTelemetryMode
-> = openEnums.outboundSchema(InputOpenTelemetryMode);
-
-/** @internal */
-export const InputOpenTelemetryCompression$inboundSchema: z.ZodType<
-  InputOpenTelemetryCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputOpenTelemetryCompression);
-/** @internal */
-export const InputOpenTelemetryCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputOpenTelemetryCompression
-> = openEnums.outboundSchema(InputOpenTelemetryCompression);
-
-/** @internal */
-export const InputOpenTelemetryPqControls$inboundSchema: z.ZodType<
-  InputOpenTelemetryPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputOpenTelemetryPqControls$Outbound = {};
-
-/** @internal */
-export const InputOpenTelemetryPqControls$outboundSchema: z.ZodType<
-  InputOpenTelemetryPqControls$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryPqControls
-> = z.object({});
-
-export function inputOpenTelemetryPqControlsToJSON(
-  inputOpenTelemetryPqControls: InputOpenTelemetryPqControls,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryPqControls$outboundSchema.parse(
-      inputOpenTelemetryPqControls,
-    ),
-  );
-}
-export function inputOpenTelemetryPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetryPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetryPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetryPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOpenTelemetryPq$inboundSchema: z.ZodType<
-  InputOpenTelemetryPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputOpenTelemetryMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputOpenTelemetryCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputOpenTelemetryPqControls$inboundSchema)
-    .optional(),
-});
-/** @internal */
-export type InputOpenTelemetryPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputOpenTelemetryPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputOpenTelemetryPq$outboundSchema: z.ZodType<
-  InputOpenTelemetryPq$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryPq
-> = z.object({
-  mode: InputOpenTelemetryMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputOpenTelemetryCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputOpenTelemetryPqControls$outboundSchema)
-    .optional(),
-});
-
-export function inputOpenTelemetryPqToJSON(
-  inputOpenTelemetryPq: InputOpenTelemetryPq,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryPq$outboundSchema.parse(inputOpenTelemetryPq),
-  );
-}
-export function inputOpenTelemetryPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetryPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetryPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetryPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOpenTelemetryMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputOpenTelemetryMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputOpenTelemetryMinimumTLSVersion);
-/** @internal */
-export const InputOpenTelemetryMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputOpenTelemetryMinimumTLSVersion
-> = openEnums.outboundSchema(InputOpenTelemetryMinimumTLSVersion);
-
-/** @internal */
-export const InputOpenTelemetryMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputOpenTelemetryMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputOpenTelemetryMaximumTLSVersion);
-/** @internal */
-export const InputOpenTelemetryMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputOpenTelemetryMaximumTLSVersion
-> = openEnums.outboundSchema(InputOpenTelemetryMaximumTLSVersion);
-
-/** @internal */
-export const InputOpenTelemetryTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputOpenTelemetryTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputOpenTelemetryMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputOpenTelemetryMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type InputOpenTelemetryTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputOpenTelemetryTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputOpenTelemetryTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputOpenTelemetryMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputOpenTelemetryMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function inputOpenTelemetryTLSSettingsServerSideToJSON(
-  inputOpenTelemetryTLSSettingsServerSide:
-    InputOpenTelemetryTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryTLSSettingsServerSide$outboundSchema.parse(
-      inputOpenTelemetryTLSSettingsServerSide,
-    ),
-  );
-}
-export function inputOpenTelemetryTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputOpenTelemetryTLSSettingsServerSide,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputOpenTelemetryTLSSettingsServerSide$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputOpenTelemetryTLSSettingsServerSide' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputOpenTelemetryProtocol$inboundSchema: z.ZodType<
@@ -687,151 +274,6 @@ export const InputOpenTelemetryOTLPVersion$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(InputOpenTelemetryOTLPVersion);
 
 /** @internal */
-export const InputOpenTelemetryAuthenticationType$inboundSchema: z.ZodType<
-  InputOpenTelemetryAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputOpenTelemetryAuthenticationType);
-/** @internal */
-export const InputOpenTelemetryAuthenticationType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputOpenTelemetryAuthenticationType
-> = openEnums.outboundSchema(InputOpenTelemetryAuthenticationType);
-
-/** @internal */
-export const InputOpenTelemetryMetadatum$inboundSchema: z.ZodType<
-  InputOpenTelemetryMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputOpenTelemetryMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputOpenTelemetryMetadatum$outboundSchema: z.ZodType<
-  InputOpenTelemetryMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputOpenTelemetryMetadatumToJSON(
-  inputOpenTelemetryMetadatum: InputOpenTelemetryMetadatum,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryMetadatum$outboundSchema.parse(
-      inputOpenTelemetryMetadatum,
-    ),
-  );
-}
-export function inputOpenTelemetryMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetryMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetryMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetryMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOpenTelemetryOauthParam$inboundSchema: z.ZodType<
-  InputOpenTelemetryOauthParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputOpenTelemetryOauthParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputOpenTelemetryOauthParam$outboundSchema: z.ZodType<
-  InputOpenTelemetryOauthParam$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryOauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputOpenTelemetryOauthParamToJSON(
-  inputOpenTelemetryOauthParam: InputOpenTelemetryOauthParam,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryOauthParam$outboundSchema.parse(
-      inputOpenTelemetryOauthParam,
-    ),
-  );
-}
-export function inputOpenTelemetryOauthParamFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetryOauthParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetryOauthParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetryOauthParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOpenTelemetryOauthHeader$inboundSchema: z.ZodType<
-  InputOpenTelemetryOauthHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputOpenTelemetryOauthHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputOpenTelemetryOauthHeader$outboundSchema: z.ZodType<
-  InputOpenTelemetryOauthHeader$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryOauthHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputOpenTelemetryOauthHeaderToJSON(
-  inputOpenTelemetryOauthHeader: InputOpenTelemetryOauthHeader,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryOauthHeader$outboundSchema.parse(
-      inputOpenTelemetryOauthHeader,
-    ),
-  );
-}
-export function inputOpenTelemetryOauthHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetryOauthHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetryOauthHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetryOauthHeader' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputOpenTelemetry$inboundSchema: z.ZodType<
   InputOpenTelemetry,
   z.ZodTypeDef,
@@ -839,38 +281,35 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("open_telemetry"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputOpenTelemetryConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputOpenTelemetryPq$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(4317),
-  tls: z.lazy(() => InputOpenTelemetryTLSSettingsServerSide$inboundSchema)
-    .optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
   enableProxyHeader: z.any().optional(),
   captureHeaders: z.any().optional(),
   activityLogSampleRate: z.any().optional(),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(15),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  protocol: InputOpenTelemetryProtocol$inboundSchema.default("grpc"),
-  extractSpans: z.boolean().default(false),
-  extractMetrics: z.boolean().default(false),
-  otlpVersion: InputOpenTelemetryOTLPVersion$inboundSchema.default("0.10.0"),
-  authType: InputOpenTelemetryAuthenticationType$inboundSchema.default("none"),
-  metadata: z.array(z.lazy(() => InputOpenTelemetryMetadatum$inboundSchema))
-    .optional(),
-  maxActiveCxn: z.number().default(1000),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  protocol: InputOpenTelemetryProtocol$inboundSchema.optional(),
+  extractSpans: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  otlpVersion: InputOpenTelemetryOTLPVersion$inboundSchema.optional(),
+  authType: AuthenticationTypeOptions$inboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  maxActiveCxn: z.number().optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -881,48 +320,45 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   secretParamName: z.string().optional(),
   secret: z.string().optional(),
   tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => InputOpenTelemetryOauthParam$inboundSchema))
-    .optional(),
-  oauthHeaders: z.array(
-    z.lazy(() => InputOpenTelemetryOauthHeader$inboundSchema),
-  ).optional(),
-  extractLogs: z.boolean().default(false),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
+  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  extractLogs: z.boolean().optional(),
 });
 /** @internal */
 export type InputOpenTelemetry$Outbound = {
   id?: string | undefined;
   type: "open_telemetry";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputOpenTelemetryConnection$Outbound> | undefined;
-  pq?: InputOpenTelemetryPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
-  tls?: InputOpenTelemetryTLSSettingsServerSide$Outbound | undefined;
-  maxActiveReq: number;
-  maxRequestsPerSocket: number;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  maxActiveReq?: number | undefined;
+  maxRequestsPerSocket?: number | undefined;
   enableProxyHeader?: any | undefined;
   captureHeaders?: any | undefined;
   activityLogSampleRate?: any | undefined;
-  requestTimeout: number;
-  socketTimeout: number;
-  keepAliveTimeout: number;
-  enableHealthCheck: boolean;
-  ipAllowlistRegex: string;
-  ipDenylistRegex: string;
-  protocol: string;
-  extractSpans: boolean;
-  extractMetrics: boolean;
-  otlpVersion: string;
-  authType: string;
-  metadata?: Array<InputOpenTelemetryMetadatum$Outbound> | undefined;
-  maxActiveCxn: number;
+  requestTimeout?: number | undefined;
+  socketTimeout?: number | undefined;
+  keepAliveTimeout?: number | undefined;
+  enableHealthCheck?: boolean | undefined;
+  ipAllowlistRegex?: string | undefined;
+  ipDenylistRegex?: string | undefined;
+  protocol?: string | undefined;
+  extractSpans?: boolean | undefined;
+  extractMetrics?: boolean | undefined;
+  otlpVersion?: string | undefined;
+  authType?: string | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  maxActiveCxn?: number | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -933,11 +369,11 @@ export type InputOpenTelemetry$Outbound = {
   secretParamName?: string | undefined;
   secret?: string | undefined;
   tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
-  oauthParams?: Array<InputOpenTelemetryOauthParam$Outbound> | undefined;
-  oauthHeaders?: Array<InputOpenTelemetryOauthHeader$Outbound> | undefined;
-  extractLogs: boolean;
+  authHeaderExpr?: string | undefined;
+  tokenTimeoutSecs?: number | undefined;
+  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
+  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  extractLogs?: boolean | undefined;
 };
 
 /** @internal */
@@ -948,39 +384,35 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("open_telemetry"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputOpenTelemetryConnection$outboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputOpenTelemetryPq$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(4317),
-  tls: z.lazy(() => InputOpenTelemetryTLSSettingsServerSide$outboundSchema)
-    .optional(),
-  maxActiveReq: z.number().default(256),
-  maxRequestsPerSocket: z.number().int().default(0),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string(),
+  port: z.number(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  maxActiveReq: z.number().optional(),
+  maxRequestsPerSocket: z.number().int().optional(),
   enableProxyHeader: z.any().optional(),
   captureHeaders: z.any().optional(),
   activityLogSampleRate: z.any().optional(),
-  requestTimeout: z.number().default(0),
-  socketTimeout: z.number().default(0),
-  keepAliveTimeout: z.number().default(15),
-  enableHealthCheck: z.boolean().default(false),
-  ipAllowlistRegex: z.string().default("/.*/"),
-  ipDenylistRegex: z.string().default("/^$/"),
-  protocol: InputOpenTelemetryProtocol$outboundSchema.default("grpc"),
-  extractSpans: z.boolean().default(false),
-  extractMetrics: z.boolean().default(false),
-  otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.default("0.10.0"),
-  authType: InputOpenTelemetryAuthenticationType$outboundSchema.default("none"),
-  metadata: z.array(z.lazy(() => InputOpenTelemetryMetadatum$outboundSchema))
-    .optional(),
-  maxActiveCxn: z.number().default(1000),
+  requestTimeout: z.number().optional(),
+  socketTimeout: z.number().optional(),
+  keepAliveTimeout: z.number().optional(),
+  enableHealthCheck: z.boolean().optional(),
+  ipAllowlistRegex: z.string().optional(),
+  ipDenylistRegex: z.string().optional(),
+  protocol: InputOpenTelemetryProtocol$outboundSchema.optional(),
+  extractSpans: z.boolean().optional(),
+  extractMetrics: z.boolean().optional(),
+  otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.optional(),
+  authType: AuthenticationTypeOptions$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  maxActiveCxn: z.number().optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -991,15 +423,11 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   secretParamName: z.string().optional(),
   secret: z.string().optional(),
   tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(
-    z.lazy(() => InputOpenTelemetryOauthParam$outboundSchema),
-  ).optional(),
-  oauthHeaders: z.array(
-    z.lazy(() => InputOpenTelemetryOauthHeader$outboundSchema),
-  ).optional(),
-  extractLogs: z.boolean().default(false),
+  authHeaderExpr: z.string().optional(),
+  tokenTimeoutSecs: z.number().optional(),
+  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
+  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  extractLogs: z.boolean().optional(),
 });
 
 export function inputOpenTelemetryToJSON(

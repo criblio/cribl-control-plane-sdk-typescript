@@ -73,7 +73,7 @@ run();
 
 ### Response
 
-**Promise\<[models.AuthToken](../../models/authtoken.md)\>**
+**Promise\<[operations.CreateAuthLoginResponse](../../models/operations/createauthloginresponse.md)\>**
 
 ### Errors
 
