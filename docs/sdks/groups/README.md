@@ -6,16 +6,16 @@ Actions related to Groups
 
 ### Available Operations
 
-* [list](#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
-* [create](#create) - Create a Worker Group or Edge Fleet for the specified Cribl product
-* [get](#get) - Get a Worker Group or Edge Fleet
-* [update](#update) - Update a Worker Group or Edge Fleet
-* [delete](#delete) - Delete a Worker Group or Edge Fleet
-* [deploy](#deploy) - Deploy commits to a Worker Group or Edge Fleet
+* [list](#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
+* [create](#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+* [get](#get) - Get a Worker Group, Outpost Group, or Edge Fleet
+* [update](#update) - Update a Worker Group, Outpost Group, or Edge Fleet
+* [delete](#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
+* [deploy](#deploy) - Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
 
 ## list
 
-Get a list of all Worker Groups or Edge Fleets for the specified Cribl product.
+Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product.
 
 ### Example Usage
 
@@ -32,8 +32,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.list({
-    fields: "<value>",
     product: "edge",
+    fields: "<value>",
   });
 
   console.log(result);
@@ -61,8 +61,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsList(criblControlPlane, {
-    fields: "<value>",
     product: "edge",
+    fields: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -86,7 +86,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListConfigGroupByProductResponse](../../models/operations/listconfiggroupbyproductresponse.md)\>**
+**Promise\<[models.CountedConfigGroup](../../models/countedconfiggroup.md)\>**
 
 ### Errors
 
@@ -97,7 +97,7 @@ run();
 
 ## create
 
-Create a new Worker Group or Edge Fleet for the specified Cribl product.
+Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
 
 ### Example Usage
 
@@ -276,7 +276,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateConfigGroupByProductResponse](../../models/operations/createconfiggroupbyproductresponse.md)\>**
+**Promise\<[models.CountedConfigGroup](../../models/countedconfiggroup.md)\>**
 
 ### Errors
 
@@ -287,7 +287,7 @@ run();
 
 ## get
 
-Get the specified Worker Group or Edge Fleet.
+Get the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -360,7 +360,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetConfigGroupByProductAndIdResponse](../../models/operations/getconfiggroupbyproductandidresponse.md)\>**
+**Promise\<[models.CountedConfigGroup](../../models/countedconfiggroup.md)\>**
 
 ### Errors
 
@@ -371,7 +371,7 @@ run();
 
 ## update
 
-Update the specified Worker Group or Edge Fleet.
+Update the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -540,7 +540,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateConfigGroupByProductAndIdResponse](../../models/operations/updateconfiggroupbyproductandidresponse.md)\>**
+**Promise\<[models.CountedConfigGroup](../../models/countedconfiggroup.md)\>**
 
 ### Errors
 
@@ -551,7 +551,7 @@ run();
 
 ## delete
 
-Delete the specified Worker Group or Edge Fleet.
+Delete the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -622,7 +622,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteConfigGroupByProductAndIdResponse](../../models/operations/deleteconfiggroupbyproductandidresponse.md)\>**
+**Promise\<[models.CountedConfigGroup](../../models/countedconfiggroup.md)\>**
 
 ### Errors
 
@@ -633,7 +633,7 @@ run();
 
 ## deploy
 
-Deploy commits to the specified Worker Group or Edge Fleet.
+Deploy commits to the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
@@ -722,7 +722,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateConfigGroupDeployByProductAndIdResponse](../../models/operations/updateconfiggroupdeploybyproductandidresponse.md)\>**
+**Promise\<[models.CountedConfigGroup](../../models/countedconfiggroup.md)\>**
 
 ### Errors
 

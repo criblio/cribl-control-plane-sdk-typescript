@@ -8,81 +8,24 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputExecConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputExecMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputExecMode = OpenEnum<typeof InputExecMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputExecCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputExecCompression = OpenEnum<typeof InputExecCompression>;
-
-export type InputExecPqControls = {};
-
-export type InputExecPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputExecMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputExecCompression | undefined;
-  pqControls?: InputExecPqControls | undefined;
-};
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
 /**
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
@@ -95,14 +38,6 @@ export const ScheduleType = {
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
 export type ScheduleType = OpenEnum<typeof ScheduleType>;
-
-export type InputExecMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
 
 export type InputExec = {
   /**
@@ -134,8 +69,8 @@ export type InputExec = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputExecConnection> | undefined;
-  pq?: InputExecPq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Command to execute; supports Bourne shell (or CMD on Windows) syntax
    */
@@ -159,7 +94,7 @@ export type InputExec = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputExecMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
   /**
    * Interval between command executions in seconds.
@@ -170,163 +105,6 @@ export type InputExec = {
    */
   cronSchedule?: string | undefined;
 };
-
-/** @internal */
-export const InputExecConnection$inboundSchema: z.ZodType<
-  InputExecConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputExecConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputExecConnection$outboundSchema: z.ZodType<
-  InputExecConnection$Outbound,
-  z.ZodTypeDef,
-  InputExecConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputExecConnectionToJSON(
-  inputExecConnection: InputExecConnection,
-): string {
-  return JSON.stringify(
-    InputExecConnection$outboundSchema.parse(inputExecConnection),
-  );
-}
-export function inputExecConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputExecConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputExecConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputExecConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputExecMode$inboundSchema: z.ZodType<
-  InputExecMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputExecMode);
-/** @internal */
-export const InputExecMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputExecMode
-> = openEnums.outboundSchema(InputExecMode);
-
-/** @internal */
-export const InputExecCompression$inboundSchema: z.ZodType<
-  InputExecCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputExecCompression);
-/** @internal */
-export const InputExecCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputExecCompression
-> = openEnums.outboundSchema(InputExecCompression);
-
-/** @internal */
-export const InputExecPqControls$inboundSchema: z.ZodType<
-  InputExecPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputExecPqControls$Outbound = {};
-
-/** @internal */
-export const InputExecPqControls$outboundSchema: z.ZodType<
-  InputExecPqControls$Outbound,
-  z.ZodTypeDef,
-  InputExecPqControls
-> = z.object({});
-
-export function inputExecPqControlsToJSON(
-  inputExecPqControls: InputExecPqControls,
-): string {
-  return JSON.stringify(
-    InputExecPqControls$outboundSchema.parse(inputExecPqControls),
-  );
-}
-export function inputExecPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputExecPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputExecPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputExecPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputExecPq$inboundSchema: z.ZodType<
-  InputExecPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputExecMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputExecCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputExecPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputExecPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputExecPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputExecPq$outboundSchema: z.ZodType<
-  InputExecPq$Outbound,
-  z.ZodTypeDef,
-  InputExecPq
-> = z.object({
-  mode: InputExecMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputExecCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputExecPqControls$outboundSchema).optional(),
-});
-
-export function inputExecPqToJSON(inputExecPq: InputExecPq): string {
-  return JSON.stringify(InputExecPq$outboundSchema.parse(inputExecPq));
-}
-export function inputExecPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputExecPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputExecPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputExecPq' from JSON`,
-  );
-}
 
 /** @internal */
 export const ScheduleType$inboundSchema: z.ZodType<
@@ -342,48 +120,6 @@ export const ScheduleType$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(ScheduleType);
 
 /** @internal */
-export const InputExecMetadatum$inboundSchema: z.ZodType<
-  InputExecMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputExecMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputExecMetadatum$outboundSchema: z.ZodType<
-  InputExecMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputExecMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputExecMetadatumToJSON(
-  inputExecMetadatum: InputExecMetadatum,
-): string {
-  return JSON.stringify(
-    InputExecMetadatum$outboundSchema.parse(inputExecMetadatum),
-  );
-}
-export function inputExecMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputExecMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputExecMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputExecMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputExec$inboundSchema: z.ZodType<
   InputExec,
   z.ZodTypeDef,
@@ -391,46 +127,45 @@ export const InputExec$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("exec"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputExecConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputExecPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   command: z.string(),
-  retries: z.number().default(10),
-  scheduleType: ScheduleType$inboundSchema.default("interval"),
+  retries: z.number().optional(),
+  scheduleType: ScheduleType$inboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(z.lazy(() => InputExecMetadatum$inboundSchema)).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
-  interval: z.number().default(60),
-  cronSchedule: z.string().default("* * * * *"),
+  interval: z.number().optional(),
+  cronSchedule: z.string().optional(),
 });
 /** @internal */
 export type InputExec$Outbound = {
   id?: string | undefined;
   type: "exec";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputExecConnection$Outbound> | undefined;
-  pq?: InputExecPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   command: string;
-  retries: number;
-  scheduleType: string;
+  retries?: number | undefined;
+  scheduleType?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
-  staleChannelFlushMs: number;
-  metadata?: Array<InputExecMetadatum$Outbound> | undefined;
+  staleChannelFlushMs?: number | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
-  interval: number;
-  cronSchedule: string;
+  interval?: number | undefined;
+  cronSchedule?: string | undefined;
 };
 
 /** @internal */
@@ -441,24 +176,23 @@ export const InputExec$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("exec"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputExecConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputExecPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   command: z.string(),
-  retries: z.number().default(10),
-  scheduleType: ScheduleType$outboundSchema.default("interval"),
+  retries: z.number().optional(),
+  scheduleType: ScheduleType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(z.lazy(() => InputExecMetadatum$outboundSchema)).optional(),
+  staleChannelFlushMs: z.number().optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
-  interval: z.number().default(60),
-  cronSchedule: z.string().default("* * * * *"),
+  interval: z.number().optional(),
+  cronSchedule: z.string().optional(),
 });
 
 export function inputExecToJSON(inputExec: InputExec): string {

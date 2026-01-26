@@ -14,58 +14,79 @@ let value: MasterWorkerEntry = {
   info: {
     architecture: "<value>",
     aws: {
-      enabled: true,
+      enabled: false,
       instanceId: "<id>",
       region: "<value>",
-      tags: {},
+      tags: {
+        "key": "<value>",
+      },
       type: "<value>",
       zone: "<value>",
     },
+    azure: {
+      enabled: false,
+      hostname: "hidden-hundred.net",
+      instanceId: "<id>",
+      name: "<value>",
+      region: "<value>",
+      resourceGroup: "<value>",
+      subscriptionId: "<id>",
+      tags: {
+        "key": "<value>",
+      },
+      type: "<value>",
+      vmId: "<id>",
+      zone: "<value>",
+    },
     conn_ip: "<value>",
-    cpus: 7967.06,
+    cpus: 6874.61,
     cribl: {
       config: {
         featuresRev: "<value>",
-        hbPeriodSeconds: 3261.24,
+        hbPeriodSeconds: 6830.62,
         logStreamEnv: "<value>",
         policyRev: "<value>",
         version: "<value>",
       },
       deploymentId: "<id>",
-      disableSNIRouting: false,
-      distMode: "managed-edge",
-      edgeNodes: 6064.13,
+      disableSNIRouting: true,
+      distMode: "outpost",
+      edgeNodes: 809.07,
       group: "<value>",
       guid: "<id>",
       installType: "<value>",
-      lookupVersions: {},
+      lookupVersions: {
+        "key": {},
+      },
       master: {
-        host: "frequent-bell.info",
-        port: 9100.63,
+        host: "serene-corporation.biz",
+        port: 3710.27,
         servername: "<value>",
         tls: true,
       },
-      pid: 5354.01,
+      pid: 2440.94,
       socksEnabled: false,
-      startTime: 2370.83,
+      startTime: 2048.24,
       tags: [],
       version: "<value>",
     },
     env: {
       "key": "<value>",
-      "key1": "<value>",
     },
-    freeDiskSpace: 8973.47,
+    freeDiskSpace: 2959.09,
     hostOs: {
-      addresses: [],
-      enabled: true,
+      addresses: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      enabled: false,
       id: "<id>",
       version: "<value>",
     },
-    hostname: "criminal-handle.info",
+    hostname: "jumbo-decongestant.biz",
     isSaasWorker: false,
     kube: {
-      enabled: false,
+      enabled: true,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -75,28 +96,44 @@ let value: MasterWorkerEntry = {
       pod: "<value>",
       source: "<value>",
     },
-    localTime: 5361.11,
+    localTime: 5260.28,
     metadata: {
       aws: {
         enabled: false,
         instanceId: "<id>",
         region: "<value>",
-        tags: {},
+        tags: {
+          "key": "<value>",
+        },
         type: "<value>",
+        zone: "<value>",
+      },
+      azure: {
+        enabled: false,
+        hostname: "hidden-hundred.net",
+        instanceId: "<id>",
+        name: "<value>",
+        region: "<value>",
+        resourceGroup: "<value>",
+        subscriptionId: "<id>",
+        tags: {
+          "key": "<value>",
+        },
+        type: "<value>",
+        vmId: "<id>",
         zone: "<value>",
       },
       hostOs: {
         addresses: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
-        enabled: true,
+        enabled: false,
         id: "<id>",
         version: "<value>",
       },
       kube: {
-        enabled: false,
+        enabled: true,
         namespace: "<value>",
         node: "<value>",
         owner: {
@@ -108,7 +145,7 @@ let value: MasterWorkerEntry = {
       },
       os: {
         addresses: [],
-        enabled: true,
+        enabled: false,
         id: "<id>",
         version: "<value>",
       },
@@ -123,36 +160,56 @@ let value: MasterWorkerEntry = {
     },
     outpost: {
       guid: "<id>",
-      host: "bogus-populist.info",
+      host: "honored-massage.org",
     },
     platform: "<value>",
     release: "<value>",
-    totalDiskSpace: 1468.28,
-    totalmem: 5219.98,
+    totalDiskSpace: 9804.66,
+    totalmem: 3742.53,
   },
-  lastMetrics: {},
-  lastMsgTime: 7161.68,
+  lastMetrics: {
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
+  },
+  lastMsgTime: 8518.59,
   metadata: {
     aws: {
       enabled: false,
       instanceId: "<id>",
       region: "<value>",
-      tags: {},
+      tags: {
+        "key": "<value>",
+      },
       type: "<value>",
+      zone: "<value>",
+    },
+    azure: {
+      enabled: false,
+      hostname: "hidden-hundred.net",
+      instanceId: "<id>",
+      name: "<value>",
+      region: "<value>",
+      resourceGroup: "<value>",
+      subscriptionId: "<id>",
+      tags: {
+        "key": "<value>",
+      },
+      type: "<value>",
+      vmId: "<id>",
       zone: "<value>",
     },
     hostOs: {
       addresses: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
-      enabled: true,
+      enabled: false,
       id: "<id>",
       version: "<value>",
     },
     kube: {
-      enabled: false,
+      enabled: true,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -164,7 +221,7 @@ let value: MasterWorkerEntry = {
     },
     os: {
       addresses: [],
-      enabled: true,
+      enabled: false,
       id: "<id>",
       version: "<value>",
     },
@@ -172,15 +229,15 @@ let value: MasterWorkerEntry = {
   nodeUpgradeStatus: {
     active: 2,
     failed: 1,
-    skipped: 3,
-    state: 2,
-    timestamp: 5559.98,
+    skipped: 0,
+    state: 1,
+    timestamp: 1259.2,
   },
   status: "<value>",
-  type: "resp",
-  workerProcesses: 3638.57,
+  type: "req",
+  workerProcesses: 5121.94,
   workers: {
-    count: 5261.58,
+    count: 1569.79,
   },
 };
 ```
@@ -195,7 +252,7 @@ let value: MasterWorkerEntry = {
 | `group`                                                                  | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `id`                                                                     | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `info`                                                                   | [models.NodeProvidedInfo](../models/nodeprovidedinfo.md)                 | :heavy_check_mark:                                                       | N/A                                                                      |
-| `lastMetrics`                                                            | [models.LastMetrics](../models/lastmetrics.md)                           | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `lastMetrics`                                                            | Record<string, *any*>                                                    | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `lastMsgTime`                                                            | *number*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `metadata`                                                               | [models.HeartbeatMetadata](../models/heartbeatmetadata.md)               | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `nodeUpgradeStatus`                                                      | [models.NodeUpgradeStatus](../models/nodeupgradestatus.md)               | :heavy_minus_sign:                                                       | N/A                                                                      |

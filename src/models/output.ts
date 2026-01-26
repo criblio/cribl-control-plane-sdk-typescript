@@ -73,6 +73,12 @@ import {
   OutputCriblLake$outboundSchema,
 } from "./outputcribllake.js";
 import {
+  OutputCriblSearchEngine,
+  OutputCriblSearchEngine$inboundSchema,
+  OutputCriblSearchEngine$Outbound,
+  OutputCriblSearchEngine$outboundSchema,
+} from "./outputcriblsearchengine.js";
+import {
   OutputCriblTcp,
   OutputCriblTcp$inboundSchema,
   OutputCriblTcp$Outbound,
@@ -409,6 +415,12 @@ import {
   OutputWebhook$outboundSchema,
 } from "./outputwebhook.js";
 import {
+  OutputWizHec,
+  OutputWizHec$inboundSchema,
+  OutputWizHec$Outbound,
+  OutputWizHec$outboundSchema,
+} from "./outputwizhec.js";
+import {
   OutputXsiam,
   OutputXsiam$inboundSchema,
   OutputXsiam$Outbound,
@@ -424,6 +436,7 @@ export type Output =
   | OutputSplunk
   | OutputSplunkLb
   | OutputSplunkHec
+  | OutputWizHec
   | OutputTcpjson
   | OutputWavefront
   | OutputSignalfx
@@ -468,6 +481,7 @@ export type Output =
   | OutputDataset
   | OutputCriblTcp
   | OutputCriblHttp
+  | OutputCriblSearchEngine
   | OutputHumioHec
   | OutputCrowdstrikeNextGenSiem
   | OutputDlS3
@@ -496,6 +510,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     OutputSplunk$inboundSchema,
     OutputSplunkLb$inboundSchema,
     OutputSplunkHec$inboundSchema,
+    OutputWizHec$inboundSchema,
     OutputTcpjson$inboundSchema,
     OutputWavefront$inboundSchema,
     OutputSignalfx$inboundSchema,
@@ -542,6 +557,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     OutputDataset$inboundSchema,
     OutputCriblTcp$inboundSchema,
     OutputCriblHttp$inboundSchema,
+    OutputCriblSearchEngine$inboundSchema,
     OutputHumioHec$inboundSchema,
     OutputCrowdstrikeNextGenSiem$inboundSchema,
     OutputDlS3$inboundSchema,
@@ -569,6 +585,7 @@ export type Output$Outbound =
   | OutputSplunk$Outbound
   | OutputSplunkLb$Outbound
   | OutputSplunkHec$Outbound
+  | OutputWizHec$Outbound
   | OutputTcpjson$Outbound
   | OutputWavefront$Outbound
   | OutputSignalfx$Outbound
@@ -613,6 +630,7 @@ export type Output$Outbound =
   | OutputDataset$Outbound
   | OutputCriblTcp$Outbound
   | OutputCriblHttp$Outbound
+  | OutputCriblSearchEngine$Outbound
   | OutputHumioHec$Outbound
   | OutputCrowdstrikeNextGenSiem$Outbound
   | OutputDlS3$Outbound
@@ -644,6 +662,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputSplunk$outboundSchema,
   OutputSplunkLb$outboundSchema,
   OutputSplunkHec$outboundSchema,
+  OutputWizHec$outboundSchema,
   OutputTcpjson$outboundSchema,
   OutputWavefront$outboundSchema,
   OutputSignalfx$outboundSchema,
@@ -690,6 +709,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputDataset$outboundSchema,
   OutputCriblTcp$outboundSchema,
   OutputCriblHttp$outboundSchema,
+  OutputCriblSearchEngine$outboundSchema,
   OutputHumioHec$outboundSchema,
   OutputCrowdstrikeNextGenSiem$outboundSchema,
   OutputDlS3$outboundSchema,

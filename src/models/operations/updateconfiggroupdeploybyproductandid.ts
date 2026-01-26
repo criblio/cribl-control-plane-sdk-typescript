@@ -4,35 +4,21 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateConfigGroupDeployByProductAndIdRequest = {
   /**
-   * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
+   * Name of the Cribl product to deploy commits to the Worker Groups, Outpost Groups, or Edge Fleets for.
    */
   product: models.ProductsCore;
   /**
-   * The <code>id</code> of the target Worker Group or Edge Fleet for commit deployment.
+   * The <code>id</code> of the target Worker Group, Outpost Group, or Edge Fleet for commit deployment.
    */
   id: string;
   /**
    * DeployRequest object
    */
   deployRequest: models.DeployRequest;
-};
-
-/**
- * a list of ConfigGroup objects
- */
-export type UpdateConfigGroupDeployByProductAndIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup> | undefined;
 };
 
 /** @internal */
@@ -66,32 +52,5 @@ export function updateConfigGroupDeployByProductAndIdRequestToJSON(
     UpdateConfigGroupDeployByProductAndIdRequest$outboundSchema.parse(
       updateConfigGroupDeployByProductAndIdRequest,
     ),
-  );
-}
-
-/** @internal */
-export const UpdateConfigGroupDeployByProductAndIdResponse$inboundSchema:
-  z.ZodType<
-    UpdateConfigGroupDeployByProductAndIdResponse,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    count: z.number().int().optional(),
-    items: z.array(models.ConfigGroup$inboundSchema).optional(),
-  });
-
-export function updateConfigGroupDeployByProductAndIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  UpdateConfigGroupDeployByProductAndIdResponse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UpdateConfigGroupDeployByProductAndIdResponse$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'UpdateConfigGroupDeployByProductAndIdResponse' from JSON`,
   );
 }

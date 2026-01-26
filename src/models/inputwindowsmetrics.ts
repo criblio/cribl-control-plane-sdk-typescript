@@ -7,114 +7,41 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  DataCompressionFormatOptionsPersistence,
+  DataCompressionFormatOptionsPersistence$inboundSchema,
+  DataCompressionFormatOptionsPersistence$outboundSchema,
+} from "./datacompressionformatoptionspersistence.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputWindowsMetricsConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputWindowsMetricsPqMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputWindowsMetricsPqMode = OpenEnum<
-  typeof InputWindowsMetricsPqMode
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputWindowsMetricsCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputWindowsMetricsCompression = OpenEnum<
-  typeof InputWindowsMetricsCompression
->;
-
-export type InputWindowsMetricsPqControls = {};
-
-export type InputWindowsMetricsPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputWindowsMetricsPqMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputWindowsMetricsCompression | undefined;
-  pqControls?: InputWindowsMetricsPqControls | undefined;
-};
-
-/**
- * Select level of detail for host metrics
- */
-export const InputWindowsMetricsHostMode = {
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * All
-   */
-  All: "all",
-  /**
-   * Custom
-   */
-  Custom: "custom",
-  /**
-   * Disabled
-   */
-  Disabled: "disabled",
-} as const;
-/**
- * Select level of detail for host metrics
- */
-export type InputWindowsMetricsHostMode = OpenEnum<
-  typeof InputWindowsMetricsHostMode
->;
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  ModeOptionsHost,
+  ModeOptionsHost$inboundSchema,
+  ModeOptionsHost$outboundSchema,
+} from "./modeoptionshost.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  ProcessType,
+  ProcessType$inboundSchema,
+  ProcessType$Outbound,
+  ProcessType$outboundSchema,
+} from "./processtype.js";
 
 /**
  * Select the level of details for system metrics
@@ -351,38 +278,9 @@ export type InputWindowsMetricsHost = {
   /**
    * Select level of detail for host metrics
    */
-  mode?: InputWindowsMetricsHostMode | undefined;
+  mode?: ModeOptionsHost | undefined;
   custom?: InputWindowsMetricsCustom | undefined;
 };
-
-export type InputWindowsMetricsSet = {
-  name: string;
-  filter: string;
-  includeChildren?: boolean | undefined;
-};
-
-export type InputWindowsMetricsProcess = {
-  /**
-   * Configure sets to collect process metrics
-   */
-  sets?: Array<InputWindowsMetricsSet> | undefined;
-};
-
-export type InputWindowsMetricsMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export const InputWindowsMetricsDataCompressionFormat = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-export type InputWindowsMetricsDataCompressionFormat = OpenEnum<
-  typeof InputWindowsMetricsDataCompressionFormat
->;
 
 export type InputWindowsMetricsPersistence = {
   /**
@@ -401,7 +299,7 @@ export type InputWindowsMetricsPersistence = {
    * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
    */
   maxDataTime?: string | undefined;
-  compress?: InputWindowsMetricsDataCompressionFormat | undefined;
+  compress?: DataCompressionFormatOptionsPersistence | undefined;
   /**
    * Path to use to write metrics. Defaults to $CRIBL_HOME/state/windows_metrics
    */
@@ -438,18 +336,18 @@ export type InputWindowsMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputWindowsMetricsConnection> | undefined;
-  pq?: InputWindowsMetricsPq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
    */
   interval?: number | undefined;
   host?: InputWindowsMetricsHost | undefined;
-  process?: InputWindowsMetricsProcess | undefined;
+  process?: ProcessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputWindowsMetricsMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   persistence?: InputWindowsMetricsPersistence | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
@@ -457,186 +355,6 @@ export type InputWindowsMetrics = {
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputWindowsMetricsConnection$inboundSchema: z.ZodType<
-  InputWindowsMetricsConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputWindowsMetricsConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputWindowsMetricsConnection$outboundSchema: z.ZodType<
-  InputWindowsMetricsConnection$Outbound,
-  z.ZodTypeDef,
-  InputWindowsMetricsConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputWindowsMetricsConnectionToJSON(
-  inputWindowsMetricsConnection: InputWindowsMetricsConnection,
-): string {
-  return JSON.stringify(
-    InputWindowsMetricsConnection$outboundSchema.parse(
-      inputWindowsMetricsConnection,
-    ),
-  );
-}
-export function inputWindowsMetricsConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWindowsMetricsConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWindowsMetricsConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWindowsMetricsConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWindowsMetricsPqMode$inboundSchema: z.ZodType<
-  InputWindowsMetricsPqMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWindowsMetricsPqMode);
-/** @internal */
-export const InputWindowsMetricsPqMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWindowsMetricsPqMode
-> = openEnums.outboundSchema(InputWindowsMetricsPqMode);
-
-/** @internal */
-export const InputWindowsMetricsCompression$inboundSchema: z.ZodType<
-  InputWindowsMetricsCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWindowsMetricsCompression);
-/** @internal */
-export const InputWindowsMetricsCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWindowsMetricsCompression
-> = openEnums.outboundSchema(InputWindowsMetricsCompression);
-
-/** @internal */
-export const InputWindowsMetricsPqControls$inboundSchema: z.ZodType<
-  InputWindowsMetricsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputWindowsMetricsPqControls$Outbound = {};
-
-/** @internal */
-export const InputWindowsMetricsPqControls$outboundSchema: z.ZodType<
-  InputWindowsMetricsPqControls$Outbound,
-  z.ZodTypeDef,
-  InputWindowsMetricsPqControls
-> = z.object({});
-
-export function inputWindowsMetricsPqControlsToJSON(
-  inputWindowsMetricsPqControls: InputWindowsMetricsPqControls,
-): string {
-  return JSON.stringify(
-    InputWindowsMetricsPqControls$outboundSchema.parse(
-      inputWindowsMetricsPqControls,
-    ),
-  );
-}
-export function inputWindowsMetricsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWindowsMetricsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWindowsMetricsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWindowsMetricsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWindowsMetricsPq$inboundSchema: z.ZodType<
-  InputWindowsMetricsPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputWindowsMetricsPqMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputWindowsMetricsCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputWindowsMetricsPqControls$inboundSchema)
-    .optional(),
-});
-/** @internal */
-export type InputWindowsMetricsPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputWindowsMetricsPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputWindowsMetricsPq$outboundSchema: z.ZodType<
-  InputWindowsMetricsPq$Outbound,
-  z.ZodTypeDef,
-  InputWindowsMetricsPq
-> = z.object({
-  mode: InputWindowsMetricsPqMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputWindowsMetricsCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputWindowsMetricsPqControls$outboundSchema)
-    .optional(),
-});
-
-export function inputWindowsMetricsPqToJSON(
-  inputWindowsMetricsPq: InputWindowsMetricsPq,
-): string {
-  return JSON.stringify(
-    InputWindowsMetricsPq$outboundSchema.parse(inputWindowsMetricsPq),
-  );
-}
-export function inputWindowsMetricsPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWindowsMetricsPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWindowsMetricsPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWindowsMetricsPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWindowsMetricsHostMode$inboundSchema: z.ZodType<
-  InputWindowsMetricsHostMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWindowsMetricsHostMode);
-/** @internal */
-export const InputWindowsMetricsHostMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWindowsMetricsHostMode
-> = openEnums.outboundSchema(InputWindowsMetricsHostMode);
 
 /** @internal */
 export const InputWindowsMetricsSystemMode$inboundSchema: z.ZodType<
@@ -657,13 +375,13 @@ export const InputWindowsMetricsSystem$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputWindowsMetricsSystemMode$inboundSchema.default("basic"),
-  detail: z.boolean().default(false),
+  mode: InputWindowsMetricsSystemMode$inboundSchema.optional(),
+  detail: z.boolean().optional(),
 });
 /** @internal */
 export type InputWindowsMetricsSystem$Outbound = {
-  mode: string;
-  detail: boolean;
+  mode?: string | undefined;
+  detail?: boolean | undefined;
 };
 
 /** @internal */
@@ -672,8 +390,8 @@ export const InputWindowsMetricsSystem$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputWindowsMetricsSystem
 > = z.object({
-  mode: InputWindowsMetricsSystemMode$outboundSchema.default("basic"),
-  detail: z.boolean().default(false),
+  mode: InputWindowsMetricsSystemMode$outboundSchema.optional(),
+  detail: z.boolean().optional(),
 });
 
 export function inputWindowsMetricsSystemToJSON(
@@ -712,17 +430,17 @@ export const InputWindowsMetricsCpu$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputWindowsMetricsCpuMode$inboundSchema.default("basic"),
-  perCpu: z.boolean().default(false),
-  detail: z.boolean().default(false),
-  time: z.boolean().default(false),
+  mode: InputWindowsMetricsCpuMode$inboundSchema.optional(),
+  perCpu: z.boolean().optional(),
+  detail: z.boolean().optional(),
+  time: z.boolean().optional(),
 });
 /** @internal */
 export type InputWindowsMetricsCpu$Outbound = {
-  mode: string;
-  perCpu: boolean;
-  detail: boolean;
-  time: boolean;
+  mode?: string | undefined;
+  perCpu?: boolean | undefined;
+  detail?: boolean | undefined;
+  time?: boolean | undefined;
 };
 
 /** @internal */
@@ -731,10 +449,10 @@ export const InputWindowsMetricsCpu$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputWindowsMetricsCpu
 > = z.object({
-  mode: InputWindowsMetricsCpuMode$outboundSchema.default("basic"),
-  perCpu: z.boolean().default(false),
-  detail: z.boolean().default(false),
-  time: z.boolean().default(false),
+  mode: InputWindowsMetricsCpuMode$outboundSchema.optional(),
+  perCpu: z.boolean().optional(),
+  detail: z.boolean().optional(),
+  time: z.boolean().optional(),
 });
 
 export function inputWindowsMetricsCpuToJSON(
@@ -773,13 +491,13 @@ export const InputWindowsMetricsMemory$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputWindowsMetricsMemoryMode$inboundSchema.default("basic"),
-  detail: z.boolean().default(false),
+  mode: InputWindowsMetricsMemoryMode$inboundSchema.optional(),
+  detail: z.boolean().optional(),
 });
 /** @internal */
 export type InputWindowsMetricsMemory$Outbound = {
-  mode: string;
-  detail: boolean;
+  mode?: string | undefined;
+  detail?: boolean | undefined;
 };
 
 /** @internal */
@@ -788,8 +506,8 @@ export const InputWindowsMetricsMemory$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputWindowsMetricsMemory
 > = z.object({
-  mode: InputWindowsMetricsMemoryMode$outboundSchema.default("basic"),
-  detail: z.boolean().default(false),
+  mode: InputWindowsMetricsMemoryMode$outboundSchema.optional(),
+  detail: z.boolean().optional(),
 });
 
 export function inputWindowsMetricsMemoryToJSON(
@@ -828,19 +546,19 @@ export const InputWindowsMetricsNetwork$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputWindowsMetricsNetworkMode$inboundSchema.default("basic"),
-  detail: z.boolean().default(false),
-  protocols: z.boolean().default(false),
+  mode: InputWindowsMetricsNetworkMode$inboundSchema.optional(),
+  detail: z.boolean().optional(),
+  protocols: z.boolean().optional(),
   devices: z.array(z.string()).optional(),
-  perInterface: z.boolean().default(false),
+  perInterface: z.boolean().optional(),
 });
 /** @internal */
 export type InputWindowsMetricsNetwork$Outbound = {
-  mode: string;
-  detail: boolean;
-  protocols: boolean;
+  mode?: string | undefined;
+  detail?: boolean | undefined;
+  protocols?: boolean | undefined;
   devices?: Array<string> | undefined;
-  perInterface: boolean;
+  perInterface?: boolean | undefined;
 };
 
 /** @internal */
@@ -849,11 +567,11 @@ export const InputWindowsMetricsNetwork$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputWindowsMetricsNetwork
 > = z.object({
-  mode: InputWindowsMetricsNetworkMode$outboundSchema.default("basic"),
-  detail: z.boolean().default(false),
-  protocols: z.boolean().default(false),
+  mode: InputWindowsMetricsNetworkMode$outboundSchema.optional(),
+  detail: z.boolean().optional(),
+  protocols: z.boolean().optional(),
   devices: z.array(z.string()).optional(),
-  perInterface: z.boolean().default(false),
+  perInterface: z.boolean().optional(),
 });
 
 export function inputWindowsMetricsNetworkToJSON(
@@ -892,16 +610,16 @@ export const InputWindowsMetricsDisk$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputWindowsMetricsDiskMode$inboundSchema.default("basic"),
-  perVolume: z.boolean().default(false),
-  detail: z.boolean().default(false),
+  mode: InputWindowsMetricsDiskMode$inboundSchema.optional(),
+  perVolume: z.boolean().optional(),
+  detail: z.boolean().optional(),
   volumes: z.array(z.string()).optional(),
 });
 /** @internal */
 export type InputWindowsMetricsDisk$Outbound = {
-  mode: string;
-  perVolume: boolean;
-  detail: boolean;
+  mode?: string | undefined;
+  perVolume?: boolean | undefined;
+  detail?: boolean | undefined;
   volumes?: Array<string> | undefined;
 };
 
@@ -911,9 +629,9 @@ export const InputWindowsMetricsDisk$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputWindowsMetricsDisk
 > = z.object({
-  mode: InputWindowsMetricsDiskMode$outboundSchema.default("basic"),
-  perVolume: z.boolean().default(false),
-  detail: z.boolean().default(false),
+  mode: InputWindowsMetricsDiskMode$outboundSchema.optional(),
+  perVolume: z.boolean().optional(),
+  detail: z.boolean().optional(),
   volumes: z.array(z.string()).optional(),
 });
 
@@ -991,12 +709,12 @@ export const InputWindowsMetricsHost$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputWindowsMetricsHostMode$inboundSchema.default("basic"),
+  mode: ModeOptionsHost$inboundSchema.optional(),
   custom: z.lazy(() => InputWindowsMetricsCustom$inboundSchema).optional(),
 });
 /** @internal */
 export type InputWindowsMetricsHost$Outbound = {
-  mode: string;
+  mode?: string | undefined;
   custom?: InputWindowsMetricsCustom$Outbound | undefined;
 };
 
@@ -1006,7 +724,7 @@ export const InputWindowsMetricsHost$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputWindowsMetricsHost
 > = z.object({
-  mode: InputWindowsMetricsHostMode$outboundSchema.default("basic"),
+  mode: ModeOptionsHost$outboundSchema.optional(),
   custom: z.lazy(() => InputWindowsMetricsCustom$outboundSchema).optional(),
 });
 
@@ -1028,169 +746,26 @@ export function inputWindowsMetricsHostFromJSON(
 }
 
 /** @internal */
-export const InputWindowsMetricsSet$inboundSchema: z.ZodType<
-  InputWindowsMetricsSet,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  filter: z.string(),
-  includeChildren: z.boolean().default(false),
-});
-/** @internal */
-export type InputWindowsMetricsSet$Outbound = {
-  name: string;
-  filter: string;
-  includeChildren: boolean;
-};
-
-/** @internal */
-export const InputWindowsMetricsSet$outboundSchema: z.ZodType<
-  InputWindowsMetricsSet$Outbound,
-  z.ZodTypeDef,
-  InputWindowsMetricsSet
-> = z.object({
-  name: z.string(),
-  filter: z.string(),
-  includeChildren: z.boolean().default(false),
-});
-
-export function inputWindowsMetricsSetToJSON(
-  inputWindowsMetricsSet: InputWindowsMetricsSet,
-): string {
-  return JSON.stringify(
-    InputWindowsMetricsSet$outboundSchema.parse(inputWindowsMetricsSet),
-  );
-}
-export function inputWindowsMetricsSetFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWindowsMetricsSet, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWindowsMetricsSet$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWindowsMetricsSet' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWindowsMetricsProcess$inboundSchema: z.ZodType<
-  InputWindowsMetricsProcess,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sets: z.array(z.lazy(() => InputWindowsMetricsSet$inboundSchema)).optional(),
-});
-/** @internal */
-export type InputWindowsMetricsProcess$Outbound = {
-  sets?: Array<InputWindowsMetricsSet$Outbound> | undefined;
-};
-
-/** @internal */
-export const InputWindowsMetricsProcess$outboundSchema: z.ZodType<
-  InputWindowsMetricsProcess$Outbound,
-  z.ZodTypeDef,
-  InputWindowsMetricsProcess
-> = z.object({
-  sets: z.array(z.lazy(() => InputWindowsMetricsSet$outboundSchema)).optional(),
-});
-
-export function inputWindowsMetricsProcessToJSON(
-  inputWindowsMetricsProcess: InputWindowsMetricsProcess,
-): string {
-  return JSON.stringify(
-    InputWindowsMetricsProcess$outboundSchema.parse(inputWindowsMetricsProcess),
-  );
-}
-export function inputWindowsMetricsProcessFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWindowsMetricsProcess, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWindowsMetricsProcess$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWindowsMetricsProcess' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWindowsMetricsMetadatum$inboundSchema: z.ZodType<
-  InputWindowsMetricsMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputWindowsMetricsMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputWindowsMetricsMetadatum$outboundSchema: z.ZodType<
-  InputWindowsMetricsMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputWindowsMetricsMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputWindowsMetricsMetadatumToJSON(
-  inputWindowsMetricsMetadatum: InputWindowsMetricsMetadatum,
-): string {
-  return JSON.stringify(
-    InputWindowsMetricsMetadatum$outboundSchema.parse(
-      inputWindowsMetricsMetadatum,
-    ),
-  );
-}
-export function inputWindowsMetricsMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWindowsMetricsMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWindowsMetricsMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWindowsMetricsMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWindowsMetricsDataCompressionFormat$inboundSchema: z.ZodType<
-  InputWindowsMetricsDataCompressionFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWindowsMetricsDataCompressionFormat);
-/** @internal */
-export const InputWindowsMetricsDataCompressionFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWindowsMetricsDataCompressionFormat
-> = openEnums.outboundSchema(InputWindowsMetricsDataCompressionFormat);
-
-/** @internal */
 export const InputWindowsMetricsPersistence$inboundSchema: z.ZodType<
   InputWindowsMetricsPersistence,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: InputWindowsMetricsDataCompressionFormat$inboundSchema.default(
-    "gzip",
-  ),
-  destPath: z.string().default("$CRIBL_HOME/state/windows_metrics"),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$inboundSchema.optional(),
+  destPath: z.string().optional(),
 });
 /** @internal */
 export type InputWindowsMetricsPersistence$Outbound = {
-  enable: boolean;
-  timeWindow: string;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
-  destPath: string;
+  enable?: boolean | undefined;
+  timeWindow?: string | undefined;
+  maxDataSize?: string | undefined;
+  maxDataTime?: string | undefined;
+  compress?: string | undefined;
+  destPath?: string | undefined;
 };
 
 /** @internal */
@@ -1199,14 +774,12 @@ export const InputWindowsMetricsPersistence$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputWindowsMetricsPersistence
 > = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: InputWindowsMetricsDataCompressionFormat$outboundSchema.default(
-    "gzip",
-  ),
-  destPath: z.string().default("$CRIBL_HOME/state/windows_metrics"),
+  enable: z.boolean().optional(),
+  timeWindow: z.string().optional(),
+  maxDataSize: z.string().optional(),
+  maxDataTime: z.string().optional(),
+  compress: DataCompressionFormatOptionsPersistence$outboundSchema.optional(),
+  destPath: z.string().optional(),
 });
 
 export function inputWindowsMetricsPersistenceToJSON(
@@ -1236,44 +809,41 @@ export const InputWindowsMetrics$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("windows_metrics"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputWindowsMetricsConnection$inboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputWindowsMetricsPq$inboundSchema).optional(),
-  interval: z.number().default(10),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().optional(),
   host: z.lazy(() => InputWindowsMetricsHost$inboundSchema).optional(),
-  process: z.lazy(() => InputWindowsMetricsProcess$inboundSchema).optional(),
-  metadata: z.array(z.lazy(() => InputWindowsMetricsMetadatum$inboundSchema))
-    .optional(),
+  process: ProcessType$inboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   persistence: z.lazy(() => InputWindowsMetricsPersistence$inboundSchema)
     .optional(),
-  disableNativeModule: z.boolean().default(false),
+  disableNativeModule: z.boolean().optional(),
   description: z.string().optional(),
 });
 /** @internal */
 export type InputWindowsMetrics$Outbound = {
   id?: string | undefined;
   type: "windows_metrics";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputWindowsMetricsConnection$Outbound> | undefined;
-  pq?: InputWindowsMetricsPq$Outbound | undefined;
-  interval: number;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval?: number | undefined;
   host?: InputWindowsMetricsHost$Outbound | undefined;
-  process?: InputWindowsMetricsProcess$Outbound | undefined;
-  metadata?: Array<InputWindowsMetricsMetadatum$Outbound> | undefined;
+  process?: ProcessType$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   persistence?: InputWindowsMetricsPersistence$Outbound | undefined;
-  disableNativeModule: boolean;
+  disableNativeModule?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -1285,24 +855,21 @@ export const InputWindowsMetrics$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("windows_metrics"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputWindowsMetricsConnection$outboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputWindowsMetricsPq$outboundSchema).optional(),
-  interval: z.number().default(10),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().optional(),
   host: z.lazy(() => InputWindowsMetricsHost$outboundSchema).optional(),
-  process: z.lazy(() => InputWindowsMetricsProcess$outboundSchema).optional(),
-  metadata: z.array(z.lazy(() => InputWindowsMetricsMetadatum$outboundSchema))
-    .optional(),
+  process: ProcessType$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   persistence: z.lazy(() => InputWindowsMetricsPersistence$outboundSchema)
     .optional(),
-  disableNativeModule: z.boolean().default(false),
+  disableNativeModule: z.boolean().optional(),
   description: z.string().optional(),
 });
 

@@ -4,31 +4,17 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateConfigGroupByProductRequest = {
   /**
-   * required Name of the Cribl product to add the Worker Group or Edge Fleet to.
+   * Name of the Cribl product to add the Worker Group, Outpost Group, or Edge Fleet to.
    */
   product: models.ProductsCore;
   /**
    * GroupCreateRequest object
    */
   groupCreateRequest: models.GroupCreateRequest;
-};
-
-/**
- * a list of ConfigGroup objects
- */
-export type CreateConfigGroupByProductResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup> | undefined;
 };
 
 /** @internal */
@@ -58,26 +44,5 @@ export function createConfigGroupByProductRequestToJSON(
     CreateConfigGroupByProductRequest$outboundSchema.parse(
       createConfigGroupByProductRequest,
     ),
-  );
-}
-
-/** @internal */
-export const CreateConfigGroupByProductResponse$inboundSchema: z.ZodType<
-  CreateConfigGroupByProductResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.ConfigGroup$inboundSchema).optional(),
-});
-
-export function createConfigGroupByProductResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateConfigGroupByProductResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CreateConfigGroupByProductResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateConfigGroupByProductResponse' from JSON`,
   );
 }

@@ -14,13 +14,16 @@ let value: GitRevertResult = {
       deleted: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
       modified: [
         "<value 1>",
+        "<value 2>",
       ],
       renamed: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
     },
     group: "<value>",

@@ -15,7 +15,7 @@ export type OutputSnmpHost = {
   /**
    * Destination port, default is 162
    */
-  port?: number | undefined;
+  port: number;
 };
 
 export type OutputSnmp = {
@@ -58,7 +58,7 @@ export const OutputSnmpHost$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   host: z.string(),
-  port: z.number().default(162),
+  port: z.number(),
 });
 /** @internal */
 export type OutputSnmpHost$Outbound = {
@@ -73,7 +73,7 @@ export const OutputSnmpHost$outboundSchema: z.ZodType<
   OutputSnmpHost
 > = z.object({
   host: z.string(),
-  port: z.number().default(162),
+  port: z.number(),
 });
 
 export function outputSnmpHostToJSON(outputSnmpHost: OutputSnmpHost): string {
@@ -102,7 +102,7 @@ export const OutputSnmp$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   hosts: z.array(z.lazy(() => OutputSnmpHost$inboundSchema)),
-  dnsResolvePeriodSec: z.number().default(0),
+  dnsResolvePeriodSec: z.number().optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -114,7 +114,7 @@ export type OutputSnmp$Outbound = {
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
   hosts: Array<OutputSnmpHost$Outbound>;
-  dnsResolvePeriodSec: number;
+  dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
 };
 
@@ -131,7 +131,7 @@ export const OutputSnmp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   hosts: z.array(z.lazy(() => OutputSnmpHost$outboundSchema)),
-  dnsResolvePeriodSec: z.number().default(0),
+  dnsResolvePeriodSec: z.number().optional(),
   description: z.string().optional(),
 });
 

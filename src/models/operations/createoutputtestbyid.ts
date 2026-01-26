@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateOutputTestByIdRequest = {
@@ -18,17 +15,6 @@ export type CreateOutputTestByIdRequest = {
    * OutputTestRequest object
    */
   outputTestRequest: models.OutputTestRequest;
-};
-
-/**
- * a list of OutputTestResponse objects
- */
-export type CreateOutputTestByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.OutputTestResponse> | undefined;
 };
 
 /** @internal */
@@ -58,25 +44,5 @@ export function createOutputTestByIdRequestToJSON(
     CreateOutputTestByIdRequest$outboundSchema.parse(
       createOutputTestByIdRequest,
     ),
-  );
-}
-
-/** @internal */
-export const CreateOutputTestByIdResponse$inboundSchema: z.ZodType<
-  CreateOutputTestByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.OutputTestResponse$inboundSchema).optional(),
-});
-
-export function createOutputTestByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateOutputTestByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateOutputTestByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateOutputTestByIdResponse' from JSON`,
   );
 }

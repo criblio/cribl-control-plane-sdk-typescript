@@ -4,151 +4,32 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputMetricsConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputMetricsMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputMetricsMode = OpenEnum<typeof InputMetricsMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputMetricsCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputMetricsCompression = OpenEnum<typeof InputMetricsCompression>;
-
-export type InputMetricsPqControls = {};
-
-export type InputMetricsPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputMetricsMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputMetricsCompression | undefined;
-  pqControls?: InputMetricsPqControls | undefined;
-};
-
-export const InputMetricsMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputMetricsMinimumTLSVersion = OpenEnum<
-  typeof InputMetricsMinimumTLSVersion
->;
-
-export const InputMetricsMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputMetricsMaximumTLSVersion = OpenEnum<
-  typeof InputMetricsMaximumTLSVersion
->;
-
-export type InputMetricsTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  /**
-   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Regex matching allowable common names in peer certificates' subject attribute
-   */
-  commonNameRegex?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  minVersion?: InputMetricsMinimumTLSVersion | undefined;
-  maxVersion?: InputMetricsMaximumTLSVersion | undefined;
-};
-
-export type InputMetricsMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
+import {
+  ItemsTypeConnectionsOptional,
+  ItemsTypeConnectionsOptional$inboundSchema,
+  ItemsTypeConnectionsOptional$Outbound,
+  ItemsTypeConnectionsOptional$outboundSchema,
+} from "./itemstypeconnectionsoptional.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  TlsSettingsServerSideType,
+  TlsSettingsServerSideType$inboundSchema,
+  TlsSettingsServerSideType$Outbound,
+  TlsSettingsServerSideType$outboundSchema,
+} from "./tlssettingsserversidetype.js";
 
 export type InputMetrics = {
   /**
@@ -180,12 +61,12 @@ export type InputMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputMetricsConnection> | undefined;
-  pq?: InputMetricsPq | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
-  host?: string | undefined;
+  host: string;
   /**
    * Enter UDP port number to listen on. Not required if listening on TCP.
    */
@@ -206,313 +87,17 @@ export type InputMetrics = {
    * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
    */
   enableProxyHeader?: boolean | undefined;
-  tls?: InputMetricsTLSSettingsServerSide | undefined;
+  tls?: TlsSettingsServerSideType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputMetricsMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputMetricsConnection$inboundSchema: z.ZodType<
-  InputMetricsConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputMetricsConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputMetricsConnection$outboundSchema: z.ZodType<
-  InputMetricsConnection$Outbound,
-  z.ZodTypeDef,
-  InputMetricsConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputMetricsConnectionToJSON(
-  inputMetricsConnection: InputMetricsConnection,
-): string {
-  return JSON.stringify(
-    InputMetricsConnection$outboundSchema.parse(inputMetricsConnection),
-  );
-}
-export function inputMetricsConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMetricsConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMetricsConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMetricsConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMetricsMode$inboundSchema: z.ZodType<
-  InputMetricsMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputMetricsMode);
-/** @internal */
-export const InputMetricsMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputMetricsMode
-> = openEnums.outboundSchema(InputMetricsMode);
-
-/** @internal */
-export const InputMetricsCompression$inboundSchema: z.ZodType<
-  InputMetricsCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputMetricsCompression);
-/** @internal */
-export const InputMetricsCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputMetricsCompression
-> = openEnums.outboundSchema(InputMetricsCompression);
-
-/** @internal */
-export const InputMetricsPqControls$inboundSchema: z.ZodType<
-  InputMetricsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputMetricsPqControls$Outbound = {};
-
-/** @internal */
-export const InputMetricsPqControls$outboundSchema: z.ZodType<
-  InputMetricsPqControls$Outbound,
-  z.ZodTypeDef,
-  InputMetricsPqControls
-> = z.object({});
-
-export function inputMetricsPqControlsToJSON(
-  inputMetricsPqControls: InputMetricsPqControls,
-): string {
-  return JSON.stringify(
-    InputMetricsPqControls$outboundSchema.parse(inputMetricsPqControls),
-  );
-}
-export function inputMetricsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMetricsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMetricsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMetricsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMetricsPq$inboundSchema: z.ZodType<
-  InputMetricsPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputMetricsMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputMetricsCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputMetricsPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputMetricsPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputMetricsPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputMetricsPq$outboundSchema: z.ZodType<
-  InputMetricsPq$Outbound,
-  z.ZodTypeDef,
-  InputMetricsPq
-> = z.object({
-  mode: InputMetricsMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputMetricsCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputMetricsPqControls$outboundSchema).optional(),
-});
-
-export function inputMetricsPqToJSON(inputMetricsPq: InputMetricsPq): string {
-  return JSON.stringify(InputMetricsPq$outboundSchema.parse(inputMetricsPq));
-}
-export function inputMetricsPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMetricsPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMetricsPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMetricsPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMetricsMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputMetricsMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputMetricsMinimumTLSVersion);
-/** @internal */
-export const InputMetricsMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputMetricsMinimumTLSVersion
-> = openEnums.outboundSchema(InputMetricsMinimumTLSVersion);
-
-/** @internal */
-export const InputMetricsMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputMetricsMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputMetricsMaximumTLSVersion);
-/** @internal */
-export const InputMetricsMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputMetricsMaximumTLSVersion
-> = openEnums.outboundSchema(InputMetricsMaximumTLSVersion);
-
-/** @internal */
-export const InputMetricsTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputMetricsTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputMetricsMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputMetricsMaximumTLSVersion$inboundSchema.optional(),
-});
-/** @internal */
-export type InputMetricsTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  requestCert: boolean;
-  rejectUnauthorized: boolean;
-  commonNameRegex: string;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputMetricsTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputMetricsTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputMetricsTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  commonNameRegex: z.string().default("/.*/"),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  minVersion: InputMetricsMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputMetricsMaximumTLSVersion$outboundSchema.optional(),
-});
-
-export function inputMetricsTLSSettingsServerSideToJSON(
-  inputMetricsTLSSettingsServerSide: InputMetricsTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputMetricsTLSSettingsServerSide$outboundSchema.parse(
-      inputMetricsTLSSettingsServerSide,
-    ),
-  );
-}
-export function inputMetricsTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMetricsTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMetricsTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMetricsTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMetricsMetadatum$inboundSchema: z.ZodType<
-  InputMetricsMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputMetricsMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputMetricsMetadatum$outboundSchema: z.ZodType<
-  InputMetricsMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputMetricsMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputMetricsMetadatumToJSON(
-  inputMetricsMetadatum: InputMetricsMetadatum,
-): string {
-  return JSON.stringify(
-    InputMetricsMetadatum$outboundSchema.parse(inputMetricsMetadatum),
-  );
-}
-export function inputMetricsMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMetricsMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMetricsMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMetricsMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputMetrics$inboundSchema: z.ZodType<
@@ -522,24 +107,22 @@ export const InputMetrics$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("metrics"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputMetricsConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputMetricsPq$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string(),
   udpPort: z.number().optional(),
   tcpPort: z.number().optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  enableProxyHeader: z.boolean().default(false),
-  tls: z.lazy(() => InputMetricsTLSSettingsServerSide$inboundSchema).optional(),
-  metadata: z.array(z.lazy(() => InputMetricsMetadatum$inboundSchema))
-    .optional(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
 });
@@ -547,22 +130,22 @@ export const InputMetrics$inboundSchema: z.ZodType<
 export type InputMetrics$Outbound = {
   id?: string | undefined;
   type: "metrics";
-  disabled: boolean;
+  disabled?: boolean | undefined;
   pipeline?: string | undefined;
-  sendToRoutes: boolean;
+  sendToRoutes?: boolean | undefined;
   environment?: string | undefined;
-  pqEnabled: boolean;
+  pqEnabled?: boolean | undefined;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputMetricsConnection$Outbound> | undefined;
-  pq?: InputMetricsPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   udpPort?: number | undefined;
   tcpPort?: number | undefined;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
-  enableProxyHeader: boolean;
-  tls?: InputMetricsTLSSettingsServerSide$Outbound | undefined;
-  metadata?: Array<InputMetricsMetadatum$Outbound> | undefined;
+  maxBufferSize?: number | undefined;
+  ipWhitelistRegex?: string | undefined;
+  enableProxyHeader?: boolean | undefined;
+  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
 };
@@ -575,25 +158,22 @@ export const InputMetrics$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   type: z.literal("metrics"),
-  disabled: z.boolean().default(false),
+  disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
+  sendToRoutes: z.boolean().optional(),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
+  pqEnabled: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputMetricsConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputMetricsPq$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
+  connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string(),
   udpPort: z.number().optional(),
   tcpPort: z.number().optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  enableProxyHeader: z.boolean().default(false),
-  tls: z.lazy(() => InputMetricsTLSSettingsServerSide$outboundSchema)
-    .optional(),
-  metadata: z.array(z.lazy(() => InputMetricsMetadatum$outboundSchema))
-    .optional(),
+  maxBufferSize: z.number().optional(),
+  ipWhitelistRegex: z.string().optional(),
+  enableProxyHeader: z.boolean().optional(),
+  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
 });

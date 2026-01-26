@@ -3,27 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type DeletePacksByIdRequest = {
   /**
    * The <code>id</code> of the Pack to uninstall.
    */
   id: string;
-};
-
-/**
- * a list of PackInstallInfo objects
- */
-export type DeletePacksByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.PackInstallInfo> | undefined;
 };
 
 /** @internal */
@@ -45,25 +30,5 @@ export function deletePacksByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     DeletePacksByIdRequest$outboundSchema.parse(deletePacksByIdRequest),
-  );
-}
-
-/** @internal */
-export const DeletePacksByIdResponse$inboundSchema: z.ZodType<
-  DeletePacksByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.PackInstallInfo$inboundSchema).optional(),
-});
-
-export function deletePacksByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<DeletePacksByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeletePacksByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeletePacksByIdResponse' from JSON`,
   );
 }
