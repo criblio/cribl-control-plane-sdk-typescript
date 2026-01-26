@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputRouterRule = {
@@ -61,10 +62,10 @@ export const OutputRouterRule$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string(),
-  output: z.string(),
-  description: z.string().optional(),
-  final: z.boolean().optional(),
+  filter: types.string(),
+  output: types.string(),
+  description: types.optional(types.string()),
+  final: types.optional(types.boolean()),
 });
 /** @internal */
 export type OutputRouterRule$Outbound = {
@@ -109,14 +110,14 @@ export const OutputRouter$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("router"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
+  id: types.optional(types.string()),
+  type: types.literal("router"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
   rules: z.array(z.lazy(() => OutputRouterRule$inboundSchema)),
-  description: z.string().optional(),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type OutputRouter$Outbound = {

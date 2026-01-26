@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AwsTypeHeartbeatMetadata,
   AwsTypeHeartbeatMetadata$inboundSchema,
@@ -37,11 +38,11 @@ export const HeartbeatMetadata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  aws: AwsTypeHeartbeatMetadata$inboundSchema.optional(),
-  azure: AzureTypeHeartbeatMetadata$inboundSchema.optional(),
-  hostOs: HostOsTypeHeartbeatMetadata$inboundSchema.optional(),
-  kube: KubeTypeHeartbeatMetadata$inboundSchema.optional(),
-  os: HostOsTypeHeartbeatMetadata$inboundSchema.optional(),
+  aws: types.optional(AwsTypeHeartbeatMetadata$inboundSchema),
+  azure: types.optional(AzureTypeHeartbeatMetadata$inboundSchema),
+  hostOs: types.optional(HostOsTypeHeartbeatMetadata$inboundSchema),
+  kube: types.optional(KubeTypeHeartbeatMetadata$inboundSchema),
+  os: types.optional(HostOsTypeHeartbeatMetadata$inboundSchema),
 });
 
 export function heartbeatMetadataFromJSON(

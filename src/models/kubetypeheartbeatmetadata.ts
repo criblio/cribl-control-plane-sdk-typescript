@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   OwnerTypeHeartbeatMetadataKube,
@@ -26,12 +27,12 @@ export const KubeTypeHeartbeatMetadata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean(),
-  namespace: z.string(),
-  node: z.string(),
-  owner: OwnerTypeHeartbeatMetadataKube$inboundSchema.optional(),
-  pod: z.string(),
-  source: z.string(),
+  enabled: types.boolean(),
+  namespace: types.string(),
+  node: types.string(),
+  owner: types.optional(OwnerTypeHeartbeatMetadataKube$inboundSchema),
+  pod: types.string(),
+  source: types.string(),
 });
 
 export function kubeTypeHeartbeatMetadataFromJSON(

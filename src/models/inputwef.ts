@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -326,23 +327,25 @@ export const MTLSSettings$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  requestCert: z.boolean().optional(),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string(),
-  passphrase: z.string().optional(),
-  certPath: z.string(),
-  caPath: z.string(),
-  commonNameRegex: z.string().optional(),
-  minVersion: MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema
-    .optional(),
-  maxVersion: MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema
-    .optional(),
-  ocspCheck: z.boolean().optional(),
-  keytab: z.any().optional(),
-  principal: z.any().optional(),
-  ocspCheckFailClose: z.boolean().optional(),
+  disabled: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  requestCert: types.optional(types.boolean()),
+  certificateName: types.optional(types.string()),
+  privKeyPath: types.string(),
+  passphrase: types.optional(types.string()),
+  certPath: types.string(),
+  caPath: types.string(),
+  commonNameRegex: types.optional(types.string()),
+  minVersion: types.optional(
+    MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  ),
+  maxVersion: types.optional(
+    MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  ),
+  ocspCheck: types.optional(types.boolean()),
+  keytab: types.optional(z.any()),
+  principal: types.optional(z.any()),
+  ocspCheckFailClose: types.optional(types.boolean()),
 });
 /** @internal */
 export type MTLSSettings$Outbound = {
@@ -430,8 +433,8 @@ export const QueryBuilderMode$outboundSchema: z.ZodType<
 /** @internal */
 export const Query$inboundSchema: z.ZodType<Query, z.ZodTypeDef, unknown> = z
   .object({
-    path: z.string(),
-    queryExpression: z.string(),
+    path: types.string(),
+    queryExpression: types.string(),
   });
 /** @internal */
 export type Query$Outbound = {
@@ -468,20 +471,22 @@ export const Subscription$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  subscriptionName: z.string(),
-  version: z.string().optional(),
+  subscriptionName: types.string(),
+  version: types.optional(types.string()),
   contentFormat: InputWefFormat$inboundSchema,
-  heartbeatInterval: z.number(),
-  batchTimeout: z.number(),
-  readExistingEvents: z.boolean().optional(),
-  sendBookmarks: z.boolean().optional(),
-  compress: z.boolean().optional(),
-  targets: z.array(z.string()),
-  locale: z.string().optional(),
-  querySelector: QueryBuilderMode$inboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  queries: z.array(z.lazy(() => Query$inboundSchema)).optional(),
-  xmlQuery: z.string().optional(),
+  heartbeatInterval: types.number(),
+  batchTimeout: types.number(),
+  readExistingEvents: types.optional(types.boolean()),
+  sendBookmarks: types.optional(types.boolean()),
+  compress: types.optional(types.boolean()),
+  targets: z.array(types.string()),
+  locale: types.optional(types.string()),
+  querySelector: types.optional(QueryBuilderMode$inboundSchema),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  queries: types.optional(z.array(z.lazy(() => Query$inboundSchema))),
+  xmlQuery: types.optional(types.string()),
 });
 /** @internal */
 export type Subscription$Outbound = {
@@ -542,39 +547,43 @@ export const InputWef$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("wef"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string(),
-  port: z.number(),
-  authMethod: InputWefAuthenticationMethod$inboundSchema.optional(),
-  tls: z.lazy(() => MTLSSettings$inboundSchema).optional(),
-  maxActiveReq: z.number().optional(),
-  maxRequestsPerSocket: z.number().int().optional(),
-  enableProxyHeader: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.boolean().optional(),
-  ipAllowlistRegex: z.string().optional(),
-  ipDenylistRegex: z.string().optional(),
-  socketTimeout: z.number().optional(),
-  caFingerprint: z.string().optional(),
-  keytab: z.string().optional(),
-  principal: z.string().optional(),
-  allowMachineIdMismatch: z.boolean().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("wef"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authMethod: types.optional(InputWefAuthenticationMethod$inboundSchema),
+  tls: types.optional(z.lazy(() => MTLSSettings$inboundSchema)),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  socketTimeout: types.optional(types.number()),
+  caFingerprint: types.optional(types.string()),
+  keytab: types.optional(types.string()),
+  principal: types.optional(types.string()),
+  allowMachineIdMismatch: types.optional(types.boolean()),
   subscriptions: z.array(z.lazy(() => Subscription$inboundSchema)),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  logFingerprintMismatch: z.boolean().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  description: types.optional(types.string()),
+  logFingerprintMismatch: types.optional(types.boolean()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type InputWef$Outbound = {

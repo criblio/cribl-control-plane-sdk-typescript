@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   DatasetMetadataRunInfo,
   DatasetMetadataRunInfo$inboundSchema,
@@ -48,10 +49,10 @@ export const DatasetMetadata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  earliest: z.string(),
-  enableAcceleration: z.boolean(),
-  fieldList: z.array(z.string()),
-  latestRunInfo: DatasetMetadataRunInfo$inboundSchema.optional(),
+  earliest: types.string(),
+  enableAcceleration: types.boolean(),
+  fieldList: z.array(types.string()),
+  latestRunInfo: types.optional(DatasetMetadataRunInfo$inboundSchema),
   scanMode: ScanMode$inboundSchema,
 });
 /** @internal */

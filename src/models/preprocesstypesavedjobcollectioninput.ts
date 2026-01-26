@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PreprocessTypeSavedJobCollectionInput = {
@@ -25,9 +26,9 @@ export const PreprocessTypeSavedJobCollectionInput$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean(),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
+  disabled: types.boolean(),
+  command: types.optional(types.string()),
+  args: types.optional(z.array(types.string())),
 });
 /** @internal */
 export type PreprocessTypeSavedJobCollectionInput$Outbound = {

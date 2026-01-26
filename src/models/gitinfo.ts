@@ -7,6 +7,8 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const RemoteEnum = {
@@ -29,8 +31,8 @@ export const RemoteEnum$inboundSchema: z.ZodType<
 > = openEnums.inboundSchema(RemoteEnum);
 
 /** @internal */
-export const Remote$inboundSchema: z.ZodType<Remote, z.ZodTypeDef, unknown> = z
-  .union([z.string(), RemoteEnum$inboundSchema]);
+export const Remote$inboundSchema: z.ZodType<Remote, z.ZodTypeDef, unknown> =
+  smartUnion([types.string(), RemoteEnum$inboundSchema]);
 
 export function remoteFromJSON(
   jsonString: string,
@@ -45,8 +47,8 @@ export function remoteFromJSON(
 /** @internal */
 export const GitInfo$inboundSchema: z.ZodType<GitInfo, z.ZodTypeDef, unknown> =
   z.object({
-    remote: z.union([z.string(), RemoteEnum$inboundSchema]),
-    versioning: z.boolean(),
+    remote: smartUnion([types.string(), RemoteEnum$inboundSchema]),
+    versioning: types.boolean(),
   });
 
 export function gitInfoFromJSON(

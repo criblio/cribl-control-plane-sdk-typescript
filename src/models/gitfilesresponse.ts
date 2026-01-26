@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { GitFile, GitFile$inboundSchema } from "./gitfile.js";
 
@@ -20,8 +21,8 @@ export const GitFilesResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  commitMessage: z.record(z.any()).optional(),
-  count: z.number(),
+  commitMessage: types.optional(z.record(z.any())),
+  count: types.number(),
   items: z.array(GitFile$inboundSchema),
 });
 

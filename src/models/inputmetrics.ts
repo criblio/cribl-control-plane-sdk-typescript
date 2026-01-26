@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -117,29 +118,33 @@ export const InputMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("metrics"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string(),
-  udpPort: z.number().optional(),
-  tcpPort: z.number().optional(),
-  maxBufferSize: z.number().optional(),
-  ipWhitelistRegex: z.string().optional(),
-  enableProxyHeader: z.boolean().optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  udpSocketRxBufSize: z.number().optional(),
-  description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_udpPort: z.string().optional(),
-  __template_tcpPort: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("metrics"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  udpPort: types.optional(types.number()),
+  tcpPort: types.optional(types.number()),
+  maxBufferSize: types.optional(types.number()),
+  ipWhitelistRegex: types.optional(types.string()),
+  enableProxyHeader: types.optional(types.boolean()),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  udpSocketRxBufSize: types.optional(types.number()),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_udpPort: types.optional(types.string()),
+  __template_tcpPort: types.optional(types.string()),
 });
 /** @internal */
 export type InputMetrics$Outbound = {

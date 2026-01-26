@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   DiskSpoolingType,
   DiskSpoolingType$inboundSchema,
@@ -112,8 +113,8 @@ export const InputKubeLogsRule$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string(),
-  description: z.string().optional(),
+  filter: types.string(),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type InputKubeLogsRule$Outbound = {
@@ -154,25 +155,29 @@ export const InputKubeLogs$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("kube_logs"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  interval: z.number().optional(),
-  rules: z.array(z.lazy(() => InputKubeLogsRule$inboundSchema)).optional(),
-  timestamps: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  persistence: DiskSpoolingType$inboundSchema.optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().optional(),
-  enableLoadBalancing: z.boolean().optional(),
-  description: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("kube_logs"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  interval: types.optional(types.number()),
+  rules: types.optional(z.array(z.lazy(() => InputKubeLogsRule$inboundSchema))),
+  timestamps: types.optional(types.boolean()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  persistence: types.optional(DiskSpoolingType$inboundSchema),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  enableLoadBalancing: types.optional(types.boolean()),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type InputKubeLogs$Outbound = {

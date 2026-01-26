@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions1,
   BackpressureBehaviorOptions1$inboundSchema,
@@ -100,20 +101,22 @@ export const OutputRing$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("ring"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  format: OutputRingDataFormat$inboundSchema.optional(),
-  partitionExpr: z.string().optional(),
-  maxDataSize: z.string().optional(),
-  maxDataTime: z.string().optional(),
-  compress: DataCompressionFormatOptionsPersistence$inboundSchema.optional(),
-  destPath: z.string().optional(),
-  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.optional(),
-  description: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("ring"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  format: types.optional(OutputRingDataFormat$inboundSchema),
+  partitionExpr: types.optional(types.string()),
+  maxDataSize: types.optional(types.string()),
+  maxDataTime: types.optional(types.string()),
+  compress: types.optional(
+    DataCompressionFormatOptionsPersistence$inboundSchema,
+  ),
+  destPath: types.optional(types.string()),
+  onBackpressure: types.optional(BackpressureBehaviorOptions1$inboundSchema),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type OutputRing$Outbound = {

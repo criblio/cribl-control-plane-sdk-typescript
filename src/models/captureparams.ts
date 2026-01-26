@@ -7,31 +7,31 @@ import { CaptureLevel, CaptureLevel$outboundSchema } from "./capturelevel.js";
 
 export type CaptureParams = {
   /**
-   * Amount of time to keep capture open, in seconds
+   * Amount of time to keep capture open, in seconds.
    */
   duration: number;
   /**
-   * Filter expression to capture events
+   * JavaScript expression evaluated against each event to determine whether an event is included in the capture output. Expressions can reference any event field and use logical operators.
    */
   filter: string;
   /**
-   * Where to capture events
+   * Stage at which events are captured. <br><code>0</code> == Before pre-processing Pipeline <br><code>1</code> == Before the Routes <br><code>2</code> == Before post-processing Pipeline <br><code>3</code> == Before the Destination
    */
   level: CaptureLevel;
   /**
-   * Maximum number of events to capture
+   * Maximum number of events to capture.
    */
   maxEvents: number;
   /**
-   * How long to wait before increasing the capture sample size. Specify 1 second or longer
+   * How long to wait before increasing the capture sample size. Specify <code>1</code> second or longer.
    */
   stepDuration?: number | undefined;
   /**
-   * Worker ID
+   * Unique ID of the Worker.
    */
   workerId?: string | undefined;
   /**
-   * Limits how many Workers will capture initially. The 0 default means unlimited.
+   * Maximum number of Workers that can capture initially. A value of <code>0</code> means unlimited (all available Workers can capture).
    */
   workerThreshold?: number | undefined;
 };

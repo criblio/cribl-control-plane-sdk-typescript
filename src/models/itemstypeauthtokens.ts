@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ItemsTypeAuthTokens = {
@@ -25,9 +26,9 @@ export const ItemsTypeAuthTokens$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  tokenSecret: z.string(),
-  enabled: z.boolean().optional(),
-  description: z.string().optional(),
+  tokenSecret: types.string(),
+  enabled: types.optional(types.boolean()),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type ItemsTypeAuthTokens$Outbound = {

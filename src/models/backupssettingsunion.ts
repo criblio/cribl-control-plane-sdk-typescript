@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type BackupsSettings2 = {};
@@ -55,8 +57,8 @@ export const BackupsSettings1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  backupPersistence: z.string(),
-  backupsDirectory: z.string(),
+  backupPersistence: types.string(),
+  backupsDirectory: types.string(),
 });
 /** @internal */
 export type BackupsSettings1$Outbound = {
@@ -96,7 +98,7 @@ export const BackupsSettingsUnion$inboundSchema: z.ZodType<
   BackupsSettingsUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
+> = smartUnion([
   z.lazy(() => BackupsSettings1$inboundSchema),
   z.lazy(() => BackupsSettings2$inboundSchema),
 ]);
@@ -110,7 +112,7 @@ export const BackupsSettingsUnion$outboundSchema: z.ZodType<
   BackupsSettingsUnion$Outbound,
   z.ZodTypeDef,
   BackupsSettingsUnion
-> = z.union([
+> = smartUnion([
   z.lazy(() => BackupsSettings1$outboundSchema),
   z.lazy(() => BackupsSettings2$outboundSchema),
 ]);

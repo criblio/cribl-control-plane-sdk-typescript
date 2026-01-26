@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const ExistingOrNew = {
@@ -77,7 +78,7 @@ export const PipelineFunctionEventBreakerConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   existingOrNew: ExistingOrNew$inboundSchema,
-  shouldMarkCriblBreaker: z.boolean().optional(),
+  shouldMarkCriblBreaker: types.optional(types.boolean()),
 });
 /** @internal */
 export type PipelineFunctionEventBreakerConf$Outbound = {
@@ -120,13 +121,13 @@ export const PipelineFunctionEventBreaker$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("event_breaker"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("event_breaker"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionEventBreakerConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionEventBreaker$Outbound = {

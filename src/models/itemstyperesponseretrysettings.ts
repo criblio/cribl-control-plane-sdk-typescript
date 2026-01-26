@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ItemsTypeResponseRetrySettings = {
@@ -32,10 +33,10 @@ export const ItemsTypeResponseRetrySettings$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().optional(),
-  backoffRate: z.number().optional(),
-  maxBackoff: z.number().optional(),
+  httpStatus: types.number(),
+  initialBackoff: types.optional(types.number()),
+  backoffRate: types.optional(types.number()),
+  maxBackoff: types.optional(types.number()),
 });
 /** @internal */
 export type ItemsTypeResponseRetrySettings$Outbound = {

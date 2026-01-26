@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionConfSchemaCode = {
@@ -32,10 +33,10 @@ export const FunctionConfSchemaCode$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.string().optional(),
-  maxNumOfIterations: z.number().optional(),
-  activeLogSampleRate: z.number().optional(),
-  useUniqueLogChannel: z.boolean().optional(),
+  code: types.optional(types.string()),
+  maxNumOfIterations: types.optional(types.number()),
+  activeLogSampleRate: types.optional(types.number()),
+  useUniqueLogChannel: types.optional(types.boolean()),
 });
 /** @internal */
 export type FunctionConfSchemaCode$Outbound = {
