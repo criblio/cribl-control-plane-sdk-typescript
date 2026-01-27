@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PipelineFunctionXmlUnrollConf = {
@@ -60,10 +61,10 @@ export const PipelineFunctionXmlUnrollConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  unroll: z.string(),
-  inherit: z.string().optional(),
-  unrollIdxField: z.string().optional(),
-  pretty: z.boolean().optional(),
+  unroll: types.string(),
+  inherit: types.optional(types.string()),
+  unrollIdxField: types.optional(types.string()),
+  pretty: types.optional(types.boolean()),
 });
 /** @internal */
 export type PipelineFunctionXmlUnrollConf$Outbound = {
@@ -110,13 +111,13 @@ export const PipelineFunctionXmlUnroll$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("xml_unroll"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("xml_unroll"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionXmlUnrollConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionXmlUnroll$Outbound = {

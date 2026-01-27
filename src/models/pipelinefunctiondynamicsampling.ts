@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -98,10 +99,10 @@ export const PipelineFunctionDynamicSamplingConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   mode: SampleMode$inboundSchema,
-  keyExpr: z.string(),
-  samplePeriod: z.number().optional(),
-  minEvents: z.number().optional(),
-  maxSampleRate: z.number().optional(),
+  keyExpr: types.string(),
+  samplePeriod: types.optional(types.number()),
+  minEvents: types.optional(types.number()),
+  maxSampleRate: types.optional(types.number()),
 });
 /** @internal */
 export type PipelineFunctionDynamicSamplingConf$Outbound = {
@@ -151,13 +152,13 @@ export const PipelineFunctionDynamicSampling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("dynamic_sampling"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("dynamic_sampling"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionDynamicSamplingConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionDynamicSampling$Outbound = {

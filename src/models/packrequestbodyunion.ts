@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import { smartUnion } from "../types/smartUnion.js";
 import {
   TagsTypePackInstallInfo,
   TagsTypePackInstallInfo$Outbound,
@@ -139,7 +140,7 @@ export const PackRequestBodyUnion$outboundSchema: z.ZodType<
   PackRequestBodyUnion$Outbound,
   z.ZodTypeDef,
   PackRequestBodyUnion
-> = z.union([
+> = smartUnion([
   z.lazy(() => PackRequestBody1$outboundSchema),
   z.lazy(() => PackRequestBody2$outboundSchema),
 ]);

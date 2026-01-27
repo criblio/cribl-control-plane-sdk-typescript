@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type Rename = {
@@ -40,8 +41,8 @@ export type FunctionConfSchemaRename = {
 /** @internal */
 export const Rename$inboundSchema: z.ZodType<Rename, z.ZodTypeDef, unknown> = z
   .object({
-    currentName: z.string(),
-    newName: z.string(),
+    currentName: types.string(),
+    newName: types.string(),
   });
 /** @internal */
 export type Rename$Outbound = {
@@ -78,10 +79,10 @@ export const FunctionConfSchemaRename$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  baseFields: z.array(z.string()).optional(),
-  rename: z.array(z.lazy(() => Rename$inboundSchema)).optional(),
-  renameExpr: z.string().optional(),
-  wildcardDepth: z.number().int().optional(),
+  baseFields: types.optional(z.array(types.string())),
+  rename: types.optional(z.array(z.lazy(() => Rename$inboundSchema))),
+  renameExpr: types.optional(types.string()),
+  wildcardDepth: types.optional(types.number()),
 });
 /** @internal */
 export type FunctionConfSchemaRename$Outbound = {

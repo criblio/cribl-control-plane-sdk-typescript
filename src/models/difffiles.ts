@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { DiffLine, DiffLine$inboundSchema } from "./diffline.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -52,11 +54,11 @@ export type DiffFiles = {
 /** @internal */
 export const Block$inboundSchema: z.ZodType<Block, z.ZodTypeDef, unknown> = z
   .object({
-    header: z.string(),
+    header: types.string(),
     lines: z.array(DiffLine$inboundSchema),
-    newStartLine: z.number(),
-    oldStartLine: z.number(),
-    oldStartLine2: z.number().optional(),
+    newStartLine: types.number(),
+    oldStartLine: types.number(),
+    oldStartLine2: types.optional(types.number()),
   });
 
 export function blockFromJSON(
@@ -74,7 +76,7 @@ export const ChecksumBefore$inboundSchema: z.ZodType<
   ChecksumBefore,
   z.ZodTypeDef,
   unknown
-> = z.union([z.string(), z.array(z.string())]);
+> = smartUnion([types.string(), z.array(types.string())]);
 
 export function checksumBeforeFromJSON(
   jsonString: string,
@@ -88,7 +90,7 @@ export function checksumBeforeFromJSON(
 
 /** @internal */
 export const OldMode$inboundSchema: z.ZodType<OldMode, z.ZodTypeDef, unknown> =
-  z.union([z.string(), z.array(z.string())]);
+  smartUnion([types.string(), z.array(types.string())]);
 
 export function oldModeFromJSON(
   jsonString: string,
@@ -106,29 +108,33 @@ export const DiffFiles$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  addedLines: z.number(),
+  addedLines: types.number(),
   blocks: z.array(z.lazy(() => Block$inboundSchema)),
-  changedPercentage: z.number().optional(),
-  checksumAfter: z.string().optional(),
-  checksumBefore: z.union([z.string(), z.array(z.string())]).optional(),
-  deletedFileMode: z.string().optional(),
-  deletedLines: z.number(),
-  isBinary: z.boolean().optional(),
-  isCombined: z.boolean(),
-  isCopy: z.boolean().optional(),
-  isDeleted: z.boolean().optional(),
-  isGitDiff: z.boolean(),
-  isNew: z.boolean().optional(),
-  isRename: z.boolean().optional(),
-  isTooBig: z.boolean().optional(),
-  language: z.string(),
-  mode: z.string().optional(),
-  newFileMode: z.string().optional(),
-  newMode: z.string().optional(),
-  newName: z.string(),
-  oldMode: z.union([z.string(), z.array(z.string())]).optional(),
-  oldName: z.string(),
-  unchangedPercentage: z.number().optional(),
+  changedPercentage: types.optional(types.number()),
+  checksumAfter: types.optional(types.string()),
+  checksumBefore: types.optional(
+    smartUnion([types.string(), z.array(types.string())]),
+  ),
+  deletedFileMode: types.optional(types.string()),
+  deletedLines: types.number(),
+  isBinary: types.optional(types.boolean()),
+  isCombined: types.boolean(),
+  isCopy: types.optional(types.boolean()),
+  isDeleted: types.optional(types.boolean()),
+  isGitDiff: types.boolean(),
+  isNew: types.optional(types.boolean()),
+  isRename: types.optional(types.boolean()),
+  isTooBig: types.optional(types.boolean()),
+  language: types.string(),
+  mode: types.optional(types.string()),
+  newFileMode: types.optional(types.string()),
+  newMode: types.optional(types.string()),
+  newName: types.string(),
+  oldMode: types.optional(
+    smartUnion([types.string(), z.array(types.string())]),
+  ),
+  oldName: types.string(),
+  unchangedPercentage: types.optional(types.number()),
 });
 
 export function diffFilesFromJSON(

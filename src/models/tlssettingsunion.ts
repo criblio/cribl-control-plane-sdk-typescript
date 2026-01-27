@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type TlsSettings2 = {};
@@ -54,11 +56,11 @@ export const TlsSettings1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  defaultCipherList: z.string(),
-  defaultEcdhCurve: z.string(),
-  maxVersion: z.string(),
-  minVersion: z.string(),
-  rejectUnauthorized: z.boolean(),
+  defaultCipherList: types.string(),
+  defaultEcdhCurve: types.string(),
+  maxVersion: types.string(),
+  minVersion: types.string(),
+  rejectUnauthorized: types.boolean(),
 });
 /** @internal */
 export type TlsSettings1$Outbound = {
@@ -100,7 +102,7 @@ export const TlsSettingsUnion$inboundSchema: z.ZodType<
   TlsSettingsUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
+> = smartUnion([
   z.lazy(() => TlsSettings1$inboundSchema),
   z.lazy(() => TlsSettings2$inboundSchema),
 ]);
@@ -114,7 +116,7 @@ export const TlsSettingsUnion$outboundSchema: z.ZodType<
   TlsSettingsUnion$Outbound,
   z.ZodTypeDef,
   TlsSettingsUnion
-> = z.union([
+> = smartUnion([
   z.lazy(() => TlsSettings1$outboundSchema),
   z.lazy(() => TlsSettings2$outboundSchema),
 ]);

@@ -6,6 +6,8 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import {
   AuthenticationTypeOptionsLokiAuth,
   AuthenticationTypeOptionsLokiAuth$inboundSchema,
@@ -373,12 +375,14 @@ export const PrometheusAuth2$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
+  authType: types.optional(
+    AuthenticationTypeOptionsPrometheusAuth$inboundSchema,
+  ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type PrometheusAuth2$Outbound = {
@@ -425,12 +429,12 @@ export const LokiAuth2$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationTypeOptionsLokiAuth$inboundSchema.optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
+  authType: types.optional(AuthenticationTypeOptionsLokiAuth$inboundSchema),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type LokiAuth2$Outbound = {
@@ -475,38 +479,42 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
+  id: types.optional(types.string()),
   type: InputGrafanaType2$inboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string(),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().optional(),
-  maxRequestsPerSocket: z.number().int().optional(),
-  enableProxyHeader: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  activityLogSampleRate: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  socketTimeout: z.number().optional(),
-  keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.boolean().optional(),
-  ipAllowlistRegex: z.string().optional(),
-  ipDenylistRegex: z.string().optional(),
-  prometheusAPI: z.string().optional(),
-  lokiAPI: z.string(),
-  prometheusAuth: z.lazy(() => PrometheusAuth2$inboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth2$inboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  prometheusAPI: types.optional(types.string()),
+  lokiAPI: types.string(),
+  prometheusAuth: types.optional(z.lazy(() => PrometheusAuth2$inboundSchema)),
+  lokiAuth: types.optional(z.lazy(() => LokiAuth2$inboundSchema)),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type InputGrafanaGrafana2$Outbound = {
@@ -616,12 +624,14 @@ export const PrometheusAuth1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
+  authType: types.optional(
+    AuthenticationTypeOptionsPrometheusAuth$inboundSchema,
+  ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type PrometheusAuth1$Outbound = {
@@ -668,12 +678,12 @@ export const LokiAuth1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationTypeOptionsLokiAuth$inboundSchema.optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
+  authType: types.optional(AuthenticationTypeOptionsLokiAuth$inboundSchema),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type LokiAuth1$Outbound = {
@@ -718,38 +728,42 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
+  id: types.optional(types.string()),
   type: InputGrafanaType1$inboundSchema,
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string(),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().optional(),
-  maxRequestsPerSocket: z.number().int().optional(),
-  enableProxyHeader: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  activityLogSampleRate: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  socketTimeout: z.number().optional(),
-  keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.boolean().optional(),
-  ipAllowlistRegex: z.string().optional(),
-  ipDenylistRegex: z.string().optional(),
-  prometheusAPI: z.string(),
-  lokiAPI: z.string().optional(),
-  prometheusAuth: z.lazy(() => PrometheusAuth1$inboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth1$inboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  prometheusAPI: types.string(),
+  lokiAPI: types.optional(types.string()),
+  prometheusAuth: types.optional(z.lazy(() => PrometheusAuth1$inboundSchema)),
+  lokiAuth: types.optional(z.lazy(() => LokiAuth1$inboundSchema)),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type InputGrafanaGrafana1$Outbound = {
@@ -849,7 +863,7 @@ export const InputGrafana$inboundSchema: z.ZodType<
   InputGrafana,
   z.ZodTypeDef,
   unknown
-> = z.union([
+> = smartUnion([
   z.lazy(() => InputGrafanaGrafana1$inboundSchema),
   z.lazy(() => InputGrafanaGrafana2$inboundSchema),
 ]);
@@ -863,7 +877,7 @@ export const InputGrafana$outboundSchema: z.ZodType<
   InputGrafana$Outbound,
   z.ZodTypeDef,
   InputGrafana
-> = z.union([
+> = smartUnion([
   z.lazy(() => InputGrafanaGrafana1$outboundSchema),
   z.lazy(() => InputGrafanaGrafana2$outboundSchema),
 ]);

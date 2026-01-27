@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   OtlpVersionOptions,
@@ -31,10 +32,10 @@ export const FunctionConfSchemaOtlpMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  resourceAttributePrefixes: z.array(z.string()).optional(),
-  dropNonMetricEvents: z.boolean().optional(),
-  otlpVersion: OtlpVersionOptions$inboundSchema.optional(),
-  batchOTLPMetrics: z.boolean().optional(),
+  resourceAttributePrefixes: types.optional(z.array(types.string())),
+  dropNonMetricEvents: types.optional(types.boolean()),
+  otlpVersion: types.optional(OtlpVersionOptions$inboundSchema),
+  batchOTLPMetrics: types.optional(types.boolean()),
 });
 /** @internal */
 export type FunctionConfSchemaOtlpMetrics$Outbound = {

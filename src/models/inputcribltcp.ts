@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeAuthTokens,
@@ -127,30 +128,34 @@ export const InputCriblTcp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("cribl_tcp"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string(),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveCxn: z.number().optional(),
-  socketIdleTimeout: z.number().optional(),
-  socketEndingMaxWait: z.number().optional(),
-  socketMaxLifespan: z.number().optional(),
-  enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  enableLoadBalancing: z.boolean().optional(),
-  authTokens: z.array(ItemsTypeAuthTokens$inboundSchema).optional(),
-  description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("cribl_tcp"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  maxActiveCxn: types.optional(types.number()),
+  socketIdleTimeout: types.optional(types.number()),
+  socketEndingMaxWait: types.optional(types.number()),
+  socketMaxLifespan: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  enableLoadBalancing: types.optional(types.boolean()),
+  authTokens: types.optional(z.array(ItemsTypeAuthTokens$inboundSchema)),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type InputCriblTcp$Outbound = {

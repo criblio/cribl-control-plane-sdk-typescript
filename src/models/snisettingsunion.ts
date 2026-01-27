@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type SniSettings2 = {};
@@ -50,7 +52,7 @@ export const SniSettings1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disableSNIRouting: z.boolean(),
+  disableSNIRouting: types.boolean(),
 });
 /** @internal */
 export type SniSettings1$Outbound = {
@@ -84,7 +86,7 @@ export const SniSettingsUnion$inboundSchema: z.ZodType<
   SniSettingsUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
+> = smartUnion([
   z.lazy(() => SniSettings1$inboundSchema),
   z.lazy(() => SniSettings2$inboundSchema),
 ]);
@@ -98,7 +100,7 @@ export const SniSettingsUnion$outboundSchema: z.ZodType<
   SniSettingsUnion$Outbound,
   z.ZodTypeDef,
   SniSettingsUnion
-> = z.union([
+> = smartUnion([
   z.lazy(() => SniSettings1$outboundSchema),
   z.lazy(() => SniSettings2$outboundSchema),
 ]);

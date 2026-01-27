@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   CompressionOptionsPersistence,
   CompressionOptionsPersistence$inboundSchema,
@@ -63,18 +64,18 @@ export const OutputDiskSpool$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("disk_spool"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  timeWindow: z.string().optional(),
-  maxDataSize: z.string().optional(),
-  maxDataTime: z.string().optional(),
-  compress: CompressionOptionsPersistence$inboundSchema.optional(),
-  partitionExpr: z.string().optional(),
-  description: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("disk_spool"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  timeWindow: types.optional(types.string()),
+  maxDataSize: types.optional(types.string()),
+  maxDataTime: types.optional(types.string()),
+  compress: types.optional(CompressionOptionsPersistence$inboundSchema),
+  partitionExpr: types.optional(types.string()),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type OutputDiskSpool$Outbound = {

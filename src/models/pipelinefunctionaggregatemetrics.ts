@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -146,7 +147,7 @@ export const Aggregation$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   metricType: PipelineFunctionAggregateMetricsMetricType$inboundSchema,
-  agg: z.string(),
+  agg: types.string(),
 });
 /** @internal */
 export type Aggregation$Outbound = {
@@ -183,8 +184,8 @@ export const PipelineFunctionAggregateMetricsAdd$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string().optional(),
-  value: z.string(),
+  name: types.optional(types.string()),
+  value: types.string(),
 });
 /** @internal */
 export type PipelineFunctionAggregateMetricsAdd$Outbound = {
@@ -228,20 +229,21 @@ export const PipelineFunctionAggregateMetricsConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  passthrough: z.boolean().optional(),
-  preserveGroupBys: z.boolean().optional(),
-  sufficientStatsOnly: z.boolean().optional(),
-  prefix: z.string().optional(),
-  timeWindow: z.string(),
+  passthrough: types.optional(types.boolean()),
+  preserveGroupBys: types.optional(types.boolean()),
+  sufficientStatsOnly: types.optional(types.boolean()),
+  prefix: types.optional(types.string()),
+  timeWindow: types.string(),
   aggregations: z.array(z.lazy(() => Aggregation$inboundSchema)),
-  groupbys: z.array(z.string()).optional(),
-  flushEventLimit: z.number().optional(),
-  flushMemLimit: z.string().optional(),
-  cumulative: z.boolean().optional(),
-  shouldTreatDotsAsLiterals: z.boolean().optional(),
-  add: z.array(z.lazy(() => PipelineFunctionAggregateMetricsAdd$inboundSchema))
-    .optional(),
-  flushOnInputClose: z.boolean().optional(),
+  groupbys: types.optional(z.array(types.string())),
+  flushEventLimit: types.optional(types.number()),
+  flushMemLimit: types.optional(types.string()),
+  cumulative: types.optional(types.boolean()),
+  shouldTreatDotsAsLiterals: types.optional(types.boolean()),
+  add: types.optional(
+    z.array(z.lazy(() => PipelineFunctionAggregateMetricsAdd$inboundSchema)),
+  ),
+  flushOnInputClose: types.optional(types.boolean()),
 });
 /** @internal */
 export type PipelineFunctionAggregateMetricsConf$Outbound = {
@@ -308,13 +310,13 @@ export const PipelineFunctionAggregateMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("aggregate_metrics"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("aggregate_metrics"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionAggregateMetricsConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionAggregateMetrics$Outbound = {

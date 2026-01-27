@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   CompressionOptionsPq,
   CompressionOptionsPq$inboundSchema,
@@ -87,14 +88,14 @@ export function pqTypePqControlsFromJSON(
 /** @internal */
 export const PqType$inboundSchema: z.ZodType<PqType, z.ZodTypeDef, unknown> = z
   .object({
-    mode: ModeOptionsPq$inboundSchema.optional(),
-    maxBufferSize: z.number().optional(),
-    commitFrequency: z.number().optional(),
-    maxFileSize: z.string().optional(),
-    maxSize: z.string().optional(),
-    path: z.string().optional(),
-    compress: CompressionOptionsPq$inboundSchema.optional(),
-    pqControls: z.lazy(() => PqTypePqControls$inboundSchema).optional(),
+    mode: types.optional(ModeOptionsPq$inboundSchema),
+    maxBufferSize: types.optional(types.number()),
+    commitFrequency: types.optional(types.number()),
+    maxFileSize: types.optional(types.string()),
+    maxSize: types.optional(types.string()),
+    path: types.optional(types.string()),
+    compress: types.optional(CompressionOptionsPq$inboundSchema),
+    pqControls: types.optional(z.lazy(() => PqTypePqControls$inboundSchema)),
   });
 /** @internal */
 export type PqType$Outbound = {

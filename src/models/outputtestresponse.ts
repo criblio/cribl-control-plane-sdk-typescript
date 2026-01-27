@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputTestResponse = {
@@ -21,11 +22,11 @@ export const OutputTestResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  details: z.record(z.any()).optional(),
-  error: z.string().optional(),
-  outputId: z.string(),
-  success: z.boolean(),
-  successDetail: z.string().optional(),
+  details: types.optional(z.record(z.any())),
+  error: types.optional(types.string()),
+  outputId: types.string(),
+  success: types.boolean(),
+  successDetail: types.optional(types.string()),
 });
 
 export function outputTestResponseFromJSON(

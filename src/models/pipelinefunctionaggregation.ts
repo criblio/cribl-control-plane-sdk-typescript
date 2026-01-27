@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeAdd,
@@ -110,21 +111,21 @@ export const PipelineFunctionAggregationConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  passthrough: z.boolean().optional(),
-  preserveGroupBys: z.boolean().optional(),
-  sufficientStatsOnly: z.boolean().optional(),
-  metricsMode: z.boolean().optional(),
-  prefix: z.string().optional(),
-  timeWindow: z.string(),
-  aggregations: z.array(z.string()),
-  groupbys: z.array(z.string()).optional(),
-  flushEventLimit: z.number().optional(),
-  flushMemLimit: z.string().optional(),
-  cumulative: z.boolean().optional(),
-  searchAggMode: z.string().optional(),
-  add: z.array(ItemsTypeAdd$inboundSchema).optional(),
-  shouldTreatDotsAsLiterals: z.boolean().optional(),
-  flushOnInputClose: z.boolean().optional(),
+  passthrough: types.optional(types.boolean()),
+  preserveGroupBys: types.optional(types.boolean()),
+  sufficientStatsOnly: types.optional(types.boolean()),
+  metricsMode: types.optional(types.boolean()),
+  prefix: types.optional(types.string()),
+  timeWindow: types.string(),
+  aggregations: z.array(types.string()),
+  groupbys: types.optional(z.array(types.string())),
+  flushEventLimit: types.optional(types.number()),
+  flushMemLimit: types.optional(types.string()),
+  cumulative: types.optional(types.boolean()),
+  searchAggMode: types.optional(types.string()),
+  add: types.optional(z.array(ItemsTypeAdd$inboundSchema)),
+  shouldTreatDotsAsLiterals: types.optional(types.boolean()),
+  flushOnInputClose: types.optional(types.boolean()),
 });
 /** @internal */
 export type PipelineFunctionAggregationConf$Outbound = {
@@ -193,13 +194,13 @@ export const PipelineFunctionAggregation$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("aggregation"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("aggregation"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionAggregationConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionAggregation$Outbound = {

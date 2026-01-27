@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { Collector, Collector$inboundSchema } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -216,9 +217,9 @@ export const CaptureSettings$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  duration: z.number().optional(),
-  maxEvents: z.number().optional(),
-  level: WhereToCapture$inboundSchema.optional(),
+  duration: types.optional(types.number()),
+  maxEvents: types.optional(types.number()),
+  level: types.optional(WhereToCapture$inboundSchema),
 });
 
 export function captureSettingsFromJSON(
@@ -237,22 +238,23 @@ export const RunnableJobCollectionRun$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rescheduleDroppedTasks: z.boolean().optional(),
-  maxTaskReschedule: z.number().optional(),
-  logLevel: LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema
-    .optional(),
-  jobTimeout: z.string().optional(),
+  rescheduleDroppedTasks: types.optional(types.boolean()),
+  maxTaskReschedule: types.optional(types.number()),
+  logLevel: types.optional(
+    LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema,
+  ),
+  jobTimeout: types.optional(types.string()),
   mode: RunnableJobCollectionMode$inboundSchema,
-  timeRangeType: TimeRange$inboundSchema.optional(),
-  earliest: z.number().optional(),
-  latest: z.number().optional(),
-  timestampTimezone: z.string().optional(),
-  timeWarning: MetricsStore$inboundSchema.optional(),
-  expression: z.string().optional(),
-  minTaskSize: z.string().optional(),
-  maxTaskSize: z.string().optional(),
-  discoverToRoutes: z.boolean().optional(),
-  capture: z.lazy(() => CaptureSettings$inboundSchema).optional(),
+  timeRangeType: types.optional(TimeRange$inboundSchema),
+  earliest: types.optional(types.number()),
+  latest: types.optional(types.number()),
+  timestampTimezone: types.optional(types.string()),
+  timeWarning: types.optional(MetricsStore$inboundSchema),
+  expression: types.optional(types.string()),
+  minTaskSize: types.optional(types.string()),
+  maxTaskSize: types.optional(types.string()),
+  discoverToRoutes: types.optional(types.boolean()),
+  capture: types.optional(z.lazy(() => CaptureSettings$inboundSchema)),
 });
 
 export function runnableJobCollectionRunFromJSON(
@@ -271,19 +273,21 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  description: z.string().optional(),
-  type: JobTypeOptionsSavedJobCollection$inboundSchema.optional(),
-  ttl: z.string().optional(),
-  ignoreGroupJobsLimit: z.boolean().optional(),
-  removeFields: z.array(z.string()).optional(),
-  resumeOnBoot: z.boolean().optional(),
-  environment: z.string().optional(),
-  schedule: ScheduleTypeRunnableJobCollection$inboundSchema.optional(),
-  streamtags: z.array(z.string()).optional(),
-  workerAffinity: z.boolean().optional(),
+  id: types.optional(types.string()),
+  description: types.optional(types.string()),
+  type: types.optional(JobTypeOptionsSavedJobCollection$inboundSchema),
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  removeFields: types.optional(z.array(types.string())),
+  resumeOnBoot: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  schedule: types.optional(ScheduleTypeRunnableJobCollection$inboundSchema),
+  streamtags: types.optional(z.array(types.string())),
+  workerAffinity: types.optional(types.boolean()),
   collector: Collector$inboundSchema,
-  input: TypeCollectionWithBreakerRulesetsConstraint$inboundSchema.optional(),
+  input: types.optional(
+    TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+  ),
   run: z.lazy(() => RunnableJobCollectionRun$inboundSchema),
 });
 

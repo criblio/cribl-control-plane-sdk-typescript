@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   DatabaseConnectionType,
   DatabaseConnectionType$inboundSchema,
@@ -33,18 +34,18 @@ export const DatabaseConnectionConfig$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: z.string(),
-  configObj: z.string().optional(),
-  connectionString: z.string().optional(),
-  connectionTimeout: z.number().optional(),
-  credsSecrets: z.string().optional(),
+  authType: types.string(),
+  configObj: types.optional(types.string()),
+  connectionString: types.optional(types.string()),
+  connectionTimeout: types.optional(types.number()),
+  credsSecrets: types.optional(types.string()),
   databaseType: DatabaseConnectionType$inboundSchema,
-  description: z.string(),
-  id: z.string(),
-  password: z.string().optional(),
-  requestTimeout: z.number().optional(),
-  tags: z.string().optional(),
-  user: z.string().optional(),
+  description: types.string(),
+  id: types.string(),
+  password: types.optional(types.string()),
+  requestTimeout: types.optional(types.number()),
+  tags: types.optional(types.string()),
+  user: types.optional(types.string()),
 });
 /** @internal */
 export type DatabaseConnectionConfig$Outbound = {
