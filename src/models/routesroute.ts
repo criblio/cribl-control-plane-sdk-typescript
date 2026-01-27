@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type RoutesRoute = {
@@ -42,16 +43,16 @@ export const RoutesRoute$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  name: z.string(),
-  disabled: z.boolean().optional(),
-  filter: z.string().optional(),
-  pipeline: z.string(),
-  enableOutputExpression: z.boolean().optional(),
-  output: z.any().optional(),
-  outputExpression: z.any().optional(),
-  description: z.string().optional(),
-  final: z.boolean().optional(),
+  id: types.optional(types.string()),
+  name: types.string(),
+  disabled: types.optional(types.boolean()),
+  filter: types.optional(types.string()),
+  pipeline: types.string(),
+  enableOutputExpression: types.optional(types.boolean()),
+  output: types.optional(z.any()),
+  outputExpression: types.optional(z.any()),
+  description: types.optional(types.string()),
+  final: types.optional(types.boolean()),
 }).catchall(z.any());
 /** @internal */
 export type RoutesRoute$Outbound = {

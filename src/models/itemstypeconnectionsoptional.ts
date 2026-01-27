@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ItemsTypeConnectionsOptional = {
@@ -18,8 +19,8 @@ export const ItemsTypeConnectionsOptional$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pipeline: z.string().optional(),
-  output: z.string().optional(),
+  pipeline: types.optional(types.string()),
+  output: types.optional(types.string()),
 });
 /** @internal */
 export type ItemsTypeConnectionsOptional$Outbound = {

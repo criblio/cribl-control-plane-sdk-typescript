@@ -4,7 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
+import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   OutputModeOptionsSplunkCollectorConf,
@@ -73,7 +76,8 @@ export type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone = {
 export type SplunkAuthenticationLoginSecretRetryRules =
   | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone
   | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic
-  | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff;
+  | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type SplunkAuthenticationLoginSecret = {
   /**
@@ -160,6 +164,7 @@ export type SplunkAuthenticationLoginSecret = {
     | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone
     | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic
     | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -224,7 +229,8 @@ export type SplunkAuthenticationLoginSplunkRetryRulesTypeNone = {
 export type SplunkAuthenticationLoginRetryRules =
   | SplunkAuthenticationLoginSplunkRetryRulesTypeNone
   | SplunkAuthenticationLoginSplunkRetryRulesTypeStatic
-  | SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff;
+  | SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type SplunkAuthenticationLogin = {
   /**
@@ -309,6 +315,7 @@ export type SplunkAuthenticationLogin = {
     | SplunkAuthenticationLoginSplunkRetryRulesTypeNone
     | SplunkAuthenticationLoginSplunkRetryRulesTypeStatic
     | SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -373,7 +380,8 @@ export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone = {
 export type SplunkAuthenticationTokenSecretRetryRules =
   | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone
   | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic
-  | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff;
+  | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type SplunkAuthenticationTokenSecret = {
   /**
@@ -444,6 +452,7 @@ export type SplunkAuthenticationTokenSecret = {
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic
     | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -508,7 +517,8 @@ export type SplunkAuthenticationTokenSplunkRetryRulesTypeNone = {
 export type SplunkAuthenticationTokenRetryRules =
   | SplunkAuthenticationTokenSplunkRetryRulesTypeNone
   | SplunkAuthenticationTokenSplunkRetryRulesTypeStatic
-  | SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff;
+  | SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type SplunkAuthenticationToken = {
   /**
@@ -576,6 +586,7 @@ export type SplunkAuthenticationToken = {
     | SplunkAuthenticationTokenSplunkRetryRulesTypeNone
     | SplunkAuthenticationTokenSplunkRetryRulesTypeStatic
     | SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -640,7 +651,8 @@ export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone = {
 export type SplunkAuthenticationBasicSecretRetryRules =
   | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone
   | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic
-  | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff;
+  | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type SplunkAuthenticationBasicSecret = {
   /**
@@ -711,6 +723,7 @@ export type SplunkAuthenticationBasicSecret = {
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic
     | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -775,7 +788,8 @@ export type SplunkAuthenticationBasicSplunkRetryRulesTypeNone = {
 export type SplunkAuthenticationBasicRetryRules =
   | SplunkAuthenticationBasicSplunkRetryRulesTypeNone
   | SplunkAuthenticationBasicSplunkRetryRulesTypeStatic
-  | SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff;
+  | SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type SplunkAuthenticationBasic = {
   /**
@@ -850,6 +864,7 @@ export type SplunkAuthenticationBasic = {
     | SplunkAuthenticationBasicSplunkRetryRulesTypeNone
     | SplunkAuthenticationBasicSplunkRetryRulesTypeStatic
     | SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -914,7 +929,8 @@ export type SplunkAuthenticationNoneSplunkRetryRulesTypeNone = {
 export type SplunkAuthenticationNoneRetryRules =
   | SplunkAuthenticationNoneSplunkRetryRulesTypeNone
   | SplunkAuthenticationNoneSplunkRetryRulesTypeStatic
-  | SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff;
+  | SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type SplunkAuthenticationNone = {
   /**
@@ -981,6 +997,7 @@ export type SplunkAuthenticationNone = {
     | SplunkAuthenticationNoneSplunkRetryRulesTypeNone
     | SplunkAuthenticationNoneSplunkRetryRulesTypeStatic
     | SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -991,7 +1008,8 @@ export type SplunkCollectorConf =
   | SplunkAuthenticationToken
   | SplunkAuthenticationTokenSecret
   | SplunkAuthenticationLogin
-  | SplunkAuthenticationLoginSecret;
+  | SplunkAuthenticationLoginSecret
+  | discriminatedUnionTypes.Unknown<"authentication">;
 
 /** @internal */
 export const SplunkAuthenticationLoginSecretCollectRequestParam$inboundSchema:
@@ -1000,8 +1018,8 @@ export const SplunkAuthenticationLoginSecretCollectRequestParam$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationLoginSecretCollectRequestParam$Outbound = {
@@ -1053,8 +1071,8 @@ export const SplunkAuthenticationLoginSecretCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationLoginSecretCollectRequestHeader$Outbound = {
@@ -1106,14 +1124,14 @@ export const SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$Outbound =
@@ -1176,14 +1194,14 @@ export const SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$inboundSc
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$Outbound =
@@ -1246,14 +1264,14 @@ export const SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$inboundSche
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$Outbound = {
@@ -1313,17 +1331,17 @@ export const SplunkAuthenticationLoginSecretRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationLoginSecretRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type SplunkAuthenticationLoginSecretRetryRules$Outbound =
   | SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$Outbound
@@ -1380,44 +1398,44 @@ export const SplunkAuthenticationLoginSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("loginSecret"),
-  loginUrl: z.string(),
-  credentialsSecret: z.string(),
-  loginBody: z.string(),
-  tokenRespAttribute: z.string(),
-  authHeaderExpr: z.string(),
-  searchHead: z.string(),
-  search: z.string(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  endpoint: z.string(),
+  authentication: types.literal("loginSecret"),
+  loginUrl: types.string(),
+  credentialsSecret: types.string(),
+  loginBody: types.string(),
+  tokenRespAttribute: types.string(),
+  authHeaderExpr: types.string(),
+  searchHead: types.string(),
+  search: types.string(),
+  earliest: types.optional(types.string()),
+  latest: types.optional(types.string()),
+  endpoint: types.string(),
   outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
-  collectRequestParams: z.array(
-    z.lazy(() =>
+  collectRequestParams: types.optional(
+    z.array(z.lazy(() =>
       SplunkAuthenticationLoginSecretCollectRequestParam$inboundSchema
-    ),
-  ).optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
+    )),
+  ),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
       SplunkAuthenticationLoginSecretCollectRequestHeader$inboundSchema
-    ),
-  ).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  handleEscapedChars: z.boolean().optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+    )),
+  ),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  handleEscapedChars: types.optional(types.boolean()),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type SplunkAuthenticationLoginSecret$Outbound = {
@@ -1523,8 +1541,8 @@ export const SplunkAuthenticationLoginCollectRequestParam$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationLoginCollectRequestParam$Outbound = {
@@ -1576,8 +1594,8 @@ export const SplunkAuthenticationLoginCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationLoginCollectRequestHeader$Outbound = {
@@ -1629,14 +1647,14 @@ export const SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$Outbound = {
@@ -1700,14 +1718,14 @@ export const SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$Outbound = {
@@ -1771,14 +1789,14 @@ export const SplunkAuthenticationLoginSplunkRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationLoginSplunkRetryRulesTypeNone$Outbound = {
@@ -1840,15 +1858,17 @@ export const SplunkAuthenticationLoginRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationLoginRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => SplunkAuthenticationLoginSplunkRetryRulesTypeNone$inboundSchema),
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    SplunkAuthenticationLoginSplunkRetryRulesTypeNone$inboundSchema
+  ),
+  static: z.lazy(() =>
     SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type SplunkAuthenticationLoginRetryRules$Outbound =
   | SplunkAuthenticationLoginSplunkRetryRulesTypeNone$Outbound
@@ -1898,41 +1918,45 @@ export const SplunkAuthenticationLogin$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("login"),
-  loginUrl: z.string(),
-  username: z.string(),
-  password: z.string(),
-  loginBody: z.string(),
-  tokenRespAttribute: z.string(),
-  authHeaderExpr: z.string(),
-  searchHead: z.string(),
-  search: z.string(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  endpoint: z.string(),
+  authentication: types.literal("login"),
+  loginUrl: types.string(),
+  username: types.string(),
+  password: types.string(),
+  loginBody: types.string(),
+  tokenRespAttribute: types.string(),
+  authHeaderExpr: types.string(),
+  searchHead: types.string(),
+  search: types.string(),
+  earliest: types.optional(types.string()),
+  latest: types.optional(types.string()),
+  endpoint: types.string(),
   outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
-  collectRequestParams: z.array(
-    z.lazy(() => SplunkAuthenticationLoginCollectRequestParam$inboundSchema),
-  ).optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() => SplunkAuthenticationLoginCollectRequestHeader$inboundSchema),
-  ).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  handleEscapedChars: z.boolean().optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  collectRequestParams: types.optional(
+    z.array(z.lazy(() =>
+      SplunkAuthenticationLoginCollectRequestParam$inboundSchema
+    )),
+  ),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
+      SplunkAuthenticationLoginCollectRequestHeader$inboundSchema
+    )),
+  ),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  handleEscapedChars: types.optional(types.boolean()),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       SplunkAuthenticationLoginSplunkRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       SplunkAuthenticationLoginSplunkRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       SplunkAuthenticationLoginSplunkRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type SplunkAuthenticationLogin$Outbound = {
@@ -2034,8 +2058,8 @@ export const SplunkAuthenticationTokenSecretCollectRequestParam$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSecretCollectRequestParam$Outbound = {
@@ -2087,8 +2111,8 @@ export const SplunkAuthenticationTokenSecretCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSecretCollectRequestHeader$Outbound = {
@@ -2140,14 +2164,14 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$Outbound =
@@ -2210,14 +2234,14 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$inboundSc
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$Outbound =
@@ -2280,14 +2304,14 @@ export const SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone$inboundSche
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone$Outbound = {
@@ -2347,17 +2371,17 @@ export const SplunkAuthenticationTokenSecretRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationTokenSecretRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type SplunkAuthenticationTokenSecretRetryRules$Outbound =
   | SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone$Outbound
@@ -2414,40 +2438,40 @@ export const SplunkAuthenticationTokenSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("tokenSecret"),
-  tokenSecret: z.string(),
-  searchHead: z.string(),
-  search: z.string(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  endpoint: z.string(),
+  authentication: types.literal("tokenSecret"),
+  tokenSecret: types.string(),
+  searchHead: types.string(),
+  search: types.string(),
+  earliest: types.optional(types.string()),
+  latest: types.optional(types.string()),
+  endpoint: types.string(),
   outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
-  collectRequestParams: z.array(
-    z.lazy(() =>
+  collectRequestParams: types.optional(
+    z.array(z.lazy(() =>
       SplunkAuthenticationTokenSecretCollectRequestParam$inboundSchema
-    ),
-  ).optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
+    )),
+  ),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
       SplunkAuthenticationTokenSecretCollectRequestHeader$inboundSchema
-    ),
-  ).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  handleEscapedChars: z.boolean().optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+    )),
+  ),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  handleEscapedChars: types.optional(types.boolean()),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       SplunkAuthenticationTokenSecretSplunkRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       SplunkAuthenticationTokenSecretSplunkRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type SplunkAuthenticationTokenSecret$Outbound = {
@@ -2545,8 +2569,8 @@ export const SplunkAuthenticationTokenCollectRequestParam$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationTokenCollectRequestParam$Outbound = {
@@ -2598,8 +2622,8 @@ export const SplunkAuthenticationTokenCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationTokenCollectRequestHeader$Outbound = {
@@ -2651,14 +2675,14 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$Outbound = {
@@ -2722,14 +2746,14 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$Outbound = {
@@ -2793,14 +2817,14 @@ export const SplunkAuthenticationTokenSplunkRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationTokenSplunkRetryRulesTypeNone$Outbound = {
@@ -2862,15 +2886,17 @@ export const SplunkAuthenticationTokenRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationTokenRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => SplunkAuthenticationTokenSplunkRetryRulesTypeNone$inboundSchema),
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    SplunkAuthenticationTokenSplunkRetryRulesTypeNone$inboundSchema
+  ),
+  static: z.lazy(() =>
     SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type SplunkAuthenticationTokenRetryRules$Outbound =
   | SplunkAuthenticationTokenSplunkRetryRulesTypeNone$Outbound
@@ -2920,36 +2946,40 @@ export const SplunkAuthenticationToken$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("token"),
-  token: z.string(),
-  searchHead: z.string(),
-  search: z.string(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  endpoint: z.string(),
+  authentication: types.literal("token"),
+  token: types.string(),
+  searchHead: types.string(),
+  search: types.string(),
+  earliest: types.optional(types.string()),
+  latest: types.optional(types.string()),
+  endpoint: types.string(),
   outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
-  collectRequestParams: z.array(
-    z.lazy(() => SplunkAuthenticationTokenCollectRequestParam$inboundSchema),
-  ).optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() => SplunkAuthenticationTokenCollectRequestHeader$inboundSchema),
-  ).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  handleEscapedChars: z.boolean().optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  collectRequestParams: types.optional(
+    z.array(z.lazy(() =>
+      SplunkAuthenticationTokenCollectRequestParam$inboundSchema
+    )),
+  ),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
+      SplunkAuthenticationTokenCollectRequestHeader$inboundSchema
+    )),
+  ),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  handleEscapedChars: types.optional(types.boolean()),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       SplunkAuthenticationTokenSplunkRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       SplunkAuthenticationTokenSplunkRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type SplunkAuthenticationToken$Outbound = {
@@ -3041,8 +3071,8 @@ export const SplunkAuthenticationBasicSecretCollectRequestParam$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSecretCollectRequestParam$Outbound = {
@@ -3094,8 +3124,8 @@ export const SplunkAuthenticationBasicSecretCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSecretCollectRequestHeader$Outbound = {
@@ -3147,14 +3177,14 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$Outbound =
@@ -3217,14 +3247,14 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$inboundSc
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$Outbound =
@@ -3287,14 +3317,14 @@ export const SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone$inboundSche
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone$Outbound = {
@@ -3354,17 +3384,17 @@ export const SplunkAuthenticationBasicSecretRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationBasicSecretRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type SplunkAuthenticationBasicSecretRetryRules$Outbound =
   | SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone$Outbound
@@ -3421,40 +3451,40 @@ export const SplunkAuthenticationBasicSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("basicSecret"),
-  credentialsSecret: z.string(),
-  searchHead: z.string(),
-  search: z.string(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  endpoint: z.string(),
+  authentication: types.literal("basicSecret"),
+  credentialsSecret: types.string(),
+  searchHead: types.string(),
+  search: types.string(),
+  earliest: types.optional(types.string()),
+  latest: types.optional(types.string()),
+  endpoint: types.string(),
   outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
-  collectRequestParams: z.array(
-    z.lazy(() =>
+  collectRequestParams: types.optional(
+    z.array(z.lazy(() =>
       SplunkAuthenticationBasicSecretCollectRequestParam$inboundSchema
-    ),
-  ).optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
+    )),
+  ),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
       SplunkAuthenticationBasicSecretCollectRequestHeader$inboundSchema
-    ),
-  ).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  handleEscapedChars: z.boolean().optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+    )),
+  ),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  handleEscapedChars: types.optional(types.boolean()),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       SplunkAuthenticationBasicSecretSplunkRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       SplunkAuthenticationBasicSecretSplunkRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type SplunkAuthenticationBasicSecret$Outbound = {
@@ -3552,8 +3582,8 @@ export const SplunkAuthenticationBasicCollectRequestParam$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationBasicCollectRequestParam$Outbound = {
@@ -3605,8 +3635,8 @@ export const SplunkAuthenticationBasicCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationBasicCollectRequestHeader$Outbound = {
@@ -3658,14 +3688,14 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$Outbound = {
@@ -3729,14 +3759,14 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$Outbound = {
@@ -3800,14 +3830,14 @@ export const SplunkAuthenticationBasicSplunkRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationBasicSplunkRetryRulesTypeNone$Outbound = {
@@ -3869,15 +3899,17 @@ export const SplunkAuthenticationBasicRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationBasicRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => SplunkAuthenticationBasicSplunkRetryRulesTypeNone$inboundSchema),
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    SplunkAuthenticationBasicSplunkRetryRulesTypeNone$inboundSchema
+  ),
+  static: z.lazy(() =>
     SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type SplunkAuthenticationBasicRetryRules$Outbound =
   | SplunkAuthenticationBasicSplunkRetryRulesTypeNone$Outbound
@@ -3927,37 +3959,41 @@ export const SplunkAuthenticationBasic$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("basic"),
-  username: z.string(),
-  password: z.string(),
-  searchHead: z.string(),
-  search: z.string(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  endpoint: z.string(),
+  authentication: types.literal("basic"),
+  username: types.string(),
+  password: types.string(),
+  searchHead: types.string(),
+  search: types.string(),
+  earliest: types.optional(types.string()),
+  latest: types.optional(types.string()),
+  endpoint: types.string(),
   outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
-  collectRequestParams: z.array(
-    z.lazy(() => SplunkAuthenticationBasicCollectRequestParam$inboundSchema),
-  ).optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() => SplunkAuthenticationBasicCollectRequestHeader$inboundSchema),
-  ).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  handleEscapedChars: z.boolean().optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  collectRequestParams: types.optional(
+    z.array(z.lazy(() =>
+      SplunkAuthenticationBasicCollectRequestParam$inboundSchema
+    )),
+  ),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
+      SplunkAuthenticationBasicCollectRequestHeader$inboundSchema
+    )),
+  ),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  handleEscapedChars: types.optional(types.boolean()),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       SplunkAuthenticationBasicSplunkRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       SplunkAuthenticationBasicSplunkRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       SplunkAuthenticationBasicSplunkRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type SplunkAuthenticationBasic$Outbound = {
@@ -4051,8 +4087,8 @@ export const SplunkAuthenticationNoneCollectRequestParam$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationNoneCollectRequestParam$Outbound = {
@@ -4104,8 +4140,8 @@ export const SplunkAuthenticationNoneCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type SplunkAuthenticationNoneCollectRequestHeader$Outbound = {
@@ -4157,14 +4193,14 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$Outbound = {
@@ -4228,14 +4264,14 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$Outbound = {
@@ -4299,14 +4335,14 @@ export const SplunkAuthenticationNoneSplunkRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type SplunkAuthenticationNoneSplunkRetryRulesTypeNone$Outbound = {
@@ -4368,15 +4404,17 @@ export const SplunkAuthenticationNoneRetryRules$inboundSchema: z.ZodType<
   SplunkAuthenticationNoneRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => SplunkAuthenticationNoneSplunkRetryRulesTypeNone$inboundSchema),
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    SplunkAuthenticationNoneSplunkRetryRulesTypeNone$inboundSchema
+  ),
+  static: z.lazy(() =>
     SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type SplunkAuthenticationNoneRetryRules$Outbound =
   | SplunkAuthenticationNoneSplunkRetryRulesTypeNone$Outbound
@@ -4424,35 +4462,39 @@ export const SplunkAuthenticationNone$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("none"),
-  searchHead: z.string(),
-  search: z.string(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  endpoint: z.string(),
+  authentication: types.literal("none"),
+  searchHead: types.string(),
+  search: types.string(),
+  earliest: types.optional(types.string()),
+  latest: types.optional(types.string()),
+  endpoint: types.string(),
   outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
-  collectRequestParams: z.array(
-    z.lazy(() => SplunkAuthenticationNoneCollectRequestParam$inboundSchema),
-  ).optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() => SplunkAuthenticationNoneCollectRequestHeader$inboundSchema),
-  ).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  handleEscapedChars: z.boolean().optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  collectRequestParams: types.optional(
+    z.array(z.lazy(() =>
+      SplunkAuthenticationNoneCollectRequestParam$inboundSchema
+    )),
+  ),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
+      SplunkAuthenticationNoneCollectRequestHeader$inboundSchema
+    )),
+  ),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  handleEscapedChars: types.optional(types.boolean()),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       SplunkAuthenticationNoneSplunkRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       SplunkAuthenticationNoneSplunkRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       SplunkAuthenticationNoneSplunkRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type SplunkAuthenticationNone$Outbound = {
@@ -4540,15 +4582,15 @@ export const SplunkCollectorConf$inboundSchema: z.ZodType<
   SplunkCollectorConf,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => SplunkAuthenticationNone$inboundSchema),
-  z.lazy(() => SplunkAuthenticationBasic$inboundSchema),
-  z.lazy(() => SplunkAuthenticationBasicSecret$inboundSchema),
-  z.lazy(() => SplunkAuthenticationToken$inboundSchema),
-  z.lazy(() => SplunkAuthenticationTokenSecret$inboundSchema),
-  z.lazy(() => SplunkAuthenticationLogin$inboundSchema),
-  z.lazy(() => SplunkAuthenticationLoginSecret$inboundSchema),
-]);
+> = discriminatedUnion("authentication", {
+  none: z.lazy(() => SplunkAuthenticationNone$inboundSchema),
+  basic: z.lazy(() => SplunkAuthenticationBasic$inboundSchema),
+  basicSecret: z.lazy(() => SplunkAuthenticationBasicSecret$inboundSchema),
+  token: z.lazy(() => SplunkAuthenticationToken$inboundSchema),
+  tokenSecret: z.lazy(() => SplunkAuthenticationTokenSecret$inboundSchema),
+  login: z.lazy(() => SplunkAuthenticationLogin$inboundSchema),
+  loginSecret: z.lazy(() => SplunkAuthenticationLoginSecret$inboundSchema),
+});
 /** @internal */
 export type SplunkCollectorConf$Outbound =
   | SplunkAuthenticationNone$Outbound

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type TagsTypePackInstallInfo = {
@@ -20,10 +21,10 @@ export const TagsTypePackInstallInfo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  dataType: z.array(z.string()).optional(),
-  domain: z.array(z.string()).optional(),
-  streamtags: z.array(z.string()).optional(),
-  technology: z.array(z.string()).optional(),
+  dataType: types.optional(z.array(types.string())),
+  domain: types.optional(z.array(types.string())),
+  streamtags: types.optional(z.array(types.string())),
+  technology: types.optional(z.array(types.string())),
 });
 /** @internal */
 export type TagsTypePackInstallInfo$Outbound = {

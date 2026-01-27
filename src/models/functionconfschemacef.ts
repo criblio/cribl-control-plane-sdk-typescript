@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type Header = {
@@ -63,8 +64,8 @@ export type FunctionConfSchemaCefInput = {
 /** @internal */
 export const Header$inboundSchema: z.ZodType<Header, z.ZodTypeDef, unknown> = z
   .object({
-    name: z.string().optional(),
-    value: z.string(),
+    name: types.optional(types.string()),
+    value: types.string(),
   });
 
 export function headerFromJSON(
@@ -83,8 +84,8 @@ export const Extension$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  name: types.string(),
+  value: types.string(),
 });
 /** @internal */
 export type Extension$Outbound = {
@@ -121,9 +122,9 @@ export const FunctionConfSchemaCef$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  outputField: z.string().optional(),
-  header: z.array(z.lazy(() => Header$inboundSchema)).optional(),
-  extension: z.array(z.lazy(() => Extension$inboundSchema)).optional(),
+  outputField: types.optional(types.string()),
+  header: types.optional(z.array(z.lazy(() => Header$inboundSchema))),
+  extension: types.optional(z.array(z.lazy(() => Extension$inboundSchema))),
 });
 
 export function functionConfSchemaCefFromJSON(

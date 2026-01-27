@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ExecutorSpecificSettingsTypeSavedJobExecutorExecutor,
@@ -31,10 +32,11 @@ export const ExecutorTypeSavedJobExecutor$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
-  storeTaskResults: z.boolean().optional(),
-  conf: ExecutorSpecificSettingsTypeSavedJobExecutorExecutor$inboundSchema
-    .optional(),
+  type: types.string(),
+  storeTaskResults: types.optional(types.boolean()),
+  conf: types.optional(
+    ExecutorSpecificSettingsTypeSavedJobExecutorExecutor$inboundSchema,
+  ),
 });
 /** @internal */
 export type ExecutorTypeSavedJobExecutor$Outbound = {

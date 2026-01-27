@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TypeOptions,
@@ -105,13 +106,13 @@ export const PipelineFunctionSerdeConf$inboundSchema: z.ZodType<
 > = z.object({
   mode: OperationMode$inboundSchema,
   type: TypeOptions$inboundSchema,
-  delimChar: z.any().optional(),
-  quoteChar: z.any().optional(),
-  escapeChar: z.any().optional(),
-  nullValue: z.any().optional(),
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
-  cleanFields: z.any().optional(),
+  delimChar: types.optional(z.any()),
+  quoteChar: types.optional(z.any()),
+  escapeChar: types.optional(z.any()),
+  nullValue: types.optional(z.any()),
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
+  cleanFields: types.optional(z.any()),
 });
 /** @internal */
 export type PipelineFunctionSerdeConf$Outbound = {
@@ -166,13 +167,13 @@ export const PipelineFunctionSerde$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("serde"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("serde"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionSerdeConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionSerde$Outbound = {

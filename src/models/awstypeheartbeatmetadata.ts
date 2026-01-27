@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AwsTypeHeartbeatMetadata = {
@@ -22,12 +23,12 @@ export const AwsTypeHeartbeatMetadata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean(),
-  instanceId: z.string(),
-  region: z.string(),
-  tags: z.record(z.string()).optional(),
-  type: z.string(),
-  zone: z.string(),
+  enabled: types.boolean(),
+  instanceId: types.string(),
+  region: types.string(),
+  tags: types.optional(z.record(types.string())),
+  type: types.string(),
+  zone: types.string(),
 });
 
 export function awsTypeHeartbeatMetadataFromJSON(

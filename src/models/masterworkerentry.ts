@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   HeartbeatMetadata,
@@ -62,7 +63,7 @@ export const MasterWorkerEntryWorkers$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number(),
+  count: types.number(),
 });
 
 export function masterWorkerEntryWorkersFromJSON(
@@ -81,20 +82,20 @@ export const MasterWorkerEntry$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  deployable: z.boolean().optional(),
-  disconnected: z.boolean().optional(),
-  firstMsgTime: z.number(),
-  group: z.string(),
-  id: z.string(),
+  deployable: types.optional(types.boolean()),
+  disconnected: types.optional(types.boolean()),
+  firstMsgTime: types.number(),
+  group: types.string(),
+  id: types.string(),
   info: NodeProvidedInfo$inboundSchema,
-  lastMetrics: z.record(z.any()).optional(),
-  lastMsgTime: z.number(),
-  metadata: HeartbeatMetadata$inboundSchema.optional(),
-  nodeUpgradeStatus: NodeUpgradeStatus$inboundSchema.optional(),
-  status: z.string().optional(),
-  type: MasterWorkerEntryType$inboundSchema.optional(),
-  workerProcesses: z.number(),
-  workers: z.lazy(() => MasterWorkerEntryWorkers$inboundSchema).optional(),
+  lastMetrics: types.optional(z.record(z.any())),
+  lastMsgTime: types.number(),
+  metadata: types.optional(HeartbeatMetadata$inboundSchema),
+  nodeUpgradeStatus: types.optional(NodeUpgradeStatus$inboundSchema),
+  status: types.optional(types.string()),
+  type: types.optional(MasterWorkerEntryType$inboundSchema),
+  workerProcesses: types.number(),
+  workers: types.optional(z.lazy(() => MasterWorkerEntryWorkers$inboundSchema)),
 });
 
 export function masterWorkerEntryFromJSON(

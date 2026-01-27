@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type SslTypeSystemSettingsConfApi = {
@@ -21,11 +22,11 @@ export const SslTypeSystemSettingsConfApi$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  caPath: z.string().optional(),
-  certPath: z.string(),
-  disabled: z.boolean(),
-  passphrase: z.string(),
-  privKeyPath: z.string(),
+  caPath: types.optional(types.string()),
+  certPath: types.string(),
+  disabled: types.boolean(),
+  passphrase: types.string(),
+  privKeyPath: types.string(),
 });
 /** @internal */
 export type SslTypeSystemSettingsConfApi$Outbound = {

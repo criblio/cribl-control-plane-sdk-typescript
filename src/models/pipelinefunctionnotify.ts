@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -180,20 +181,20 @@ export const NotifyConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  group: z.string(),
-  notificationId: z.string(),
-  searchId: z.string(),
-  savedQueryId: z.string(),
-  trigger: z.string().optional(),
-  triggerType: TriggerType$inboundSchema.optional(),
-  triggerComparator: CountComparator$inboundSchema.optional(),
-  triggerCount: z.number().optional(),
-  resultsLimit: z.number().optional(),
-  searchUrl: z.string(),
-  message: z.string().optional(),
-  authToken: z.string(),
-  messagesEndpoint: z.string(),
-  tenantId: z.string().optional(),
+  group: types.string(),
+  notificationId: types.string(),
+  searchId: types.string(),
+  savedQueryId: types.string(),
+  trigger: types.optional(types.string()),
+  triggerType: types.optional(TriggerType$inboundSchema),
+  triggerComparator: types.optional(CountComparator$inboundSchema),
+  triggerCount: types.optional(types.number()),
+  resultsLimit: types.optional(types.number()),
+  searchUrl: types.string(),
+  message: types.optional(types.string()),
+  authToken: types.string(),
+  messagesEndpoint: types.string(),
+  tenantId: types.optional(types.string()),
 });
 /** @internal */
 export type NotifyConfiguration$Outbound = {
@@ -258,13 +259,13 @@ export const PipelineFunctionNotify$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("notify"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("notify"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => NotifyConfiguration$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionNotify$Outbound = {

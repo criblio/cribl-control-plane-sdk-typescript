@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitLogResult = {
@@ -23,13 +24,13 @@ export const GitLogResult$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  author_email: z.string().optional(),
-  author_name: z.string().optional(),
-  body: z.string().optional(),
-  date: z.string().optional(),
-  hash: z.string().optional(),
-  message: z.string().optional(),
-  refs: z.string().optional(),
+  author_email: types.optional(types.string()),
+  author_name: types.optional(types.string()),
+  body: types.optional(types.string()),
+  date: types.optional(types.string()),
+  hash: types.optional(types.string()),
+  message: types.optional(types.string()),
+  refs: types.optional(types.string()),
 });
 
 export function gitLogResultFromJSON(

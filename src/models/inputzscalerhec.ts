@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
   AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
@@ -196,13 +197,17 @@ export const InputZscalerHecAuthToken$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
-  tokenSecret: z.string().optional(),
-  token: z.string(),
-  enabled: z.boolean().optional(),
-  description: z.string().optional(),
-  allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  authType: types.optional(
+    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  ),
+  tokenSecret: types.optional(types.string()),
+  token: types.string(),
+  enabled: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  allowedIndexesAtToken: types.optional(z.array(types.string())),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
 });
 /** @internal */
 export type InputZscalerHecAuthToken$Outbound = {
@@ -254,43 +259,48 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("zscaler_hec"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string(),
-  port: z.number(),
-  authTokens: z.array(z.lazy(() => InputZscalerHecAuthToken$inboundSchema))
-    .optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  maxActiveReq: z.number().optional(),
-  maxRequestsPerSocket: z.number().int().optional(),
-  enableProxyHeader: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  activityLogSampleRate: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  socketTimeout: z.number().optional(),
-  keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.any().optional(),
-  ipAllowlistRegex: z.string().optional(),
-  ipDenylistRegex: z.string().optional(),
-  hecAPI: z.string(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  allowedIndexes: z.array(z.string()).optional(),
-  hecAcks: z.boolean().optional(),
-  accessControlAllowOrigin: z.array(z.string()).optional(),
-  accessControlAllowHeaders: z.array(z.string()).optional(),
-  emitTokenMetrics: z.boolean().optional(),
-  description: z.string().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
-  __template_hecAPI: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("zscaler_hec"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(
+    z.array(z.lazy(() => InputZscalerHecAuthToken$inboundSchema)),
+  ),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(z.any()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  hecAPI: types.string(),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  allowedIndexes: types.optional(z.array(types.string())),
+  hecAcks: types.optional(types.boolean()),
+  accessControlAllowOrigin: types.optional(z.array(types.string())),
+  accessControlAllowHeaders: types.optional(z.array(types.string())),
+  emitTokenMetrics: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  __template_hecAPI: types.optional(types.string()),
 });
 /** @internal */
 export type InputZscalerHec$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ConfigGroupLookupsLookup = {
@@ -24,9 +25,9 @@ export const ConfigGroupLookupsLookup$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  deployedVersion: z.string().optional(),
-  file: z.string(),
-  version: z.string().optional(),
+  deployedVersion: types.optional(types.string()),
+  file: types.string(),
+  version: types.optional(types.string()),
 });
 /** @internal */
 export type ConfigGroupLookupsLookup$Outbound = {
@@ -69,7 +70,7 @@ export const ConfigGroupLookups$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  context: z.string(),
+  context: types.string(),
   lookups: z.array(z.lazy(() => ConfigGroupLookupsLookup$inboundSchema)),
 });
 /** @internal */

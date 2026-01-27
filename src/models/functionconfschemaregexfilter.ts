@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionConfSchemaRegexFilterRegexList = {
@@ -32,7 +33,7 @@ export const FunctionConfSchemaRegexFilterRegexList$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  regex: z.string(),
+  regex: types.string(),
 });
 /** @internal */
 export type FunctionConfSchemaRegexFilterRegexList$Outbound = {
@@ -75,11 +76,11 @@ export const FunctionConfSchemaRegexFilter$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  regex: z.string().optional(),
-  regexList: z.array(
-    z.lazy(() => FunctionConfSchemaRegexFilterRegexList$inboundSchema),
-  ).optional(),
-  field: z.string().optional(),
+  regex: types.optional(types.string()),
+  regexList: types.optional(
+    z.array(z.lazy(() => FunctionConfSchemaRegexFilterRegexList$inboundSchema)),
+  ),
+  field: types.optional(types.string()),
 });
 /** @internal */
 export type FunctionConfSchemaRegexFilter$Outbound = {

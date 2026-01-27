@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AzureTypeHeartbeatMetadata = {
@@ -27,17 +28,17 @@ export const AzureTypeHeartbeatMetadata$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean(),
-  hostname: z.string().optional(),
-  instanceId: z.string().optional(),
-  name: z.string().optional(),
-  region: z.string().optional(),
-  resourceGroup: z.string().optional(),
-  subscriptionId: z.string().optional(),
-  tags: z.record(z.string()).optional(),
-  type: z.string().optional(),
-  vmId: z.string().optional(),
-  zone: z.string().optional(),
+  enabled: types.boolean(),
+  hostname: types.optional(types.string()),
+  instanceId: types.optional(types.string()),
+  name: types.optional(types.string()),
+  region: types.optional(types.string()),
+  resourceGroup: types.optional(types.string()),
+  subscriptionId: types.optional(types.string()),
+  tags: types.optional(z.record(types.string())),
+  type: types.optional(types.string()),
+  vmId: types.optional(types.string()),
+  zone: types.optional(types.string()),
 });
 
 export function azureTypeHeartbeatMetadataFromJSON(

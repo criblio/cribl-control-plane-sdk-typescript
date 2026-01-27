@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type SortConfiguration = {
@@ -64,11 +65,11 @@ export const SortConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sortId: z.string().optional(),
-  comparisonExpression: z.string(),
-  topN: z.number().optional(),
-  maxEvents: z.number().optional(),
-  suppressPreviews: z.boolean().optional(),
+  sortId: types.optional(types.string()),
+  comparisonExpression: types.string(),
+  topN: types.optional(types.number()),
+  maxEvents: types.optional(types.number()),
+  suppressPreviews: types.optional(types.boolean()),
 });
 /** @internal */
 export type SortConfiguration$Outbound = {
@@ -115,13 +116,13 @@ export const PipelineFunctionSort$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("sort"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("sort"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => SortConfiguration$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionSort$Outbound = {

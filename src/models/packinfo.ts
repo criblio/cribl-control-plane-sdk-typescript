@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TagsTypePackInstallInfo,
@@ -35,21 +36,21 @@ export const PackInfo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  author: z.string().optional(),
-  dependencies: z.record(z.string()).optional(),
-  description: z.string().optional(),
-  displayName: z.string().optional(),
-  exports: z.array(z.string()).optional(),
-  id: z.string(),
-  inputs: z.number().optional(),
-  isDisabled: z.boolean().optional(),
-  minLogStreamVersion: z.string().optional(),
-  outputs: z.number().optional(),
-  settings: z.record(z.any()).optional(),
-  source: z.string(),
-  spec: z.string().optional(),
-  tags: TagsTypePackInstallInfo$inboundSchema.optional(),
-  version: z.string().optional(),
+  author: types.optional(types.string()),
+  dependencies: types.optional(z.record(types.string())),
+  description: types.optional(types.string()),
+  displayName: types.optional(types.string()),
+  exports: types.optional(z.array(types.string())),
+  id: types.string(),
+  inputs: types.optional(types.number()),
+  isDisabled: types.optional(types.boolean()),
+  minLogStreamVersion: types.optional(types.string()),
+  outputs: types.optional(types.number()),
+  settings: types.optional(z.record(z.any())),
+  source: types.string(),
+  spec: types.optional(types.string()),
+  tags: types.optional(TagsTypePackInstallInfo$inboundSchema),
+  version: types.optional(types.string()),
 });
 
 export function packInfoFromJSON(

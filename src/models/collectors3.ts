@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   S3CollectorConf,
@@ -38,10 +39,10 @@ export const CollectorS3$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.literal("s3"),
+  type: types.literal("s3"),
   conf: S3CollectorConf$inboundSchema,
-  destructive: z.boolean().optional(),
-  encoding: z.string().optional(),
+  destructive: types.optional(types.boolean()),
+  encoding: types.optional(types.string()),
 });
 /** @internal */
 export type CollectorS3$Outbound = {

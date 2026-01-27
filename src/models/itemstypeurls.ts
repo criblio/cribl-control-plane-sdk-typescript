@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ItemsTypeUrls = {
@@ -28,9 +29,9 @@ export const ItemsTypeUrls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  url: z.string(),
-  weight: z.number().optional(),
-  __template_url: z.string().optional(),
+  url: types.string(),
+  weight: types.optional(types.number()),
+  __template_url: types.optional(types.string()),
 });
 /** @internal */
 export type ItemsTypeUrls$Outbound = {

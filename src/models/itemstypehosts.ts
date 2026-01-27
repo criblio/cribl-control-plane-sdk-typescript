@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TlsOptionsHostsItems,
@@ -49,13 +50,13 @@ export const ItemsTypeHosts$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  host: z.string(),
-  port: z.number(),
-  tls: TlsOptionsHostsItems$inboundSchema.optional(),
-  servername: z.string().optional(),
-  weight: z.number().optional(),
-  __template_host: z.string().optional(),
-  __template_port: z.string().optional(),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(TlsOptionsHostsItems$inboundSchema),
+  servername: types.optional(types.string()),
+  weight: types.optional(types.number()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type ItemsTypeHosts$Outbound = {

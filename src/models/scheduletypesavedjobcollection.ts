@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const ScheduleTypeSavedJobCollectionType = {
@@ -178,20 +179,22 @@ export const ScheduleTypeSavedJobCollectionRunSettings$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: ScheduleTypeSavedJobCollectionType$inboundSchema.optional(),
-  rescheduleDroppedTasks: z.boolean().optional(),
-  maxTaskReschedule: z.number().optional(),
-  logLevel: ScheduleTypeSavedJobCollectionLogLevel$inboundSchema.optional(),
-  jobTimeout: z.string().optional(),
-  mode: z.string(),
-  timeRangeType: z.string().optional(),
-  earliest: z.number().optional(),
-  latest: z.number().optional(),
-  timestampTimezone: z.any().optional(),
-  timeWarning: z.lazy(() => TimeWarning$inboundSchema).optional(),
-  expression: z.string().optional(),
-  minTaskSize: z.string().optional(),
-  maxTaskSize: z.string().optional(),
+  type: types.optional(ScheduleTypeSavedJobCollectionType$inboundSchema),
+  rescheduleDroppedTasks: types.optional(types.boolean()),
+  maxTaskReschedule: types.optional(types.number()),
+  logLevel: types.optional(
+    ScheduleTypeSavedJobCollectionLogLevel$inboundSchema,
+  ),
+  jobTimeout: types.optional(types.string()),
+  mode: types.string(),
+  timeRangeType: types.optional(types.string()),
+  earliest: types.optional(types.number()),
+  latest: types.optional(types.number()),
+  timestampTimezone: types.optional(z.any()),
+  timeWarning: types.optional(z.lazy(() => TimeWarning$inboundSchema)),
+  expression: types.optional(types.string()),
+  minTaskSize: types.optional(types.string()),
+  maxTaskSize: types.optional(types.string()),
 });
 /** @internal */
 export type ScheduleTypeSavedJobCollectionRunSettings$Outbound = {
@@ -266,13 +269,14 @@ export const ScheduleTypeSavedJobCollection$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
-  skippable: z.boolean().optional(),
-  resumeMissed: z.boolean().optional(),
-  cronSchedule: z.string().optional(),
-  maxConcurrentRuns: z.number().optional(),
-  run: z.lazy(() => ScheduleTypeSavedJobCollectionRunSettings$inboundSchema)
-    .optional(),
+  enabled: types.optional(types.boolean()),
+  skippable: types.optional(types.boolean()),
+  resumeMissed: types.optional(types.boolean()),
+  cronSchedule: types.optional(types.string()),
+  maxConcurrentRuns: types.optional(types.number()),
+  run: types.optional(
+    z.lazy(() => ScheduleTypeSavedJobCollectionRunSettings$inboundSchema),
+  ),
 });
 /** @internal */
 export type ScheduleTypeSavedJobCollection$Outbound = {

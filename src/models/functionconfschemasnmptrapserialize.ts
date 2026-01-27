@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthenticationProtocolOptionsV3User,
   AuthenticationProtocolOptionsV3User$inboundSchema,
@@ -37,10 +38,12 @@ export const FunctionConfSchemaSnmpTrapSerializeV3User$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string().optional(),
-  authProtocol: AuthenticationProtocolOptionsV3User$inboundSchema.optional(),
-  authKey: z.any().optional(),
-  privProtocol: z.string().optional(),
+  name: types.optional(types.string()),
+  authProtocol: types.optional(
+    AuthenticationProtocolOptionsV3User$inboundSchema,
+  ),
+  authKey: types.optional(z.any()),
+  privProtocol: types.optional(types.string()),
 });
 /** @internal */
 export type FunctionConfSchemaSnmpTrapSerializeV3User$Outbound = {
@@ -95,10 +98,11 @@ export const FunctionConfSchemaSnmpTrapSerialize$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  strict: z.boolean().optional(),
-  dropFailedEvents: z.boolean().optional(),
-  v3User: z.lazy(() => FunctionConfSchemaSnmpTrapSerializeV3User$inboundSchema)
-    .optional(),
+  strict: types.optional(types.boolean()),
+  dropFailedEvents: types.optional(types.boolean()),
+  v3User: types.optional(
+    z.lazy(() => FunctionConfSchemaSnmpTrapSerializeV3User$inboundSchema),
+  ),
 });
 /** @internal */
 export type FunctionConfSchemaSnmpTrapSerialize$Outbound = {

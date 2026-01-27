@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthenticationTypeOptionsPrometheusAuth1,
   AuthenticationTypeOptionsPrometheusAuth1$inboundSchema,
@@ -42,12 +43,14 @@ export const PrometheusAuthType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationTypeOptionsPrometheusAuth1$inboundSchema.optional(),
-  token: z.string().optional(),
-  textSecret: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
+  authType: types.optional(
+    AuthenticationTypeOptionsPrometheusAuth1$inboundSchema,
+  ),
+  token: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
 });
 /** @internal */
 export type PrometheusAuthType$Outbound = {

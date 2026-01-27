@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   ConfigGroupCloud,
   ConfigGroupCloud$inboundSchema,
@@ -79,29 +80,30 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  cloud: ConfigGroupCloud$inboundSchema.optional(),
-  configVersion: z.string().optional(),
-  deployingWorkerCount: z.number().optional(),
-  description: z.string().optional(),
-  estimatedIngestRate: EstimatedIngestRateOptionsConfigGroup$inboundSchema
-    .optional(),
-  git: GitTypeConfigGroup$inboundSchema.optional(),
-  id: z.string(),
-  incompatibleWorkerCount: z.number().optional(),
-  inherits: z.string().optional(),
-  isFleet: z.boolean().optional(),
-  isSearch: z.boolean().optional(),
-  lookupDeployments: z.array(ConfigGroupLookups$inboundSchema).optional(),
-  maxWorkerAge: z.string().optional(),
-  name: z.string().optional(),
-  onPrem: z.boolean().optional(),
-  provisioned: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  tags: z.string().optional(),
-  type: TypeOptionsConfigGroup$inboundSchema.optional(),
-  upgradeVersion: z.string().optional(),
-  workerCount: z.number().optional(),
-  workerRemoteAccess: z.boolean().optional(),
+  cloud: types.optional(ConfigGroupCloud$inboundSchema),
+  configVersion: types.optional(types.string()),
+  deployingWorkerCount: types.optional(types.number()),
+  description: types.optional(types.string()),
+  estimatedIngestRate: types.optional(
+    EstimatedIngestRateOptionsConfigGroup$inboundSchema,
+  ),
+  git: types.optional(GitTypeConfigGroup$inboundSchema),
+  id: types.string(),
+  incompatibleWorkerCount: types.optional(types.number()),
+  inherits: types.optional(types.string()),
+  isFleet: types.optional(types.boolean()),
+  isSearch: types.optional(types.boolean()),
+  lookupDeployments: types.optional(z.array(ConfigGroupLookups$inboundSchema)),
+  maxWorkerAge: types.optional(types.string()),
+  name: types.optional(types.string()),
+  onPrem: types.optional(types.boolean()),
+  provisioned: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  tags: types.optional(types.string()),
+  type: types.optional(TypeOptionsConfigGroup$inboundSchema),
+  upgradeVersion: types.optional(types.string()),
+  workerCount: types.optional(types.number()),
+  workerRemoteAccess: types.optional(types.boolean()),
 });
 /** @internal */
 export type ConfigGroup$Outbound = {

@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import {
   AwsTypeHeartbeatMetadata,
   AwsTypeHeartbeatMetadata$inboundSchema,
@@ -64,7 +66,7 @@ export type NodeProvidedInfo = {
 
 /** @internal */
 export const Os$inboundSchema: z.ZodType<Os, z.ZodTypeDef, unknown> = z.object({
-  addresses: z.array(z.string()),
+  addresses: z.array(types.string()),
 });
 
 export function osFromJSON(
@@ -79,7 +81,7 @@ export function osFromJSON(
 
 /** @internal */
 export const OsUnion$inboundSchema: z.ZodType<OsUnion, z.ZodTypeDef, unknown> =
-  z.union([
+  smartUnion([
     HostOsTypeHeartbeatMetadata$inboundSchema,
     z.lazy(() => Os$inboundSchema),
   ]);
@@ -100,30 +102,32 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  architecture: z.string(),
-  aws: AwsTypeHeartbeatMetadata$inboundSchema.optional(),
-  azure: AzureTypeHeartbeatMetadata$inboundSchema.optional(),
-  conn_ip: z.string().optional(),
-  cpus: z.number(),
+  architecture: types.string(),
+  aws: types.optional(AwsTypeHeartbeatMetadata$inboundSchema),
+  azure: types.optional(AzureTypeHeartbeatMetadata$inboundSchema),
+  conn_ip: types.optional(types.string()),
+  cpus: types.number(),
   cribl: HBCriblInfo$inboundSchema,
-  env: z.record(z.string()),
-  freeDiskSpace: z.number().optional(),
-  hostOs: HostOsTypeHeartbeatMetadata$inboundSchema.optional(),
-  hostname: z.string(),
-  isSaasWorker: z.boolean().optional(),
-  kube: KubeTypeHeartbeatMetadata$inboundSchema.optional(),
-  localTime: z.number().optional(),
-  metadata: HeartbeatMetadata$inboundSchema.optional(),
-  node: z.string(),
-  os: z.union([
-    HostOsTypeHeartbeatMetadata$inboundSchema,
-    z.lazy(() => Os$inboundSchema),
-  ]).optional(),
-  outpost: OutpostNodeInfo$inboundSchema.optional(),
-  platform: z.string(),
-  release: z.string(),
-  totalDiskSpace: z.number().optional(),
-  totalmem: z.number(),
+  env: z.record(types.string()),
+  freeDiskSpace: types.optional(types.number()),
+  hostOs: types.optional(HostOsTypeHeartbeatMetadata$inboundSchema),
+  hostname: types.string(),
+  isSaasWorker: types.optional(types.boolean()),
+  kube: types.optional(KubeTypeHeartbeatMetadata$inboundSchema),
+  localTime: types.optional(types.number()),
+  metadata: types.optional(HeartbeatMetadata$inboundSchema),
+  node: types.string(),
+  os: types.optional(
+    smartUnion([
+      HostOsTypeHeartbeatMetadata$inboundSchema,
+      z.lazy(() => Os$inboundSchema),
+    ]),
+  ),
+  outpost: types.optional(OutpostNodeInfo$inboundSchema),
+  platform: types.string(),
+  release: types.string(),
+  totalDiskSpace: types.optional(types.number()),
+  totalmem: types.number(),
 });
 
 export function nodeProvidedInfoFromJSON(
