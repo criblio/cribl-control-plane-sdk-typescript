@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FileT = {
@@ -35,9 +36,9 @@ export type GitStatusResult = {
 /** @internal */
 export const FileT$inboundSchema: z.ZodType<FileT, z.ZodTypeDef, unknown> = z
   .object({
-    index: z.string(),
-    path: z.string(),
-    working_dir: z.string(),
+    index: types.string(),
+    path: types.string(),
+    working_dir: types.string(),
   });
 
 export function fileFromJSON(
@@ -53,8 +54,8 @@ export function fileFromJSON(
 /** @internal */
 export const Renamed$inboundSchema: z.ZodType<Renamed, z.ZodTypeDef, unknown> =
   z.object({
-    from: z.string(),
-    to: z.string(),
+    from: types.string(),
+    to: types.string(),
   });
 
 export function renamedFromJSON(
@@ -73,17 +74,17 @@ export const GitStatusResult$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  ahead: z.number(),
-  behind: z.number(),
-  conflicted: z.array(z.string()),
-  created: z.array(z.string()),
-  current: z.string(),
-  deleted: z.array(z.string()),
+  ahead: types.number(),
+  behind: types.number(),
+  conflicted: z.array(types.string()),
+  created: z.array(types.string()),
+  current: types.string(),
+  deleted: z.array(types.string()),
   files: z.array(z.lazy(() => FileT$inboundSchema)),
-  modified: z.array(z.string()),
-  not_added: z.array(z.string()),
+  modified: z.array(types.string()),
+  not_added: z.array(types.string()),
   renamed: z.array(z.lazy(() => Renamed$inboundSchema)),
-  staged: z.array(z.string()),
+  staged: z.array(types.string()),
 });
 
 export function gitStatusResultFromJSON(

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SavedJobCollection,
@@ -35,7 +36,7 @@ export const SavedJob$inboundSchema: z.ZodType<
   SavedJob,
   z.ZodTypeDef,
   unknown
-> = z.union([
+> = smartUnion([
   SavedJobCollection$inboundSchema,
   SavedJobExecutor$inboundSchema,
   SavedJobScheduledSearch$inboundSchema,
@@ -51,7 +52,7 @@ export const SavedJob$outboundSchema: z.ZodType<
   SavedJob$Outbound,
   z.ZodTypeDef,
   SavedJob
-> = z.union([
+> = smartUnion([
   SavedJobCollection$outboundSchema,
   SavedJobExecutor$outboundSchema,
   SavedJobScheduledSearch$outboundSchema,

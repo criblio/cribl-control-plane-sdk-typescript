@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -69,9 +70,9 @@ export const FunctionConfSchemaRollupMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  dimensions: z.array(z.string()).optional(),
-  timeWindow: z.string().optional(),
-  gaugeRollup: GaugeUpdate$inboundSchema.optional(),
+  dimensions: types.optional(z.array(types.string())),
+  timeWindow: types.optional(types.string()),
+  gaugeRollup: types.optional(GaugeUpdate$inboundSchema),
 });
 /** @internal */
 export type FunctionConfSchemaRollupMetrics$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -105,8 +106,8 @@ export const InputJournalFilesRule$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string(),
-  description: z.string().optional(),
+  filter: types.string(),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type InputJournalFilesRule$Outbound = {
@@ -147,24 +148,30 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("journal_files"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  path: z.string(),
-  interval: z.number().optional(),
-  journals: z.array(z.string()),
-  rules: z.array(z.lazy(() => InputJournalFilesRule$inboundSchema)).optional(),
-  currentBoot: z.boolean().optional(),
-  maxAgeDur: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("journal_files"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  path: types.string(),
+  interval: types.optional(types.number()),
+  journals: z.array(types.string()),
+  rules: types.optional(
+    z.array(z.lazy(() => InputJournalFilesRule$inboundSchema)),
+  ),
+  currentBoot: types.optional(types.boolean()),
+  maxAgeDur: types.optional(types.string()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type InputJournalFiles$Outbound = {

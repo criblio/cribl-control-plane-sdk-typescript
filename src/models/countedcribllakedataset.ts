@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   CriblLakeDataset,
   CriblLakeDataset$inboundSchema,
@@ -25,8 +26,8 @@ export const CountedCriblLakeDataset$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  items: z.array(CriblLakeDataset$inboundSchema).optional(),
+  count: types.optional(types.number()),
+  items: types.optional(z.array(CriblLakeDataset$inboundSchema)),
 });
 
 export function countedCriblLakeDatasetFromJSON(

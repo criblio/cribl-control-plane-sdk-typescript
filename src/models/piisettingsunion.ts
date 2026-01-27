@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PiiSettings2 = {};
@@ -50,7 +52,7 @@ export const PiiSettings1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enablePiiDetection: z.boolean(),
+  enablePiiDetection: types.boolean(),
 });
 /** @internal */
 export type PiiSettings1$Outbound = {
@@ -84,7 +86,7 @@ export const PiiSettingsUnion$inboundSchema: z.ZodType<
   PiiSettingsUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
+> = smartUnion([
   z.lazy(() => PiiSettings1$inboundSchema),
   z.lazy(() => PiiSettings2$inboundSchema),
 ]);
@@ -98,7 +100,7 @@ export const PiiSettingsUnion$outboundSchema: z.ZodType<
   PiiSettingsUnion$Outbound,
   z.ZodTypeDef,
   PiiSettingsUnion
-> = z.union([
+> = smartUnion([
   z.lazy(() => PiiSettings1$outboundSchema),
   z.lazy(() => PiiSettings2$outboundSchema),
 ]);

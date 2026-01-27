@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuth,
   AuthenticationMethodOptionsAuth$inboundSchema,
@@ -40,13 +41,13 @@ export const AuthType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  authType: AuthenticationMethodOptionsAuth$inboundSchema.optional(),
-  credentialsSecret: z.string().optional(),
-  manualAPIKey: z.string().optional(),
-  textSecret: z.string().optional(),
+  disabled: types.boolean(),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  authType: types.optional(AuthenticationMethodOptionsAuth$inboundSchema),
+  credentialsSecret: types.optional(types.string()),
+  manualAPIKey: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type AuthType$Outbound = {

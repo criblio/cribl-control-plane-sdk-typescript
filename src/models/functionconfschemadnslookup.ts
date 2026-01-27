@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -168,9 +169,9 @@ export const DnsLookupField$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  inFieldName: z.string().optional(),
-  resourceRecordType: ResourceRecordType$inboundSchema.optional(),
-  outFieldName: z.string().optional(),
+  inFieldName: types.optional(types.string()),
+  resourceRecordType: types.optional(ResourceRecordType$inboundSchema),
+  outFieldName: types.optional(types.string()),
 });
 /** @internal */
 export type DnsLookupField$Outbound = {
@@ -209,8 +210,8 @@ export const ReverseLookupField$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  inFieldName: z.string().optional(),
-  outFieldName: z.string().optional(),
+  inFieldName: types.optional(types.string()),
+  outFieldName: types.optional(types.string()),
 });
 /** @internal */
 export type ReverseLookupField$Outbound = {
@@ -264,17 +265,19 @@ export const FunctionConfSchemaDnsLookup$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  dnsLookupFields: z.array(z.lazy(() => DnsLookupField$inboundSchema))
-    .optional(),
-  reverseLookupFields: z.array(z.lazy(() => ReverseLookupField$inboundSchema))
-    .optional(),
-  dnsServers: z.array(z.string()).optional(),
-  cacheTTL: z.number().optional(),
-  maxCacheSize: z.number().optional(),
-  useResolvConf: z.boolean().optional(),
-  lookupFallback: z.boolean().optional(),
-  domainOverrides: z.array(z.string()).optional(),
-  lookupFailLogLevel: LogLevelForFailedLookups$inboundSchema.optional(),
+  dnsLookupFields: types.optional(
+    z.array(z.lazy(() => DnsLookupField$inboundSchema)),
+  ),
+  reverseLookupFields: types.optional(
+    z.array(z.lazy(() => ReverseLookupField$inboundSchema)),
+  ),
+  dnsServers: types.optional(z.array(types.string())),
+  cacheTTL: types.optional(types.number()),
+  maxCacheSize: types.optional(types.number()),
+  useResolvConf: types.optional(types.boolean()),
+  lookupFallback: types.optional(types.boolean()),
+  domainOverrides: types.optional(z.array(types.string())),
+  lookupFailLogLevel: types.optional(LogLevelForFailedLookups$inboundSchema),
 }).catchall(z.any());
 /** @internal */
 export type FunctionConfSchemaDnsLookup$Outbound = {

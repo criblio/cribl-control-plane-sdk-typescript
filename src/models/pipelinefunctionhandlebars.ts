@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type TemplateDefinition = {
@@ -79,10 +80,10 @@ export const TemplateDefinition$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
-  content: z.string(),
-  description: z.string().optional(),
-  type: z.string(),
+  id: types.string(),
+  content: types.string(),
+  description: types.optional(types.string()),
+  type: types.string(),
 });
 /** @internal */
 export type TemplateDefinition$Outbound = {
@@ -128,9 +129,9 @@ export const PipelineFunctionHandlebarsConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   templates: z.array(z.lazy(() => TemplateDefinition$inboundSchema)),
-  targetField: z.string().optional(),
-  parseJson: z.boolean().optional(),
-  removeOnNull: z.boolean().optional(),
+  targetField: types.optional(types.string()),
+  parseJson: types.optional(types.boolean()),
+  removeOnNull: types.optional(types.boolean()),
 });
 /** @internal */
 export type PipelineFunctionHandlebarsConf$Outbound = {
@@ -177,13 +178,13 @@ export const PipelineFunctionHandlebars$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("handlebars"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("handlebars"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionHandlebarsConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionHandlebars$Outbound = {

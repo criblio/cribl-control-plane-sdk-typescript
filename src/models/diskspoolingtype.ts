@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   CompressionOptionsPersistence,
   CompressionOptionsPersistence$inboundSchema,
@@ -41,11 +42,11 @@ export const DiskSpoolingType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
-  timeWindow: z.string().optional(),
-  maxDataSize: z.string().optional(),
-  maxDataTime: z.string().optional(),
-  compress: CompressionOptionsPersistence$inboundSchema.optional(),
+  enable: types.optional(types.boolean()),
+  timeWindow: types.optional(types.string()),
+  maxDataSize: types.optional(types.string()),
+  maxDataTime: types.optional(types.string()),
+  compress: types.optional(CompressionOptionsPersistence$inboundSchema),
 });
 /** @internal */
 export type DiskSpoolingType$Outbound = {

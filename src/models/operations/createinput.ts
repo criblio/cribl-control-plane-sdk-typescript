@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import * as openEnums from "../../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 
 /**
@@ -10218,7 +10219,7 @@ export const InputSyslog$outboundSchema: z.ZodType<
   InputSyslog$Outbound,
   z.ZodTypeDef,
   InputSyslog
-> = z.union([
+> = smartUnion([
   z.lazy(() => InputSyslogSyslog1$outboundSchema),
   z.lazy(() => InputSyslogSyslog2$outboundSchema),
 ]);
@@ -14598,7 +14599,7 @@ export const InputGrafana$outboundSchema: z.ZodType<
   InputGrafana$Outbound,
   z.ZodTypeDef,
   InputGrafana
-> = z.union([
+> = smartUnion([
   z.lazy(() => InputGrafanaGrafana1$outboundSchema),
   z.lazy(() => InputGrafanaGrafana2$outboundSchema),
 ]);
@@ -15796,7 +15797,7 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   z.lazy(() => InputAzureBlob$outboundSchema),
   z.lazy(() => InputElastic$outboundSchema),
   z.lazy(() => InputConfluentCloud$outboundSchema),
-  z.union([
+  smartUnion([
     z.lazy(() => InputGrafanaGrafana1$outboundSchema),
     z.lazy(() => InputGrafanaGrafana2$outboundSchema),
   ]).and(z.object({ type: z.literal("grafana") })),
@@ -15835,7 +15836,7 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   z.lazy(() => InputOpenTelemetry$outboundSchema),
   z.lazy(() => InputModelDrivenTelemetry$outboundSchema),
   z.lazy(() => InputSqs$outboundSchema),
-  z.union([
+  smartUnion([
     z.lazy(() => InputSyslogSyslog1$outboundSchema),
     z.lazy(() => InputSyslogSyslog2$outboundSchema),
   ]).and(z.object({ type: z.literal("syslog") })),

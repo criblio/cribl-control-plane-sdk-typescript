@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type LakeDatasetMetrics = {
@@ -18,8 +19,8 @@ export const LakeDatasetMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  currentSizeBytes: z.number(),
-  metricsDate: z.string(),
+  currentSizeBytes: types.number(),
+  metricsDate: types.string(),
 });
 /** @internal */
 export type LakeDatasetMetrics$Outbound = {

@@ -25,7 +25,7 @@
  */
 
 import {
-  Pipeline,
+  PipelineInput,
   RoutesRoute,
 } from "../dist/esm/models";
 import { InputTcpjson, OutputS3 } from "../dist/esm/models/operations";
@@ -73,7 +73,7 @@ const s3Destination: OutputS3 = {
 };
 
 // Pipeline configuration: filter events and keep only data in the "name" field
-const pipeline: Pipeline = {
+const pipeline: PipelineInput = {
   id: "my-pipeline",
   conf: {
     asyncFuncTimeout: 1000,

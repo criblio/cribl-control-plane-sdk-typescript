@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionConfSchemaOtlpLogs = {
@@ -21,8 +22,8 @@ export const FunctionConfSchemaOtlpLogs$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  dropNonLogEvents: z.boolean().optional(),
-  batchOTLPLogs: z.boolean().optional(),
+  dropNonLogEvents: types.optional(types.boolean()),
+  batchOTLPLogs: types.optional(types.boolean()),
 });
 /** @internal */
 export type FunctionConfSchemaOtlpLogs$Outbound = {

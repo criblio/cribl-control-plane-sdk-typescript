@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type RetryRulesType1 = {
@@ -48,14 +49,14 @@ export const RetryRulesType1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
-  interval: z.number().optional(),
-  limit: z.number().optional(),
-  multiplier: z.number().optional(),
-  codes: z.array(z.number()).optional(),
-  enableHeader: z.boolean().optional(),
-  retryConnectTimeout: z.boolean().optional(),
-  retryConnectReset: z.boolean().optional(),
+  type: types.string(),
+  interval: types.optional(types.number()),
+  limit: types.optional(types.number()),
+  multiplier: types.optional(types.number()),
+  codes: types.optional(z.array(types.number())),
+  enableHeader: types.optional(types.boolean()),
+  retryConnectTimeout: types.optional(types.boolean()),
+  retryConnectReset: types.optional(types.boolean()),
 });
 /** @internal */
 export type RetryRulesType1$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptions1,
   AuthenticationMethodOptions1$inboundSchema,
@@ -169,11 +170,11 @@ export const InputOffice365MgmtContentConfig$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  contentType: z.string().optional(),
-  description: z.string().optional(),
-  interval: z.number().optional(),
-  logLevel: LogLevelOptionsContentConfigItems$inboundSchema.optional(),
-  enabled: z.boolean().optional(),
+  contentType: types.optional(types.string()),
+  description: types.optional(types.string()),
+  interval: types.optional(types.number()),
+  logLevel: types.optional(LogLevelOptionsContentConfigItems$inboundSchema),
+  enabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type InputOffice365MgmtContentConfig$Outbound = {
@@ -222,36 +223,40 @@ export const InputOffice365Mgmt$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("office365_mgmt"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  id: types.optional(types.string()),
+  type: types.literal("office365_mgmt"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
   planType: SubscriptionPlanOptions$inboundSchema,
-  tenantId: z.string(),
-  appId: z.string(),
-  timeout: z.number().optional(),
-  keepAliveTime: z.number().optional(),
-  jobTimeout: z.string().optional(),
-  maxMissedKeepAlives: z.number().optional(),
-  ttl: z.string().optional(),
-  ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  publisherIdentifier: z.string().optional(),
-  contentConfig: z.array(
-    z.lazy(() => InputOffice365MgmtContentConfig$inboundSchema),
-  ).optional(),
-  ingestionLag: z.number().optional(),
-  retryRules: RetryRulesType1$inboundSchema.optional(),
-  authType: AuthenticationMethodOptions1$inboundSchema.optional(),
-  description: z.string().optional(),
-  clientSecret: z.string().optional(),
-  textSecret: z.string().optional(),
+  tenantId: types.string(),
+  appId: types.string(),
+  timeout: types.optional(types.number()),
+  keepAliveTime: types.optional(types.number()),
+  jobTimeout: types.optional(types.string()),
+  maxMissedKeepAlives: types.optional(types.number()),
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  publisherIdentifier: types.optional(types.string()),
+  contentConfig: types.optional(
+    z.array(z.lazy(() => InputOffice365MgmtContentConfig$inboundSchema)),
+  ),
+  ingestionLag: types.optional(types.number()),
+  retryRules: types.optional(RetryRulesType1$inboundSchema),
+  authType: types.optional(AuthenticationMethodOptions1$inboundSchema),
+  description: types.optional(types.string()),
+  clientSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type InputOffice365Mgmt$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FilesTypeGitCommitSummary,
@@ -25,9 +26,9 @@ export type GitRevertResult = {
 /** @internal */
 export const Audit$inboundSchema: z.ZodType<Audit, z.ZodTypeDef, unknown> = z
   .object({
-    files: FilesTypeGitCommitSummary$inboundSchema.optional(),
-    group: z.string().optional(),
-    id: z.string(),
+    files: types.optional(FilesTypeGitCommitSummary$inboundSchema),
+    group: types.optional(types.string()),
+    id: types.string(),
   });
 
 export function auditFromJSON(
@@ -47,7 +48,7 @@ export const GitRevertResult$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   audit: z.lazy(() => Audit$inboundSchema),
-  reverted: z.boolean(),
+  reverted: types.boolean(),
 });
 
 export function gitRevertResultFromJSON(

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionConfSchemaEvalAdd = {
@@ -40,9 +41,9 @@ export const FunctionConfSchemaEvalAdd$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-  disabled: z.boolean().optional(),
+  name: types.optional(types.string()),
+  value: types.string(),
+  disabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type FunctionConfSchemaEvalAdd$Outbound = {
@@ -85,10 +86,11 @@ export const FunctionConfSchemaEval$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  add: z.array(z.lazy(() => FunctionConfSchemaEvalAdd$inboundSchema))
-    .optional(),
-  keep: z.array(z.string()).optional(),
-  remove: z.array(z.string()).optional(),
+  add: types.optional(
+    z.array(z.lazy(() => FunctionConfSchemaEvalAdd$inboundSchema)),
+  ),
+  keep: types.optional(z.array(types.string())),
+  remove: types.optional(z.array(types.string())),
 });
 /** @internal */
 export type FunctionConfSchemaEval$Outbound = {

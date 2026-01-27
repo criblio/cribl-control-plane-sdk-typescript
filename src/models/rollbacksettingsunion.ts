@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type RollbackSettings2 = {};
@@ -56,9 +58,9 @@ export const RollbackSettings1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rollbackEnabled: z.boolean(),
-  rollbackRetries: z.number().optional(),
-  rollbackTimeout: z.number().optional(),
+  rollbackEnabled: types.boolean(),
+  rollbackRetries: types.optional(types.number()),
+  rollbackTimeout: types.optional(types.number()),
 });
 /** @internal */
 export type RollbackSettings1$Outbound = {
@@ -100,7 +102,7 @@ export const RollbackSettingsUnion$inboundSchema: z.ZodType<
   RollbackSettingsUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
+> = smartUnion([
   z.lazy(() => RollbackSettings1$inboundSchema),
   z.lazy(() => RollbackSettings2$inboundSchema),
 ]);
@@ -114,7 +116,7 @@ export const RollbackSettingsUnion$outboundSchema: z.ZodType<
   RollbackSettingsUnion$Outbound,
   z.ZodTypeDef,
   RollbackSettingsUnion
-> = z.union([
+> = smartUnion([
   z.lazy(() => RollbackSettings1$outboundSchema),
   z.lazy(() => RollbackSettings2$outboundSchema),
 ]);

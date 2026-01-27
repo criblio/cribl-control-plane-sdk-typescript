@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AdditionalPropertiesTypePipelineConfGroups,
   AdditionalPropertiesTypePipelineConfGroups$inboundSchema,
@@ -49,13 +50,14 @@ export const PipelineConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  asyncFuncTimeout: z.number().int().optional(),
-  output: z.string().optional(),
-  description: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  functions: z.array(PipelineFunctionConf$inboundSchema).optional(),
-  groups: z.record(AdditionalPropertiesTypePipelineConfGroups$inboundSchema)
-    .optional(),
+  asyncFuncTimeout: types.optional(types.number()),
+  output: types.optional(types.string()),
+  description: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  functions: types.optional(z.array(PipelineFunctionConf$inboundSchema)),
+  groups: types.optional(
+    z.record(AdditionalPropertiesTypePipelineConfGroups$inboundSchema),
+  ),
 });
 
 export function pipelineConfFromJSON(
@@ -74,7 +76,7 @@ export const Pipeline$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
+  id: types.string(),
   conf: z.lazy(() => PipelineConf$inboundSchema),
 });
 

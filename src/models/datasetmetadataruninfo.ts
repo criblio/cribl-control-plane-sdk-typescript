@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type DatasetMetadataRunInfo = {
@@ -20,10 +21,10 @@ export const DatasetMetadataRunInfo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  earliestScannedTime: z.number().optional(),
-  finishedAt: z.number().optional(),
-  latestScannedTime: z.number().optional(),
-  objectCount: z.number().optional(),
+  earliestScannedTime: types.optional(types.number()),
+  finishedAt: types.optional(types.number()),
+  latestScannedTime: types.optional(types.number()),
+  objectCount: types.optional(types.number()),
 });
 /** @internal */
 export type DatasetMetadataRunInfo$Outbound = {

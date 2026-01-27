@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type UpgradeGroupSettings2 = {};
@@ -59,10 +61,10 @@ export const UpgradeGroupSettings1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  isRolling: z.boolean().optional(),
-  quantity: z.number().optional(),
-  retryCount: z.number().optional(),
-  retryDelay: z.number().optional(),
+  isRolling: types.optional(types.boolean()),
+  quantity: types.optional(types.number()),
+  retryCount: types.optional(types.number()),
+  retryDelay: types.optional(types.number()),
 });
 /** @internal */
 export type UpgradeGroupSettings1$Outbound = {
@@ -106,7 +108,7 @@ export const UpgradeGroupSettingsUnion$inboundSchema: z.ZodType<
   UpgradeGroupSettingsUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
+> = smartUnion([
   z.lazy(() => UpgradeGroupSettings1$inboundSchema),
   z.lazy(() => UpgradeGroupSettings2$inboundSchema),
 ]);
@@ -120,7 +122,7 @@ export const UpgradeGroupSettingsUnion$outboundSchema: z.ZodType<
   UpgradeGroupSettingsUnion$Outbound,
   z.ZodTypeDef,
   UpgradeGroupSettingsUnion
-> = z.union([
+> = smartUnion([
   z.lazy(() => UpgradeGroupSettings1$outboundSchema),
   z.lazy(() => UpgradeGroupSettings2$outboundSchema),
 ]);

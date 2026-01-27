@@ -4,9 +4,12 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
+import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeRestCollectMethodGetCollectRequestParams,
@@ -276,20 +279,23 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttp =
   | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestAuthenticationHmacDiscovery =
   | (
     | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-    | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther & {
+    | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
       discoverType: "http";
     }
   )
   | RestAuthenticationHmacRestDiscoveryDiscoverTypeJson
   | RestAuthenticationHmacRestDiscoveryDiscoverTypeList
-  | RestAuthenticationHmacRestDiscoveryDiscoverTypeNone;
+  | RestAuthenticationHmacRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export const RestAuthenticationHmacCollectMethod = {
   /**
@@ -435,7 +441,8 @@ export type RestAuthenticationHmacPaginationUnion =
   | RestAuthenticationHmacRestPaginationTypeResponseHeader
   | RestAuthenticationHmacRestPaginationTypeResponseHeaderLink
   | RestAuthenticationHmacRestPaginationTypeRequestOffset
-  | RestAuthenticationHmacRestPaginationTypeRequestPage;
+  | RestAuthenticationHmacRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationHmacRestRetryRulesTypeBackoff = {
   /**
@@ -485,7 +492,8 @@ export type RestAuthenticationHmacRestRetryRulesTypeNone = {
 export type RestAuthenticationHmacRetryRules =
   | RestAuthenticationHmacRestRetryRulesTypeNone
   | RestAuthenticationHmacRestRetryRulesTypeStatic
-  | RestAuthenticationHmacRestRetryRulesTypeBackoff;
+  | RestAuthenticationHmacRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationHmacStateTracking = {
   /**
@@ -513,11 +521,14 @@ export type RestAuthenticationHmac = {
       | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestAuthenticationHmacRestDiscoveryDiscoverTypeJson
     | RestAuthenticationHmacRestDiscoveryDiscoverTypeList
     | RestAuthenticationHmacRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -537,6 +548,7 @@ export type RestAuthenticationHmac = {
     | RestAuthenticationHmacRestPaginationTypeResponseHeaderLink
     | RestAuthenticationHmacRestPaginationTypeRequestOffset
     | RestAuthenticationHmacRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
@@ -574,6 +586,7 @@ export type RestAuthenticationHmac = {
     | RestAuthenticationHmacRestRetryRulesTypeNone
     | RestAuthenticationHmacRestRetryRulesTypeStatic
     | RestAuthenticationHmacRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationHmacScheduling | undefined;
 };
@@ -839,7 +852,8 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttp =
   | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestAuthenticationGoogleOauthSecretDiscovery =
   | (
@@ -847,11 +861,14 @@ export type RestAuthenticationGoogleOauthSecretDiscovery =
     | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
     | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeJson
   | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeList
-  | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone;
+  | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export const RestAuthenticationGoogleOauthSecretCollectMethod = {
   /**
@@ -1001,7 +1018,8 @@ export type RestAuthenticationGoogleOauthSecretPaginationUnion =
   | RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader
   | RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderLink
   | RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset
-  | RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage;
+  | RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff = {
   /**
@@ -1051,7 +1069,8 @@ export type RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone = {
 export type RestAuthenticationGoogleOauthSecretRetryRules =
   | RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone
   | RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic
-  | RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff;
+  | RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationGoogleOauthSecretStateTracking = {
   /**
@@ -1087,11 +1106,14 @@ export type RestAuthenticationGoogleOauthSecret = {
       | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeJson
     | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeList
     | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -1111,6 +1133,7 @@ export type RestAuthenticationGoogleOauthSecret = {
     | RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderLink
     | RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset
     | RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
@@ -1148,6 +1171,7 @@ export type RestAuthenticationGoogleOauthSecret = {
     | RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone
     | RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic
     | RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationGoogleOauthSecretScheduling | undefined;
 };
@@ -1413,7 +1437,8 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttp =
   | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestAuthenticationGoogleOauthDiscovery =
   | (
@@ -1421,11 +1446,14 @@ export type RestAuthenticationGoogleOauthDiscovery =
     | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
     | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeJson
   | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeList
-  | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone;
+  | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export const RestAuthenticationGoogleOauthCollectMethod = {
   /**
@@ -1572,7 +1600,8 @@ export type RestAuthenticationGoogleOauthPaginationUnion =
   | RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader
   | RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLink
   | RestAuthenticationGoogleOauthRestPaginationTypeRequestOffset
-  | RestAuthenticationGoogleOauthRestPaginationTypeRequestPage;
+  | RestAuthenticationGoogleOauthRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff = {
   /**
@@ -1622,7 +1651,8 @@ export type RestAuthenticationGoogleOauthRestRetryRulesTypeNone = {
 export type RestAuthenticationGoogleOauthRetryRules =
   | RestAuthenticationGoogleOauthRestRetryRulesTypeNone
   | RestAuthenticationGoogleOauthRestRetryRulesTypeStatic
-  | RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff;
+  | RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationGoogleOauthStateTracking = {
   /**
@@ -1658,11 +1688,14 @@ export type RestAuthenticationGoogleOauth = {
       | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeJson
     | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeList
     | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -1682,6 +1715,7 @@ export type RestAuthenticationGoogleOauth = {
     | RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLink
     | RestAuthenticationGoogleOauthRestPaginationTypeRequestOffset
     | RestAuthenticationGoogleOauthRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
@@ -1719,6 +1753,7 @@ export type RestAuthenticationGoogleOauth = {
     | RestAuthenticationGoogleOauthRestRetryRulesTypeNone
     | RestAuthenticationGoogleOauthRestRetryRulesTypeStatic
     | RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationGoogleOauthScheduling | undefined;
 };
@@ -1984,7 +2019,8 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttp =
   | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestAuthenticationOauthSecretDiscovery =
   | (
@@ -1992,11 +2028,14 @@ export type RestAuthenticationOauthSecretDiscovery =
     | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
     | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJson
   | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList
-  | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone;
+  | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export const RestAuthenticationOauthSecretCollectMethod = {
   /**
@@ -2143,7 +2182,8 @@ export type RestAuthenticationOauthSecretPaginationUnion =
   | RestAuthenticationOauthSecretRestPaginationTypeResponseHeader
   | RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink
   | RestAuthenticationOauthSecretRestPaginationTypeRequestOffset
-  | RestAuthenticationOauthSecretRestPaginationTypeRequestPage;
+  | RestAuthenticationOauthSecretRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationOauthSecretRestRetryRulesTypeBackoff = {
   /**
@@ -2193,7 +2233,8 @@ export type RestAuthenticationOauthSecretRestRetryRulesTypeNone = {
 export type RestAuthenticationOauthSecretRetryRules =
   | RestAuthenticationOauthSecretRestRetryRulesTypeNone
   | RestAuthenticationOauthSecretRestRetryRulesTypeStatic
-  | RestAuthenticationOauthSecretRestRetryRulesTypeBackoff;
+  | RestAuthenticationOauthSecretRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationOauthSecretStateTracking = {
   /**
@@ -2250,11 +2291,14 @@ export type RestAuthenticationOauthSecret = {
       | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJson
     | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList
     | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -2274,6 +2318,7 @@ export type RestAuthenticationOauthSecret = {
     | RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink
     | RestAuthenticationOauthSecretRestPaginationTypeRequestOffset
     | RestAuthenticationOauthSecretRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
@@ -2311,6 +2356,7 @@ export type RestAuthenticationOauthSecret = {
     | RestAuthenticationOauthSecretRestRetryRulesTypeNone
     | RestAuthenticationOauthSecretRestRetryRulesTypeStatic
     | RestAuthenticationOauthSecretRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationOauthSecretScheduling | undefined;
 };
@@ -2576,7 +2622,8 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp =
   | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestAuthenticationOauthDiscovery =
   | (
@@ -2584,11 +2631,14 @@ export type RestAuthenticationOauthDiscovery =
     | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
     | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | RestAuthenticationOauthRestDiscoveryDiscoverTypeJson
   | RestAuthenticationOauthRestDiscoveryDiscoverTypeList
-  | RestAuthenticationOauthRestDiscoveryDiscoverTypeNone;
+  | RestAuthenticationOauthRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export const RestAuthenticationOauthCollectMethod = {
   /**
@@ -2734,7 +2784,8 @@ export type RestAuthenticationOauthPaginationUnion =
   | RestAuthenticationOauthRestPaginationTypeResponseHeader
   | RestAuthenticationOauthRestPaginationTypeResponseHeaderLink
   | RestAuthenticationOauthRestPaginationTypeRequestOffset
-  | RestAuthenticationOauthRestPaginationTypeRequestPage;
+  | RestAuthenticationOauthRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationOauthRestRetryRulesTypeBackoff = {
   /**
@@ -2784,7 +2835,8 @@ export type RestAuthenticationOauthRestRetryRulesTypeNone = {
 export type RestAuthenticationOauthRetryRules =
   | RestAuthenticationOauthRestRetryRulesTypeNone
   | RestAuthenticationOauthRestRetryRulesTypeStatic
-  | RestAuthenticationOauthRestRetryRulesTypeBackoff;
+  | RestAuthenticationOauthRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationOauthStateTracking = {
   /**
@@ -2841,11 +2893,14 @@ export type RestAuthenticationOauth = {
       | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestAuthenticationOauthRestDiscoveryDiscoverTypeJson
     | RestAuthenticationOauthRestDiscoveryDiscoverTypeList
     | RestAuthenticationOauthRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -2865,6 +2920,7 @@ export type RestAuthenticationOauth = {
     | RestAuthenticationOauthRestPaginationTypeResponseHeaderLink
     | RestAuthenticationOauthRestPaginationTypeRequestOffset
     | RestAuthenticationOauthRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
@@ -2902,6 +2958,7 @@ export type RestAuthenticationOauth = {
     | RestAuthenticationOauthRestRetryRulesTypeNone
     | RestAuthenticationOauthRestRetryRulesTypeStatic
     | RestAuthenticationOauthRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationOauthScheduling | undefined;
 };
@@ -3167,7 +3224,8 @@ export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttp =
   | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestAuthenticationLoginSecretDiscovery =
   | (
@@ -3175,11 +3233,14 @@ export type RestAuthenticationLoginSecretDiscovery =
     | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
     | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJson
   | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList
-  | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone;
+  | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export const RestAuthenticationLoginSecretCollectMethod = {
   /**
@@ -3326,7 +3387,8 @@ export type RestAuthenticationLoginSecretPaginationUnion =
   | RestAuthenticationLoginSecretRestPaginationTypeResponseHeader
   | RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink
   | RestAuthenticationLoginSecretRestPaginationTypeRequestOffset
-  | RestAuthenticationLoginSecretRestPaginationTypeRequestPage;
+  | RestAuthenticationLoginSecretRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationLoginSecretRestRetryRulesTypeBackoff = {
   /**
@@ -3376,7 +3438,8 @@ export type RestAuthenticationLoginSecretRestRetryRulesTypeNone = {
 export type RestAuthenticationLoginSecretRetryRules =
   | RestAuthenticationLoginSecretRestRetryRulesTypeNone
   | RestAuthenticationLoginSecretRestRetryRulesTypeStatic
-  | RestAuthenticationLoginSecretRestRetryRulesTypeBackoff;
+  | RestAuthenticationLoginSecretRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationLoginSecretStateTracking = {
   /**
@@ -3427,11 +3490,14 @@ export type RestAuthenticationLoginSecret = {
       | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJson
     | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList
     | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -3451,6 +3517,7 @@ export type RestAuthenticationLoginSecret = {
     | RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink
     | RestAuthenticationLoginSecretRestPaginationTypeRequestOffset
     | RestAuthenticationLoginSecretRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
@@ -3488,6 +3555,7 @@ export type RestAuthenticationLoginSecret = {
     | RestAuthenticationLoginSecretRestRetryRulesTypeNone
     | RestAuthenticationLoginSecretRestRetryRulesTypeStatic
     | RestAuthenticationLoginSecretRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationLoginSecretScheduling | undefined;
 };
@@ -3753,7 +3821,8 @@ export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttp =
   | RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestAuthenticationLoginDiscovery =
   | (
@@ -3761,11 +3830,14 @@ export type RestAuthenticationLoginDiscovery =
     | RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
     | RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | RestAuthenticationLoginRestDiscoveryDiscoverTypeJson
   | RestAuthenticationLoginRestDiscoveryDiscoverTypeList
-  | RestAuthenticationLoginRestDiscoveryDiscoverTypeNone;
+  | RestAuthenticationLoginRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export const RestAuthenticationLoginCollectMethod = {
   /**
@@ -3911,7 +3983,8 @@ export type RestAuthenticationLoginPaginationUnion =
   | RestAuthenticationLoginRestPaginationTypeResponseHeader
   | RestAuthenticationLoginRestPaginationTypeResponseHeaderLink
   | RestAuthenticationLoginRestPaginationTypeRequestOffset
-  | RestAuthenticationLoginRestPaginationTypeRequestPage;
+  | RestAuthenticationLoginRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationLoginRestRetryRulesTypeBackoff = {
   /**
@@ -3961,7 +4034,8 @@ export type RestAuthenticationLoginRestRetryRulesTypeNone = {
 export type RestAuthenticationLoginRetryRules =
   | RestAuthenticationLoginRestRetryRulesTypeNone
   | RestAuthenticationLoginRestRetryRulesTypeStatic
-  | RestAuthenticationLoginRestRetryRulesTypeBackoff;
+  | RestAuthenticationLoginRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationLoginStateTracking = {
   /**
@@ -4010,11 +4084,14 @@ export type RestAuthenticationLogin = {
       | RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestAuthenticationLoginRestDiscoveryDiscoverTypeJson
     | RestAuthenticationLoginRestDiscoveryDiscoverTypeList
     | RestAuthenticationLoginRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -4034,6 +4111,7 @@ export type RestAuthenticationLogin = {
     | RestAuthenticationLoginRestPaginationTypeResponseHeaderLink
     | RestAuthenticationLoginRestPaginationTypeRequestOffset
     | RestAuthenticationLoginRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
@@ -4071,6 +4149,7 @@ export type RestAuthenticationLogin = {
     | RestAuthenticationLoginRestRetryRulesTypeNone
     | RestAuthenticationLoginRestRetryRulesTypeStatic
     | RestAuthenticationLoginRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationLoginScheduling | undefined;
 };
@@ -4336,7 +4415,8 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttp =
   | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestAuthenticationBasicSecretDiscovery =
   | (
@@ -4344,11 +4424,14 @@ export type RestAuthenticationBasicSecretDiscovery =
     | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
     | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJson
   | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList
-  | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone;
+  | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export const RestAuthenticationBasicSecretCollectMethod = {
   /**
@@ -4495,7 +4578,8 @@ export type RestAuthenticationBasicSecretPaginationUnion =
   | RestAuthenticationBasicSecretRestPaginationTypeResponseHeader
   | RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink
   | RestAuthenticationBasicSecretRestPaginationTypeRequestOffset
-  | RestAuthenticationBasicSecretRestPaginationTypeRequestPage;
+  | RestAuthenticationBasicSecretRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationBasicSecretRestRetryRulesTypeBackoff = {
   /**
@@ -4545,7 +4629,8 @@ export type RestAuthenticationBasicSecretRestRetryRulesTypeNone = {
 export type RestAuthenticationBasicSecretRetryRules =
   | RestAuthenticationBasicSecretRestRetryRulesTypeNone
   | RestAuthenticationBasicSecretRestRetryRulesTypeStatic
-  | RestAuthenticationBasicSecretRestRetryRulesTypeBackoff;
+  | RestAuthenticationBasicSecretRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationBasicSecretStateTracking = {
   /**
@@ -4573,11 +4658,14 @@ export type RestAuthenticationBasicSecret = {
       | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJson
     | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList
     | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -4597,6 +4685,7 @@ export type RestAuthenticationBasicSecret = {
     | RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink
     | RestAuthenticationBasicSecretRestPaginationTypeRequestOffset
     | RestAuthenticationBasicSecretRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
@@ -4634,6 +4723,7 @@ export type RestAuthenticationBasicSecret = {
     | RestAuthenticationBasicSecretRestRetryRulesTypeNone
     | RestAuthenticationBasicSecretRestRetryRulesTypeStatic
     | RestAuthenticationBasicSecretRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationBasicSecretScheduling | undefined;
 };
@@ -4899,7 +4989,8 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttp =
   | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestAuthenticationBasicDiscovery =
   | (
@@ -4907,11 +4998,14 @@ export type RestAuthenticationBasicDiscovery =
     | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
     | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | RestAuthenticationBasicRestDiscoveryDiscoverTypeJson
   | RestAuthenticationBasicRestDiscoveryDiscoverTypeList
-  | RestAuthenticationBasicRestDiscoveryDiscoverTypeNone;
+  | RestAuthenticationBasicRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export const RestAuthenticationBasicCollectMethod = {
   /**
@@ -5057,7 +5151,8 @@ export type RestAuthenticationBasicPaginationUnion =
   | RestAuthenticationBasicRestPaginationTypeResponseHeader
   | RestAuthenticationBasicRestPaginationTypeResponseHeaderLink
   | RestAuthenticationBasicRestPaginationTypeRequestOffset
-  | RestAuthenticationBasicRestPaginationTypeRequestPage;
+  | RestAuthenticationBasicRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationBasicRestRetryRulesTypeBackoff = {
   /**
@@ -5107,7 +5202,8 @@ export type RestAuthenticationBasicRestRetryRulesTypeNone = {
 export type RestAuthenticationBasicRetryRules =
   | RestAuthenticationBasicRestRetryRulesTypeNone
   | RestAuthenticationBasicRestRetryRulesTypeStatic
-  | RestAuthenticationBasicRestRetryRulesTypeBackoff;
+  | RestAuthenticationBasicRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationBasicStateTracking = {
   /**
@@ -5133,11 +5229,14 @@ export type RestAuthenticationBasic = {
       | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestAuthenticationBasicRestDiscoveryDiscoverTypeJson
     | RestAuthenticationBasicRestDiscoveryDiscoverTypeList
     | RestAuthenticationBasicRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -5157,6 +5256,7 @@ export type RestAuthenticationBasic = {
     | RestAuthenticationBasicRestPaginationTypeResponseHeaderLink
     | RestAuthenticationBasicRestPaginationTypeRequestOffset
     | RestAuthenticationBasicRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
@@ -5194,6 +5294,7 @@ export type RestAuthenticationBasic = {
     | RestAuthenticationBasicRestRetryRulesTypeNone
     | RestAuthenticationBasicRestRetryRulesTypeStatic
     | RestAuthenticationBasicRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationBasicScheduling | undefined;
 };
@@ -5459,20 +5560,23 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttp =
   | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestAuthenticationNoneDiscovery =
   | (
     | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-    | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther & {
+    | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
       discoverType: "http";
     }
   )
   | RestAuthenticationNoneRestDiscoveryDiscoverTypeJson
   | RestAuthenticationNoneRestDiscoveryDiscoverTypeList
-  | RestAuthenticationNoneRestDiscoveryDiscoverTypeNone;
+  | RestAuthenticationNoneRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export const RestAuthenticationNoneCollectMethod = {
   /**
@@ -5618,7 +5722,8 @@ export type RestAuthenticationNonePaginationUnion =
   | RestAuthenticationNoneRestPaginationTypeResponseHeader
   | RestAuthenticationNoneRestPaginationTypeResponseHeaderLink
   | RestAuthenticationNoneRestPaginationTypeRequestOffset
-  | RestAuthenticationNoneRestPaginationTypeRequestPage;
+  | RestAuthenticationNoneRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationNoneRestRetryRulesTypeBackoff = {
   /**
@@ -5668,7 +5773,8 @@ export type RestAuthenticationNoneRestRetryRulesTypeNone = {
 export type RestAuthenticationNoneRetryRules =
   | RestAuthenticationNoneRestRetryRulesTypeNone
   | RestAuthenticationNoneRestRetryRulesTypeStatic
-  | RestAuthenticationNoneRestRetryRulesTypeBackoff;
+  | RestAuthenticationNoneRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestAuthenticationNoneStateTracking = {
   /**
@@ -5692,11 +5798,14 @@ export type RestAuthenticationNone = {
       | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestAuthenticationNoneRestDiscoveryDiscoverTypeJson
     | RestAuthenticationNoneRestDiscoveryDiscoverTypeList
     | RestAuthenticationNoneRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -5716,6 +5825,7 @@ export type RestAuthenticationNone = {
     | RestAuthenticationNoneRestPaginationTypeResponseHeaderLink
     | RestAuthenticationNoneRestPaginationTypeRequestOffset
     | RestAuthenticationNoneRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
@@ -5753,6 +5863,7 @@ export type RestAuthenticationNone = {
     | RestAuthenticationNoneRestRetryRulesTypeNone
     | RestAuthenticationNoneRestRetryRulesTypeStatic
     | RestAuthenticationNoneRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestAuthenticationNoneScheduling | undefined;
 };
@@ -6040,20 +6151,23 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp =
   | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestCollectMethodOtherDiscovery =
   | (
     | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-    | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther & {
+    | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
       discoverType: "http";
     }
   )
   | RestCollectMethodOtherRestDiscoveryDiscoverTypeJson
   | RestCollectMethodOtherRestDiscoveryDiscoverTypeList
-  | RestCollectMethodOtherRestDiscoveryDiscoverTypeNone;
+  | RestCollectMethodOtherRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export type RestCollectMethodOtherRestPaginationTypeRequestPage = {
   type: "request_page";
@@ -6177,7 +6291,8 @@ export type RestCollectMethodOtherPaginationUnion =
   | RestCollectMethodOtherRestPaginationTypeResponseHeader
   | RestCollectMethodOtherRestPaginationTypeResponseHeaderLink
   | RestCollectMethodOtherRestPaginationTypeRequestOffset
-  | RestCollectMethodOtherRestPaginationTypeRequestPage;
+  | RestCollectMethodOtherRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 /**
  * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -6249,7 +6364,8 @@ export type RestCollectMethodOtherRestRetryRulesTypeNone = {
 export type RestCollectMethodOtherRetryRules =
   | RestCollectMethodOtherRestRetryRulesTypeNone
   | RestCollectMethodOtherRestRetryRulesTypeStatic
-  | RestCollectMethodOtherRestRetryRulesTypeBackoff;
+  | RestCollectMethodOtherRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestCollectMethodOtherStateTracking = {
   /**
@@ -6273,11 +6389,14 @@ export type RestCollectMethodOther = {
       | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestCollectMethodOtherRestDiscoveryDiscoverTypeJson
     | RestCollectMethodOtherRestDiscoveryDiscoverTypeList
     | RestCollectMethodOtherRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -6293,6 +6412,7 @@ export type RestCollectMethodOther = {
     | RestCollectMethodOtherRestPaginationTypeResponseHeaderLink
     | RestCollectMethodOtherRestPaginationTypeRequestOffset
     | RestCollectMethodOtherRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -6334,6 +6454,7 @@ export type RestCollectMethodOther = {
     | RestCollectMethodOtherRestRetryRulesTypeNone
     | RestCollectMethodOtherRestRetryRulesTypeStatic
     | RestCollectMethodOtherRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestCollectMethodOtherScheduling | undefined;
 };
@@ -6621,7 +6742,8 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttp =
   | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestCollectMethodPostWithBodyDiscovery =
   | (
@@ -6629,11 +6751,14 @@ export type RestCollectMethodPostWithBodyDiscovery =
     | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
     | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson
   | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList
-  | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone;
+  | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export type RestCollectMethodPostWithBodyRestPaginationTypeRequestPage = {
   type: "request_page";
@@ -6758,7 +6883,8 @@ export type RestCollectMethodPostWithBodyPaginationUnion =
   | RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader
   | RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink
   | RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset
-  | RestCollectMethodPostWithBodyRestPaginationTypeRequestPage;
+  | RestCollectMethodPostWithBodyRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 /**
  * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -6830,7 +6956,8 @@ export type RestCollectMethodPostWithBodyRestRetryRulesTypeNone = {
 export type RestCollectMethodPostWithBodyRetryRules =
   | RestCollectMethodPostWithBodyRestRetryRulesTypeNone
   | RestCollectMethodPostWithBodyRestRetryRulesTypeStatic
-  | RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff;
+  | RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestCollectMethodPostWithBodyStateTracking = {
   /**
@@ -6852,11 +6979,14 @@ export type RestCollectMethodPostWithBody = {
       | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson
     | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList
     | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -6874,6 +7004,7 @@ export type RestCollectMethodPostWithBody = {
     | RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink
     | RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset
     | RestCollectMethodPostWithBodyRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -6915,6 +7046,7 @@ export type RestCollectMethodPostWithBody = {
     | RestCollectMethodPostWithBodyRestRetryRulesTypeNone
     | RestCollectMethodPostWithBodyRestRetryRulesTypeStatic
     | RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestCollectMethodPostWithBodyScheduling | undefined;
 };
@@ -7202,20 +7334,23 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttp =
   | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestCollectMethodPostDiscovery =
   | (
     | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-    | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther & {
+    | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
       discoverType: "http";
     }
   )
   | RestCollectMethodPostRestDiscoveryDiscoverTypeJson
   | RestCollectMethodPostRestDiscoveryDiscoverTypeList
-  | RestCollectMethodPostRestDiscoveryDiscoverTypeNone;
+  | RestCollectMethodPostRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export type RestCollectMethodPostRestPaginationTypeRequestPage = {
   type: "request_page";
@@ -7339,7 +7474,8 @@ export type RestCollectMethodPostPaginationUnion =
   | RestCollectMethodPostRestPaginationTypeResponseHeader
   | RestCollectMethodPostRestPaginationTypeResponseHeaderLink
   | RestCollectMethodPostRestPaginationTypeRequestOffset
-  | RestCollectMethodPostRestPaginationTypeRequestPage;
+  | RestCollectMethodPostRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 /**
  * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -7411,7 +7547,8 @@ export type RestCollectMethodPostRestRetryRulesTypeNone = {
 export type RestCollectMethodPostRetryRules =
   | RestCollectMethodPostRestRetryRulesTypeNone
   | RestCollectMethodPostRestRetryRulesTypeStatic
-  | RestCollectMethodPostRestRetryRulesTypeBackoff;
+  | RestCollectMethodPostRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestCollectMethodPostStateTracking = {
   /**
@@ -7433,11 +7570,14 @@ export type RestCollectMethodPost = {
       | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
       | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | RestCollectMethodPostRestDiscoveryDiscoverTypeJson
     | RestCollectMethodPostRestDiscoveryDiscoverTypeList
     | RestCollectMethodPostRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -7455,6 +7595,7 @@ export type RestCollectMethodPost = {
     | RestCollectMethodPostRestPaginationTypeResponseHeaderLink
     | RestCollectMethodPostRestPaginationTypeRequestOffset
     | RestCollectMethodPostRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -7496,6 +7637,7 @@ export type RestCollectMethodPost = {
     | RestCollectMethodPostRestRetryRulesTypeNone
     | RestCollectMethodPostRestRetryRulesTypeStatic
     | RestCollectMethodPostRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestCollectMethodPostScheduling | undefined;
 };
@@ -7783,20 +7925,23 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttp =
   | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-  | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther;
+  | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type RestCollectMethodGetDiscovery =
   | (
     | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-    | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther & {
+    | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
       discoverType: "http";
     }
   )
   | RestCollectMethodGetRestDiscoveryDiscoverTypeJson
   | RestCollectMethodGetRestDiscoveryDiscoverTypeList
-  | RestCollectMethodGetRestDiscoveryDiscoverTypeNone;
+  | RestCollectMethodGetRestDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export type RestCollectMethodGetRestPaginationTypeRequestPage = {
   type: "request_page";
@@ -7920,7 +8065,8 @@ export type RestCollectMethodGetPaginationUnion =
   | RestCollectMethodGetRestPaginationTypeResponseHeader
   | RestCollectMethodGetRestPaginationTypeResponseHeaderLink
   | RestCollectMethodGetRestPaginationTypeRequestOffset
-  | RestCollectMethodGetRestPaginationTypeRequestPage;
+  | RestCollectMethodGetRestPaginationTypeRequestPage
+  | discriminatedUnionTypes.Unknown<"type">;
 
 /**
  * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -7992,7 +8138,8 @@ export type RestCollectMethodGetRestRetryRulesTypeNone = {
 export type RestCollectMethodGetRetryRules =
   | RestCollectMethodGetRestRetryRulesTypeNone
   | RestCollectMethodGetRestRetryRulesTypeStatic
-  | RestCollectMethodGetRestRetryRulesTypeBackoff;
+  | RestCollectMethodGetRestRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type RestCollectMethodGetStateTracking = {
   /**
@@ -8013,13 +8160,15 @@ export type RestCollectMethodGet = {
       | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther & {
+      | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
         discoverType: "http";
       }
     )
     | RestCollectMethodGetRestDiscoveryDiscoverTypeJson
     | RestCollectMethodGetRestDiscoveryDiscoverTypeList
     | RestCollectMethodGetRestDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -8037,6 +8186,7 @@ export type RestCollectMethodGet = {
     | RestCollectMethodGetRestPaginationTypeResponseHeaderLink
     | RestCollectMethodGetRestPaginationTypeRequestOffset
     | RestCollectMethodGetRestPaginationTypeRequestPage
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   /**
    * Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -8078,6 +8228,7 @@ export type RestCollectMethodGet = {
     | RestCollectMethodGetRestRetryRulesTypeNone
     | RestCollectMethodGetRestRetryRulesTypeStatic
     | RestCollectMethodGetRestRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
   __scheduling?: RestCollectMethodGetScheduling | undefined;
 };
@@ -8092,7 +8243,8 @@ export type RestCollectorConf =
   | RestAuthenticationOauthSecret
   | RestAuthenticationGoogleOauth
   | RestAuthenticationGoogleOauthSecret
-  | RestAuthenticationHmac;
+  | RestAuthenticationHmac
+  | discriminatedUnionTypes.Unknown<"authentication">;
 
 /** @internal */
 export const RestAuthenticationHmacRestDiscoveryDiscoverTypeNone$inboundSchema:
@@ -8101,7 +8253,7 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeNone$Outbound = {
@@ -8151,8 +8303,8 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeList$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeList$Outbound = {
@@ -8204,9 +8356,9 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeJson$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeJson$Outbound = {
@@ -8279,7 +8431,7 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -8330,23 +8482,25 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -8447,7 +8601,7 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -8498,23 +8652,25 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -8615,7 +8771,7 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -8666,23 +8822,25 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -8783,7 +8941,7 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -8834,23 +8992,25 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -8931,20 +9091,20 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttp$inboundSchema:
     RestAuthenticationHmacRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -9004,31 +9164,31 @@ export const RestAuthenticationHmacDiscovery$inboundSchema: z.ZodType<
   RestAuthenticationHmacDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     RestAuthenticationHmacRestDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     RestAuthenticationHmacRestDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     RestAuthenticationHmacRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationHmacDiscovery$Outbound =
   | (
@@ -9112,15 +9272,15 @@ export const RestAuthenticationHmacRestPaginationTypeRequestPage$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationHmacRestPaginationTypeRequestPage$Outbound = {
@@ -9186,14 +9346,14 @@ export const RestAuthenticationHmacRestPaginationTypeRequestOffset$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationHmacRestPaginationTypeRequestOffset$Outbound = {
@@ -9257,10 +9417,10 @@ export const RestAuthenticationHmacRestPaginationTypeResponseHeaderLink$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationHmacRestPaginationTypeResponseHeaderLink$Outbound =
@@ -9315,9 +9475,9 @@ export const RestAuthenticationHmacRestPaginationTypeResponseHeader$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationHmacRestPaginationTypeResponseHeader$Outbound = {
@@ -9370,10 +9530,10 @@ export const RestAuthenticationHmacRestPaginationTypeResponseBody$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestPaginationTypeResponseBody$Outbound = {
@@ -9429,7 +9589,7 @@ export const RestAuthenticationHmacRestPaginationTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationHmacRestPaginationTypeNone$Outbound = {
@@ -9477,24 +9637,26 @@ export const RestAuthenticationHmacPaginationUnion$inboundSchema: z.ZodType<
   RestAuthenticationHmacPaginationUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestAuthenticationHmacRestPaginationTypeNone$inboundSchema),
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    RestAuthenticationHmacRestPaginationTypeNone$inboundSchema
+  ),
+  response_body: z.lazy(() =>
     RestAuthenticationHmacRestPaginationTypeResponseBody$inboundSchema
   ),
-  z.lazy(() =>
+  response_header: z.lazy(() =>
     RestAuthenticationHmacRestPaginationTypeResponseHeader$inboundSchema
   ),
-  z.lazy(() =>
+  response_header_link: z.lazy(() =>
     RestAuthenticationHmacRestPaginationTypeResponseHeaderLink$inboundSchema
   ),
-  z.lazy(() =>
+  request_offset: z.lazy(() =>
     RestAuthenticationHmacRestPaginationTypeRequestOffset$inboundSchema
   ),
-  z.lazy(() =>
+  request_page: z.lazy(() =>
     RestAuthenticationHmacRestPaginationTypeRequestPage$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationHmacPaginationUnion$Outbound =
   | RestAuthenticationHmacRestPaginationTypeNone$Outbound
@@ -9555,15 +9717,15 @@ export const RestAuthenticationHmacRestRetryRulesTypeBackoff$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestRetryRulesTypeBackoff$Outbound = {
@@ -9629,15 +9791,15 @@ export const RestAuthenticationHmacRestRetryRulesTypeStatic$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestRetryRulesTypeStatic$Outbound = {
@@ -9703,15 +9865,15 @@ export const RestAuthenticationHmacRestRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestRetryRulesTypeNone$Outbound = {
@@ -9775,11 +9937,17 @@ export const RestAuthenticationHmacRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationHmacRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestAuthenticationHmacRestRetryRulesTypeNone$inboundSchema),
-  z.lazy(() => RestAuthenticationHmacRestRetryRulesTypeStatic$inboundSchema),
-  z.lazy(() => RestAuthenticationHmacRestRetryRulesTypeBackoff$inboundSchema),
-]);
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    RestAuthenticationHmacRestRetryRulesTypeNone$inboundSchema
+  ),
+  static: z.lazy(() =>
+    RestAuthenticationHmacRestRetryRulesTypeStatic$inboundSchema
+  ),
+  backoff: z.lazy(() =>
+    RestAuthenticationHmacRestRetryRulesTypeBackoff$inboundSchema
+  ),
+});
 /** @internal */
 export type RestAuthenticationHmacRetryRules$Outbound =
   | RestAuthenticationHmacRestRetryRulesTypeNone$Outbound
@@ -9822,7 +9990,7 @@ export const RestAuthenticationHmacStateTracking$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
+  enabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type RestAuthenticationHmacStateTracking$Outbound = {
@@ -9864,8 +10032,9 @@ export const RestAuthenticationHmacScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() => RestAuthenticationHmacStateTracking$inboundSchema)
-    .optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestAuthenticationHmacStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationHmacScheduling$Outbound = {
@@ -9908,74 +10077,83 @@ export const RestAuthenticationHmac$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("hmac"),
-  hmacFunctionId: z.string(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("hmac"),
+  hmacFunctionId: types.string(),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestAuthenticationHmacRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestAuthenticationHmacRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestAuthenticationHmacRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: RestAuthenticationHmacCollectMethod$inboundSchema,
-  collectVerb: z.any().optional(),
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() => RestAuthenticationHmacRestPaginationTypeNone$inboundSchema),
-    z.lazy(() =>
+  collectVerb: types.optional(z.any()),
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestAuthenticationHmacRestPaginationTypeNone$inboundSchema
+    ),
+    response_body: z.lazy(() =>
       RestAuthenticationHmacRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationHmacRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationHmacRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationHmacRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationHmacRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() => RestAuthenticationHmacRestRetryRulesTypeNone$inboundSchema),
-    z.lazy(() => RestAuthenticationHmacRestRetryRulesTypeStatic$inboundSchema),
-    z.lazy(() => RestAuthenticationHmacRestRetryRulesTypeBackoff$inboundSchema),
-  ]).optional(),
-  __scheduling: z.lazy(() => RestAuthenticationHmacScheduling$inboundSchema)
-    .optional(),
+  })),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestAuthenticationHmacRestRetryRulesTypeNone$inboundSchema
+    ),
+    static: z.lazy(() =>
+      RestAuthenticationHmacRestRetryRulesTypeStatic$inboundSchema
+    ),
+    backoff: z.lazy(() =>
+      RestAuthenticationHmacRestRetryRulesTypeBackoff$inboundSchema
+    ),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestAuthenticationHmacScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationHmac$Outbound = {
@@ -10127,7 +10305,7 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone$in
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone$Outbound =
@@ -10176,8 +10354,8 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeList$in
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeList$Outbound =
@@ -10228,9 +10406,9 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeJson$in
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeJson$Outbound =
@@ -10302,7 +10480,7 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -10353,23 +10531,25 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -10470,7 +10650,7 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -10521,23 +10701,25 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -10638,7 +10820,7 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -10689,23 +10871,25 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -10806,7 +10990,7 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -10857,23 +11041,25 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -10954,20 +11140,20 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttp$in
     RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -11026,31 +11212,31 @@ export const RestAuthenticationGoogleOauthSecretDiscovery$inboundSchema:
     RestAuthenticationGoogleOauthSecretDiscovery,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.union([
-      z.lazy(() =>
+  > = discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretDiscovery$Outbound =
   | (
@@ -11146,15 +11332,15 @@ export const RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage$in
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage$Outbound =
@@ -11219,14 +11405,14 @@ export const RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset$
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset$Outbound =
@@ -11291,10 +11477,10 @@ export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderLink$Outbound =
@@ -11351,9 +11537,9 @@ export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader$Outbound =
@@ -11408,10 +11594,10 @@ export const RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody$Outbound =
@@ -11466,7 +11652,7 @@ export const RestAuthenticationGoogleOauthSecretRestPaginationTypeNone$inboundSc
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestPaginationTypeNone$Outbound =
@@ -11514,26 +11700,26 @@ export const RestAuthenticationGoogleOauthSecretPaginationUnion$inboundSchema:
     RestAuthenticationGoogleOauthSecretPaginationUnion,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestPaginationTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    response_body: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretPaginationUnion$Outbound =
   | RestAuthenticationGoogleOauthSecretRestPaginationTypeNone$Outbound
@@ -11603,15 +11789,15 @@ export const RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff$inboun
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff$Outbound =
@@ -11676,15 +11862,15 @@ export const RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic$Outbound =
@@ -11749,15 +11935,15 @@ export const RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone$inboundSc
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone$Outbound =
@@ -11821,17 +12007,17 @@ export const RestAuthenticationGoogleOauthSecretRetryRules$inboundSchema:
     RestAuthenticationGoogleOauthSecretRetryRules,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRetryRules$Outbound =
   | RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone$Outbound
@@ -11889,7 +12075,7 @@ export const RestAuthenticationGoogleOauthSecretStateTracking$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    enabled: z.boolean().optional(),
+    enabled: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretStateTracking$Outbound = {
@@ -11939,9 +12125,11 @@ export const RestAuthenticationGoogleOauthSecretScheduling$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    stateTracking: z.lazy(() =>
-      RestAuthenticationGoogleOauthSecretStateTracking$inboundSchema
-    ).optional(),
+    stateTracking: types.optional(
+      z.lazy(() =>
+        RestAuthenticationGoogleOauthSecretStateTracking$inboundSchema
+      ),
+    ),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretScheduling$Outbound = {
@@ -11994,85 +12182,85 @@ export const RestAuthenticationGoogleOauthSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("google_oauthSecret"),
-  scopes: z.array(z.string()),
-  textSecret: z.string(),
-  subject: z.string(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("google_oauthSecret"),
+  scopes: z.array(types.string()),
+  textSecret: types.string(),
+  subject: types.string(),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: RestAuthenticationGoogleOauthSecretCollectMethod$inboundSchema,
-  collectVerb: z.any().optional(),
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() =>
+  collectVerb: types.optional(z.any()),
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestPaginationTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    response_body: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  })),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
-  __scheduling: z.lazy(() =>
-    RestAuthenticationGoogleOauthSecretScheduling$inboundSchema
-  ).optional(),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestAuthenticationGoogleOauthSecretScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecret$Outbound = {
@@ -12241,7 +12429,7 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone$Outbound =
@@ -12290,8 +12478,8 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeList$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeList$Outbound =
@@ -12342,9 +12530,9 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeJson$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeJson$Outbound =
@@ -12416,7 +12604,7 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -12467,23 +12655,25 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -12584,7 +12774,7 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -12635,23 +12825,25 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -12752,7 +12944,7 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -12803,23 +12995,25 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -12920,7 +13114,7 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -12971,23 +13165,25 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -13068,20 +13264,20 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttp$inboundS
     RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -13139,31 +13335,31 @@ export const RestAuthenticationGoogleOauthDiscovery$inboundSchema: z.ZodType<
   RestAuthenticationGoogleOauthDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationGoogleOauthDiscovery$Outbound =
   | (
@@ -13245,15 +13441,15 @@ export const RestAuthenticationGoogleOauthRestPaginationTypeRequestPage$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestPaginationTypeRequestPage$Outbound =
@@ -13318,14 +13514,14 @@ export const RestAuthenticationGoogleOauthRestPaginationTypeRequestOffset$inboun
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestPaginationTypeRequestOffset$Outbound =
@@ -13388,10 +13584,10 @@ export const RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLink$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLink$Outbound =
@@ -13446,9 +13642,9 @@ export const RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader$inbou
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader$Outbound =
@@ -13501,10 +13697,10 @@ export const RestAuthenticationGoogleOauthRestPaginationTypeResponseBody$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestPaginationTypeResponseBody$Outbound =
@@ -13559,7 +13755,7 @@ export const RestAuthenticationGoogleOauthRestPaginationTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestPaginationTypeNone$Outbound = {
@@ -13608,26 +13804,26 @@ export const RestAuthenticationGoogleOauthPaginationUnion$inboundSchema:
     RestAuthenticationGoogleOauthPaginationUnion,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationGoogleOauthRestPaginationTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    response_body: z.lazy(() =>
       RestAuthenticationGoogleOauthRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationGoogleOauthRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationGoogleOauthRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationGoogleOauthPaginationUnion$Outbound =
   | RestAuthenticationGoogleOauthRestPaginationTypeNone$Outbound
@@ -13697,15 +13893,15 @@ export const RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff$Outbound = {
@@ -13770,15 +13966,15 @@ export const RestAuthenticationGoogleOauthRestRetryRulesTypeStatic$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestRetryRulesTypeStatic$Outbound = {
@@ -13844,15 +14040,15 @@ export const RestAuthenticationGoogleOauthRestRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestRetryRulesTypeNone$Outbound = {
@@ -13916,17 +14112,17 @@ export const RestAuthenticationGoogleOauthRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationGoogleOauthRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     RestAuthenticationGoogleOauthRestRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     RestAuthenticationGoogleOauthRestRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationGoogleOauthRetryRules$Outbound =
   | RestAuthenticationGoogleOauthRestRetryRulesTypeNone$Outbound
@@ -13980,7 +14176,7 @@ export function restAuthenticationGoogleOauthRetryRulesFromJSON(
 export const RestAuthenticationGoogleOauthStateTracking$inboundSchema:
   z.ZodType<RestAuthenticationGoogleOauthStateTracking, z.ZodTypeDef, unknown> =
     z.object({
-      enabled: z.boolean().optional(),
+      enabled: types.optional(types.boolean()),
     });
 /** @internal */
 export type RestAuthenticationGoogleOauthStateTracking$Outbound = {
@@ -14029,9 +14225,9 @@ export const RestAuthenticationGoogleOauthScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() =>
-    RestAuthenticationGoogleOauthStateTracking$inboundSchema
-  ).optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestAuthenticationGoogleOauthStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationGoogleOauthScheduling$Outbound = {
@@ -14083,85 +14279,85 @@ export const RestAuthenticationGoogleOauth$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("google_oauth"),
-  scopes: z.array(z.string()),
-  serviceAccountCredentials: z.string(),
-  subject: z.string(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("google_oauth"),
+  scopes: z.array(types.string()),
+  serviceAccountCredentials: types.string(),
+  subject: types.string(),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: RestAuthenticationGoogleOauthCollectMethod$inboundSchema,
-  collectVerb: z.any().optional(),
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() =>
+  collectVerb: types.optional(z.any()),
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationGoogleOauthRestPaginationTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    response_body: z.lazy(() =>
       RestAuthenticationGoogleOauthRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationGoogleOauthRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationGoogleOauthRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationGoogleOauthRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationGoogleOauthRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  })),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationGoogleOauthRestRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       RestAuthenticationGoogleOauthRestRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
-  __scheduling: z.lazy(() =>
-    RestAuthenticationGoogleOauthScheduling$inboundSchema
-  ).optional(),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestAuthenticationGoogleOauthScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationGoogleOauth$Outbound = {
@@ -14326,7 +14522,7 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone$Outbound =
@@ -14375,8 +14571,8 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList$Outbound =
@@ -14427,9 +14623,9 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJson$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJson$Outbound =
@@ -14501,7 +14697,7 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -14552,23 +14748,25 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -14669,7 +14867,7 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -14720,23 +14918,25 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -14837,7 +15037,7 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -14888,23 +15088,25 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -15005,7 +15207,7 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -15056,23 +15258,25 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -15153,20 +15357,20 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttp$inboundS
     RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -15224,31 +15428,31 @@ export const RestAuthenticationOauthSecretDiscovery$inboundSchema: z.ZodType<
   RestAuthenticationOauthSecretDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationOauthSecretDiscovery$Outbound =
   | (
@@ -15330,15 +15534,15 @@ export const RestAuthenticationOauthSecretRestPaginationTypeRequestPage$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestPaginationTypeRequestPage$Outbound =
@@ -15403,14 +15607,14 @@ export const RestAuthenticationOauthSecretRestPaginationTypeRequestOffset$inboun
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestPaginationTypeRequestOffset$Outbound =
@@ -15473,10 +15677,10 @@ export const RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink$Outbound =
@@ -15531,9 +15735,9 @@ export const RestAuthenticationOauthSecretRestPaginationTypeResponseHeader$inbou
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestPaginationTypeResponseHeader$Outbound =
@@ -15586,10 +15790,10 @@ export const RestAuthenticationOauthSecretRestPaginationTypeResponseBody$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestPaginationTypeResponseBody$Outbound =
@@ -15644,7 +15848,7 @@ export const RestAuthenticationOauthSecretRestPaginationTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestPaginationTypeNone$Outbound = {
@@ -15693,26 +15897,26 @@ export const RestAuthenticationOauthSecretPaginationUnion$inboundSchema:
     RestAuthenticationOauthSecretPaginationUnion,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationOauthSecretRestPaginationTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    response_body: z.lazy(() =>
       RestAuthenticationOauthSecretRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationOauthSecretRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationOauthSecretRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationOauthSecretRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationOauthSecretPaginationUnion$Outbound =
   | RestAuthenticationOauthSecretRestPaginationTypeNone$Outbound
@@ -15782,15 +15986,15 @@ export const RestAuthenticationOauthSecretRestRetryRulesTypeBackoff$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestRetryRulesTypeBackoff$Outbound = {
@@ -15855,15 +16059,15 @@ export const RestAuthenticationOauthSecretRestRetryRulesTypeStatic$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestRetryRulesTypeStatic$Outbound = {
@@ -15929,15 +16133,15 @@ export const RestAuthenticationOauthSecretRestRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestRetryRulesTypeNone$Outbound = {
@@ -16001,17 +16205,17 @@ export const RestAuthenticationOauthSecretRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationOauthSecretRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     RestAuthenticationOauthSecretRestRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     RestAuthenticationOauthSecretRestRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     RestAuthenticationOauthSecretRestRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationOauthSecretRetryRules$Outbound =
   | RestAuthenticationOauthSecretRestRetryRulesTypeNone$Outbound
@@ -16065,7 +16269,7 @@ export function restAuthenticationOauthSecretRetryRulesFromJSON(
 export const RestAuthenticationOauthSecretStateTracking$inboundSchema:
   z.ZodType<RestAuthenticationOauthSecretStateTracking, z.ZodTypeDef, unknown> =
     z.object({
-      enabled: z.boolean().optional(),
+      enabled: types.optional(types.boolean()),
     });
 /** @internal */
 export type RestAuthenticationOauthSecretStateTracking$Outbound = {
@@ -16114,9 +16318,9 @@ export const RestAuthenticationOauthSecretScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() =>
-    RestAuthenticationOauthSecretStateTracking$inboundSchema
-  ).optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestAuthenticationOauthSecretStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationOauthSecretScheduling$Outbound = {
@@ -16168,94 +16372,94 @@ export const RestAuthenticationOauthSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("oauthSecret"),
-  loginUrl: z.string(),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderKey: z.string().optional(),
-  authHeaderExpr: z.string(),
-  clientSecretParamName: z.string(),
-  textSecret: z.string(),
-  authRequestParams: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  authRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("oauthSecret"),
+  loginUrl: types.string(),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderKey: types.optional(types.string()),
+  authHeaderExpr: types.string(),
+  clientSecretParamName: types.string(),
+  textSecret: types.string(),
+  authRequestParams: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  authRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: RestAuthenticationOauthSecretCollectMethod$inboundSchema,
-  collectVerb: z.any().optional(),
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() =>
+  collectVerb: types.optional(z.any()),
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationOauthSecretRestPaginationTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    response_body: z.lazy(() =>
       RestAuthenticationOauthSecretRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationOauthSecretRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationOauthSecretRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationOauthSecretRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  })),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationOauthSecretRestRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       RestAuthenticationOauthSecretRestRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       RestAuthenticationOauthSecretRestRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
-  __scheduling: z.lazy(() =>
-    RestAuthenticationOauthSecretScheduling$inboundSchema
-  ).optional(),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestAuthenticationOauthSecretScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationOauthSecret$Outbound = {
@@ -16438,7 +16642,7 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeNone$Outbound = {
@@ -16488,8 +16692,8 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeList$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeList$Outbound = {
@@ -16541,9 +16745,9 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeJson$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeJson$Outbound = {
@@ -16616,7 +16820,7 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -16667,23 +16871,25 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -16784,7 +16990,7 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -16835,23 +17041,25 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -16952,7 +17160,7 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -17003,23 +17211,25 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -17120,7 +17330,7 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -17171,23 +17381,25 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -17268,20 +17480,20 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp$inboundSchema:
     RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -17341,31 +17553,31 @@ export const RestAuthenticationOauthDiscovery$inboundSchema: z.ZodType<
   RestAuthenticationOauthDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     RestAuthenticationOauthRestDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     RestAuthenticationOauthRestDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     RestAuthenticationOauthRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationOauthDiscovery$Outbound =
   | (
@@ -17449,15 +17661,15 @@ export const RestAuthenticationOauthRestPaginationTypeRequestPage$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationOauthRestPaginationTypeRequestPage$Outbound = {
@@ -17523,14 +17735,14 @@ export const RestAuthenticationOauthRestPaginationTypeRequestOffset$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationOauthRestPaginationTypeRequestOffset$Outbound = {
@@ -17593,10 +17805,10 @@ export const RestAuthenticationOauthRestPaginationTypeResponseHeaderLink$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationOauthRestPaginationTypeResponseHeaderLink$Outbound =
@@ -17651,9 +17863,9 @@ export const RestAuthenticationOauthRestPaginationTypeResponseHeader$inboundSche
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationOauthRestPaginationTypeResponseHeader$Outbound = {
@@ -17705,10 +17917,10 @@ export const RestAuthenticationOauthRestPaginationTypeResponseBody$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestPaginationTypeResponseBody$Outbound = {
@@ -17764,7 +17976,7 @@ export const RestAuthenticationOauthRestPaginationTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationOauthRestPaginationTypeNone$Outbound = {
@@ -17812,24 +18024,26 @@ export const RestAuthenticationOauthPaginationUnion$inboundSchema: z.ZodType<
   RestAuthenticationOauthPaginationUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestAuthenticationOauthRestPaginationTypeNone$inboundSchema),
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    RestAuthenticationOauthRestPaginationTypeNone$inboundSchema
+  ),
+  response_body: z.lazy(() =>
     RestAuthenticationOauthRestPaginationTypeResponseBody$inboundSchema
   ),
-  z.lazy(() =>
+  response_header: z.lazy(() =>
     RestAuthenticationOauthRestPaginationTypeResponseHeader$inboundSchema
   ),
-  z.lazy(() =>
+  response_header_link: z.lazy(() =>
     RestAuthenticationOauthRestPaginationTypeResponseHeaderLink$inboundSchema
   ),
-  z.lazy(() =>
+  request_offset: z.lazy(() =>
     RestAuthenticationOauthRestPaginationTypeRequestOffset$inboundSchema
   ),
-  z.lazy(() =>
+  request_page: z.lazy(() =>
     RestAuthenticationOauthRestPaginationTypeRequestPage$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationOauthPaginationUnion$Outbound =
   | RestAuthenticationOauthRestPaginationTypeNone$Outbound
@@ -17891,15 +18105,15 @@ export const RestAuthenticationOauthRestRetryRulesTypeBackoff$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestRetryRulesTypeBackoff$Outbound = {
@@ -17965,15 +18179,15 @@ export const RestAuthenticationOauthRestRetryRulesTypeStatic$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestRetryRulesTypeStatic$Outbound = {
@@ -18039,15 +18253,15 @@ export const RestAuthenticationOauthRestRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestRetryRulesTypeNone$Outbound = {
@@ -18111,11 +18325,17 @@ export const RestAuthenticationOauthRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationOauthRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestAuthenticationOauthRestRetryRulesTypeNone$inboundSchema),
-  z.lazy(() => RestAuthenticationOauthRestRetryRulesTypeStatic$inboundSchema),
-  z.lazy(() => RestAuthenticationOauthRestRetryRulesTypeBackoff$inboundSchema),
-]);
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    RestAuthenticationOauthRestRetryRulesTypeNone$inboundSchema
+  ),
+  static: z.lazy(() =>
+    RestAuthenticationOauthRestRetryRulesTypeStatic$inboundSchema
+  ),
+  backoff: z.lazy(() =>
+    RestAuthenticationOauthRestRetryRulesTypeBackoff$inboundSchema
+  ),
+});
 /** @internal */
 export type RestAuthenticationOauthRetryRules$Outbound =
   | RestAuthenticationOauthRestRetryRulesTypeNone$Outbound
@@ -18158,7 +18378,7 @@ export const RestAuthenticationOauthStateTracking$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
+  enabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type RestAuthenticationOauthStateTracking$Outbound = {
@@ -18200,9 +18420,9 @@ export const RestAuthenticationOauthScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() =>
-    RestAuthenticationOauthStateTracking$inboundSchema
-  ).optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestAuthenticationOauthStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationOauthScheduling$Outbound = {
@@ -18245,87 +18465,94 @@ export const RestAuthenticationOauth$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("oauth"),
-  loginUrl: z.string(),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderKey: z.string().optional(),
-  authHeaderExpr: z.string(),
-  clientSecretParamName: z.string(),
-  clientSecretParamValue: z.string(),
-  authRequestParams: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  authRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("oauth"),
+  loginUrl: types.string(),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderKey: types.optional(types.string()),
+  authHeaderExpr: types.string(),
+  clientSecretParamName: types.string(),
+  clientSecretParamValue: types.string(),
+  authRequestParams: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  authRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestAuthenticationOauthRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestAuthenticationOauthRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestAuthenticationOauthRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: RestAuthenticationOauthCollectMethod$inboundSchema,
-  collectVerb: z.any().optional(),
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() => RestAuthenticationOauthRestPaginationTypeNone$inboundSchema),
-    z.lazy(() =>
+  collectVerb: types.optional(z.any()),
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestAuthenticationOauthRestPaginationTypeNone$inboundSchema
+    ),
+    response_body: z.lazy(() =>
       RestAuthenticationOauthRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationOauthRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationOauthRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationOauthRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationOauthRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() => RestAuthenticationOauthRestRetryRulesTypeNone$inboundSchema),
-    z.lazy(() => RestAuthenticationOauthRestRetryRulesTypeStatic$inboundSchema),
-    z.lazy(() =>
+  })),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestAuthenticationOauthRestRetryRulesTypeNone$inboundSchema
+    ),
+    static: z.lazy(() =>
+      RestAuthenticationOauthRestRetryRulesTypeStatic$inboundSchema
+    ),
+    backoff: z.lazy(() =>
       RestAuthenticationOauthRestRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
-  __scheduling: z.lazy(() => RestAuthenticationOauthScheduling$inboundSchema)
-    .optional(),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestAuthenticationOauthScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationOauth$Outbound = {
@@ -18501,7 +18728,7 @@ export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone$Outbound =
@@ -18550,8 +18777,8 @@ export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList$Outbound =
@@ -18602,9 +18829,9 @@ export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJson$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJson$Outbound =
@@ -18676,7 +18903,7 @@ export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -18727,23 +18954,25 @@ export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -18844,7 +19073,7 @@ export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -18895,23 +19124,25 @@ export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -19012,7 +19243,7 @@ export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -19063,23 +19294,25 @@ export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -19180,7 +19413,7 @@ export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -19231,23 +19464,25 @@ export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -19328,20 +19563,20 @@ export const RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttp$inboundS
     RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -19399,31 +19634,31 @@ export const RestAuthenticationLoginSecretDiscovery$inboundSchema: z.ZodType<
   RestAuthenticationLoginSecretDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationLoginSecretDiscovery$Outbound =
   | (
@@ -19505,15 +19740,15 @@ export const RestAuthenticationLoginSecretRestPaginationTypeRequestPage$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestPaginationTypeRequestPage$Outbound =
@@ -19578,14 +19813,14 @@ export const RestAuthenticationLoginSecretRestPaginationTypeRequestOffset$inboun
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestPaginationTypeRequestOffset$Outbound =
@@ -19648,10 +19883,10 @@ export const RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink$Outbound =
@@ -19706,9 +19941,9 @@ export const RestAuthenticationLoginSecretRestPaginationTypeResponseHeader$inbou
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestPaginationTypeResponseHeader$Outbound =
@@ -19761,10 +19996,10 @@ export const RestAuthenticationLoginSecretRestPaginationTypeResponseBody$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestPaginationTypeResponseBody$Outbound =
@@ -19819,7 +20054,7 @@ export const RestAuthenticationLoginSecretRestPaginationTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestPaginationTypeNone$Outbound = {
@@ -19868,26 +20103,26 @@ export const RestAuthenticationLoginSecretPaginationUnion$inboundSchema:
     RestAuthenticationLoginSecretPaginationUnion,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationLoginSecretRestPaginationTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    response_body: z.lazy(() =>
       RestAuthenticationLoginSecretRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationLoginSecretRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationLoginSecretRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationLoginSecretRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationLoginSecretPaginationUnion$Outbound =
   | RestAuthenticationLoginSecretRestPaginationTypeNone$Outbound
@@ -19957,15 +20192,15 @@ export const RestAuthenticationLoginSecretRestRetryRulesTypeBackoff$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestRetryRulesTypeBackoff$Outbound = {
@@ -20030,15 +20265,15 @@ export const RestAuthenticationLoginSecretRestRetryRulesTypeStatic$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestRetryRulesTypeStatic$Outbound = {
@@ -20104,15 +20339,15 @@ export const RestAuthenticationLoginSecretRestRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretRestRetryRulesTypeNone$Outbound = {
@@ -20176,17 +20411,17 @@ export const RestAuthenticationLoginSecretRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationLoginSecretRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     RestAuthenticationLoginSecretRestRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     RestAuthenticationLoginSecretRestRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     RestAuthenticationLoginSecretRestRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationLoginSecretRetryRules$Outbound =
   | RestAuthenticationLoginSecretRestRetryRulesTypeNone$Outbound
@@ -20240,7 +20475,7 @@ export function restAuthenticationLoginSecretRetryRulesFromJSON(
 export const RestAuthenticationLoginSecretStateTracking$inboundSchema:
   z.ZodType<RestAuthenticationLoginSecretStateTracking, z.ZodTypeDef, unknown> =
     z.object({
-      enabled: z.boolean().optional(),
+      enabled: types.optional(types.boolean()),
     });
 /** @internal */
 export type RestAuthenticationLoginSecretStateTracking$Outbound = {
@@ -20289,9 +20524,9 @@ export const RestAuthenticationLoginSecretScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() =>
-    RestAuthenticationLoginSecretStateTracking$inboundSchema
-  ).optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestAuthenticationLoginSecretStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationLoginSecretScheduling$Outbound = {
@@ -20343,91 +20578,91 @@ export const RestAuthenticationLoginSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("loginSecret"),
-  loginUrl: z.string(),
-  credentialsSecret: z.string(),
-  loginBody: z.string(),
-  getAuthTokenFromHeader: z.boolean().optional(),
-  authHeaderKey: z.string().optional(),
-  authHeaderExpr: z.string(),
-  authRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("loginSecret"),
+  loginUrl: types.string(),
+  credentialsSecret: types.string(),
+  loginBody: types.string(),
+  getAuthTokenFromHeader: types.optional(types.boolean()),
+  authHeaderKey: types.optional(types.string()),
+  authHeaderExpr: types.string(),
+  authRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: RestAuthenticationLoginSecretCollectMethod$inboundSchema,
-  collectVerb: z.any().optional(),
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() =>
+  collectVerb: types.optional(z.any()),
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationLoginSecretRestPaginationTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    response_body: z.lazy(() =>
       RestAuthenticationLoginSecretRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationLoginSecretRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationLoginSecretRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationLoginSecretRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  })),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationLoginSecretRestRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       RestAuthenticationLoginSecretRestRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       RestAuthenticationLoginSecretRestRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
-  __scheduling: z.lazy(() =>
-    RestAuthenticationLoginSecretScheduling$inboundSchema
-  ).optional(),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestAuthenticationLoginSecretScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationLoginSecret$Outbound = {
@@ -20604,7 +20839,7 @@ export const RestAuthenticationLoginRestDiscoveryDiscoverTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeNone$Outbound = {
@@ -20654,8 +20889,8 @@ export const RestAuthenticationLoginRestDiscoveryDiscoverTypeList$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeList$Outbound = {
@@ -20707,9 +20942,9 @@ export const RestAuthenticationLoginRestDiscoveryDiscoverTypeJson$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeJson$Outbound = {
@@ -20782,7 +21017,7 @@ export const RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -20833,23 +21068,25 @@ export const RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -20950,7 +21187,7 @@ export const RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -21001,23 +21238,25 @@ export const RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -21118,7 +21357,7 @@ export const RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -21169,23 +21408,25 @@ export const RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -21286,7 +21527,7 @@ export const RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -21337,23 +21578,25 @@ export const RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -21434,20 +21677,20 @@ export const RestAuthenticationLoginRestDiscoveryDiscoverTypeHttp$inboundSchema:
     RestAuthenticationLoginRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationLoginRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -21507,31 +21750,31 @@ export const RestAuthenticationLoginDiscovery$inboundSchema: z.ZodType<
   RestAuthenticationLoginDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     RestAuthenticationLoginRestDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     RestAuthenticationLoginRestDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     RestAuthenticationLoginRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationLoginDiscovery$Outbound =
   | (
@@ -21615,15 +21858,15 @@ export const RestAuthenticationLoginRestPaginationTypeRequestPage$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationLoginRestPaginationTypeRequestPage$Outbound = {
@@ -21689,14 +21932,14 @@ export const RestAuthenticationLoginRestPaginationTypeRequestOffset$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationLoginRestPaginationTypeRequestOffset$Outbound = {
@@ -21759,10 +22002,10 @@ export const RestAuthenticationLoginRestPaginationTypeResponseHeaderLink$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationLoginRestPaginationTypeResponseHeaderLink$Outbound =
@@ -21817,9 +22060,9 @@ export const RestAuthenticationLoginRestPaginationTypeResponseHeader$inboundSche
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationLoginRestPaginationTypeResponseHeader$Outbound = {
@@ -21871,10 +22114,10 @@ export const RestAuthenticationLoginRestPaginationTypeResponseBody$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationLoginRestPaginationTypeResponseBody$Outbound = {
@@ -21930,7 +22173,7 @@ export const RestAuthenticationLoginRestPaginationTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationLoginRestPaginationTypeNone$Outbound = {
@@ -21978,24 +22221,26 @@ export const RestAuthenticationLoginPaginationUnion$inboundSchema: z.ZodType<
   RestAuthenticationLoginPaginationUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestAuthenticationLoginRestPaginationTypeNone$inboundSchema),
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    RestAuthenticationLoginRestPaginationTypeNone$inboundSchema
+  ),
+  response_body: z.lazy(() =>
     RestAuthenticationLoginRestPaginationTypeResponseBody$inboundSchema
   ),
-  z.lazy(() =>
+  response_header: z.lazy(() =>
     RestAuthenticationLoginRestPaginationTypeResponseHeader$inboundSchema
   ),
-  z.lazy(() =>
+  response_header_link: z.lazy(() =>
     RestAuthenticationLoginRestPaginationTypeResponseHeaderLink$inboundSchema
   ),
-  z.lazy(() =>
+  request_offset: z.lazy(() =>
     RestAuthenticationLoginRestPaginationTypeRequestOffset$inboundSchema
   ),
-  z.lazy(() =>
+  request_page: z.lazy(() =>
     RestAuthenticationLoginRestPaginationTypeRequestPage$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationLoginPaginationUnion$Outbound =
   | RestAuthenticationLoginRestPaginationTypeNone$Outbound
@@ -22057,15 +22302,15 @@ export const RestAuthenticationLoginRestRetryRulesTypeBackoff$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginRestRetryRulesTypeBackoff$Outbound = {
@@ -22131,15 +22376,15 @@ export const RestAuthenticationLoginRestRetryRulesTypeStatic$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginRestRetryRulesTypeStatic$Outbound = {
@@ -22205,15 +22450,15 @@ export const RestAuthenticationLoginRestRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginRestRetryRulesTypeNone$Outbound = {
@@ -22277,11 +22522,17 @@ export const RestAuthenticationLoginRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationLoginRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestAuthenticationLoginRestRetryRulesTypeNone$inboundSchema),
-  z.lazy(() => RestAuthenticationLoginRestRetryRulesTypeStatic$inboundSchema),
-  z.lazy(() => RestAuthenticationLoginRestRetryRulesTypeBackoff$inboundSchema),
-]);
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    RestAuthenticationLoginRestRetryRulesTypeNone$inboundSchema
+  ),
+  static: z.lazy(() =>
+    RestAuthenticationLoginRestRetryRulesTypeStatic$inboundSchema
+  ),
+  backoff: z.lazy(() =>
+    RestAuthenticationLoginRestRetryRulesTypeBackoff$inboundSchema
+  ),
+});
 /** @internal */
 export type RestAuthenticationLoginRetryRules$Outbound =
   | RestAuthenticationLoginRestRetryRulesTypeNone$Outbound
@@ -22324,7 +22575,7 @@ export const RestAuthenticationLoginStateTracking$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
+  enabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type RestAuthenticationLoginStateTracking$Outbound = {
@@ -22366,9 +22617,9 @@ export const RestAuthenticationLoginScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() =>
-    RestAuthenticationLoginStateTracking$inboundSchema
-  ).optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestAuthenticationLoginStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationLoginScheduling$Outbound = {
@@ -22411,85 +22662,92 @@ export const RestAuthenticationLogin$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("login"),
-  loginUrl: z.string(),
-  username: z.string(),
-  password: z.string(),
-  loginBody: z.string(),
-  getAuthTokenFromHeader: z.boolean().optional(),
-  authHeaderKey: z.string().optional(),
-  authHeaderExpr: z.string(),
-  authRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("login"),
+  loginUrl: types.string(),
+  username: types.string(),
+  password: types.string(),
+  loginBody: types.string(),
+  getAuthTokenFromHeader: types.optional(types.boolean()),
+  authHeaderKey: types.optional(types.string()),
+  authHeaderExpr: types.string(),
+  authRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestAuthenticationLoginRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestAuthenticationLoginRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestAuthenticationLoginRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: RestAuthenticationLoginCollectMethod$inboundSchema,
-  collectVerb: z.any().optional(),
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() => RestAuthenticationLoginRestPaginationTypeNone$inboundSchema),
-    z.lazy(() =>
+  collectVerb: types.optional(z.any()),
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestAuthenticationLoginRestPaginationTypeNone$inboundSchema
+    ),
+    response_body: z.lazy(() =>
       RestAuthenticationLoginRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationLoginRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationLoginRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationLoginRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationLoginRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() => RestAuthenticationLoginRestRetryRulesTypeNone$inboundSchema),
-    z.lazy(() => RestAuthenticationLoginRestRetryRulesTypeStatic$inboundSchema),
-    z.lazy(() =>
+  })),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestAuthenticationLoginRestRetryRulesTypeNone$inboundSchema
+    ),
+    static: z.lazy(() =>
+      RestAuthenticationLoginRestRetryRulesTypeStatic$inboundSchema
+    ),
+    backoff: z.lazy(() =>
       RestAuthenticationLoginRestRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
-  __scheduling: z.lazy(() => RestAuthenticationLoginScheduling$inboundSchema)
-    .optional(),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestAuthenticationLoginScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationLogin$Outbound = {
@@ -22661,7 +22919,7 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone$Outbound =
@@ -22710,8 +22968,8 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList$Outbound =
@@ -22762,9 +23020,9 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJson$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJson$Outbound =
@@ -22836,7 +23094,7 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -22887,23 +23145,25 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -23004,7 +23264,7 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -23055,23 +23315,25 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -23172,7 +23434,7 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -23223,23 +23485,25 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -23340,7 +23604,7 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -23391,23 +23655,25 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -23488,20 +23754,20 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttp$inboundS
     RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -23559,31 +23825,31 @@ export const RestAuthenticationBasicSecretDiscovery$inboundSchema: z.ZodType<
   RestAuthenticationBasicSecretDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationBasicSecretDiscovery$Outbound =
   | (
@@ -23665,15 +23931,15 @@ export const RestAuthenticationBasicSecretRestPaginationTypeRequestPage$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestPaginationTypeRequestPage$Outbound =
@@ -23738,14 +24004,14 @@ export const RestAuthenticationBasicSecretRestPaginationTypeRequestOffset$inboun
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestPaginationTypeRequestOffset$Outbound =
@@ -23808,10 +24074,10 @@ export const RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink$Outbound =
@@ -23866,9 +24132,9 @@ export const RestAuthenticationBasicSecretRestPaginationTypeResponseHeader$inbou
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestPaginationTypeResponseHeader$Outbound =
@@ -23921,10 +24187,10 @@ export const RestAuthenticationBasicSecretRestPaginationTypeResponseBody$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestPaginationTypeResponseBody$Outbound =
@@ -23979,7 +24245,7 @@ export const RestAuthenticationBasicSecretRestPaginationTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestPaginationTypeNone$Outbound = {
@@ -24028,26 +24294,26 @@ export const RestAuthenticationBasicSecretPaginationUnion$inboundSchema:
     RestAuthenticationBasicSecretPaginationUnion,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationBasicSecretRestPaginationTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    response_body: z.lazy(() =>
       RestAuthenticationBasicSecretRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationBasicSecretRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationBasicSecretRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationBasicSecretRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationBasicSecretPaginationUnion$Outbound =
   | RestAuthenticationBasicSecretRestPaginationTypeNone$Outbound
@@ -24117,15 +24383,15 @@ export const RestAuthenticationBasicSecretRestRetryRulesTypeBackoff$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestRetryRulesTypeBackoff$Outbound = {
@@ -24190,15 +24456,15 @@ export const RestAuthenticationBasicSecretRestRetryRulesTypeStatic$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestRetryRulesTypeStatic$Outbound = {
@@ -24264,15 +24530,15 @@ export const RestAuthenticationBasicSecretRestRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestRetryRulesTypeNone$Outbound = {
@@ -24336,17 +24602,17 @@ export const RestAuthenticationBasicSecretRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationBasicSecretRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     RestAuthenticationBasicSecretRestRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     RestAuthenticationBasicSecretRestRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     RestAuthenticationBasicSecretRestRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationBasicSecretRetryRules$Outbound =
   | RestAuthenticationBasicSecretRestRetryRulesTypeNone$Outbound
@@ -24400,7 +24666,7 @@ export function restAuthenticationBasicSecretRetryRulesFromJSON(
 export const RestAuthenticationBasicSecretStateTracking$inboundSchema:
   z.ZodType<RestAuthenticationBasicSecretStateTracking, z.ZodTypeDef, unknown> =
     z.object({
-      enabled: z.boolean().optional(),
+      enabled: types.optional(types.boolean()),
     });
 /** @internal */
 export type RestAuthenticationBasicSecretStateTracking$Outbound = {
@@ -24449,9 +24715,9 @@ export const RestAuthenticationBasicSecretScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() =>
-    RestAuthenticationBasicSecretStateTracking$inboundSchema
-  ).optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestAuthenticationBasicSecretStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationBasicSecretScheduling$Outbound = {
@@ -24503,83 +24769,83 @@ export const RestAuthenticationBasicSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("basicSecret"),
-  credentialsSecret: z.string(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("basicSecret"),
+  credentialsSecret: types.string(),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: RestAuthenticationBasicSecretCollectMethod$inboundSchema,
-  collectVerb: z.any().optional(),
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() =>
+  collectVerb: types.optional(z.any()),
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationBasicSecretRestPaginationTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    response_body: z.lazy(() =>
       RestAuthenticationBasicSecretRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationBasicSecretRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationBasicSecretRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationBasicSecretRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  })),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestAuthenticationBasicSecretRestRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       RestAuthenticationBasicSecretRestRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       RestAuthenticationBasicSecretRestRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
-  __scheduling: z.lazy(() =>
-    RestAuthenticationBasicSecretScheduling$inboundSchema
-  ).optional(),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestAuthenticationBasicSecretScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationBasicSecret$Outbound = {
@@ -24740,7 +25006,7 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeNone$Outbound = {
@@ -24790,8 +25056,8 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeList$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeList$Outbound = {
@@ -24843,9 +25109,9 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeJson$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeJson$Outbound = {
@@ -24918,7 +25184,7 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -24969,23 +25235,25 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -25086,7 +25354,7 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -25137,23 +25405,25 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -25254,7 +25524,7 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -25305,23 +25575,25 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -25422,7 +25694,7 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -25473,23 +25745,25 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -25570,20 +25844,20 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttp$inboundSchema:
     RestAuthenticationBasicRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -25643,31 +25917,31 @@ export const RestAuthenticationBasicDiscovery$inboundSchema: z.ZodType<
   RestAuthenticationBasicDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     RestAuthenticationBasicRestDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     RestAuthenticationBasicRestDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     RestAuthenticationBasicRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationBasicDiscovery$Outbound =
   | (
@@ -25751,15 +26025,15 @@ export const RestAuthenticationBasicRestPaginationTypeRequestPage$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationBasicRestPaginationTypeRequestPage$Outbound = {
@@ -25825,14 +26099,14 @@ export const RestAuthenticationBasicRestPaginationTypeRequestOffset$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationBasicRestPaginationTypeRequestOffset$Outbound = {
@@ -25895,10 +26169,10 @@ export const RestAuthenticationBasicRestPaginationTypeResponseHeaderLink$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationBasicRestPaginationTypeResponseHeaderLink$Outbound =
@@ -25953,9 +26227,9 @@ export const RestAuthenticationBasicRestPaginationTypeResponseHeader$inboundSche
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationBasicRestPaginationTypeResponseHeader$Outbound = {
@@ -26007,10 +26281,10 @@ export const RestAuthenticationBasicRestPaginationTypeResponseBody$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestPaginationTypeResponseBody$Outbound = {
@@ -26066,7 +26340,7 @@ export const RestAuthenticationBasicRestPaginationTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationBasicRestPaginationTypeNone$Outbound = {
@@ -26114,24 +26388,26 @@ export const RestAuthenticationBasicPaginationUnion$inboundSchema: z.ZodType<
   RestAuthenticationBasicPaginationUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestAuthenticationBasicRestPaginationTypeNone$inboundSchema),
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    RestAuthenticationBasicRestPaginationTypeNone$inboundSchema
+  ),
+  response_body: z.lazy(() =>
     RestAuthenticationBasicRestPaginationTypeResponseBody$inboundSchema
   ),
-  z.lazy(() =>
+  response_header: z.lazy(() =>
     RestAuthenticationBasicRestPaginationTypeResponseHeader$inboundSchema
   ),
-  z.lazy(() =>
+  response_header_link: z.lazy(() =>
     RestAuthenticationBasicRestPaginationTypeResponseHeaderLink$inboundSchema
   ),
-  z.lazy(() =>
+  request_offset: z.lazy(() =>
     RestAuthenticationBasicRestPaginationTypeRequestOffset$inboundSchema
   ),
-  z.lazy(() =>
+  request_page: z.lazy(() =>
     RestAuthenticationBasicRestPaginationTypeRequestPage$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationBasicPaginationUnion$Outbound =
   | RestAuthenticationBasicRestPaginationTypeNone$Outbound
@@ -26193,15 +26469,15 @@ export const RestAuthenticationBasicRestRetryRulesTypeBackoff$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestRetryRulesTypeBackoff$Outbound = {
@@ -26267,15 +26543,15 @@ export const RestAuthenticationBasicRestRetryRulesTypeStatic$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestRetryRulesTypeStatic$Outbound = {
@@ -26341,15 +26617,15 @@ export const RestAuthenticationBasicRestRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestRetryRulesTypeNone$Outbound = {
@@ -26413,11 +26689,17 @@ export const RestAuthenticationBasicRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationBasicRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestAuthenticationBasicRestRetryRulesTypeNone$inboundSchema),
-  z.lazy(() => RestAuthenticationBasicRestRetryRulesTypeStatic$inboundSchema),
-  z.lazy(() => RestAuthenticationBasicRestRetryRulesTypeBackoff$inboundSchema),
-]);
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    RestAuthenticationBasicRestRetryRulesTypeNone$inboundSchema
+  ),
+  static: z.lazy(() =>
+    RestAuthenticationBasicRestRetryRulesTypeStatic$inboundSchema
+  ),
+  backoff: z.lazy(() =>
+    RestAuthenticationBasicRestRetryRulesTypeBackoff$inboundSchema
+  ),
+});
 /** @internal */
 export type RestAuthenticationBasicRetryRules$Outbound =
   | RestAuthenticationBasicRestRetryRulesTypeNone$Outbound
@@ -26460,7 +26742,7 @@ export const RestAuthenticationBasicStateTracking$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
+  enabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type RestAuthenticationBasicStateTracking$Outbound = {
@@ -26502,9 +26784,9 @@ export const RestAuthenticationBasicScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() =>
-    RestAuthenticationBasicStateTracking$inboundSchema
-  ).optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestAuthenticationBasicStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationBasicScheduling$Outbound = {
@@ -26547,77 +26829,84 @@ export const RestAuthenticationBasic$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("basic"),
-  username: z.string(),
-  password: z.string(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("basic"),
+  username: types.string(),
+  password: types.string(),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestAuthenticationBasicRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestAuthenticationBasicRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestAuthenticationBasicRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: RestAuthenticationBasicCollectMethod$inboundSchema,
-  collectVerb: z.any().optional(),
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() => RestAuthenticationBasicRestPaginationTypeNone$inboundSchema),
-    z.lazy(() =>
+  collectVerb: types.optional(z.any()),
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestAuthenticationBasicRestPaginationTypeNone$inboundSchema
+    ),
+    response_body: z.lazy(() =>
       RestAuthenticationBasicRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationBasicRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationBasicRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationBasicRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationBasicRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() => RestAuthenticationBasicRestRetryRulesTypeNone$inboundSchema),
-    z.lazy(() => RestAuthenticationBasicRestRetryRulesTypeStatic$inboundSchema),
-    z.lazy(() =>
+  })),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestAuthenticationBasicRestRetryRulesTypeNone$inboundSchema
+    ),
+    static: z.lazy(() =>
+      RestAuthenticationBasicRestRetryRulesTypeStatic$inboundSchema
+    ),
+    backoff: z.lazy(() =>
       RestAuthenticationBasicRestRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
-  __scheduling: z.lazy(() => RestAuthenticationBasicScheduling$inboundSchema)
-    .optional(),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestAuthenticationBasicScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationBasic$Outbound = {
@@ -26773,7 +27062,7 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeNone$Outbound = {
@@ -26823,8 +27112,8 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeList$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeList$Outbound = {
@@ -26876,9 +27165,9 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeJson$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeJson$Outbound = {
@@ -26951,7 +27240,7 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -27002,23 +27291,25 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -27119,7 +27410,7 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -27170,23 +27461,25 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -27287,7 +27580,7 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -27338,23 +27631,25 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -27455,7 +27750,7 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -27506,23 +27801,25 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -27603,20 +27900,20 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttp$inboundSchema:
     RestAuthenticationNoneRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -27676,31 +27973,31 @@ export const RestAuthenticationNoneDiscovery$inboundSchema: z.ZodType<
   RestAuthenticationNoneDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     RestAuthenticationNoneRestDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     RestAuthenticationNoneRestDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     RestAuthenticationNoneRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationNoneDiscovery$Outbound =
   | (
@@ -27784,15 +28081,15 @@ export const RestAuthenticationNoneRestPaginationTypeRequestPage$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationNoneRestPaginationTypeRequestPage$Outbound = {
@@ -27858,14 +28155,14 @@ export const RestAuthenticationNoneRestPaginationTypeRequestOffset$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestAuthenticationNoneRestPaginationTypeRequestOffset$Outbound = {
@@ -27929,10 +28226,10 @@ export const RestAuthenticationNoneRestPaginationTypeResponseHeaderLink$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationNoneRestPaginationTypeResponseHeaderLink$Outbound =
@@ -27987,9 +28284,9 @@ export const RestAuthenticationNoneRestPaginationTypeResponseHeader$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestAuthenticationNoneRestPaginationTypeResponseHeader$Outbound = {
@@ -28042,10 +28339,10 @@ export const RestAuthenticationNoneRestPaginationTypeResponseBody$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestPaginationTypeResponseBody$Outbound = {
@@ -28101,7 +28398,7 @@ export const RestAuthenticationNoneRestPaginationTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestAuthenticationNoneRestPaginationTypeNone$Outbound = {
@@ -28149,24 +28446,26 @@ export const RestAuthenticationNonePaginationUnion$inboundSchema: z.ZodType<
   RestAuthenticationNonePaginationUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestAuthenticationNoneRestPaginationTypeNone$inboundSchema),
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    RestAuthenticationNoneRestPaginationTypeNone$inboundSchema
+  ),
+  response_body: z.lazy(() =>
     RestAuthenticationNoneRestPaginationTypeResponseBody$inboundSchema
   ),
-  z.lazy(() =>
+  response_header: z.lazy(() =>
     RestAuthenticationNoneRestPaginationTypeResponseHeader$inboundSchema
   ),
-  z.lazy(() =>
+  response_header_link: z.lazy(() =>
     RestAuthenticationNoneRestPaginationTypeResponseHeaderLink$inboundSchema
   ),
-  z.lazy(() =>
+  request_offset: z.lazy(() =>
     RestAuthenticationNoneRestPaginationTypeRequestOffset$inboundSchema
   ),
-  z.lazy(() =>
+  request_page: z.lazy(() =>
     RestAuthenticationNoneRestPaginationTypeRequestPage$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestAuthenticationNonePaginationUnion$Outbound =
   | RestAuthenticationNoneRestPaginationTypeNone$Outbound
@@ -28227,15 +28526,15 @@ export const RestAuthenticationNoneRestRetryRulesTypeBackoff$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestRetryRulesTypeBackoff$Outbound = {
@@ -28301,15 +28600,15 @@ export const RestAuthenticationNoneRestRetryRulesTypeStatic$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestRetryRulesTypeStatic$Outbound = {
@@ -28375,15 +28674,15 @@ export const RestAuthenticationNoneRestRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestRetryRulesTypeNone$Outbound = {
@@ -28447,11 +28746,17 @@ export const RestAuthenticationNoneRetryRules$inboundSchema: z.ZodType<
   RestAuthenticationNoneRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestAuthenticationNoneRestRetryRulesTypeNone$inboundSchema),
-  z.lazy(() => RestAuthenticationNoneRestRetryRulesTypeStatic$inboundSchema),
-  z.lazy(() => RestAuthenticationNoneRestRetryRulesTypeBackoff$inboundSchema),
-]);
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    RestAuthenticationNoneRestRetryRulesTypeNone$inboundSchema
+  ),
+  static: z.lazy(() =>
+    RestAuthenticationNoneRestRetryRulesTypeStatic$inboundSchema
+  ),
+  backoff: z.lazy(() =>
+    RestAuthenticationNoneRestRetryRulesTypeBackoff$inboundSchema
+  ),
+});
 /** @internal */
 export type RestAuthenticationNoneRetryRules$Outbound =
   | RestAuthenticationNoneRestRetryRulesTypeNone$Outbound
@@ -28494,7 +28799,7 @@ export const RestAuthenticationNoneStateTracking$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
+  enabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type RestAuthenticationNoneStateTracking$Outbound = {
@@ -28536,8 +28841,9 @@ export const RestAuthenticationNoneScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() => RestAuthenticationNoneStateTracking$inboundSchema)
-    .optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestAuthenticationNoneStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationNoneScheduling$Outbound = {
@@ -28580,73 +28886,82 @@ export const RestAuthenticationNone$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("none"),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("none"),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestAuthenticationNoneRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestAuthenticationNoneRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestAuthenticationNoneRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: RestAuthenticationNoneCollectMethod$inboundSchema,
-  collectVerb: z.any().optional(),
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() => RestAuthenticationNoneRestPaginationTypeNone$inboundSchema),
-    z.lazy(() =>
+  collectVerb: types.optional(z.any()),
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestAuthenticationNoneRestPaginationTypeNone$inboundSchema
+    ),
+    response_body: z.lazy(() =>
       RestAuthenticationNoneRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestAuthenticationNoneRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestAuthenticationNoneRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestAuthenticationNoneRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestAuthenticationNoneRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() => RestAuthenticationNoneRestRetryRulesTypeNone$inboundSchema),
-    z.lazy(() => RestAuthenticationNoneRestRetryRulesTypeStatic$inboundSchema),
-    z.lazy(() => RestAuthenticationNoneRestRetryRulesTypeBackoff$inboundSchema),
-  ]).optional(),
-  __scheduling: z.lazy(() => RestAuthenticationNoneScheduling$inboundSchema)
-    .optional(),
+  })),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestAuthenticationNoneRestRetryRulesTypeNone$inboundSchema
+    ),
+    static: z.lazy(() =>
+      RestAuthenticationNoneRestRetryRulesTypeStatic$inboundSchema
+    ),
+    backoff: z.lazy(() =>
+      RestAuthenticationNoneRestRetryRulesTypeBackoff$inboundSchema
+    ),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestAuthenticationNoneScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestAuthenticationNone$Outbound = {
@@ -28809,7 +29124,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$Outbound = {
@@ -28859,8 +29174,8 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeList$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeList$Outbound = {
@@ -28912,9 +29227,9 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$Outbound = {
@@ -28987,7 +29302,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -29038,23 +29353,25 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -29155,7 +29472,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -29206,23 +29523,25 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -29323,7 +29642,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -29374,23 +29693,25 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -29491,7 +29812,7 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -29542,23 +29863,25 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -29639,20 +29962,20 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp$inboundSchema:
     RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -29712,31 +30035,31 @@ export const RestCollectMethodOtherDiscovery$inboundSchema: z.ZodType<
   RestCollectMethodOtherDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     RestCollectMethodOtherRestDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestCollectMethodOtherDiscovery$Outbound =
   | (
@@ -29807,15 +30130,15 @@ export const RestCollectMethodOtherRestPaginationTypeRequestPage$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestCollectMethodOtherRestPaginationTypeRequestPage$Outbound = {
@@ -29881,14 +30204,14 @@ export const RestCollectMethodOtherRestPaginationTypeRequestOffset$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestCollectMethodOtherRestPaginationTypeRequestOffset$Outbound = {
@@ -29952,10 +30275,10 @@ export const RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$Outbound =
@@ -30010,9 +30333,9 @@ export const RestCollectMethodOtherRestPaginationTypeResponseHeader$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestCollectMethodOtherRestPaginationTypeResponseHeader$Outbound = {
@@ -30065,10 +30388,10 @@ export const RestCollectMethodOtherRestPaginationTypeResponseBody$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestPaginationTypeResponseBody$Outbound = {
@@ -30124,7 +30447,7 @@ export const RestCollectMethodOtherRestPaginationTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestCollectMethodOtherRestPaginationTypeNone$Outbound = {
@@ -30172,24 +30495,26 @@ export const RestCollectMethodOtherPaginationUnion$inboundSchema: z.ZodType<
   RestCollectMethodOtherPaginationUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestCollectMethodOtherRestPaginationTypeNone$inboundSchema),
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    RestCollectMethodOtherRestPaginationTypeNone$inboundSchema
+  ),
+  response_body: z.lazy(() =>
     RestCollectMethodOtherRestPaginationTypeResponseBody$inboundSchema
   ),
-  z.lazy(() =>
+  response_header: z.lazy(() =>
     RestCollectMethodOtherRestPaginationTypeResponseHeader$inboundSchema
   ),
-  z.lazy(() =>
+  response_header_link: z.lazy(() =>
     RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$inboundSchema
   ),
-  z.lazy(() =>
+  request_offset: z.lazy(() =>
     RestCollectMethodOtherRestPaginationTypeRequestOffset$inboundSchema
   ),
-  z.lazy(() =>
+  request_page: z.lazy(() =>
     RestCollectMethodOtherRestPaginationTypeRequestPage$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestCollectMethodOtherPaginationUnion$Outbound =
   | RestCollectMethodOtherRestPaginationTypeNone$Outbound
@@ -30263,15 +30588,15 @@ export const RestCollectMethodOtherRestRetryRulesTypeBackoff$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestRetryRulesTypeBackoff$Outbound = {
@@ -30337,15 +30662,15 @@ export const RestCollectMethodOtherRestRetryRulesTypeStatic$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestRetryRulesTypeStatic$Outbound = {
@@ -30411,15 +30736,15 @@ export const RestCollectMethodOtherRestRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestRetryRulesTypeNone$Outbound = {
@@ -30483,11 +30808,17 @@ export const RestCollectMethodOtherRetryRules$inboundSchema: z.ZodType<
   RestCollectMethodOtherRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestCollectMethodOtherRestRetryRulesTypeNone$inboundSchema),
-  z.lazy(() => RestCollectMethodOtherRestRetryRulesTypeStatic$inboundSchema),
-  z.lazy(() => RestCollectMethodOtherRestRetryRulesTypeBackoff$inboundSchema),
-]);
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
+    RestCollectMethodOtherRestRetryRulesTypeNone$inboundSchema
+  ),
+  static: z.lazy(() =>
+    RestCollectMethodOtherRestRetryRulesTypeStatic$inboundSchema
+  ),
+  backoff: z.lazy(() =>
+    RestCollectMethodOtherRestRetryRulesTypeBackoff$inboundSchema
+  ),
+});
 /** @internal */
 export type RestCollectMethodOtherRetryRules$Outbound =
   | RestCollectMethodOtherRestRetryRulesTypeNone$Outbound
@@ -30530,7 +30861,7 @@ export const RestCollectMethodOtherStateTracking$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
+  enabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type RestCollectMethodOtherStateTracking$Outbound = {
@@ -30572,8 +30903,9 @@ export const RestCollectMethodOtherScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() => RestCollectMethodOtherStateTracking$inboundSchema)
-    .optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestCollectMethodOtherStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestCollectMethodOtherScheduling$Outbound = {
@@ -30617,72 +30949,81 @@ export const RestCollectMethodOther$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod: RestCollectMethodOtherCollectMethod$inboundSchema,
-  collectVerb: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestParams: z.any().optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  collectVerb: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestParams: types.optional(z.any()),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestCollectMethodOtherRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestCollectMethodOtherRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestCollectMethodOtherRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() => RestCollectMethodOtherRestPaginationTypeNone$inboundSchema),
-    z.lazy(() =>
+  })),
+  collectUrl: types.string(),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestCollectMethodOtherRestPaginationTypeNone$inboundSchema
+    ),
+    response_body: z.lazy(() =>
       RestCollectMethodOtherRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestCollectMethodOtherRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestCollectMethodOtherRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestCollectMethodOtherRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestCollectMethodOtherRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
+  })),
   authentication: RestCollectMethodOtherAuthentication$inboundSchema,
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() => RestCollectMethodOtherRestRetryRulesTypeNone$inboundSchema),
-    z.lazy(() => RestCollectMethodOtherRestRetryRulesTypeStatic$inboundSchema),
-    z.lazy(() => RestCollectMethodOtherRestRetryRulesTypeBackoff$inboundSchema),
-  ]).optional(),
-  __scheduling: z.lazy(() => RestCollectMethodOtherScheduling$inboundSchema)
-    .optional(),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestCollectMethodOtherRestRetryRulesTypeNone$inboundSchema
+    ),
+    static: z.lazy(() =>
+      RestCollectMethodOtherRestRetryRulesTypeStatic$inboundSchema
+    ),
+    backoff: z.lazy(() =>
+      RestCollectMethodOtherRestRetryRulesTypeBackoff$inboundSchema
+    ),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestCollectMethodOtherScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestCollectMethodOther$Outbound = {
@@ -30841,7 +31182,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone$Outbound =
@@ -30890,8 +31231,8 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList$Outbound =
@@ -30942,9 +31283,9 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson$Outbound =
@@ -31016,7 +31357,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -31067,23 +31408,25 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -31184,7 +31527,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -31235,23 +31578,25 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -31352,7 +31697,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -31403,23 +31748,25 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -31520,7 +31867,7 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -31571,23 +31918,25 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -31668,20 +32017,20 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttp$inboundS
     RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -31739,31 +32088,31 @@ export const RestCollectMethodPostWithBodyDiscovery$inboundSchema: z.ZodType<
   RestCollectMethodPostWithBodyDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestCollectMethodPostWithBodyDiscovery$Outbound =
   | (
@@ -31836,15 +32185,15 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeRequestPage$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestPaginationTypeRequestPage$Outbound =
@@ -31909,14 +32258,14 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset$inboun
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset$Outbound =
@@ -31979,10 +32328,10 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink$Outbound =
@@ -32037,9 +32386,9 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader$inbou
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader$Outbound =
@@ -32092,10 +32441,10 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeResponseBody$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestPaginationTypeResponseBody$Outbound =
@@ -32150,7 +32499,7 @@ export const RestCollectMethodPostWithBodyRestPaginationTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestPaginationTypeNone$Outbound = {
@@ -32199,26 +32548,26 @@ export const RestCollectMethodPostWithBodyPaginationUnion$inboundSchema:
     RestCollectMethodPostWithBodyPaginationUnion,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestCollectMethodPostWithBodyRestPaginationTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    response_body: z.lazy(() =>
       RestCollectMethodPostWithBodyRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestCollectMethodPostWithBodyRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestCollectMethodPostWithBodyPaginationUnion$Outbound =
   | RestCollectMethodPostWithBodyRestPaginationTypeNone$Outbound
@@ -32300,15 +32649,15 @@ export const RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff$Outbound = {
@@ -32373,15 +32722,15 @@ export const RestCollectMethodPostWithBodyRestRetryRulesTypeStatic$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestRetryRulesTypeStatic$Outbound = {
@@ -32447,15 +32796,15 @@ export const RestCollectMethodPostWithBodyRestRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestRetryRulesTypeNone$Outbound = {
@@ -32519,17 +32868,17 @@ export const RestCollectMethodPostWithBodyRetryRules$inboundSchema: z.ZodType<
   RestCollectMethodPostWithBodyRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     RestCollectMethodPostWithBodyRestRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     RestCollectMethodPostWithBodyRestRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestCollectMethodPostWithBodyRetryRules$Outbound =
   | RestCollectMethodPostWithBodyRestRetryRulesTypeNone$Outbound
@@ -32583,7 +32932,7 @@ export function restCollectMethodPostWithBodyRetryRulesFromJSON(
 export const RestCollectMethodPostWithBodyStateTracking$inboundSchema:
   z.ZodType<RestCollectMethodPostWithBodyStateTracking, z.ZodTypeDef, unknown> =
     z.object({
-      enabled: z.boolean().optional(),
+      enabled: types.optional(types.boolean()),
     });
 /** @internal */
 export type RestCollectMethodPostWithBodyStateTracking$Outbound = {
@@ -32632,9 +32981,9 @@ export const RestCollectMethodPostWithBodyScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() =>
-    RestCollectMethodPostWithBodyStateTracking$inboundSchema
-  ).optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestCollectMethodPostWithBodyStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestCollectMethodPostWithBodyScheduling$Outbound = {
@@ -32687,81 +33036,81 @@ export const RestCollectMethodPostWithBody$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod: RestCollectMethodPostWithBodyCollectMethod$inboundSchema,
-  collectBody: z.any().optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  collectBody: types.optional(z.any()),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
-  collectVerb: z.any().optional(),
-  collectRequestParams: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() =>
+  })),
+  collectUrl: types.string(),
+  collectVerb: types.optional(z.any()),
+  collectRequestParams: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestCollectMethodPostWithBodyRestPaginationTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    response_body: z.lazy(() =>
       RestCollectMethodPostWithBodyRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestCollectMethodPostWithBodyRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
+  })),
   authentication: RestCollectMethodPostWithBodyAuthentication$inboundSchema,
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       RestCollectMethodPostWithBodyRestRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       RestCollectMethodPostWithBodyRestRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
-  __scheduling: z.lazy(() =>
-    RestCollectMethodPostWithBodyScheduling$inboundSchema
-  ).optional(),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestCollectMethodPostWithBodyScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestCollectMethodPostWithBody$Outbound = {
@@ -32933,7 +33282,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeNone$Outbound = {
@@ -32983,8 +33332,8 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeList$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeList$Outbound = {
@@ -33036,9 +33385,9 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeJson$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeJson$Outbound = {
@@ -33111,7 +33460,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -33162,23 +33511,25 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -33279,7 +33630,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -33330,23 +33681,25 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -33447,7 +33800,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -33498,23 +33851,25 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -33615,7 +33970,7 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -33666,23 +34021,25 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -33763,20 +34120,20 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttp$inboundSchema:
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -33836,31 +34193,31 @@ export const RestCollectMethodPostDiscovery$inboundSchema: z.ZodType<
   RestCollectMethodPostDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     RestCollectMethodPostRestDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     RestCollectMethodPostRestDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     RestCollectMethodPostRestDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestCollectMethodPostDiscovery$Outbound =
   | (
@@ -33931,15 +34288,15 @@ export const RestCollectMethodPostRestPaginationTypeRequestPage$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestCollectMethodPostRestPaginationTypeRequestPage$Outbound = {
@@ -34005,14 +34362,14 @@ export const RestCollectMethodPostRestPaginationTypeRequestOffset$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestCollectMethodPostRestPaginationTypeRequestOffset$Outbound = {
@@ -34076,10 +34433,10 @@ export const RestCollectMethodPostRestPaginationTypeResponseHeaderLink$inboundSc
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestCollectMethodPostRestPaginationTypeResponseHeaderLink$Outbound =
@@ -34134,9 +34491,9 @@ export const RestCollectMethodPostRestPaginationTypeResponseHeader$inboundSchema
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestCollectMethodPostRestPaginationTypeResponseHeader$Outbound = {
@@ -34190,10 +34547,10 @@ export const RestCollectMethodPostRestPaginationTypeResponseBody$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestCollectMethodPostRestPaginationTypeResponseBody$Outbound = {
@@ -34249,7 +34606,7 @@ export const RestCollectMethodPostRestPaginationTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
+    type: types.literal("none"),
   });
 /** @internal */
 export type RestCollectMethodPostRestPaginationTypeNone$Outbound = {
@@ -34297,24 +34654,24 @@ export const RestCollectMethodPostPaginationUnion$inboundSchema: z.ZodType<
   RestCollectMethodPostPaginationUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestCollectMethodPostRestPaginationTypeNone$inboundSchema),
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() => RestCollectMethodPostRestPaginationTypeNone$inboundSchema),
+  response_body: z.lazy(() =>
     RestCollectMethodPostRestPaginationTypeResponseBody$inboundSchema
   ),
-  z.lazy(() =>
+  response_header: z.lazy(() =>
     RestCollectMethodPostRestPaginationTypeResponseHeader$inboundSchema
   ),
-  z.lazy(() =>
+  response_header_link: z.lazy(() =>
     RestCollectMethodPostRestPaginationTypeResponseHeaderLink$inboundSchema
   ),
-  z.lazy(() =>
+  request_offset: z.lazy(() =>
     RestCollectMethodPostRestPaginationTypeRequestOffset$inboundSchema
   ),
-  z.lazy(() =>
+  request_page: z.lazy(() =>
     RestCollectMethodPostRestPaginationTypeRequestPage$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type RestCollectMethodPostPaginationUnion$Outbound =
   | RestCollectMethodPostRestPaginationTypeNone$Outbound
@@ -34388,15 +34745,15 @@ export const RestCollectMethodPostRestRetryRulesTypeBackoff$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodPostRestRetryRulesTypeBackoff$Outbound = {
@@ -34462,15 +34819,15 @@ export const RestCollectMethodPostRestRetryRulesTypeStatic$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodPostRestRetryRulesTypeStatic$Outbound = {
@@ -34536,15 +34893,15 @@ export const RestCollectMethodPostRestRetryRulesTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodPostRestRetryRulesTypeNone$Outbound = {
@@ -34608,11 +34965,15 @@ export const RestCollectMethodPostRetryRules$inboundSchema: z.ZodType<
   RestCollectMethodPostRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestCollectMethodPostRestRetryRulesTypeNone$inboundSchema),
-  z.lazy(() => RestCollectMethodPostRestRetryRulesTypeStatic$inboundSchema),
-  z.lazy(() => RestCollectMethodPostRestRetryRulesTypeBackoff$inboundSchema),
-]);
+> = discriminatedUnion("type", {
+  none: z.lazy(() => RestCollectMethodPostRestRetryRulesTypeNone$inboundSchema),
+  static: z.lazy(() =>
+    RestCollectMethodPostRestRetryRulesTypeStatic$inboundSchema
+  ),
+  backoff: z.lazy(() =>
+    RestCollectMethodPostRestRetryRulesTypeBackoff$inboundSchema
+  ),
+});
 /** @internal */
 export type RestCollectMethodPostRetryRules$Outbound =
   | RestCollectMethodPostRestRetryRulesTypeNone$Outbound
@@ -34655,7 +35016,7 @@ export const RestCollectMethodPostStateTracking$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
+  enabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type RestCollectMethodPostStateTracking$Outbound = {
@@ -34697,8 +35058,9 @@ export const RestCollectMethodPostScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() => RestCollectMethodPostStateTracking$inboundSchema)
-    .optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestCollectMethodPostStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestCollectMethodPostScheduling$Outbound = {
@@ -34741,72 +35103,81 @@ export const RestCollectMethodPost$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod: RestCollectMethodPostCollectMethod$inboundSchema,
-  collectRequestParams: z.any().optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  collectRequestParams: types.optional(z.any()),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestCollectMethodPostRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestCollectMethodPostRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestCollectMethodPostRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
-  collectVerb: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() => RestCollectMethodPostRestPaginationTypeNone$inboundSchema),
-    z.lazy(() =>
+  })),
+  collectUrl: types.string(),
+  collectVerb: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestCollectMethodPostRestPaginationTypeNone$inboundSchema
+    ),
+    response_body: z.lazy(() =>
       RestCollectMethodPostRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestCollectMethodPostRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestCollectMethodPostRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestCollectMethodPostRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestCollectMethodPostRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
+  })),
   authentication: RestCollectMethodPostAuthentication$inboundSchema,
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() => RestCollectMethodPostRestRetryRulesTypeNone$inboundSchema),
-    z.lazy(() => RestCollectMethodPostRestRetryRulesTypeStatic$inboundSchema),
-    z.lazy(() => RestCollectMethodPostRestRetryRulesTypeBackoff$inboundSchema),
-  ]).optional(),
-  __scheduling: z.lazy(() => RestCollectMethodPostScheduling$inboundSchema)
-    .optional(),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestCollectMethodPostRestRetryRulesTypeNone$inboundSchema
+    ),
+    static: z.lazy(() =>
+      RestCollectMethodPostRestRetryRulesTypeStatic$inboundSchema
+    ),
+    backoff: z.lazy(() =>
+      RestCollectMethodPostRestRetryRulesTypeBackoff$inboundSchema
+    ),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestCollectMethodPostScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestCollectMethodPost$Outbound = {
@@ -34967,7 +35338,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeNone$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeNone$Outbound = {
@@ -35017,8 +35388,8 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeList$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeList$Outbound = {
@@ -35070,9 +35441,9 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeJson$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeJson$Outbound = {
@@ -35145,7 +35516,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$Outbound =
@@ -35196,23 +35567,25 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("other"),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
@@ -35313,7 +35686,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$Outbound =
@@ -35364,23 +35737,25 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -35481,7 +35856,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$Outbound =
@@ -35532,23 +35907,25 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -35649,7 +36026,7 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetP
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.string(),
+    type: types.string(),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$Outbound =
@@ -35700,23 +36077,25 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-    ).optional(),
-    pagination: z.lazy(() =>
-      RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
-    ).optional(),
-    discoverDataField: z.string().optional(),
-    enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
-    enableDiscoverCode: z.boolean().optional(),
+    discoverUrl: types.string(),
+    discoverVerb: types.optional(z.any()),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
+    pagination: types.optional(
+      z.lazy(() =>
+        RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPagination$inboundSchema
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
+    enableStrictDiscoverParsing: types.optional(types.boolean()),
+    discoverResponseFormat: types.optional(z.any()),
+    enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -35797,20 +36176,20 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttp$inboundSchema:
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttp$Outbound =
   | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -35870,25 +36249,31 @@ export const RestCollectMethodGetDiscovery$inboundSchema: z.ZodType<
   RestCollectMethodGetDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-    z.lazy(() =>
+    other: z.lazy(() =>
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() => RestCollectMethodGetRestDiscoveryDiscoverTypeJson$inboundSchema),
-  z.lazy(() => RestCollectMethodGetRestDiscoveryDiscoverTypeList$inboundSchema),
-  z.lazy(() => RestCollectMethodGetRestDiscoveryDiscoverTypeNone$inboundSchema),
-]);
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
+    RestCollectMethodGetRestDiscoveryDiscoverTypeJson$inboundSchema
+  ),
+  list: z.lazy(() =>
+    RestCollectMethodGetRestDiscoveryDiscoverTypeList$inboundSchema
+  ),
+  none: z.lazy(() =>
+    RestCollectMethodGetRestDiscoveryDiscoverTypeNone$inboundSchema
+  ),
+});
 /** @internal */
 export type RestCollectMethodGetDiscovery$Outbound =
   | (
@@ -35959,15 +36344,15 @@ export const RestCollectMethodGetRestPaginationTypeRequestPage$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_page"),
-    pageField: z.string(),
-    page: z.number().optional(),
-    sizeField: z.string(),
-    size: z.number(),
-    totalPageField: z.string().optional(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_page"),
+    pageField: types.string(),
+    page: types.optional(types.number()),
+    sizeField: types.string(),
+    size: types.number(),
+    totalPageField: types.optional(types.string()),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestCollectMethodGetRestPaginationTypeRequestPage$Outbound = {
@@ -36033,14 +36418,14 @@ export const RestCollectMethodGetRestPaginationTypeRequestOffset$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("request_offset"),
-    offsetField: z.string(),
-    offset: z.number().optional(),
-    limitField: z.string(),
-    limit: z.number(),
-    totalRecordField: z.string().optional(),
-    maxPages: z.number(),
-    zeroIndexed: z.boolean(),
+    type: types.literal("request_offset"),
+    offsetField: types.string(),
+    offset: types.optional(types.number()),
+    limitField: types.string(),
+    limit: types.number(),
+    totalRecordField: types.optional(types.string()),
+    maxPages: types.number(),
+    zeroIndexed: types.boolean(),
   });
 /** @internal */
 export type RestCollectMethodGetRestPaginationTypeRequestOffset$Outbound = {
@@ -36104,10 +36489,10 @@ export const RestCollectMethodGetRestPaginationTypeResponseHeaderLink$inboundSch
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header_link"),
-    nextRelationAttribute: z.string(),
-    curRelationAttribute: z.string().optional(),
-    maxPages: z.number(),
+    type: types.literal("response_header_link"),
+    nextRelationAttribute: types.string(),
+    curRelationAttribute: types.optional(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestCollectMethodGetRestPaginationTypeResponseHeaderLink$Outbound =
@@ -36162,9 +36547,9 @@ export const RestCollectMethodGetRestPaginationTypeResponseHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_header"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
+    type: types.literal("response_header"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
   });
 /** @internal */
 export type RestCollectMethodGetRestPaginationTypeResponseHeader$Outbound = {
@@ -36218,10 +36603,10 @@ export const RestCollectMethodGetRestPaginationTypeResponseBody$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("response_body"),
-    attribute: z.array(z.string()),
-    maxPages: z.number(),
-    lastPageExpr: z.string().optional(),
+    type: types.literal("response_body"),
+    attribute: z.array(types.string()),
+    maxPages: types.number(),
+    lastPageExpr: types.optional(types.string()),
   });
 /** @internal */
 export type RestCollectMethodGetRestPaginationTypeResponseBody$Outbound = {
@@ -36274,7 +36659,7 @@ export function restCollectMethodGetRestPaginationTypeResponseBodyFromJSON(
 export const RestCollectMethodGetRestPaginationTypeNone$inboundSchema:
   z.ZodType<RestCollectMethodGetRestPaginationTypeNone, z.ZodTypeDef, unknown> =
     z.object({
-      type: z.literal("none"),
+      type: types.literal("none"),
     });
 /** @internal */
 export type RestCollectMethodGetRestPaginationTypeNone$Outbound = {
@@ -36322,22 +36707,24 @@ export const RestCollectMethodGetPaginationUnion$inboundSchema: z.ZodType<
   RestCollectMethodGetPaginationUnion,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestCollectMethodGetRestPaginationTypeNone$inboundSchema),
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() => RestCollectMethodGetRestPaginationTypeNone$inboundSchema),
+  response_body: z.lazy(() =>
     RestCollectMethodGetRestPaginationTypeResponseBody$inboundSchema
   ),
-  z.lazy(() =>
+  response_header: z.lazy(() =>
     RestCollectMethodGetRestPaginationTypeResponseHeader$inboundSchema
   ),
-  z.lazy(() =>
+  response_header_link: z.lazy(() =>
     RestCollectMethodGetRestPaginationTypeResponseHeaderLink$inboundSchema
   ),
-  z.lazy(() =>
+  request_offset: z.lazy(() =>
     RestCollectMethodGetRestPaginationTypeRequestOffset$inboundSchema
   ),
-  z.lazy(() => RestCollectMethodGetRestPaginationTypeRequestPage$inboundSchema),
-]);
+  request_page: z.lazy(() =>
+    RestCollectMethodGetRestPaginationTypeRequestPage$inboundSchema
+  ),
+});
 /** @internal */
 export type RestCollectMethodGetPaginationUnion$Outbound =
   | RestCollectMethodGetRestPaginationTypeNone$Outbound
@@ -36411,15 +36798,15 @@ export const RestCollectMethodGetRestRetryRulesTypeBackoff$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodGetRestRetryRulesTypeBackoff$Outbound = {
@@ -36485,15 +36872,15 @@ export const RestCollectMethodGetRestRetryRulesTypeStatic$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    retryConnectTimeout: z.any().optional(),
-    retryConnectReset: z.any().optional(),
-    multiplier: z.any().optional(),
-    maxIntervalMs: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    retryConnectTimeout: types.optional(z.any()),
+    retryConnectReset: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    maxIntervalMs: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodGetRestRetryRulesTypeStatic$Outbound = {
@@ -36556,15 +36943,15 @@ export function restCollectMethodGetRestRetryRulesTypeStaticFromJSON(
 export const RestCollectMethodGetRestRetryRulesTypeNone$inboundSchema:
   z.ZodType<RestCollectMethodGetRestRetryRulesTypeNone, z.ZodTypeDef, unknown> =
     z.object({
-      type: z.literal("none"),
-      interval: z.any().optional(),
-      limit: z.any().optional(),
-      multiplier: z.any().optional(),
-      maxIntervalMs: z.any().optional(),
-      codes: z.any().optional(),
-      enableHeader: z.any().optional(),
-      retryConnectTimeout: z.any().optional(),
-      retryConnectReset: z.any().optional(),
+      type: types.literal("none"),
+      interval: types.optional(z.any()),
+      limit: types.optional(z.any()),
+      multiplier: types.optional(z.any()),
+      maxIntervalMs: types.optional(z.any()),
+      codes: types.optional(z.any()),
+      enableHeader: types.optional(z.any()),
+      retryConnectTimeout: types.optional(z.any()),
+      retryConnectReset: types.optional(z.any()),
     });
 /** @internal */
 export type RestCollectMethodGetRestRetryRulesTypeNone$Outbound = {
@@ -36628,11 +37015,15 @@ export const RestCollectMethodGetRetryRules$inboundSchema: z.ZodType<
   RestCollectMethodGetRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestCollectMethodGetRestRetryRulesTypeNone$inboundSchema),
-  z.lazy(() => RestCollectMethodGetRestRetryRulesTypeStatic$inboundSchema),
-  z.lazy(() => RestCollectMethodGetRestRetryRulesTypeBackoff$inboundSchema),
-]);
+> = discriminatedUnion("type", {
+  none: z.lazy(() => RestCollectMethodGetRestRetryRulesTypeNone$inboundSchema),
+  static: z.lazy(() =>
+    RestCollectMethodGetRestRetryRulesTypeStatic$inboundSchema
+  ),
+  backoff: z.lazy(() =>
+    RestCollectMethodGetRestRetryRulesTypeBackoff$inboundSchema
+  ),
+});
 /** @internal */
 export type RestCollectMethodGetRetryRules$Outbound =
   | RestCollectMethodGetRestRetryRulesTypeNone$Outbound
@@ -36675,7 +37066,7 @@ export const RestCollectMethodGetStateTracking$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
+  enabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type RestCollectMethodGetStateTracking$Outbound = {
@@ -36716,8 +37107,9 @@ export const RestCollectMethodGetScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() => RestCollectMethodGetStateTracking$inboundSchema)
-    .optional(),
+  stateTracking: types.optional(
+    z.lazy(() => RestCollectMethodGetStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestCollectMethodGetScheduling$Outbound = {
@@ -36760,72 +37152,81 @@ export const RestCollectMethodGet$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod: RestCollectMethodGetCollectMethod$inboundSchema,
-  collectRequestParams: z.any().optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  collectRequestParams: types.optional(z.any()),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-      z.lazy(() =>
+      other: z.lazy(() =>
         RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       RestCollectMethodGetRestDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       RestCollectMethodGetRestDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       RestCollectMethodGetRestDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
-  collectVerb: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema,
-  ).optional(),
-  pagination: z.union([
-    z.lazy(() => RestCollectMethodGetRestPaginationTypeNone$inboundSchema),
-    z.lazy(() =>
+  })),
+  collectUrl: types.string(),
+  collectVerb: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+  ),
+  pagination: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestCollectMethodGetRestPaginationTypeNone$inboundSchema
+    ),
+    response_body: z.lazy(() =>
       RestCollectMethodGetRestPaginationTypeResponseBody$inboundSchema
     ),
-    z.lazy(() =>
+    response_header: z.lazy(() =>
       RestCollectMethodGetRestPaginationTypeResponseHeader$inboundSchema
     ),
-    z.lazy(() =>
+    response_header_link: z.lazy(() =>
       RestCollectMethodGetRestPaginationTypeResponseHeaderLink$inboundSchema
     ),
-    z.lazy(() =>
+    request_offset: z.lazy(() =>
       RestCollectMethodGetRestPaginationTypeRequestOffset$inboundSchema
     ),
-    z.lazy(() =>
+    request_page: z.lazy(() =>
       RestCollectMethodGetRestPaginationTypeRequestPage$inboundSchema
     ),
-  ]).optional(),
+  })),
   authentication: RestCollectMethodGetAuthentication$inboundSchema,
-  timeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  decodeUrl: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  captureHeaders: z.boolean().optional(),
-  stopOnEmptyResults: z.boolean().optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() => RestCollectMethodGetRestRetryRulesTypeNone$inboundSchema),
-    z.lazy(() => RestCollectMethodGetRestRetryRulesTypeStatic$inboundSchema),
-    z.lazy(() => RestCollectMethodGetRestRetryRulesTypeBackoff$inboundSchema),
-  ]).optional(),
-  __scheduling: z.lazy(() => RestCollectMethodGetScheduling$inboundSchema)
-    .optional(),
+  timeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  disableTimeFilter: types.optional(types.boolean()),
+  decodeUrl: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  stopOnEmptyResults: types.optional(types.boolean()),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
+      RestCollectMethodGetRestRetryRulesTypeNone$inboundSchema
+    ),
+    static: z.lazy(() =>
+      RestCollectMethodGetRestRetryRulesTypeStatic$inboundSchema
+    ),
+    backoff: z.lazy(() =>
+      RestCollectMethodGetRestRetryRulesTypeBackoff$inboundSchema
+    ),
+  })),
+  __scheduling: types.optional(
+    z.lazy(() => RestCollectMethodGetScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type RestCollectMethodGet$Outbound = {
@@ -36971,18 +37372,20 @@ export const RestCollectorConf$inboundSchema: z.ZodType<
   RestCollectorConf,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => RestAuthenticationNone$inboundSchema),
-  z.lazy(() => RestAuthenticationBasic$inboundSchema),
-  z.lazy(() => RestAuthenticationBasicSecret$inboundSchema),
-  z.lazy(() => RestAuthenticationLogin$inboundSchema),
-  z.lazy(() => RestAuthenticationLoginSecret$inboundSchema),
-  z.lazy(() => RestAuthenticationOauth$inboundSchema),
-  z.lazy(() => RestAuthenticationOauthSecret$inboundSchema),
-  z.lazy(() => RestAuthenticationGoogleOauth$inboundSchema),
-  z.lazy(() => RestAuthenticationGoogleOauthSecret$inboundSchema),
-  z.lazy(() => RestAuthenticationHmac$inboundSchema),
-]);
+> = discriminatedUnion("authentication", {
+  none: z.lazy(() => RestAuthenticationNone$inboundSchema),
+  basic: z.lazy(() => RestAuthenticationBasic$inboundSchema),
+  basicSecret: z.lazy(() => RestAuthenticationBasicSecret$inboundSchema),
+  login: z.lazy(() => RestAuthenticationLogin$inboundSchema),
+  loginSecret: z.lazy(() => RestAuthenticationLoginSecret$inboundSchema),
+  oauth: z.lazy(() => RestAuthenticationOauth$inboundSchema),
+  oauthSecret: z.lazy(() => RestAuthenticationOauthSecret$inboundSchema),
+  google_oauth: z.lazy(() => RestAuthenticationGoogleOauth$inboundSchema),
+  google_oauthSecret: z.lazy(() =>
+    RestAuthenticationGoogleOauthSecret$inboundSchema
+  ),
+  hmac: z.lazy(() => RestAuthenticationHmac$inboundSchema),
+});
 /** @internal */
 export type RestCollectorConf$Outbound =
   | RestAuthenticationNone$Outbound

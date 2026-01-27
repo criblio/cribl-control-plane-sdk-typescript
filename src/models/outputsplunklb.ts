@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
   AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
@@ -275,9 +276,11 @@ export const OutputSplunkLbAuthToken$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
-  authToken: z.string().optional(),
-  textSecret: z.string().optional(),
+  authType: types.optional(
+    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  ),
+  authToken: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type OutputSplunkLbAuthToken$Outbound = {
@@ -321,15 +324,18 @@ export const IndexerDiscoveryConfigs$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  site: z.string(),
-  masterUri: z.string(),
-  refreshIntervalSec: z.number(),
-  rejectUnauthorized: z.boolean().optional(),
-  authTokens: z.array(z.lazy(() => OutputSplunkLbAuthToken$inboundSchema))
-    .optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
-  authToken: z.string().optional(),
-  textSecret: z.string().optional(),
+  site: types.string(),
+  masterUri: types.string(),
+  refreshIntervalSec: types.number(),
+  rejectUnauthorized: types.optional(types.boolean()),
+  authTokens: types.optional(
+    z.array(z.lazy(() => OutputSplunkLbAuthToken$inboundSchema)),
+  ),
+  authType: types.optional(
+    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  ),
+  authToken: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type IndexerDiscoveryConfigs$Outbound = {
@@ -417,48 +423,55 @@ export const OutputSplunkLb$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("splunk_lb"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  dnsResolvePeriodSec: z.number().optional(),
-  loadBalanceStatsPeriodSec: z.number().optional(),
-  maxConcurrentSenders: z.number().optional(),
-  nestedFields: NestedFieldSerializationOptions$inboundSchema.optional(),
-  throttleRatePerSec: z.string().optional(),
-  connectionTimeout: z.number().optional(),
-  writeTimeout: z.number().optional(),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
-  enableMultiMetrics: z.boolean().optional(),
-  enableACK: z.boolean().optional(),
-  logFailedRequests: z.boolean().optional(),
-  maxS2Sversion: MaxS2SVersionOptions$inboundSchema.optional(),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
-  indexerDiscovery: z.boolean().optional(),
-  senderUnhealthyTimeAllowance: z.number().optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
-  description: z.string().optional(),
-  maxFailedHealthChecks: z.number().optional(),
-  compress: CompressionOptions$inboundSchema.optional(),
-  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs$inboundSchema)
-    .optional(),
-  excludeSelf: z.boolean().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("splunk_lb"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  dnsResolvePeriodSec: types.optional(types.number()),
+  loadBalanceStatsPeriodSec: types.optional(types.number()),
+  maxConcurrentSenders: types.optional(types.number()),
+  nestedFields: types.optional(NestedFieldSerializationOptions$inboundSchema),
+  throttleRatePerSec: types.optional(types.string()),
+  connectionTimeout: types.optional(types.number()),
+  writeTimeout: types.optional(types.number()),
+  tls: types.optional(
+    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  ),
+  enableMultiMetrics: types.optional(types.boolean()),
+  enableACK: types.optional(types.boolean()),
+  logFailedRequests: types.optional(types.boolean()),
+  maxS2Sversion: types.optional(MaxS2SVersionOptions$inboundSchema),
+  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
+  indexerDiscovery: types.optional(types.boolean()),
+  senderUnhealthyTimeAllowance: types.optional(types.number()),
+  authType: types.optional(
+    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  ),
+  description: types.optional(types.string()),
+  maxFailedHealthChecks: types.optional(types.number()),
+  compress: types.optional(CompressionOptions$inboundSchema),
+  indexerDiscoveryConfigs: types.optional(
+    z.lazy(() => IndexerDiscoveryConfigs$inboundSchema),
+  ),
+  excludeSelf: types.optional(types.boolean()),
   hosts: z.array(ItemsTypeHosts$inboundSchema),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: ModeOptions$inboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
-  pqControls: z.lazy(() => OutputSplunkLbPqControls$inboundSchema).optional(),
-  authToken: z.string().optional(),
-  textSecret: z.string().optional(),
+  pqStrictOrdering: types.optional(types.boolean()),
+  pqRatePerSec: types.optional(types.number()),
+  pqMode: types.optional(ModeOptions$inboundSchema),
+  pqMaxBufferSize: types.optional(types.number()),
+  pqMaxBackpressureSec: types.optional(types.number()),
+  pqMaxFileSize: types.optional(types.string()),
+  pqMaxSize: types.optional(types.string()),
+  pqPath: types.optional(types.string()),
+  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
+  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqControls: types.optional(
+    z.lazy(() => OutputSplunkLbPqControls$inboundSchema),
+  ),
+  authToken: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type OutputSplunkLb$Outbound = {
