@@ -1,11 +1,11 @@
-# GetMasterWorkerEntryRequest
+# GetSummaryWorkersRequest
 
 ## Example Usage
 
 ```typescript
-import { GetMasterWorkerEntryRequest } from "cribl-control-plane/models/operations";
+import { GetSummaryWorkersRequest } from "cribl-control-plane/models/operations";
 
-let value: GetMasterWorkerEntryRequest = {
+let value: GetSummaryWorkersRequest = {
   filterExp: "<value>",
 };
 ```

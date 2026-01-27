@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function pipelinesDelete(
   client: CriblControlPlaneCore,
-  request: operations.DeletePipelineByIdRequest,
+  request: operations.DeletePipelinesByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function pipelinesDelete(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.DeletePipelineByIdRequest,
+  request: operations.DeletePipelinesByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,7 +80,8 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.DeletePipelineByIdRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.DeletePipelinesByIdRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -108,7 +109,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "deletePipelineById",
+    operationID: "deletePipelinesById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

@@ -6,7 +6,7 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import * as models from "../index.js";
 
-export type UpdatePipelineByIdRequest = {
+export type UpdatePipelinesByIdRequest = {
   /**
    * The <code>id</code> of the Pipeline to update.
    */
@@ -18,16 +18,16 @@ export type UpdatePipelineByIdRequest = {
 };
 
 /** @internal */
-export type UpdatePipelineByIdRequest$Outbound = {
+export type UpdatePipelinesByIdRequest$Outbound = {
   id: string;
   Pipeline: models.PipelineInput$Outbound;
 };
 
 /** @internal */
-export const UpdatePipelineByIdRequest$outboundSchema: z.ZodType<
-  UpdatePipelineByIdRequest$Outbound,
+export const UpdatePipelinesByIdRequest$outboundSchema: z.ZodType<
+  UpdatePipelinesByIdRequest$Outbound,
   z.ZodTypeDef,
-  UpdatePipelineByIdRequest
+  UpdatePipelinesByIdRequest
 > = z.object({
   id: z.string(),
   pipeline: models.PipelineInput$outboundSchema,
@@ -37,10 +37,10 @@ export const UpdatePipelineByIdRequest$outboundSchema: z.ZodType<
   });
 });
 
-export function updatePipelineByIdRequestToJSON(
-  updatePipelineByIdRequest: UpdatePipelineByIdRequest,
+export function updatePipelinesByIdRequestToJSON(
+  updatePipelinesByIdRequest: UpdatePipelinesByIdRequest,
 ): string {
   return JSON.stringify(
-    UpdatePipelineByIdRequest$outboundSchema.parse(updatePipelineByIdRequest),
+    UpdatePipelinesByIdRequest$outboundSchema.parse(updatePipelinesByIdRequest),
   );
 }

@@ -1,11 +1,11 @@
-# DeletePipelineByIdRequest
+# DeletePipelinesByIdRequest
 
 ## Example Usage
 
 ```typescript
-import { DeletePipelineByIdRequest } from "cribl-control-plane/models/operations";
+import { DeletePipelinesByIdRequest } from "cribl-control-plane/models/operations";
 
-let value: DeletePipelineByIdRequest = {
+let value: DeletePipelinesByIdRequest = {
   id: "<id>",
 };
 ```
