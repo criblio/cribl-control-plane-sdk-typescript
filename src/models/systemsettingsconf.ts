@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   ApiTypeSystemSettingsConf,
   ApiTypeSystemSettingsConf$inboundSchema,
@@ -123,14 +124,14 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
 > = z.object({
   api: ApiTypeSystemSettingsConf$inboundSchema,
   backups: BackupsSettingsUnion$inboundSchema,
-  customLogo: CustomLogoTypeSystemSettingsConf$inboundSchema.optional(),
+  customLogo: types.optional(CustomLogoTypeSystemSettingsConf$inboundSchema),
   pii: PiiSettingsUnion$inboundSchema,
   proxy: ProxyTypeSystemSettingsConf$inboundSchema,
   rollback: RollbackSettingsUnion$inboundSchema,
   shutdown: ShutdownTypeSystemSettingsConf$inboundSchema,
   sni: SniSettingsUnion$inboundSchema,
-  sockets: SocketsTypeSystemSettingsConf$inboundSchema.optional(),
-  support: SupportTypeSystemSettingsConf$inboundSchema.optional(),
+  sockets: types.optional(SocketsTypeSystemSettingsConf$inboundSchema),
+  support: types.optional(SupportTypeSystemSettingsConf$inboundSchema),
   system: SystemTypeSystemSettingsConf$inboundSchema,
   tls: TlsSettingsUnion$inboundSchema,
   upgradeGroupSettings: UpgradeGroupSettingsUnion$inboundSchema,

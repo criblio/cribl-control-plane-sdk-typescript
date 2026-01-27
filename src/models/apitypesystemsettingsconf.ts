@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SslTypeSystemSettingsConfApi,
@@ -37,21 +38,21 @@ export const ApiTypeSystemSettingsConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  baseUrl: z.string().optional(),
-  disableApiCache: z.boolean().optional(),
-  disabled: z.boolean(),
-  headers: z.record(z.string()).optional(),
-  host: z.string(),
-  idleSessionTTL: z.number().optional(),
-  listenOnPort: z.boolean().optional(),
-  loginRateLimit: z.string().optional(),
-  port: z.number(),
-  protocol: z.string().optional(),
-  scripts: z.boolean().optional(),
-  sensitiveFields: z.array(z.string()).optional(),
-  ssl: SslTypeSystemSettingsConfApi$inboundSchema.optional(),
-  ssoRateLimit: z.string().optional(),
-  workerRemoteAccess: z.boolean().optional(),
+  baseUrl: types.optional(types.string()),
+  disableApiCache: types.optional(types.boolean()),
+  disabled: types.boolean(),
+  headers: types.optional(z.record(types.string())),
+  host: types.string(),
+  idleSessionTTL: types.optional(types.number()),
+  listenOnPort: types.optional(types.boolean()),
+  loginRateLimit: types.optional(types.string()),
+  port: types.number(),
+  protocol: types.optional(types.string()),
+  scripts: types.optional(types.boolean()),
+  sensitiveFields: types.optional(z.array(types.string())),
+  ssl: types.optional(SslTypeSystemSettingsConfApi$inboundSchema),
+  ssoRateLimit: types.optional(types.string()),
+  workerRemoteAccess: types.optional(types.boolean()),
 });
 /** @internal */
 export type ApiTypeSystemSettingsConf$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type DiffLineInsert = {
@@ -19,9 +20,9 @@ export const DiffLineInsert$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.literal("insert"),
-  newNumber: z.number(),
-  content: z.string(),
+  type: types.literal("insert"),
+  newNumber: types.number(),
+  content: types.string(),
 });
 
 export function diffLineInsertFromJSON(

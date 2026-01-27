@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -97,11 +98,11 @@ export const PipelineFunctionMvExpandConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sourceFields: z.array(z.string()),
-  targetNames: z.array(z.string()).optional(),
-  rowLimit: z.number().optional(),
-  itemIndexName: z.string().optional(),
-  bagExpansionMode: BagExpansionMode$inboundSchema.optional(),
+  sourceFields: z.array(types.string()),
+  targetNames: types.optional(z.array(types.string())),
+  rowLimit: types.optional(types.number()),
+  itemIndexName: types.optional(types.string()),
+  bagExpansionMode: types.optional(BagExpansionMode$inboundSchema),
 });
 /** @internal */
 export type PipelineFunctionMvExpandConf$Outbound = {
@@ -150,13 +151,13 @@ export const PipelineFunctionMvExpand$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("mv_expand"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("mv_expand"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionMvExpandConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionMvExpand$Outbound = {

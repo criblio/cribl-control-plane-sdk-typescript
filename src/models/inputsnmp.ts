@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthenticationProtocolOptionsV3User,
   AuthenticationProtocolOptionsV3User$inboundSchema,
@@ -169,11 +170,13 @@ export const InputSnmpV3User$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  authProtocol: AuthenticationProtocolOptionsV3User$inboundSchema.optional(),
-  authKey: z.string().optional(),
-  privProtocol: PrivacyProtocol$inboundSchema.optional(),
-  privKey: z.string().optional(),
+  name: types.string(),
+  authProtocol: types.optional(
+    AuthenticationProtocolOptionsV3User$inboundSchema,
+  ),
+  authKey: types.optional(types.string()),
+  privProtocol: types.optional(PrivacyProtocol$inboundSchema),
+  privKey: types.optional(types.string()),
 });
 /** @internal */
 export type InputSnmpV3User$Outbound = {
@@ -218,9 +221,9 @@ export const SNMPv3Authentication$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  v3AuthEnabled: z.boolean(),
-  allowUnmatchedTrap: z.boolean().optional(),
-  v3Users: z.array(z.lazy(() => InputSnmpV3User$inboundSchema)).optional(),
+  v3AuthEnabled: types.boolean(),
+  allowUnmatchedTrap: types.optional(types.boolean()),
+  v3Users: types.optional(z.array(z.lazy(() => InputSnmpV3User$inboundSchema))),
 });
 /** @internal */
 export type SNMPv3Authentication$Outbound = {
@@ -263,26 +266,30 @@ export const InputSnmp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("snmp"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string(),
-  port: z.number(),
-  snmpV3Auth: z.lazy(() => SNMPv3Authentication$inboundSchema).optional(),
-  maxBufferSize: z.number().optional(),
-  ipWhitelistRegex: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  udpSocketRxBufSize: z.number().optional(),
-  varbindsWithTypes: z.boolean().optional(),
-  bestEffortParsing: z.boolean().optional(),
-  description: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("snmp"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  snmpV3Auth: types.optional(z.lazy(() => SNMPv3Authentication$inboundSchema)),
+  maxBufferSize: types.optional(types.number()),
+  ipWhitelistRegex: types.optional(types.string()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  udpSocketRxBufSize: types.optional(types.number()),
+  varbindsWithTypes: types.optional(types.boolean()),
+  bestEffortParsing: types.optional(types.boolean()),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type InputSnmp$Outbound = {

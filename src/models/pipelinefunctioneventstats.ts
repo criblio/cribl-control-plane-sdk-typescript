@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type EventstatsConfiguration = {
@@ -60,10 +61,10 @@ export const EventstatsConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  aggregations: z.array(z.string()),
-  groupBys: z.array(z.string()).optional(),
-  maxEvents: z.number().optional(),
-  flushOnInputClose: z.boolean().optional(),
+  aggregations: z.array(types.string()),
+  groupBys: types.optional(z.array(types.string())),
+  maxEvents: types.optional(types.number()),
+  flushOnInputClose: types.optional(types.boolean()),
 });
 /** @internal */
 export type EventstatsConfiguration$Outbound = {
@@ -108,13 +109,13 @@ export const PipelineFunctionEventstats$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("eventstats"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("eventstats"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => EventstatsConfiguration$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionEventstats$Outbound = {

@@ -4,6 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
+import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   DiffLineContext,
@@ -19,18 +21,22 @@ import {
 } from "./difflineinsert.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type DiffLine = DiffLineDelete | DiffLineInsert | DiffLineContext;
+export type DiffLine =
+  | DiffLineDelete
+  | DiffLineInsert
+  | DiffLineContext
+  | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
 export const DiffLine$inboundSchema: z.ZodType<
   DiffLine,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  DiffLineDelete$inboundSchema,
-  DiffLineInsert$inboundSchema,
-  DiffLineContext$inboundSchema,
-]);
+> = discriminatedUnion("type", {
+  delete: DiffLineDelete$inboundSchema,
+  insert: DiffLineInsert$inboundSchema,
+  context: DiffLineContext$inboundSchema,
+});
 
 export function diffLineFromJSON(
   jsonString: string,

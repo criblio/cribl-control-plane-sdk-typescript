@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   MaximumTlsVersionOptionsKafkaSchemaRegistryTls,
@@ -61,18 +62,20 @@ export const TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    disabled: z.boolean().optional(),
-    rejectUnauthorized: z.boolean().optional(),
-    servername: z.string().optional(),
-    certificateName: z.string().optional(),
-    caPath: z.string().optional(),
-    privKeyPath: z.string().optional(),
-    certPath: z.string().optional(),
-    passphrase: z.string().optional(),
-    minVersion: MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema
-      .optional(),
-    maxVersion: MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema
-      .optional(),
+    disabled: types.optional(types.boolean()),
+    rejectUnauthorized: types.optional(types.boolean()),
+    servername: types.optional(types.string()),
+    certificateName: types.optional(types.string()),
+    caPath: types.optional(types.string()),
+    privKeyPath: types.optional(types.string()),
+    certPath: types.optional(types.string()),
+    passphrase: types.optional(types.string()),
+    minVersion: types.optional(
+      MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+    ),
+    maxVersion: types.optional(
+      MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+    ),
   });
 /** @internal */
 export type TlsSettingsClientSideTypeKafkaSchemaRegistry$Outbound = {

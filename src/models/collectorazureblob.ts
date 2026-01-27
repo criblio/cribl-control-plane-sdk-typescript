@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AzureBlobCollectorConf,
   AzureBlobCollectorConf$inboundSchema,
@@ -38,10 +39,10 @@ export const CollectorAzureBlob$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.literal("azure_blob"),
+  type: types.literal("azure_blob"),
   conf: AzureBlobCollectorConf$inboundSchema,
-  destructive: z.boolean().optional(),
-  encoding: z.string().optional(),
+  destructive: types.optional(types.boolean()),
+  encoding: types.optional(types.string()),
 });
 /** @internal */
 export type CollectorAzureBlob$Outbound = {

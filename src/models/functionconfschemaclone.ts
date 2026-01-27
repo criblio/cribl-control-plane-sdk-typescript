@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionConfSchemaClone = {
@@ -20,7 +21,7 @@ export const FunctionConfSchemaClone$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  clones: z.array(z.record(z.string())).optional(),
+  clones: types.optional(z.array(z.record(types.string()))),
 });
 /** @internal */
 export type FunctionConfSchemaClone$Outbound = {

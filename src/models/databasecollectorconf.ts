@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   HiddenDefaultBreakersOptionsDatabaseCollectorConf,
@@ -48,7 +49,7 @@ export const DatabaseCollectorConfStateTracking$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
+  enabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type DatabaseCollectorConfStateTracking$Outbound = {
@@ -90,8 +91,9 @@ export const DatabaseCollectorConfScheduling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  stateTracking: z.lazy(() => DatabaseCollectorConfStateTracking$inboundSchema)
-    .optional(),
+  stateTracking: types.optional(
+    z.lazy(() => DatabaseCollectorConfStateTracking$inboundSchema),
+  ),
 });
 /** @internal */
 export type DatabaseCollectorConfScheduling$Outbound = {
@@ -133,13 +135,15 @@ export const DatabaseCollectorConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  connectionId: z.string(),
-  query: z.string(),
-  queryValidationEnabled: z.boolean().optional(),
-  defaultBreakers:
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
-  __scheduling: z.lazy(() => DatabaseCollectorConfScheduling$inboundSchema)
-    .optional(),
+  connectionId: types.string(),
+  query: types.string(),
+  queryValidationEnabled: types.optional(types.boolean()),
+  defaultBreakers: types.optional(
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  ),
+  __scheduling: types.optional(
+    z.lazy(() => DatabaseCollectorConfScheduling$inboundSchema),
+  ),
 });
 /** @internal */
 export type DatabaseCollectorConf$Outbound = {

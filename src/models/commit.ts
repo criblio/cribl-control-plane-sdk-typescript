@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type Commit = {
@@ -19,12 +20,12 @@ export type Commit = {
 /** @internal */
 export const Commit$inboundSchema: z.ZodType<Commit, z.ZodTypeDef, unknown> = z
   .object({
-    author_email: z.string().optional(),
-    author_name: z.string().optional(),
-    date: z.string(),
-    hash: z.string(),
-    message: z.string(),
-    short: z.string(),
+    author_email: types.optional(types.string()),
+    author_name: types.optional(types.string()),
+    date: types.string(),
+    hash: types.string(),
+    message: types.string(),
+    short: types.string(),
   });
 /** @internal */
 export type Commit$Outbound = {

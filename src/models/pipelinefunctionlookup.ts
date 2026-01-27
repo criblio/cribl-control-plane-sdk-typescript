@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type InField = {
@@ -91,8 +92,8 @@ export type PipelineFunctionLookup = {
 /** @internal */
 export const InField$inboundSchema: z.ZodType<InField, z.ZodTypeDef, unknown> =
   z.object({
-    eventField: z.string(),
-    lookupField: z.string().optional(),
+    eventField: types.string(),
+    lookupField: types.optional(types.string()),
   });
 /** @internal */
 export type InField$Outbound = {
@@ -129,9 +130,9 @@ export const OutField$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  lookupField: z.string(),
-  eventField: z.string().optional(),
-  defaultValue: z.string().optional(),
+  lookupField: types.string(),
+  eventField: types.optional(types.string()),
+  defaultValue: types.optional(types.string()),
 });
 /** @internal */
 export type OutField$Outbound = {
@@ -170,15 +171,15 @@ export const PipelineFunctionLookupConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  file: z.string(),
-  dbLookup: z.boolean().optional(),
-  matchMode: z.any().optional(),
-  matchType: z.any().optional(),
-  reloadPeriodSec: z.any().optional(),
-  inFields: z.array(z.lazy(() => InField$inboundSchema)).optional(),
-  outFields: z.array(z.lazy(() => OutField$inboundSchema)).optional(),
-  addToEvent: z.boolean().optional(),
-  ignoreCase: z.any().optional(),
+  file: types.string(),
+  dbLookup: types.optional(types.boolean()),
+  matchMode: types.optional(z.any()),
+  matchType: types.optional(z.any()),
+  reloadPeriodSec: types.optional(z.any()),
+  inFields: types.optional(z.array(z.lazy(() => InField$inboundSchema))),
+  outFields: types.optional(z.array(z.lazy(() => OutField$inboundSchema))),
+  addToEvent: types.optional(types.boolean()),
+  ignoreCase: types.optional(z.any()),
 });
 /** @internal */
 export type PipelineFunctionLookupConf$Outbound = {
@@ -233,13 +234,13 @@ export const PipelineFunctionLookup$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("lookup"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("lookup"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionLookupConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionLookup$Outbound = {

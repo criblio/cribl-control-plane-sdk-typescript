@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionRename = {
@@ -30,20 +31,20 @@ export const FunctionRename$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  __filename: z.string(),
-  asyncTimeout: z.number().optional(),
-  cribl_version: z.string().optional(),
-  disabled: z.boolean().optional(),
-  group: z.string(),
-  handleSignals: z.boolean().optional(),
-  id: z.literal("rename"),
-  loadTime: z.number(),
-  modTime: z.number(),
-  name: z.string(),
-  sync: z.boolean().optional(),
+  __filename: types.string(),
+  asyncTimeout: types.optional(types.number()),
+  cribl_version: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  group: types.string(),
+  handleSignals: types.optional(types.boolean()),
+  id: types.literal("rename"),
+  loadTime: types.number(),
+  modTime: types.number(),
+  name: types.string(),
+  sync: types.optional(types.boolean()),
   uischema: z.record(z.any()),
-  version: z.string(),
-  schema: z.record(z.any()).optional(),
+  version: types.string(),
+  schema: types.optional(z.record(z.any())),
 });
 
 export function functionRenameFromJSON(

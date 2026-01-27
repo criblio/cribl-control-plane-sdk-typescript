@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -109,15 +110,15 @@ export const SendConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  url: z.string().optional(),
-  group: z.string().optional(),
-  workspace: z.string().optional(),
-  sendUrlTemplate: z.string().optional(),
-  searchId: z.string(),
-  tee: z.boolean().optional(),
-  flushMs: z.number().optional(),
-  suppressPreviews: z.boolean().optional(),
-  mode: PipelineFunctionSendMode$inboundSchema.optional(),
+  url: types.optional(types.string()),
+  group: types.optional(types.string()),
+  workspace: types.optional(types.string()),
+  sendUrlTemplate: types.optional(types.string()),
+  searchId: types.string(),
+  tee: types.optional(types.boolean()),
+  flushMs: types.optional(types.number()),
+  suppressPreviews: types.optional(types.boolean()),
+  mode: types.optional(PipelineFunctionSendMode$inboundSchema),
 });
 /** @internal */
 export type SendConfiguration$Outbound = {
@@ -172,13 +173,13 @@ export const PipelineFunctionSend$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("send"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("send"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => SendConfiguration$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionSend$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthTypeKafkaSchemaRegistry,
   AuthTypeKafkaSchemaRegistry$inboundSchema,
@@ -58,15 +59,17 @@ export const KafkaSchemaRegistryAuthenticationType1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean(),
-  schemaRegistryURL: z.string().optional(),
-  connectionTimeout: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  maxRetries: z.number().optional(),
-  auth: AuthTypeKafkaSchemaRegistry$inboundSchema.optional(),
-  tls: TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema.optional(),
-  defaultKeySchemaId: z.number().optional(),
-  defaultValueSchemaId: z.number().optional(),
+  disabled: types.boolean(),
+  schemaRegistryURL: types.optional(types.string()),
+  connectionTimeout: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  maxRetries: types.optional(types.number()),
+  auth: types.optional(AuthTypeKafkaSchemaRegistry$inboundSchema),
+  tls: types.optional(
+    TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  ),
+  defaultKeySchemaId: types.optional(types.number()),
+  defaultValueSchemaId: types.optional(types.number()),
 });
 /** @internal */
 export type KafkaSchemaRegistryAuthenticationType1$Outbound = {

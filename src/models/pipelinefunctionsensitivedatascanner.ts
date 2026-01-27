@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PipelineFunctionSensitiveDataScannerRule = {
@@ -79,9 +80,9 @@ export const PipelineFunctionSensitiveDataScannerRule$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rulesetId: z.string(),
-  replaceExpr: z.string(),
-  disabled: z.boolean().optional(),
+  rulesetId: types.string(),
+  replaceExpr: types.string(),
+  disabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type PipelineFunctionSensitiveDataScannerRule$Outbound = {
@@ -130,8 +131,8 @@ export function pipelineFunctionSensitiveDataScannerRuleFromJSON(
 /** @internal */
 export const Flag$inboundSchema: z.ZodType<Flag, z.ZodTypeDef, unknown> = z
   .object({
-    name: z.string().optional(),
-    value: z.string(),
+    name: types.optional(types.string()),
+    value: types.string(),
   });
 /** @internal */
 export type Flag$Outbound = {
@@ -168,11 +169,11 @@ export const PipelineFunctionSensitiveDataScannerConf$inboundSchema: z.ZodType<
   rules: z.array(
     z.lazy(() => PipelineFunctionSensitiveDataScannerRule$inboundSchema),
   ),
-  fields: z.array(z.string()).optional(),
-  excludeFields: z.array(z.string()).optional(),
-  flags: z.array(z.lazy(() => Flag$inboundSchema)).optional(),
-  includeDetectedRules: z.boolean().optional(),
-  backgroundDetection: z.boolean().optional(),
+  fields: types.optional(z.array(types.string())),
+  excludeFields: types.optional(z.array(types.string())),
+  flags: types.optional(z.array(z.lazy(() => Flag$inboundSchema))),
+  includeDetectedRules: types.optional(types.boolean()),
+  backgroundDetection: types.optional(types.boolean()),
 });
 /** @internal */
 export type PipelineFunctionSensitiveDataScannerConf$Outbound = {
@@ -232,13 +233,13 @@ export const PipelineFunctionSensitiveDataScanner$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("sensitive_data_scanner"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("sensitive_data_scanner"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionSensitiveDataScannerConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionSensitiveDataScanner$Outbound = {

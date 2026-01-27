@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   DiskSpoolingType,
   DiskSpoolingType$inboundSchema,
@@ -327,10 +328,10 @@ export const InputEdgePrometheusAuthenticationMethod$outboundSchema: z.ZodType<
 /** @internal */
 export const Target$inboundSchema: z.ZodType<Target, z.ZodTypeDef, unknown> = z
   .object({
-    protocol: ProtocolOptionsTargetsItems$inboundSchema.optional(),
-    host: z.string(),
-    port: z.number().optional(),
-    path: z.string().optional(),
+    protocol: types.optional(ProtocolOptionsTargetsItems$inboundSchema),
+    host: types.string(),
+    port: types.optional(types.number()),
+    path: types.optional(types.string()),
   });
 /** @internal */
 export type Target$Outbound = {
@@ -371,8 +372,8 @@ export const PodFilter$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string(),
-  description: z.string().optional(),
+  filter: types.string(),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type PodFilter$Outbound = {
@@ -409,52 +410,58 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("edge_prometheus"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  dimensionList: z.array(z.string()).optional(),
+  id: types.optional(types.string()),
+  type: types.literal("edge_prometheus"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  dimensionList: types.optional(z.array(types.string())),
   discoveryType: InputEdgePrometheusDiscoveryType$inboundSchema,
-  interval: z.number(),
-  timeout: z.number().optional(),
-  persistence: DiskSpoolingType$inboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  authType: InputEdgePrometheusAuthenticationMethod$inboundSchema.optional(),
-  description: z.string().optional(),
-  targets: z.array(z.lazy(() => Target$inboundSchema)).optional(),
-  recordType: RecordTypeOptions$inboundSchema.optional(),
-  scrapePort: z.number().optional(),
-  nameList: z.array(z.string()).optional(),
-  scrapeProtocol: ProtocolOptionsTargetsItems$inboundSchema.optional(),
-  scrapePath: z.string().optional(),
-  awsAuthenticationMethod: z.string().optional(),
-  awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-  usePublicIp: z.boolean().optional(),
-  searchFilter: z.array(ItemsTypeSearchFilter$inboundSchema).optional(),
-  awsSecretKey: z.string().optional(),
-  region: z.string().optional(),
-  endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions1$inboundSchema.optional(),
-  reuseConnections: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  enableAssumeRole: z.boolean().optional(),
-  assumeRoleArn: z.string().optional(),
-  assumeRoleExternalId: z.string().optional(),
-  durationSeconds: z.number().optional(),
-  scrapeProtocolExpr: z.string().optional(),
-  scrapePortExpr: z.string().optional(),
-  scrapePathExpr: z.string().optional(),
-  podFilter: z.array(z.lazy(() => PodFilter$inboundSchema)).optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
+  interval: types.number(),
+  timeout: types.optional(types.number()),
+  persistence: types.optional(DiskSpoolingType$inboundSchema),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  authType: types.optional(
+    InputEdgePrometheusAuthenticationMethod$inboundSchema,
+  ),
+  description: types.optional(types.string()),
+  targets: types.optional(z.array(z.lazy(() => Target$inboundSchema))),
+  recordType: types.optional(RecordTypeOptions$inboundSchema),
+  scrapePort: types.optional(types.number()),
+  nameList: types.optional(z.array(types.string())),
+  scrapeProtocol: types.optional(ProtocolOptionsTargetsItems$inboundSchema),
+  scrapePath: types.optional(types.string()),
+  awsAuthenticationMethod: types.optional(types.string()),
+  awsApiKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  usePublicIp: types.optional(types.boolean()),
+  searchFilter: types.optional(z.array(ItemsTypeSearchFilter$inboundSchema)),
+  awsSecretKey: types.optional(types.string()),
+  region: types.optional(types.string()),
+  endpoint: types.optional(types.string()),
+  signatureVersion: types.optional(SignatureVersionOptions1$inboundSchema),
+  reuseConnections: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  enableAssumeRole: types.optional(types.boolean()),
+  assumeRoleArn: types.optional(types.string()),
+  assumeRoleExternalId: types.optional(types.string()),
+  durationSeconds: types.optional(types.number()),
+  scrapeProtocolExpr: types.optional(types.string()),
+  scrapePortExpr: types.optional(types.string()),
+  scrapePathExpr: types.optional(types.string()),
+  podFilter: types.optional(z.array(z.lazy(() => PodFilter$inboundSchema))),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
 });
 /** @internal */
 export type InputEdgePrometheus$Outbound = {

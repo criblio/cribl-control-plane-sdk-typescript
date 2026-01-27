@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import * as openEnums from "../../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { smartUnion } from "../../types/smartUnion.js";
 import * as models from "../index.js";
 
 /**
@@ -16574,7 +16575,7 @@ export const OutputGrafanaCloud$outboundSchema: z.ZodType<
   OutputGrafanaCloud$Outbound,
   z.ZodTypeDef,
   OutputGrafanaCloud
-> = z.union([
+> = smartUnion([
   z.lazy(() => OutputGrafanaCloudGrafanaCloud1$outboundSchema),
   z.lazy(() => OutputGrafanaCloudGrafanaCloud2$outboundSchema),
 ]);
@@ -22482,7 +22483,7 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   z.lazy(() => OutputSnmp$outboundSchema),
   z.lazy(() => OutputSumoLogic$outboundSchema),
   z.lazy(() => OutputDatadog$outboundSchema),
-  z.union([
+  smartUnion([
     z.lazy(() => OutputGrafanaCloudGrafanaCloud1$outboundSchema),
     z.lazy(() => OutputGrafanaCloudGrafanaCloud2$outboundSchema),
   ]).and(z.object({ type: z.literal("grafana_cloud") })),

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -76,8 +77,8 @@ export type InputDatagen = {
 /** @internal */
 export const Sample$inboundSchema: z.ZodType<Sample, z.ZodTypeDef, unknown> = z
   .object({
-    sample: z.string(),
-    eventsPerSec: z.number(),
+    sample: types.string(),
+    eventsPerSec: types.number(),
   });
 /** @internal */
 export type Sample$Outbound = {
@@ -114,19 +115,23 @@ export const InputDatagen$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("datagen"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  id: types.optional(types.string()),
+  type: types.literal("datagen"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
   samples: z.array(z.lazy(() => Sample$inboundSchema)),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type InputDatagen$Outbound = {
