@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   DatasetMetadata,
   DatasetMetadata$inboundSchema,
@@ -24,8 +25,8 @@ export const LakeDatasetSearchConfig$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  datatypes: z.array(z.string()).optional(),
-  metadata: DatasetMetadata$inboundSchema.optional(),
+  datatypes: types.optional(z.array(types.string())),
+  metadata: types.optional(DatasetMetadata$inboundSchema),
 });
 /** @internal */
 export type LakeDatasetSearchConfig$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PipelineFunctionJsonUnrollConf = {
@@ -52,8 +53,8 @@ export const PipelineFunctionJsonUnrollConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  path: z.string(),
-  name: z.string().optional(),
+  path: types.string(),
+  name: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionJsonUnrollConf$Outbound = {
@@ -96,13 +97,13 @@ export const PipelineFunctionJsonUnroll$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("json_unroll"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("json_unroll"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionJsonUnrollConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionJsonUnroll$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AdditionalPropertiesTypePipelineConfGroups,
   AdditionalPropertiesTypePipelineConfGroups$inboundSchema,
@@ -48,7 +49,7 @@ export type Routes = {
 /** @internal */
 export const Comment$inboundSchema: z.ZodType<Comment, z.ZodTypeDef, unknown> =
   z.object({
-    comment: z.string().optional(),
+    comment: types.optional(types.string()),
   }).catchall(z.any());
 /** @internal */
 export type Comment$Outbound = {
@@ -81,11 +82,12 @@ export function commentFromJSON(
 /** @internal */
 export const Routes$inboundSchema: z.ZodType<Routes, z.ZodTypeDef, unknown> = z
   .object({
-    id: z.string().optional(),
+    id: types.optional(types.string()),
     routes: z.array(RoutesRoute$inboundSchema),
-    groups: z.record(AdditionalPropertiesTypePipelineConfGroups$inboundSchema)
-      .optional(),
-    comments: z.array(z.lazy(() => Comment$inboundSchema)).optional(),
+    groups: types.optional(
+      z.record(AdditionalPropertiesTypePipelineConfGroups$inboundSchema),
+    ),
+    comments: types.optional(z.array(z.lazy(() => Comment$inboundSchema))),
   });
 /** @internal */
 export type Routes$Outbound = {

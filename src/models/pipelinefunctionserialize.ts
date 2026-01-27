@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -116,13 +117,13 @@ export const PipelineFunctionSerializeConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: PipelineFunctionSerializeType$inboundSchema,
-  delimChar: z.any().optional(),
-  quoteChar: z.any().optional(),
-  escapeChar: z.any().optional(),
-  nullValue: z.any().optional(),
-  fields: z.array(z.string()).optional(),
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
+  delimChar: types.optional(z.any()),
+  quoteChar: types.optional(z.any()),
+  escapeChar: types.optional(z.any()),
+  nullValue: types.optional(z.any()),
+  fields: types.optional(z.array(types.string())),
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionSerializeConf$Outbound = {
@@ -177,13 +178,13 @@ export const PipelineFunctionSerialize$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("serialize"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("serialize"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionSerializeConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionSerialize$Outbound = {

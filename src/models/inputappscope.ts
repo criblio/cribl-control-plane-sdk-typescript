@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
   AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
@@ -200,9 +201,9 @@ export type InputAppscope = {
 /** @internal */
 export const Allow$inboundSchema: z.ZodType<Allow, z.ZodTypeDef, unknown> = z
   .object({
-    procname: z.string(),
-    arg: z.string().optional(),
-    config: z.string(),
+    procname: types.string(),
+    arg: types.optional(types.string()),
+    config: types.string(),
   });
 /** @internal */
 export type Allow$Outbound = {
@@ -241,8 +242,8 @@ export const InputAppscopeFilter$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  allow: z.array(z.lazy(() => Allow$inboundSchema)).optional(),
-  transportURL: z.string().optional(),
+  allow: types.optional(z.array(z.lazy(() => Allow$inboundSchema))),
+  transportURL: types.optional(types.string()),
 });
 /** @internal */
 export type InputAppscopeFilter$Outbound = {
@@ -283,12 +284,14 @@ export const InputAppscopePersistence$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
-  timeWindow: z.string().optional(),
-  maxDataSize: z.string().optional(),
-  maxDataTime: z.string().optional(),
-  compress: DataCompressionFormatOptionsPersistence$inboundSchema.optional(),
-  destPath: z.string().optional(),
+  enable: types.optional(types.boolean()),
+  timeWindow: types.optional(types.string()),
+  maxDataSize: types.optional(types.string()),
+  maxDataTime: types.optional(types.string()),
+  compress: types.optional(
+    DataCompressionFormatOptionsPersistence$inboundSchema,
+  ),
+  destPath: types.optional(types.string()),
 });
 /** @internal */
 export type InputAppscopePersistence$Outbound = {
@@ -337,37 +340,45 @@ export const InputAppscope$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("appscope"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  ipWhitelistRegex: z.string().optional(),
-  maxActiveCxn: z.number().optional(),
-  socketIdleTimeout: z.number().optional(),
-  socketEndingMaxWait: z.number().optional(),
-  socketMaxLifespan: z.number().optional(),
-  enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().optional(),
-  enableUnixPath: z.boolean().optional(),
-  filter: z.lazy(() => InputAppscopeFilter$inboundSchema).optional(),
-  persistence: z.lazy(() => InputAppscopePersistence$inboundSchema).optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
-  description: z.string().optional(),
-  host: z.string().optional(),
-  port: z.number().optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  unixSocketPath: z.string().optional(),
-  unixSocketPerms: z.string().optional(),
-  authToken: z.string().optional(),
-  textSecret: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("appscope"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  ipWhitelistRegex: types.optional(types.string()),
+  maxActiveCxn: types.optional(types.number()),
+  socketIdleTimeout: types.optional(types.number()),
+  socketEndingMaxWait: types.optional(types.number()),
+  socketMaxLifespan: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  enableUnixPath: types.optional(types.boolean()),
+  filter: types.optional(z.lazy(() => InputAppscopeFilter$inboundSchema)),
+  persistence: types.optional(
+    z.lazy(() => InputAppscopePersistence$inboundSchema),
+  ),
+  authType: types.optional(
+    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  ),
+  description: types.optional(types.string()),
+  host: types.optional(types.string()),
+  port: types.optional(types.number()),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  unixSocketPath: types.optional(types.string()),
+  unixSocketPerms: types.optional(types.string()),
+  authToken: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type InputAppscope$Outbound = {

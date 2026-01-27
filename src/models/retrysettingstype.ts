@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type RetrySettingsType = {
@@ -36,11 +37,11 @@ export const RetrySettingsType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enabled: z.boolean().optional(),
-  initialBackoffMs: z.number().optional(),
-  backoffMultiplier: z.number().optional(),
-  maxBackoffMs: z.number().optional(),
-  jitterPercent: z.number().optional(),
+  enabled: types.optional(types.boolean()),
+  initialBackoffMs: types.optional(types.number()),
+  backoffMultiplier: types.optional(types.number()),
+  maxBackoffMs: types.optional(types.number()),
+  jitterPercent: types.optional(types.number()),
 });
 /** @internal */
 export type RetrySettingsType$Outbound = {

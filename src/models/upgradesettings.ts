@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   UpgradePackageUrls,
@@ -27,11 +28,11 @@ export const UpgradeSettings$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  automaticUpgradeCheckPeriod: z.string().optional(),
-  disableAutomaticUpgrade: z.boolean().optional(),
-  enableLegacyEdgeUpgrade: z.boolean().optional(),
-  packageUrls: z.array(UpgradePackageUrls$inboundSchema).optional(),
-  upgradeSource: z.string().optional(),
+  automaticUpgradeCheckPeriod: types.optional(types.string()),
+  disableAutomaticUpgrade: types.optional(types.boolean()),
+  enableLegacyEdgeUpgrade: types.optional(types.boolean()),
+  packageUrls: types.optional(z.array(UpgradePackageUrls$inboundSchema)),
+  upgradeSource: types.optional(types.string()),
 });
 /** @internal */
 export type UpgradeSettings$Outbound = {

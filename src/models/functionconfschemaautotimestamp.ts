@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -105,8 +106,8 @@ export const Timestamp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  regex: z.string(),
-  strptime: z.string(),
+  regex: types.string(),
+  strptime: types.string(),
 });
 /** @internal */
 export type Timestamp$Outbound = {
@@ -143,17 +144,17 @@ export const FunctionConfSchemaAutoTimestamp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
-  defaultTimezone: z.string().optional(),
-  timeExpression: z.string().optional(),
-  offset: z.number().optional(),
-  maxLen: z.number().optional(),
-  defaultTime: DefaultTime$inboundSchema.optional(),
-  latestDateAllowed: z.string().optional(),
-  spacer: z.string().optional(),
-  earliestDateAllowed: z.string().optional(),
-  timestamps: z.array(z.lazy(() => Timestamp$inboundSchema)).optional(),
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
+  defaultTimezone: types.optional(types.string()),
+  timeExpression: types.optional(types.string()),
+  offset: types.optional(types.number()),
+  maxLen: types.optional(types.number()),
+  defaultTime: types.optional(DefaultTime$inboundSchema),
+  latestDateAllowed: types.optional(types.string()),
+  spacer: types.optional(types.string()),
+  earliestDateAllowed: types.optional(types.string()),
+  timestamps: types.optional(z.array(z.lazy(() => Timestamp$inboundSchema))),
 });
 /** @internal */
 export type FunctionConfSchemaAutoTimestamp$Outbound = {

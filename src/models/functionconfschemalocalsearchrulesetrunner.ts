@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const RulesetType = {
@@ -92,12 +93,14 @@ export function fullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRules
 export const FunctionConfSchemaLocalSearchRulesetRunner$inboundSchema:
   z.ZodType<FunctionConfSchemaLocalSearchRulesetRunner, z.ZodTypeDef, unknown> =
     z.object({
-      rulesetType: RulesetType$inboundSchema.optional(),
-      rulesetId: z.string().optional(),
-      ruleset: z.lazy(() =>
-        FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$inboundSchema
-      ).optional(),
-      markAndIncludeDroppedEvents: z.boolean().optional(),
+      rulesetType: types.optional(RulesetType$inboundSchema),
+      rulesetId: types.optional(types.string()),
+      ruleset: types.optional(
+        z.lazy(() =>
+          FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$inboundSchema
+        ),
+      ),
+      markAndIncludeDroppedEvents: types.optional(types.boolean()),
     });
 /** @internal */
 export type FunctionConfSchemaLocalSearchRulesetRunner$Outbound = {

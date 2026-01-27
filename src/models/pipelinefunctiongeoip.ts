@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AdditionalField = {
@@ -77,8 +78,8 @@ export const AdditionalField$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  extraInField: z.string(),
-  extraOutField: z.string(),
+  extraInField: types.string(),
+  extraOutField: types.string(),
 });
 /** @internal */
 export type AdditionalField$Outbound = {
@@ -150,12 +151,15 @@ export const PipelineFunctionGeoipConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  file: z.string(),
-  inField: z.string().optional(),
-  outField: z.string().optional(),
-  additionalFields: z.array(z.lazy(() => AdditionalField$inboundSchema))
-    .optional(),
-  outFieldMappings: z.lazy(() => OutputFieldMappings$inboundSchema).optional(),
+  file: types.string(),
+  inField: types.optional(types.string()),
+  outField: types.optional(types.string()),
+  additionalFields: types.optional(
+    z.array(z.lazy(() => AdditionalField$inboundSchema)),
+  ),
+  outFieldMappings: types.optional(
+    z.lazy(() => OutputFieldMappings$inboundSchema),
+  ),
 });
 /** @internal */
 export type PipelineFunctionGeoipConf$Outbound = {
@@ -203,13 +207,13 @@ export const PipelineFunctionGeoip$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("geoip"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("geoip"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionGeoipConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionGeoip$Outbound = {

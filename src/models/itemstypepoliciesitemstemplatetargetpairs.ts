@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ItemsTypePoliciesItemsTemplateTargetPairs = {
@@ -24,8 +25,8 @@ export const ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  templateId: z.string(),
-  targetId: z.string(),
+  templateId: types.string(),
+  targetId: types.string(),
 });
 /** @internal */
 export type ItemsTypePoliciesItemsTemplateTargetPairs$Outbound = {
