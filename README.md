@@ -62,7 +62,6 @@ yarn add cribl-control-plane
 For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 <!-- End Requirements [requirements] -->
 
-<!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
 
 ### Example
@@ -78,69 +77,104 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.create({
-    lakeId: "<id>",
-    criblLakeDataset: {
-      acceleratedFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      bucketName: "<value>",
-      cacheConnection: {
-        acceleratedFields: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        backfillStatus: "pending",
-        cacheRef: "<value>",
-        createdAt: 7795.06,
-        lakehouseConnectionType: "cache",
-        migrationQueryId: "<id>",
-        retentionInDays: 1466.58,
-      },
-      deletionStartedAt: 8310.58,
-      description:
-        "pleased toothbrush long brush smooth swiftly rightfully phooey chapel",
-      format: "ddss",
-      httpDAUsed: true,
-      id: "<id>",
-      metrics: {
-        currentSizeBytes: 6170.04,
-        metricsDate: "<value>",
-      },
-      retentionPeriodInDays: 456.37,
-      searchConfig: {
-        datatypes: [
-          "<value 1>",
-        ],
-        metadata: {
-          earliest: "<value>",
-          enableAcceleration: true,
-          fieldList: [
-            "<value 1>",
-            "<value 2>",
-          ],
-          latestRunInfo: {
-            earliestScannedTime: 4334.7,
-            finishedAt: 6811.22,
-            latestScannedTime: 5303.3,
-            objectCount: 9489.04,
-          },
-          scanMode: "detailed",
-        },
-      },
-      storageLocationId: "<id>",
-      viewName: "<value>",
-    },
+  // Check server health
+  const health = await criblControlPlane.health.get();
+
+  const workerGroupId = "my-worker-group";
+  const groupUrl = `https://api.example.com/m/${workerGroupId}`;
+  
+  // Create a TCP JSON Source
+  const source = await criblControlPlane.sources.create({
+    id: "my-tcp-json",
+    type: "tcpjson",
+    host: "0.0.0.0",
+    port: 9020,
+    authType: "manual",
+    authToken: "your-auth-token",
+  }, {
+    serverURL: groupUrl,
   });
 
-  console.log(result);
+  // Create a Filesystem Destination
+  const destination = await criblControlPlane.destinations.create({
+    id: "my-fs-destination",
+    type: "filesystem",
+    destPath: "/tmp/my-output",
+  }, {
+    serverURL: groupUrl,
+  });
+
+  // Create a Pipeline
+  const pipeline = await criblControlPlane.pipelines.create({
+    id: "my-pipeline",
+    conf: {
+      asyncFuncTimeout: 1000,
+      output: "default",
+      functions: [{
+        filter: "true",
+        conf: {
+          remove: ["*"],
+          keep: ["name"],
+        },
+        id: "eval",
+        final: true,
+      }],
+    },
+  }, {
+    serverURL: groupUrl,
+  });
+
+  // Add Route to Routing table
+  const routesListResponse = await criblControlPlane.routes.list({
+    serverURL: groupUrl,
+  });
+  const routes = routesListResponse.items?.[0];
+  if (routes && routes.id) {
+    routes.routes = [{
+      final: false,
+      id: "my-route",
+      name: "my-route",
+      pipeline: pipeline.items?.[0]?.id,
+      output: destination.items?.[0]?.id,
+      filter: "__inputId=='tcpjson:my-tcp-json'",
+      description: "My new route",
+      additionalProperties: {},
+    }, ...routes.routes];
+    await criblControlPlane.routes.update({
+      id: routes.id,
+      routes,
+    }, {
+      serverURL: groupUrl,
+    });
+  }
+
+  // Commit configuration changes
+  const commitResponse = await criblControlPlane.versions.commits.create({
+    groupId: workerGroupId,
+    gitCommitParams: {
+      message: "Initial configuration",
+      effective: true,
+      files: ["."],
+    },
+  });
+  const version = commitResponse.items?.[0]?.commit;
+
+  // Deploy configuration changes
+  await criblControlPlane.groups.deploy({
+    product: "stream",
+    id: workerGroupId,
+    deployRequest: { version },
+  });
 }
 
 run();
 
 ```
-<!-- End SDK Example Usage [usage] -->
+
+> [!NOTE]
+> Additional examples demonstrating various SDK features and use cases can be found in the [`examples`](./examples) directory.
+
+<!-- No End SDK Example Usage [usage] -->
 
 <!-- Start Authentication [security] -->
 ## Authentication
@@ -516,7 +550,6 @@ run();
 ```
 <!-- End File uploads [file-upload] -->
 
-<!-- Start Retries [retries] -->
 ## Retries
 
 Some of the endpoints in this SDK support retries.  If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API.  However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
@@ -533,61 +566,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.create({
-    lakeId: "<id>",
-    criblLakeDataset: {
-      acceleratedFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      bucketName: "<value>",
-      cacheConnection: {
-        acceleratedFields: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        backfillStatus: "pending",
-        cacheRef: "<value>",
-        createdAt: 7795.06,
-        lakehouseConnectionType: "cache",
-        migrationQueryId: "<id>",
-        retentionInDays: 1466.58,
-      },
-      deletionStartedAt: 8310.58,
-      description:
-        "pleased toothbrush long brush smooth swiftly rightfully phooey chapel",
-      format: "ddss",
-      httpDAUsed: true,
-      id: "<id>",
-      metrics: {
-        currentSizeBytes: 6170.04,
-        metricsDate: "<value>",
-      },
-      retentionPeriodInDays: 456.37,
-      searchConfig: {
-        datatypes: [
-          "<value 1>",
-        ],
-        metadata: {
-          earliest: "<value>",
-          enableAcceleration: true,
-          fieldList: [
-            "<value 1>",
-            "<value 2>",
-          ],
-          latestRunInfo: {
-            earliestScannedTime: 4334.7,
-            finishedAt: 6811.22,
-            latestScannedTime: 5303.3,
-            objectCount: 9489.04,
-          },
-          scanMode: "detailed",
-        },
-      },
-      storageLocationId: "<id>",
-      viewName: "<value>",
-    },
-  }, {
+  const result = await criblControlPlane.system.settings.cribl.list({
     retries: {
       strategy: "backoff",
       backoff: {
@@ -606,94 +585,8 @@ async function run() {
 run();
 
 ```
+<!-- No Retries [retries] -->
 
-If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  retryConfig: {
-    strategy: "backoff",
-    backoff: {
-      initialInterval: 1,
-      maxInterval: 50,
-      exponent: 1.1,
-      maxElapsedTime: 100,
-    },
-    retryConnectionErrors: false,
-  },
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.lakeDatasets.create({
-    lakeId: "<id>",
-    criblLakeDataset: {
-      acceleratedFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      bucketName: "<value>",
-      cacheConnection: {
-        acceleratedFields: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        backfillStatus: "pending",
-        cacheRef: "<value>",
-        createdAt: 7795.06,
-        lakehouseConnectionType: "cache",
-        migrationQueryId: "<id>",
-        retentionInDays: 1466.58,
-      },
-      deletionStartedAt: 8310.58,
-      description:
-        "pleased toothbrush long brush smooth swiftly rightfully phooey chapel",
-      format: "ddss",
-      httpDAUsed: true,
-      id: "<id>",
-      metrics: {
-        currentSizeBytes: 6170.04,
-        metricsDate: "<value>",
-      },
-      retentionPeriodInDays: 456.37,
-      searchConfig: {
-        datatypes: [
-          "<value 1>",
-        ],
-        metadata: {
-          earliest: "<value>",
-          enableAcceleration: true,
-          fieldList: [
-            "<value 1>",
-            "<value 2>",
-          ],
-          latestRunInfo: {
-            earliestScannedTime: 4334.7,
-            finishedAt: 6811.22,
-            latestScannedTime: 5303.3,
-            objectCount: 9489.04,
-          },
-          scanMode: "detailed",
-        },
-      },
-      storageLocationId: "<id>",
-      viewName: "<value>",
-    },
-  });
-
-  console.log(result);
-}
-
-run();
-
-```
-<!-- End Retries [retries] -->
-
-<!-- Start Error Handling [errors] -->
 ## Error Handling
 
 [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts) is the base class for all HTTP error responses. It has the following properties:
@@ -721,61 +614,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   try {
-    const result = await criblControlPlane.lakeDatasets.create({
-      lakeId: "<id>",
-      criblLakeDataset: {
-        acceleratedFields: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        bucketName: "<value>",
-        cacheConnection: {
-          acceleratedFields: [
-            "<value 1>",
-            "<value 2>",
-          ],
-          backfillStatus: "pending",
-          cacheRef: "<value>",
-          createdAt: 7795.06,
-          lakehouseConnectionType: "cache",
-          migrationQueryId: "<id>",
-          retentionInDays: 1466.58,
-        },
-        deletionStartedAt: 8310.58,
-        description:
-          "pleased toothbrush long brush smooth swiftly rightfully phooey chapel",
-        format: "ddss",
-        httpDAUsed: true,
-        id: "<id>",
-        metrics: {
-          currentSizeBytes: 6170.04,
-          metricsDate: "<value>",
-        },
-        retentionPeriodInDays: 456.37,
-        searchConfig: {
-          datatypes: [
-            "<value 1>",
-          ],
-          metadata: {
-            earliest: "<value>",
-            enableAcceleration: true,
-            fieldList: [
-              "<value 1>",
-              "<value 2>",
-            ],
-            latestRunInfo: {
-              earliestScannedTime: 4334.7,
-              finishedAt: 6811.22,
-              latestScannedTime: 5303.3,
-              objectCount: 9489.04,
-            },
-            scanMode: "detailed",
-          },
-        },
-        storageLocationId: "<id>",
-        viewName: "<value>",
-      },
-    });
+    const result = await criblControlPlane.sources.list();
 
     console.log(result);
   } catch (error) {
@@ -822,7 +661,7 @@ run();
 </details>
 
 \* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
-<!-- End Error Handling [errors] -->
+<!-- No Error Handling [errors] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client
