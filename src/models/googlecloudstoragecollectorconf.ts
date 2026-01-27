@@ -4,7 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
+import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GoogleCloudStorageAuthTypeSecretExtractor = {
@@ -192,7 +195,8 @@ export type GoogleCloudStorageAuthTypeAuto = {
 export type GoogleCloudStorageCollectorConf =
   | GoogleCloudStorageAuthTypeAuto
   | GoogleCloudStorageAuthTypeManual
-  | GoogleCloudStorageAuthTypeSecret;
+  | GoogleCloudStorageAuthTypeSecret
+  | discriminatedUnionTypes.Unknown<"authType">;
 
 /** @internal */
 export const GoogleCloudStorageAuthTypeSecretExtractor$inboundSchema: z.ZodType<
@@ -200,8 +204,8 @@ export const GoogleCloudStorageAuthTypeSecretExtractor$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  key: z.string(),
-  expression: z.string(),
+  key: types.string(),
+  expression: types.string(),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeSecretExtractor$Outbound = {
@@ -252,20 +256,22 @@ export const GoogleCloudStorageAuthTypeSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: z.literal("secret"),
-  textSecret: z.string(),
-  outputName: z.string().optional(),
-  bucket: z.string(),
-  path: z.string().optional(),
-  extractors: z.array(
-    z.lazy(() => GoogleCloudStorageAuthTypeSecretExtractor$inboundSchema),
-  ).optional(),
-  endpoint: z.string().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  recurse: z.boolean().optional(),
-  maxBatchSize: z.number().optional(),
-  parquetChunkSizeMB: z.number().optional(),
-  parquetChunkDownloadTimeout: z.number().optional(),
+  authType: types.literal("secret"),
+  textSecret: types.string(),
+  outputName: types.optional(types.string()),
+  bucket: types.string(),
+  path: types.optional(types.string()),
+  extractors: types.optional(
+    z.array(
+      z.lazy(() => GoogleCloudStorageAuthTypeSecretExtractor$inboundSchema),
+    ),
+  ),
+  endpoint: types.optional(types.string()),
+  disableTimeFilter: types.optional(types.boolean()),
+  recurse: types.optional(types.boolean()),
+  maxBatchSize: types.optional(types.number()),
+  parquetChunkSizeMB: types.optional(types.number()),
+  parquetChunkDownloadTimeout: types.optional(types.number()),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeSecret$Outbound = {
@@ -332,8 +338,8 @@ export const GoogleCloudStorageAuthTypeManualExtractor$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  key: z.string(),
-  expression: z.string(),
+  key: types.string(),
+  expression: types.string(),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeManualExtractor$Outbound = {
@@ -384,20 +390,22 @@ export const GoogleCloudStorageAuthTypeManual$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: z.literal("manual"),
-  serviceAccountCredentials: z.string(),
-  outputName: z.string().optional(),
-  bucket: z.string(),
-  path: z.string().optional(),
-  extractors: z.array(
-    z.lazy(() => GoogleCloudStorageAuthTypeManualExtractor$inboundSchema),
-  ).optional(),
-  endpoint: z.string().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  recurse: z.boolean().optional(),
-  maxBatchSize: z.number().optional(),
-  parquetChunkSizeMB: z.number().optional(),
-  parquetChunkDownloadTimeout: z.number().optional(),
+  authType: types.literal("manual"),
+  serviceAccountCredentials: types.string(),
+  outputName: types.optional(types.string()),
+  bucket: types.string(),
+  path: types.optional(types.string()),
+  extractors: types.optional(
+    z.array(
+      z.lazy(() => GoogleCloudStorageAuthTypeManualExtractor$inboundSchema),
+    ),
+  ),
+  endpoint: types.optional(types.string()),
+  disableTimeFilter: types.optional(types.boolean()),
+  recurse: types.optional(types.boolean()),
+  maxBatchSize: types.optional(types.number()),
+  parquetChunkSizeMB: types.optional(types.number()),
+  parquetChunkDownloadTimeout: types.optional(types.number()),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeManual$Outbound = {
@@ -464,8 +472,8 @@ export const GoogleCloudStorageAuthTypeAutoExtractor$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  key: z.string(),
-  expression: z.string(),
+  key: types.string(),
+  expression: types.string(),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeAutoExtractor$Outbound = {
@@ -515,19 +523,21 @@ export const GoogleCloudStorageAuthTypeAuto$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: z.literal("auto"),
-  outputName: z.string().optional(),
-  bucket: z.string(),
-  path: z.string().optional(),
-  extractors: z.array(
-    z.lazy(() => GoogleCloudStorageAuthTypeAutoExtractor$inboundSchema),
-  ).optional(),
-  endpoint: z.string().optional(),
-  disableTimeFilter: z.boolean().optional(),
-  recurse: z.boolean().optional(),
-  maxBatchSize: z.number().optional(),
-  parquetChunkSizeMB: z.number().optional(),
-  parquetChunkDownloadTimeout: z.number().optional(),
+  authType: types.literal("auto"),
+  outputName: types.optional(types.string()),
+  bucket: types.string(),
+  path: types.optional(types.string()),
+  extractors: types.optional(
+    z.array(
+      z.lazy(() => GoogleCloudStorageAuthTypeAutoExtractor$inboundSchema),
+    ),
+  ),
+  endpoint: types.optional(types.string()),
+  disableTimeFilter: types.optional(types.boolean()),
+  recurse: types.optional(types.boolean()),
+  maxBatchSize: types.optional(types.number()),
+  parquetChunkSizeMB: types.optional(types.number()),
+  parquetChunkDownloadTimeout: types.optional(types.number()),
 });
 /** @internal */
 export type GoogleCloudStorageAuthTypeAuto$Outbound = {
@@ -591,11 +601,11 @@ export const GoogleCloudStorageCollectorConf$inboundSchema: z.ZodType<
   GoogleCloudStorageCollectorConf,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => GoogleCloudStorageAuthTypeAuto$inboundSchema),
-  z.lazy(() => GoogleCloudStorageAuthTypeManual$inboundSchema),
-  z.lazy(() => GoogleCloudStorageAuthTypeSecret$inboundSchema),
-]);
+> = discriminatedUnion("authType", {
+  auto: z.lazy(() => GoogleCloudStorageAuthTypeAuto$inboundSchema),
+  manual: z.lazy(() => GoogleCloudStorageAuthTypeManual$inboundSchema),
+  secret: z.lazy(() => GoogleCloudStorageAuthTypeSecret$inboundSchema),
+});
 /** @internal */
 export type GoogleCloudStorageCollectorConf$Outbound =
   | GoogleCloudStorageAuthTypeAuto$Outbound

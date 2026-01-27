@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   CloudProvider,
   CloudProvider$inboundSchema,
@@ -23,8 +24,8 @@ export const ConfigGroupCloud$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  provider: z.nullable(CloudProvider$inboundSchema),
-  region: z.string(),
+  provider: types.nullable(CloudProvider$inboundSchema),
+  region: types.string(),
 });
 /** @internal */
 export type ConfigGroupCloud$Outbound = {

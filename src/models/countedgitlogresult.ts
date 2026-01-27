@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { GitLogResult, GitLogResult$inboundSchema } from "./gitlogresult.js";
 
@@ -22,8 +23,8 @@ export const CountedGitLogResult$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  items: z.array(GitLogResult$inboundSchema).optional(),
+  count: types.optional(types.number()),
+  items: types.optional(z.array(GitLogResult$inboundSchema)),
 });
 
 export function countedGitLogResultFromJSON(

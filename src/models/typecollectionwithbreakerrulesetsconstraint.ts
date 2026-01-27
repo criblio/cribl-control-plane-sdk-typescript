@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeNotificationMetadata,
@@ -83,16 +84,21 @@ export const TypeCollectionWithBreakerRulesetsConstraint$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: TypeCollectionWithBreakerRulesetsConstraintType$inboundSchema
-      .optional(),
-    breakerRulesets: z.array(z.string()).optional(),
-    staleChannelFlushMs: z.number().optional(),
-    sendToRoutes: z.boolean().optional(),
-    preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
-    throttleRatePerSec: z.string().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-    pipeline: z.string().optional(),
-    output: z.string().optional(),
+    type: types.optional(
+      TypeCollectionWithBreakerRulesetsConstraintType$inboundSchema,
+    ),
+    breakerRulesets: types.optional(z.array(types.string())),
+    staleChannelFlushMs: types.optional(types.number()),
+    sendToRoutes: types.optional(types.boolean()),
+    preprocess: types.optional(
+      PreprocessTypeSavedJobCollectionInput$inboundSchema,
+    ),
+    throttleRatePerSec: types.optional(types.string()),
+    metadata: types.optional(
+      z.array(ItemsTypeNotificationMetadata$inboundSchema),
+    ),
+    pipeline: types.optional(types.string()),
+    output: types.optional(types.string()),
   });
 /** @internal */
 export type TypeCollectionWithBreakerRulesetsConstraint$Outbound = {

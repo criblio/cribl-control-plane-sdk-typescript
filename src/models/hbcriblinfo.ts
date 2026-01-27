@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { HBLeaderInfo, HBLeaderInfo$inboundSchema } from "./hbleaderinfo.js";
 import {
@@ -41,11 +42,11 @@ export type HBCriblInfo = {
 /** @internal */
 export const Config$inboundSchema: z.ZodType<Config, z.ZodTypeDef, unknown> = z
   .object({
-    featuresRev: z.string().optional(),
-    hbPeriodSeconds: z.number().optional(),
-    logStreamEnv: z.string().optional(),
-    policyRev: z.string().optional(),
-    version: z.string().optional(),
+    featuresRev: types.optional(types.string()),
+    hbPeriodSeconds: types.optional(types.number()),
+    logStreamEnv: types.optional(types.string()),
+    policyRev: types.optional(types.string()),
+    version: types.optional(types.string()),
   });
 
 export function configFromJSON(
@@ -65,20 +66,20 @@ export const HBCriblInfo$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   config: z.lazy(() => Config$inboundSchema),
-  deploymentId: z.string().optional(),
-  disableSNIRouting: z.boolean().optional(),
+  deploymentId: types.optional(types.string()),
+  disableSNIRouting: types.optional(types.boolean()),
   distMode: ModeOptionsInstanceSettingsSchema$inboundSchema,
-  edgeNodes: z.number().optional(),
-  group: z.string(),
-  guid: z.string(),
-  installType: z.string().optional(),
-  lookupVersions: z.record(z.record(z.string())).optional(),
-  master: HBLeaderInfo$inboundSchema.optional(),
-  pid: z.number().optional(),
-  socksEnabled: z.boolean().optional(),
-  startTime: z.number(),
-  tags: z.array(z.string()),
-  version: z.string().optional(),
+  edgeNodes: types.optional(types.number()),
+  group: types.string(),
+  guid: types.string(),
+  installType: types.optional(types.string()),
+  lookupVersions: types.optional(z.record(z.record(types.string()))),
+  master: types.optional(HBLeaderInfo$inboundSchema),
+  pid: types.optional(types.number()),
+  socksEnabled: types.optional(types.boolean()),
+  startTime: types.number(),
+  tags: z.array(types.string()),
+  version: types.optional(types.string()),
 });
 
 export function hbCriblInfoFromJSON(

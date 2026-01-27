@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputSnmpHost = {
@@ -57,8 +58,8 @@ export const OutputSnmpHost$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  host: z.string(),
-  port: z.number(),
+  host: types.string(),
+  port: types.number(),
 });
 /** @internal */
 export type OutputSnmpHost$Outbound = {
@@ -95,15 +96,15 @@ export const OutputSnmp$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("snmp"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
+  id: types.optional(types.string()),
+  type: types.literal("snmp"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
   hosts: z.array(z.lazy(() => OutputSnmpHost$inboundSchema)),
-  dnsResolvePeriodSec: z.number().optional(),
-  description: z.string().optional(),
+  dnsResolvePeriodSec: types.optional(types.number()),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type OutputSnmp$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsSasl,
   AuthenticationMethodOptionsSasl$inboundSchema,
@@ -90,22 +91,24 @@ export const AuthenticationType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  authType: AuthenticationMethodOptionsSasl$inboundSchema.optional(),
-  credentialsSecret: z.string().optional(),
-  mechanism: SaslMechanismOptionsSasl$inboundSchema.optional(),
-  keytabLocation: z.string().optional(),
-  principal: z.string().optional(),
-  brokerServiceClass: z.string().optional(),
-  oauthEnabled: z.boolean().optional(),
-  tokenUrl: z.string().optional(),
-  clientId: z.string().optional(),
-  oauthSecretType: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  oauthParams: z.array(ItemsTypeSaslOauthParams$inboundSchema).optional(),
-  saslExtensions: z.array(ItemsTypeSaslSaslExtensions$inboundSchema).optional(),
+  disabled: types.boolean(),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  authType: types.optional(AuthenticationMethodOptionsSasl$inboundSchema),
+  credentialsSecret: types.optional(types.string()),
+  mechanism: types.optional(SaslMechanismOptionsSasl$inboundSchema),
+  keytabLocation: types.optional(types.string()),
+  principal: types.optional(types.string()),
+  brokerServiceClass: types.optional(types.string()),
+  oauthEnabled: types.optional(types.boolean()),
+  tokenUrl: types.optional(types.string()),
+  clientId: types.optional(types.string()),
+  oauthSecretType: types.optional(types.string()),
+  clientTextSecret: types.optional(types.string()),
+  oauthParams: types.optional(z.array(ItemsTypeSaslOauthParams$inboundSchema)),
+  saslExtensions: types.optional(
+    z.array(ItemsTypeSaslSaslExtensions$inboundSchema),
+  ),
 });
 /** @internal */
 export type AuthenticationType$Outbound = {

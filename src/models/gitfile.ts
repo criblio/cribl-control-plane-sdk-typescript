@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitFile = {
@@ -16,9 +17,9 @@ export type GitFile = {
 /** @internal */
 export const GitFile$inboundSchema: z.ZodType<GitFile, z.ZodTypeDef, unknown> =
   z.object({
-    children: z.array(z.lazy(() => GitFile$inboundSchema)).optional(),
-    name: z.string(),
-    state: z.string().optional(),
+    children: types.optional(z.array(z.lazy(() => GitFile$inboundSchema))),
+    name: types.string(),
+    state: types.optional(types.string()),
   });
 
 export function gitFileFromJSON(

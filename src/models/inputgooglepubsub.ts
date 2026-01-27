@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   GoogleAuthenticationMethodOptions,
@@ -127,31 +128,37 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("google_pubsub"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  topicName: z.string(),
-  subscriptionName: z.string(),
-  monitorSubscription: z.boolean().optional(),
-  createTopic: z.boolean().optional(),
-  createSubscription: z.boolean().optional(),
-  region: z.string().optional(),
-  googleAuthMethod: GoogleAuthenticationMethodOptions$inboundSchema.optional(),
-  serviceAccountCredentials: z.string().optional(),
-  secret: z.string().optional(),
-  maxBacklog: z.number().optional(),
-  concurrency: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  description: z.string().optional(),
-  orderedDelivery: z.boolean().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("google_pubsub"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  topicName: types.string(),
+  subscriptionName: types.string(),
+  monitorSubscription: types.optional(types.boolean()),
+  createTopic: types.optional(types.boolean()),
+  createSubscription: types.optional(types.boolean()),
+  region: types.optional(types.string()),
+  googleAuthMethod: types.optional(
+    GoogleAuthenticationMethodOptions$inboundSchema,
+  ),
+  serviceAccountCredentials: types.optional(types.string()),
+  secret: types.optional(types.string()),
+  maxBacklog: types.optional(types.number()),
+  concurrency: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  description: types.optional(types.string()),
+  orderedDelivery: types.optional(types.boolean()),
 });
 /** @internal */
 export type InputGooglePubsub$Outbound = {

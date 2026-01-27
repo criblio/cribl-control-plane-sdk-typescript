@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type HBLeaderInfo = {
@@ -20,10 +21,10 @@ export const HBLeaderInfo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  host: z.string(),
-  port: z.number(),
-  servername: z.string().optional(),
-  tls: z.boolean().optional(),
+  host: types.string(),
+  port: types.number(),
+  servername: types.optional(types.string()),
+  tls: types.optional(types.boolean()),
 });
 
 export function hbLeaderInfoFromJSON(

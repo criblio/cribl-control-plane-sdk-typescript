@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -350,8 +351,8 @@ export const ExtraLogType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  logType: z.string(),
-  description: z.string().optional(),
+  logType: types.string(),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type ExtraLogType$Outbound = {
@@ -430,59 +431,69 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("google_chronicle"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  apiVersion: OutputGoogleChronicleAPIVersion$inboundSchema.optional(),
-  authenticationMethod: OutputGoogleChronicleAuthenticationMethod$inboundSchema
-    .optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("google_chronicle"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  apiVersion: types.optional(OutputGoogleChronicleAPIVersion$inboundSchema),
+  authenticationMethod: types.optional(
+    OutputGoogleChronicleAuthenticationMethod$inboundSchema,
+  ),
+  responseRetrySettings: types.optional(
+    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+  ),
+  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
+  responseHonorRetryAfterHeader: types.optional(types.boolean()),
   logFormatType: SendEventsAs$inboundSchema,
-  region: z.string().optional(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  compress: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
-  totalMemoryLimitKB: z.number().optional(),
-  description: z.string().optional(),
-  extraLogTypes: z.array(z.lazy(() => ExtraLogType$inboundSchema)).optional(),
-  logType: z.string().optional(),
-  logTextField: z.string().optional(),
-  customerId: z.string().optional(),
-  namespace: z.string().optional(),
-  customLabels: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
-  udmType: UDMType$inboundSchema.optional(),
-  apiKey: z.string().optional(),
-  apiKeySecret: z.string().optional(),
-  serviceAccountCredentials: z.string().optional(),
-  serviceAccountCredentialsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: ModeOptions$inboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
-  pqControls: z.lazy(() => OutputGoogleChroniclePqControls$inboundSchema)
-    .optional(),
+  region: types.optional(types.string()),
+  concurrency: types.optional(types.number()),
+  maxPayloadSizeKB: types.optional(types.number()),
+  maxPayloadEvents: types.optional(types.number()),
+  compress: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  timeoutSec: types.optional(types.number()),
+  flushPeriodSec: types.optional(types.number()),
+  extraHttpHeaders: types.optional(
+    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+  ),
+  failedRequestLoggingMode: types.optional(
+    FailedRequestLoggingModeOptions$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  useRoundRobinDns: types.optional(types.boolean()),
+  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
+  totalMemoryLimitKB: types.optional(types.number()),
+  description: types.optional(types.string()),
+  extraLogTypes: types.optional(
+    z.array(z.lazy(() => ExtraLogType$inboundSchema)),
+  ),
+  logType: types.optional(types.string()),
+  logTextField: types.optional(types.string()),
+  customerId: types.optional(types.string()),
+  namespace: types.optional(types.string()),
+  customLabels: types.optional(
+    z.array(ItemsTypeKeyValueMetadata$inboundSchema),
+  ),
+  udmType: types.optional(UDMType$inboundSchema),
+  apiKey: types.optional(types.string()),
+  apiKeySecret: types.optional(types.string()),
+  serviceAccountCredentials: types.optional(types.string()),
+  serviceAccountCredentialsSecret: types.optional(types.string()),
+  pqStrictOrdering: types.optional(types.boolean()),
+  pqRatePerSec: types.optional(types.number()),
+  pqMode: types.optional(ModeOptions$inboundSchema),
+  pqMaxBufferSize: types.optional(types.number()),
+  pqMaxBackpressureSec: types.optional(types.number()),
+  pqMaxFileSize: types.optional(types.string()),
+  pqMaxSize: types.optional(types.string()),
+  pqPath: types.optional(types.string()),
+  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
+  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqControls: types.optional(
+    z.lazy(() => OutputGoogleChroniclePqControls$inboundSchema),
+  ),
 });
 /** @internal */
 export type OutputGoogleChronicle$Outbound = {

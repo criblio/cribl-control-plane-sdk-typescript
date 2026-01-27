@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as types from "../../types/primitives.js";
 import * as models from "../index.js";
 import { CriblControlPlaneError } from "./criblcontrolplaneerror.js";
 
@@ -43,8 +44,8 @@ export const HealthServerStatusError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  role: models.Role$inboundSchema.optional(),
-  startTime: z.number(),
+  role: types.optional(models.Role$inboundSchema),
+  startTime: types.number(),
   status: models.Status$inboundSchema,
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),

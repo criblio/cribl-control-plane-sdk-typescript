@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AdditionalPropertiesTypePipelineConfGroups = {
@@ -23,9 +24,9 @@ export type AdditionalPropertiesTypePipelineConfGroups = {
 export const AdditionalPropertiesTypePipelineConfGroups$inboundSchema:
   z.ZodType<AdditionalPropertiesTypePipelineConfGroups, z.ZodTypeDef, unknown> =
     z.object({
-      name: z.string(),
-      description: z.string().optional(),
-      disabled: z.boolean().optional(),
+      name: types.string(),
+      description: types.optional(types.string()),
+      disabled: types.optional(types.boolean()),
     });
 /** @internal */
 export type AdditionalPropertiesTypePipelineConfGroups$Outbound = {

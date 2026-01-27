@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ExecutorTypeSavedJobExecutor,
@@ -87,11 +88,12 @@ export const RunnableJobExecutorRun$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rescheduleDroppedTasks: z.boolean().optional(),
-  maxTaskReschedule: z.number().optional(),
-  logLevel: LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema
-    .optional(),
-  jobTimeout: z.string().optional(),
+  rescheduleDroppedTasks: types.optional(types.boolean()),
+  maxTaskReschedule: types.optional(types.number()),
+  logLevel: types.optional(
+    LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema,
+  ),
+  jobTimeout: types.optional(types.string()),
 });
 
 export function runnableJobExecutorRunFromJSON(
@@ -110,16 +112,16 @@ export const RunnableJobExecutor$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  description: z.string().optional(),
-  type: JobTypeOptionsSavedJobCollection$inboundSchema.optional(),
-  ttl: z.string().optional(),
-  ignoreGroupJobsLimit: z.boolean().optional(),
-  removeFields: z.array(z.string()).optional(),
-  resumeOnBoot: z.boolean().optional(),
-  environment: z.string().optional(),
-  schedule: ScheduleTypeRunnableJobCollection$inboundSchema.optional(),
-  streamtags: z.array(z.string()).optional(),
+  id: types.optional(types.string()),
+  description: types.optional(types.string()),
+  type: types.optional(JobTypeOptionsSavedJobCollection$inboundSchema),
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  removeFields: types.optional(z.array(types.string())),
+  resumeOnBoot: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  schedule: types.optional(ScheduleTypeRunnableJobCollection$inboundSchema),
+  streamtags: types.optional(z.array(types.string())),
   executor: ExecutorTypeSavedJobExecutor$inboundSchema,
   run: z.lazy(() => RunnableJobExecutorRun$inboundSchema),
 });

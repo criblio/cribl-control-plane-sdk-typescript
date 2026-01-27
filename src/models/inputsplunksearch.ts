@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -280,8 +281,8 @@ export const EndpointParam$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  name: types.string(),
+  value: types.string(),
 });
 /** @internal */
 export type EndpointParam$Outbound = {
@@ -318,8 +319,8 @@ export const EndpointHeader$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  name: types.string(),
+  value: types.string(),
 });
 /** @internal */
 export type EndpointHeader$Outbound = {
@@ -382,55 +383,62 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("splunk_search"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  searchHead: z.string(),
-  search: z.string(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  cronSchedule: z.string(),
-  endpoint: z.string(),
+  id: types.optional(types.string()),
+  type: types.literal("splunk_search"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  searchHead: types.string(),
+  search: types.string(),
+  earliest: types.optional(types.string()),
+  latest: types.optional(types.string()),
+  cronSchedule: types.string(),
+  endpoint: types.string(),
   outputMode: OutputModeOptionsSplunkCollectorConf$inboundSchema,
-  endpointParams: z.array(z.lazy(() => EndpointParam$inboundSchema)).optional(),
-  endpointHeaders: z.array(z.lazy(() => EndpointHeader$inboundSchema))
-    .optional(),
-  logLevel: InputSplunkSearchLogLevel$inboundSchema.optional(),
-  requestTimeout: z.number().optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  encoding: z.string().optional(),
-  keepAliveTime: z.number().optional(),
-  jobTimeout: z.string().optional(),
-  maxMissedKeepAlives: z.number().optional(),
-  ttl: z.string().optional(),
-  ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  retryRules: RetryRulesType$inboundSchema.optional(),
-  breakerRulesets: z.array(z.string()).optional(),
-  staleChannelFlushMs: z.number().optional(),
-  authType: InputSplunkSearchAuthenticationType$inboundSchema.optional(),
-  description: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  endpointParams: types.optional(
+    z.array(z.lazy(() => EndpointParam$inboundSchema)),
+  ),
+  endpointHeaders: types.optional(
+    z.array(z.lazy(() => EndpointHeader$inboundSchema)),
+  ),
+  logLevel: types.optional(InputSplunkSearchLogLevel$inboundSchema),
+  requestTimeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  encoding: types.optional(types.string()),
+  keepAliveTime: types.optional(types.number()),
+  jobTimeout: types.optional(types.string()),
+  maxMissedKeepAlives: types.optional(types.number()),
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  retryRules: types.optional(RetryRulesType$inboundSchema),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  authType: types.optional(InputSplunkSearchAuthenticationType$inboundSchema),
+  description: types.optional(types.string()),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+  loginUrl: types.optional(types.string()),
+  secretParamName: types.optional(types.string()),
+  secret: types.optional(types.string()),
+  tokenAttributeName: types.optional(types.string()),
+  authHeaderExpr: types.optional(types.string()),
+  tokenTimeoutSecs: types.optional(types.number()),
+  oauthParams: types.optional(z.array(ItemsTypeOauthParams$inboundSchema)),
+  oauthHeaders: types.optional(z.array(ItemsTypeOauthHeaders$inboundSchema)),
 });
 /** @internal */
 export type InputSplunkSearch$Outbound = {

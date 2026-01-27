@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const FunctionConfSchemaPublishMetricsMetricType = {
@@ -89,8 +90,8 @@ export const FunctionConfSchemaPublishMetricsField$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  inFieldName: z.string(),
-  outFieldExpr: z.string().optional(),
+  inFieldName: types.string(),
+  outFieldExpr: types.optional(types.string()),
   metricType: FunctionConfSchemaPublishMetricsMetricType$inboundSchema,
 });
 /** @internal */
@@ -137,13 +138,13 @@ export const FunctionConfSchemaPublishMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  fields: z.array(
-    z.lazy(() => FunctionConfSchemaPublishMetricsField$inboundSchema),
-  ).optional(),
-  overwrite: z.boolean().optional(),
-  dimensions: z.array(z.string()).optional(),
-  removeMetrics: z.array(z.string()).optional(),
-  removeDimensions: z.array(z.string()).optional(),
+  fields: types.optional(
+    z.array(z.lazy(() => FunctionConfSchemaPublishMetricsField$inboundSchema)),
+  ),
+  overwrite: types.optional(types.boolean()),
+  dimensions: types.optional(z.array(types.string())),
+  removeMetrics: types.optional(z.array(types.string())),
+  removeDimensions: types.optional(z.array(types.string())),
 });
 /** @internal */
 export type FunctionConfSchemaPublishMetrics$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AdditionalPropertiesTypeJobInfoStats,
   AdditionalPropertiesTypeJobInfoStats$inboundSchema,
@@ -25,8 +26,8 @@ export type JobInfo = {
 export const JobInfo$inboundSchema: z.ZodType<JobInfo, z.ZodTypeDef, unknown> =
   z.object({
     args: RunnableJob$inboundSchema,
-    id: z.string(),
-    keep: z.boolean().optional(),
+    id: types.string(),
+    keep: types.optional(types.boolean()),
     stats: z.record(AdditionalPropertiesTypeJobInfoStats$inboundSchema),
     status: JobStatus$inboundSchema,
   });

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type DistinctConfiguration = {
@@ -64,11 +65,11 @@ export const DistinctConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  groupBy: z.array(z.string()),
-  maxCombinations: z.number().optional(),
-  maxDepth: z.number().optional(),
-  isFederated: z.boolean().optional(),
-  suppressPreviews: z.boolean().optional(),
+  groupBy: z.array(types.string()),
+  maxCombinations: types.optional(types.number()),
+  maxDepth: types.optional(types.number()),
+  isFederated: types.optional(types.boolean()),
+  suppressPreviews: types.optional(types.boolean()),
 });
 /** @internal */
 export type DistinctConfiguration$Outbound = {
@@ -115,13 +116,13 @@ export const PipelineFunctionDistinct$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("distinct"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("distinct"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => DistinctConfiguration$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionDistinct$Outbound = {
