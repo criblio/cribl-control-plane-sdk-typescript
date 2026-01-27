@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type SimplePivotConfiguration = {
@@ -56,9 +57,9 @@ export const SimplePivotConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  labelField: z.string(),
-  dataFields: z.array(z.string()),
-  qualifierFields: z.array(z.string()),
+  labelField: types.string(),
+  dataFields: z.array(types.string()),
+  qualifierFields: z.array(types.string()),
 });
 /** @internal */
 export type SimplePivotConfiguration$Outbound = {
@@ -101,13 +102,13 @@ export const PipelineFunctionPivot$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("pivot"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("pivot"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => SimplePivotConfiguration$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionPivot$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ResourcePolicy,
@@ -23,7 +24,7 @@ export const TeamAccessControlList$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   perms: z.array(ResourcePolicy$inboundSchema),
-  team: z.string(),
+  team: types.string(),
 });
 
 export function teamAccessControlListFromJSON(

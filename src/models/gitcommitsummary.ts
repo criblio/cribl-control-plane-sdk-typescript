@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FilesTypeGitCommitSummary,
@@ -33,8 +34,8 @@ export type GitCommitSummary = {
 /** @internal */
 export const Author$inboundSchema: z.ZodType<Author, z.ZodTypeDef, unknown> = z
   .object({
-    email: z.string(),
-    name: z.string(),
+    email: types.string(),
+    name: types.string(),
   });
 
 export function authorFromJSON(
@@ -50,9 +51,9 @@ export function authorFromJSON(
 /** @internal */
 export const Summary$inboundSchema: z.ZodType<Summary, z.ZodTypeDef, unknown> =
   z.object({
-    changes: z.number(),
-    deletions: z.number(),
-    insertions: z.number(),
+    changes: types.number(),
+    deletions: types.number(),
+    insertions: types.number(),
   });
 
 export function summaryFromJSON(
@@ -71,10 +72,10 @@ export const GitCommitSummary$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  author: z.lazy(() => Author$inboundSchema).optional(),
-  branch: z.string(),
-  commit: z.string(),
-  files: FilesTypeGitCommitSummary$inboundSchema.optional(),
+  author: types.optional(z.lazy(() => Author$inboundSchema)),
+  branch: types.string(),
+  commit: types.string(),
+  files: types.optional(FilesTypeGitCommitSummary$inboundSchema),
   summary: z.lazy(() => Summary$inboundSchema),
 });
 

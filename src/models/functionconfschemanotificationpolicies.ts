@@ -7,6 +7,8 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypePoliciesItemsTemplateTargetPairs,
@@ -105,8 +107,8 @@ export const Operator$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(Operator);
 
 /** @internal */
-export const Value$inboundSchema: z.ZodType<Value, z.ZodTypeDef, unknown> = z
-  .union([z.string(), z.number(), z.boolean()]);
+export const Value$inboundSchema: z.ZodType<Value, z.ZodTypeDef, unknown> =
+  smartUnion([types.string(), types.number(), types.boolean()]);
 /** @internal */
 export type Value$Outbound = string | number | boolean;
 
@@ -115,7 +117,7 @@ export const Value$outboundSchema: z.ZodType<
   Value$Outbound,
   z.ZodTypeDef,
   Value
-> = z.union([z.string(), z.number(), z.boolean()]);
+> = smartUnion([z.string(), z.number(), z.boolean()]);
 
 export function valueToJSON(value: Value): string {
   return JSON.stringify(Value$outboundSchema.parse(value));
@@ -136,9 +138,9 @@ export const Condition$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  key: z.string(),
+  key: types.string(),
   operator: Operator$inboundSchema,
-  value: z.union([z.string(), z.number(), z.boolean()]),
+  value: smartUnion([types.string(), types.number(), types.boolean()]),
 });
 /** @internal */
 export type Condition$Outbound = {
@@ -155,7 +157,7 @@ export const Condition$outboundSchema: z.ZodType<
 > = z.object({
   key: z.string(),
   operator: Operator$outboundSchema,
-  value: z.union([z.string(), z.number(), z.boolean()]),
+  value: smartUnion([z.string(), z.number(), z.boolean()]),
 });
 
 export function conditionToJSON(condition: Condition): string {
@@ -174,17 +176,18 @@ export function conditionFromJSON(
 /** @internal */
 export const Policy$inboundSchema: z.ZodType<Policy, z.ZodTypeDef, unknown> = z
   .object({
-    id: z.string(),
-    disabled: z.boolean().optional(),
-    waitToGroup: z.number().optional(),
-    groupByLabels: z.array(z.string()).optional(),
-    conditions: z.array(z.array(z.lazy(() => Condition$inboundSchema)))
-      .optional(),
+    id: types.string(),
+    disabled: types.optional(types.boolean()),
+    waitToGroup: types.optional(types.number()),
+    groupByLabels: types.optional(z.array(types.string())),
+    conditions: types.optional(
+      z.array(z.array(z.lazy(() => Condition$inboundSchema))),
+    ),
     templateTargetPairs: z.array(
       ItemsTypePoliciesItemsTemplateTargetPairs$inboundSchema,
     ),
-    final: z.boolean().optional(),
-    order: z.number(),
+    final: types.optional(types.boolean()),
+    order: types.number(),
   });
 /** @internal */
 export type Policy$Outbound = {
@@ -238,7 +241,7 @@ export const FunctionConfSchemaNotificationPolicies$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  policies: z.array(z.lazy(() => Policy$inboundSchema)).optional(),
+  policies: types.optional(z.array(z.lazy(() => Policy$inboundSchema))),
 });
 /** @internal */
 export type FunctionConfSchemaNotificationPolicies$Outbound = {

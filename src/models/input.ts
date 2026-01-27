@@ -4,6 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
+import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -427,74 +429,79 @@ export type Input =
   | InputNetflow
   | InputSecurityLake
   | InputZscalerHec
-  | InputCloudflareHec;
+  | InputCloudflareHec
+  | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
-export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
-  .union([
-    InputCollection$inboundSchema,
-    InputKafka$inboundSchema,
-    InputMsk$inboundSchema,
-    InputHttp$inboundSchema,
-    InputSplunk$inboundSchema,
-    InputSplunkSearch$inboundSchema,
-    InputSplunkHec$inboundSchema.and(
+export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> =
+  discriminatedUnion("type", {
+    collection: InputCollection$inboundSchema,
+    kafka: InputKafka$inboundSchema,
+    msk: InputMsk$inboundSchema,
+    http: InputHttp$inboundSchema,
+    splunk: InputSplunk$inboundSchema,
+    splunk_search: InputSplunkSearch$inboundSchema,
+    splunk_hec: InputSplunkHec$inboundSchema.and(
       z.object({ type: z.literal("splunk_hec") }),
     ),
-    InputAzureBlob$inboundSchema,
-    InputElastic$inboundSchema,
-    InputConfluentCloud$inboundSchema,
-    InputGrafana$inboundSchema.and(z.object({ type: z.literal("grafana") })),
-    InputLoki$inboundSchema,
-    InputPrometheusRw$inboundSchema,
-    InputPrometheus$inboundSchema,
-    InputEdgePrometheus$inboundSchema,
-    InputOffice365Mgmt$inboundSchema,
-    InputOffice365Service$inboundSchema,
-    InputOffice365MsgTrace$inboundSchema,
-    InputEventhub$inboundSchema,
-    InputExec$inboundSchema,
-    InputFirehose$inboundSchema,
-    InputGooglePubsub$inboundSchema,
-    InputCribl$inboundSchema,
-    InputCriblTcp$inboundSchema,
-    InputCriblHttp$inboundSchema,
-    InputCriblLakeHttp$inboundSchema,
-    InputTcpjson$inboundSchema,
-    InputSystemMetrics$inboundSchema,
-    InputSystemState$inboundSchema,
-    InputKubeMetrics$inboundSchema,
-    InputKubeLogs$inboundSchema,
-    InputKubeEvents$inboundSchema,
-    InputWindowsMetrics$inboundSchema,
-    InputCrowdstrike$inboundSchema,
-    InputDatadogAgent$inboundSchema,
-    InputDatagen$inboundSchema,
-    InputHttpRaw$inboundSchema,
-    InputKinesis$inboundSchema,
-    InputCriblmetrics$inboundSchema,
-    InputMetrics$inboundSchema,
-    InputS3$inboundSchema,
-    InputS3Inventory$inboundSchema,
-    InputSnmp$inboundSchema,
-    InputOpenTelemetry$inboundSchema,
-    InputModelDrivenTelemetry$inboundSchema,
-    InputSqs$inboundSchema,
-    InputSyslog$inboundSchema.and(z.object({ type: z.literal("syslog") })),
-    InputFile$inboundSchema,
-    InputTcp$inboundSchema,
-    InputAppscope$inboundSchema,
-    InputWef$inboundSchema,
-    InputWinEventLogs$inboundSchema,
-    InputRawUdp$inboundSchema,
-    InputJournalFiles$inboundSchema,
-    InputWiz$inboundSchema,
-    InputWizWebhook$inboundSchema,
-    InputNetflow$inboundSchema,
-    InputSecurityLake$inboundSchema,
-    InputZscalerHec$inboundSchema,
-    InputCloudflareHec$inboundSchema,
-  ]);
+    azure_blob: InputAzureBlob$inboundSchema,
+    elastic: InputElastic$inboundSchema,
+    confluent_cloud: InputConfluentCloud$inboundSchema,
+    grafana: InputGrafana$inboundSchema.and(
+      z.object({ type: z.literal("grafana") }),
+    ),
+    loki: InputLoki$inboundSchema,
+    prometheus_rw: InputPrometheusRw$inboundSchema,
+    prometheus: InputPrometheus$inboundSchema,
+    edge_prometheus: InputEdgePrometheus$inboundSchema,
+    office365_mgmt: InputOffice365Mgmt$inboundSchema,
+    office365_service: InputOffice365Service$inboundSchema,
+    office365_msg_trace: InputOffice365MsgTrace$inboundSchema,
+    eventhub: InputEventhub$inboundSchema,
+    exec: InputExec$inboundSchema,
+    firehose: InputFirehose$inboundSchema,
+    google_pubsub: InputGooglePubsub$inboundSchema,
+    cribl: InputCribl$inboundSchema,
+    cribl_tcp: InputCriblTcp$inboundSchema,
+    cribl_http: InputCriblHttp$inboundSchema,
+    cribl_lake_http: InputCriblLakeHttp$inboundSchema,
+    tcpjson: InputTcpjson$inboundSchema,
+    system_metrics: InputSystemMetrics$inboundSchema,
+    system_state: InputSystemState$inboundSchema,
+    kube_metrics: InputKubeMetrics$inboundSchema,
+    kube_logs: InputKubeLogs$inboundSchema,
+    kube_events: InputKubeEvents$inboundSchema,
+    windows_metrics: InputWindowsMetrics$inboundSchema,
+    crowdstrike: InputCrowdstrike$inboundSchema,
+    datadog_agent: InputDatadogAgent$inboundSchema,
+    datagen: InputDatagen$inboundSchema,
+    http_raw: InputHttpRaw$inboundSchema,
+    kinesis: InputKinesis$inboundSchema,
+    criblmetrics: InputCriblmetrics$inboundSchema,
+    metrics: InputMetrics$inboundSchema,
+    s3: InputS3$inboundSchema,
+    s3_inventory: InputS3Inventory$inboundSchema,
+    snmp: InputSnmp$inboundSchema,
+    open_telemetry: InputOpenTelemetry$inboundSchema,
+    model_driven_telemetry: InputModelDrivenTelemetry$inboundSchema,
+    sqs: InputSqs$inboundSchema,
+    syslog: InputSyslog$inboundSchema.and(
+      z.object({ type: z.literal("syslog") }),
+    ),
+    file: InputFile$inboundSchema,
+    tcp: InputTcp$inboundSchema,
+    appscope: InputAppscope$inboundSchema,
+    wef: InputWef$inboundSchema,
+    win_event_logs: InputWinEventLogs$inboundSchema,
+    raw_udp: InputRawUdp$inboundSchema,
+    journal_files: InputJournalFiles$inboundSchema,
+    wiz: InputWiz$inboundSchema,
+    wiz_webhook: InputWizWebhook$inboundSchema,
+    netflow: InputNetflow$inboundSchema,
+    security_lake: InputSecurityLake$inboundSchema,
+    zscaler_hec: InputZscalerHec$inboundSchema,
+    cloudflare_hec: InputCloudflareHec$inboundSchema,
+  });
 /** @internal */
 export type Input$Outbound =
   | InputCollection$Outbound

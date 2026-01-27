@@ -5,6 +5,8 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AdditionalPropertiesTypeJobInfoStats = number | {
@@ -16,7 +18,7 @@ export const AdditionalPropertiesTypeJobInfoStats$inboundSchema: z.ZodType<
   AdditionalPropertiesTypeJobInfoStats,
   z.ZodTypeDef,
   unknown
-> = z.union([z.number(), z.record(z.number())]);
+> = smartUnion([types.number(), z.record(types.number())]);
 
 export function additionalPropertiesTypeJobInfoStatsFromJSON(
   jsonString: string,

@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   DataCompressionFormatOptionsPersistence,
   DataCompressionFormatOptionsPersistence$inboundSchema,
@@ -445,8 +446,8 @@ export const InputSystemMetricsSystem$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSystemMetricsSystemMode$inboundSchema.optional(),
-  processes: z.boolean().optional(),
+  mode: types.optional(InputSystemMetricsSystemMode$inboundSchema),
+  processes: types.optional(types.boolean()),
 });
 /** @internal */
 export type InputSystemMetricsSystem$Outbound = {
@@ -500,10 +501,10 @@ export const InputSystemMetricsCpu$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSystemMetricsCpuMode$inboundSchema.optional(),
-  perCpu: z.boolean().optional(),
-  detail: z.boolean().optional(),
-  time: z.boolean().optional(),
+  mode: types.optional(InputSystemMetricsCpuMode$inboundSchema),
+  perCpu: types.optional(types.boolean()),
+  detail: types.optional(types.boolean()),
+  time: types.optional(types.boolean()),
 });
 /** @internal */
 export type InputSystemMetricsCpu$Outbound = {
@@ -561,8 +562,8 @@ export const InputSystemMetricsMemory$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSystemMetricsMemoryMode$inboundSchema.optional(),
-  detail: z.boolean().optional(),
+  mode: types.optional(InputSystemMetricsMemoryMode$inboundSchema),
+  detail: types.optional(types.boolean()),
 });
 /** @internal */
 export type InputSystemMetricsMemory$Outbound = {
@@ -616,11 +617,11 @@ export const InputSystemMetricsNetwork$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSystemMetricsNetworkMode$inboundSchema.optional(),
-  detail: z.boolean().optional(),
-  protocols: z.boolean().optional(),
-  devices: z.array(z.string()).optional(),
-  perInterface: z.boolean().optional(),
+  mode: types.optional(InputSystemMetricsNetworkMode$inboundSchema),
+  detail: types.optional(types.boolean()),
+  protocols: types.optional(types.boolean()),
+  devices: types.optional(z.array(types.string())),
+  perInterface: types.optional(types.boolean()),
 });
 /** @internal */
 export type InputSystemMetricsNetwork$Outbound = {
@@ -680,13 +681,13 @@ export const InputSystemMetricsDisk$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSystemMetricsDiskMode$inboundSchema.optional(),
-  detail: z.boolean().optional(),
-  inodes: z.boolean().optional(),
-  devices: z.array(z.string()).optional(),
-  mountpoints: z.array(z.string()).optional(),
-  fstypes: z.array(z.string()).optional(),
-  perDevice: z.boolean().optional(),
+  mode: types.optional(InputSystemMetricsDiskMode$inboundSchema),
+  detail: types.optional(types.boolean()),
+  inodes: types.optional(types.boolean()),
+  devices: types.optional(z.array(types.string())),
+  mountpoints: types.optional(z.array(types.string())),
+  fstypes: types.optional(z.array(types.string())),
+  perDevice: types.optional(types.boolean()),
 });
 /** @internal */
 export type InputSystemMetricsDisk$Outbound = {
@@ -737,11 +738,13 @@ export const InputSystemMetricsCustom$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  system: z.lazy(() => InputSystemMetricsSystem$inboundSchema).optional(),
-  cpu: z.lazy(() => InputSystemMetricsCpu$inboundSchema).optional(),
-  memory: z.lazy(() => InputSystemMetricsMemory$inboundSchema).optional(),
-  network: z.lazy(() => InputSystemMetricsNetwork$inboundSchema).optional(),
-  disk: z.lazy(() => InputSystemMetricsDisk$inboundSchema).optional(),
+  system: types.optional(z.lazy(() => InputSystemMetricsSystem$inboundSchema)),
+  cpu: types.optional(z.lazy(() => InputSystemMetricsCpu$inboundSchema)),
+  memory: types.optional(z.lazy(() => InputSystemMetricsMemory$inboundSchema)),
+  network: types.optional(
+    z.lazy(() => InputSystemMetricsNetwork$inboundSchema),
+  ),
+  disk: types.optional(z.lazy(() => InputSystemMetricsDisk$inboundSchema)),
 });
 /** @internal */
 export type InputSystemMetricsCustom$Outbound = {
@@ -788,8 +791,8 @@ export const InputSystemMetricsHost$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: ModeOptionsHost$inboundSchema.optional(),
-  custom: z.lazy(() => InputSystemMetricsCustom$inboundSchema).optional(),
+  mode: types.optional(ModeOptionsHost$inboundSchema),
+  custom: types.optional(z.lazy(() => InputSystemMetricsCustom$inboundSchema)),
 });
 /** @internal */
 export type InputSystemMetricsHost$Outbound = {
@@ -843,7 +846,7 @@ export const InputSystemMetricsFilter$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  expr: z.string(),
+  expr: types.string(),
 });
 /** @internal */
 export type InputSystemMetricsFilter$Outbound = {
@@ -882,14 +885,15 @@ export const Container$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: ContainerMode$inboundSchema.optional(),
-  dockerSocket: z.array(z.string()).optional(),
-  dockerTimeout: z.number().optional(),
-  filters: z.array(z.lazy(() => InputSystemMetricsFilter$inboundSchema))
-    .optional(),
-  allContainers: z.boolean().optional(),
-  perDevice: z.boolean().optional(),
-  detail: z.boolean().optional(),
+  mode: types.optional(ContainerMode$inboundSchema),
+  dockerSocket: types.optional(z.array(types.string())),
+  dockerTimeout: types.optional(types.number()),
+  filters: types.optional(
+    z.array(z.lazy(() => InputSystemMetricsFilter$inboundSchema)),
+  ),
+  allContainers: types.optional(types.boolean()),
+  perDevice: types.optional(types.boolean()),
+  detail: types.optional(types.boolean()),
 });
 /** @internal */
 export type Container$Outbound = {
@@ -937,12 +941,14 @@ export const InputSystemMetricsPersistence$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  enable: z.boolean().optional(),
-  timeWindow: z.string().optional(),
-  maxDataSize: z.string().optional(),
-  maxDataTime: z.string().optional(),
-  compress: DataCompressionFormatOptionsPersistence$inboundSchema.optional(),
-  destPath: z.string().optional(),
+  enable: types.optional(types.boolean()),
+  timeWindow: types.optional(types.string()),
+  maxDataSize: types.optional(types.string()),
+  maxDataTime: types.optional(types.string()),
+  compress: types.optional(
+    DataCompressionFormatOptionsPersistence$inboundSchema,
+  ),
+  destPath: types.optional(types.string()),
 });
 /** @internal */
 export type InputSystemMetricsPersistence$Outbound = {
@@ -993,24 +999,29 @@ export const InputSystemMetrics$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("system_metrics"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  interval: z.number().optional(),
-  host: z.lazy(() => InputSystemMetricsHost$inboundSchema).optional(),
-  process: ProcessType$inboundSchema.optional(),
-  container: z.lazy(() => Container$inboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  persistence: z.lazy(() => InputSystemMetricsPersistence$inboundSchema)
-    .optional(),
-  description: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("system_metrics"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  interval: types.optional(types.number()),
+  host: types.optional(z.lazy(() => InputSystemMetricsHost$inboundSchema)),
+  process: types.optional(ProcessType$inboundSchema),
+  container: types.optional(z.lazy(() => Container$inboundSchema)),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  persistence: types.optional(
+    z.lazy(() => InputSystemMetricsPersistence$inboundSchema),
+  ),
+  description: types.optional(types.string()),
 });
 /** @internal */
 export type InputSystemMetrics$Outbound = {

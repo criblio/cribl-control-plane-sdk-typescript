@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
@@ -260,9 +261,9 @@ export const CustomLabel$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  key: z.string(),
-  value: z.string(),
-  rbacEnabled: z.boolean().optional(),
+  key: types.string(),
+  value: types.string(),
+  rbacEnabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type CustomLabel$Outbound = {
@@ -334,55 +335,64 @@ export const OutputChronicle$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("chronicle"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  apiVersion: z.string().optional(),
-  authenticationMethod: OutputChronicleAuthenticationMethod$inboundSchema
-    .optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  region: z.string(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  compress: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
-  totalMemoryLimitKB: z.number().optional(),
-  ingestionMethod: z.string().optional(),
-  namespace: z.string().optional(),
-  logType: z.string(),
-  logTextField: z.string().optional(),
-  gcpProjectId: z.string(),
-  gcpInstance: z.string(),
-  customLabels: z.array(z.lazy(() => CustomLabel$inboundSchema)).optional(),
-  description: z.string().optional(),
-  serviceAccountCredentials: z.string().optional(),
-  serviceAccountCredentialsSecret: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: ModeOptions$inboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
-  pqControls: z.lazy(() => OutputChroniclePqControls$inboundSchema).optional(),
+  id: types.optional(types.string()),
+  type: types.literal("chronicle"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  apiVersion: types.optional(types.string()),
+  authenticationMethod: types.optional(
+    OutputChronicleAuthenticationMethod$inboundSchema,
+  ),
+  responseRetrySettings: types.optional(
+    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+  ),
+  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
+  responseHonorRetryAfterHeader: types.optional(types.boolean()),
+  region: types.string(),
+  concurrency: types.optional(types.number()),
+  maxPayloadSizeKB: types.optional(types.number()),
+  maxPayloadEvents: types.optional(types.number()),
+  compress: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  timeoutSec: types.optional(types.number()),
+  flushPeriodSec: types.optional(types.number()),
+  extraHttpHeaders: types.optional(
+    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+  ),
+  failedRequestLoggingMode: types.optional(
+    FailedRequestLoggingModeOptions$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  useRoundRobinDns: types.optional(types.boolean()),
+  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
+  totalMemoryLimitKB: types.optional(types.number()),
+  ingestionMethod: types.optional(types.string()),
+  namespace: types.optional(types.string()),
+  logType: types.string(),
+  logTextField: types.optional(types.string()),
+  gcpProjectId: types.string(),
+  gcpInstance: types.string(),
+  customLabels: types.optional(
+    z.array(z.lazy(() => CustomLabel$inboundSchema)),
+  ),
+  description: types.optional(types.string()),
+  serviceAccountCredentials: types.optional(types.string()),
+  serviceAccountCredentialsSecret: types.optional(types.string()),
+  pqStrictOrdering: types.optional(types.boolean()),
+  pqRatePerSec: types.optional(types.number()),
+  pqMode: types.optional(ModeOptions$inboundSchema),
+  pqMaxBufferSize: types.optional(types.number()),
+  pqMaxBackpressureSec: types.optional(types.number()),
+  pqMaxFileSize: types.optional(types.string()),
+  pqMaxSize: types.optional(types.string()),
+  pqPath: types.optional(types.string()),
+  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
+  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqControls: types.optional(
+    z.lazy(() => OutputChroniclePqControls$inboundSchema),
+  ),
 });
 /** @internal */
 export type OutputChronicle$Outbound = {

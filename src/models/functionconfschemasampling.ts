@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type FunctionConfSchemaSamplingRule = {
@@ -31,8 +32,8 @@ export const FunctionConfSchemaSamplingRule$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string(),
-  rate: z.number().int(),
+  filter: types.string(),
+  rate: types.number(),
 });
 /** @internal */
 export type FunctionConfSchemaSamplingRule$Outbound = {
@@ -75,8 +76,9 @@ export const FunctionConfSchemaSampling$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rules: z.array(z.lazy(() => FunctionConfSchemaSamplingRule$inboundSchema))
-    .optional(),
+  rules: types.optional(
+    z.array(z.lazy(() => FunctionConfSchemaSamplingRule$inboundSchema)),
+  ),
 });
 /** @internal */
 export type FunctionConfSchemaSampling$Outbound = {

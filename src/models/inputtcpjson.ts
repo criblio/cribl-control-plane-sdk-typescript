@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsAuthTokensItems,
   AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
@@ -130,31 +131,37 @@ export const InputTcpjson$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("tcpjson"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  host: z.string(),
-  port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  ipWhitelistRegex: z.string().optional(),
-  maxActiveCxn: z.number().optional(),
-  socketIdleTimeout: z.number().optional(),
-  socketEndingMaxWait: z.number().optional(),
-  socketMaxLifespan: z.number().optional(),
-  enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  enableLoadBalancing: z.boolean().optional(),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.optional(),
-  description: z.string().optional(),
-  authToken: z.string().optional(),
-  textSecret: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("tcpjson"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(TlsSettingsServerSideType$inboundSchema),
+  ipWhitelistRegex: types.optional(types.string()),
+  maxActiveCxn: types.optional(types.number()),
+  socketIdleTimeout: types.optional(types.number()),
+  socketEndingMaxWait: types.optional(types.number()),
+  socketMaxLifespan: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  enableLoadBalancing: types.optional(types.boolean()),
+  authType: types.optional(
+    AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  ),
+  description: types.optional(types.string()),
+  authToken: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type InputTcpjson$Outbound = {

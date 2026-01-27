@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   CacheConnectionBackfillStatus,
   CacheConnectionBackfillStatus$inboundSchema,
@@ -33,13 +34,15 @@ export const CacheConnection$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  acceleratedFields: z.array(z.string()).optional(),
-  backfillStatus: CacheConnectionBackfillStatus$inboundSchema.optional(),
-  cacheRef: z.string(),
-  createdAt: z.number(),
-  lakehouseConnectionType: LakehouseConnectionType$inboundSchema.optional(),
-  migrationQueryId: z.string().optional(),
-  retentionInDays: z.number(),
+  acceleratedFields: types.optional(z.array(types.string())),
+  backfillStatus: types.optional(CacheConnectionBackfillStatus$inboundSchema),
+  cacheRef: types.string(),
+  createdAt: types.number(),
+  lakehouseConnectionType: types.optional(
+    LakehouseConnectionType$inboundSchema,
+  ),
+  migrationQueryId: types.optional(types.string()),
+  retentionInDays: types.number(),
 });
 /** @internal */
 export type CacheConnection$Outbound = {

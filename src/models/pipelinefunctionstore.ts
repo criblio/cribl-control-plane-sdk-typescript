@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -122,16 +123,16 @@ export const StoreFunctionConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.string(),
-  destination: z.string().optional(),
-  description: z.string().optional(),
-  fieldMapping: z.lazy(() => MappingOfFieldNames$inboundSchema).optional(),
-  separator: z.string().optional(),
-  overwrite: z.boolean().optional(),
-  compress: z.string().optional(),
-  tee: z.boolean().optional(),
-  maxEvents: z.number().optional(),
-  suppressPreviews: z.boolean().optional(),
+  type: types.string(),
+  destination: types.optional(types.string()),
+  description: types.optional(types.string()),
+  fieldMapping: types.optional(z.lazy(() => MappingOfFieldNames$inboundSchema)),
+  separator: types.optional(types.string()),
+  overwrite: types.optional(types.boolean()),
+  compress: types.optional(types.string()),
+  tee: types.optional(types.boolean()),
+  maxEvents: types.optional(types.number()),
+  suppressPreviews: types.optional(types.boolean()),
 });
 /** @internal */
 export type StoreFunctionConfiguration$Outbound = {
@@ -188,13 +189,13 @@ export const PipelineFunctionStore$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("store"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("store"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => StoreFunctionConfiguration$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionStore$Outbound = {

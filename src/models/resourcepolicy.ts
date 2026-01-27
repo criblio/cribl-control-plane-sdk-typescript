@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { RbacResource, RbacResource$inboundSchema } from "./rbacresource.js";
 
@@ -21,9 +22,9 @@ export const ResourcePolicy$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  gid: z.string(),
-  id: z.string().optional(),
-  policy: z.string(),
+  gid: types.string(),
+  id: types.optional(types.string()),
+  policy: types.string(),
   type: RbacResource$inboundSchema,
 });
 
