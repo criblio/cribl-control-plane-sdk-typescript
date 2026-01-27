@@ -1,11 +1,11 @@
-# UpdatePipelineByIdRequest
+# UpdatePipelinesByIdRequest
 
 ## Example Usage
 
 ```typescript
-import { UpdatePipelineByIdRequest } from "cribl-control-plane/models/operations";
+import { UpdatePipelinesByIdRequest } from "cribl-control-plane/models/operations";
 
-let value: UpdatePipelineByIdRequest = {
+let value: UpdatePipelinesByIdRequest = {
   id: "<id>",
   pipeline: {
     id: "<id>",

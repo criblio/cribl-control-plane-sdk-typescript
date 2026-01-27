@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function pipelinesUpdate(
   client: CriblControlPlaneCore,
-  request: operations.UpdatePipelineByIdRequest,
+  request: operations.UpdatePipelinesByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function pipelinesUpdate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.UpdatePipelineByIdRequest,
+  request: operations.UpdatePipelinesByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,7 +80,8 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.UpdatePipelineByIdRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.UpdatePipelinesByIdRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -109,7 +110,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "updatePipelineById",
+    operationID: "updatePipelinesById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

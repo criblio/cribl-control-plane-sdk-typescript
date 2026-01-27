@@ -26,12 +26,12 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.system.captures.create({
     duration: 5,
-    filter: "true",
+    filter: "sourcetype===\"pan:traffic\"",
     level: 0,
     maxEvents: 100,
-    stepDuration: 571732,
+    stepDuration: 994184,
     workerId: "<id>",
-    workerThreshold: 609412,
+    workerThreshold: 771620,
   });
 
   for await (const event of result) {
@@ -63,12 +63,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await systemCapturesCreate(criblControlPlane, {
     duration: 5,
-    filter: "true",
+    filter: "sourcetype===\"pan:traffic\"",
     level: 0,
     maxEvents: 100,
-    stepDuration: 571732,
+    stepDuration: 994184,
     workerId: "<id>",
-    workerThreshold: 609412,
+    workerThreshold: 771620,
   });
   if (res.ok) {
     const { value: result } = res;

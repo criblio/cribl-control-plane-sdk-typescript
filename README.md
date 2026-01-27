@@ -266,8 +266,8 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
-* [list](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker and Edge Nodes
-* [count](docs/sdks/nodes/README.md#count) - Get a count of Worker and Edge Nodes
+* [~~count~~](docs/sdks/nodes/README.md#count) - Get a count of Worker and Edge Nodes :warning: **Deprecated**
+* [~~list~~](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker and Edge Nodes :warning: **Deprecated**
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
@@ -284,17 +284,17 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
-* [list](docs/sdks/pipelines/README.md#list) - List all Pipelines
 * [create](docs/sdks/pipelines/README.md#create) - Create a Pipeline
+* [list](docs/sdks/pipelines/README.md#list) - List all Pipelines
+* [delete](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
 * [get](docs/sdks/pipelines/README.md#get) - Get a Pipeline
 * [update](docs/sdks/pipelines/README.md#update) - Update a Pipeline
-* [delete](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
 
 ### [Routes](docs/sdks/routes/README.md)
 
-* [list](docs/sdks/routes/README.md#list) - List all Routes
 * [get](docs/sdks/routes/README.md#get) - Get a Routing table
 * [update](docs/sdks/routes/README.md#update) - Update a Route
+* [list](docs/sdks/routes/README.md#list) - List all Routes
 * [append](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)
@@ -401,8 +401,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`lakeDatasetsGet`](docs/sdks/lakedatasets/README.md#get) - Get a Lake Dataset
 - [`lakeDatasetsList`](docs/sdks/lakedatasets/README.md#list) - List all Lake Datasets
 - [`lakeDatasetsUpdate`](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset
-- [`nodesCount`](docs/sdks/nodes/README.md#count) - Get a count of Worker and Edge Nodes
-- [`nodesList`](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker and Edge Nodes
 - [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 - [`packsGet`](docs/sdks/packs/README.md#get) - Get a Pack
@@ -442,6 +440,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`versionsCommitsUndo`](docs/sdks/commits/README.md#undo) - Discard uncommitted (staged) changes
 - [`versionsConfigsGet`](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
 - [`versionsStatusesGet`](docs/sdks/statuses/README.md#get) - Get the status of the current working tree
+- ~~[`nodesCount`](docs/sdks/nodes/README.md#count)~~ - Get a count of Worker and Edge Nodes :warning: **Deprecated**
+- ~~[`nodesList`](docs/sdks/nodes/README.md#list)~~ - Get detailed metadata for Worker and Edge Nodes :warning: **Deprecated**
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
@@ -466,12 +466,12 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.system.captures.create({
     duration: 5,
-    filter: "true",
+    filter: "sourcetype===\"pan:traffic\"",
     level: 0,
     maxEvents: 100,
-    stepDuration: 571732,
+    stepDuration: 994184,
     workerId: "<id>",
-    workerThreshold: 609412,
+    workerThreshold: 771620,
   });
 
   for await (const event of result) {
