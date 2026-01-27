@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   Commit,
   Commit$inboundSchema,
@@ -25,9 +26,9 @@ export const GitTypeConfigGroup$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  commit: z.string().optional(),
-  localChanges: z.number().optional(),
-  log: z.array(Commit$inboundSchema).optional(),
+  commit: types.optional(types.string()),
+  localChanges: types.optional(types.number()),
+  log: types.optional(z.array(Commit$inboundSchema)),
 });
 /** @internal */
 export type GitTypeConfigGroup$Outbound = {

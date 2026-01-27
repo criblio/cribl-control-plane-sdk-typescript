@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptions2,
   AuthenticationMethodOptions2$inboundSchema,
@@ -260,7 +261,7 @@ export const Metadatum$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   name: FieldName$inboundSchema,
-  value: z.string(),
+  value: types.string(),
 });
 /** @internal */
 export type Metadatum$Outbound = {
@@ -330,50 +331,56 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("newrelic"),
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  region: RegionOptions$inboundSchema.optional(),
-  logType: z.string().optional(),
-  messageField: z.string().optional(),
-  metadata: z.array(z.lazy(() => Metadatum$inboundSchema)).optional(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  compress: z.boolean().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
-    .optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.optional(),
-  authType: AuthenticationMethodOptions2$inboundSchema.optional(),
-  totalMemoryLimitKB: z.number().optional(),
-  description: z.string().optional(),
-  customUrl: z.string().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: ModeOptions$inboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: CompressionOptionsPq$inboundSchema.optional(),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.optional(),
-  pqControls: z.lazy(() => OutputNewrelicPqControls$inboundSchema).optional(),
-  apiKey: z.string().optional(),
-  textSecret: z.string().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("newrelic"),
+  pipeline: types.optional(types.string()),
+  systemFields: types.optional(z.array(types.string())),
+  environment: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  region: types.optional(RegionOptions$inboundSchema),
+  logType: types.optional(types.string()),
+  messageField: types.optional(types.string()),
+  metadata: types.optional(z.array(z.lazy(() => Metadatum$inboundSchema))),
+  concurrency: types.optional(types.number()),
+  maxPayloadSizeKB: types.optional(types.number()),
+  maxPayloadEvents: types.optional(types.number()),
+  compress: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  timeoutSec: types.optional(types.number()),
+  flushPeriodSec: types.optional(types.number()),
+  extraHttpHeaders: types.optional(
+    z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
+  ),
+  useRoundRobinDns: types.optional(types.boolean()),
+  failedRequestLoggingMode: types.optional(
+    FailedRequestLoggingModeOptions$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  responseRetrySettings: types.optional(
+    z.array(ItemsTypeResponseRetrySettings$inboundSchema),
+  ),
+  timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
+  responseHonorRetryAfterHeader: types.optional(types.boolean()),
+  onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
+  authType: types.optional(AuthenticationMethodOptions2$inboundSchema),
+  totalMemoryLimitKB: types.optional(types.number()),
+  description: types.optional(types.string()),
+  customUrl: types.optional(types.string()),
+  pqStrictOrdering: types.optional(types.boolean()),
+  pqRatePerSec: types.optional(types.number()),
+  pqMode: types.optional(ModeOptions$inboundSchema),
+  pqMaxBufferSize: types.optional(types.number()),
+  pqMaxBackpressureSec: types.optional(types.number()),
+  pqMaxFileSize: types.optional(types.string()),
+  pqMaxSize: types.optional(types.string()),
+  pqPath: types.optional(types.string()),
+  pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
+  pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
+  pqControls: types.optional(
+    z.lazy(() => OutputNewrelicPqControls$inboundSchema),
+  ),
+  apiKey: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
 });
 /** @internal */
 export type OutputNewrelic$Outbound = {

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type WorkersTypeSystemSettingsConf = {
@@ -24,14 +25,14 @@ export const WorkersTypeSystemSettingsConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number(),
-  enableHeapSnapshots: z.boolean().optional(),
-  loadThrottlePerc: z.number().optional(),
-  memory: z.number(),
-  minimum: z.number(),
-  startupMaxConns: z.number().optional(),
-  startupThrottleTimeout: z.number().optional(),
-  v8SingleThread: z.boolean().optional(),
+  count: types.number(),
+  enableHeapSnapshots: types.optional(types.boolean()),
+  loadThrottlePerc: types.optional(types.number()),
+  memory: types.number(),
+  minimum: types.number(),
+  startupMaxConns: types.optional(types.number()),
+  startupThrottleTimeout: types.optional(types.number()),
+  v8SingleThread: types.optional(types.boolean()),
 });
 /** @internal */
 export type WorkersTypeSystemSettingsConf$Outbound = {

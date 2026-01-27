@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides = {
@@ -19,8 +20,8 @@ export const ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides$inboundSchem
     z.ZodTypeDef,
     unknown
   > = z.object({
-    disabled: z.boolean(),
-    flagId: z.string(),
+    disabled: types.boolean(),
+    flagId: types.string(),
   });
 /** @internal */
 export type ItemsTypeSystemSettingsConfSupportFeatureFlagOverrides$Outbound = {

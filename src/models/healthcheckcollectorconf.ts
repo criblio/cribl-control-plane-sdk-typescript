@@ -4,9 +4,12 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
+import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   HiddenDefaultBreakersOptionsDatabaseCollectorConf,
@@ -248,18 +251,22 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp =
   | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
-  | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody;
+  | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type HealthCheckAuthenticationOauthSecretDiscovery =
   | (
     | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson
   | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList
-  | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone;
+  | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 /**
  * Health check HTTP method.
@@ -338,7 +345,8 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone =
 export type HealthCheckAuthenticationOauthSecretRetryRules =
   | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone
   | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic
-  | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff;
+  | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type HealthCheckAuthenticationOauthSecret = {
   /**
@@ -382,11 +390,14 @@ export type HealthCheckAuthenticationOauthSecret = {
       | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson
     | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList
     | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -427,6 +438,7 @@ export type HealthCheckAuthenticationOauthSecret = {
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic
     | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -646,18 +658,22 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp =
   | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
-  | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody;
+  | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type HealthCheckAuthenticationOauthDiscovery =
   | (
     | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson
   | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList
-  | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone;
+  | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 /**
  * Health check HTTP method.
@@ -733,7 +749,8 @@ export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone = {
 export type HealthCheckAuthenticationOauthRetryRules =
   | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone
   | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic
-  | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff;
+  | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type HealthCheckAuthenticationOauth = {
   /**
@@ -777,11 +794,14 @@ export type HealthCheckAuthenticationOauth = {
       | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson
     | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList
     | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -822,6 +842,7 @@ export type HealthCheckAuthenticationOauth = {
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic
     | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -1041,18 +1062,22 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttp =
   | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
-  | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody;
+  | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type HealthCheckAuthenticationLoginSecretDiscovery =
   | (
     | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson
   | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList
-  | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone;
+  | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 /**
  * Health check HTTP method.
@@ -1131,7 +1156,8 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone =
 export type HealthCheckAuthenticationLoginSecretRetryRules =
   | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone
   | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic
-  | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff;
+  | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type HealthCheckAuthenticationLoginSecret = {
   /**
@@ -1169,11 +1195,14 @@ export type HealthCheckAuthenticationLoginSecret = {
       | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson
     | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList
     | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -1214,6 +1243,7 @@ export type HealthCheckAuthenticationLoginSecret = {
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic
     | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -1433,18 +1463,22 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp =
   | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
-  | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody;
+  | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type HealthCheckAuthenticationLoginDiscovery =
   | (
     | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson
   | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList
-  | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone;
+  | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 /**
  * Health check HTTP method.
@@ -1520,7 +1554,8 @@ export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone = {
 export type HealthCheckAuthenticationLoginRetryRules =
   | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone
   | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic
-  | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff;
+  | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type HealthCheckAuthenticationLogin = {
   /**
@@ -1562,11 +1597,14 @@ export type HealthCheckAuthenticationLogin = {
       | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson
     | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList
     | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -1607,6 +1645,7 @@ export type HealthCheckAuthenticationLogin = {
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic
     | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -1826,18 +1865,22 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttp =
   | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
-  | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody;
+  | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type HealthCheckAuthenticationBasicSecretDiscovery =
   | (
     | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson
   | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList
-  | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone;
+  | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 /**
  * Health check HTTP method.
@@ -1916,7 +1959,8 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone =
 export type HealthCheckAuthenticationBasicSecretRetryRules =
   | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone
   | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic
-  | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff;
+  | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type HealthCheckAuthenticationBasicSecret = {
   /**
@@ -1932,11 +1976,14 @@ export type HealthCheckAuthenticationBasicSecret = {
       | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson
     | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList
     | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -1977,6 +2024,7 @@ export type HealthCheckAuthenticationBasicSecret = {
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic
     | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -2196,18 +2244,22 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp =
   | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
-  | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody;
+  | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type HealthCheckAuthenticationBasicDiscovery =
   | (
     | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson
   | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList
-  | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone;
+  | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 /**
  * Health check HTTP method.
@@ -2283,7 +2335,8 @@ export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone = {
 export type HealthCheckAuthenticationBasicRetryRules =
   | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone
   | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic
-  | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff;
+  | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type HealthCheckAuthenticationBasic = {
   /**
@@ -2303,11 +2356,14 @@ export type HealthCheckAuthenticationBasic = {
       | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson
     | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList
     | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -2348,6 +2404,7 @@ export type HealthCheckAuthenticationBasic = {
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic
     | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -2567,18 +2624,22 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp =
   | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
-  | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody;
+  | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type HealthCheckAuthenticationNoneDiscovery =
   | (
     | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson
   | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList
-  | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone;
+  | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 /**
  * Health check HTTP method.
@@ -2654,7 +2715,8 @@ export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone = {
 export type HealthCheckAuthenticationNoneRetryRules =
   | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone
   | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic
-  | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff;
+  | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type HealthCheckAuthenticationNone = {
   /**
@@ -2666,11 +2728,14 @@ export type HealthCheckAuthenticationNone = {
       | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson
     | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList
     | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -2711,6 +2776,7 @@ export type HealthCheckAuthenticationNone = {
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic
     | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -2954,18 +3020,22 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
 export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp =
   | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
-  | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody;
+  | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type HealthCheckCollectMethodPostWithBodyDiscovery =
   | (
     | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson
   | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList
-  | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone;
+  | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export type HealthCheckCollectMethodPostWithBodyCollectRequestHeader = {
   /**
@@ -3039,7 +3109,8 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone =
 export type HealthCheckCollectMethodPostWithBodyRetryRules =
   | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone
   | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic
-  | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff;
+  | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type HealthCheckCollectMethodPostWithBody = {
   /**
@@ -3052,11 +3123,14 @@ export type HealthCheckCollectMethodPostWithBody = {
       | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson
     | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList
     | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -3096,6 +3170,7 @@ export type HealthCheckCollectMethodPostWithBody = {
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic
     | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -3336,18 +3411,22 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
 export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp =
   | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
-  | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody;
+  | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type HealthCheckCollectMethodPostDiscovery =
   | (
     | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson
   | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList
-  | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone;
+  | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export type HealthCheckCollectMethodPostCollectRequestHeader = {
   /**
@@ -3418,7 +3497,8 @@ export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone = {
 export type HealthCheckCollectMethodPostRetryRules =
   | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone
   | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic
-  | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff;
+  | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type HealthCheckCollectMethodPost = {
   /**
@@ -3431,11 +3511,14 @@ export type HealthCheckCollectMethodPost = {
       | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson
     | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList
     | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -3475,6 +3558,7 @@ export type HealthCheckCollectMethodPost = {
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic
     | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -3715,18 +3799,22 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp =
   | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
-  | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody;
+  | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
+  | discriminatedUnionTypes.Unknown<"discoverMethod">;
 
 export type HealthCheckCollectMethodGetDiscovery =
   | (
     | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
     | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
     | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-      & { discoverType: "http" }
+    | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+      discoverType: "http";
+    }
   )
   | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson
   | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList
-  | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone;
+  | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone
+  | discriminatedUnionTypes.Unknown<"discoverType">;
 
 export type HealthCheckCollectMethodGetCollectRequestHeader = {
   /**
@@ -3797,7 +3885,8 @@ export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone = {
 export type HealthCheckCollectMethodGetRetryRules =
   | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone
   | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic
-  | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff;
+  | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type HealthCheckCollectMethodGet = {
   /**
@@ -3810,11 +3899,14 @@ export type HealthCheckCollectMethodGet = {
       | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
-        & { discoverType: "http" }
+      | discriminatedUnionTypes.Unknown<"discoverMethod"> & {
+        discoverType: "http";
+      }
     )
     | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson
     | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList
     | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone
+    | discriminatedUnionTypes.Unknown<"discoverType">
     | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -3854,6 +3946,7 @@ export type HealthCheckCollectMethodGet = {
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic
     | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff
+    | discriminatedUnionTypes.Unknown<"type">
     | undefined;
 };
 
@@ -3864,7 +3957,8 @@ export type HealthCheckCollectorConf =
   | HealthCheckAuthenticationLogin
   | HealthCheckAuthenticationLoginSecret
   | HealthCheckAuthenticationOauth
-  | HealthCheckAuthenticationOauthSecret;
+  | HealthCheckAuthenticationOauthSecret
+  | discriminatedUnionTypes.Unknown<"authentication">;
 
 /** @internal */
 export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$inboundSchema:
@@ -3873,7 +3967,7 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound =
@@ -3924,8 +4018,8 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList$Outbound =
@@ -3978,9 +4072,9 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound =
@@ -4054,16 +4148,18 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -4152,16 +4248,18 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -4250,16 +4348,18 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -4328,17 +4428,17 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
   | HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -4395,28 +4495,28 @@ export const HealthCheckAuthenticationOauthSecretDiscovery$inboundSchema:
     HealthCheckAuthenticationOauthSecretDiscovery,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.union([
-      z.lazy(() =>
+  > = discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretDiscovery$Outbound =
   | (
@@ -4510,8 +4610,8 @@ export const HealthCheckAuthenticationOauthSecretCollectRequestHeader$inboundSch
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretCollectRequestHeader$Outbound =
@@ -4562,12 +4662,12 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackof
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$Outbound =
@@ -4628,12 +4728,12 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$Outbound =
@@ -4694,12 +4794,12 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$Outbound =
@@ -4757,17 +4857,17 @@ export const HealthCheckAuthenticationOauthSecretRetryRules$inboundSchema:
     HealthCheckAuthenticationOauthSecretRetryRules,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretRetryRules$Outbound =
   | HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$Outbound
@@ -4824,67 +4924,72 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("oauthSecret"),
-  loginUrl: z.string(),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string(),
-  clientSecretParamName: z.string(),
-  textSecret: z.string(),
-  authRequestParams: z.array(
-    ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$inboundSchema,
-  ).optional(),
-  authRequestHeaders: z.array(
-    ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$inboundSchema,
-  ).optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("oauthSecret"),
+  loginUrl: types.string(),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.string(),
+  clientSecretParamName: types.string(),
+  textSecret: types.string(),
+  authRequestParams: types.optional(
+    z.array(
+      ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$inboundSchema,
+    ),
+  ),
+  authRequestHeaders: types.optional(
+    z.array(
+      ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$inboundSchema,
+    ),
+  ),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod:
     HealthCheckAuthenticationOauthSecretHealthCheckMethod$inboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
       HealthCheckAuthenticationOauthSecretCollectRequestHeader$inboundSchema
-    ),
-  ).optional(),
-  authenticateCollect: z.boolean().optional(),
-  timeout: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  defaultBreakers:
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+    )),
+  ),
+  authenticateCollect: types.optional(types.boolean()),
+  timeout: types.optional(types.number()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  defaultBreakers: types.optional(
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecret$Outbound = {
@@ -5026,7 +5131,7 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$Outbound =
@@ -5077,8 +5182,8 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$Outbound =
@@ -5131,9 +5236,9 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$Outbound =
@@ -5207,16 +5312,18 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -5305,16 +5412,18 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -5403,16 +5512,18 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -5481,17 +5592,17 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp$
     HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
   | HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -5547,28 +5658,28 @@ export const HealthCheckAuthenticationOauthDiscovery$inboundSchema: z.ZodType<
   HealthCheckAuthenticationOauthDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type HealthCheckAuthenticationOauthDiscovery$Outbound =
   | (
@@ -5657,8 +5768,8 @@ export const HealthCheckAuthenticationOauthCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthCollectRequestHeader$Outbound = {
@@ -5710,12 +5821,12 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$inbo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$Outbound =
@@ -5774,12 +5885,12 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$inbou
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$Outbound =
@@ -5838,12 +5949,12 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$Outbound =
@@ -5900,17 +6011,17 @@ export const HealthCheckAuthenticationOauthRetryRules$inboundSchema: z.ZodType<
   HealthCheckAuthenticationOauthRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type HealthCheckAuthenticationOauthRetryRules$Outbound =
   | HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$Outbound
@@ -5966,66 +6077,71 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("oauth"),
-  loginUrl: z.string(),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string(),
-  clientSecretParamName: z.string(),
-  clientSecretParamValue: z.string(),
-  authRequestParams: z.array(
-    ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$inboundSchema,
-  ).optional(),
-  authRequestHeaders: z.array(
-    ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$inboundSchema,
-  ).optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("oauth"),
+  loginUrl: types.string(),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.string(),
+  clientSecretParamName: types.string(),
+  clientSecretParamValue: types.string(),
+  authRequestParams: types.optional(
+    z.array(
+      ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$inboundSchema,
+    ),
+  ),
+  authRequestHeaders: types.optional(
+    z.array(
+      ItemsTypeHealthCheckAuthenticationOauthAuthRequestHeaders$inboundSchema,
+    ),
+  ),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod$inboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
       HealthCheckAuthenticationOauthCollectRequestHeader$inboundSchema
-    ),
-  ).optional(),
-  authenticateCollect: z.boolean().optional(),
-  timeout: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  defaultBreakers:
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+    )),
+  ),
+  authenticateCollect: types.optional(types.boolean()),
+  timeout: types.optional(types.number()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  defaultBreakers: types.optional(
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type HealthCheckAuthenticationOauth$Outbound = {
@@ -6165,7 +6281,7 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound =
@@ -6216,8 +6332,8 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList$Outbound =
@@ -6270,9 +6386,9 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound =
@@ -6346,16 +6462,18 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -6444,16 +6562,18 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -6542,16 +6662,18 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -6620,17 +6742,17 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
   | HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -6687,28 +6809,28 @@ export const HealthCheckAuthenticationLoginSecretDiscovery$inboundSchema:
     HealthCheckAuthenticationLoginSecretDiscovery,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.union([
-      z.lazy(() =>
+  > = discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretDiscovery$Outbound =
   | (
@@ -6802,8 +6924,8 @@ export const HealthCheckAuthenticationLoginSecretCollectRequestHeader$inboundSch
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretCollectRequestHeader$Outbound =
@@ -6854,12 +6976,12 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackof
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$Outbound =
@@ -6920,12 +7042,12 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$Outbound =
@@ -6986,12 +7108,12 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$Outbound =
@@ -7049,17 +7171,17 @@ export const HealthCheckAuthenticationLoginSecretRetryRules$inboundSchema:
     HealthCheckAuthenticationLoginSecretRetryRules,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretRetryRules$Outbound =
   | HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$Outbound
@@ -7116,64 +7238,67 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("loginSecret"),
-  loginUrl: z.string(),
-  credentialsSecret: z.string(),
-  loginBody: z.string(),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string(),
-  authRequestHeaders: z.array(
-    ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-  ).optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("loginSecret"),
+  loginUrl: types.string(),
+  credentialsSecret: types.string(),
+  loginBody: types.string(),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.string(),
+  authRequestHeaders: types.optional(
+    z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+    ),
+  ),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod:
     HealthCheckAuthenticationLoginSecretHealthCheckMethod$inboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
       HealthCheckAuthenticationLoginSecretCollectRequestHeader$inboundSchema
-    ),
-  ).optional(),
-  authenticateCollect: z.boolean().optional(),
-  timeout: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  defaultBreakers:
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+    )),
+  ),
+  authenticateCollect: types.optional(types.boolean()),
+  timeout: types.optional(types.number()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  defaultBreakers: types.optional(
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecret$Outbound = {
@@ -7309,7 +7434,7 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$Outbound =
@@ -7360,8 +7485,8 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$Outbound =
@@ -7414,9 +7539,9 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$Outbound =
@@ -7490,16 +7615,18 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -7588,16 +7715,18 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -7686,16 +7815,18 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -7764,17 +7895,17 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp$
     HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
   | HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -7830,28 +7961,28 @@ export const HealthCheckAuthenticationLoginDiscovery$inboundSchema: z.ZodType<
   HealthCheckAuthenticationLoginDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type HealthCheckAuthenticationLoginDiscovery$Outbound =
   | (
@@ -7940,8 +8071,8 @@ export const HealthCheckAuthenticationLoginCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginCollectRequestHeader$Outbound = {
@@ -7993,12 +8124,12 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$inbo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$Outbound =
@@ -8057,12 +8188,12 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$inbou
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$Outbound =
@@ -8121,12 +8252,12 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$Outbound =
@@ -8183,17 +8314,17 @@ export const HealthCheckAuthenticationLoginRetryRules$inboundSchema: z.ZodType<
   HealthCheckAuthenticationLoginRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type HealthCheckAuthenticationLoginRetryRules$Outbound =
   | HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$Outbound
@@ -8249,64 +8380,67 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("login"),
-  loginUrl: z.string(),
-  username: z.string(),
-  password: z.string(),
-  loginBody: z.string(),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string(),
-  authRequestHeaders: z.array(
-    ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-  ).optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("login"),
+  loginUrl: types.string(),
+  username: types.string(),
+  password: types.string(),
+  loginBody: types.string(),
+  tokenRespAttribute: types.optional(types.string()),
+  authHeaderExpr: types.string(),
+  authRequestHeaders: types.optional(
+    z.array(
+      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+    ),
+  ),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod$inboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
       HealthCheckAuthenticationLoginCollectRequestHeader$inboundSchema
-    ),
-  ).optional(),
-  authenticateCollect: z.boolean().optional(),
-  timeout: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  defaultBreakers:
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+    )),
+  ),
+  authenticateCollect: types.optional(types.boolean()),
+  timeout: types.optional(types.number()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  defaultBreakers: types.optional(
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type HealthCheckAuthenticationLogin$Outbound = {
@@ -8442,7 +8576,7 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone$Outbound =
@@ -8493,8 +8627,8 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList$Outbound =
@@ -8547,9 +8681,9 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson$Outbound =
@@ -8623,16 +8757,18 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -8721,16 +8857,18 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -8819,16 +8957,18 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -8897,17 +9037,17 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
   | HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -8964,28 +9104,28 @@ export const HealthCheckAuthenticationBasicSecretDiscovery$inboundSchema:
     HealthCheckAuthenticationBasicSecretDiscovery,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.union([
-      z.lazy(() =>
+  > = discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretDiscovery$Outbound =
   | (
@@ -9079,8 +9219,8 @@ export const HealthCheckAuthenticationBasicSecretCollectRequestHeader$inboundSch
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretCollectRequestHeader$Outbound =
@@ -9131,12 +9271,12 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackof
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$Outbound =
@@ -9197,12 +9337,12 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$Outbound =
@@ -9263,12 +9403,12 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$Outbound =
@@ -9326,17 +9466,17 @@ export const HealthCheckAuthenticationBasicSecretRetryRules$inboundSchema:
     HealthCheckAuthenticationBasicSecretRetryRules,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretRetryRules$Outbound =
   | HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$Outbound
@@ -9393,57 +9533,58 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("basicSecret"),
-  credentialsSecret: z.string(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("basicSecret"),
+  credentialsSecret: types.string(),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod:
     HealthCheckAuthenticationBasicSecretHealthCheckMethod$inboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
       HealthCheckAuthenticationBasicSecretCollectRequestHeader$inboundSchema
-    ),
-  ).optional(),
-  authenticateCollect: z.boolean().optional(),
-  timeout: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  defaultBreakers:
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+    )),
+  ),
+  authenticateCollect: types.optional(types.boolean()),
+  timeout: types.optional(types.number()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  defaultBreakers: types.optional(
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecret$Outbound = {
@@ -9565,7 +9706,7 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$Outbound =
@@ -9616,8 +9757,8 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$Outbound =
@@ -9670,9 +9811,9 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$Outbound =
@@ -9746,16 +9887,18 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -9844,16 +9987,18 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -9942,16 +10087,18 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -10020,17 +10167,17 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp$
     HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
   | HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -10086,28 +10233,28 @@ export const HealthCheckAuthenticationBasicDiscovery$inboundSchema: z.ZodType<
   HealthCheckAuthenticationBasicDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type HealthCheckAuthenticationBasicDiscovery$Outbound =
   | (
@@ -10196,8 +10343,8 @@ export const HealthCheckAuthenticationBasicCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicCollectRequestHeader$Outbound = {
@@ -10249,12 +10396,12 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$inbo
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$Outbound =
@@ -10313,12 +10460,12 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$inbou
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$Outbound =
@@ -10377,12 +10524,12 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$Outbound =
@@ -10439,17 +10586,17 @@ export const HealthCheckAuthenticationBasicRetryRules$inboundSchema: z.ZodType<
   HealthCheckAuthenticationBasicRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type HealthCheckAuthenticationBasicRetryRules$Outbound =
   | HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$Outbound
@@ -10505,57 +10652,58 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("basic"),
-  username: z.string(),
-  password: z.string(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("basic"),
+  username: types.string(),
+  password: types.string(),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod$inboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
       HealthCheckAuthenticationBasicCollectRequestHeader$inboundSchema
-    ),
-  ).optional(),
-  authenticateCollect: z.boolean().optional(),
-  timeout: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  defaultBreakers:
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+    )),
+  ),
+  authenticateCollect: types.optional(types.boolean()),
+  timeout: types.optional(types.number()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  defaultBreakers: types.optional(
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type HealthCheckAuthenticationBasic$Outbound = {
@@ -10677,7 +10825,7 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$Outbound =
@@ -10726,8 +10874,8 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$Outbound =
@@ -10778,9 +10926,9 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$Outbound =
@@ -10852,16 +11000,18 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -10950,16 +11100,18 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -11048,16 +11200,18 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -11126,17 +11280,17 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp$i
     HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
   | HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -11190,28 +11344,28 @@ export const HealthCheckAuthenticationNoneDiscovery$inboundSchema: z.ZodType<
   HealthCheckAuthenticationNoneDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type HealthCheckAuthenticationNoneDiscovery$Outbound =
   | (
@@ -11295,8 +11449,8 @@ export const HealthCheckAuthenticationNoneCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneCollectRequestHeader$Outbound = {
@@ -11348,12 +11502,12 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$inbou
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$Outbound =
@@ -11412,12 +11566,12 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$inboun
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$Outbound =
@@ -11476,12 +11630,12 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$Outbound =
@@ -11538,17 +11692,17 @@ export const HealthCheckAuthenticationNoneRetryRules$inboundSchema: z.ZodType<
   HealthCheckAuthenticationNoneRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type HealthCheckAuthenticationNoneRetryRules$Outbound =
   | HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$Outbound
@@ -11604,55 +11758,56 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authentication: z.literal("none"),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  authentication: types.literal("none"),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
+  })),
+  collectUrl: types.string(),
   collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod$inboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
       HealthCheckAuthenticationNoneCollectRequestHeader$inboundSchema
-    ),
-  ).optional(),
-  authenticateCollect: z.boolean().optional(),
-  timeout: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  defaultBreakers:
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+    )),
+  ),
+  authenticateCollect: types.optional(types.boolean()),
+  timeout: types.optional(types.number()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  defaultBreakers: types.optional(
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type HealthCheckAuthenticationNone$Outbound = {
@@ -11789,7 +11944,7 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$Outbound =
@@ -11840,8 +11995,8 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList$Outbound =
@@ -11894,9 +12049,9 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson$Outbound =
@@ -11970,16 +12125,18 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -12068,16 +12225,18 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -12166,16 +12325,18 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -12244,17 +12405,17 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
   | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -12311,28 +12472,28 @@ export const HealthCheckCollectMethodPostWithBodyDiscovery$inboundSchema:
     HealthCheckCollectMethodPostWithBodyDiscovery,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.union([
-      z.lazy(() =>
+  > = discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyDiscovery$Outbound =
   | (
@@ -12407,8 +12568,8 @@ export const HealthCheckCollectMethodPostWithBodyCollectRequestHeader$inboundSch
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyCollectRequestHeader$Outbound =
@@ -12478,12 +12639,12 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackof
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$Outbound =
@@ -12544,12 +12705,12 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$Outbound =
@@ -12610,12 +12771,12 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$i
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$Outbound =
@@ -12673,17 +12834,17 @@ export const HealthCheckCollectMethodPostWithBodyRetryRules$inboundSchema:
     HealthCheckCollectMethodPostWithBodyRetryRules,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyRetryRules$Outbound =
   | HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$Outbound
@@ -12742,55 +12903,56 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
 > = z.object({
   collectMethod:
     HealthCheckCollectMethodPostWithBodyHealthCheckMethod$inboundSchema,
-  collectBody: z.any().optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  collectBody: types.optional(z.any()),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
-  collectRequestParams: z.any().optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
+  })),
+  collectUrl: types.string(),
+  collectRequestParams: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyCollectRequestHeader$inboundSchema
-    ),
-  ).optional(),
-  authenticateCollect: z.boolean().optional(),
+    )),
+  ),
+  authenticateCollect: types.optional(types.boolean()),
   authentication:
     HealthCheckCollectMethodPostWithBodyAuthentication$inboundSchema,
-  timeout: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  defaultBreakers:
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  timeout: types.optional(types.number()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  defaultBreakers: types.optional(
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBody$Outbound = {
@@ -12926,7 +13088,7 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$in
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$Outbound =
@@ -12975,8 +13137,8 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$in
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$Outbound =
@@ -13027,9 +13189,9 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$in
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$Outbound =
@@ -13101,16 +13263,18 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -13199,16 +13363,18 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -13297,16 +13463,18 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -13375,17 +13543,17 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp$in
     HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
   | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -13439,28 +13607,28 @@ export const HealthCheckCollectMethodPostDiscovery$inboundSchema: z.ZodType<
   HealthCheckCollectMethodPostDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type HealthCheckCollectMethodPostDiscovery$Outbound =
   | (
@@ -13528,8 +13696,8 @@ export const HealthCheckCollectMethodPostCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostCollectRequestHeader$Outbound = {
@@ -13590,12 +13758,12 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$inboun
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$Outbound =
@@ -13654,12 +13822,12 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$Outbound =
@@ -13718,12 +13886,12 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$inboundSc
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$Outbound =
@@ -13780,17 +13948,17 @@ export const HealthCheckCollectMethodPostRetryRules$inboundSchema: z.ZodType<
   HealthCheckCollectMethodPostRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type HealthCheckCollectMethodPostRetryRules$Outbound =
   | HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$Outbound
@@ -13842,54 +14010,55 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod: HealthCheckCollectMethodPostHealthCheckMethod$inboundSchema,
-  collectRequestParams: z.any().optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  collectRequestParams: types.optional(z.any()),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() =>
+  })),
+  collectUrl: types.string(),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
       HealthCheckCollectMethodPostCollectRequestHeader$inboundSchema
-    ),
-  ).optional(),
-  authenticateCollect: z.boolean().optional(),
+    )),
+  ),
+  authenticateCollect: types.optional(types.boolean()),
   authentication: HealthCheckCollectMethodPostAuthentication$inboundSchema,
-  timeout: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  defaultBreakers:
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  timeout: types.optional(types.number()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  defaultBreakers: types.optional(
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type HealthCheckCollectMethodPost$Outbound = {
@@ -14022,7 +14191,7 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$inb
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("none"),
+    discoverType: types.literal("none"),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$Outbound =
@@ -14071,8 +14240,8 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$inb
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("list"),
-    itemList: z.array(z.string()),
+    discoverType: types.literal("list"),
+    itemList: z.array(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$Outbound =
@@ -14123,9 +14292,9 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$inb
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverType: z.literal("json"),
-    manualDiscoverResult: z.string(),
-    discoverDataField: z.string().optional(),
+    discoverType: types.literal("json"),
+    manualDiscoverResult: types.string(),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$Outbound =
@@ -14197,16 +14366,18 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverMethod: types.literal("post_with_body"),
+    discoverBody: types.optional(z.any()),
     discoverType:
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverRequestParams: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
@@ -14295,16 +14466,18 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("post"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
@@ -14393,16 +14566,18 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     z.ZodTypeDef,
     unknown
   > = z.object({
-    discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverMethod: types.literal("get"),
+    discoverRequestParams: types.optional(z.any()),
     discoverType:
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
-    discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
-    discoverRequestHeaders: z.array(
-      ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
-    ).optional(),
-    discoverDataField: z.string().optional(),
+    discoverUrl: types.string(),
+    discoverBody: types.optional(z.any()),
+    discoverRequestHeaders: types.optional(
+      z.array(
+        ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
+      ),
+    ),
+    discoverDataField: types.optional(types.string()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
@@ -14471,17 +14646,17 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp$inb
     HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp,
     z.ZodTypeDef,
     unknown
-  > = z.union([
-    z.lazy(() =>
+  > = discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]);
+  });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp$Outbound =
   | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -14535,28 +14710,28 @@ export const HealthCheckCollectMethodGetDiscovery$inboundSchema: z.ZodType<
   HealthCheckCollectMethodGetDiscovery,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.union([
-    z.lazy(() =>
+> = discriminatedUnion("discoverType", {
+  http: discriminatedUnion("discoverMethod", {
+    get: z.lazy(() =>
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
     ),
-    z.lazy(() =>
+    post: z.lazy(() =>
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
     ),
-    z.lazy(() =>
+    post_with_body: z.lazy(() =>
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
     ),
-  ]).and(z.object({ discoverType: z.literal("http") })),
-  z.lazy(() =>
+  }).and(z.object({ discoverType: z.literal("http") })),
+  json: z.lazy(() =>
     HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
   ),
-  z.lazy(() =>
+  list: z.lazy(() =>
     HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$inboundSchema
   ),
-  z.lazy(() =>
+  none: z.lazy(() =>
     HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type HealthCheckCollectMethodGetDiscovery$Outbound =
   | (
@@ -14624,8 +14799,8 @@ export const HealthCheckCollectMethodGetCollectRequestHeader$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    name: z.string(),
-    value: z.string(),
+    name: types.string(),
+    value: types.string(),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetCollectRequestHeader$Outbound = {
@@ -14688,12 +14863,12 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$inbound
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("backoff"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$Outbound =
@@ -14752,12 +14927,12 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$inboundS
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    type: types.literal("static"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$Outbound =
@@ -14816,12 +14991,12 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$inboundSch
     z.ZodTypeDef,
     unknown
   > = z.object({
-    type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    type: types.literal("none"),
+    interval: types.optional(z.any()),
+    limit: types.optional(z.any()),
+    multiplier: types.optional(z.any()),
+    codes: types.optional(z.any()),
+    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$Outbound =
@@ -14878,17 +15053,17 @@ export const HealthCheckCollectMethodGetRetryRules$inboundSchema: z.ZodType<
   HealthCheckCollectMethodGetRetryRules,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() =>
+> = discriminatedUnion("type", {
+  none: z.lazy(() =>
     HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$inboundSchema
   ),
-  z.lazy(() =>
+  static: z.lazy(() =>
     HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$inboundSchema
   ),
-  z.lazy(() =>
+  backoff: z.lazy(() =>
     HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$inboundSchema
   ),
-]);
+});
 /** @internal */
 export type HealthCheckCollectMethodGetRetryRules$Outbound =
   | HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$Outbound
@@ -14939,52 +15114,55 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod: HealthCheckCollectMethodGetHealthCheckMethod$inboundSchema,
-  collectRequestParams: z.any().optional(),
-  discovery: z.union([
-    z.union([
-      z.lazy(() =>
+  collectRequestParams: types.optional(z.any()),
+  discovery: types.optional(discriminatedUnion("discoverType", {
+    http: discriminatedUnion("discoverMethod", {
+      get: z.lazy(() =>
         HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$inboundSchema
       ),
-      z.lazy(() =>
+      post: z.lazy(() =>
         HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$inboundSchema
       ),
-      z.lazy(() =>
+      post_with_body: z.lazy(() =>
         HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$inboundSchema
       ),
-    ]).and(z.object({ discoverType: z.literal("http") })),
-    z.lazy(() =>
+    }).and(z.object({ discoverType: z.literal("http") })),
+    json: z.lazy(() =>
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson$inboundSchema
     ),
-    z.lazy(() =>
+    list: z.lazy(() =>
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList$inboundSchema
     ),
-    z.lazy(() =>
+    none: z.lazy(() =>
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$inboundSchema
     ),
-  ]).optional(),
-  collectUrl: z.string(),
-  collectBody: z.any().optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() => HealthCheckCollectMethodGetCollectRequestHeader$inboundSchema),
-  ).optional(),
-  authenticateCollect: z.boolean().optional(),
+  })),
+  collectUrl: types.string(),
+  collectBody: types.optional(z.any()),
+  collectRequestHeaders: types.optional(
+    z.array(z.lazy(() =>
+      HealthCheckCollectMethodGetCollectRequestHeader$inboundSchema
+    )),
+  ),
+  authenticateCollect: types.optional(types.boolean()),
   authentication: HealthCheckCollectMethodGetAuthentication$inboundSchema,
-  timeout: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  defaultBreakers:
-    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.union([
-    z.lazy(() =>
+  timeout: types.optional(types.number()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  defaultBreakers: types.optional(
+    HiddenDefaultBreakersOptionsDatabaseCollectorConf$inboundSchema,
+  ),
+  safeHeaders: types.optional(z.array(types.string())),
+  retryRules: types.optional(discriminatedUnion("type", {
+    none: z.lazy(() =>
       HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$inboundSchema
     ),
-    z.lazy(() =>
+    static: z.lazy(() =>
       HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$inboundSchema
     ),
-    z.lazy(() =>
+    backoff: z.lazy(() =>
       HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$inboundSchema
     ),
-  ]).optional(),
+  })),
 });
 /** @internal */
 export type HealthCheckCollectMethodGet$Outbound = {
@@ -15100,15 +15278,15 @@ export const HealthCheckCollectorConf$inboundSchema: z.ZodType<
   HealthCheckCollectorConf,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  z.lazy(() => HealthCheckAuthenticationNone$inboundSchema),
-  z.lazy(() => HealthCheckAuthenticationBasic$inboundSchema),
-  z.lazy(() => HealthCheckAuthenticationBasicSecret$inboundSchema),
-  z.lazy(() => HealthCheckAuthenticationLogin$inboundSchema),
-  z.lazy(() => HealthCheckAuthenticationLoginSecret$inboundSchema),
-  z.lazy(() => HealthCheckAuthenticationOauth$inboundSchema),
-  z.lazy(() => HealthCheckAuthenticationOauthSecret$inboundSchema),
-]);
+> = discriminatedUnion("authentication", {
+  none: z.lazy(() => HealthCheckAuthenticationNone$inboundSchema),
+  basic: z.lazy(() => HealthCheckAuthenticationBasic$inboundSchema),
+  basicSecret: z.lazy(() => HealthCheckAuthenticationBasicSecret$inboundSchema),
+  login: z.lazy(() => HealthCheckAuthenticationLogin$inboundSchema),
+  loginSecret: z.lazy(() => HealthCheckAuthenticationLoginSecret$inboundSchema),
+  oauth: z.lazy(() => HealthCheckAuthenticationOauth$inboundSchema),
+  oauthSecret: z.lazy(() => HealthCheckAuthenticationOauthSecret$inboundSchema),
+});
 /** @internal */
 export type HealthCheckCollectorConf$Outbound =
   | HealthCheckAuthenticationNone$Outbound

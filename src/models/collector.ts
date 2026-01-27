@@ -4,6 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
+import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CollectorAzureBlob,
@@ -80,25 +82,26 @@ export type Collector =
   | CollectorRest
   | CollectorS3
   | CollectorScript
-  | CollectorSplunk;
+  | CollectorSplunk
+  | discriminatedUnionTypes.Unknown<"type">;
 
 /** @internal */
 export const Collector$inboundSchema: z.ZodType<
   Collector,
   z.ZodTypeDef,
   unknown
-> = z.union([
-  CollectorAzureBlob$inboundSchema,
-  CollectorCriblLake$inboundSchema,
-  CollectorDatabase$inboundSchema,
-  CollectorFilesystem$inboundSchema,
-  CollectorGoogleCloudStorage$inboundSchema,
-  CollectorHealthCheck$inboundSchema,
-  CollectorRest$inboundSchema,
-  CollectorS3$inboundSchema,
-  CollectorScript$inboundSchema,
-  CollectorSplunk$inboundSchema,
-]);
+> = discriminatedUnion("type", {
+  azure_blob: CollectorAzureBlob$inboundSchema,
+  cribl_lake: CollectorCriblLake$inboundSchema,
+  database: CollectorDatabase$inboundSchema,
+  filesystem: CollectorFilesystem$inboundSchema,
+  google_cloud_storage: CollectorGoogleCloudStorage$inboundSchema,
+  health_check: CollectorHealthCheck$inboundSchema,
+  rest: CollectorRest$inboundSchema,
+  s3: CollectorS3$inboundSchema,
+  script: CollectorScript$inboundSchema,
+  splunk: CollectorSplunk$inboundSchema,
+});
 /** @internal */
 export type Collector$Outbound =
   | CollectorAzureBlob$Outbound

@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { Routes, Routes$inboundSchema } from "./routes.js";
 
@@ -22,8 +23,8 @@ export const CountedRoutes$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  count: z.number().int().optional(),
-  items: z.array(Routes$inboundSchema).optional(),
+  count: types.optional(types.number()),
+  items: types.optional(z.array(Routes$inboundSchema)),
 });
 
 export function countedRoutesFromJSON(

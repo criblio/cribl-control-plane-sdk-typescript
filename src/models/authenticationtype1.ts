@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   AuthenticationMethodOptionsSasl1,
   AuthenticationMethodOptionsSasl1$inboundSchema,
@@ -89,25 +90,27 @@ export const AuthenticationType1$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean(),
-  authType: AuthenticationMethodOptionsSasl1$inboundSchema.optional(),
-  password: z.string().optional(),
-  textSecret: z.string().optional(),
-  mechanism: SaslMechanismOptionsSasl1$inboundSchema.optional(),
-  username: z.string().optional(),
-  clientSecretAuthType: AuthenticationMethodOptionsSasl2$inboundSchema
-    .optional(),
-  clientSecret: z.string().optional(),
-  clientTextSecret: z.string().optional(),
-  certificateName: z.string().optional(),
-  certPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  oauthEndpoint: MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema
-    .optional(),
-  clientId: z.string().optional(),
-  tenantId: z.string().optional(),
-  scope: z.string().optional(),
+  disabled: types.boolean(),
+  authType: types.optional(AuthenticationMethodOptionsSasl1$inboundSchema),
+  password: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+  mechanism: types.optional(SaslMechanismOptionsSasl1$inboundSchema),
+  username: types.optional(types.string()),
+  clientSecretAuthType: types.optional(
+    AuthenticationMethodOptionsSasl2$inboundSchema,
+  ),
+  clientSecret: types.optional(types.string()),
+  clientTextSecret: types.optional(types.string()),
+  certificateName: types.optional(types.string()),
+  certPath: types.optional(types.string()),
+  privKeyPath: types.optional(types.string()),
+  passphrase: types.optional(types.string()),
+  oauthEndpoint: types.optional(
+    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
+  ),
+  clientId: types.optional(types.string()),
+  tenantId: types.optional(types.string()),
+  scope: types.optional(types.string()),
 });
 /** @internal */
 export type AuthenticationType1$Outbound = {

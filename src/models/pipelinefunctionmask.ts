@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeAdd,
@@ -78,9 +79,9 @@ export const PipelineFunctionMaskRule$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  matchRegex: z.string(),
-  replaceExpr: z.string(),
-  disabled: z.boolean().optional(),
+  matchRegex: types.string(),
+  replaceExpr: types.string(),
+  disabled: types.optional(types.boolean()),
 });
 /** @internal */
 export type PipelineFunctionMaskRule$Outbound = {
@@ -124,9 +125,9 @@ export const PipelineFunctionMaskConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   rules: z.array(z.lazy(() => PipelineFunctionMaskRule$inboundSchema)),
-  fields: z.array(z.string()).optional(),
-  depth: z.number().int().optional(),
-  flags: z.array(ItemsTypeAdd$inboundSchema).optional(),
+  fields: types.optional(z.array(types.string())),
+  depth: types.optional(types.number()),
+  flags: types.optional(z.array(ItemsTypeAdd$inboundSchema)),
 });
 /** @internal */
 export type PipelineFunctionMaskConf$Outbound = {
@@ -171,13 +172,13 @@ export const PipelineFunctionMask$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  filter: z.string().optional(),
-  id: z.literal("mask"),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-  final: z.boolean().optional(),
+  filter: types.optional(types.string()),
+  id: types.literal("mask"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
   conf: z.lazy(() => PipelineFunctionMaskConf$inboundSchema),
-  groupId: z.string().optional(),
+  groupId: types.optional(types.string()),
 });
 /** @internal */
 export type PipelineFunctionMask$Outbound = {

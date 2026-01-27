@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod/v3";
+import * as types from "../../types/primitives.js";
 import { CriblControlPlaneError } from "./criblcontrolplaneerror.js";
 
 export type ErrorTData = {
@@ -31,7 +32,7 @@ export class ErrorT extends CriblControlPlaneError {
 /** @internal */
 export const ErrorT$inboundSchema: z.ZodType<ErrorT, z.ZodTypeDef, unknown> = z
   .object({
-    message: z.string().optional(),
+    message: types.optional(types.string()),
     request$: z.instanceof(Request),
     response$: z.instanceof(Response),
     body$: z.string(),

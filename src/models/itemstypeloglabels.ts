@@ -5,6 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type ItemsTypeLogLabels = {
@@ -24,8 +25,8 @@ export const ItemsTypeLogLabels$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  label: z.string(),
-  valueExpression: z.string(),
+  label: types.string(),
+  valueExpression: types.string(),
 });
 /** @internal */
 export type ItemsTypeLogLabels$Outbound = {

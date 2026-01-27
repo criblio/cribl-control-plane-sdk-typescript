@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const FunctionConfSchemaNumerifyFormat = {
@@ -66,10 +67,10 @@ export const FunctionConfSchemaNumerify$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  depth: z.number().int().optional(),
-  ignoreFields: z.array(z.string()).optional(),
-  filterExpr: z.string().optional(),
-  format: FunctionConfSchemaNumerifyFormat$inboundSchema.optional(),
+  depth: types.optional(types.number()),
+  ignoreFields: types.optional(z.array(types.string())),
+  filterExpr: types.optional(types.string()),
+  format: types.optional(FunctionConfSchemaNumerifyFormat$inboundSchema),
 });
 /** @internal */
 export type FunctionConfSchemaNumerify$Outbound = {

@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -170,27 +171,31 @@ export const InputWinEventLogs$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  type: z.literal("win_event_logs"),
-  disabled: z.boolean().optional(),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().optional(),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().optional(),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnectionsOptional$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
-  logNames: z.array(z.string()),
-  readMode: ReadMode$inboundSchema.optional(),
-  eventFormat: EventFormat$inboundSchema.optional(),
-  disableNativeModule: z.boolean().optional(),
-  interval: z.number().optional(),
-  batchSize: z.number().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  maxEventBytes: z.number().optional(),
-  description: z.string().optional(),
-  disableJsonRendering: z.boolean().optional(),
-  disableXmlRendering: z.boolean().optional(),
+  id: types.optional(types.string()),
+  type: types.literal("win_event_logs"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(PqType$inboundSchema),
+  logNames: z.array(types.string()),
+  readMode: types.optional(ReadMode$inboundSchema),
+  eventFormat: types.optional(EventFormat$inboundSchema),
+  disableNativeModule: types.optional(types.boolean()),
+  interval: types.optional(types.number()),
+  batchSize: types.optional(types.number()),
+  metadata: types.optional(
+    z.array(ItemsTypeNotificationMetadata$inboundSchema),
+  ),
+  maxEventBytes: types.optional(types.number()),
+  description: types.optional(types.string()),
+  disableJsonRendering: types.optional(types.boolean()),
+  disableXmlRendering: types.optional(types.boolean()),
 });
 /** @internal */
 export type InputWinEventLogs$Outbound = {
