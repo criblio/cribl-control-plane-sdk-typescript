@@ -17,16 +17,18 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Get detailed metadata for Worker and Edge Nodes
+   * Get a count of Worker and Edge Nodes
    *
    * @remarks
-   * Get detailed metadata for Worker and Edge Nodes.
+   * Get a count of all Worker and Edge Nodes. Deprecated. Use /products/{product}/summary/workers instead.
+   *
+   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
    */
-  async list(
-    request?: operations.ListMasterWorkerEntryRequest | undefined,
+  async count(
+    request?: operations.GetSummaryWorkersRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.CountedMasterWorkerEntry> {
-    return unwrapAsync(nodesList(
+  ): Promise<models.CountedNumber> {
+    return unwrapAsync(nodesCount(
       this,
       request,
       options,
@@ -34,16 +36,18 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Get a count of Worker and Edge Nodes
+   * Get detailed metadata for Worker and Edge Nodes
    *
    * @remarks
-   * Get a count of all Worker and Edge Nodes.
+   * Get detailed metadata for Worker and Edge Nodes. Deprecated. Use /products/{product}/workers instead.
+   *
+   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
    */
-  async count(
-    request?: operations.GetMasterWorkerEntryRequest | undefined,
+  async list(
+    request?: operations.GetWorkersRequest | undefined,
     options?: RequestOptions,
-  ): Promise<models.CountedNumber> {
-    return unwrapAsync(nodesCount(
+  ): Promise<models.CountedMasterWorkerEntry> {
+    return unwrapAsync(nodesList(
       this,
       request,
       options,

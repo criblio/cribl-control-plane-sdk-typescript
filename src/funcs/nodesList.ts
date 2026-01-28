@@ -30,11 +30,13 @@ import { Result } from "../types/fp.js";
  * Get detailed metadata for Worker and Edge Nodes
  *
  * @remarks
- * Get detailed metadata for Worker and Edge Nodes.
+ * Get detailed metadata for Worker and Edge Nodes. Deprecated. Use /products/{product}/workers instead.
+ *
+ * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
  */
 export function nodesList(
   client: CriblControlPlaneCore,
-  request?: operations.ListMasterWorkerEntryRequest | undefined,
+  request?: operations.GetWorkersRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +61,7 @@ export function nodesList(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request?: operations.ListMasterWorkerEntryRequest | undefined,
+  request?: operations.GetWorkersRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -81,9 +83,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.ListMasterWorkerEntryRequest$outboundSchema.optional().parse(
-        value,
-      ),
+      operations.GetWorkersRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -113,7 +113,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "listMasterWorkerEntry",
+    operationID: "getWorkers",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

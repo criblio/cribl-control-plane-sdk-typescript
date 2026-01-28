@@ -1,11 +1,11 @@
-# GetPipelineByIdRequest
+# GetPipelinesByIdRequest
 
 ## Example Usage
 
 ```typescript
-import { GetPipelineByIdRequest } from "cribl-control-plane/models/operations";
+import { GetPipelinesByIdRequest } from "cribl-control-plane/models/operations";
 
-let value: GetPipelineByIdRequest = {
+let value: GetPipelinesByIdRequest = {
   id: "<id>",
 };
 ```

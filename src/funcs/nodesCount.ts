@@ -30,11 +30,13 @@ import { Result } from "../types/fp.js";
  * Get a count of Worker and Edge Nodes
  *
  * @remarks
- * Get a count of all Worker and Edge Nodes.
+ * Get a count of all Worker and Edge Nodes. Deprecated. Use /products/{product}/summary/workers instead.
+ *
+ * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
  */
 export function nodesCount(
   client: CriblControlPlaneCore,
-  request?: operations.GetMasterWorkerEntryRequest | undefined,
+  request?: operations.GetSummaryWorkersRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +61,7 @@ export function nodesCount(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request?: operations.GetMasterWorkerEntryRequest | undefined,
+  request?: operations.GetSummaryWorkersRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -81,7 +83,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetMasterWorkerEntryRequest$outboundSchema.optional().parse(
+      operations.GetSummaryWorkersRequest$outboundSchema.optional().parse(
         value,
       ),
     "Input validation failed",
@@ -108,7 +110,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getMasterWorkerEntry",
+    operationID: "getSummaryWorkers",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
