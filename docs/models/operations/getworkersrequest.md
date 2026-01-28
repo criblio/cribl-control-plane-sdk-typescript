@@ -1,17 +1,17 @@
-# ListMasterWorkerEntryRequest
+# GetWorkersRequest
 
 ## Example Usage
 
 ```typescript
-import { ListMasterWorkerEntryRequest } from "cribl-control-plane/models/operations";
+import { GetWorkersRequest } from "cribl-control-plane/models/operations";
 
-let value: ListMasterWorkerEntryRequest = {
+let value: GetWorkersRequest = {
   filterExp: "<value>",
   sortExp: "<value>",
   filter: "<value>",
   sort: "<value>",
-  limit: 197826,
-  offset: 366671,
+  limit: 13912,
+  offset: 386093,
 };
 ```
 

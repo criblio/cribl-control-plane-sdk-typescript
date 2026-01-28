@@ -14,21 +14,6 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Pipelines extends ClientSDK {
   /**
-   * List all Pipelines
-   *
-   * @remarks
-   * Get a list of all Pipelines.
-   */
-  async list(
-    options?: RequestOptions,
-  ): Promise<models.CountedPipeline> {
-    return unwrapAsync(pipelinesList(
-      this,
-      options,
-    ));
-  }
-
-  /**
    * Create a Pipeline
    *
    * @remarks
@@ -46,13 +31,45 @@ export class Pipelines extends ClientSDK {
   }
 
   /**
+   * List all Pipelines
+   *
+   * @remarks
+   * Get a list of all Pipelines.
+   */
+  async list(
+    options?: RequestOptions,
+  ): Promise<models.CountedPipeline> {
+    return unwrapAsync(pipelinesList(
+      this,
+      options,
+    ));
+  }
+
+  /**
+   * Delete a Pipeline
+   *
+   * @remarks
+   * Delete the specified Pipeline.
+   */
+  async delete(
+    request: operations.DeletePipelinesByIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedPipeline> {
+    return unwrapAsync(pipelinesDelete(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Get a Pipeline
    *
    * @remarks
    * Get the specified Pipeline.
    */
   async get(
-    request: operations.GetPipelineByIdRequest,
+    request: operations.GetPipelinesByIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedPipeline> {
     return unwrapAsync(pipelinesGet(
@@ -69,27 +86,10 @@ export class Pipelines extends ClientSDK {
    * Update the specified Pipeline.</br></br>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
    */
   async update(
-    request: operations.UpdatePipelineByIdRequest,
+    request: operations.UpdatePipelinesByIdRequest,
     options?: RequestOptions,
   ): Promise<models.CountedPipeline> {
     return unwrapAsync(pipelinesUpdate(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Delete a Pipeline
-   *
-   * @remarks
-   * Delete the specified Pipeline.
-   */
-  async delete(
-    request: operations.DeletePipelineByIdRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedPipeline> {
-    return unwrapAsync(pipelinesDelete(
       this,
       request,
       options,
