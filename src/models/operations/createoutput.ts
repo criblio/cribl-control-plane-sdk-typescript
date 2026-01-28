@@ -13287,7 +13287,7 @@ export type OutputDefault = {
   /**
    * ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
    */
-  defaultId: string | null;
+  defaultId: string;
 };
 
 /**
@@ -23121,7 +23121,7 @@ export type OutputDefault$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  defaultId: string | null;
+  defaultId: string;
 };
 
 /** @internal */
@@ -23136,7 +23136,7 @@ export const OutputDefault$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  defaultId: z.nullable(z.string()),
+  defaultId: z.string(),
 });
 
 export function outputDefaultToJSON(outputDefault: OutputDefault): string {

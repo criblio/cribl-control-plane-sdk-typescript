@@ -9,7 +9,7 @@ import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
-export class Pq extends ClientSDK {
+export class DestinationsPq extends ClientSDK {
   /**
    * Clear the persistent queue for a Destination
    *
