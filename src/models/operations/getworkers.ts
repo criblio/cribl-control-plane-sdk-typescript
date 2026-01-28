@@ -4,7 +4,7 @@
 
 import * as z from "zod/v3";
 
-export type ListMasterWorkerEntryRequest = {
+export type GetWorkersRequest = {
   /**
    * Filter expression to evaluate against Nodes for inclusion in the response.
    */
@@ -32,7 +32,7 @@ export type ListMasterWorkerEntryRequest = {
 };
 
 /** @internal */
-export type ListMasterWorkerEntryRequest$Outbound = {
+export type GetWorkersRequest$Outbound = {
   filterExp?: string | undefined;
   sortExp?: string | undefined;
   filter?: string | undefined;
@@ -42,10 +42,10 @@ export type ListMasterWorkerEntryRequest$Outbound = {
 };
 
 /** @internal */
-export const ListMasterWorkerEntryRequest$outboundSchema: z.ZodType<
-  ListMasterWorkerEntryRequest$Outbound,
+export const GetWorkersRequest$outboundSchema: z.ZodType<
+  GetWorkersRequest$Outbound,
   z.ZodTypeDef,
-  ListMasterWorkerEntryRequest
+  GetWorkersRequest
 > = z.object({
   filterExp: z.string().optional(),
   sortExp: z.string().optional(),
@@ -55,12 +55,10 @@ export const ListMasterWorkerEntryRequest$outboundSchema: z.ZodType<
   offset: z.number().int().optional(),
 });
 
-export function listMasterWorkerEntryRequestToJSON(
-  listMasterWorkerEntryRequest: ListMasterWorkerEntryRequest,
+export function getWorkersRequestToJSON(
+  getWorkersRequest: GetWorkersRequest,
 ): string {
   return JSON.stringify(
-    ListMasterWorkerEntryRequest$outboundSchema.parse(
-      listMasterWorkerEntryRequest,
-    ),
+    GetWorkersRequest$outboundSchema.parse(getWorkersRequest),
   );
 }
