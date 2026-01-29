@@ -9,7 +9,7 @@ let value: GetVersionDiffRequest = {
   commit: "<value>",
   groupId: "<id>",
   filename: "example.file",
-  diffLineLimit: 8118.59,
+  diffLineLimit: 811859,
 };
 ```
 
