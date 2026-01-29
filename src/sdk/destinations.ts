@@ -11,13 +11,13 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
-import { Pq } from "./pq.js";
+import { DestinationsPq } from "./destinationspq.js";
 import { Samples } from "./samples.js";
 
 export class Destinations extends ClientSDK {
-  private _pq?: Pq;
-  get pq(): Pq {
-    return (this._pq ??= new Pq(this._options));
+  private _pq?: DestinationsPq;
+  get pq(): DestinationsPq {
+    return (this._pq ??= new DestinationsPq(this._options));
   }
 
   private _samples?: Samples;
