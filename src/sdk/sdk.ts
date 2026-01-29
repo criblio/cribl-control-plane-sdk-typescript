@@ -42,11 +42,6 @@ export class CriblControlPlane extends ClientSDK {
     return (this._sources ??= new Sources(this._options));
   }
 
-  private _packs?: Packs;
-  get packs(): Packs {
-    return (this._packs ??= new Packs(this._options));
-  }
-
   private _destinations?: Destinations;
   get destinations(): Destinations {
     return (this._destinations ??= new Destinations(this._options));
@@ -75,6 +70,11 @@ export class CriblControlPlane extends ClientSDK {
   private _health?: Health;
   get health(): Health {
     return (this._health ??= new Health(this._options));
+  }
+
+  private _packs?: Packs;
+  get packs(): Packs {
+    return (this._packs ??= new Packs(this._options));
   }
 
   private _versions?: Versions;
