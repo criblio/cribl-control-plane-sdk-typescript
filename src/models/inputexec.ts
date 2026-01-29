@@ -16,11 +16,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -95,7 +95,7 @@ export type InputExec = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Interval between command executions in seconds.
@@ -143,9 +143,7 @@ export const InputExec$inboundSchema: z.ZodType<
   scheduleType: types.optional(ScheduleType$inboundSchema),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   interval: types.optional(types.number()),
   cronSchedule: types.optional(types.string()),
@@ -167,7 +165,7 @@ export type InputExec$Outbound = {
   scheduleType?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   interval?: number | undefined;
   cronSchedule?: string | undefined;
@@ -194,7 +192,7 @@ export const InputExec$outboundSchema: z.ZodType<
   scheduleType: ScheduleType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   interval: z.number().optional(),
   cronSchedule: z.string().optional(),

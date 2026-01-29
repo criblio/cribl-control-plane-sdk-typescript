@@ -1,13 +1,13 @@
-# LogLevelOptionsSavedJobCollectionScheduleRun
+# LogLevelOptionsRunnableJobCollectionScheduleRun
 
 Level at which to set task logging
 
 ## Example Usage
 
 ```typescript
-import { LogLevelOptionsSavedJobCollectionScheduleRun } from "cribl-control-plane/models";
+import { LogLevelOptionsRunnableJobCollectionScheduleRun } from "cribl-control-plane/models";
 
-let value: LogLevelOptionsSavedJobCollectionScheduleRun = "error";
+let value: LogLevelOptionsRunnableJobCollectionScheduleRun = "silly";
 ```
 
 ## Values

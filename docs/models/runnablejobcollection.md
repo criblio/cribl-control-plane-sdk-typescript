@@ -49,7 +49,7 @@ let value: RunnableJobCollection = {
     type: "filesystem",
     conf: {
       outputName: "<value>",
-      path: "/Library",
+      path: "/private",
       extractors: [
         {
           key: "<key>",
@@ -57,7 +57,7 @@ let value: RunnableJobCollection = {
         },
       ],
       recurse: false,
-      maxBatchSize: 4087.23,
+      maxBatchSize: 8097.94,
     },
     destructive: true,
     encoding: "<value>",
@@ -66,15 +66,15 @@ let value: RunnableJobCollection = {
     type: "collection",
     breakerRulesets: [
       "<value 1>",
+      "<value 2>",
     ],
-    staleChannelFlushMs: 7596.83,
+    staleChannelFlushMs: 4690.93,
     sendToRoutes: false,
     preprocess: {
-      disabled: true,
+      disabled: false,
       command: "<value>",
       args: [
         "<value 1>",
-        "<value 2>",
       ],
     },
     throttleRatePerSec: "<value>",
@@ -89,13 +89,13 @@ let value: RunnableJobCollection = {
   },
   run: {
     rescheduleDroppedTasks: false,
-    maxTaskReschedule: 8097.94,
-    logLevel: "warn",
+    maxTaskReschedule: 2517.82,
+    logLevel: "debug",
     jobTimeout: "<value>",
     mode: "preview",
-    timeRangeType: "absolute",
-    earliest: 7522.84,
-    latest: 6416.24,
+    timeRangeType: "relative",
+    earliest: 6410.59,
+    latest: 397.83,
     timestampTimezone: "<value>",
     timeWarning: {},
     expression: "<value>",
@@ -103,9 +103,9 @@ let value: RunnableJobCollection = {
     maxTaskSize: "<value>",
     discoverToRoutes: true,
     capture: {
-      duration: 7307.09,
-      maxEvents: 5613.36,
-      level: 3,
+      duration: 7810.09,
+      maxEvents: 3852.63,
+      level: 0,
     },
   },
 };
@@ -117,7 +117,7 @@ let value: RunnableJobCollection = {
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `id`                                                                                                                                                                                                     | *string*                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                       | Unique ID for this Job                                                                                                                                                                                   |
 | `description`                                                                                                                                                                                            | *string*                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |
-| `type`                                                                                                                                                                                                   | [models.JobTypeOptionsSavedJobCollection](../models/jobtypeoptionssavedjobcollection.md)                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |
+| `type`                                                                                                                                                                                                   | [models.JobTypeOptionsRunnableJobCollection](../models/jobtypeoptionsrunnablejobcollection.md)                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                       | N/A                                                                                                                                                                                                      |
 | `ttl`                                                                                                                                                                                                    | *string*                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                       | Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.                                                                          |
 | `ignoreGroupJobsLimit`                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                       | When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.                 |
 | `removeFields`                                                                                                                                                                                           | *string*[]                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                       | List of fields to remove from Discover results. Wildcards (for example, aws*) are allowed. This is useful when discovery returns sensitive fields that should not be exposed in the Jobs user interface. |

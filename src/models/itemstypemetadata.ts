@@ -8,7 +8,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type ItemsTypeNotificationMetadata = {
+export type ItemsTypeMetadata = {
   name: string;
   /**
    * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
@@ -17,8 +17,8 @@ export type ItemsTypeNotificationMetadata = {
 };
 
 /** @internal */
-export const ItemsTypeNotificationMetadata$inboundSchema: z.ZodType<
-  ItemsTypeNotificationMetadata,
+export const ItemsTypeMetadata$inboundSchema: z.ZodType<
+  ItemsTypeMetadata,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -26,36 +26,34 @@ export const ItemsTypeNotificationMetadata$inboundSchema: z.ZodType<
   value: types.string(),
 });
 /** @internal */
-export type ItemsTypeNotificationMetadata$Outbound = {
+export type ItemsTypeMetadata$Outbound = {
   name: string;
   value: string;
 };
 
 /** @internal */
-export const ItemsTypeNotificationMetadata$outboundSchema: z.ZodType<
-  ItemsTypeNotificationMetadata$Outbound,
+export const ItemsTypeMetadata$outboundSchema: z.ZodType<
+  ItemsTypeMetadata$Outbound,
   z.ZodTypeDef,
-  ItemsTypeNotificationMetadata
+  ItemsTypeMetadata
 > = z.object({
   name: z.string(),
   value: z.string(),
 });
 
-export function itemsTypeNotificationMetadataToJSON(
-  itemsTypeNotificationMetadata: ItemsTypeNotificationMetadata,
+export function itemsTypeMetadataToJSON(
+  itemsTypeMetadata: ItemsTypeMetadata,
 ): string {
   return JSON.stringify(
-    ItemsTypeNotificationMetadata$outboundSchema.parse(
-      itemsTypeNotificationMetadata,
-    ),
+    ItemsTypeMetadata$outboundSchema.parse(itemsTypeMetadata),
   );
 }
-export function itemsTypeNotificationMetadataFromJSON(
+export function itemsTypeMetadataFromJSON(
   jsonString: string,
-): SafeParseResult<ItemsTypeNotificationMetadata, SDKValidationError> {
+): SafeParseResult<ItemsTypeMetadata, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ItemsTypeNotificationMetadata$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ItemsTypeNotificationMetadata' from JSON`,
+    (x) => ItemsTypeMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ItemsTypeMetadata' from JSON`,
   );
 }

@@ -16,11 +16,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -211,7 +211,7 @@ export type InputKinesis = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -322,9 +322,7 @@ export const InputKinesis$inboundSchema: z.ZodType<
   durationSeconds: types.optional(types.number()),
   verifyKPLCheckSums: types.optional(types.boolean()),
   avoidDuplicates: types.optional(types.boolean()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   awsApiKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
@@ -368,7 +366,7 @@ export type InputKinesis$Outbound = {
   durationSeconds?: number | undefined;
   verifyKPLCheckSums?: boolean | undefined;
   avoidDuplicates?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -417,7 +415,7 @@ export const InputKinesis$outboundSchema: z.ZodType<
   durationSeconds: z.number().optional(),
   verifyKPLCheckSums: z.boolean().optional(),
   avoidDuplicates: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),

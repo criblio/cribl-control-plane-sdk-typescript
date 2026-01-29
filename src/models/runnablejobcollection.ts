@@ -11,13 +11,13 @@ import * as types from "../types/primitives.js";
 import { Collector, Collector$inboundSchema } from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  JobTypeOptionsSavedJobCollection,
-  JobTypeOptionsSavedJobCollection$inboundSchema,
-} from "./jobtypeoptionssavedjobcollection.js";
+  JobTypeOptionsRunnableJobCollection,
+  JobTypeOptionsRunnableJobCollection$inboundSchema,
+} from "./jobtypeoptionsrunnablejobcollection.js";
 import {
-  LogLevelOptionsSavedJobCollectionScheduleRun,
-  LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema,
-} from "./logleveloptionssavedjobcollectionschedulerun.js";
+  LogLevelOptionsRunnableJobCollectionScheduleRun,
+  LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
+} from "./logleveloptionsrunnablejobcollectionschedulerun.js";
 import { MetricsStore, MetricsStore$inboundSchema } from "./metricsstore.js";
 import {
   ScheduleTypeRunnableJobCollection,
@@ -93,7 +93,7 @@ export type RunnableJobCollectionRun = {
   /**
    * Level at which to set task logging
    */
-  logLevel?: LogLevelOptionsSavedJobCollectionScheduleRun | undefined;
+  logLevel?: LogLevelOptionsRunnableJobCollectionScheduleRun | undefined;
   /**
    * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
@@ -149,7 +149,7 @@ export type RunnableJobCollection = {
    */
   id?: string | undefined;
   description?: string | undefined;
-  type?: JobTypeOptionsSavedJobCollection | undefined;
+  type?: JobTypeOptionsRunnableJobCollection | undefined;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
@@ -241,7 +241,7 @@ export const RunnableJobCollectionRun$inboundSchema: z.ZodType<
   rescheduleDroppedTasks: types.optional(types.boolean()),
   maxTaskReschedule: types.optional(types.number()),
   logLevel: types.optional(
-    LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema,
+    LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
   ),
   jobTimeout: types.optional(types.string()),
   mode: RunnableJobCollectionMode$inboundSchema,
@@ -275,7 +275,7 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
 > = z.object({
   id: types.optional(types.string()),
   description: types.optional(types.string()),
-  type: types.optional(JobTypeOptionsSavedJobCollection$inboundSchema),
+  type: types.optional(JobTypeOptionsRunnableJobCollection$inboundSchema),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
   removeFields: types.optional(z.array(types.string())),

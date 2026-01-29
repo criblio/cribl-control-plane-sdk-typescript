@@ -16,11 +16,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -151,7 +151,7 @@ export type InputSqs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -244,9 +244,7 @@ export const InputSqs$inboundSchema: z.ZodType<
   durationSeconds: types.optional(types.number()),
   maxMessages: types.optional(types.number()),
   visibilityTimeout: types.optional(types.number()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   pollTimeout: types.optional(types.number()),
   description: types.optional(types.string()),
   awsApiKey: types.optional(types.string()),
@@ -289,7 +287,7 @@ export type InputSqs$Outbound = {
   durationSeconds?: number | undefined;
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   pollTimeout?: number | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
@@ -337,7 +335,7 @@ export const InputSqs$outboundSchema: z.ZodType<
   durationSeconds: z.number().optional(),
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   pollTimeout: z.number().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),

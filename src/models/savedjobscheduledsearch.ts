@@ -8,10 +8,10 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  JobTypeOptionsSavedJobCollection,
-  JobTypeOptionsSavedJobCollection$inboundSchema,
-  JobTypeOptionsSavedJobCollection$outboundSchema,
-} from "./jobtypeoptionssavedjobcollection.js";
+  JobTypeOptionsRunnableJobCollection,
+  JobTypeOptionsRunnableJobCollection$inboundSchema,
+  JobTypeOptionsRunnableJobCollection$outboundSchema,
+} from "./jobtypeoptionsrunnablejobcollection.js";
 import {
   ScheduleTypeSavedJobCollection,
   ScheduleTypeSavedJobCollection$inboundSchema,
@@ -25,7 +25,7 @@ export type SavedJobScheduledSearch = {
    */
   id?: string | undefined;
   description?: string | undefined;
-  type: JobTypeOptionsSavedJobCollection;
+  type: JobTypeOptionsRunnableJobCollection;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
@@ -68,7 +68,7 @@ export const SavedJobScheduledSearch$inboundSchema: z.ZodType<
 > = z.object({
   id: types.optional(types.string()),
   description: types.optional(types.string()),
-  type: JobTypeOptionsSavedJobCollection$inboundSchema,
+  type: JobTypeOptionsRunnableJobCollection$inboundSchema,
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
   removeFields: types.optional(z.array(types.string())),
@@ -101,7 +101,7 @@ export const SavedJobScheduledSearch$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   description: z.string().optional(),
-  type: JobTypeOptionsSavedJobCollection$outboundSchema,
+  type: JobTypeOptionsRunnableJobCollection$outboundSchema,
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
   removeFields: z.array(z.string()).optional(),

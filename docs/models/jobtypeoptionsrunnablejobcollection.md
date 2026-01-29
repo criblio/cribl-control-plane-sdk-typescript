@@ -1,11 +1,11 @@
-# JobTypeOptionsSavedJobCollection
+# JobTypeOptionsRunnableJobCollection
 
 ## Example Usage
 
 ```typescript
-import { JobTypeOptionsSavedJobCollection } from "cribl-control-plane/models";
+import { JobTypeOptionsRunnableJobCollection } from "cribl-control-plane/models";
 
-let value: JobTypeOptionsSavedJobCollection = "collection";
+let value: JobTypeOptionsRunnableJobCollection = "scheduledSearch";
 ```
 
 ## Values

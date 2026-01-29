@@ -22,11 +22,11 @@ import {
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -237,7 +237,7 @@ export type InputElastic = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   proxyMode?: InputElasticProxyMode | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -407,9 +407,7 @@ export const InputElastic$inboundSchema: z.ZodType<
   extraHttpHeaders: types.optional(
     z.array(ItemsTypeExtraHttpHeaders$inboundSchema),
   ),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   proxyMode: types.optional(z.lazy(() => InputElasticProxyMode$inboundSchema)),
   description: types.optional(types.string()),
   username: types.optional(types.string()),
@@ -450,7 +448,7 @@ export type InputElastic$Outbound = {
   authType?: string | undefined;
   apiVersion?: string | undefined;
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   proxyMode?: InputElasticProxyMode$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -497,7 +495,7 @@ export const InputElastic$outboundSchema: z.ZodType<
   apiVersion: InputElasticAPIVersion$outboundSchema.optional(),
   extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   proxyMode: z.lazy(() => InputElasticProxyMode$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),

@@ -40,11 +40,10 @@ const value: operations.InputCollection = {
   ],
   staleChannelFlushMs: 5680.54,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   throttleRatePerSec: "<value>",
@@ -2852,11 +2851,10 @@ const value: operations.InputCrowdstrike = {
   durationSeconds: 1140.91,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -3342,11 +3340,10 @@ const value: operations.InputS3 = {
   durationSeconds: 2021.66,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -3437,11 +3434,10 @@ const value: operations.InputS3Inventory = {
   durationSeconds: 4249.9,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -3964,11 +3960,10 @@ const value: operations.InputTcp = {
   staleChannelFlushMs: 7437.62,
   enableHeader: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   description: "mmm than excepting",
@@ -4610,11 +4605,10 @@ const value: operations.InputSecurityLake = {
   durationSeconds: 9621.57,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [

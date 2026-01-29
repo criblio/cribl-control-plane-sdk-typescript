@@ -7,6 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
+  AwsAuthenticationMethodOptions,
+  AwsAuthenticationMethodOptions$inboundSchema,
+  AwsAuthenticationMethodOptions$outboundSchema,
+} from "./awsauthenticationmethodoptions.js";
+import {
   BackpressureBehaviorOptions1,
   BackpressureBehaviorOptions1$inboundSchema,
   BackpressureBehaviorOptions1$outboundSchema,
@@ -18,15 +23,10 @@ import {
 } from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  FormatOptionsCriblLakeDataset,
-  FormatOptionsCriblLakeDataset$inboundSchema,
-  FormatOptionsCriblLakeDataset$outboundSchema,
-} from "./formatoptionscribllakedataset.js";
-import {
-  MethodOptionsCredentials,
-  MethodOptionsCredentials$inboundSchema,
-  MethodOptionsCredentials$outboundSchema,
-} from "./methodoptionscredentials.js";
+  FormatOptions,
+  FormatOptions$inboundSchema,
+  FormatOptions$outboundSchema,
+} from "./formatoptions.js";
 import {
   ObjectAclOptions,
   ObjectAclOptions$inboundSchema,
@@ -208,8 +208,8 @@ export type OutputCriblLake = {
    * Maximum number of files that can be waiting for upload before backpressure is applied
    */
   maxClosingFilesToBackpressure?: number | undefined;
-  awsAuthenticationMethod?: MethodOptionsCredentials | undefined;
-  format?: FormatOptionsCriblLakeDataset | undefined;
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  format?: FormatOptions | undefined;
   /**
    * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
    */
@@ -310,9 +310,9 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   verifyPermissions: types.optional(types.boolean()),
   maxClosingFilesToBackpressure: types.optional(types.number()),
   awsAuthenticationMethod: types.optional(
-    MethodOptionsCredentials$inboundSchema,
+    AwsAuthenticationMethodOptions$inboundSchema,
   ),
-  format: types.optional(FormatOptionsCriblLakeDataset$inboundSchema),
+  format: types.optional(FormatOptions$inboundSchema),
   maxConcurrentFileParts: types.optional(types.number()),
   description: types.optional(types.string()),
   emptyDirCleanupSec: types.optional(types.number()),
@@ -432,8 +432,9 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().optional(),
   verifyPermissions: z.boolean().optional(),
   maxClosingFilesToBackpressure: z.number().optional(),
-  awsAuthenticationMethod: MethodOptionsCredentials$outboundSchema.optional(),
-  format: FormatOptionsCriblLakeDataset$outboundSchema.optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .optional(),
+  format: FormatOptions$outboundSchema.optional(),
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
   emptyDirCleanupSec: z.number().optional(),

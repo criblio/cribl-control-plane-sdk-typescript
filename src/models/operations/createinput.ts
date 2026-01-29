@@ -40,7 +40,7 @@ export type AuthTokenCloudflareHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
 };
 
 export type InputCloudflareHec = {
@@ -136,7 +136,7 @@ export type InputCloudflareHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -194,7 +194,7 @@ export type AuthTokenZscalerHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
 };
 
 export type InputZscalerHec = {
@@ -290,7 +290,7 @@ export type InputZscalerHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -447,11 +447,11 @@ export type InputSecurityLake = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -589,7 +589,7 @@ export type InputNetflow = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -701,7 +701,7 @@ export type InputWizWebhook = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List of URI paths accepted by this input. Wildcards are supported (such as /api/v* /hook). Defaults to allow all.
    */
@@ -864,7 +864,7 @@ export type InputWiz = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   retryRules?: models.RetryRulesType | undefined;
   /**
    * Enter client secret directly, or select a stored secret
@@ -963,7 +963,7 @@ export type InputJournalFiles = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -1030,7 +1030,7 @@ export type InputRawUdp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -1137,7 +1137,7 @@ export type InputWinEventLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * The maximum number of bytes in an event before it is flushed to the pipelines
    */
@@ -1299,7 +1299,7 @@ export type Subscription = {
   /**
    * Fields to add to events ingested under this subscription
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   queries?: Array<Query> | undefined;
   /**
    * The XPath query to use for selecting events
@@ -1411,7 +1411,7 @@ export type InputWef = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
@@ -1536,7 +1536,7 @@ export type InputAppscope = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -1659,7 +1659,7 @@ export type InputTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -1672,7 +1672,7 @@ export type InputTcp = {
    * Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
    */
   enableHeader?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   description?: string | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
@@ -1793,7 +1793,7 @@ export type InputFile = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -1935,7 +1935,7 @@ export type InputSyslogSyslog2 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -2072,7 +2072,7 @@ export type InputSyslogSyslog1 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -2220,7 +2220,7 @@ export type InputSqs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -2309,7 +2309,7 @@ export type InputModelDrivenTelemetry = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -2464,7 +2464,7 @@ export type InputOpenTelemetry = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -2600,7 +2600,7 @@ export type InputSnmp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -2745,11 +2745,11 @@ export type InputS3Inventory = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -2941,11 +2941,11 @@ export type InputS3 = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -3071,7 +3071,7 @@ export type InputMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -3134,7 +3134,7 @@ export type InputCriblmetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -3316,7 +3316,7 @@ export type InputKinesis = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -3449,7 +3449,7 @@ export type InputHttpRaw = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List of URI paths accepted by this input, wildcards are supported, e.g /api/v* /hook. Defaults to allow all.
    */
@@ -3517,7 +3517,7 @@ export type InputDatagen = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -3624,7 +3624,7 @@ export type InputDatadogAgent = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   proxyMode?: ProxyModeDatadogAgent | undefined;
   description?: string | undefined;
   /**
@@ -3758,11 +3758,11 @@ export type InputCrowdstrike = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   checkpointing?: models.CheckpointingType | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
@@ -4117,7 +4117,7 @@ export type InputWindowsMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   persistence?: PersistenceWindowsMetrics | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
@@ -4165,7 +4165,7 @@ export type InputKubeEvents = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -4227,7 +4227,7 @@ export type InputKubeLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   persistence?: models.DiskSpoolingType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -4311,7 +4311,7 @@ export type InputKubeMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   persistence?: PersistenceKubeMetrics | undefined;
   description?: string | undefined;
 };
@@ -4503,7 +4503,7 @@ export type InputSystemState = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   collectors?: Collectors | undefined;
   persistence?: PersistenceSystemState | undefined;
   /**
@@ -4887,7 +4887,7 @@ export type InputSystemMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   persistence?: PersistenceSystemMetrics | undefined;
   description?: string | undefined;
 };
@@ -4960,7 +4960,7 @@ export type InputTcpjson = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -5005,7 +5005,7 @@ export type AuthTokensExt = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   splunkHecMetadata?: SplunkHecMetadata | undefined;
   elasticsearchMetadata?: ElasticsearchMetadata | undefined;
 };
@@ -5115,7 +5115,7 @@ export type InputCriblLakeHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   authTokensExt?: Array<AuthTokensExt> | undefined;
   description?: string | undefined;
   /**
@@ -5224,7 +5224,7 @@ export type InputCriblHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -5300,7 +5300,7 @@ export type InputCriblTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -5356,7 +5356,7 @@ export type InputCribl = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -5443,7 +5443,7 @@ export type InputGooglePubsub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
@@ -5555,7 +5555,7 @@ export type InputFirehose = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -5634,7 +5634,7 @@ export type InputExec = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Interval between command executions in seconds.
@@ -5783,7 +5783,7 @@ export type InputEventhub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -5935,7 +5935,7 @@ export type InputOffice365MsgTrace = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   retryRules?: models.RetryRulesType1 | undefined;
   description?: string | undefined;
   /**
@@ -6081,7 +6081,7 @@ export type InputOffice365Service = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
@@ -6202,7 +6202,7 @@ export type InputOffice365Mgmt = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
    */
@@ -6376,7 +6376,7 @@ export type InputEdgePrometheus = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -6638,7 +6638,7 @@ export type InputPrometheus = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -6852,7 +6852,7 @@ export type InputPrometheusRw = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -6978,7 +6978,7 @@ export type InputLoki = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -7149,7 +7149,7 @@ export type InputGrafanaGrafana2 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -7306,7 +7306,7 @@ export type InputGrafanaGrafana1 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -7456,7 +7456,7 @@ export type InputConfluentCloud = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -7657,7 +7657,7 @@ export type InputElastic = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   proxyMode?: ProxyModeElastic | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -7747,7 +7747,7 @@ export type InputAzureBlob = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -7842,7 +7842,7 @@ export type AuthTokenSplunkHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
 };
 
 export type InputSplunkHec = {
@@ -7938,7 +7938,7 @@ export type InputSplunkHec = {
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -8167,7 +8167,7 @@ export type InputSplunkSearch = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   retryRules?: models.RetryRulesType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -8314,7 +8314,7 @@ export type InputSplunk = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -8463,7 +8463,7 @@ export type InputHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
@@ -8559,7 +8559,7 @@ export type InputMsk = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType
     | undefined;
@@ -8821,7 +8821,7 @@ export type InputKafka = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -8865,7 +8865,7 @@ export type InputCollection = {
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -8873,7 +8873,7 @@ export type InputCollection = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Destination to send results to
    */
@@ -8960,7 +8960,7 @@ export type AuthTokenCloudflareHec$Outbound = {
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
 };
 
 /** @internal */
@@ -8975,8 +8975,7 @@ export const AuthTokenCloudflareHec$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
 });
 
 export function authTokenCloudflareHecToJSON(
@@ -9015,7 +9014,7 @@ export type InputCloudflareHec$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   hecAPI: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
@@ -9061,8 +9060,7 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   hecAPI: z.string(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
@@ -9090,7 +9088,7 @@ export type AuthTokenZscalerHec$Outbound = {
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
 };
 
 /** @internal */
@@ -9106,8 +9104,7 @@ export const AuthTokenZscalerHec$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
 });
 
 export function authTokenZscalerHecToJSON(
@@ -9146,7 +9143,7 @@ export type InputZscalerHec$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   hecAPI: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   hecAcks?: boolean | undefined;
   accessControlAllowOrigin?: Array<string> | undefined;
@@ -9192,8 +9189,7 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   hecAPI: z.string(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   hecAcks: z.boolean().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
@@ -9246,10 +9242,8 @@ export type InputSecurityLake$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: models.CheckpointingType$Outbound | undefined;
@@ -9311,10 +9305,8 @@ export const InputSecurityLake$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: models.CheckpointingType$outboundSchema.optional(),
@@ -9366,7 +9358,7 @@ export type InputNetflow$Outbound = {
   v5Enabled?: boolean | undefined;
   v9Enabled?: boolean | undefined;
   ipfixEnabled?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -9399,8 +9391,7 @@ export const InputNetflow$outboundSchema: z.ZodType<
   v5Enabled: z.boolean().optional(),
   v9Enabled: z.boolean().optional(),
   ipfixEnabled: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -9439,7 +9430,7 @@ export type InputWizWebhook$Outbound = {
   ipDenylistRegex?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedPaths?: Array<string> | undefined;
   allowedMethods?: Array<string> | undefined;
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
@@ -9482,8 +9473,7 @@ export const InputWizWebhook$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
   authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
@@ -9590,7 +9580,7 @@ export type InputWiz$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: models.RetryRulesType$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
@@ -9628,8 +9618,7 @@ export const InputWiz$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
   authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
   description: z.string().optional(),
@@ -9686,7 +9675,7 @@ export type InputJournalFiles$Outbound = {
   rules?: Array<InputJournalFilesRule$Outbound> | undefined;
   currentBoot?: boolean | undefined;
   maxAgeDur?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -9713,8 +9702,7 @@ export const InputJournalFiles$outboundSchema: z.ZodType<
   rules: z.array(z.lazy(() => InputJournalFilesRule$outboundSchema)).optional(),
   currentBoot: z.boolean().optional(),
   maxAgeDur: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -9745,7 +9733,7 @@ export type InputRawUdp$Outbound = {
   singleMsgUdpPackets?: boolean | undefined;
   ingestRawBytes?: boolean | undefined;
   udpSocketRxBufSize?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -9775,8 +9763,7 @@ export const InputRawUdp$outboundSchema: z.ZodType<
   singleMsgUdpPackets: z.boolean().optional(),
   ingestRawBytes: z.boolean().optional(),
   udpSocketRxBufSize: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -9818,7 +9805,7 @@ export type InputWinEventLogs$Outbound = {
   disableNativeModule?: boolean | undefined;
   interval?: number | undefined;
   batchSize?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   maxEventBytes?: number | undefined;
   description?: string | undefined;
   disableJsonRendering?: boolean | undefined;
@@ -9848,8 +9835,7 @@ export const InputWinEventLogs$outboundSchema: z.ZodType<
   disableNativeModule: z.boolean().optional(),
   interval: z.number().optional(),
   batchSize: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   maxEventBytes: z.number().optional(),
   description: z.string().optional(),
   disableJsonRendering: z.boolean().optional(),
@@ -9966,7 +9952,7 @@ export type Subscription$Outbound = {
   targets: Array<string>;
   locale?: string | undefined;
   querySelector?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   queries?: Array<Query$Outbound> | undefined;
   xmlQuery?: string | undefined;
 };
@@ -9988,8 +9974,7 @@ export const Subscription$outboundSchema: z.ZodType<
   targets: z.array(z.string()),
   locale: z.string().optional(),
   querySelector: QueryBuilderMode$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   queries: z.array(z.lazy(() => Query$outboundSchema)).optional(),
   xmlQuery: z.string().optional(),
 });
@@ -10028,7 +10013,7 @@ export type InputWef$Outbound = {
   principal?: string | undefined;
   allowMachineIdMismatch?: boolean | undefined;
   subscriptions: Array<Subscription$Outbound>;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   logFingerprintMismatch?: boolean | undefined;
   __template_host?: string | undefined;
@@ -10070,8 +10055,7 @@ export const InputWef$outboundSchema: z.ZodType<
   principal: z.string().optional(),
   allowMachineIdMismatch: z.boolean().optional(),
   subscriptions: z.array(z.lazy(() => Subscription$outboundSchema)),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().optional(),
   __template_host: z.string().optional(),
@@ -10175,7 +10159,7 @@ export type InputAppscope$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   enableUnixPath?: boolean | undefined;
@@ -10217,8 +10201,7 @@ export const InputAppscope$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   enableUnixPath: z.boolean().optional(),
@@ -10263,13 +10246,11 @@ export type InputTcp$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   enableHeader?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
   description?: string | undefined;
   authToken?: string | undefined;
   authType?: string | undefined;
@@ -10304,13 +10285,11 @@ export const InputTcp$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   enableHeader: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
   description: z.string().optional(),
   authToken: z.string().optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
@@ -10354,7 +10333,7 @@ export type InputFile$Outbound = {
   checkFileModTime?: boolean | undefined;
   forceText?: boolean | undefined;
   hashLen?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
@@ -10394,8 +10373,7 @@ export const InputFile$outboundSchema: z.ZodType<
   checkFileModTime: z.boolean().optional(),
   forceText: z.boolean().optional(),
   hashLen: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   description: z.string().optional(),
@@ -10446,7 +10424,7 @@ export type InputSyslogSyslog2$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
@@ -10491,8 +10469,7 @@ export const InputSyslogSyslog2$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
@@ -10545,7 +10522,7 @@ export type InputSyslogSyslog1$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
@@ -10590,8 +10567,7 @@ export const InputSyslogSyslog1$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
@@ -10664,7 +10640,7 @@ export type InputSqs$Outbound = {
   durationSeconds?: number | undefined;
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   pollTimeout?: number | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
@@ -10713,8 +10689,7 @@ export const InputSqs$outboundSchema: z.ZodType<
   durationSeconds: z.number().optional(),
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   pollTimeout: z.number().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
@@ -10748,7 +10723,7 @@ export type InputModelDrivenTelemetry$Outbound = {
   host: string;
   port: number;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   maxActiveCxn?: number | undefined;
   shutdownTimeoutMs?: number | undefined;
   description?: string | undefined;
@@ -10776,8 +10751,7 @@ export const InputModelDrivenTelemetry$outboundSchema: z.ZodType<
   host: z.string(),
   port: z.number(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   maxActiveCxn: z.number().optional(),
   shutdownTimeoutMs: z.number().optional(),
   description: z.string().optional(),
@@ -10838,7 +10812,7 @@ export type InputOpenTelemetry$Outbound = {
   extractMetrics?: boolean | undefined;
   otlpVersion?: string | undefined;
   authType?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   maxActiveCxn?: number | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -10887,8 +10861,7 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   extractMetrics: z.boolean().optional(),
   otlpVersion: CreateInputOTLPVersion$outboundSchema.optional(),
   authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   maxActiveCxn: z.number().optional(),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -10986,7 +10959,7 @@ export type InputSnmp$Outbound = {
   snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
   maxBufferSize?: number | undefined;
   ipWhitelistRegex?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   varbindsWithTypes?: boolean | undefined;
   bestEffortParsing?: boolean | undefined;
@@ -11017,8 +10990,7 @@ export const InputSnmp$outboundSchema: z.ZodType<
   snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
   maxBufferSize: z.number().optional(),
   ipWhitelistRegex: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   varbindsWithTypes: z.boolean().optional(),
   bestEffortParsing: z.boolean().optional(),
@@ -11066,10 +11038,8 @@ export type InputS3Inventory$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: models.CheckpointingType$Outbound | undefined;
@@ -11133,10 +11103,8 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: models.CheckpointingType$outboundSchema.optional(),
@@ -11203,10 +11171,8 @@ export type InputS3$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: models.CheckpointingType$Outbound | undefined;
@@ -11268,10 +11234,8 @@ export const InputS3$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: models.CheckpointingType$outboundSchema.optional(),
@@ -11315,7 +11279,7 @@ export type InputMetrics$Outbound = {
   ipWhitelistRegex?: string | undefined;
   enableProxyHeader?: boolean | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
@@ -11347,8 +11311,7 @@ export const InputMetrics$outboundSchema: z.ZodType<
   ipWhitelistRegex: z.string().optional(),
   enableProxyHeader: z.boolean().optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
@@ -11374,7 +11337,7 @@ export type InputCriblmetrics$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   prefix?: string | undefined;
   fullFidelity?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -11397,8 +11360,7 @@ export const InputCriblmetrics$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   prefix: z.string().optional(),
   fullFidelity: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -11464,7 +11426,7 @@ export type InputKinesis$Outbound = {
   durationSeconds?: number | undefined;
   verifyKPLCheckSums?: boolean | undefined;
   avoidDuplicates?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -11514,8 +11476,7 @@ export const InputKinesis$outboundSchema: z.ZodType<
   durationSeconds: z.number().optional(),
   verifyKPLCheckSums: z.boolean().optional(),
   avoidDuplicates: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -11560,7 +11521,7 @@ export type InputHttpRaw$Outbound = {
   ipDenylistRegex?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedPaths?: Array<string> | undefined;
   allowedMethods?: Array<string> | undefined;
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
@@ -11603,8 +11564,7 @@ export const InputHttpRaw$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
   authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
@@ -11651,7 +11611,7 @@ export type InputDatagen$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   samples: Array<Sample$Outbound>;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -11673,8 +11633,7 @@ export const InputDatagen$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   samples: z.array(z.lazy(() => Sample$outboundSchema)),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -11733,7 +11692,7 @@ export type InputDatadogAgent$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   extractMetrics?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   proxyMode?: ProxyModeDatadogAgent$Outbound | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
@@ -11772,8 +11731,7 @@ export const InputDatadogAgent$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   extractMetrics: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   proxyMode: z.lazy(() => ProxyModeDatadogAgent$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
@@ -11823,10 +11781,8 @@ export type InputCrowdstrike$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   checkpointing?: models.CheckpointingType$Outbound | undefined;
   pollTimeout?: number | undefined;
   encoding?: string | undefined;
@@ -11886,10 +11842,8 @@ export const InputCrowdstrike$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   checkpointing: models.CheckpointingType$outboundSchema.optional(),
   pollTimeout: z.number().optional(),
   encoding: z.string().optional(),
@@ -12188,7 +12142,7 @@ export type InputWindowsMetrics$Outbound = {
   interval?: number | undefined;
   host?: HostWindowsMetrics$Outbound | undefined;
   process?: models.ProcessType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   persistence?: PersistenceWindowsMetrics$Outbound | undefined;
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
@@ -12214,8 +12168,7 @@ export const InputWindowsMetrics$outboundSchema: z.ZodType<
   interval: z.number().optional(),
   host: z.lazy(() => HostWindowsMetrics$outboundSchema).optional(),
   process: models.ProcessType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   persistence: z.lazy(() => PersistenceWindowsMetrics$outboundSchema)
     .optional(),
   disableNativeModule: z.boolean().optional(),
@@ -12243,7 +12196,7 @@ export type InputKubeEvents$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   rules?: Array<models.ItemsTypeRules$Outbound> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -12265,8 +12218,7 @@ export const InputKubeEvents$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   rules: z.array(models.ItemsTypeRules$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -12311,7 +12263,7 @@ export type InputKubeLogs$Outbound = {
   interval?: number | undefined;
   rules?: Array<RuleKubeLogs$Outbound> | undefined;
   timestamps?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   persistence?: models.DiskSpoolingType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
@@ -12339,8 +12291,7 @@ export const InputKubeLogs$outboundSchema: z.ZodType<
   interval: z.number().optional(),
   rules: z.array(z.lazy(() => RuleKubeLogs$outboundSchema)).optional(),
   timestamps: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   persistence: models.DiskSpoolingType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
@@ -12399,7 +12350,7 @@ export type InputKubeMetrics$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
   rules?: Array<models.ItemsTypeRules$Outbound> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   persistence?: PersistenceKubeMetrics$Outbound | undefined;
   description?: string | undefined;
 };
@@ -12423,8 +12374,7 @@ export const InputKubeMetrics$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   interval: z.number().optional(),
   rules: z.array(models.ItemsTypeRules$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   persistence: z.lazy(() => PersistenceKubeMetrics$outboundSchema).optional(),
   description: z.string().optional(),
 });
@@ -12720,7 +12670,7 @@ export type InputSystemState$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   collectors?: Collectors$Outbound | undefined;
   persistence?: PersistenceSystemState$Outbound | undefined;
   disableNativeModule?: boolean | undefined;
@@ -12746,8 +12696,7 @@ export const InputSystemState$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   interval: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   collectors: z.lazy(() => Collectors$outboundSchema).optional(),
   persistence: z.lazy(() => PersistenceSystemState$outboundSchema).optional(),
   disableNativeModule: z.boolean().optional(),
@@ -13098,7 +13047,7 @@ export type InputSystemMetrics$Outbound = {
   host?: HostSystemMetrics$Outbound | undefined;
   process?: models.ProcessType$Outbound | undefined;
   container?: Container$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   persistence?: PersistenceSystemMetrics$Outbound | undefined;
   description?: string | undefined;
 };
@@ -13124,8 +13073,7 @@ export const InputSystemMetrics$outboundSchema: z.ZodType<
   host: z.lazy(() => HostSystemMetrics$outboundSchema).optional(),
   process: models.ProcessType$outboundSchema.optional(),
   container: z.lazy(() => Container$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   persistence: z.lazy(() => PersistenceSystemMetrics$outboundSchema).optional(),
   description: z.string().optional(),
 });
@@ -13159,7 +13107,7 @@ export type InputTcpjson$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   enableLoadBalancing?: boolean | undefined;
   authType?: string | undefined;
   description?: string | undefined;
@@ -13195,8 +13143,7 @@ export const InputTcpjson$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   enableLoadBalancing: z.boolean().optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
@@ -13265,7 +13212,7 @@ export function elasticsearchMetadataToJSON(
 export type AuthTokensExt$Outbound = {
   token: string;
   description?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   splunkHecMetadata?: SplunkHecMetadata$Outbound | undefined;
   elasticsearchMetadata?: ElasticsearchMetadata$Outbound | undefined;
 };
@@ -13278,8 +13225,7 @@ export const AuthTokensExt$outboundSchema: z.ZodType<
 > = z.object({
   token: z.string(),
   description: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   splunkHecMetadata: z.lazy(() => SplunkHecMetadata$outboundSchema).optional(),
   elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata$outboundSchema)
     .optional(),
@@ -13320,7 +13266,7 @@ export type InputCriblLakeHttp$Outbound = {
   elasticAPI?: string | undefined;
   splunkHecAPI?: string | undefined;
   splunkHecAcks?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   authTokensExt?: Array<AuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
@@ -13364,8 +13310,7 @@ export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().optional(),
   splunkHecAPI: z.string().optional(),
   splunkHecAcks: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema)).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
@@ -13408,7 +13353,7 @@ export type InputCriblHttp$Outbound = {
   enableHealthCheck?: boolean | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -13446,8 +13391,7 @@ export const InputCriblHttp$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -13477,7 +13421,7 @@ export type InputCriblTcp$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   enableLoadBalancing?: boolean | undefined;
   authTokens?: Array<models.ItemsTypeAuthTokens$Outbound> | undefined;
   description?: string | undefined;
@@ -13510,8 +13454,7 @@ export const InputCriblTcp$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   enableLoadBalancing: z.boolean().optional(),
   authTokens: z.array(models.ItemsTypeAuthTokens$outboundSchema).optional(),
   description: z.string().optional(),
@@ -13536,7 +13479,7 @@ export type InputCribl$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   filter?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -13558,8 +13501,7 @@ export const InputCribl$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   filter: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -13591,7 +13533,7 @@ export type InputGooglePubsub$Outbound = {
   maxBacklog?: number | undefined;
   concurrency?: number | undefined;
   requestTimeout?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   orderedDelivery?: boolean | undefined;
   __template_topicName?: string | undefined;
@@ -13629,8 +13571,7 @@ export const InputGooglePubsub$outboundSchema: z.ZodType<
   maxBacklog: z.number().optional(),
   concurrency: z.number().optional(),
   requestTimeout: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   orderedDelivery: z.boolean().optional(),
   __template_topicName: z.string().optional(),
@@ -13673,7 +13614,7 @@ export type InputFirehose$Outbound = {
   enableHealthCheck?: boolean | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -13711,8 +13652,7 @@ export const InputFirehose$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -13746,7 +13686,7 @@ export type InputExec$Outbound = {
   scheduleType?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   interval?: number | undefined;
   cronSchedule?: string | undefined;
@@ -13774,8 +13714,7 @@ export const InputExec$outboundSchema: z.ZodType<
   scheduleType: ScheduleType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   interval: z.number().optional(),
   cronSchedule: z.string().optional(),
@@ -13820,7 +13759,7 @@ export type InputEventhub$Outbound = {
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
   minimizeDuplicates?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -13864,8 +13803,7 @@ export const InputEventhub$outboundSchema: z.ZodType<
   maxBytes: z.number().optional(),
   maxSocketErrors: z.number().optional(),
   minimizeDuplicates: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -13938,7 +13876,7 @@ export type InputOffice365MsgTrace$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: models.RetryRulesType1$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -13989,8 +13927,7 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: models.RetryRulesType1$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -14070,7 +14007,7 @@ export type InputOffice365Service$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   contentConfig?: Array<ContentConfigOffice365Service$Outbound> | undefined;
   retryRules?: models.RetryRulesType1$Outbound | undefined;
   authType?: string | undefined;
@@ -14108,8 +14045,7 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   contentConfig: z.array(
     z.lazy(() => ContentConfigOffice365Service$outboundSchema),
   ).optional(),
@@ -14182,7 +14118,7 @@ export type InputOffice365Mgmt$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   publisherIdentifier?: string | undefined;
   contentConfig?: Array<ContentConfigOffice365Mgmt$Outbound> | undefined;
   ingestionLag?: number | undefined;
@@ -14223,8 +14159,7 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   publisherIdentifier: z.string().optional(),
   contentConfig: z.array(
     z.lazy(() => ContentConfigOffice365Mgmt$outboundSchema),
@@ -14324,7 +14259,7 @@ export type InputEdgePrometheus$Outbound = {
   interval: number;
   timeout?: number | undefined;
   persistence?: models.DiskSpoolingType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   targets?: Array<Target$Outbound> | undefined;
@@ -14384,8 +14319,7 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   interval: z.number(),
   timeout: z.number().optional(),
   persistence: models.DiskSpoolingType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   authType: AuthenticationMethodEdgePrometheus$outboundSchema.optional(),
   description: z.string().optional(),
   targets: z.array(z.lazy(() => Target$outboundSchema)).optional(),
@@ -14475,7 +14409,7 @@ export type InputPrometheus$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   targetList?: Array<string> | undefined;
@@ -14537,8 +14471,7 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   authType: models.AuthenticationMethodOptionsSasl$outboundSchema.optional(),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
@@ -14606,7 +14539,7 @@ export type InputPrometheusRw$Outbound = {
   ipDenylistRegex?: string | undefined;
   prometheusAPI: string;
   authType?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -14652,8 +14585,7 @@ export const InputPrometheusRw$outboundSchema: z.ZodType<
   prometheusAPI: z.string(),
   authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
     .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -14701,7 +14633,7 @@ export type InputLoki$Outbound = {
   ipDenylistRegex?: string | undefined;
   lokiAPI: string;
   authType?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -14745,8 +14677,7 @@ export const InputLoki$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   lokiAPI: z.string(),
   authType: models.AuthenticationTypeOptionsLokiAuth$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -14855,7 +14786,7 @@ export type InputGrafanaGrafana2$Outbound = {
   lokiAPI: string;
   prometheusAuth?: PrometheusAuth2$Outbound | undefined;
   lokiAuth?: LokiAuth2$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -14896,8 +14827,7 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   lokiAPI: z.string(),
   prometheusAuth: z.lazy(() => PrometheusAuth2$outboundSchema).optional(),
   lokiAuth: z.lazy(() => LokiAuth2$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -15005,7 +14935,7 @@ export type InputGrafanaGrafana1$Outbound = {
   lokiAPI?: string | undefined;
   prometheusAuth?: PrometheusAuth1$Outbound | undefined;
   lokiAuth?: LokiAuth1$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -15046,8 +14976,7 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   lokiAPI: z.string().optional(),
   prometheusAuth: z.lazy(() => PrometheusAuth1$outboundSchema).optional(),
   lokiAuth: z.lazy(() => LokiAuth1$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -15119,7 +15048,7 @@ export type InputConfluentCloud$Outbound = {
   maxBytesPerPartition?: number | undefined;
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -15165,8 +15094,7 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().optional(),
   maxBytes: z.number().optional(),
   maxSocketErrors: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -15271,7 +15199,7 @@ export type InputElastic$Outbound = {
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   proxyMode?: ProxyModeElastic$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -15319,8 +15247,7 @@ export const InputElastic$outboundSchema: z.ZodType<
   apiVersion: CreateInputAPIVersion$outboundSchema.optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   proxyMode: z.lazy(() => ProxyModeElastic$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -15355,7 +15282,7 @@ export type InputAzureBlob$Outbound = {
   maxMessages?: number | undefined;
   servicePeriodSecs?: number | undefined;
   skipOnError?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
@@ -15403,8 +15330,7 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   servicePeriodSecs: z.number().optional(),
   skipOnError: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
@@ -15439,7 +15365,7 @@ export type AuthTokenSplunkHec$Outbound = {
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
 };
 
 /** @internal */
@@ -15455,8 +15381,7 @@ export const AuthTokenSplunkHec$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
 });
 
 export function authTokenSplunkHecToJSON(
@@ -15495,7 +15420,7 @@ export type InputSplunkHec$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   splunkHecAPI: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   splunkHecAcks?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
@@ -15546,8 +15471,7 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   splunkHecAPI: z.string(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   splunkHecAcks: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
@@ -15653,7 +15577,7 @@ export type InputSplunkSearch$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: models.RetryRulesType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
@@ -15704,8 +15628,7 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
@@ -15783,7 +15706,7 @@ export type InputSplunk$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   authTokens?: Array<AuthTokenSplunk$Outbound> | undefined;
@@ -15823,8 +15746,7 @@ export const InputSplunk$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   authTokens: z.array(z.lazy(() => AuthTokenSplunk$outboundSchema)).optional(),
@@ -15873,7 +15795,7 @@ export type InputHttp$Outbound = {
   elasticAPI?: string | undefined;
   splunkHecAPI?: string | undefined;
   splunkHecAcks?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
@@ -15917,8 +15839,7 @@ export const InputHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().optional(),
   splunkHecAPI: z.string().optional(),
   splunkHecAcks: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
     .optional(),
   description: z.string().optional(),
@@ -15950,7 +15871,7 @@ export type InputMsk$Outbound = {
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
   heartbeatInterval?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType$Outbound
     | undefined;
@@ -16015,8 +15936,7 @@ export const InputMsk$outboundSchema: z.ZodType<
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),
   heartbeatInterval: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   kafkaSchemaRegistry: models
     .KafkaSchemaRegistryAuthenticationType$outboundSchema.optional(),
   connectionTimeout: z.number().optional(),
@@ -16098,7 +16018,7 @@ export type InputKafka$Outbound = {
   maxBytesPerPartition?: number | undefined;
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -16144,8 +16064,7 @@ export const InputKafka$outboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().optional(),
   maxBytes: z.number().optional(),
   maxSocketErrors: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -16167,11 +16086,9 @@ export type InputCollection$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
   throttleRatePerSec?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   output?: string | undefined;
 };
 
@@ -16194,11 +16111,9 @@ export const InputCollection$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
   throttleRatePerSec: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   output: z.string().optional(),
 });
 

@@ -1,12 +1,12 @@
-# PreprocessTypeSavedJobCollectionInput
+# PreprocessType
 
 ## Example Usage
 
 ```typescript
-import { PreprocessTypeSavedJobCollectionInput } from "cribl-control-plane/models";
+import { PreprocessType } from "cribl-control-plane/models";
 
-let value: PreprocessTypeSavedJobCollectionInput = {
-  disabled: true,
+let value: PreprocessType = {
+  disabled: false,
   command: "<value>",
   args: [
     "<value 1>",
