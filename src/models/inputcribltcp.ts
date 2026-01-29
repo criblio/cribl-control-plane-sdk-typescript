@@ -20,11 +20,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -102,7 +102,7 @@ export type InputCriblTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -148,9 +148,7 @@ export const InputCriblTcp$inboundSchema: z.ZodType<
   socketEndingMaxWait: types.optional(types.number()),
   socketMaxLifespan: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   enableLoadBalancing: types.optional(types.boolean()),
   authTokens: types.optional(z.array(ItemsTypeAuthTokens$inboundSchema)),
   description: types.optional(types.string()),
@@ -177,7 +175,7 @@ export type InputCriblTcp$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   enableLoadBalancing?: boolean | undefined;
   authTokens?: Array<ItemsTypeAuthTokens$Outbound> | undefined;
   description?: string | undefined;
@@ -209,7 +207,7 @@ export const InputCriblTcp$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   enableLoadBalancing: z.boolean().optional(),
   authTokens: z.array(ItemsTypeAuthTokens$outboundSchema).optional(),
   description: z.string().optional(),

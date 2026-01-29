@@ -22,11 +22,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   ItemsTypeSearchFilter,
   ItemsTypeSearchFilter$inboundSchema,
@@ -184,7 +184,7 @@ export type InputEdgePrometheus = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -447,9 +447,7 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   interval: types.number(),
   timeout: types.optional(types.number()),
   persistence: types.optional(DiskSpoolingType$inboundSchema),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   authType: types.optional(
     InputEdgePrometheusAuthenticationMethod$inboundSchema,
   ),
@@ -505,7 +503,7 @@ export type InputEdgePrometheus$Outbound = {
   interval: number;
   timeout?: number | undefined;
   persistence?: DiskSpoolingType$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   targets?: Array<Target$Outbound> | undefined;
@@ -564,7 +562,7 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   interval: z.number(),
   timeout: z.number().optional(),
   persistence: DiskSpoolingType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   authType: InputEdgePrometheusAuthenticationMethod$outboundSchema.optional(),
   description: z.string().optional(),
   targets: z.array(z.lazy(() => Target$outboundSchema)).optional(),

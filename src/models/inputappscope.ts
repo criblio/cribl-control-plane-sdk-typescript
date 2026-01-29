@@ -24,11 +24,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -151,7 +151,7 @@ export type InputAppscope = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -366,9 +366,7 @@ export const InputAppscope$inboundSchema: z.ZodType<
   socketEndingMaxWait: types.optional(types.number()),
   socketMaxLifespan: types.optional(types.number()),
   enableProxyHeader: types.optional(types.boolean()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
   enableUnixPath: types.optional(types.boolean()),
@@ -408,7 +406,7 @@ export type InputAppscope$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   enableUnixPath?: boolean | undefined;
@@ -449,7 +447,7 @@ export const InputAppscope$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   enableUnixPath: z.boolean().optional(),

@@ -8,7 +8,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type PreprocessTypeSavedJobCollectionInput = {
+export type PreprocessType = {
   disabled: boolean;
   /**
    * Command to feed the data through (via stdin) and process its output (stdout)
@@ -21,8 +21,8 @@ export type PreprocessTypeSavedJobCollectionInput = {
 };
 
 /** @internal */
-export const PreprocessTypeSavedJobCollectionInput$inboundSchema: z.ZodType<
-  PreprocessTypeSavedJobCollectionInput,
+export const PreprocessType$inboundSchema: z.ZodType<
+  PreprocessType,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -31,39 +31,32 @@ export const PreprocessTypeSavedJobCollectionInput$inboundSchema: z.ZodType<
   args: types.optional(z.array(types.string())),
 });
 /** @internal */
-export type PreprocessTypeSavedJobCollectionInput$Outbound = {
+export type PreprocessType$Outbound = {
   disabled: boolean;
   command?: string | undefined;
   args?: Array<string> | undefined;
 };
 
 /** @internal */
-export const PreprocessTypeSavedJobCollectionInput$outboundSchema: z.ZodType<
-  PreprocessTypeSavedJobCollectionInput$Outbound,
+export const PreprocessType$outboundSchema: z.ZodType<
+  PreprocessType$Outbound,
   z.ZodTypeDef,
-  PreprocessTypeSavedJobCollectionInput
+  PreprocessType
 > = z.object({
   disabled: z.boolean(),
   command: z.string().optional(),
   args: z.array(z.string()).optional(),
 });
 
-export function preprocessTypeSavedJobCollectionInputToJSON(
-  preprocessTypeSavedJobCollectionInput: PreprocessTypeSavedJobCollectionInput,
-): string {
-  return JSON.stringify(
-    PreprocessTypeSavedJobCollectionInput$outboundSchema.parse(
-      preprocessTypeSavedJobCollectionInput,
-    ),
-  );
+export function preprocessTypeToJSON(preprocessType: PreprocessType): string {
+  return JSON.stringify(PreprocessType$outboundSchema.parse(preprocessType));
 }
-export function preprocessTypeSavedJobCollectionInputFromJSON(
+export function preprocessTypeFromJSON(
   jsonString: string,
-): SafeParseResult<PreprocessTypeSavedJobCollectionInput, SDKValidationError> {
+): SafeParseResult<PreprocessType, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      PreprocessTypeSavedJobCollectionInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PreprocessTypeSavedJobCollectionInput' from JSON`,
+    (x) => PreprocessType$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PreprocessType' from JSON`,
   );
 }

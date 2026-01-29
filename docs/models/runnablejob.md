@@ -50,7 +50,7 @@ const value: models.RunnableJobCollection = {
     type: "filesystem",
     conf: {
       outputName: "<value>",
-      path: "/Library",
+      path: "/private",
       extractors: [
         {
           key: "<key>",
@@ -58,7 +58,7 @@ const value: models.RunnableJobCollection = {
         },
       ],
       recurse: false,
-      maxBatchSize: 4087.23,
+      maxBatchSize: 8097.94,
     },
     destructive: true,
     encoding: "<value>",
@@ -67,15 +67,15 @@ const value: models.RunnableJobCollection = {
     type: "collection",
     breakerRulesets: [
       "<value 1>",
+      "<value 2>",
     ],
-    staleChannelFlushMs: 7596.83,
+    staleChannelFlushMs: 4690.93,
     sendToRoutes: false,
     preprocess: {
-      disabled: true,
+      disabled: false,
       command: "<value>",
       args: [
         "<value 1>",
-        "<value 2>",
       ],
     },
     throttleRatePerSec: "<value>",
@@ -90,13 +90,13 @@ const value: models.RunnableJobCollection = {
   },
   run: {
     rescheduleDroppedTasks: false,
-    maxTaskReschedule: 8097.94,
-    logLevel: "warn",
+    maxTaskReschedule: 2517.82,
+    logLevel: "debug",
     jobTimeout: "<value>",
     mode: "preview",
-    timeRangeType: "absolute",
-    earliest: 7522.84,
-    latest: 6416.24,
+    timeRangeType: "relative",
+    earliest: 6410.59,
+    latest: 397.83,
     timestampTimezone: "<value>",
     timeWarning: {},
     expression: "<value>",
@@ -104,9 +104,9 @@ const value: models.RunnableJobCollection = {
     maxTaskSize: "<value>",
     discoverToRoutes: true,
     capture: {
-      duration: 7307.09,
-      maxEvents: 5613.36,
-      level: 3,
+      duration: 7810.09,
+      maxEvents: 3852.63,
+      level: 0,
     },
   },
 };
@@ -162,8 +162,8 @@ const value: models.RunnableJobExecutor = {
   },
   run: {
     rescheduleDroppedTasks: true,
-    maxTaskReschedule: 3930.98,
-    logLevel: "silly",
+    maxTaskReschedule: 8551.94,
+    logLevel: "info",
     jobTimeout: "<value>",
   },
 };

@@ -14,11 +14,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -135,7 +135,7 @@ export type InputDatadogAgent = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   proxyMode?: InputDatadogAgentProxyMode | undefined;
   description?: string | undefined;
   /**
@@ -223,9 +223,7 @@ export const InputDatadogAgent$inboundSchema: z.ZodType<
   ipAllowlistRegex: types.optional(types.string()),
   ipDenylistRegex: types.optional(types.string()),
   extractMetrics: types.optional(types.boolean()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   proxyMode: types.optional(
     z.lazy(() => InputDatadogAgentProxyMode$inboundSchema),
   ),
@@ -260,7 +258,7 @@ export type InputDatadogAgent$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   extractMetrics?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   proxyMode?: InputDatadogAgentProxyMode$Outbound | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
@@ -298,7 +296,7 @@ export const InputDatadogAgent$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   extractMetrics: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   proxyMode: z.lazy(() => InputDatadogAgentProxyMode$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),

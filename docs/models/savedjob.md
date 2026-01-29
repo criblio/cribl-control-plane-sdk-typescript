@@ -105,15 +105,15 @@ const value: models.SavedJobCollection = {
     type: "collection",
     breakerRulesets: [
       "<value 1>",
+      "<value 2>",
     ],
-    staleChannelFlushMs: 7596.83,
+    staleChannelFlushMs: 4690.93,
     sendToRoutes: false,
     preprocess: {
-      disabled: true,
+      disabled: false,
       command: "<value>",
       args: [
         "<value 1>",
-        "<value 2>",
       ],
     },
     throttleRatePerSec: "<value>",

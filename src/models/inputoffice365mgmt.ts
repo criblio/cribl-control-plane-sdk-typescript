@@ -19,11 +19,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   LogLevelOptionsContentConfigItems,
   LogLevelOptionsContentConfigItems$inboundSchema,
@@ -135,7 +135,7 @@ export type InputOffice365Mgmt = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
    */
@@ -260,9 +260,7 @@ export const InputOffice365Mgmt$inboundSchema: z.ZodType<
   maxMissedKeepAlives: types.optional(types.number()),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   publisherIdentifier: types.optional(types.string()),
   contentConfig: types.optional(
     z.array(z.lazy(() => InputOffice365MgmtContentConfig$inboundSchema)),
@@ -299,7 +297,7 @@ export type InputOffice365Mgmt$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   publisherIdentifier?: string | undefined;
   contentConfig?: Array<InputOffice365MgmtContentConfig$Outbound> | undefined;
   ingestionLag?: number | undefined;
@@ -339,7 +337,7 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   publisherIdentifier: z.string().optional(),
   contentConfig: z.array(
     z.lazy(() => InputOffice365MgmtContentConfig$outboundSchema),

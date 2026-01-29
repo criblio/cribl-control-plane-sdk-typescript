@@ -1,11 +1,11 @@
-# MethodOptionsCredentials
+# AwsAuthenticationMethodOptions
 
 ## Example Usage
 
 ```typescript
-import { MethodOptionsCredentials } from "cribl-control-plane/models";
+import { AwsAuthenticationMethodOptions } from "cribl-control-plane/models";
 
-let value: MethodOptionsCredentials = "auto_rpc";
+let value: AwsAuthenticationMethodOptions = "auto";
 ```
 
 ## Values

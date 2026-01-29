@@ -1,11 +1,11 @@
-# FormatOptionsCriblLakeDataset
+# FormatOptions
 
 ## Example Usage
 
 ```typescript
-import { FormatOptionsCriblLakeDataset } from "cribl-control-plane/models";
+import { FormatOptions } from "cribl-control-plane/models";
 
-let value: FormatOptionsCriblLakeDataset = "json";
+let value: FormatOptions = "json";
 ```
 
 ## Values

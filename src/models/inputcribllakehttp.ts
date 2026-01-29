@@ -14,11 +14,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -49,7 +49,7 @@ export type AuthTokensExt = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   splunkHecMetadata?: SplunkHecMetadata | undefined;
   elasticsearchMetadata?: ElasticsearchMetadata | undefined;
 };
@@ -159,7 +159,7 @@ export type InputCriblLakeHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   authTokensExt?: Array<AuthTokensExt> | undefined;
   description?: string | undefined;
   /**
@@ -271,9 +271,7 @@ export const AuthTokensExt$inboundSchema: z.ZodType<
 > = z.object({
   token: types.string(),
   description: types.optional(types.string()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   splunkHecMetadata: types.optional(
     z.lazy(() => SplunkHecMetadata$inboundSchema),
   ),
@@ -285,7 +283,7 @@ export const AuthTokensExt$inboundSchema: z.ZodType<
 export type AuthTokensExt$Outbound = {
   token: string;
   description?: string | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   splunkHecMetadata?: SplunkHecMetadata$Outbound | undefined;
   elasticsearchMetadata?: ElasticsearchMetadata$Outbound | undefined;
 };
@@ -298,7 +296,7 @@ export const AuthTokensExt$outboundSchema: z.ZodType<
 > = z.object({
   token: z.string(),
   description: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   splunkHecMetadata: z.lazy(() => SplunkHecMetadata$outboundSchema).optional(),
   elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata$outboundSchema)
     .optional(),
@@ -354,9 +352,7 @@ export const InputCriblLakeHttp$inboundSchema: z.ZodType<
   elasticAPI: types.optional(types.string()),
   splunkHecAPI: types.optional(types.string()),
   splunkHecAcks: types.optional(types.boolean()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   authTokensExt: types.optional(
     z.array(z.lazy(() => AuthTokensExt$inboundSchema)),
   ),
@@ -396,7 +392,7 @@ export type InputCriblLakeHttp$Outbound = {
   elasticAPI?: string | undefined;
   splunkHecAPI?: string | undefined;
   splunkHecAcks?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   authTokensExt?: Array<AuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
@@ -439,7 +435,7 @@ export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().optional(),
   splunkHecAPI: z.string().optional(),
   splunkHecAcks: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema)).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
