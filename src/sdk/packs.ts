@@ -12,8 +12,20 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PacksDestinations } from "./packsdestinations.js";
+import { PacksSources } from "./packssources.js";
 
 export class Packs extends ClientSDK {
+  private _sources?: PacksSources;
+  get sources(): PacksSources {
+    return (this._sources ??= new PacksSources(this._options));
+  }
+
+  private _destinations?: PacksDestinations;
+  get destinations(): PacksDestinations {
+    return (this._destinations ??= new PacksDestinations(this._options));
+  }
+
   /**
    * Install a Pack
    *

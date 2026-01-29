@@ -1,0 +1,21 @@
+# CreateOutputSystemByPackCustomLabel
+
+## Example Usage
+
+```typescript
+import { CreateOutputSystemByPackCustomLabel } from "cribl-control-plane/models/operations";
+
+let value: CreateOutputSystemByPackCustomLabel = {
+  key: "<key>",
+  value: "<value>",
+  rbacEnabled: false,
+};
+```
+
+## Fields
+
+| Field                                                            | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `key`                                                            | *string*                                                         | :heavy_check_mark:                                               | N/A                                                              |
+| `value`                                                          | *string*                                                         | :heavy_check_mark:                                               | N/A                                                              |
+| `rbacEnabled`                                                    | *boolean*                                                        | :heavy_minus_sign:                                               | Designate this label for role-based access control and filtering |

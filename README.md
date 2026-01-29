@@ -250,10 +250,10 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [update](docs/sdks/destinations/README.md#update) - Update a Destination
 * [delete](docs/sdks/destinations/README.md#delete) - Delete a Destination
 
-#### [Destinations.Pq](docs/sdks/pq/README.md)
+#### [Destinations.Pq](docs/sdks/destinationspq/README.md)
 
-* [clear](docs/sdks/pq/README.md#clear) - Clear the persistent queue for a Destination
-* [get](docs/sdks/pq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
+* [clear](docs/sdks/destinationspq/README.md#clear) - Clear the persistent queue for a Destination
+* [get](docs/sdks/destinationspq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
 
 #### [Destinations.Samples](docs/sdks/samples/README.md)
 
@@ -315,6 +315,42 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 * [get](docs/sdks/packs/README.md#get) - Get a Pack
 * [update](docs/sdks/packs/README.md#update) - Upgrade a Pack
+
+#### [Packs.Destinations](docs/sdks/packsdestinations/README.md)
+
+* [list](docs/sdks/packsdestinations/README.md#list) - List all Destinations within a Pack
+* [create](docs/sdks/packsdestinations/README.md#create) - Create a Destination within a Pack
+* [get](docs/sdks/packsdestinations/README.md#get) - Get a Destination within a Pack
+* [update](docs/sdks/packsdestinations/README.md#update) - Update a Destination within a Pack
+* [delete](docs/sdks/packsdestinations/README.md#delete) - Delete a Destination within a Pack
+
+##### [Packs.Destinations.Pq](docs/sdks/packsdestinationspq/README.md)
+
+* [clear](docs/sdks/packsdestinationspq/README.md#clear) - Clear the persistent queue for a Destination within a Pack
+* [get](docs/sdks/packsdestinationspq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination within a Pack
+
+##### [Packs.Destinations.Samples](docs/sdks/packssamples/README.md)
+
+* [get](docs/sdks/packssamples/README.md#get) - Get sample event data for a Destination within a Pack
+* [create](docs/sdks/packssamples/README.md#create) - Send sample event data to a Destination within a Pack
+
+#### [Packs.Sources](docs/sdks/packssources/README.md)
+
+* [list](docs/sdks/packssources/README.md#list) - List all Sources within a Pack
+* [create](docs/sdks/packssources/README.md#create) - Create a Source within a Pack
+* [get](docs/sdks/packssources/README.md#get) - Get a Source within a Pack
+* [update](docs/sdks/packssources/README.md#update) - Update a Source within a Pack
+* [delete](docs/sdks/packssources/README.md#delete) - Delete a Source within a Pack
+
+##### [Packs.Sources.HecTokens](docs/sdks/packshectokens/README.md)
+
+* [create](docs/sdks/packshectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source within a Pack
+* [update](docs/sdks/packshectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source within a Pack
+
+##### [Packs.Sources.Pq](docs/sdks/sourcespq/README.md)
+
+* [clear](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
+* [get](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
@@ -413,8 +449,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`destinationsDelete`](docs/sdks/destinations/README.md#delete) - Delete a Destination
 - [`destinationsGet`](docs/sdks/destinations/README.md#get) - Get a Destination
 - [`destinationsList`](docs/sdks/destinations/README.md#list) - List all Destinations
-- [`destinationsPqClear`](docs/sdks/pq/README.md#clear) - Clear the persistent queue for a Destination
-- [`destinationsPqGet`](docs/sdks/pq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
+- [`destinationsPqClear`](docs/sdks/destinationspq/README.md#clear) - Clear the persistent queue for a Destination
+- [`destinationsPqGet`](docs/sdks/destinationspq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
 - [`destinationsSamplesCreate`](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 - [`destinationsSamplesGet`](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 - [`destinationsUpdate`](docs/sdks/destinations/README.md#update) - Update a Destination
@@ -437,9 +473,27 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`lakeDatasetsUpdate`](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset
 - [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
+- [`packsDestinationsCreate`](docs/sdks/packsdestinations/README.md#create) - Create a Destination within a Pack
+- [`packsDestinationsDelete`](docs/sdks/packsdestinations/README.md#delete) - Delete a Destination within a Pack
+- [`packsDestinationsGet`](docs/sdks/packsdestinations/README.md#get) - Get a Destination within a Pack
+- [`packsDestinationsList`](docs/sdks/packsdestinations/README.md#list) - List all Destinations within a Pack
+- [`packsDestinationsPqClear`](docs/sdks/packsdestinationspq/README.md#clear) - Clear the persistent queue for a Destination within a Pack
+- [`packsDestinationsPqGet`](docs/sdks/packsdestinationspq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination within a Pack
+- [`packsDestinationsSamplesCreate`](docs/sdks/packssamples/README.md#create) - Send sample event data to a Destination within a Pack
+- [`packsDestinationsSamplesGet`](docs/sdks/packssamples/README.md#get) - Get sample event data for a Destination within a Pack
+- [`packsDestinationsUpdate`](docs/sdks/packsdestinations/README.md#update) - Update a Destination within a Pack
 - [`packsGet`](docs/sdks/packs/README.md#get) - Get a Pack
 - [`packsInstall`](docs/sdks/packs/README.md#install) - Install a Pack
 - [`packsList`](docs/sdks/packs/README.md#list) - List all Packs
+- [`packsSourcesCreate`](docs/sdks/packssources/README.md#create) - Create a Source within a Pack
+- [`packsSourcesDelete`](docs/sdks/packssources/README.md#delete) - Delete a Source within a Pack
+- [`packsSourcesGet`](docs/sdks/packssources/README.md#get) - Get a Source within a Pack
+- [`packsSourcesHecTokensCreate`](docs/sdks/packshectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source within a Pack
+- [`packsSourcesHecTokensUpdate`](docs/sdks/packshectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source within a Pack
+- [`packsSourcesList`](docs/sdks/packssources/README.md#list) - List all Sources within a Pack
+- [`packsSourcesPqClear`](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
+- [`packsSourcesPqGet`](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
+- [`packsSourcesUpdate`](docs/sdks/packssources/README.md#update) - Update a Source within a Pack
 - [`packsUpdate`](docs/sdks/packs/README.md#update) - Upgrade a Pack
 - [`packsUpload`](docs/sdks/packs/README.md#upload) - Upload a Pack file
 - [`pipelinesCreate`](docs/sdks/pipelines/README.md#create) - Create a Pipeline
