@@ -1,0 +1,38 @@
+# CreateInputDiskSystemMetrics
+
+## Example Usage
+
+```typescript
+import { CreateInputDiskSystemMetrics } from "cribl-control-plane/models/operations";
+
+let value: CreateInputDiskSystemMetrics = {
+  mode: "custom",
+  detail: false,
+  inodes: true,
+  devices: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  mountpoints: [
+    "<value 1>",
+  ],
+  fstypes: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  perDevice: false,
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                             | Type                                                                                                                                                                              | Required                                                                                                                                                                          | Description                                                                                                                                                                       |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`                                                                                                                                                                            | [operations.CreateInputDiskModeSystemMetrics](../../models/operations/createinputdiskmodesystemmetrics.md)                                                                        | :heavy_minus_sign:                                                                                                                                                                | Select the level of detail for disk metrics                                                                                                                                       |
+| `detail`                                                                                                                                                                          | *boolean*                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                | Generate full disk metrics                                                                                                                                                        |
+| `inodes`                                                                                                                                                                          | *boolean*                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                | Generate filesystem inode metrics                                                                                                                                                 |
+| `devices`                                                                                                                                                                         | *string*[]                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                | Block devices to include/exclude. Examples: sda*, !loop*. Wildcards and ! (not) operators are supported. All devices are included if this list is empty.                          |
+| `mountpoints`                                                                                                                                                                     | *string*[]                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                | Filesystem mountpoints to include/exclude. Examples: /, /home, !/proc*, !/tmp. Wildcards and ! (not) operators are supported. All mountpoints are included if this list is empty. |
+| `fstypes`                                                                                                                                                                         | *string*[]                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                | Filesystem types to include/exclude. Examples: ext4, !*tmpfs, !squashfs. Wildcards and ! (not) operators are supported. All types are included if this list is empty.             |
+| `perDevice`                                                                                                                                                                       | *boolean*                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                | Generate separate metrics for each device                                                                                                                                         |

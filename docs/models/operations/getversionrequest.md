@@ -7,7 +7,7 @@ import { GetVersionRequest } from "cribl-control-plane/models/operations";
 
 let value: GetVersionRequest = {
   groupId: "<id>",
-  count: 7282.16,
+  count: 728216,
 };
 ```
 

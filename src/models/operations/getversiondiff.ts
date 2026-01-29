@@ -40,7 +40,7 @@ export const GetVersionDiffRequest$outboundSchema: z.ZodType<
   commit: z.string().optional(),
   groupId: z.string().optional(),
   filename: z.string().optional(),
-  diffLineLimit: z.number().optional(),
+  diffLineLimit: z.number().int().optional(),
 });
 
 export function getVersionDiffRequestToJSON(

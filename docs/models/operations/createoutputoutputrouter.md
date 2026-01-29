@@ -1,0 +1,39 @@
+# CreateOutputOutputRouter
+
+## Example Usage
+
+```typescript
+import { CreateOutputOutputRouter } from "cribl-control-plane/models/operations";
+
+let value: CreateOutputOutputRouter = {
+  id: "<id>",
+  type: "router",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  rules: [],
+  description: "pfft bah worth failing cute however pro",
+};
+```
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                 | *string*                                                                                             | :heavy_check_mark:                                                                                   | Unique ID for this output                                                                            |
+| `type`                                                                                               | *"router"*                                                                                           | :heavy_check_mark:                                                                                   | N/A                                                                                                  |
+| `pipeline`                                                                                           | *string*                                                                                             | :heavy_minus_sign:                                                                                   | Pipeline to process data before sending out to this output                                           |
+| `systemFields`                                                                                       | *string*[]                                                                                           | :heavy_minus_sign:                                                                                   | Fields to automatically add to events, such as cribl_pipe. Supports wildcards.                       |
+| `environment`                                                                                        | *string*                                                                                             | :heavy_minus_sign:                                                                                   | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere. |
+| `streamtags`                                                                                         | *string*[]                                                                                           | :heavy_minus_sign:                                                                                   | Tags for filtering and grouping in @{product}                                                        |
+| `rules`                                                                                              | [operations.CreateOutputRule](../../models/operations/createoutputrule.md)[]                         | :heavy_check_mark:                                                                                   | Event routing rules                                                                                  |
+| `description`                                                                                        | *string*                                                                                             | :heavy_minus_sign:                                                                                   | N/A                                                                                                  |

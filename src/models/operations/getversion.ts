@@ -28,7 +28,7 @@ export const GetVersionRequest$outboundSchema: z.ZodType<
   GetVersionRequest
 > = z.object({
   groupId: z.string().optional(),
-  count: z.number().optional(),
+  count: z.number().int().optional(),
 });
 
 export function getVersionRequestToJSON(

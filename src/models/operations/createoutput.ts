@@ -11,7 +11,7 @@ import * as models from "../index.js";
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export const AuthenticationMethodCloudflareR2 = {
+export const CreateOutputAuthenticationMethodCloudflareR2 = {
   /**
    * Auto
    */
@@ -24,11 +24,11 @@ export const AuthenticationMethodCloudflareR2 = {
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type AuthenticationMethodCloudflareR2 = OpenEnum<
-  typeof AuthenticationMethodCloudflareR2
+export type CreateOutputAuthenticationMethodCloudflareR2 = OpenEnum<
+  typeof CreateOutputAuthenticationMethodCloudflareR2
 >;
 
-export type OutputCloudflareR2 = {
+export type CreateOutputOutputCloudflareR2 = {
   /**
    * Unique ID for this output
    */
@@ -61,7 +61,9 @@ export type OutputCloudflareR2 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodCloudflareR2 | undefined;
+  awsAuthenticationMethod?:
+    | CreateOutputAuthenticationMethodCloudflareR2
+    | undefined;
   /**
    * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
    */
@@ -252,18 +254,18 @@ export type OutputCloudflareR2 = {
   __template_format?: string | undefined;
 };
 
-export const ClientSecretAuthTypeAuthenticationMethod = {
+export const CreateOutputClientSecretAuthTypeAuthenticationMethod = {
   Secret: "secret",
   Certificate: "certificate",
 } as const;
-export type ClientSecretAuthTypeAuthenticationMethod = OpenEnum<
-  typeof ClientSecretAuthTypeAuthenticationMethod
+export type CreateOutputClientSecretAuthTypeAuthenticationMethod = OpenEnum<
+  typeof CreateOutputClientSecretAuthTypeAuthenticationMethod
 >;
 
 /**
  * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
  */
-export type Authentication = {
+export type CreateOutputAuthentication = {
   disabled: boolean;
   mechanism?: models.SaslMechanismOptionsSasl1 | undefined;
   /**
@@ -274,7 +276,9 @@ export type Authentication = {
    * Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
    */
   textSecret?: string | undefined;
-  clientSecretAuthType?: ClientSecretAuthTypeAuthenticationMethod | undefined;
+  clientSecretAuthType?:
+    | CreateOutputClientSecretAuthTypeAuthenticationMethod
+    | undefined;
   /**
    * Select or create a stored text secret
    */
@@ -306,9 +310,9 @@ export type Authentication = {
   scope?: string | undefined;
 };
 
-export type PqControlsMicrosoftFabric = {};
+export type CreateOutputPqControlsMicrosoftFabric = {};
 
-export type OutputMicrosoftFabric = {
+export type CreateOutputOutputMicrosoftFabric = {
   /**
    * Unique ID for this output
    */
@@ -389,7 +393,7 @@ export type OutputMicrosoftFabric = {
   /**
    * Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
    */
-  sasl?: Authentication | undefined;
+  sasl?: CreateOutputAuthentication | undefined;
   tls?: models.TlsSettingsClientSideType | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
@@ -440,7 +444,7 @@ export type OutputMicrosoftFabric = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsMicrosoftFabric | undefined;
+  pqControls?: CreateOutputPqControlsMicrosoftFabric | undefined;
   /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
@@ -451,7 +455,7 @@ export type OutputMicrosoftFabric = {
   __template_bootstrap_server?: string | undefined;
 };
 
-export type OutputDatabricks = {
+export type CreateOutputOutputDatabricks = {
   /**
    * Unique ID for this output
    */
@@ -653,15 +657,15 @@ export type OutputDatabricks = {
   __template_format?: string | undefined;
 };
 
-export const AuthenticationMethodChronicle = {
+export const CreateOutputAuthenticationMethodChronicle = {
   ServiceAccount: "serviceAccount",
   ServiceAccountSecret: "serviceAccountSecret",
 } as const;
-export type AuthenticationMethodChronicle = OpenEnum<
-  typeof AuthenticationMethodChronicle
+export type CreateOutputAuthenticationMethodChronicle = OpenEnum<
+  typeof CreateOutputAuthenticationMethodChronicle
 >;
 
-export type CustomLabel = {
+export type CreateOutputCustomLabel = {
   key: string;
   value: string;
   /**
@@ -670,9 +674,9 @@ export type CustomLabel = {
   rbacEnabled?: boolean | undefined;
 };
 
-export type PqControlsChronicle = {};
+export type CreateOutputPqControlsChronicle = {};
 
-export type OutputChronicle = {
+export type CreateOutputOutputChronicle = {
   /**
    * Unique ID for this output
    */
@@ -695,7 +699,7 @@ export type OutputChronicle = {
    */
   streamtags?: Array<string> | undefined;
   apiVersion?: string | undefined;
-  authenticationMethod?: AuthenticationMethodChronicle | undefined;
+  authenticationMethod?: CreateOutputAuthenticationMethodChronicle | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -791,7 +795,7 @@ export type OutputChronicle = {
   /**
    * Custom labels to be added to every event
    */
-  customLabels?: Array<CustomLabel> | undefined;
+  customLabels?: Array<CreateOutputCustomLabel> | undefined;
   description?: string | undefined;
   /**
    * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
@@ -841,7 +845,7 @@ export type OutputChronicle = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsChronicle | undefined;
+  pqControls?: CreateOutputPqControlsChronicle | undefined;
   /**
    * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
    */
@@ -851,7 +855,7 @@ export type OutputChronicle = {
 /**
  * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
  */
-export const Region = {
+export const CreateOutputRegion = {
   Us: "US",
   Ca: "CA",
   Emea: "EMEA",
@@ -863,23 +867,25 @@ export const Region = {
 /**
  * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
  */
-export type Region = OpenEnum<typeof Region>;
+export type CreateOutputRegion = OpenEnum<typeof CreateOutputRegion>;
 
 /**
  * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
  */
-export const AISIEMEndpointPath = {
+export const CreateOutputAISIEMEndpointPath = {
   RootServicesCollectorEvent: "/services/collector/event",
   RootServicesCollectorRaw: "/services/collector/raw",
 } as const;
 /**
  * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
  */
-export type AISIEMEndpointPath = OpenEnum<typeof AISIEMEndpointPath>;
+export type CreateOutputAISIEMEndpointPath = OpenEnum<
+  typeof CreateOutputAISIEMEndpointPath
+>;
 
-export type PqControlsSentinelOneAiSiem = {};
+export type CreateOutputPqControlsSentinelOneAiSiem = {};
 
-export type OutputSentinelOneAiSiem = {
+export type CreateOutputOutputSentinelOneAiSiem = {
   /**
    * Unique ID for this output
    */
@@ -904,11 +910,11 @@ export type OutputSentinelOneAiSiem = {
   /**
    * The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
    */
-  region: Region;
+  region: CreateOutputRegion;
   /**
    * Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
    */
-  endpoint: AISIEMEndpointPath;
+  endpoint: CreateOutputAISIEMEndpointPath;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -1081,13 +1087,13 @@ export type OutputSentinelOneAiSiem = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSentinelOneAiSiem | undefined;
+  pqControls?: CreateOutputPqControlsSentinelOneAiSiem | undefined;
 };
 
 /**
  * Select a transport option for Dynatrace
  */
-export const ProtocolDynatraceOtlp = {
+export const CreateOutputProtocolDynatraceOtlp = {
   /**
    * HTTP
    */
@@ -1096,12 +1102,14 @@ export const ProtocolDynatraceOtlp = {
 /**
  * Select a transport option for Dynatrace
  */
-export type ProtocolDynatraceOtlp = OpenEnum<typeof ProtocolDynatraceOtlp>;
+export type CreateOutputProtocolDynatraceOtlp = OpenEnum<
+  typeof CreateOutputProtocolDynatraceOtlp
+>;
 
 /**
  * Select the type of Dynatrace endpoint configured
  */
-export const EndpointType = {
+export const CreateOutputEndpointType = {
   /**
    * SaaS
    */
@@ -1114,11 +1122,13 @@ export const EndpointType = {
 /**
  * Select the type of Dynatrace endpoint configured
  */
-export type EndpointType = OpenEnum<typeof EndpointType>;
+export type CreateOutputEndpointType = OpenEnum<
+  typeof CreateOutputEndpointType
+>;
 
-export type PqControlsDynatraceOtlp = {};
+export type CreateOutputPqControlsDynatraceOtlp = {};
 
-export type OutputDynatraceOtlp = {
+export type CreateOutputOutputDynatraceOtlp = {
   /**
    * Unique ID for this output
    */
@@ -1143,7 +1153,7 @@ export type OutputDynatraceOtlp = {
   /**
    * Select a transport option for Dynatrace
    */
-  protocol: ProtocolDynatraceOtlp;
+  protocol: CreateOutputProtocolDynatraceOtlp;
   /**
    * The endpoint where Dynatrace events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
    */
@@ -1211,7 +1221,7 @@ export type OutputDynatraceOtlp = {
   /**
    * Select the type of Dynatrace endpoint configured
    */
-  endpointType: EndpointType;
+  endpointType: CreateOutputEndpointType;
   /**
    * Select or create a stored text secret
    */
@@ -1293,10 +1303,10 @@ export type OutputDynatraceOtlp = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsDynatraceOtlp | undefined;
+  pqControls?: CreateOutputPqControlsDynatraceOtlp | undefined;
 };
 
-export const AuthenticationTypeDynatraceHTTP = {
+export const CreateOutputAuthenticationTypeDynatraceHTTP = {
   /**
    * Auth token
    */
@@ -1306,14 +1316,14 @@ export const AuthenticationTypeDynatraceHTTP = {
    */
   TextSecret: "textSecret",
 } as const;
-export type AuthenticationTypeDynatraceHTTP = OpenEnum<
-  typeof AuthenticationTypeDynatraceHTTP
+export type CreateOutputAuthenticationTypeDynatraceHTTP = OpenEnum<
+  typeof CreateOutputAuthenticationTypeDynatraceHTTP
 >;
 
 /**
  * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
  */
-export const FormatDynatraceHTTP = {
+export const CreateOutputFormatDynatraceHTTP = {
   /**
    * JSON
    */
@@ -1326,9 +1336,11 @@ export const FormatDynatraceHTTP = {
 /**
  * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
  */
-export type FormatDynatraceHTTP = OpenEnum<typeof FormatDynatraceHTTP>;
+export type CreateOutputFormatDynatraceHTTP = OpenEnum<
+  typeof CreateOutputFormatDynatraceHTTP
+>;
 
-export const Endpoint = {
+export const CreateOutputEndpoint = {
   /**
    * Cloud
    */
@@ -1342,9 +1354,9 @@ export const Endpoint = {
    */
   Manual: "manual",
 } as const;
-export type Endpoint = OpenEnum<typeof Endpoint>;
+export type CreateOutputEndpoint = OpenEnum<typeof CreateOutputEndpoint>;
 
-export const TelemetryType = {
+export const CreateOutputTelemetryType = {
   /**
    * Logs
    */
@@ -1354,11 +1366,13 @@ export const TelemetryType = {
    */
   Metrics: "metrics",
 } as const;
-export type TelemetryType = OpenEnum<typeof TelemetryType>;
+export type CreateOutputTelemetryType = OpenEnum<
+  typeof CreateOutputTelemetryType
+>;
 
-export type PqControlsDynatraceHTTP = {};
+export type CreateOutputPqControlsDynatraceHTTP = {};
 
-export type OutputDynatraceHttp = {
+export type CreateOutputOutputDynatraceHttp = {
   /**
    * Unique ID for this output
    */
@@ -1451,13 +1465,13 @@ export type OutputDynatraceHttp = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: models.BackpressureBehaviorOptions | undefined;
-  authType?: AuthenticationTypeDynatraceHTTP | undefined;
+  authType?: CreateOutputAuthenticationTypeDynatraceHTTP | undefined;
   /**
    * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
    */
-  format: FormatDynatraceHTTP;
-  endpoint: Endpoint;
-  telemetryType: TelemetryType;
+  format: CreateOutputFormatDynatraceHTTP;
+  endpoint: CreateOutputEndpoint;
+  telemetryType: CreateOutputTelemetryType;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -1503,7 +1517,7 @@ export type OutputDynatraceHttp = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsDynatraceHTTP | undefined;
+  pqControls?: CreateOutputPqControlsDynatraceHTTP | undefined;
   /**
    * Bearer token to include in the authorization header
    */
@@ -1530,7 +1544,7 @@ export type OutputDynatraceHttp = {
   __template_url?: string | undefined;
 };
 
-export type HostNetflow = {
+export type CreateOutputHostNetflow = {
   /**
    * Destination host
    */
@@ -1549,7 +1563,7 @@ export type HostNetflow = {
   __template_port?: string | undefined;
 };
 
-export type OutputNetflow = {
+export type CreateOutputOutputNetflow = {
   /**
    * Unique ID for this output
    */
@@ -1574,7 +1588,7 @@ export type OutputNetflow = {
   /**
    * One or more NetFlow Destinations to forward events to
    */
-  hosts: Array<HostNetflow>;
+  hosts: Array<CreateOutputHostNetflow>;
   /**
    * How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every datagram sent will incur a DNS lookup.
    */
@@ -1593,18 +1607,18 @@ export type OutputNetflow = {
 /**
  * Enter a token directly, or provide a secret referencing a token
  */
-export const AuthenticationMethodXsiam = {
+export const CreateOutputAuthenticationMethodXsiam = {
   Token: "token",
   Secret: "secret",
 } as const;
 /**
  * Enter a token directly, or provide a secret referencing a token
  */
-export type AuthenticationMethodXsiam = OpenEnum<
-  typeof AuthenticationMethodXsiam
+export type CreateOutputAuthenticationMethodXsiam = OpenEnum<
+  typeof CreateOutputAuthenticationMethodXsiam
 >;
 
-export type UrlXsiam = {
+export type CreateOutputUrlXsiam = {
   url?: any | undefined;
   /**
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
@@ -1612,9 +1626,9 @@ export type UrlXsiam = {
   weight?: number | undefined;
 };
 
-export type PqControlsXsiam = {};
+export type CreateOutputPqControlsXsiam = {};
 
-export type OutputXsiam = {
+export type CreateOutputOutputXsiam = {
   /**
    * Unique ID for this output
    */
@@ -1683,7 +1697,7 @@ export type OutputXsiam = {
   /**
    * Enter a token directly, or provide a secret referencing a token
    */
-  authType?: AuthenticationMethodXsiam | undefined;
+  authType?: CreateOutputAuthenticationMethodXsiam | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -1720,7 +1734,7 @@ export type OutputXsiam = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<UrlXsiam> | undefined;
+  urls?: Array<CreateOutputUrlXsiam> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -1777,14 +1791,14 @@ export type OutputXsiam = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsXsiam | undefined;
+  pqControls?: CreateOutputPqControlsXsiam | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
 };
 
-export const AuthenticationTypeClickHouse = {
+export const CreateOutputAuthenticationTypeClickHouse = {
   /**
    * None
    */
@@ -1802,14 +1816,14 @@ export const AuthenticationTypeClickHouse = {
    */
   SslUserCertificate: "sslUserCertificate",
 } as const;
-export type AuthenticationTypeClickHouse = OpenEnum<
-  typeof AuthenticationTypeClickHouse
+export type CreateOutputAuthenticationTypeClickHouse = OpenEnum<
+  typeof CreateOutputAuthenticationTypeClickHouse
 >;
 
 /**
  * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
  */
-export const FormatClickHouse = {
+export const CreateOutputFormatClickHouse = {
   /**
    * JSONCompactEachRowWithNames
    */
@@ -1822,12 +1836,14 @@ export const FormatClickHouse = {
 /**
  * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
  */
-export type FormatClickHouse = OpenEnum<typeof FormatClickHouse>;
+export type CreateOutputFormatClickHouse = OpenEnum<
+  typeof CreateOutputFormatClickHouse
+>;
 
 /**
  * How event fields are mapped to ClickHouse columns.
  */
-export const MappingType = {
+export const CreateOutputMappingType = {
   /**
    * Automatic
    */
@@ -1840,9 +1856,9 @@ export const MappingType = {
 /**
  * How event fields are mapped to ClickHouse columns.
  */
-export type MappingType = OpenEnum<typeof MappingType>;
+export type CreateOutputMappingType = OpenEnum<typeof CreateOutputMappingType>;
 
-export type StatsDestination = {
+export type CreateOutputStatsDestination = {
   url?: string | undefined;
   database?: string | undefined;
   tableName?: string | undefined;
@@ -1852,7 +1868,7 @@ export type StatsDestination = {
   password?: string | undefined;
 };
 
-export type ColumnMapping = {
+export type CreateOutputColumnMapping = {
   /**
    * Name of the column in ClickHouse that will store field value
    */
@@ -1867,9 +1883,9 @@ export type ColumnMapping = {
   columnValueExpression: string;
 };
 
-export type PqControlsClickHouse = {};
+export type CreateOutputPqControlsClickHouse = {};
 
-export type OutputClickHouse = {
+export type CreateOutputOutputClickHouse = {
   /**
    * Unique ID for this output
    */
@@ -1895,7 +1911,7 @@ export type OutputClickHouse = {
    * URL of the ClickHouse instance. Example: http://localhost:8123/
    */
   url: string;
-  authType?: AuthenticationTypeClickHouse | undefined;
+  authType?: CreateOutputAuthenticationTypeClickHouse | undefined;
   database: string;
   /**
    * Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
@@ -1904,11 +1920,11 @@ export type OutputClickHouse = {
   /**
    * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
    */
-  format?: FormatClickHouse | undefined;
+  format?: CreateOutputFormatClickHouse | undefined;
   /**
    * How event fields are mapped to ClickHouse columns.
    */
-  mappingType?: MappingType | undefined;
+  mappingType?: CreateOutputMappingType | undefined;
   /**
    * Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
    */
@@ -1977,7 +1993,7 @@ export type OutputClickHouse = {
    * Log the most recent event that fails to match the table schema
    */
   dumpFormatErrorsToDisk?: boolean | undefined;
-  statsDestination?: StatsDestination | undefined;
+  statsDestination?: CreateOutputStatsDestination | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -2005,7 +2021,7 @@ export type OutputClickHouse = {
    * Retrieves the table schema from ClickHouse and populates the Column Mapping table
    */
   describeTable?: string | undefined;
-  columnMappings?: Array<ColumnMapping> | undefined;
+  columnMappings?: Array<CreateOutputColumnMapping> | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -2046,7 +2062,7 @@ export type OutputClickHouse = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsClickHouse | undefined;
+  pqControls?: CreateOutputPqControlsClickHouse | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -2061,7 +2077,7 @@ export type OutputClickHouse = {
   __template_tableName?: string | undefined;
 };
 
-export type OutputDiskSpool = {
+export type CreateOutputOutputDiskSpool = {
   /**
    * Unique ID for this output
    */
@@ -2106,7 +2122,7 @@ export type OutputDiskSpool = {
   description?: string | undefined;
 };
 
-export type OutputCriblLake = {
+export type CreateOutputOutputCriblLake = {
   /**
    * Unique ID for this output
    */
@@ -2312,18 +2328,18 @@ export type OutputCriblLake = {
 /**
  * Signature version to use for signing Amazon Security Lake requests
  */
-export const SignatureVersionSecurityLake = {
+export const CreateOutputSignatureVersionSecurityLake = {
   V2: "v2",
   V4: "v4",
 } as const;
 /**
  * Signature version to use for signing Amazon Security Lake requests
  */
-export type SignatureVersionSecurityLake = OpenEnum<
-  typeof SignatureVersionSecurityLake
+export type CreateOutputSignatureVersionSecurityLake = OpenEnum<
+  typeof CreateOutputSignatureVersionSecurityLake
 >;
 
-export type OutputSecurityLake = {
+export type CreateOutputOutputSecurityLake = {
   /**
    * Unique ID for this output
    */
@@ -2365,7 +2381,7 @@ export type OutputSecurityLake = {
   /**
    * Signature version to use for signing Amazon Security Lake requests
    */
-  signatureVersion?: SignatureVersionSecurityLake | undefined;
+  signatureVersion?: CreateOutputSignatureVersionSecurityLake | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -2577,7 +2593,7 @@ export type OutputSecurityLake = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type OutputDlS3 = {
+export type CreateOutputOutputDlS3 = {
   /**
    * Unique ID for this output
    */
@@ -2854,9 +2870,9 @@ export type OutputDlS3 = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type PqControlsCrowdstrikeNextGenSiem = {};
+export type CreateOutputPqControlsCrowdstrikeNextGenSiem = {};
 
-export type OutputCrowdstrikeNextGenSiem = {
+export type CreateOutputOutputCrowdstrikeNextGenSiem = {
   /**
    * Unique ID for this output
    */
@@ -3002,16 +3018,16 @@ export type OutputCrowdstrikeNextGenSiem = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsCrowdstrikeNextGenSiem | undefined;
+  pqControls?: CreateOutputPqControlsCrowdstrikeNextGenSiem | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
 };
 
-export type PqControlsHumioHec = {};
+export type CreateOutputPqControlsHumioHec = {};
 
-export type OutputHumioHec = {
+export type CreateOutputOutputHumioHec = {
   /**
    * Unique ID for this output
    */
@@ -3157,16 +3173,16 @@ export type OutputHumioHec = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsHumioHec | undefined;
+  pqControls?: CreateOutputPqControlsHumioHec | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
 };
 
-export type PqControlsCriblSearchEngine = {};
+export type CreateOutputPqControlsCriblSearchEngine = {};
 
-export type OutputCriblSearchEngine = {
+export type CreateOutputOutputCriblSearchEngine = {
   /**
    * Unique ID for this output
    */
@@ -3330,16 +3346,16 @@ export type OutputCriblSearchEngine = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsCriblSearchEngine | undefined;
+  pqControls?: CreateOutputPqControlsCriblSearchEngine | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
 };
 
-export type PqControlsCriblHTTP = {};
+export type CreateOutputPqControlsCriblHTTP = {};
 
-export type OutputCriblHttp = {
+export type CreateOutputOutputCriblHttp = {
   /**
    * Unique ID for this output
    */
@@ -3503,16 +3519,16 @@ export type OutputCriblHttp = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsCriblHTTP | undefined;
+  pqControls?: CreateOutputPqControlsCriblHTTP | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
 };
 
-export type PqControlsCriblTCP = {};
+export type CreateOutputPqControlsCriblTCP = {};
 
-export type OutputCriblTcp = {
+export type CreateOutputOutputCriblTcp = {
   /**
    * Unique ID for this output
    */
@@ -3644,7 +3660,7 @@ export type OutputCriblTcp = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsCriblTCP | undefined;
+  pqControls?: CreateOutputPqControlsCriblTCP | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -3658,7 +3674,7 @@ export type OutputCriblTcp = {
 /**
  * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
-export const DefaultSeveritySeverity = {
+export const CreateOutputDefaultSeveritySeverity = {
   /**
    * 0 - finest
    */
@@ -3691,12 +3707,14 @@ export const DefaultSeveritySeverity = {
 /**
  * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
-export type DefaultSeveritySeverity = OpenEnum<typeof DefaultSeveritySeverity>;
+export type CreateOutputDefaultSeveritySeverity = OpenEnum<
+  typeof CreateOutputDefaultSeveritySeverity
+>;
 
 /**
  * DataSet site to which events should be sent
  */
-export const DataSetSite = {
+export const CreateOutputDataSetSite = {
   /**
    * US
    */
@@ -3713,11 +3731,11 @@ export const DataSetSite = {
 /**
  * DataSet site to which events should be sent
  */
-export type DataSetSite = OpenEnum<typeof DataSetSite>;
+export type CreateOutputDataSetSite = OpenEnum<typeof CreateOutputDataSetSite>;
 
-export type PqControlsDataset = {};
+export type CreateOutputPqControlsDataset = {};
 
-export type OutputDataset = {
+export type CreateOutputOutputDataset = {
   /**
    * Unique ID for this output
    */
@@ -3758,7 +3776,7 @@ export type OutputDataset = {
   /**
    * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
    */
-  defaultSeverity?: DefaultSeveritySeverity | undefined;
+  defaultSeverity?: CreateOutputDefaultSeveritySeverity | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -3773,7 +3791,7 @@ export type OutputDataset = {
   /**
    * DataSet site to which events should be sent
    */
-  site?: DataSetSite | undefined;
+  site?: CreateOutputDataSetSite | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -3876,7 +3894,7 @@ export type OutputDataset = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsDataset | undefined;
+  pqControls?: CreateOutputPqControlsDataset | undefined;
   /**
    * A 'Log Write Access' API key for the DataSet account
    */
@@ -3891,9 +3909,9 @@ export type OutputDataset = {
   __template_customUrl?: string | undefined;
 };
 
-export type PqControlsServiceNow = {};
+export type CreateOutputPqControlsServiceNow = {};
 
-export type OutputServiceNow = {
+export type CreateOutputOutputServiceNow = {
   /**
    * Unique ID for this output
    */
@@ -4065,7 +4083,7 @@ export type OutputServiceNow = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsServiceNow | undefined;
+  pqControls?: CreateOutputPqControlsServiceNow | undefined;
 };
 
 /**
@@ -4086,9 +4104,9 @@ export const CreateOutputOTLPVersion = {
  */
 export type CreateOutputOTLPVersion = OpenEnum<typeof CreateOutputOTLPVersion>;
 
-export type PqControlsOpenTelemetry = {};
+export type CreateOutputPqControlsOpenTelemetry = {};
 
-export type OutputOpenTelemetry = {
+export type CreateOutputOutputOpenTelemetry = {
   /**
    * Unique ID for this output
    */
@@ -4273,22 +4291,24 @@ export type OutputOpenTelemetry = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsOpenTelemetry | undefined;
+  pqControls?: CreateOutputPqControlsOpenTelemetry | undefined;
 };
 
 /**
  * Format of the output data.
  */
-export const DataFormatRing = {
+export const CreateOutputDataFormatRing = {
   Json: "json",
   Raw: "raw",
 } as const;
 /**
  * Format of the output data.
  */
-export type DataFormatRing = OpenEnum<typeof DataFormatRing>;
+export type CreateOutputDataFormatRing = OpenEnum<
+  typeof CreateOutputDataFormatRing
+>;
 
-export type OutputRing = {
+export type CreateOutputOutputRing = {
   /**
    * Unique ID for this output
    */
@@ -4313,7 +4333,7 @@ export type OutputRing = {
   /**
    * Format of the output data.
    */
-  format?: DataFormatRing | undefined;
+  format?: CreateOutputDataFormatRing | undefined;
   /**
    * JS expression to define how files are partitioned and organized. If left blank, Cribl Stream will fallback on event.__partition.
    */
@@ -4338,9 +4358,9 @@ export type OutputRing = {
   description?: string | undefined;
 };
 
-export type PqControlsPrometheus = {};
+export type CreateOutputPqControlsPrometheus = {};
 
-export type OutputPrometheus = {
+export type CreateOutputOutputPrometheus = {
   /**
    * Unique ID for this output
    */
@@ -4482,7 +4502,7 @@ export type OutputPrometheus = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsPrometheus | undefined;
+  pqControls?: CreateOutputPqControlsPrometheus | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -4503,9 +4523,9 @@ export type OutputPrometheus = {
   __template_url?: string | undefined;
 };
 
-export type PqControlsLoki = {};
+export type CreateOutputPqControlsLoki = {};
 
-export type OutputLoki = {
+export type CreateOutputOutputLoki = {
   /**
    * Unique ID for this output
    */
@@ -4676,24 +4696,24 @@ export type OutputLoki = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsLoki | undefined;
+  pqControls?: CreateOutputPqControlsLoki | undefined;
 };
 
-export const OutputGrafanaCloudType2 = {
+export const CreateOutputOutputGrafanaCloudType2 = {
   GrafanaCloud: "grafana_cloud",
 } as const;
-export type OutputGrafanaCloudType2 = ClosedEnum<
-  typeof OutputGrafanaCloudType2
+export type CreateOutputOutputGrafanaCloudType2 = ClosedEnum<
+  typeof CreateOutputOutputGrafanaCloudType2
 >;
 
-export type OutputGrafanaCloudPqControls2 = {};
+export type CreateOutputOutputGrafanaCloudPqControls2 = {};
 
-export type OutputGrafanaCloudGrafanaCloud2 = {
+export type CreateOutputOutputGrafanaCloudGrafanaCloud2 = {
   /**
    * Unique ID for this output
    */
   id: string;
-  type: OutputGrafanaCloudType2;
+  type: CreateOutputOutputGrafanaCloudType2;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -4840,7 +4860,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: OutputGrafanaCloudPqControls2 | undefined;
+  pqControls?: CreateOutputOutputGrafanaCloudPqControls2 | undefined;
   /**
    * Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
    */
@@ -4851,21 +4871,21 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   __template_prometheusUrl?: string | undefined;
 };
 
-export const OutputGrafanaCloudType1 = {
+export const CreateOutputOutputGrafanaCloudType1 = {
   GrafanaCloud: "grafana_cloud",
 } as const;
-export type OutputGrafanaCloudType1 = ClosedEnum<
-  typeof OutputGrafanaCloudType1
+export type CreateOutputOutputGrafanaCloudType1 = ClosedEnum<
+  typeof CreateOutputOutputGrafanaCloudType1
 >;
 
-export type OutputGrafanaCloudPqControls1 = {};
+export type CreateOutputOutputGrafanaCloudPqControls1 = {};
 
-export type OutputGrafanaCloudGrafanaCloud1 = {
+export type CreateOutputOutputGrafanaCloudGrafanaCloud1 = {
   /**
    * Unique ID for this output
    */
   id: string;
-  type: OutputGrafanaCloudType1;
+  type: CreateOutputOutputGrafanaCloudType1;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -5012,7 +5032,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: OutputGrafanaCloudPqControls1 | undefined;
+  pqControls?: CreateOutputOutputGrafanaCloudPqControls1 | undefined;
   /**
    * Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
    */
@@ -5023,14 +5043,14 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   __template_prometheusUrl?: string | undefined;
 };
 
-export type OutputGrafanaCloud =
-  | OutputGrafanaCloudGrafanaCloud1
-  | OutputGrafanaCloudGrafanaCloud2;
+export type CreateOutputOutputGrafanaCloudUnion =
+  | CreateOutputOutputGrafanaCloudGrafanaCloud1
+  | CreateOutputOutputGrafanaCloudGrafanaCloud2;
 
 /**
  * The content type to use when sending logs
  */
-export const SendLogsAs = {
+export const CreateOutputSendLogsAs = {
   /**
    * text/plain
    */
@@ -5043,12 +5063,12 @@ export const SendLogsAs = {
 /**
  * The content type to use when sending logs
  */
-export type SendLogsAs = OpenEnum<typeof SendLogsAs>;
+export type CreateOutputSendLogsAs = OpenEnum<typeof CreateOutputSendLogsAs>;
 
 /**
  * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
  */
-export const SeverityDatadog = {
+export const CreateOutputSeverityDatadog = {
   /**
    * emergency
    */
@@ -5085,12 +5105,14 @@ export const SeverityDatadog = {
 /**
  * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
  */
-export type SeverityDatadog = OpenEnum<typeof SeverityDatadog>;
+export type CreateOutputSeverityDatadog = OpenEnum<
+  typeof CreateOutputSeverityDatadog
+>;
 
 /**
  * Datadog site to which events should be sent
  */
-export const DatadogSite = {
+export const CreateOutputDatadogSite = {
   /**
    * US
    */
@@ -5123,11 +5145,11 @@ export const DatadogSite = {
 /**
  * Datadog site to which events should be sent
  */
-export type DatadogSite = OpenEnum<typeof DatadogSite>;
+export type CreateOutputDatadogSite = OpenEnum<typeof CreateOutputDatadogSite>;
 
-export type PqControlsDatadog = {};
+export type CreateOutputPqControlsDatadog = {};
 
-export type OutputDatadog = {
+export type CreateOutputOutputDatadog = {
   /**
    * Unique ID for this output
    */
@@ -5152,7 +5174,7 @@ export type OutputDatadog = {
   /**
    * The content type to use when sending logs
    */
-  contentType?: SendLogsAs | undefined;
+  contentType?: CreateOutputSendLogsAs | undefined;
   /**
    * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
    */
@@ -5184,11 +5206,11 @@ export type OutputDatadog = {
   /**
    * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
    */
-  severity?: SeverityDatadog | undefined;
+  severity?: CreateOutputSeverityDatadog | undefined;
   /**
    * Datadog site to which events should be sent
    */
-  site?: DatadogSite | undefined;
+  site?: CreateOutputDatadogSite | undefined;
   /**
    * If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
    */
@@ -5306,7 +5328,7 @@ export type OutputDatadog = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsDatadog | undefined;
+  pqControls?: CreateOutputPqControlsDatadog | undefined;
   /**
    * Organization's API key in Datadog
    */
@@ -5320,7 +5342,7 @@ export type OutputDatadog = {
 /**
  * Preserve the raw event format instead of JSONifying it
  */
-export const DataFormatSumoLogic = {
+export const CreateOutputDataFormatSumoLogic = {
   /**
    * JSON
    */
@@ -5333,11 +5355,13 @@ export const DataFormatSumoLogic = {
 /**
  * Preserve the raw event format instead of JSONifying it
  */
-export type DataFormatSumoLogic = OpenEnum<typeof DataFormatSumoLogic>;
+export type CreateOutputDataFormatSumoLogic = OpenEnum<
+  typeof CreateOutputDataFormatSumoLogic
+>;
 
-export type PqControlsSumoLogic = {};
+export type CreateOutputPqControlsSumoLogic = {};
 
-export type OutputSumoLogic = {
+export type CreateOutputOutputSumoLogic = {
   /**
    * Unique ID for this output
    */
@@ -5374,7 +5398,7 @@ export type OutputSumoLogic = {
   /**
    * Preserve the raw event format instead of JSONifying it
    */
-  format?: DataFormatSumoLogic | undefined;
+  format?: CreateOutputDataFormatSumoLogic | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -5483,14 +5507,14 @@ export type OutputSumoLogic = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSumoLogic | undefined;
+  pqControls?: CreateOutputPqControlsSumoLogic | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
 };
 
-export type HostSnmp = {
+export type CreateOutputHostSnmp = {
   /**
    * Destination host
    */
@@ -5509,7 +5533,7 @@ export type HostSnmp = {
   __template_port?: string | undefined;
 };
 
-export type OutputSnmp = {
+export type CreateOutputOutputSnmp = {
   /**
    * Unique ID for this output
    */
@@ -5534,7 +5558,7 @@ export type OutputSnmp = {
   /**
    * One or more SNMP destinations to forward traps to
    */
-  hosts: Array<HostSnmp>;
+  hosts: Array<CreateOutputHostSnmp>;
   /**
    * How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
    */
@@ -5560,9 +5584,9 @@ export const CreateOutputQueueType = {
  */
 export type CreateOutputQueueType = OpenEnum<typeof CreateOutputQueueType>;
 
-export type PqControlsSqs = {};
+export type CreateOutputPqControlsSqs = {};
 
-export type OutputSqs = {
+export type CreateOutputOutputSqs = {
   /**
    * Unique ID for this output
    */
@@ -5711,7 +5735,7 @@ export type OutputSqs = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSqs | undefined;
+  pqControls?: CreateOutputPqControlsSqs | undefined;
   /**
    * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
    */
@@ -5745,18 +5769,20 @@ export type OutputSqs = {
 /**
  * Signature version to use for signing SNS requests
  */
-export const SignatureVersionSns = {
+export const CreateOutputSignatureVersionSns = {
   V2: "v2",
   V4: "v4",
 } as const;
 /**
  * Signature version to use for signing SNS requests
  */
-export type SignatureVersionSns = OpenEnum<typeof SignatureVersionSns>;
+export type CreateOutputSignatureVersionSns = OpenEnum<
+  typeof CreateOutputSignatureVersionSns
+>;
 
-export type PqControlsSns = {};
+export type CreateOutputPqControlsSns = {};
 
-export type OutputSns = {
+export type CreateOutputOutputSns = {
   /**
    * Unique ID for this output
    */
@@ -5806,7 +5832,7 @@ export type OutputSns = {
   /**
    * Signature version to use for signing SNS requests
    */
-  signatureVersion?: SignatureVersionSns | undefined;
+  signatureVersion?: CreateOutputSignatureVersionSns | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -5881,7 +5907,7 @@ export type OutputSns = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSns | undefined;
+  pqControls?: CreateOutputPqControlsSns | undefined;
   /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
@@ -5923,7 +5949,7 @@ export type CreateOutputRule = {
   final?: boolean | undefined;
 };
 
-export type OutputRouter = {
+export type CreateOutputOutputRouter = {
   /**
    * Unique ID for this output
    */
@@ -5952,9 +5978,9 @@ export type OutputRouter = {
   description?: string | undefined;
 };
 
-export type PqControlsGraphite = {};
+export type CreateOutputPqControlsGraphite = {};
 
-export type OutputGraphite = {
+export type CreateOutputOutputGraphite = {
   /**
    * Unique ID for this output
    */
@@ -6057,12 +6083,12 @@ export type OutputGraphite = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsGraphite | undefined;
+  pqControls?: CreateOutputPqControlsGraphite | undefined;
 };
 
-export type PqControlsStatsdExt = {};
+export type CreateOutputPqControlsStatsdExt = {};
 
-export type OutputStatsdExt = {
+export type CreateOutputOutputStatsdExt = {
   /**
    * Unique ID for this output
    */
@@ -6165,12 +6191,12 @@ export type OutputStatsdExt = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsStatsdExt | undefined;
+  pqControls?: CreateOutputPqControlsStatsdExt | undefined;
 };
 
-export type PqControlsStatsd = {};
+export type CreateOutputPqControlsStatsd = {};
 
-export type OutputStatsd = {
+export type CreateOutputOutputStatsd = {
   /**
    * Unique ID for this output
    */
@@ -6273,10 +6299,10 @@ export type OutputStatsd = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsStatsd | undefined;
+  pqControls?: CreateOutputPqControlsStatsd | undefined;
 };
 
-export type OutputMinio = {
+export type CreateOutputOutputMinio = {
   /**
    * Unique ID for this output
    */
@@ -6518,9 +6544,9 @@ export type OutputMinio = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type PqControlsCloudwatch = {};
+export type CreateOutputPqControlsCloudwatch = {};
 
-export type OutputCloudwatch = {
+export type CreateOutputOutputCloudwatch = {
   /**
    * Unique ID for this output
    */
@@ -6649,7 +6675,7 @@ export type OutputCloudwatch = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsCloudwatch | undefined;
+  pqControls?: CreateOutputPqControlsCloudwatch | undefined;
   /**
    * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
    */
@@ -6675,7 +6701,7 @@ export type OutputCloudwatch = {
 /**
  * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export const TimestampPrecision = {
+export const CreateOutputTimestampPrecision = {
   /**
    * Nanoseconds
    */
@@ -6704,12 +6730,14 @@ export const TimestampPrecision = {
 /**
  * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
  */
-export type TimestampPrecision = OpenEnum<typeof TimestampPrecision>;
+export type CreateOutputTimestampPrecision = OpenEnum<
+  typeof CreateOutputTimestampPrecision
+>;
 
 /**
  * InfluxDB authentication type
  */
-export const AuthenticationTypeInfluxdb = {
+export const CreateOutputAuthenticationTypeInfluxdb = {
   /**
    * None
    */
@@ -6734,13 +6762,13 @@ export const AuthenticationTypeInfluxdb = {
 /**
  * InfluxDB authentication type
  */
-export type AuthenticationTypeInfluxdb = OpenEnum<
-  typeof AuthenticationTypeInfluxdb
+export type CreateOutputAuthenticationTypeInfluxdb = OpenEnum<
+  typeof CreateOutputAuthenticationTypeInfluxdb
 >;
 
-export type PqControlsInfluxdb = {};
+export type CreateOutputPqControlsInfluxdb = {};
 
-export type OutputInfluxdb = {
+export type CreateOutputOutputInfluxdb = {
   /**
    * Unique ID for this output
    */
@@ -6773,7 +6801,7 @@ export type OutputInfluxdb = {
   /**
    * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
    */
-  timestampPrecision?: TimestampPrecision | undefined;
+  timestampPrecision?: CreateOutputTimestampPrecision | undefined;
   /**
    * Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
    */
@@ -6848,7 +6876,7 @@ export type OutputInfluxdb = {
   /**
    * InfluxDB authentication type
    */
-  authType?: AuthenticationTypeInfluxdb | undefined;
+  authType?: CreateOutputAuthenticationTypeInfluxdb | undefined;
   description?: string | undefined;
   /**
    * Database to write to.
@@ -6902,7 +6930,7 @@ export type OutputInfluxdb = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsInfluxdb | undefined;
+  pqControls?: CreateOutputPqControlsInfluxdb | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -6931,9 +6959,9 @@ export type OutputInfluxdb = {
   __template_bucket?: string | undefined;
 };
 
-export type PqControlsNewrelicEvents = {};
+export type CreateOutputPqControlsNewrelicEvents = {};
 
-export type OutputNewrelicEvents = {
+export type CreateOutputOutputNewrelicEvents = {
   /**
    * Unique ID for this output
    */
@@ -7076,7 +7104,7 @@ export type OutputNewrelicEvents = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsNewrelicEvents | undefined;
+  pqControls?: CreateOutputPqControlsNewrelicEvents | undefined;
   /**
    * New Relic API key. Can be overridden using __newRelic_apiKey field.
    */
@@ -7103,25 +7131,25 @@ export type OutputNewrelicEvents = {
   __template_customUrl?: string | undefined;
 };
 
-export const FieldName = {
+export const CreateOutputFieldName = {
   Service: "service",
   Hostname: "hostname",
   Timestamp: "timestamp",
   AuditId: "auditId",
 } as const;
-export type FieldName = OpenEnum<typeof FieldName>;
+export type CreateOutputFieldName = OpenEnum<typeof CreateOutputFieldName>;
 
-export type Metadatum = {
-  name: FieldName;
+export type CreateOutputMetadatum = {
+  name: CreateOutputFieldName;
   /**
    * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
    */
   value: string;
 };
 
-export type PqControlsNewrelic = {};
+export type CreateOutputPqControlsNewrelic = {};
 
-export type OutputNewrelic = {
+export type CreateOutputOutputNewrelic = {
   /**
    * Unique ID for this output
    */
@@ -7158,7 +7186,7 @@ export type OutputNewrelic = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<Metadatum> | undefined;
+  metadata?: Array<CreateOutputMetadatum> | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -7272,7 +7300,7 @@ export type OutputNewrelic = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsNewrelic | undefined;
+  pqControls?: CreateOutputPqControlsNewrelic | undefined;
   /**
    * New Relic API key. Can be overridden using __newRelic_apiKey field.
    */
@@ -7295,9 +7323,9 @@ export type OutputNewrelic = {
   __template_messageField?: string | undefined;
 };
 
-export type PqControlsElasticCloud = {};
+export type CreateOutputPqControlsElasticCloud = {};
 
-export type OutputElasticCloud = {
+export type CreateOutputOutputElasticCloud = {
   /**
    * Unique ID for this output
    */
@@ -7440,13 +7468,13 @@ export type OutputElasticCloud = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsElasticCloud | undefined;
+  pqControls?: CreateOutputPqControlsElasticCloud | undefined;
 };
 
 /**
  * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
  */
-export const ElasticVersion = {
+export const CreateOutputElasticVersion = {
   /**
    * Auto
    */
@@ -7463,12 +7491,14 @@ export const ElasticVersion = {
 /**
  * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
  */
-export type ElasticVersion = OpenEnum<typeof ElasticVersion>;
+export type CreateOutputElasticVersion = OpenEnum<
+  typeof CreateOutputElasticVersion
+>;
 
 /**
  * Action to use when writing events. Must be set to `Create` when writing to a data stream.
  */
-export const WriteAction = {
+export const CreateOutputWriteAction = {
   /**
    * Index
    */
@@ -7481,9 +7511,9 @@ export const WriteAction = {
 /**
  * Action to use when writing events. Must be set to `Create` when writing to a data stream.
  */
-export type WriteAction = OpenEnum<typeof WriteAction>;
+export type CreateOutputWriteAction = OpenEnum<typeof CreateOutputWriteAction>;
 
-export type UrlElastic = {
+export type CreateOutputUrlElastic = {
   /**
    * The URL to an Elastic node to send events to. Example: http://elastic:9200/_bulk
    */
@@ -7498,9 +7528,9 @@ export type UrlElastic = {
   __template_url?: string | undefined;
 };
 
-export type PqControlsElastic = {};
+export type CreateOutputPqControlsElastic = {};
 
-export type OutputElastic = {
+export type CreateOutputOutputElastic = {
   /**
    * Unique ID for this output
    */
@@ -7594,7 +7624,7 @@ export type OutputElastic = {
   /**
    * Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
    */
-  elasticVersion?: ElasticVersion | undefined;
+  elasticVersion?: CreateOutputElasticVersion | undefined;
   /**
    * Optional Elasticsearch destination pipeline
    */
@@ -7606,7 +7636,7 @@ export type OutputElastic = {
   /**
    * Action to use when writing events. Must be set to `Create` when writing to a data stream.
    */
-  writeAction?: WriteAction | undefined;
+  writeAction?: CreateOutputWriteAction | undefined;
   /**
    * Retry failed events when a bulk request to Elastic is successful, but the response body returns an error for one or more events in the batch
    */
@@ -7628,7 +7658,7 @@ export type OutputElastic = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<UrlElastic> | undefined;
+  urls?: Array<CreateOutputUrlElastic> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -7677,16 +7707,16 @@ export type OutputElastic = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsElastic | undefined;
+  pqControls?: CreateOutputPqControlsElastic | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
   __template_url?: string | undefined;
 };
 
-export type PqControlsMsk = {};
+export type CreateOutputPqControlsMsk = {};
 
-export type OutputMsk = {
+export type CreateOutputOutputMsk = {
   /**
    * Unique ID for this output
    */
@@ -7875,7 +7905,7 @@ export type OutputMsk = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsMsk | undefined;
+  pqControls?: CreateOutputPqControlsMsk | undefined;
   /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
@@ -7902,9 +7932,9 @@ export type OutputMsk = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type PqControlsConfluentCloud = {};
+export type CreateOutputPqControlsConfluentCloud = {};
 
-export type OutputConfluentCloud = {
+export type CreateOutputOutputConfluentCloud = {
   /**
    * Unique ID for this output
    */
@@ -8051,16 +8081,16 @@ export type OutputConfluentCloud = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsConfluentCloud | undefined;
+  pqControls?: CreateOutputPqControlsConfluentCloud | undefined;
   /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
 };
 
-export type PqControlsKafka = {};
+export type CreateOutputPqControlsKafka = {};
 
-export type OutputKafka = {
+export type CreateOutputOutputKafka = {
   /**
    * Unique ID for this output
    */
@@ -8207,14 +8237,14 @@ export type OutputKafka = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsKafka | undefined;
+  pqControls?: CreateOutputPqControlsKafka | undefined;
   /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
 };
 
-export type OutputExabeam = {
+export type CreateOutputOutputExabeam = {
   /**
    * Unique ID for this output
    */
@@ -8359,9 +8389,9 @@ export type OutputExabeam = {
   __template_region?: string | undefined;
 };
 
-export type PqControlsGooglePubsub = {};
+export type CreateOutputPqControlsGooglePubsub = {};
 
-export type OutputGooglePubsub = {
+export type CreateOutputOutputGooglePubsub = {
   /**
    * Unique ID for this output
    */
@@ -8480,7 +8510,7 @@ export type OutputGooglePubsub = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsGooglePubsub | undefined;
+  pqControls?: CreateOutputPqControlsGooglePubsub | undefined;
   /**
    * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
    */
@@ -8491,7 +8521,7 @@ export type OutputGooglePubsub = {
   __template_region?: string | undefined;
 };
 
-export const LogLocationType = {
+export const CreateOutputLogLocationType = {
   /**
    * Project
    */
@@ -8509,12 +8539,14 @@ export const LogLocationType = {
    */
   Folder: "folder",
 } as const;
-export type LogLocationType = OpenEnum<typeof LogLocationType>;
+export type CreateOutputLogLocationType = OpenEnum<
+  typeof CreateOutputLogLocationType
+>;
 
 /**
  * Format to use when sending payload. Defaults to Text.
  */
-export const PayloadFormat = {
+export const CreateOutputPayloadFormat = {
   /**
    * Text
    */
@@ -8527,11 +8559,13 @@ export const PayloadFormat = {
 /**
  * Format to use when sending payload. Defaults to Text.
  */
-export type PayloadFormat = OpenEnum<typeof PayloadFormat>;
+export type CreateOutputPayloadFormat = OpenEnum<
+  typeof CreateOutputPayloadFormat
+>;
 
-export type PqControlsGoogleCloudLogging = {};
+export type CreateOutputPqControlsGoogleCloudLogging = {};
 
-export type OutputGoogleCloudLogging = {
+export type CreateOutputOutputGoogleCloudLogging = {
   /**
    * Unique ID for this output
    */
@@ -8553,7 +8587,7 @@ export type OutputGoogleCloudLogging = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  logLocationType: LogLocationType;
+  logLocationType: CreateOutputLogLocationType;
   /**
    * JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
    */
@@ -8562,7 +8596,7 @@ export type OutputGoogleCloudLogging = {
   /**
    * Format to use when sending payload. Defaults to Text.
    */
-  payloadFormat?: PayloadFormat | undefined;
+  payloadFormat?: CreateOutputPayloadFormat | undefined;
   /**
    * Labels to apply to the log entry
    */
@@ -8792,10 +8826,10 @@ export type OutputGoogleCloudLogging = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsGoogleCloudLogging | undefined;
+  pqControls?: CreateOutputPqControlsGoogleCloudLogging | undefined;
 };
 
-export const AuthenticationMethodGoogleCloudStorage = {
+export const CreateOutputAuthenticationMethodGoogleCloudStorage = {
   /**
    * auto
    */
@@ -8809,11 +8843,11 @@ export const AuthenticationMethodGoogleCloudStorage = {
    */
   Secret: "secret",
 } as const;
-export type AuthenticationMethodGoogleCloudStorage = OpenEnum<
-  typeof AuthenticationMethodGoogleCloudStorage
+export type CreateOutputAuthenticationMethodGoogleCloudStorage = OpenEnum<
+  typeof CreateOutputAuthenticationMethodGoogleCloudStorage
 >;
 
-export type OutputGoogleCloudStorage = {
+export type CreateOutputOutputGoogleCloudStorage = {
   /**
    * Unique ID for this output
    */
@@ -8851,7 +8885,9 @@ export type OutputGoogleCloudStorage = {
    * Signature version to use for signing Google Cloud Storage requests
    */
   signatureVersion?: models.SignatureVersionOptions4 | undefined;
-  awsAuthenticationMethod?: AuthenticationMethodGoogleCloudStorage | undefined;
+  awsAuthenticationMethod?:
+    | CreateOutputAuthenticationMethodGoogleCloudStorage
+    | undefined;
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
@@ -9052,7 +9088,7 @@ export const CreateOutputAPIVersion = {
 } as const;
 export type CreateOutputAPIVersion = OpenEnum<typeof CreateOutputAPIVersion>;
 
-export const AuthenticationMethodGoogleChronicle = {
+export const CreateOutputAuthenticationMethodGoogleChronicle = {
   /**
    * API key
    */
@@ -9070,11 +9106,11 @@ export const AuthenticationMethodGoogleChronicle = {
    */
   ServiceAccountSecret: "serviceAccountSecret",
 } as const;
-export type AuthenticationMethodGoogleChronicle = OpenEnum<
-  typeof AuthenticationMethodGoogleChronicle
+export type CreateOutputAuthenticationMethodGoogleChronicle = OpenEnum<
+  typeof CreateOutputAuthenticationMethodGoogleChronicle
 >;
 
-export const SendEventsAs = {
+export const CreateOutputSendEventsAs = {
   /**
    * Unstructured
    */
@@ -9084,9 +9120,11 @@ export const SendEventsAs = {
    */
   Udm: "udm",
 } as const;
-export type SendEventsAs = OpenEnum<typeof SendEventsAs>;
+export type CreateOutputSendEventsAs = OpenEnum<
+  typeof CreateOutputSendEventsAs
+>;
 
-export type ExtraLogType = {
+export type CreateOutputExtraLogType = {
   logType: string;
   description?: string | undefined;
 };
@@ -9094,18 +9132,18 @@ export type ExtraLogType = {
 /**
  * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
  */
-export const UDMType = {
+export const CreateOutputUDMType = {
   Entities: "entities",
   Logs: "logs",
 } as const;
 /**
  * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
  */
-export type UDMType = OpenEnum<typeof UDMType>;
+export type CreateOutputUDMType = OpenEnum<typeof CreateOutputUDMType>;
 
-export type PqControlsGoogleChronicle = {};
+export type CreateOutputPqControlsGoogleChronicle = {};
 
-export type OutputGoogleChronicle = {
+export type CreateOutputOutputGoogleChronicle = {
   /**
    * Unique ID for this output
    */
@@ -9128,7 +9166,9 @@ export type OutputGoogleChronicle = {
    */
   streamtags?: Array<string> | undefined;
   apiVersion?: CreateOutputAPIVersion | undefined;
-  authenticationMethod?: AuthenticationMethodGoogleChronicle | undefined;
+  authenticationMethod?:
+    | CreateOutputAuthenticationMethodGoogleChronicle
+    | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -9140,7 +9180,7 @@ export type OutputGoogleChronicle = {
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  logFormatType: SendEventsAs;
+  logFormatType: CreateOutputSendEventsAs;
   /**
    * Regional endpoint to send events to
    */
@@ -9205,7 +9245,7 @@ export type OutputGoogleChronicle = {
   /**
    * Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
    */
-  extraLogTypes?: Array<ExtraLogType> | undefined;
+  extraLogTypes?: Array<CreateOutputExtraLogType> | undefined;
   /**
    * Default log type value to send to SecOps. Can be overwritten by event field __logType.
    */
@@ -9229,7 +9269,7 @@ export type OutputGoogleChronicle = {
   /**
    * Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
    */
-  udmType?: UDMType | undefined;
+  udmType?: CreateOutputUDMType | undefined;
   /**
    * Organization's API key in Google SecOps
    */
@@ -9286,7 +9326,7 @@ export type OutputGoogleChronicle = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsGoogleChronicle | undefined;
+  pqControls?: CreateOutputPqControlsGoogleChronicle | undefined;
   /**
    * Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
    */
@@ -9301,9 +9341,9 @@ export type OutputGoogleChronicle = {
   __template_customerId?: string | undefined;
 };
 
-export type PqControlsAzureEventhub = {};
+export type CreateOutputPqControlsAzureEventhub = {};
 
-export type OutputAzureEventhub = {
+export type CreateOutputOutputAzureEventhub = {
   /**
    * Unique ID for this output
    */
@@ -9435,16 +9475,16 @@ export type OutputAzureEventhub = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsAzureEventhub | undefined;
+  pqControls?: CreateOutputPqControlsAzureEventhub | undefined;
   /**
    * Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
    */
   __template_topic?: string | undefined;
 };
 
-export type PqControlsHoneycomb = {};
+export type CreateOutputPqControlsHoneycomb = {};
 
-export type OutputHoneycomb = {
+export type CreateOutputOutputHoneycomb = {
   /**
    * Unique ID for this output
    */
@@ -9578,7 +9618,7 @@ export type OutputHoneycomb = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsHoneycomb | undefined;
+  pqControls?: CreateOutputPqControlsHoneycomb | undefined;
   /**
    * Team API key where the dataset belongs
    */
@@ -9607,9 +9647,9 @@ export const CreateOutputCompression = {
  */
 export type CreateOutputCompression = OpenEnum<typeof CreateOutputCompression>;
 
-export type PqControlsKinesis = {};
+export type CreateOutputPqControlsKinesis = {};
 
-export type OutputKinesis = {
+export type CreateOutputOutputKinesis = {
   /**
    * Unique ID for this output
    */
@@ -9754,7 +9794,7 @@ export type OutputKinesis = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsKinesis | undefined;
+  pqControls?: CreateOutputPqControlsKinesis | undefined;
   /**
    * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
    */
@@ -9784,20 +9824,20 @@ export type OutputKinesis = {
 /**
  * Enter workspace ID and workspace key directly, or select a stored secret
  */
-export const AuthenticationMethodAzureLogs = {
+export const CreateOutputAuthenticationMethodAzureLogs = {
   Manual: "manual",
   Secret: "secret",
 } as const;
 /**
  * Enter workspace ID and workspace key directly, or select a stored secret
  */
-export type AuthenticationMethodAzureLogs = OpenEnum<
-  typeof AuthenticationMethodAzureLogs
+export type CreateOutputAuthenticationMethodAzureLogs = OpenEnum<
+  typeof CreateOutputAuthenticationMethodAzureLogs
 >;
 
-export type PqControlsAzureLogs = {};
+export type CreateOutputPqControlsAzureLogs = {};
 
-export type OutputAzureLogs = {
+export type CreateOutputOutputAzureLogs = {
   /**
    * Unique ID for this output
    */
@@ -9894,7 +9934,7 @@ export type OutputAzureLogs = {
   /**
    * Enter workspace ID and workspace key directly, or select a stored secret
    */
-  authType?: AuthenticationMethodAzureLogs | undefined;
+  authType?: CreateOutputAuthenticationMethodAzureLogs | undefined;
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -9936,7 +9976,7 @@ export type OutputAzureLogs = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsAzureLogs | undefined;
+  pqControls?: CreateOutputPqControlsAzureLogs | undefined;
   /**
    * Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
    */
@@ -9959,7 +9999,7 @@ export type OutputAzureLogs = {
   __template_workspaceKey?: string | undefined;
 };
 
-export const IngestionMode = {
+export const CreateOutputIngestionMode = {
   /**
    * Batching
    */
@@ -9969,12 +10009,14 @@ export const IngestionMode = {
    */
   Streaming: "streaming",
 } as const;
-export type IngestionMode = OpenEnum<typeof IngestionMode>;
+export type CreateOutputIngestionMode = OpenEnum<
+  typeof CreateOutputIngestionMode
+>;
 
 /**
  * The type of OAuth 2.0 client credentials grant flow to use
  */
-export const OauthTypeAuthenticationMethod = {
+export const CreateOutputOauthTypeAuthenticationMethod = {
   /**
    * Client secret
    */
@@ -9991,18 +10033,18 @@ export const OauthTypeAuthenticationMethod = {
 /**
  * The type of OAuth 2.0 client credentials grant flow to use
  */
-export type OauthTypeAuthenticationMethod = OpenEnum<
-  typeof OauthTypeAuthenticationMethod
+export type CreateOutputOauthTypeAuthenticationMethod = OpenEnum<
+  typeof CreateOutputOauthTypeAuthenticationMethod
 >;
 
-export type Certificate = {
+export type CreateOutputCertificate = {
   /**
    * The certificate you registered as credentials for your app in the Azure portal
    */
   certificateName?: string | undefined;
 };
 
-export const PrefixOptional = {
+export const CreateOutputPrefixOptional = {
   /**
    * drop-by
    */
@@ -10012,21 +10054,23 @@ export const PrefixOptional = {
    */
   IngestBy: "ingestBy",
 } as const;
-export type PrefixOptional = OpenEnum<typeof PrefixOptional>;
+export type CreateOutputPrefixOptional = OpenEnum<
+  typeof CreateOutputPrefixOptional
+>;
 
-export type ExtentTag = {
-  prefix?: PrefixOptional | undefined;
+export type CreateOutputExtentTag = {
+  prefix?: CreateOutputPrefixOptional | undefined;
   value: string;
 };
 
-export type IngestIfNotExist = {
+export type CreateOutputIngestIfNotExist = {
   value: string;
 };
 
 /**
  * Level of ingestion status reporting. Defaults to FailuresOnly.
  */
-export const ReportLevel = {
+export const CreateOutputReportLevel = {
   /**
    * FailuresOnly
    */
@@ -10043,12 +10087,12 @@ export const ReportLevel = {
 /**
  * Level of ingestion status reporting. Defaults to FailuresOnly.
  */
-export type ReportLevel = OpenEnum<typeof ReportLevel>;
+export type CreateOutputReportLevel = OpenEnum<typeof CreateOutputReportLevel>;
 
 /**
  * Target of the ingestion status reporting. Defaults to Queue.
  */
-export const ReportMethod = {
+export const CreateOutputReportMethod = {
   /**
    * Queue
    */
@@ -10065,16 +10109,18 @@ export const ReportMethod = {
 /**
  * Target of the ingestion status reporting. Defaults to Queue.
  */
-export type ReportMethod = OpenEnum<typeof ReportMethod>;
+export type CreateOutputReportMethod = OpenEnum<
+  typeof CreateOutputReportMethod
+>;
 
-export type AdditionalProperty = {
+export type CreateOutputAdditionalProperty = {
   key: string;
   value: string;
 };
 
-export type PqControlsAzureDataExplorer = {};
+export type CreateOutputPqControlsAzureDataExplorer = {};
 
-export type OutputAzureDataExplorer = {
+export type CreateOutputOutputAzureDataExplorer = {
   /**
    * Unique ID for this output
    */
@@ -10112,7 +10158,7 @@ export type OutputAzureDataExplorer = {
    * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
    */
   validateDatabaseSettings?: boolean | undefined;
-  ingestMode?: IngestionMode | undefined;
+  ingestMode?: CreateOutputIngestionMode | undefined;
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
@@ -10132,7 +10178,7 @@ export type OutputAzureDataExplorer = {
   /**
    * The type of OAuth 2.0 client credentials grant flow to use
    */
-  oauthType: OauthTypeAuthenticationMethod;
+  oauthType: CreateOutputOauthTypeAuthenticationMethod;
   description?: string | undefined;
   /**
    * The client secret that you generated for your app in the Azure portal
@@ -10142,7 +10188,7 @@ export type OutputAzureDataExplorer = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  certificate?: Certificate | undefined;
+  certificate?: CreateOutputCertificate | undefined;
   /**
    * Format of the output data
    */
@@ -10295,23 +10341,23 @@ export type OutputAzureDataExplorer = {
   /**
    * Strings or tags associated with the extent (ingested data shard)
    */
-  extentTags?: Array<ExtentTag> | undefined;
+  extentTags?: Array<CreateOutputExtentTag> | undefined;
   /**
    * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
    */
-  ingestIfNotExists?: Array<IngestIfNotExist> | undefined;
+  ingestIfNotExists?: Array<CreateOutputIngestIfNotExist> | undefined;
   /**
    * Level of ingestion status reporting. Defaults to FailuresOnly.
    */
-  reportLevel?: ReportLevel | undefined;
+  reportLevel?: CreateOutputReportLevel | undefined;
   /**
    * Target of the ingestion status reporting. Defaults to Queue.
    */
-  reportMethod?: ReportMethod | undefined;
+  reportMethod?: CreateOutputReportMethod | undefined;
   /**
    * Optionally, enter additional configuration properties to send to the ingestion service
    */
-  additionalProperties?: Array<AdditionalProperty> | undefined;
+  additionalProperties?: Array<CreateOutputAdditionalProperty> | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -10395,7 +10441,7 @@ export type OutputAzureDataExplorer = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsAzureDataExplorer | undefined;
+  pqControls?: CreateOutputPqControlsAzureDataExplorer | undefined;
   /**
    * Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
    */
@@ -10434,7 +10480,7 @@ export type OutputAzureDataExplorer = {
   __template_ingestUrl?: string | undefined;
 };
 
-export const BlobAccessTier = {
+export const CreateOutputBlobAccessTier = {
   /**
    * Default account access tier
    */
@@ -10456,9 +10502,11 @@ export const BlobAccessTier = {
    */
   Archive: "Archive",
 } as const;
-export type BlobAccessTier = OpenEnum<typeof BlobAccessTier>;
+export type CreateOutputBlobAccessTier = OpenEnum<
+  typeof CreateOutputBlobAccessTier
+>;
 
-export type OutputAzureBlob = {
+export type CreateOutputOutputAzureBlob = {
   /**
    * Unique ID for this output
    */
@@ -10566,7 +10614,7 @@ export type OutputAzureBlob = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
   authType?: models.AuthenticationMethodOptions | undefined;
-  storageClass?: BlobAccessTier | undefined;
+  storageClass?: CreateOutputBlobAccessTier | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -10691,7 +10739,7 @@ export type OutputAzureBlob = {
   __template_clientId?: string | undefined;
 };
 
-export type OutputS3 = {
+export type CreateOutputOutputS3 = {
   /**
    * Unique ID for this output
    */
@@ -10968,7 +11016,7 @@ export type OutputS3 = {
   __template_awsApiKey?: string | undefined;
 };
 
-export type OutputFilesystem = {
+export type CreateOutputOutputFilesystem = {
   /**
    * Unique ID for this output
    */
@@ -11138,9 +11186,9 @@ export type OutputFilesystem = {
   __template_format?: string | undefined;
 };
 
-export type PqControlsSignalfx = {};
+export type CreateOutputPqControlsSignalfx = {};
 
-export type OutputSignalfx = {
+export type CreateOutputOutputSignalfx = {
   /**
    * Unique ID for this output
    */
@@ -11282,12 +11330,12 @@ export type OutputSignalfx = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSignalfx | undefined;
+  pqControls?: CreateOutputPqControlsSignalfx | undefined;
 };
 
-export type PqControlsWavefront = {};
+export type CreateOutputPqControlsWavefront = {};
 
-export type OutputWavefront = {
+export type CreateOutputOutputWavefront = {
   /**
    * Unique ID for this output
    */
@@ -11429,12 +11477,12 @@ export type OutputWavefront = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsWavefront | undefined;
+  pqControls?: CreateOutputPqControlsWavefront | undefined;
 };
 
-export type PqControlsTcpjson = {};
+export type CreateOutputPqControlsTcpjson = {};
 
-export type OutputTcpjson = {
+export type CreateOutputOutputTcpjson = {
   /**
    * Unique ID for this output
    */
@@ -11566,7 +11614,7 @@ export type OutputTcpjson = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsTcpjson | undefined;
+  pqControls?: CreateOutputPqControlsTcpjson | undefined;
   /**
    * Optional authentication token to include as part of the connection header
    */
@@ -11585,9 +11633,9 @@ export type OutputTcpjson = {
   __template_port?: string | undefined;
 };
 
-export type PqControlsWizHec = {};
+export type CreateOutputPqControlsWizHec = {};
 
-export type OutputWizHec = {
+export type CreateOutputOutputWizHec = {
   /**
    * Unique ID for this output
    */
@@ -11737,7 +11785,7 @@ export type OutputWizHec = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsWizHec | undefined;
+  pqControls?: CreateOutputPqControlsWizHec | undefined;
   /**
    * Wiz Defend Auth token
    */
@@ -11760,7 +11808,7 @@ export type OutputWizHec = {
   __template_wiz_sourcetype?: string | undefined;
 };
 
-export type UrlSplunkHec = {
+export type CreateOutputUrlSplunkHec = {
   /**
    * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
    */
@@ -11775,9 +11823,9 @@ export type UrlSplunkHec = {
   __template_url?: string | undefined;
 };
 
-export type PqControlsSplunkHec = {};
+export type CreateOutputPqControlsSplunkHec = {};
 
-export type OutputSplunkHec = {
+export type CreateOutputOutputSplunkHec = {
   /**
    * Unique ID for this output
    */
@@ -11892,7 +11940,7 @@ export type OutputSplunkHec = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<UrlSplunkHec> | undefined;
+  urls?: Array<CreateOutputUrlSplunkHec> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -11949,7 +11997,7 @@ export type OutputSplunkHec = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSplunkHec | undefined;
+  pqControls?: CreateOutputPqControlsSplunkHec | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -11974,7 +12022,7 @@ export type CreateOutputAuthToken = {
 /**
  * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
  */
-export type IndexerDiscoveryConfigs = {
+export type CreateOutputIndexerDiscoveryConfigs = {
   /**
    * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
    */
@@ -12009,9 +12057,9 @@ export type IndexerDiscoveryConfigs = {
   textSecret?: string | undefined;
 };
 
-export type PqControlsSplunkLb = {};
+export type CreateOutputPqControlsSplunkLb = {};
 
-export type OutputSplunkLb = {
+export type CreateOutputOutputSplunkLb = {
   /**
    * Unique ID for this output
    */
@@ -12106,7 +12154,7 @@ export type OutputSplunkLb = {
   /**
    * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
    */
-  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs | undefined;
+  indexerDiscoveryConfigs?: CreateOutputIndexerDiscoveryConfigs | undefined;
   /**
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
@@ -12155,7 +12203,7 @@ export type OutputSplunkLb = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSplunkLb | undefined;
+  pqControls?: CreateOutputPqControlsSplunkLb | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
    */
@@ -12166,9 +12214,9 @@ export type OutputSplunkLb = {
   textSecret?: string | undefined;
 };
 
-export type PqControlsSplunk = {};
+export type CreateOutputPqControlsSplunk = {};
 
-export type OutputSplunk = {
+export type CreateOutputOutputSplunk = {
   /**
    * Unique ID for this output
    */
@@ -12288,7 +12336,7 @@ export type OutputSplunk = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSplunk | undefined;
+  pqControls?: CreateOutputPqControlsSplunk | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
    */
@@ -12310,7 +12358,7 @@ export type OutputSplunk = {
 /**
  * The network protocol to use for sending out syslog messages
  */
-export const ProtocolSyslog = {
+export const CreateOutputProtocolSyslog = {
   /**
    * TCP
    */
@@ -12323,12 +12371,14 @@ export const ProtocolSyslog = {
 /**
  * The network protocol to use for sending out syslog messages
  */
-export type ProtocolSyslog = OpenEnum<typeof ProtocolSyslog>;
+export type CreateOutputProtocolSyslog = OpenEnum<
+  typeof CreateOutputProtocolSyslog
+>;
 
 /**
  * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
  */
-export const Facility = {
+export const CreateOutputFacility = {
   Zero: 0,
   One: 1,
   Two: 2,
@@ -12355,12 +12405,12 @@ export const Facility = {
 /**
  * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
  */
-export type Facility = OpenEnum<typeof Facility>;
+export type CreateOutputFacility = OpenEnum<typeof CreateOutputFacility>;
 
 /**
  * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
  */
-export const SeveritySyslog = {
+export const CreateOutputSeveritySyslog = {
   /**
    * emergency
    */
@@ -12397,12 +12447,14 @@ export const SeveritySyslog = {
 /**
  * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
  */
-export type SeveritySyslog = OpenEnum<typeof SeveritySyslog>;
+export type CreateOutputSeveritySyslog = OpenEnum<
+  typeof CreateOutputSeveritySyslog
+>;
 
 /**
  * The syslog message format depending on the receiver's support
  */
-export const MessageFormat = {
+export const CreateOutputMessageFormat = {
   /**
    * RFC3164
    */
@@ -12415,12 +12467,14 @@ export const MessageFormat = {
 /**
  * The syslog message format depending on the receiver's support
  */
-export type MessageFormat = OpenEnum<typeof MessageFormat>;
+export type CreateOutputMessageFormat = OpenEnum<
+  typeof CreateOutputMessageFormat
+>;
 
 /**
  * Timestamp format to use when serializing event's time field
  */
-export const TimestampFormat = {
+export const CreateOutputTimestampFormat = {
   /**
    * Syslog
    */
@@ -12433,11 +12487,13 @@ export const TimestampFormat = {
 /**
  * Timestamp format to use when serializing event's time field
  */
-export type TimestampFormat = OpenEnum<typeof TimestampFormat>;
+export type CreateOutputTimestampFormat = OpenEnum<
+  typeof CreateOutputTimestampFormat
+>;
 
-export type PqControlsSyslog = {};
+export type CreateOutputPqControlsSyslog = {};
 
-export type OutputSyslog = {
+export type CreateOutputOutputSyslog = {
   /**
    * Unique ID for this output
    */
@@ -12462,15 +12518,15 @@ export type OutputSyslog = {
   /**
    * The network protocol to use for sending out syslog messages
    */
-  protocol?: ProtocolSyslog | undefined;
+  protocol?: CreateOutputProtocolSyslog | undefined;
   /**
    * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
    */
-  facility?: Facility | undefined;
+  facility?: CreateOutputFacility | undefined;
   /**
    * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
    */
-  severity?: SeveritySyslog | undefined;
+  severity?: CreateOutputSeveritySyslog | undefined;
   /**
    * Default name for device or application that originated the message. Defaults to Cribl, but will be overwritten by value of __appname if set.
    */
@@ -12478,11 +12534,11 @@ export type OutputSyslog = {
   /**
    * The syslog message format depending on the receiver's support
    */
-  messageFormat?: MessageFormat | undefined;
+  messageFormat?: CreateOutputMessageFormat | undefined;
   /**
    * Timestamp format to use when serializing event's time field
    */
-  timestampFormat?: TimestampFormat | undefined;
+  timestampFormat?: CreateOutputTimestampFormat | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -12593,7 +12649,7 @@ export type OutputSyslog = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSyslog | undefined;
+  pqControls?: CreateOutputPqControlsSyslog | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
@@ -12604,7 +12660,7 @@ export type OutputSyslog = {
   __template_port?: string | undefined;
 };
 
-export type OutputDevnull = {
+export type CreateOutputOutputDevnull = {
   /**
    * Unique ID for this output
    */
@@ -12628,15 +12684,15 @@ export type OutputDevnull = {
   streamtags?: Array<string> | undefined;
 };
 
-export const AuthType = {
+export const CreateOutputAuthType = {
   Oauth: "oauth",
 } as const;
-export type AuthType = OpenEnum<typeof AuthType>;
+export type CreateOutputAuthType = OpenEnum<typeof CreateOutputAuthType>;
 
 /**
  * Enter the data collection endpoint URL or the individual ID
  */
-export const EndpointConfiguration = {
+export const CreateOutputEndpointConfiguration = {
   /**
    * URL
    */
@@ -12649,19 +12705,23 @@ export const EndpointConfiguration = {
 /**
  * Enter the data collection endpoint URL or the individual ID
  */
-export type EndpointConfiguration = OpenEnum<typeof EndpointConfiguration>;
+export type CreateOutputEndpointConfiguration = OpenEnum<
+  typeof CreateOutputEndpointConfiguration
+>;
 
-export const FormatSentinel = {
+export const CreateOutputFormatSentinel = {
   Ndjson: "ndjson",
   JsonArray: "json_array",
   Custom: "custom",
   Advanced: "advanced",
 } as const;
-export type FormatSentinel = OpenEnum<typeof FormatSentinel>;
+export type CreateOutputFormatSentinel = OpenEnum<
+  typeof CreateOutputFormatSentinel
+>;
 
-export type PqControlsSentinel = {};
+export type CreateOutputPqControlsSentinel = {};
 
-export type OutputSentinel = {
+export type CreateOutputOutputSentinel = {
   /**
    * Unique ID for this output
    */
@@ -12750,7 +12810,7 @@ export type OutputSentinel = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: models.BackpressureBehaviorOptions | undefined;
-  authType?: AuthType | undefined;
+  authType?: CreateOutputAuthType | undefined;
   /**
    * URL for OAuth
    */
@@ -12770,13 +12830,13 @@ export type OutputSentinel = {
   /**
    * Enter the data collection endpoint URL or the individual ID
    */
-  endpointURLConfiguration: EndpointConfiguration;
+  endpointURLConfiguration: CreateOutputEndpointConfiguration;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  format?: FormatSentinel | undefined;
+  format?: CreateOutputFormatSentinel | undefined;
   /**
    * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
    */
@@ -12849,7 +12909,7 @@ export type OutputSentinel = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSentinel | undefined;
+  pqControls?: CreateOutputPqControlsSentinel | undefined;
   /**
    * URL to send events to. Can be overwritten by an event's __url field.
    */
@@ -12903,7 +12963,7 @@ export type OutputSentinel = {
 /**
  * How to format events before sending out
  */
-export const FormatWebhook = {
+export const CreateOutputFormatWebhook = {
   /**
    * NDJSON (Newline Delimited JSON)
    */
@@ -12924,12 +12984,14 @@ export const FormatWebhook = {
 /**
  * How to format events before sending out
  */
-export type FormatWebhook = OpenEnum<typeof FormatWebhook>;
+export type CreateOutputFormatWebhook = OpenEnum<
+  typeof CreateOutputFormatWebhook
+>;
 
 /**
  * Authentication method to use for the HTTP request
  */
-export const AuthenticationTypeWebhook = {
+export const CreateOutputAuthenticationTypeWebhook = {
   /**
    * None
    */
@@ -12958,13 +13020,13 @@ export const AuthenticationTypeWebhook = {
 /**
  * Authentication method to use for the HTTP request
  */
-export type AuthenticationTypeWebhook = OpenEnum<
-  typeof AuthenticationTypeWebhook
+export type CreateOutputAuthenticationTypeWebhook = OpenEnum<
+  typeof CreateOutputAuthenticationTypeWebhook
 >;
 
-export type PqControlsWebhook = {};
+export type CreateOutputPqControlsWebhook = {};
 
-export type OauthParam = {
+export type CreateOutputOauthParam = {
   /**
    * OAuth parameter name
    */
@@ -12975,7 +13037,7 @@ export type OauthParam = {
   value: string;
 };
 
-export type OauthHeader = {
+export type CreateOutputOauthHeader = {
   /**
    * OAuth header name
    */
@@ -12986,7 +13048,7 @@ export type OauthHeader = {
   value: string;
 };
 
-export type UrlWebhook = {
+export type CreateOutputUrlWebhook = {
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -13001,7 +13063,7 @@ export type UrlWebhook = {
   __template_url?: string | undefined;
 };
 
-export type OutputWebhook = {
+export type CreateOutputOutputWebhook = {
   /**
    * Unique ID for this output
    */
@@ -13030,7 +13092,7 @@ export type OutputWebhook = {
   /**
    * How to format events before sending out
    */
-  format?: FormatWebhook | undefined;
+  format?: CreateOutputFormatWebhook | undefined;
   /**
    * Disable to close the connection immediately after sending the outgoing request
    */
@@ -13101,7 +13163,7 @@ export type OutputWebhook = {
   /**
    * Authentication method to use for the HTTP request
    */
-  authType?: AuthenticationTypeWebhook | undefined;
+  authType?: CreateOutputAuthenticationTypeWebhook | undefined;
   tls?: models.TlsSettingsClientSideType1 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
@@ -13184,7 +13246,7 @@ export type OutputWebhook = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsWebhook | undefined;
+  pqControls?: CreateOutputPqControlsWebhook | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -13226,11 +13288,11 @@ export type OutputWebhook = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<OauthParam> | undefined;
+  oauthParams?: Array<CreateOutputOauthParam> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<OauthHeader> | undefined;
+  oauthHeaders?: Array<CreateOutputOauthHeader> | undefined;
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -13239,7 +13301,7 @@ export type OutputWebhook = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<UrlWebhook> | undefined;
+  urls?: Array<CreateOutputUrlWebhook> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -13262,7 +13324,7 @@ export type OutputWebhook = {
   __template_url?: string | undefined;
 };
 
-export type OutputDefault = {
+export type CreateOutputOutputDefault = {
   /**
    * Unique ID for this output
    */
@@ -13287,96 +13349,97 @@ export type OutputDefault = {
   /**
    * ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
    */
-  defaultId: string | null;
+  defaultId: string;
 };
 
 /**
  * Output object
  */
 export type CreateOutputRequest =
-  | OutputDefault
-  | OutputWebhook
-  | OutputSentinel
-  | OutputDevnull
-  | OutputSyslog
-  | OutputSplunk
-  | OutputSplunkLb
-  | OutputSplunkHec
-  | OutputWizHec
-  | OutputTcpjson
-  | OutputWavefront
-  | OutputSignalfx
-  | OutputFilesystem
-  | OutputS3
-  | OutputAzureBlob
-  | OutputAzureDataExplorer
-  | OutputAzureLogs
-  | OutputKinesis
-  | OutputHoneycomb
-  | OutputAzureEventhub
-  | OutputGoogleChronicle
-  | OutputGoogleCloudStorage
-  | OutputGoogleCloudLogging
-  | OutputGooglePubsub
-  | OutputExabeam
-  | OutputKafka
-  | OutputConfluentCloud
-  | OutputMsk
-  | OutputElastic
-  | OutputElasticCloud
-  | OutputNewrelic
-  | OutputNewrelicEvents
-  | OutputInfluxdb
-  | OutputCloudwatch
-  | OutputMinio
-  | OutputStatsd
-  | OutputStatsdExt
-  | OutputGraphite
-  | OutputRouter
-  | OutputSns
-  | OutputSqs
-  | OutputSnmp
-  | OutputSumoLogic
-  | OutputDatadog
+  | CreateOutputOutputDefault
+  | CreateOutputOutputWebhook
+  | CreateOutputOutputSentinel
+  | CreateOutputOutputDevnull
+  | CreateOutputOutputSyslog
+  | CreateOutputOutputSplunk
+  | CreateOutputOutputSplunkLb
+  | CreateOutputOutputSplunkHec
+  | CreateOutputOutputWizHec
+  | CreateOutputOutputTcpjson
+  | CreateOutputOutputWavefront
+  | CreateOutputOutputSignalfx
+  | CreateOutputOutputFilesystem
+  | CreateOutputOutputS3
+  | CreateOutputOutputAzureBlob
+  | CreateOutputOutputAzureDataExplorer
+  | CreateOutputOutputAzureLogs
+  | CreateOutputOutputKinesis
+  | CreateOutputOutputHoneycomb
+  | CreateOutputOutputAzureEventhub
+  | CreateOutputOutputGoogleChronicle
+  | CreateOutputOutputGoogleCloudStorage
+  | CreateOutputOutputGoogleCloudLogging
+  | CreateOutputOutputGooglePubsub
+  | CreateOutputOutputExabeam
+  | CreateOutputOutputKafka
+  | CreateOutputOutputConfluentCloud
+  | CreateOutputOutputMsk
+  | CreateOutputOutputElastic
+  | CreateOutputOutputElasticCloud
+  | CreateOutputOutputNewrelic
+  | CreateOutputOutputNewrelicEvents
+  | CreateOutputOutputInfluxdb
+  | CreateOutputOutputCloudwatch
+  | CreateOutputOutputMinio
+  | CreateOutputOutputStatsd
+  | CreateOutputOutputStatsdExt
+  | CreateOutputOutputGraphite
+  | CreateOutputOutputRouter
+  | CreateOutputOutputSns
+  | CreateOutputOutputSqs
+  | CreateOutputOutputSnmp
+  | CreateOutputOutputSumoLogic
+  | CreateOutputOutputDatadog
   | (
-    | OutputGrafanaCloudGrafanaCloud1
-    | OutputGrafanaCloudGrafanaCloud2 & { type: "grafana_cloud" }
+    | CreateOutputOutputGrafanaCloudGrafanaCloud1
+    | CreateOutputOutputGrafanaCloudGrafanaCloud2 & { type: "grafana_cloud" }
   )
-  | OutputLoki
-  | OutputPrometheus
-  | OutputRing
-  | OutputOpenTelemetry
-  | OutputServiceNow
-  | OutputDataset
-  | OutputCriblTcp
-  | OutputCriblHttp
-  | OutputCriblSearchEngine
-  | OutputHumioHec
-  | OutputCrowdstrikeNextGenSiem
-  | OutputDlS3
-  | OutputSecurityLake
-  | OutputCriblLake
-  | OutputDiskSpool
-  | OutputClickHouse
-  | OutputXsiam
-  | OutputNetflow
-  | OutputDynatraceHttp
-  | OutputDynatraceOtlp
-  | OutputSentinelOneAiSiem
-  | OutputChronicle
-  | OutputDatabricks
-  | OutputMicrosoftFabric
-  | OutputCloudflareR2;
+  | CreateOutputOutputLoki
+  | CreateOutputOutputPrometheus
+  | CreateOutputOutputRing
+  | CreateOutputOutputOpenTelemetry
+  | CreateOutputOutputServiceNow
+  | CreateOutputOutputDataset
+  | CreateOutputOutputCriblTcp
+  | CreateOutputOutputCriblHttp
+  | CreateOutputOutputCriblSearchEngine
+  | CreateOutputOutputHumioHec
+  | CreateOutputOutputCrowdstrikeNextGenSiem
+  | CreateOutputOutputDlS3
+  | CreateOutputOutputSecurityLake
+  | CreateOutputOutputCriblLake
+  | CreateOutputOutputDiskSpool
+  | CreateOutputOutputClickHouse
+  | CreateOutputOutputXsiam
+  | CreateOutputOutputNetflow
+  | CreateOutputOutputDynatraceHttp
+  | CreateOutputOutputDynatraceOtlp
+  | CreateOutputOutputSentinelOneAiSiem
+  | CreateOutputOutputChronicle
+  | CreateOutputOutputDatabricks
+  | CreateOutputOutputMicrosoftFabric
+  | CreateOutputOutputCloudflareR2;
 
 /** @internal */
-export const AuthenticationMethodCloudflareR2$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthenticationMethodCloudflareR2
-> = openEnums.outboundSchema(AuthenticationMethodCloudflareR2);
+export const CreateOutputAuthenticationMethodCloudflareR2$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputAuthenticationMethodCloudflareR2
+  > = openEnums.outboundSchema(CreateOutputAuthenticationMethodCloudflareR2);
 
 /** @internal */
-export type OutputCloudflareR2$Outbound = {
+export type CreateOutputOutputCloudflareR2$Outbound = {
   id: string;
   type: "cloudflare_r2";
   pipeline?: string | undefined;
@@ -13441,10 +13504,10 @@ export type OutputCloudflareR2$Outbound = {
 };
 
 /** @internal */
-export const OutputCloudflareR2$outboundSchema: z.ZodType<
-  OutputCloudflareR2$Outbound,
+export const CreateOutputOutputCloudflareR2$outboundSchema: z.ZodType<
+  CreateOutputOutputCloudflareR2$Outbound,
   z.ZodTypeDef,
-  OutputCloudflareR2
+  CreateOutputOutputCloudflareR2
 > = z.object({
   id: z.string(),
   type: z.literal("cloudflare_r2"),
@@ -13454,8 +13517,8 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: AuthenticationMethodCloudflareR2$outboundSchema
-    .optional(),
+  awsAuthenticationMethod:
+    CreateOutputAuthenticationMethodCloudflareR2$outboundSchema.optional(),
   awsSecretKey: z.string().optional(),
   region: z.any().optional(),
   stagePath: z.string(),
@@ -13512,23 +13575,28 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   __template_format: z.string().optional(),
 });
 
-export function outputCloudflareR2ToJSON(
-  outputCloudflareR2: OutputCloudflareR2,
+export function createOutputOutputCloudflareR2ToJSON(
+  createOutputOutputCloudflareR2: CreateOutputOutputCloudflareR2,
 ): string {
   return JSON.stringify(
-    OutputCloudflareR2$outboundSchema.parse(outputCloudflareR2),
+    CreateOutputOutputCloudflareR2$outboundSchema.parse(
+      createOutputOutputCloudflareR2,
+    ),
   );
 }
 
 /** @internal */
-export const ClientSecretAuthTypeAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ClientSecretAuthTypeAuthenticationMethod
-> = openEnums.outboundSchema(ClientSecretAuthTypeAuthenticationMethod);
+export const CreateOutputClientSecretAuthTypeAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputClientSecretAuthTypeAuthenticationMethod
+  > = openEnums.outboundSchema(
+    CreateOutputClientSecretAuthTypeAuthenticationMethod,
+  );
 
 /** @internal */
-export type Authentication$Outbound = {
+export type CreateOutputAuthentication$Outbound = {
   disabled: boolean;
   mechanism?: string | undefined;
   username?: string | undefined;
@@ -13546,17 +13614,18 @@ export type Authentication$Outbound = {
 };
 
 /** @internal */
-export const Authentication$outboundSchema: z.ZodType<
-  Authentication$Outbound,
+export const CreateOutputAuthentication$outboundSchema: z.ZodType<
+  CreateOutputAuthentication$Outbound,
   z.ZodTypeDef,
-  Authentication
+  CreateOutputAuthentication
 > = z.object({
   disabled: z.boolean(),
   mechanism: models.SaslMechanismOptionsSasl1$outboundSchema.optional(),
   username: z.string().optional(),
   textSecret: z.string().optional(),
-  clientSecretAuthType: ClientSecretAuthTypeAuthenticationMethod$outboundSchema
-    .optional(),
+  clientSecretAuthType:
+    CreateOutputClientSecretAuthTypeAuthenticationMethod$outboundSchema
+      .optional(),
   clientTextSecret: z.string().optional(),
   certificateName: z.string().optional(),
   certPath: z.string().optional(),
@@ -13570,30 +13639,36 @@ export const Authentication$outboundSchema: z.ZodType<
   scope: z.string().optional(),
 });
 
-export function authenticationToJSON(authentication: Authentication): string {
-  return JSON.stringify(Authentication$outboundSchema.parse(authentication));
-}
-
-/** @internal */
-export type PqControlsMicrosoftFabric$Outbound = {};
-
-/** @internal */
-export const PqControlsMicrosoftFabric$outboundSchema: z.ZodType<
-  PqControlsMicrosoftFabric$Outbound,
-  z.ZodTypeDef,
-  PqControlsMicrosoftFabric
-> = z.object({});
-
-export function pqControlsMicrosoftFabricToJSON(
-  pqControlsMicrosoftFabric: PqControlsMicrosoftFabric,
+export function createOutputAuthenticationToJSON(
+  createOutputAuthentication: CreateOutputAuthentication,
 ): string {
   return JSON.stringify(
-    PqControlsMicrosoftFabric$outboundSchema.parse(pqControlsMicrosoftFabric),
+    CreateOutputAuthentication$outboundSchema.parse(createOutputAuthentication),
   );
 }
 
 /** @internal */
-export type OutputMicrosoftFabric$Outbound = {
+export type CreateOutputPqControlsMicrosoftFabric$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsMicrosoftFabric$outboundSchema: z.ZodType<
+  CreateOutputPqControlsMicrosoftFabric$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsMicrosoftFabric
+> = z.object({});
+
+export function createOutputPqControlsMicrosoftFabricToJSON(
+  createOutputPqControlsMicrosoftFabric: CreateOutputPqControlsMicrosoftFabric,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsMicrosoftFabric$outboundSchema.parse(
+      createOutputPqControlsMicrosoftFabric,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputMicrosoftFabric$Outbound = {
   id: string;
   type: "microsoft_fabric";
   pipeline?: string | undefined;
@@ -13614,7 +13689,7 @@ export type OutputMicrosoftFabric$Outbound = {
   backoffRate?: number | undefined;
   authenticationTimeout?: number | undefined;
   reauthenticationThreshold?: number | undefined;
-  sasl?: Authentication$Outbound | undefined;
+  sasl?: CreateOutputAuthentication$Outbound | undefined;
   tls?: models.TlsSettingsClientSideType$Outbound | undefined;
   onBackpressure?: string | undefined;
   bootstrap_server: string;
@@ -13629,16 +13704,16 @@ export type OutputMicrosoftFabric$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsMicrosoftFabric$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsMicrosoftFabric$Outbound | undefined;
   __template_topic?: string | undefined;
   __template_bootstrap_server?: string | undefined;
 };
 
 /** @internal */
-export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
-  OutputMicrosoftFabric$Outbound,
+export const CreateOutputOutputMicrosoftFabric$outboundSchema: z.ZodType<
+  CreateOutputOutputMicrosoftFabric$Outbound,
   z.ZodTypeDef,
-  OutputMicrosoftFabric
+  CreateOutputOutputMicrosoftFabric
 > = z.object({
   id: z.string(),
   type: z.literal("microsoft_fabric"),
@@ -13660,7 +13735,7 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   backoffRate: z.number().optional(),
   authenticationTimeout: z.number().optional(),
   reauthenticationThreshold: z.number().optional(),
-  sasl: z.lazy(() => Authentication$outboundSchema).optional(),
+  sasl: z.lazy(() => CreateOutputAuthentication$outboundSchema).optional(),
   tls: models.TlsSettingsClientSideType$outboundSchema.optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   bootstrap_server: z.string(),
@@ -13675,21 +13750,24 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsMicrosoftFabric$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsMicrosoftFabric$outboundSchema)
+    .optional(),
   __template_topic: z.string().optional(),
   __template_bootstrap_server: z.string().optional(),
 });
 
-export function outputMicrosoftFabricToJSON(
-  outputMicrosoftFabric: OutputMicrosoftFabric,
+export function createOutputOutputMicrosoftFabricToJSON(
+  createOutputOutputMicrosoftFabric: CreateOutputOutputMicrosoftFabric,
 ): string {
   return JSON.stringify(
-    OutputMicrosoftFabric$outboundSchema.parse(outputMicrosoftFabric),
+    CreateOutputOutputMicrosoftFabric$outboundSchema.parse(
+      createOutputOutputMicrosoftFabric,
+    ),
   );
 }
 
 /** @internal */
-export type OutputDatabricks$Outbound = {
+export type CreateOutputOutputDatabricks$Outbound = {
   id: string;
   type: "databricks";
   pipeline?: string | undefined;
@@ -13747,10 +13825,10 @@ export type OutputDatabricks$Outbound = {
 };
 
 /** @internal */
-export const OutputDatabricks$outboundSchema: z.ZodType<
-  OutputDatabricks$Outbound,
+export const CreateOutputOutputDatabricks$outboundSchema: z.ZodType<
+  CreateOutputOutputDatabricks$Outbound,
   z.ZodTypeDef,
-  OutputDatabricks
+  CreateOutputOutputDatabricks
 > = z.object({
   id: z.string(),
   type: z.literal("databricks"),
@@ -13809,63 +13887,69 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   __template_format: z.string().optional(),
 });
 
-export function outputDatabricksToJSON(
-  outputDatabricks: OutputDatabricks,
+export function createOutputOutputDatabricksToJSON(
+  createOutputOutputDatabricks: CreateOutputOutputDatabricks,
 ): string {
   return JSON.stringify(
-    OutputDatabricks$outboundSchema.parse(outputDatabricks),
+    CreateOutputOutputDatabricks$outboundSchema.parse(
+      createOutputOutputDatabricks,
+    ),
   );
 }
 
 /** @internal */
-export const AuthenticationMethodChronicle$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthenticationMethodChronicle
-> = openEnums.outboundSchema(AuthenticationMethodChronicle);
+export const CreateOutputAuthenticationMethodChronicle$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateOutputAuthenticationMethodChronicle> =
+    openEnums.outboundSchema(CreateOutputAuthenticationMethodChronicle);
 
 /** @internal */
-export type CustomLabel$Outbound = {
+export type CreateOutputCustomLabel$Outbound = {
   key: string;
   value: string;
   rbacEnabled?: boolean | undefined;
 };
 
 /** @internal */
-export const CustomLabel$outboundSchema: z.ZodType<
-  CustomLabel$Outbound,
+export const CreateOutputCustomLabel$outboundSchema: z.ZodType<
+  CreateOutputCustomLabel$Outbound,
   z.ZodTypeDef,
-  CustomLabel
+  CreateOutputCustomLabel
 > = z.object({
   key: z.string(),
   value: z.string(),
   rbacEnabled: z.boolean().optional(),
 });
 
-export function customLabelToJSON(customLabel: CustomLabel): string {
-  return JSON.stringify(CustomLabel$outboundSchema.parse(customLabel));
-}
-
-/** @internal */
-export type PqControlsChronicle$Outbound = {};
-
-/** @internal */
-export const PqControlsChronicle$outboundSchema: z.ZodType<
-  PqControlsChronicle$Outbound,
-  z.ZodTypeDef,
-  PqControlsChronicle
-> = z.object({});
-
-export function pqControlsChronicleToJSON(
-  pqControlsChronicle: PqControlsChronicle,
+export function createOutputCustomLabelToJSON(
+  createOutputCustomLabel: CreateOutputCustomLabel,
 ): string {
   return JSON.stringify(
-    PqControlsChronicle$outboundSchema.parse(pqControlsChronicle),
+    CreateOutputCustomLabel$outboundSchema.parse(createOutputCustomLabel),
   );
 }
 
 /** @internal */
-export type OutputChronicle$Outbound = {
+export type CreateOutputPqControlsChronicle$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsChronicle$outboundSchema: z.ZodType<
+  CreateOutputPqControlsChronicle$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsChronicle
+> = z.object({});
+
+export function createOutputPqControlsChronicleToJSON(
+  createOutputPqControlsChronicle: CreateOutputPqControlsChronicle,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsChronicle$outboundSchema.parse(
+      createOutputPqControlsChronicle,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputChronicle$Outbound = {
   id: string;
   type: "chronicle";
   pipeline?: string | undefined;
@@ -13901,7 +13985,7 @@ export type OutputChronicle$Outbound = {
   logTextField?: string | undefined;
   gcpProjectId: string;
   gcpInstance: string;
-  customLabels?: Array<CustomLabel$Outbound> | undefined;
+  customLabels?: Array<CreateOutputCustomLabel$Outbound> | undefined;
   description?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   serviceAccountCredentialsSecret?: string | undefined;
@@ -13915,15 +13999,15 @@ export type OutputChronicle$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsChronicle$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsChronicle$Outbound | undefined;
   __template_region?: string | undefined;
 };
 
 /** @internal */
-export const OutputChronicle$outboundSchema: z.ZodType<
-  OutputChronicle$Outbound,
+export const CreateOutputOutputChronicle$outboundSchema: z.ZodType<
+  CreateOutputOutputChronicle$Outbound,
   z.ZodTypeDef,
-  OutputChronicle
+  CreateOutputOutputChronicle
 > = z.object({
   id: z.string(),
   type: z.literal("chronicle"),
@@ -13932,7 +14016,8 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   apiVersion: z.string().optional(),
-  authenticationMethod: AuthenticationMethodChronicle$outboundSchema.optional(),
+  authenticationMethod: CreateOutputAuthenticationMethodChronicle$outboundSchema
+    .optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
@@ -13961,7 +14046,8 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   logTextField: z.string().optional(),
   gcpProjectId: z.string(),
   gcpInstance: z.string(),
-  customLabels: z.array(z.lazy(() => CustomLabel$outboundSchema)).optional(),
+  customLabels: z.array(z.lazy(() => CreateOutputCustomLabel$outboundSchema))
+    .optional(),
   description: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   serviceAccountCredentialsSecret: z.string().optional(),
@@ -13975,49 +14061,58 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsChronicle$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsChronicle$outboundSchema)
+    .optional(),
   __template_region: z.string().optional(),
 });
 
-export function outputChronicleToJSON(
-  outputChronicle: OutputChronicle,
-): string {
-  return JSON.stringify(OutputChronicle$outboundSchema.parse(outputChronicle));
-}
-
-/** @internal */
-export const Region$outboundSchema: z.ZodType<string, z.ZodTypeDef, Region> =
-  openEnums.outboundSchema(Region);
-
-/** @internal */
-export const AISIEMEndpointPath$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AISIEMEndpointPath
-> = openEnums.outboundSchema(AISIEMEndpointPath);
-
-/** @internal */
-export type PqControlsSentinelOneAiSiem$Outbound = {};
-
-/** @internal */
-export const PqControlsSentinelOneAiSiem$outboundSchema: z.ZodType<
-  PqControlsSentinelOneAiSiem$Outbound,
-  z.ZodTypeDef,
-  PqControlsSentinelOneAiSiem
-> = z.object({});
-
-export function pqControlsSentinelOneAiSiemToJSON(
-  pqControlsSentinelOneAiSiem: PqControlsSentinelOneAiSiem,
+export function createOutputOutputChronicleToJSON(
+  createOutputOutputChronicle: CreateOutputOutputChronicle,
 ): string {
   return JSON.stringify(
-    PqControlsSentinelOneAiSiem$outboundSchema.parse(
-      pqControlsSentinelOneAiSiem,
+    CreateOutputOutputChronicle$outboundSchema.parse(
+      createOutputOutputChronicle,
     ),
   );
 }
 
 /** @internal */
-export type OutputSentinelOneAiSiem$Outbound = {
+export const CreateOutputRegion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputRegion
+> = openEnums.outboundSchema(CreateOutputRegion);
+
+/** @internal */
+export const CreateOutputAISIEMEndpointPath$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputAISIEMEndpointPath
+> = openEnums.outboundSchema(CreateOutputAISIEMEndpointPath);
+
+/** @internal */
+export type CreateOutputPqControlsSentinelOneAiSiem$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsSentinelOneAiSiem$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSentinelOneAiSiem$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsSentinelOneAiSiem
+> = z.object({});
+
+export function createOutputPqControlsSentinelOneAiSiemToJSON(
+  createOutputPqControlsSentinelOneAiSiem:
+    CreateOutputPqControlsSentinelOneAiSiem,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsSentinelOneAiSiem$outboundSchema.parse(
+      createOutputPqControlsSentinelOneAiSiem,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputSentinelOneAiSiem$Outbound = {
   id: string;
   type: "sentinel_one_ai_siem";
   pipeline?: string | undefined;
@@ -14073,14 +14168,14 @@ export type OutputSentinelOneAiSiem$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSentinelOneAiSiem$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSentinelOneAiSiem$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
-  OutputSentinelOneAiSiem$Outbound,
+export const CreateOutputOutputSentinelOneAiSiem$outboundSchema: z.ZodType<
+  CreateOutputOutputSentinelOneAiSiem$Outbound,
   z.ZodTypeDef,
-  OutputSentinelOneAiSiem
+  CreateOutputOutputSentinelOneAiSiem
 > = z.object({
   id: z.string(),
   type: z.literal("sentinel_one_ai_siem"),
@@ -14088,8 +14183,8 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  region: Region$outboundSchema,
-  endpoint: AISIEMEndpointPath$outboundSchema,
+  region: CreateOutputRegion$outboundSchema,
+  endpoint: CreateOutputAISIEMEndpointPath$outboundSchema,
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -14139,52 +14234,57 @@ export const OutputSentinelOneAiSiem$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSentinelOneAiSiem$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputPqControlsSentinelOneAiSiem$outboundSchema
+  ).optional(),
 });
 
-export function outputSentinelOneAiSiemToJSON(
-  outputSentinelOneAiSiem: OutputSentinelOneAiSiem,
+export function createOutputOutputSentinelOneAiSiemToJSON(
+  createOutputOutputSentinelOneAiSiem: CreateOutputOutputSentinelOneAiSiem,
 ): string {
   return JSON.stringify(
-    OutputSentinelOneAiSiem$outboundSchema.parse(outputSentinelOneAiSiem),
+    CreateOutputOutputSentinelOneAiSiem$outboundSchema.parse(
+      createOutputOutputSentinelOneAiSiem,
+    ),
   );
 }
 
 /** @internal */
-export const ProtocolDynatraceOtlp$outboundSchema: z.ZodType<
+export const CreateOutputProtocolDynatraceOtlp$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ProtocolDynatraceOtlp
-> = openEnums.outboundSchema(ProtocolDynatraceOtlp);
+  CreateOutputProtocolDynatraceOtlp
+> = openEnums.outboundSchema(CreateOutputProtocolDynatraceOtlp);
 
 /** @internal */
-export const EndpointType$outboundSchema: z.ZodType<
+export const CreateOutputEndpointType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  EndpointType
-> = openEnums.outboundSchema(EndpointType);
+  CreateOutputEndpointType
+> = openEnums.outboundSchema(CreateOutputEndpointType);
 
 /** @internal */
-export type PqControlsDynatraceOtlp$Outbound = {};
+export type CreateOutputPqControlsDynatraceOtlp$Outbound = {};
 
 /** @internal */
-export const PqControlsDynatraceOtlp$outboundSchema: z.ZodType<
-  PqControlsDynatraceOtlp$Outbound,
+export const CreateOutputPqControlsDynatraceOtlp$outboundSchema: z.ZodType<
+  CreateOutputPqControlsDynatraceOtlp$Outbound,
   z.ZodTypeDef,
-  PqControlsDynatraceOtlp
+  CreateOutputPqControlsDynatraceOtlp
 > = z.object({});
 
-export function pqControlsDynatraceOtlpToJSON(
-  pqControlsDynatraceOtlp: PqControlsDynatraceOtlp,
+export function createOutputPqControlsDynatraceOtlpToJSON(
+  createOutputPqControlsDynatraceOtlp: CreateOutputPqControlsDynatraceOtlp,
 ): string {
   return JSON.stringify(
-    PqControlsDynatraceOtlp$outboundSchema.parse(pqControlsDynatraceOtlp),
+    CreateOutputPqControlsDynatraceOtlp$outboundSchema.parse(
+      createOutputPqControlsDynatraceOtlp,
+    ),
   );
 }
 
 /** @internal */
-export type OutputDynatraceOtlp$Outbound = {
+export type CreateOutputOutputDynatraceOtlp$Outbound = {
   id: string;
   type: "dynatrace_otlp";
   pipeline?: string | undefined;
@@ -14234,14 +14334,14 @@ export type OutputDynatraceOtlp$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsDynatraceOtlp$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsDynatraceOtlp$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
-  OutputDynatraceOtlp$Outbound,
+export const CreateOutputOutputDynatraceOtlp$outboundSchema: z.ZodType<
+  CreateOutputOutputDynatraceOtlp$Outbound,
   z.ZodTypeDef,
-  OutputDynatraceOtlp
+  CreateOutputOutputDynatraceOtlp
 > = z.object({
   id: z.string(),
   type: z.literal("dynatrace_otlp"),
@@ -14249,7 +14349,7 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: ProtocolDynatraceOtlp$outboundSchema,
+  protocol: CreateOutputProtocolDynatraceOtlp$outboundSchema,
   endpoint: z.string(),
   otlpVersion: models.OtlpVersionOptions1$outboundSchema,
   compress: models.CompressionOptions4$outboundSchema.optional(),
@@ -14267,7 +14367,7 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   connectionTimeout: z.number().optional(),
   keepAliveTime: z.number().optional(),
   keepAlive: z.boolean().optional(),
-  endpointType: EndpointType$outboundSchema,
+  endpointType: CreateOutputEndpointType$outboundSchema,
   tokenSecret: z.string(),
   authTokenName: z.string().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
@@ -14293,65 +14393,68 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsDynatraceOtlp$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsDynatraceOtlp$outboundSchema)
+    .optional(),
 });
 
-export function outputDynatraceOtlpToJSON(
-  outputDynatraceOtlp: OutputDynatraceOtlp,
+export function createOutputOutputDynatraceOtlpToJSON(
+  createOutputOutputDynatraceOtlp: CreateOutputOutputDynatraceOtlp,
 ): string {
   return JSON.stringify(
-    OutputDynatraceOtlp$outboundSchema.parse(outputDynatraceOtlp),
+    CreateOutputOutputDynatraceOtlp$outboundSchema.parse(
+      createOutputOutputDynatraceOtlp,
+    ),
   );
 }
 
 /** @internal */
-export const AuthenticationTypeDynatraceHTTP$outboundSchema: z.ZodType<
+export const CreateOutputAuthenticationTypeDynatraceHTTP$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateOutputAuthenticationTypeDynatraceHTTP> =
+    openEnums.outboundSchema(CreateOutputAuthenticationTypeDynatraceHTTP);
+
+/** @internal */
+export const CreateOutputFormatDynatraceHTTP$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  AuthenticationTypeDynatraceHTTP
-> = openEnums.outboundSchema(AuthenticationTypeDynatraceHTTP);
+  CreateOutputFormatDynatraceHTTP
+> = openEnums.outboundSchema(CreateOutputFormatDynatraceHTTP);
 
 /** @internal */
-export const FormatDynatraceHTTP$outboundSchema: z.ZodType<
+export const CreateOutputEndpoint$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  FormatDynatraceHTTP
-> = openEnums.outboundSchema(FormatDynatraceHTTP);
+  CreateOutputEndpoint
+> = openEnums.outboundSchema(CreateOutputEndpoint);
 
 /** @internal */
-export const Endpoint$outboundSchema: z.ZodType<
+export const CreateOutputTelemetryType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  Endpoint
-> = openEnums.outboundSchema(Endpoint);
+  CreateOutputTelemetryType
+> = openEnums.outboundSchema(CreateOutputTelemetryType);
 
 /** @internal */
-export const TelemetryType$outboundSchema: z.ZodType<
-  string,
+export type CreateOutputPqControlsDynatraceHTTP$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsDynatraceHTTP$outboundSchema: z.ZodType<
+  CreateOutputPqControlsDynatraceHTTP$Outbound,
   z.ZodTypeDef,
-  TelemetryType
-> = openEnums.outboundSchema(TelemetryType);
-
-/** @internal */
-export type PqControlsDynatraceHTTP$Outbound = {};
-
-/** @internal */
-export const PqControlsDynatraceHTTP$outboundSchema: z.ZodType<
-  PqControlsDynatraceHTTP$Outbound,
-  z.ZodTypeDef,
-  PqControlsDynatraceHTTP
+  CreateOutputPqControlsDynatraceHTTP
 > = z.object({});
 
-export function pqControlsDynatraceHTTPToJSON(
-  pqControlsDynatraceHTTP: PqControlsDynatraceHTTP,
+export function createOutputPqControlsDynatraceHTTPToJSON(
+  createOutputPqControlsDynatraceHTTP: CreateOutputPqControlsDynatraceHTTP,
 ): string {
   return JSON.stringify(
-    PqControlsDynatraceHTTP$outboundSchema.parse(pqControlsDynatraceHTTP),
+    CreateOutputPqControlsDynatraceHTTP$outboundSchema.parse(
+      createOutputPqControlsDynatraceHTTP,
+    ),
   );
 }
 
 /** @internal */
-export type OutputDynatraceHttp$Outbound = {
+export type CreateOutputOutputDynatraceHttp$Outbound = {
   id: string;
   type: "dynatrace_http";
   pipeline?: string | undefined;
@@ -14395,7 +14498,7 @@ export type OutputDynatraceHttp$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsDynatraceHTTP$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsDynatraceHTTP$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
   environmentId?: string | undefined;
@@ -14405,10 +14508,10 @@ export type OutputDynatraceHttp$Outbound = {
 };
 
 /** @internal */
-export const OutputDynatraceHttp$outboundSchema: z.ZodType<
-  OutputDynatraceHttp$Outbound,
+export const CreateOutputOutputDynatraceHttp$outboundSchema: z.ZodType<
+  CreateOutputOutputDynatraceHttp$Outbound,
   z.ZodTypeDef,
-  OutputDynatraceHttp
+  CreateOutputOutputDynatraceHttp
 > = z.object({
   id: z.string(),
   type: z.literal("dynatrace_http"),
@@ -14438,10 +14541,11 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthenticationTypeDynatraceHTTP$outboundSchema.optional(),
-  format: FormatDynatraceHTTP$outboundSchema,
-  endpoint: Endpoint$outboundSchema,
-  telemetryType: TelemetryType$outboundSchema,
+  authType: CreateOutputAuthenticationTypeDynatraceHTTP$outboundSchema
+    .optional(),
+  format: CreateOutputFormatDynatraceHTTP$outboundSchema,
+  endpoint: CreateOutputEndpoint$outboundSchema,
+  telemetryType: CreateOutputTelemetryType$outboundSchema,
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().optional(),
@@ -14454,7 +14558,8 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsDynatraceHTTP$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsDynatraceHTTP$outboundSchema)
+    .optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   environmentId: z.string().optional(),
@@ -14463,16 +14568,18 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   __template_url: z.string().optional(),
 });
 
-export function outputDynatraceHttpToJSON(
-  outputDynatraceHttp: OutputDynatraceHttp,
+export function createOutputOutputDynatraceHttpToJSON(
+  createOutputOutputDynatraceHttp: CreateOutputOutputDynatraceHttp,
 ): string {
   return JSON.stringify(
-    OutputDynatraceHttp$outboundSchema.parse(outputDynatraceHttp),
+    CreateOutputOutputDynatraceHttp$outboundSchema.parse(
+      createOutputOutputDynatraceHttp,
+    ),
   );
 }
 
 /** @internal */
-export type HostNetflow$Outbound = {
+export type CreateOutputHostNetflow$Outbound = {
   host: string;
   port: number;
   __template_host?: string | undefined;
@@ -14480,10 +14587,10 @@ export type HostNetflow$Outbound = {
 };
 
 /** @internal */
-export const HostNetflow$outboundSchema: z.ZodType<
-  HostNetflow$Outbound,
+export const CreateOutputHostNetflow$outboundSchema: z.ZodType<
+  CreateOutputHostNetflow$Outbound,
   z.ZodTypeDef,
-  HostNetflow
+  CreateOutputHostNetflow
 > = z.object({
   host: z.string(),
   port: z.number(),
@@ -14491,19 +14598,23 @@ export const HostNetflow$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function hostNetflowToJSON(hostNetflow: HostNetflow): string {
-  return JSON.stringify(HostNetflow$outboundSchema.parse(hostNetflow));
+export function createOutputHostNetflowToJSON(
+  createOutputHostNetflow: CreateOutputHostNetflow,
+): string {
+  return JSON.stringify(
+    CreateOutputHostNetflow$outboundSchema.parse(createOutputHostNetflow),
+  );
 }
 
 /** @internal */
-export type OutputNetflow$Outbound = {
+export type CreateOutputOutputNetflow$Outbound = {
   id: string;
   type: "netflow";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  hosts: Array<HostNetflow$Outbound>;
+  hosts: Array<CreateOutputHostNetflow$Outbound>;
   dnsResolvePeriodSec?: number | undefined;
   enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
@@ -14511,10 +14622,10 @@ export type OutputNetflow$Outbound = {
 };
 
 /** @internal */
-export const OutputNetflow$outboundSchema: z.ZodType<
-  OutputNetflow$Outbound,
+export const CreateOutputOutputNetflow$outboundSchema: z.ZodType<
+  CreateOutputOutputNetflow$Outbound,
   z.ZodTypeDef,
-  OutputNetflow
+  CreateOutputOutputNetflow
 > = z.object({
   id: z.string(),
   type: z.literal("netflow"),
@@ -14522,62 +14633,74 @@ export const OutputNetflow$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  hosts: z.array(z.lazy(() => HostNetflow$outboundSchema)),
+  hosts: z.array(z.lazy(() => CreateOutputHostNetflow$outboundSchema)),
   dnsResolvePeriodSec: z.number().optional(),
   enableIpSpoofing: z.boolean().optional(),
   description: z.string().optional(),
   maxRecordSize: z.number().optional(),
 });
 
-export function outputNetflowToJSON(outputNetflow: OutputNetflow): string {
-  return JSON.stringify(OutputNetflow$outboundSchema.parse(outputNetflow));
+export function createOutputOutputNetflowToJSON(
+  createOutputOutputNetflow: CreateOutputOutputNetflow,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputNetflow$outboundSchema.parse(createOutputOutputNetflow),
+  );
 }
 
 /** @internal */
-export const AuthenticationMethodXsiam$outboundSchema: z.ZodType<
+export const CreateOutputAuthenticationMethodXsiam$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  AuthenticationMethodXsiam
-> = openEnums.outboundSchema(AuthenticationMethodXsiam);
+  CreateOutputAuthenticationMethodXsiam
+> = openEnums.outboundSchema(CreateOutputAuthenticationMethodXsiam);
 
 /** @internal */
-export type UrlXsiam$Outbound = {
+export type CreateOutputUrlXsiam$Outbound = {
   url?: any | undefined;
   weight?: number | undefined;
 };
 
 /** @internal */
-export const UrlXsiam$outboundSchema: z.ZodType<
-  UrlXsiam$Outbound,
+export const CreateOutputUrlXsiam$outboundSchema: z.ZodType<
+  CreateOutputUrlXsiam$Outbound,
   z.ZodTypeDef,
-  UrlXsiam
+  CreateOutputUrlXsiam
 > = z.object({
   url: z.any().optional(),
   weight: z.number().optional(),
 });
 
-export function urlXsiamToJSON(urlXsiam: UrlXsiam): string {
-  return JSON.stringify(UrlXsiam$outboundSchema.parse(urlXsiam));
+export function createOutputUrlXsiamToJSON(
+  createOutputUrlXsiam: CreateOutputUrlXsiam,
+): string {
+  return JSON.stringify(
+    CreateOutputUrlXsiam$outboundSchema.parse(createOutputUrlXsiam),
+  );
 }
 
 /** @internal */
-export type PqControlsXsiam$Outbound = {};
+export type CreateOutputPqControlsXsiam$Outbound = {};
 
 /** @internal */
-export const PqControlsXsiam$outboundSchema: z.ZodType<
-  PqControlsXsiam$Outbound,
+export const CreateOutputPqControlsXsiam$outboundSchema: z.ZodType<
+  CreateOutputPqControlsXsiam$Outbound,
   z.ZodTypeDef,
-  PqControlsXsiam
+  CreateOutputPqControlsXsiam
 > = z.object({});
 
-export function pqControlsXsiamToJSON(
-  pqControlsXsiam: PqControlsXsiam,
+export function createOutputPqControlsXsiamToJSON(
+  createOutputPqControlsXsiam: CreateOutputPqControlsXsiam,
 ): string {
-  return JSON.stringify(PqControlsXsiam$outboundSchema.parse(pqControlsXsiam));
+  return JSON.stringify(
+    CreateOutputPqControlsXsiam$outboundSchema.parse(
+      createOutputPqControlsXsiam,
+    ),
+  );
 }
 
 /** @internal */
-export type OutputXsiam$Outbound = {
+export type CreateOutputOutputXsiam$Outbound = {
   id: string;
   type: "xsiam";
   pipeline?: string | undefined;
@@ -14609,7 +14732,7 @@ export type OutputXsiam$Outbound = {
   url?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   excludeSelf?: boolean | undefined;
-  urls?: Array<UrlXsiam$Outbound> | undefined;
+  urls?: Array<CreateOutputUrlXsiam$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   token?: string | undefined;
@@ -14624,15 +14747,15 @@ export type OutputXsiam$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsXsiam$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsXsiam$Outbound | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const OutputXsiam$outboundSchema: z.ZodType<
-  OutputXsiam$Outbound,
+export const CreateOutputOutputXsiam$outboundSchema: z.ZodType<
+  CreateOutputOutputXsiam$Outbound,
   z.ZodTypeDef,
-  OutputXsiam
+  CreateOutputOutputXsiam
 > = z.object({
   id: z.string(),
   type: z.literal("xsiam"),
@@ -14652,7 +14775,7 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  authType: AuthenticationMethodXsiam$outboundSchema.optional(),
+  authType: CreateOutputAuthenticationMethodXsiam$outboundSchema.optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
@@ -14666,7 +14789,7 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   url: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   excludeSelf: z.boolean().optional(),
-  urls: z.array(z.lazy(() => UrlXsiam$outboundSchema)).optional(),
+  urls: z.array(z.lazy(() => CreateOutputUrlXsiam$outboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
@@ -14681,37 +14804,42 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsXsiam$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsXsiam$outboundSchema)
+    .optional(),
   __template_url: z.string().optional(),
 });
 
-export function outputXsiamToJSON(outputXsiam: OutputXsiam): string {
-  return JSON.stringify(OutputXsiam$outboundSchema.parse(outputXsiam));
+export function createOutputOutputXsiamToJSON(
+  createOutputOutputXsiam: CreateOutputOutputXsiam,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputXsiam$outboundSchema.parse(createOutputOutputXsiam),
+  );
 }
 
 /** @internal */
-export const AuthenticationTypeClickHouse$outboundSchema: z.ZodType<
+export const CreateOutputAuthenticationTypeClickHouse$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  AuthenticationTypeClickHouse
-> = openEnums.outboundSchema(AuthenticationTypeClickHouse);
+  CreateOutputAuthenticationTypeClickHouse
+> = openEnums.outboundSchema(CreateOutputAuthenticationTypeClickHouse);
 
 /** @internal */
-export const FormatClickHouse$outboundSchema: z.ZodType<
+export const CreateOutputFormatClickHouse$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  FormatClickHouse
-> = openEnums.outboundSchema(FormatClickHouse);
+  CreateOutputFormatClickHouse
+> = openEnums.outboundSchema(CreateOutputFormatClickHouse);
 
 /** @internal */
-export const MappingType$outboundSchema: z.ZodType<
+export const CreateOutputMappingType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  MappingType
-> = openEnums.outboundSchema(MappingType);
+  CreateOutputMappingType
+> = openEnums.outboundSchema(CreateOutputMappingType);
 
 /** @internal */
-export type StatsDestination$Outbound = {
+export type CreateOutputStatsDestination$Outbound = {
   url?: string | undefined;
   database?: string | undefined;
   tableName?: string | undefined;
@@ -14722,10 +14850,10 @@ export type StatsDestination$Outbound = {
 };
 
 /** @internal */
-export const StatsDestination$outboundSchema: z.ZodType<
-  StatsDestination$Outbound,
+export const CreateOutputStatsDestination$outboundSchema: z.ZodType<
+  CreateOutputStatsDestination$Outbound,
   z.ZodTypeDef,
-  StatsDestination
+  CreateOutputStatsDestination
 > = z.object({
   url: z.string().optional(),
   database: z.string().optional(),
@@ -14736,56 +14864,64 @@ export const StatsDestination$outboundSchema: z.ZodType<
   password: z.string().optional(),
 });
 
-export function statsDestinationToJSON(
-  statsDestination: StatsDestination,
+export function createOutputStatsDestinationToJSON(
+  createOutputStatsDestination: CreateOutputStatsDestination,
 ): string {
   return JSON.stringify(
-    StatsDestination$outboundSchema.parse(statsDestination),
+    CreateOutputStatsDestination$outboundSchema.parse(
+      createOutputStatsDestination,
+    ),
   );
 }
 
 /** @internal */
-export type ColumnMapping$Outbound = {
+export type CreateOutputColumnMapping$Outbound = {
   columnName: string;
   columnType?: string | undefined;
   columnValueExpression: string;
 };
 
 /** @internal */
-export const ColumnMapping$outboundSchema: z.ZodType<
-  ColumnMapping$Outbound,
+export const CreateOutputColumnMapping$outboundSchema: z.ZodType<
+  CreateOutputColumnMapping$Outbound,
   z.ZodTypeDef,
-  ColumnMapping
+  CreateOutputColumnMapping
 > = z.object({
   columnName: z.string(),
   columnType: z.string().optional(),
   columnValueExpression: z.string(),
 });
 
-export function columnMappingToJSON(columnMapping: ColumnMapping): string {
-  return JSON.stringify(ColumnMapping$outboundSchema.parse(columnMapping));
-}
-
-/** @internal */
-export type PqControlsClickHouse$Outbound = {};
-
-/** @internal */
-export const PqControlsClickHouse$outboundSchema: z.ZodType<
-  PqControlsClickHouse$Outbound,
-  z.ZodTypeDef,
-  PqControlsClickHouse
-> = z.object({});
-
-export function pqControlsClickHouseToJSON(
-  pqControlsClickHouse: PqControlsClickHouse,
+export function createOutputColumnMappingToJSON(
+  createOutputColumnMapping: CreateOutputColumnMapping,
 ): string {
   return JSON.stringify(
-    PqControlsClickHouse$outboundSchema.parse(pqControlsClickHouse),
+    CreateOutputColumnMapping$outboundSchema.parse(createOutputColumnMapping),
   );
 }
 
 /** @internal */
-export type OutputClickHouse$Outbound = {
+export type CreateOutputPqControlsClickHouse$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsClickHouse$outboundSchema: z.ZodType<
+  CreateOutputPqControlsClickHouse$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsClickHouse
+> = z.object({});
+
+export function createOutputPqControlsClickHouseToJSON(
+  createOutputPqControlsClickHouse: CreateOutputPqControlsClickHouse,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsClickHouse$outboundSchema.parse(
+      createOutputPqControlsClickHouse,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputClickHouse$Outbound = {
   id: string;
   type: "click_house";
   pipeline?: string | undefined;
@@ -14819,7 +14955,7 @@ export type OutputClickHouse$Outbound = {
   timeoutRetrySettings?: models.TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
   dumpFormatErrorsToDisk?: boolean | undefined;
-  statsDestination?: StatsDestination$Outbound | undefined;
+  statsDestination?: CreateOutputStatsDestination$Outbound | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -14829,7 +14965,7 @@ export type OutputClickHouse$Outbound = {
   waitForAsyncInserts?: boolean | undefined;
   excludeMappingFields?: Array<string> | undefined;
   describeTable?: string | undefined;
-  columnMappings?: Array<ColumnMapping$Outbound> | undefined;
+  columnMappings?: Array<CreateOutputColumnMapping$Outbound> | undefined;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -14840,17 +14976,17 @@ export type OutputClickHouse$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsClickHouse$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsClickHouse$Outbound | undefined;
   __template_url?: string | undefined;
   __template_database?: string | undefined;
   __template_tableName?: string | undefined;
 };
 
 /** @internal */
-export const OutputClickHouse$outboundSchema: z.ZodType<
-  OutputClickHouse$Outbound,
+export const CreateOutputOutputClickHouse$outboundSchema: z.ZodType<
+  CreateOutputOutputClickHouse$Outbound,
   z.ZodTypeDef,
-  OutputClickHouse
+  CreateOutputOutputClickHouse
 > = z.object({
   id: z.string(),
   type: z.literal("click_house"),
@@ -14859,11 +14995,11 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  authType: AuthenticationTypeClickHouse$outboundSchema.optional(),
+  authType: CreateOutputAuthenticationTypeClickHouse$outboundSchema.optional(),
   database: z.string(),
   tableName: z.string(),
-  format: FormatClickHouse$outboundSchema.optional(),
-  mappingType: MappingType$outboundSchema.optional(),
+  format: CreateOutputFormatClickHouse$outboundSchema.optional(),
+  mappingType: CreateOutputMappingType$outboundSchema.optional(),
   asyncInserts: z.boolean().optional(),
   tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
   concurrency: z.number().optional(),
@@ -14886,7 +15022,8 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   dumpFormatErrorsToDisk: z.boolean().optional(),
-  statsDestination: z.lazy(() => StatsDestination$outboundSchema).optional(),
+  statsDestination: z.lazy(() => CreateOutputStatsDestination$outboundSchema)
+    .optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -14896,8 +15033,9 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   waitForAsyncInserts: z.boolean().optional(),
   excludeMappingFields: z.array(z.string()).optional(),
   describeTable: z.string().optional(),
-  columnMappings: z.array(z.lazy(() => ColumnMapping$outboundSchema))
-    .optional(),
+  columnMappings: z.array(
+    z.lazy(() => CreateOutputColumnMapping$outboundSchema),
+  ).optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
   pqMode: models.ModeOptions$outboundSchema.optional(),
@@ -14908,22 +15046,25 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsClickHouse$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsClickHouse$outboundSchema)
+    .optional(),
   __template_url: z.string().optional(),
   __template_database: z.string().optional(),
   __template_tableName: z.string().optional(),
 });
 
-export function outputClickHouseToJSON(
-  outputClickHouse: OutputClickHouse,
+export function createOutputOutputClickHouseToJSON(
+  createOutputOutputClickHouse: CreateOutputOutputClickHouse,
 ): string {
   return JSON.stringify(
-    OutputClickHouse$outboundSchema.parse(outputClickHouse),
+    CreateOutputOutputClickHouse$outboundSchema.parse(
+      createOutputOutputClickHouse,
+    ),
   );
 }
 
 /** @internal */
-export type OutputDiskSpool$Outbound = {
+export type CreateOutputOutputDiskSpool$Outbound = {
   id: string;
   type: "disk_spool";
   pipeline?: string | undefined;
@@ -14939,10 +15080,10 @@ export type OutputDiskSpool$Outbound = {
 };
 
 /** @internal */
-export const OutputDiskSpool$outboundSchema: z.ZodType<
-  OutputDiskSpool$Outbound,
+export const CreateOutputOutputDiskSpool$outboundSchema: z.ZodType<
+  CreateOutputOutputDiskSpool$Outbound,
   z.ZodTypeDef,
-  OutputDiskSpool
+  CreateOutputOutputDiskSpool
 > = z.object({
   id: z.string(),
   type: z.literal("disk_spool"),
@@ -14958,14 +15099,18 @@ export const OutputDiskSpool$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-export function outputDiskSpoolToJSON(
-  outputDiskSpool: OutputDiskSpool,
+export function createOutputOutputDiskSpoolToJSON(
+  createOutputOutputDiskSpool: CreateOutputOutputDiskSpool,
 ): string {
-  return JSON.stringify(OutputDiskSpool$outboundSchema.parse(outputDiskSpool));
+  return JSON.stringify(
+    CreateOutputOutputDiskSpool$outboundSchema.parse(
+      createOutputOutputDiskSpool,
+    ),
+  );
 }
 
 /** @internal */
-export type OutputCriblLake$Outbound = {
+export type CreateOutputOutputCriblLake$Outbound = {
   id: string;
   type: "cribl_lake";
   pipeline?: string | undefined;
@@ -15023,10 +15168,10 @@ export type OutputCriblLake$Outbound = {
 };
 
 /** @internal */
-export const OutputCriblLake$outboundSchema: z.ZodType<
-  OutputCriblLake$Outbound,
+export const CreateOutputOutputCriblLake$outboundSchema: z.ZodType<
+  CreateOutputOutputCriblLake$Outbound,
   z.ZodTypeDef,
-  OutputCriblLake
+  CreateOutputOutputCriblLake
 > = z.object({
   id: z.string(),
   type: z.literal("cribl_lake"),
@@ -15088,21 +15233,25 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   __template_destPath: z.string().optional(),
 });
 
-export function outputCriblLakeToJSON(
-  outputCriblLake: OutputCriblLake,
+export function createOutputOutputCriblLakeToJSON(
+  createOutputOutputCriblLake: CreateOutputOutputCriblLake,
 ): string {
-  return JSON.stringify(OutputCriblLake$outboundSchema.parse(outputCriblLake));
+  return JSON.stringify(
+    CreateOutputOutputCriblLake$outboundSchema.parse(
+      createOutputOutputCriblLake,
+    ),
+  );
 }
 
 /** @internal */
-export const SignatureVersionSecurityLake$outboundSchema: z.ZodType<
+export const CreateOutputSignatureVersionSecurityLake$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  SignatureVersionSecurityLake
-> = openEnums.outboundSchema(SignatureVersionSecurityLake);
+  CreateOutputSignatureVersionSecurityLake
+> = openEnums.outboundSchema(CreateOutputSignatureVersionSecurityLake);
 
 /** @internal */
-export type OutputSecurityLake$Outbound = {
+export type CreateOutputOutputSecurityLake$Outbound = {
   id: string;
   type: "security_lake";
   pipeline?: string | undefined;
@@ -15174,10 +15323,10 @@ export type OutputSecurityLake$Outbound = {
 };
 
 /** @internal */
-export const OutputSecurityLake$outboundSchema: z.ZodType<
-  OutputSecurityLake$Outbound,
+export const CreateOutputOutputSecurityLake$outboundSchema: z.ZodType<
+  CreateOutputOutputSecurityLake$Outbound,
   z.ZodTypeDef,
-  OutputSecurityLake
+  CreateOutputOutputSecurityLake
 > = z.object({
   id: z.string(),
   type: z.literal("security_lake"),
@@ -15190,7 +15339,8 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   awsAuthenticationMethod: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionSecurityLake$outboundSchema.optional(),
+  signatureVersion: CreateOutputSignatureVersionSecurityLake$outboundSchema
+    .optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -15251,16 +15401,18 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function outputSecurityLakeToJSON(
-  outputSecurityLake: OutputSecurityLake,
+export function createOutputOutputSecurityLakeToJSON(
+  createOutputOutputSecurityLake: CreateOutputOutputSecurityLake,
 ): string {
   return JSON.stringify(
-    OutputSecurityLake$outboundSchema.parse(outputSecurityLake),
+    CreateOutputOutputSecurityLake$outboundSchema.parse(
+      createOutputOutputSecurityLake,
+    ),
   );
 }
 
 /** @internal */
-export type OutputDlS3$Outbound = {
+export type CreateOutputOutputDlS3$Outbound = {
   id: string;
   type: "dl_s3";
   pipeline?: string | undefined;
@@ -15337,10 +15489,10 @@ export type OutputDlS3$Outbound = {
 };
 
 /** @internal */
-export const OutputDlS3$outboundSchema: z.ZodType<
-  OutputDlS3$Outbound,
+export const CreateOutputOutputDlS3$outboundSchema: z.ZodType<
+  CreateOutputOutputDlS3$Outbound,
   z.ZodTypeDef,
-  OutputDlS3
+  CreateOutputOutputDlS3
 > = z.object({
   id: z.string(),
   type: z.literal("dl_s3"),
@@ -15420,32 +15572,38 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function outputDlS3ToJSON(outputDlS3: OutputDlS3): string {
-  return JSON.stringify(OutputDlS3$outboundSchema.parse(outputDlS3));
+export function createOutputOutputDlS3ToJSON(
+  createOutputOutputDlS3: CreateOutputOutputDlS3,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputDlS3$outboundSchema.parse(createOutputOutputDlS3),
+  );
 }
 
 /** @internal */
-export type PqControlsCrowdstrikeNextGenSiem$Outbound = {};
+export type CreateOutputPqControlsCrowdstrikeNextGenSiem$Outbound = {};
 
 /** @internal */
-export const PqControlsCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
-  PqControlsCrowdstrikeNextGenSiem$Outbound,
-  z.ZodTypeDef,
-  PqControlsCrowdstrikeNextGenSiem
-> = z.object({});
+export const CreateOutputPqControlsCrowdstrikeNextGenSiem$outboundSchema:
+  z.ZodType<
+    CreateOutputPqControlsCrowdstrikeNextGenSiem$Outbound,
+    z.ZodTypeDef,
+    CreateOutputPqControlsCrowdstrikeNextGenSiem
+  > = z.object({});
 
-export function pqControlsCrowdstrikeNextGenSiemToJSON(
-  pqControlsCrowdstrikeNextGenSiem: PqControlsCrowdstrikeNextGenSiem,
+export function createOutputPqControlsCrowdstrikeNextGenSiemToJSON(
+  createOutputPqControlsCrowdstrikeNextGenSiem:
+    CreateOutputPqControlsCrowdstrikeNextGenSiem,
 ): string {
   return JSON.stringify(
-    PqControlsCrowdstrikeNextGenSiem$outboundSchema.parse(
-      pqControlsCrowdstrikeNextGenSiem,
+    CreateOutputPqControlsCrowdstrikeNextGenSiem$outboundSchema.parse(
+      createOutputPqControlsCrowdstrikeNextGenSiem,
     ),
   );
 }
 
 /** @internal */
-export type OutputCrowdstrikeNextGenSiem$Outbound = {
+export type CreateOutputOutputCrowdstrikeNextGenSiem$Outbound = {
   id: string;
   type: "crowdstrike_next_gen_siem";
   pipeline?: string | undefined;
@@ -15487,15 +15645,17 @@ export type OutputCrowdstrikeNextGenSiem$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsCrowdstrikeNextGenSiem$Outbound | undefined;
+  pqControls?:
+    | CreateOutputPqControlsCrowdstrikeNextGenSiem$Outbound
+    | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
-  OutputCrowdstrikeNextGenSiem$Outbound,
+export const CreateOutputOutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
+  CreateOutputOutputCrowdstrikeNextGenSiem$Outbound,
   z.ZodTypeDef,
-  OutputCrowdstrikeNextGenSiem
+  CreateOutputOutputCrowdstrikeNextGenSiem
 > = z.object({
   id: z.string(),
   type: z.literal("crowdstrike_next_gen_siem"),
@@ -15540,41 +15700,45 @@ export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsCrowdstrikeNextGenSiem$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputPqControlsCrowdstrikeNextGenSiem$outboundSchema
+  ).optional(),
   __template_url: z.string().optional(),
 });
 
-export function outputCrowdstrikeNextGenSiemToJSON(
-  outputCrowdstrikeNextGenSiem: OutputCrowdstrikeNextGenSiem,
+export function createOutputOutputCrowdstrikeNextGenSiemToJSON(
+  createOutputOutputCrowdstrikeNextGenSiem:
+    CreateOutputOutputCrowdstrikeNextGenSiem,
 ): string {
   return JSON.stringify(
-    OutputCrowdstrikeNextGenSiem$outboundSchema.parse(
-      outputCrowdstrikeNextGenSiem,
+    CreateOutputOutputCrowdstrikeNextGenSiem$outboundSchema.parse(
+      createOutputOutputCrowdstrikeNextGenSiem,
     ),
   );
 }
 
 /** @internal */
-export type PqControlsHumioHec$Outbound = {};
+export type CreateOutputPqControlsHumioHec$Outbound = {};
 
 /** @internal */
-export const PqControlsHumioHec$outboundSchema: z.ZodType<
-  PqControlsHumioHec$Outbound,
+export const CreateOutputPqControlsHumioHec$outboundSchema: z.ZodType<
+  CreateOutputPqControlsHumioHec$Outbound,
   z.ZodTypeDef,
-  PqControlsHumioHec
+  CreateOutputPqControlsHumioHec
 > = z.object({});
 
-export function pqControlsHumioHecToJSON(
-  pqControlsHumioHec: PqControlsHumioHec,
+export function createOutputPqControlsHumioHecToJSON(
+  createOutputPqControlsHumioHec: CreateOutputPqControlsHumioHec,
 ): string {
   return JSON.stringify(
-    PqControlsHumioHec$outboundSchema.parse(pqControlsHumioHec),
+    CreateOutputPqControlsHumioHec$outboundSchema.parse(
+      createOutputPqControlsHumioHec,
+    ),
   );
 }
 
 /** @internal */
-export type OutputHumioHec$Outbound = {
+export type CreateOutputOutputHumioHec$Outbound = {
   id: string;
   type: "humio_hec";
   pipeline?: string | undefined;
@@ -15616,15 +15780,15 @@ export type OutputHumioHec$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsHumioHec$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsHumioHec$Outbound | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const OutputHumioHec$outboundSchema: z.ZodType<
-  OutputHumioHec$Outbound,
+export const CreateOutputOutputHumioHec$outboundSchema: z.ZodType<
+  CreateOutputOutputHumioHec$Outbound,
   z.ZodTypeDef,
-  OutputHumioHec
+  CreateOutputOutputHumioHec
 > = z.object({
   id: z.string(),
   type: z.literal("humio_hec"),
@@ -15669,36 +15833,42 @@ export const OutputHumioHec$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsHumioHec$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsHumioHec$outboundSchema)
+    .optional(),
   __template_url: z.string().optional(),
 });
 
-export function outputHumioHecToJSON(outputHumioHec: OutputHumioHec): string {
-  return JSON.stringify(OutputHumioHec$outboundSchema.parse(outputHumioHec));
+export function createOutputOutputHumioHecToJSON(
+  createOutputOutputHumioHec: CreateOutputOutputHumioHec,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputHumioHec$outboundSchema.parse(createOutputOutputHumioHec),
+  );
 }
 
 /** @internal */
-export type PqControlsCriblSearchEngine$Outbound = {};
+export type CreateOutputPqControlsCriblSearchEngine$Outbound = {};
 
 /** @internal */
-export const PqControlsCriblSearchEngine$outboundSchema: z.ZodType<
-  PqControlsCriblSearchEngine$Outbound,
+export const CreateOutputPqControlsCriblSearchEngine$outboundSchema: z.ZodType<
+  CreateOutputPqControlsCriblSearchEngine$Outbound,
   z.ZodTypeDef,
-  PqControlsCriblSearchEngine
+  CreateOutputPqControlsCriblSearchEngine
 > = z.object({});
 
-export function pqControlsCriblSearchEngineToJSON(
-  pqControlsCriblSearchEngine: PqControlsCriblSearchEngine,
+export function createOutputPqControlsCriblSearchEngineToJSON(
+  createOutputPqControlsCriblSearchEngine:
+    CreateOutputPqControlsCriblSearchEngine,
 ): string {
   return JSON.stringify(
-    PqControlsCriblSearchEngine$outboundSchema.parse(
-      pqControlsCriblSearchEngine,
+    CreateOutputPqControlsCriblSearchEngine$outboundSchema.parse(
+      createOutputPqControlsCriblSearchEngine,
     ),
   );
 }
 
 /** @internal */
-export type OutputCriblSearchEngine$Outbound = {
+export type CreateOutputOutputCriblSearchEngine$Outbound = {
   id: string;
   type: "cribl_search_engine";
   pipeline?: string | undefined;
@@ -15748,15 +15918,15 @@ export type OutputCriblSearchEngine$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsCriblSearchEngine$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsCriblSearchEngine$Outbound | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
-  OutputCriblSearchEngine$Outbound,
+export const CreateOutputOutputCriblSearchEngine$outboundSchema: z.ZodType<
+  CreateOutputOutputCriblSearchEngine$Outbound,
   z.ZodTypeDef,
-  OutputCriblSearchEngine
+  CreateOutputOutputCriblSearchEngine
 > = z.object({
   id: z.string(),
   type: z.literal("cribl_search_engine"),
@@ -15807,39 +15977,44 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsCriblSearchEngine$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputPqControlsCriblSearchEngine$outboundSchema
+  ).optional(),
   __template_url: z.string().optional(),
 });
 
-export function outputCriblSearchEngineToJSON(
-  outputCriblSearchEngine: OutputCriblSearchEngine,
+export function createOutputOutputCriblSearchEngineToJSON(
+  createOutputOutputCriblSearchEngine: CreateOutputOutputCriblSearchEngine,
 ): string {
   return JSON.stringify(
-    OutputCriblSearchEngine$outboundSchema.parse(outputCriblSearchEngine),
+    CreateOutputOutputCriblSearchEngine$outboundSchema.parse(
+      createOutputOutputCriblSearchEngine,
+    ),
   );
 }
 
 /** @internal */
-export type PqControlsCriblHTTP$Outbound = {};
+export type CreateOutputPqControlsCriblHTTP$Outbound = {};
 
 /** @internal */
-export const PqControlsCriblHTTP$outboundSchema: z.ZodType<
-  PqControlsCriblHTTP$Outbound,
+export const CreateOutputPqControlsCriblHTTP$outboundSchema: z.ZodType<
+  CreateOutputPqControlsCriblHTTP$Outbound,
   z.ZodTypeDef,
-  PqControlsCriblHTTP
+  CreateOutputPqControlsCriblHTTP
 > = z.object({});
 
-export function pqControlsCriblHTTPToJSON(
-  pqControlsCriblHTTP: PqControlsCriblHTTP,
+export function createOutputPqControlsCriblHTTPToJSON(
+  createOutputPqControlsCriblHTTP: CreateOutputPqControlsCriblHTTP,
 ): string {
   return JSON.stringify(
-    PqControlsCriblHTTP$outboundSchema.parse(pqControlsCriblHTTP),
+    CreateOutputPqControlsCriblHTTP$outboundSchema.parse(
+      createOutputPqControlsCriblHTTP,
+    ),
   );
 }
 
 /** @internal */
-export type OutputCriblHttp$Outbound = {
+export type CreateOutputOutputCriblHttp$Outbound = {
   id: string;
   type: "cribl_http";
   pipeline?: string | undefined;
@@ -15889,15 +16064,15 @@ export type OutputCriblHttp$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsCriblHTTP$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsCriblHTTP$Outbound | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const OutputCriblHttp$outboundSchema: z.ZodType<
-  OutputCriblHttp$Outbound,
+export const CreateOutputOutputCriblHttp$outboundSchema: z.ZodType<
+  CreateOutputOutputCriblHttp$Outbound,
   z.ZodTypeDef,
-  OutputCriblHttp
+  CreateOutputOutputCriblHttp
 > = z.object({
   id: z.string(),
   type: z.literal("cribl_http"),
@@ -15948,36 +16123,43 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsCriblHTTP$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsCriblHTTP$outboundSchema)
+    .optional(),
   __template_url: z.string().optional(),
 });
 
-export function outputCriblHttpToJSON(
-  outputCriblHttp: OutputCriblHttp,
-): string {
-  return JSON.stringify(OutputCriblHttp$outboundSchema.parse(outputCriblHttp));
-}
-
-/** @internal */
-export type PqControlsCriblTCP$Outbound = {};
-
-/** @internal */
-export const PqControlsCriblTCP$outboundSchema: z.ZodType<
-  PqControlsCriblTCP$Outbound,
-  z.ZodTypeDef,
-  PqControlsCriblTCP
-> = z.object({});
-
-export function pqControlsCriblTCPToJSON(
-  pqControlsCriblTCP: PqControlsCriblTCP,
+export function createOutputOutputCriblHttpToJSON(
+  createOutputOutputCriblHttp: CreateOutputOutputCriblHttp,
 ): string {
   return JSON.stringify(
-    PqControlsCriblTCP$outboundSchema.parse(pqControlsCriblTCP),
+    CreateOutputOutputCriblHttp$outboundSchema.parse(
+      createOutputOutputCriblHttp,
+    ),
   );
 }
 
 /** @internal */
-export type OutputCriblTcp$Outbound = {
+export type CreateOutputPqControlsCriblTCP$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsCriblTCP$outboundSchema: z.ZodType<
+  CreateOutputPqControlsCriblTCP$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsCriblTCP
+> = z.object({});
+
+export function createOutputPqControlsCriblTCPToJSON(
+  createOutputPqControlsCriblTCP: CreateOutputPqControlsCriblTCP,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsCriblTCP$outboundSchema.parse(
+      createOutputPqControlsCriblTCP,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputCriblTcp$Outbound = {
   id: string;
   type: "cribl_tcp";
   pipeline?: string | undefined;
@@ -16015,16 +16197,16 @@ export type OutputCriblTcp$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsCriblTCP$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsCriblTCP$Outbound | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
 
 /** @internal */
-export const OutputCriblTcp$outboundSchema: z.ZodType<
-  OutputCriblTcp$Outbound,
+export const CreateOutputOutputCriblTcp$outboundSchema: z.ZodType<
+  CreateOutputOutputCriblTcp$Outbound,
   z.ZodTypeDef,
-  OutputCriblTcp
+  CreateOutputOutputCriblTcp
 > = z.object({
   id: z.string(),
   type: z.literal("cribl_tcp"),
@@ -16062,49 +16244,56 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsCriblTCP$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsCriblTCP$outboundSchema)
+    .optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
 
-export function outputCriblTcpToJSON(outputCriblTcp: OutputCriblTcp): string {
-  return JSON.stringify(OutputCriblTcp$outboundSchema.parse(outputCriblTcp));
-}
-
-/** @internal */
-export const DefaultSeveritySeverity$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  DefaultSeveritySeverity
-> = openEnums.outboundSchema(DefaultSeveritySeverity);
-
-/** @internal */
-export const DataSetSite$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  DataSetSite
-> = openEnums.outboundSchema(DataSetSite);
-
-/** @internal */
-export type PqControlsDataset$Outbound = {};
-
-/** @internal */
-export const PqControlsDataset$outboundSchema: z.ZodType<
-  PqControlsDataset$Outbound,
-  z.ZodTypeDef,
-  PqControlsDataset
-> = z.object({});
-
-export function pqControlsDatasetToJSON(
-  pqControlsDataset: PqControlsDataset,
+export function createOutputOutputCriblTcpToJSON(
+  createOutputOutputCriblTcp: CreateOutputOutputCriblTcp,
 ): string {
   return JSON.stringify(
-    PqControlsDataset$outboundSchema.parse(pqControlsDataset),
+    CreateOutputOutputCriblTcp$outboundSchema.parse(createOutputOutputCriblTcp),
   );
 }
 
 /** @internal */
-export type OutputDataset$Outbound = {
+export const CreateOutputDefaultSeveritySeverity$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputDefaultSeveritySeverity
+> = openEnums.outboundSchema(CreateOutputDefaultSeveritySeverity);
+
+/** @internal */
+export const CreateOutputDataSetSite$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputDataSetSite
+> = openEnums.outboundSchema(CreateOutputDataSetSite);
+
+/** @internal */
+export type CreateOutputPqControlsDataset$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsDataset$outboundSchema: z.ZodType<
+  CreateOutputPqControlsDataset$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsDataset
+> = z.object({});
+
+export function createOutputPqControlsDatasetToJSON(
+  createOutputPqControlsDataset: CreateOutputPqControlsDataset,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsDataset$outboundSchema.parse(
+      createOutputPqControlsDataset,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputDataset$Outbound = {
   id: string;
   type: "dataset";
   pipeline?: string | undefined;
@@ -16150,17 +16339,17 @@ export type OutputDataset$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsDataset$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsDataset$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
   __template_customUrl?: string | undefined;
 };
 
 /** @internal */
-export const OutputDataset$outboundSchema: z.ZodType<
-  OutputDataset$Outbound,
+export const CreateOutputOutputDataset$outboundSchema: z.ZodType<
+  CreateOutputOutputDataset$Outbound,
   z.ZodTypeDef,
-  OutputDataset
+  CreateOutputOutputDataset
 > = z.object({
   id: z.string(),
   type: z.literal("dataset"),
@@ -16172,14 +16361,15 @@ export const OutputDataset$outboundSchema: z.ZodType<
   excludeFields: z.array(z.string()).optional(),
   serverHostField: z.string().optional(),
   timestampField: z.string().optional(),
-  defaultSeverity: DefaultSeveritySeverity$outboundSchema.optional(),
+  defaultSeverity: CreateOutputDefaultSeveritySeverity$outboundSchema
+    .optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  site: DataSetSite$outboundSchema.optional(),
+  site: CreateOutputDataSetSite$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -16208,36 +16398,43 @@ export const OutputDataset$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsDataset$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsDataset$outboundSchema)
+    .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
   __template_customUrl: z.string().optional(),
 });
 
-export function outputDatasetToJSON(outputDataset: OutputDataset): string {
-  return JSON.stringify(OutputDataset$outboundSchema.parse(outputDataset));
-}
-
-/** @internal */
-export type PqControlsServiceNow$Outbound = {};
-
-/** @internal */
-export const PqControlsServiceNow$outboundSchema: z.ZodType<
-  PqControlsServiceNow$Outbound,
-  z.ZodTypeDef,
-  PqControlsServiceNow
-> = z.object({});
-
-export function pqControlsServiceNowToJSON(
-  pqControlsServiceNow: PqControlsServiceNow,
+export function createOutputOutputDatasetToJSON(
+  createOutputOutputDataset: CreateOutputOutputDataset,
 ): string {
   return JSON.stringify(
-    PqControlsServiceNow$outboundSchema.parse(pqControlsServiceNow),
+    CreateOutputOutputDataset$outboundSchema.parse(createOutputOutputDataset),
   );
 }
 
 /** @internal */
-export type OutputServiceNow$Outbound = {
+export type CreateOutputPqControlsServiceNow$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsServiceNow$outboundSchema: z.ZodType<
+  CreateOutputPqControlsServiceNow$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsServiceNow
+> = z.object({});
+
+export function createOutputPqControlsServiceNowToJSON(
+  createOutputPqControlsServiceNow: CreateOutputPqControlsServiceNow,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsServiceNow$outboundSchema.parse(
+      createOutputPqControlsServiceNow,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputServiceNow$Outbound = {
   id: string;
   type: "service_now";
   pipeline?: string | undefined;
@@ -16287,14 +16484,14 @@ export type OutputServiceNow$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsServiceNow$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsServiceNow$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputServiceNow$outboundSchema: z.ZodType<
-  OutputServiceNow$Outbound,
+export const CreateOutputOutputServiceNow$outboundSchema: z.ZodType<
+  CreateOutputOutputServiceNow$Outbound,
   z.ZodTypeDef,
-  OutputServiceNow
+  CreateOutputOutputServiceNow
 > = z.object({
   id: z.string(),
   type: z.literal("service_now"),
@@ -16346,14 +16543,17 @@ export const OutputServiceNow$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsServiceNow$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsServiceNow$outboundSchema)
+    .optional(),
 });
 
-export function outputServiceNowToJSON(
-  outputServiceNow: OutputServiceNow,
+export function createOutputOutputServiceNowToJSON(
+  createOutputOutputServiceNow: CreateOutputOutputServiceNow,
 ): string {
   return JSON.stringify(
-    OutputServiceNow$outboundSchema.parse(outputServiceNow),
+    CreateOutputOutputServiceNow$outboundSchema.parse(
+      createOutputOutputServiceNow,
+    ),
   );
 }
 
@@ -16365,25 +16565,27 @@ export const CreateOutputOTLPVersion$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateOutputOTLPVersion);
 
 /** @internal */
-export type PqControlsOpenTelemetry$Outbound = {};
+export type CreateOutputPqControlsOpenTelemetry$Outbound = {};
 
 /** @internal */
-export const PqControlsOpenTelemetry$outboundSchema: z.ZodType<
-  PqControlsOpenTelemetry$Outbound,
+export const CreateOutputPqControlsOpenTelemetry$outboundSchema: z.ZodType<
+  CreateOutputPqControlsOpenTelemetry$Outbound,
   z.ZodTypeDef,
-  PqControlsOpenTelemetry
+  CreateOutputPqControlsOpenTelemetry
 > = z.object({});
 
-export function pqControlsOpenTelemetryToJSON(
-  pqControlsOpenTelemetry: PqControlsOpenTelemetry,
+export function createOutputPqControlsOpenTelemetryToJSON(
+  createOutputPqControlsOpenTelemetry: CreateOutputPqControlsOpenTelemetry,
 ): string {
   return JSON.stringify(
-    PqControlsOpenTelemetry$outboundSchema.parse(pqControlsOpenTelemetry),
+    CreateOutputPqControlsOpenTelemetry$outboundSchema.parse(
+      createOutputPqControlsOpenTelemetry,
+    ),
   );
 }
 
 /** @internal */
-export type OutputOpenTelemetry$Outbound = {
+export type CreateOutputOutputOpenTelemetry$Outbound = {
   id: string;
   type: "open_telemetry";
   pipeline?: string | undefined;
@@ -16437,14 +16639,14 @@ export type OutputOpenTelemetry$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsOpenTelemetry$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsOpenTelemetry$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputOpenTelemetry$outboundSchema: z.ZodType<
-  OutputOpenTelemetry$Outbound,
+export const CreateOutputOutputOpenTelemetry$outboundSchema: z.ZodType<
+  CreateOutputOutputOpenTelemetry$Outbound,
   z.ZodTypeDef,
-  OutputOpenTelemetry
+  CreateOutputOutputOpenTelemetry
 > = z.object({
   id: z.string(),
   type: z.literal("open_telemetry"),
@@ -16500,26 +16702,29 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsOpenTelemetry$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsOpenTelemetry$outboundSchema)
+    .optional(),
 });
 
-export function outputOpenTelemetryToJSON(
-  outputOpenTelemetry: OutputOpenTelemetry,
+export function createOutputOutputOpenTelemetryToJSON(
+  createOutputOutputOpenTelemetry: CreateOutputOutputOpenTelemetry,
 ): string {
   return JSON.stringify(
-    OutputOpenTelemetry$outboundSchema.parse(outputOpenTelemetry),
+    CreateOutputOutputOpenTelemetry$outboundSchema.parse(
+      createOutputOutputOpenTelemetry,
+    ),
   );
 }
 
 /** @internal */
-export const DataFormatRing$outboundSchema: z.ZodType<
+export const CreateOutputDataFormatRing$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  DataFormatRing
-> = openEnums.outboundSchema(DataFormatRing);
+  CreateOutputDataFormatRing
+> = openEnums.outboundSchema(CreateOutputDataFormatRing);
 
 /** @internal */
-export type OutputRing$Outbound = {
+export type CreateOutputOutputRing$Outbound = {
   id: string;
   type: "ring";
   pipeline?: string | undefined;
@@ -16537,10 +16742,10 @@ export type OutputRing$Outbound = {
 };
 
 /** @internal */
-export const OutputRing$outboundSchema: z.ZodType<
-  OutputRing$Outbound,
+export const CreateOutputOutputRing$outboundSchema: z.ZodType<
+  CreateOutputOutputRing$Outbound,
   z.ZodTypeDef,
-  OutputRing
+  CreateOutputOutputRing
 > = z.object({
   id: z.string(),
   type: z.literal("ring"),
@@ -16548,7 +16753,7 @@ export const OutputRing$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  format: DataFormatRing$outboundSchema.optional(),
+  format: CreateOutputDataFormatRing$outboundSchema.optional(),
   partitionExpr: z.string().optional(),
   maxDataSize: z.string().optional(),
   maxDataTime: z.string().optional(),
@@ -16559,30 +16764,36 @@ export const OutputRing$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-export function outputRingToJSON(outputRing: OutputRing): string {
-  return JSON.stringify(OutputRing$outboundSchema.parse(outputRing));
-}
-
-/** @internal */
-export type PqControlsPrometheus$Outbound = {};
-
-/** @internal */
-export const PqControlsPrometheus$outboundSchema: z.ZodType<
-  PqControlsPrometheus$Outbound,
-  z.ZodTypeDef,
-  PqControlsPrometheus
-> = z.object({});
-
-export function pqControlsPrometheusToJSON(
-  pqControlsPrometheus: PqControlsPrometheus,
+export function createOutputOutputRingToJSON(
+  createOutputOutputRing: CreateOutputOutputRing,
 ): string {
   return JSON.stringify(
-    PqControlsPrometheus$outboundSchema.parse(pqControlsPrometheus),
+    CreateOutputOutputRing$outboundSchema.parse(createOutputOutputRing),
   );
 }
 
 /** @internal */
-export type OutputPrometheus$Outbound = {
+export type CreateOutputPqControlsPrometheus$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsPrometheus$outboundSchema: z.ZodType<
+  CreateOutputPqControlsPrometheus$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsPrometheus
+> = z.object({});
+
+export function createOutputPqControlsPrometheusToJSON(
+  createOutputPqControlsPrometheus: CreateOutputPqControlsPrometheus,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsPrometheus$outboundSchema.parse(
+      createOutputPqControlsPrometheus,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputPrometheus$Outbound = {
   id: string;
   type: "prometheus";
   pipeline?: string | undefined;
@@ -16623,7 +16834,7 @@ export type OutputPrometheus$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsPrometheus$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsPrometheus$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
@@ -16633,10 +16844,10 @@ export type OutputPrometheus$Outbound = {
 };
 
 /** @internal */
-export const OutputPrometheus$outboundSchema: z.ZodType<
-  OutputPrometheus$Outbound,
+export const CreateOutputOutputPrometheus$outboundSchema: z.ZodType<
+  CreateOutputOutputPrometheus$Outbound,
   z.ZodTypeDef,
-  OutputPrometheus
+  CreateOutputOutputPrometheus
 > = z.object({
   id: z.string(),
   type: z.literal("prometheus"),
@@ -16680,7 +16891,8 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsPrometheus$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsPrometheus$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -16689,30 +16901,36 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   __template_url: z.string().optional(),
 });
 
-export function outputPrometheusToJSON(
-  outputPrometheus: OutputPrometheus,
+export function createOutputOutputPrometheusToJSON(
+  createOutputOutputPrometheus: CreateOutputOutputPrometheus,
 ): string {
   return JSON.stringify(
-    OutputPrometheus$outboundSchema.parse(outputPrometheus),
+    CreateOutputOutputPrometheus$outboundSchema.parse(
+      createOutputOutputPrometheus,
+    ),
   );
 }
 
 /** @internal */
-export type PqControlsLoki$Outbound = {};
+export type CreateOutputPqControlsLoki$Outbound = {};
 
 /** @internal */
-export const PqControlsLoki$outboundSchema: z.ZodType<
-  PqControlsLoki$Outbound,
+export const CreateOutputPqControlsLoki$outboundSchema: z.ZodType<
+  CreateOutputPqControlsLoki$Outbound,
   z.ZodTypeDef,
-  PqControlsLoki
+  CreateOutputPqControlsLoki
 > = z.object({});
 
-export function pqControlsLokiToJSON(pqControlsLoki: PqControlsLoki): string {
-  return JSON.stringify(PqControlsLoki$outboundSchema.parse(pqControlsLoki));
+export function createOutputPqControlsLokiToJSON(
+  createOutputPqControlsLoki: CreateOutputPqControlsLoki,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsLoki$outboundSchema.parse(createOutputPqControlsLoki),
+  );
 }
 
 /** @internal */
-export type OutputLoki$Outbound = {
+export type CreateOutputOutputLoki$Outbound = {
   id: string;
   type: "loki";
   pipeline?: string | undefined;
@@ -16761,14 +16979,14 @@ export type OutputLoki$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsLoki$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsLoki$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputLoki$outboundSchema: z.ZodType<
-  OutputLoki$Outbound,
+export const CreateOutputOutputLoki$outboundSchema: z.ZodType<
+  CreateOutputOutputLoki$Outbound,
   z.ZodTypeDef,
-  OutputLoki
+  CreateOutputOutputLoki
 > = z.object({
   id: z.string(),
   type: z.literal("loki"),
@@ -16820,40 +17038,48 @@ export const OutputLoki$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsLoki$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsLoki$outboundSchema)
+    .optional(),
 });
 
-export function outputLokiToJSON(outputLoki: OutputLoki): string {
-  return JSON.stringify(OutputLoki$outboundSchema.parse(outputLoki));
+export function createOutputOutputLokiToJSON(
+  createOutputOutputLoki: CreateOutputOutputLoki,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputLoki$outboundSchema.parse(createOutputOutputLoki),
+  );
 }
 
 /** @internal */
-export const OutputGrafanaCloudType2$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudType2
-> = z.nativeEnum(OutputGrafanaCloudType2);
+export const CreateOutputOutputGrafanaCloudType2$outboundSchema:
+  z.ZodNativeEnum<typeof CreateOutputOutputGrafanaCloudType2> = z.nativeEnum(
+    CreateOutputOutputGrafanaCloudType2,
+  );
 
 /** @internal */
-export type OutputGrafanaCloudPqControls2$Outbound = {};
+export type CreateOutputOutputGrafanaCloudPqControls2$Outbound = {};
 
 /** @internal */
-export const OutputGrafanaCloudPqControls2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudPqControls2$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudPqControls2
-> = z.object({});
+export const CreateOutputOutputGrafanaCloudPqControls2$outboundSchema:
+  z.ZodType<
+    CreateOutputOutputGrafanaCloudPqControls2$Outbound,
+    z.ZodTypeDef,
+    CreateOutputOutputGrafanaCloudPqControls2
+  > = z.object({});
 
-export function outputGrafanaCloudPqControls2ToJSON(
-  outputGrafanaCloudPqControls2: OutputGrafanaCloudPqControls2,
+export function createOutputOutputGrafanaCloudPqControls2ToJSON(
+  createOutputOutputGrafanaCloudPqControls2:
+    CreateOutputOutputGrafanaCloudPqControls2,
 ): string {
   return JSON.stringify(
-    OutputGrafanaCloudPqControls2$outboundSchema.parse(
-      outputGrafanaCloudPqControls2,
+    CreateOutputOutputGrafanaCloudPqControls2$outboundSchema.parse(
+      createOutputOutputGrafanaCloudPqControls2,
     ),
   );
 }
 
 /** @internal */
-export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
+export type CreateOutputOutputGrafanaCloudGrafanaCloud2$Outbound = {
   id: string;
   type: string;
   pipeline?: string | undefined;
@@ -16898,105 +17124,112 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: OutputGrafanaCloudPqControls2$Outbound | undefined;
+  pqControls?: CreateOutputOutputGrafanaCloudPqControls2$Outbound | undefined;
   __template_lokiUrl?: string | undefined;
   __template_prometheusUrl?: string | undefined;
 };
 
 /** @internal */
-export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudGrafanaCloud2$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudGrafanaCloud2
-> = z.object({
-  id: z.string(),
-  type: OutputGrafanaCloudType2$outboundSchema,
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  lokiUrl: z.string().optional(),
-  prometheusUrl: z.string(),
-  message: z.string().optional(),
-  messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(models.ItemsTypeLabels$outboundSchema).optional(),
-  metricRenameExpr: z.string().optional(),
-  prometheusAuth: models.PrometheusAuthType$outboundSchema.optional(),
-  lokiAuth: models.PrometheusAuthType$outboundSchema.optional(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
-  ).optional(),
-  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
-    .optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  description: z.string().optional(),
-  compress: z.boolean().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => OutputGrafanaCloudPqControls2$outboundSchema)
-    .optional(),
-  __template_lokiUrl: z.string().optional(),
-  __template_prometheusUrl: z.string().optional(),
-});
+export const CreateOutputOutputGrafanaCloudGrafanaCloud2$outboundSchema:
+  z.ZodType<
+    CreateOutputOutputGrafanaCloudGrafanaCloud2$Outbound,
+    z.ZodTypeDef,
+    CreateOutputOutputGrafanaCloudGrafanaCloud2
+  > = z.object({
+    id: z.string(),
+    type: CreateOutputOutputGrafanaCloudType2$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    lokiUrl: z.string().optional(),
+    prometheusUrl: z.string(),
+    message: z.string().optional(),
+    messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
+    labels: z.array(models.ItemsTypeLabels$outboundSchema).optional(),
+    metricRenameExpr: z.string().optional(),
+    prometheusAuth: models.PrometheusAuthType$outboundSchema.optional(),
+    lokiAuth: models.PrometheusAuthType$outboundSchema.optional(),
+    concurrency: z.number().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    maxPayloadEvents: z.number().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    timeoutSec: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+      .optional(),
+    useRoundRobinDns: z.boolean().optional(),
+    failedRequestLoggingMode: models
+      .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    responseRetrySettings: z.array(
+      models.ItemsTypeResponseRetrySettings$outboundSchema,
+    ).optional(),
+    timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+      .optional(),
+    responseHonorRetryAfterHeader: z.boolean().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    compress: z.boolean().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputOutputGrafanaCloudPqControls2$outboundSchema
+    ).optional(),
+    __template_lokiUrl: z.string().optional(),
+    __template_prometheusUrl: z.string().optional(),
+  });
 
-export function outputGrafanaCloudGrafanaCloud2ToJSON(
-  outputGrafanaCloudGrafanaCloud2: OutputGrafanaCloudGrafanaCloud2,
+export function createOutputOutputGrafanaCloudGrafanaCloud2ToJSON(
+  createOutputOutputGrafanaCloudGrafanaCloud2:
+    CreateOutputOutputGrafanaCloudGrafanaCloud2,
 ): string {
   return JSON.stringify(
-    OutputGrafanaCloudGrafanaCloud2$outboundSchema.parse(
-      outputGrafanaCloudGrafanaCloud2,
+    CreateOutputOutputGrafanaCloudGrafanaCloud2$outboundSchema.parse(
+      createOutputOutputGrafanaCloudGrafanaCloud2,
     ),
   );
 }
 
 /** @internal */
-export const OutputGrafanaCloudType1$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGrafanaCloudType1
-> = z.nativeEnum(OutputGrafanaCloudType1);
+export const CreateOutputOutputGrafanaCloudType1$outboundSchema:
+  z.ZodNativeEnum<typeof CreateOutputOutputGrafanaCloudType1> = z.nativeEnum(
+    CreateOutputOutputGrafanaCloudType1,
+  );
 
 /** @internal */
-export type OutputGrafanaCloudPqControls1$Outbound = {};
+export type CreateOutputOutputGrafanaCloudPqControls1$Outbound = {};
 
 /** @internal */
-export const OutputGrafanaCloudPqControls1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudPqControls1$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudPqControls1
-> = z.object({});
+export const CreateOutputOutputGrafanaCloudPqControls1$outboundSchema:
+  z.ZodType<
+    CreateOutputOutputGrafanaCloudPqControls1$Outbound,
+    z.ZodTypeDef,
+    CreateOutputOutputGrafanaCloudPqControls1
+  > = z.object({});
 
-export function outputGrafanaCloudPqControls1ToJSON(
-  outputGrafanaCloudPqControls1: OutputGrafanaCloudPqControls1,
+export function createOutputOutputGrafanaCloudPqControls1ToJSON(
+  createOutputOutputGrafanaCloudPqControls1:
+    CreateOutputOutputGrafanaCloudPqControls1,
 ): string {
   return JSON.stringify(
-    OutputGrafanaCloudPqControls1$outboundSchema.parse(
-      outputGrafanaCloudPqControls1,
+    CreateOutputOutputGrafanaCloudPqControls1$outboundSchema.parse(
+      createOutputOutputGrafanaCloudPqControls1,
     ),
   );
 }
 
 /** @internal */
-export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
+export type CreateOutputOutputGrafanaCloudGrafanaCloud1$Outbound = {
   id: string;
   type: string;
   pipeline?: string | undefined;
@@ -17041,142 +17274,150 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: OutputGrafanaCloudPqControls1$Outbound | undefined;
+  pqControls?: CreateOutputOutputGrafanaCloudPqControls1$Outbound | undefined;
   __template_lokiUrl?: string | undefined;
   __template_prometheusUrl?: string | undefined;
 };
 
 /** @internal */
-export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudGrafanaCloud1$Outbound,
-  z.ZodTypeDef,
-  OutputGrafanaCloudGrafanaCloud1
-> = z.object({
-  id: z.string(),
-  type: OutputGrafanaCloudType1$outboundSchema,
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  lokiUrl: z.string(),
-  prometheusUrl: z.string().optional(),
-  message: z.string().optional(),
-  messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(models.ItemsTypeLabels$outboundSchema).optional(),
-  metricRenameExpr: z.string().optional(),
-  prometheusAuth: models.PrometheusAuthType$outboundSchema.optional(),
-  lokiAuth: models.PrometheusAuthType$outboundSchema.optional(),
-  concurrency: z.number().optional(),
-  maxPayloadSizeKB: z.number().optional(),
-  maxPayloadEvents: z.number().optional(),
-  rejectUnauthorized: z.boolean().optional(),
-  timeoutSec: z.number().optional(),
-  flushPeriodSec: z.number().optional(),
-  extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
-  useRoundRobinDns: z.boolean().optional(),
-  failedRequestLoggingMode: models
-    .FailedRequestLoggingModeOptions$outboundSchema.optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    models.ItemsTypeResponseRetrySettings$outboundSchema,
-  ).optional(),
-  timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
-    .optional(),
-  responseHonorRetryAfterHeader: z.boolean().optional(),
-  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  description: z.string().optional(),
-  compress: z.boolean().optional(),
-  pqStrictOrdering: z.boolean().optional(),
-  pqRatePerSec: z.number().optional(),
-  pqMode: models.ModeOptions$outboundSchema.optional(),
-  pqMaxBufferSize: z.number().optional(),
-  pqMaxBackpressureSec: z.number().optional(),
-  pqMaxFileSize: z.string().optional(),
-  pqMaxSize: z.string().optional(),
-  pqPath: z.string().optional(),
-  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
-  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => OutputGrafanaCloudPqControls1$outboundSchema)
-    .optional(),
-  __template_lokiUrl: z.string().optional(),
-  __template_prometheusUrl: z.string().optional(),
-});
+export const CreateOutputOutputGrafanaCloudGrafanaCloud1$outboundSchema:
+  z.ZodType<
+    CreateOutputOutputGrafanaCloudGrafanaCloud1$Outbound,
+    z.ZodTypeDef,
+    CreateOutputOutputGrafanaCloudGrafanaCloud1
+  > = z.object({
+    id: z.string(),
+    type: CreateOutputOutputGrafanaCloudType1$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    lokiUrl: z.string(),
+    prometheusUrl: z.string().optional(),
+    message: z.string().optional(),
+    messageFormat: models.MessageFormatOptions$outboundSchema.optional(),
+    labels: z.array(models.ItemsTypeLabels$outboundSchema).optional(),
+    metricRenameExpr: z.string().optional(),
+    prometheusAuth: models.PrometheusAuthType$outboundSchema.optional(),
+    lokiAuth: models.PrometheusAuthType$outboundSchema.optional(),
+    concurrency: z.number().optional(),
+    maxPayloadSizeKB: z.number().optional(),
+    maxPayloadEvents: z.number().optional(),
+    rejectUnauthorized: z.boolean().optional(),
+    timeoutSec: z.number().optional(),
+    flushPeriodSec: z.number().optional(),
+    extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
+      .optional(),
+    useRoundRobinDns: z.boolean().optional(),
+    failedRequestLoggingMode: models
+      .FailedRequestLoggingModeOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    responseRetrySettings: z.array(
+      models.ItemsTypeResponseRetrySettings$outboundSchema,
+    ).optional(),
+    timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
+      .optional(),
+    responseHonorRetryAfterHeader: z.boolean().optional(),
+    onBackpressure: models.BackpressureBehaviorOptions$outboundSchema
+      .optional(),
+    description: z.string().optional(),
+    compress: z.boolean().optional(),
+    pqStrictOrdering: z.boolean().optional(),
+    pqRatePerSec: z.number().optional(),
+    pqMode: models.ModeOptions$outboundSchema.optional(),
+    pqMaxBufferSize: z.number().optional(),
+    pqMaxBackpressureSec: z.number().optional(),
+    pqMaxFileSize: z.string().optional(),
+    pqMaxSize: z.string().optional(),
+    pqPath: z.string().optional(),
+    pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+    pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+    pqControls: z.lazy(() =>
+      CreateOutputOutputGrafanaCloudPqControls1$outboundSchema
+    ).optional(),
+    __template_lokiUrl: z.string().optional(),
+    __template_prometheusUrl: z.string().optional(),
+  });
 
-export function outputGrafanaCloudGrafanaCloud1ToJSON(
-  outputGrafanaCloudGrafanaCloud1: OutputGrafanaCloudGrafanaCloud1,
+export function createOutputOutputGrafanaCloudGrafanaCloud1ToJSON(
+  createOutputOutputGrafanaCloudGrafanaCloud1:
+    CreateOutputOutputGrafanaCloudGrafanaCloud1,
 ): string {
   return JSON.stringify(
-    OutputGrafanaCloudGrafanaCloud1$outboundSchema.parse(
-      outputGrafanaCloudGrafanaCloud1,
+    CreateOutputOutputGrafanaCloudGrafanaCloud1$outboundSchema.parse(
+      createOutputOutputGrafanaCloudGrafanaCloud1,
     ),
   );
 }
 
 /** @internal */
-export type OutputGrafanaCloud$Outbound =
-  | OutputGrafanaCloudGrafanaCloud1$Outbound
-  | OutputGrafanaCloudGrafanaCloud2$Outbound;
+export type CreateOutputOutputGrafanaCloudUnion$Outbound =
+  | CreateOutputOutputGrafanaCloudGrafanaCloud1$Outbound
+  | CreateOutputOutputGrafanaCloudGrafanaCloud2$Outbound;
 
 /** @internal */
-export const OutputGrafanaCloud$outboundSchema: z.ZodType<
-  OutputGrafanaCloud$Outbound,
+export const CreateOutputOutputGrafanaCloudUnion$outboundSchema: z.ZodType<
+  CreateOutputOutputGrafanaCloudUnion$Outbound,
   z.ZodTypeDef,
-  OutputGrafanaCloud
+  CreateOutputOutputGrafanaCloudUnion
 > = smartUnion([
-  z.lazy(() => OutputGrafanaCloudGrafanaCloud1$outboundSchema),
-  z.lazy(() => OutputGrafanaCloudGrafanaCloud2$outboundSchema),
+  z.lazy(() => CreateOutputOutputGrafanaCloudGrafanaCloud1$outboundSchema),
+  z.lazy(() => CreateOutputOutputGrafanaCloudGrafanaCloud2$outboundSchema),
 ]);
 
-export function outputGrafanaCloudToJSON(
-  outputGrafanaCloud: OutputGrafanaCloud,
+export function createOutputOutputGrafanaCloudUnionToJSON(
+  createOutputOutputGrafanaCloudUnion: CreateOutputOutputGrafanaCloudUnion,
 ): string {
   return JSON.stringify(
-    OutputGrafanaCloud$outboundSchema.parse(outputGrafanaCloud),
+    CreateOutputOutputGrafanaCloudUnion$outboundSchema.parse(
+      createOutputOutputGrafanaCloudUnion,
+    ),
   );
 }
 
 /** @internal */
-export const SendLogsAs$outboundSchema: z.ZodType<
+export const CreateOutputSendLogsAs$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  SendLogsAs
-> = openEnums.outboundSchema(SendLogsAs);
+  CreateOutputSendLogsAs
+> = openEnums.outboundSchema(CreateOutputSendLogsAs);
 
 /** @internal */
-export const SeverityDatadog$outboundSchema: z.ZodType<
+export const CreateOutputSeverityDatadog$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  SeverityDatadog
-> = openEnums.outboundSchema(SeverityDatadog);
+  CreateOutputSeverityDatadog
+> = openEnums.outboundSchema(CreateOutputSeverityDatadog);
 
 /** @internal */
-export const DatadogSite$outboundSchema: z.ZodType<
+export const CreateOutputDatadogSite$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  DatadogSite
-> = openEnums.outboundSchema(DatadogSite);
+  CreateOutputDatadogSite
+> = openEnums.outboundSchema(CreateOutputDatadogSite);
 
 /** @internal */
-export type PqControlsDatadog$Outbound = {};
+export type CreateOutputPqControlsDatadog$Outbound = {};
 
 /** @internal */
-export const PqControlsDatadog$outboundSchema: z.ZodType<
-  PqControlsDatadog$Outbound,
+export const CreateOutputPqControlsDatadog$outboundSchema: z.ZodType<
+  CreateOutputPqControlsDatadog$Outbound,
   z.ZodTypeDef,
-  PqControlsDatadog
+  CreateOutputPqControlsDatadog
 > = z.object({});
 
-export function pqControlsDatadogToJSON(
-  pqControlsDatadog: PqControlsDatadog,
+export function createOutputPqControlsDatadogToJSON(
+  createOutputPqControlsDatadog: CreateOutputPqControlsDatadog,
 ): string {
   return JSON.stringify(
-    PqControlsDatadog$outboundSchema.parse(pqControlsDatadog),
+    CreateOutputPqControlsDatadog$outboundSchema.parse(
+      createOutputPqControlsDatadog,
+    ),
   );
 }
 
 /** @internal */
-export type OutputDatadog$Outbound = {
+export type CreateOutputOutputDatadog$Outbound = {
   id: string;
   type: "datadog";
   pipeline?: string | undefined;
@@ -17227,16 +17468,16 @@ export type OutputDatadog$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsDatadog$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsDatadog$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
 };
 
 /** @internal */
-export const OutputDatadog$outboundSchema: z.ZodType<
-  OutputDatadog$Outbound,
+export const CreateOutputOutputDatadog$outboundSchema: z.ZodType<
+  CreateOutputOutputDatadog$Outbound,
   z.ZodTypeDef,
-  OutputDatadog
+  CreateOutputOutputDatadog
 > = z.object({
   id: z.string(),
   type: z.literal("datadog"),
@@ -17244,7 +17485,7 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  contentType: SendLogsAs$outboundSchema.optional(),
+  contentType: CreateOutputSendLogsAs$outboundSchema.optional(),
   message: z.string().optional(),
   source: z.string().optional(),
   host: z.string().optional(),
@@ -17252,8 +17493,8 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   tags: z.array(z.string()).optional(),
   batchByTags: z.boolean().optional(),
   allowApiKeyFromEvents: z.boolean().optional(),
-  severity: SeverityDatadog$outboundSchema.optional(),
-  site: DatadogSite$outboundSchema.optional(),
+  severity: CreateOutputSeverityDatadog$outboundSchema.optional(),
+  site: CreateOutputDatadogSite$outboundSchema.optional(),
   sendCountersAsCount: z.boolean().optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
@@ -17289,42 +17530,49 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsDatadog$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsDatadog$outboundSchema)
+    .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
-export function outputDatadogToJSON(outputDatadog: OutputDatadog): string {
-  return JSON.stringify(OutputDatadog$outboundSchema.parse(outputDatadog));
-}
-
-/** @internal */
-export const DataFormatSumoLogic$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  DataFormatSumoLogic
-> = openEnums.outboundSchema(DataFormatSumoLogic);
-
-/** @internal */
-export type PqControlsSumoLogic$Outbound = {};
-
-/** @internal */
-export const PqControlsSumoLogic$outboundSchema: z.ZodType<
-  PqControlsSumoLogic$Outbound,
-  z.ZodTypeDef,
-  PqControlsSumoLogic
-> = z.object({});
-
-export function pqControlsSumoLogicToJSON(
-  pqControlsSumoLogic: PqControlsSumoLogic,
+export function createOutputOutputDatadogToJSON(
+  createOutputOutputDatadog: CreateOutputOutputDatadog,
 ): string {
   return JSON.stringify(
-    PqControlsSumoLogic$outboundSchema.parse(pqControlsSumoLogic),
+    CreateOutputOutputDatadog$outboundSchema.parse(createOutputOutputDatadog),
   );
 }
 
 /** @internal */
-export type OutputSumoLogic$Outbound = {
+export const CreateOutputDataFormatSumoLogic$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputDataFormatSumoLogic
+> = openEnums.outboundSchema(CreateOutputDataFormatSumoLogic);
+
+/** @internal */
+export type CreateOutputPqControlsSumoLogic$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsSumoLogic$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSumoLogic$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsSumoLogic
+> = z.object({});
+
+export function createOutputPqControlsSumoLogicToJSON(
+  createOutputPqControlsSumoLogic: CreateOutputPqControlsSumoLogic,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsSumoLogic$outboundSchema.parse(
+      createOutputPqControlsSumoLogic,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputSumoLogic$Outbound = {
   id: string;
   type: "sumo_logic";
   pipeline?: string | undefined;
@@ -17366,15 +17614,15 @@ export type OutputSumoLogic$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSumoLogic$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSumoLogic$Outbound | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const OutputSumoLogic$outboundSchema: z.ZodType<
-  OutputSumoLogic$Outbound,
+export const CreateOutputOutputSumoLogic$outboundSchema: z.ZodType<
+  CreateOutputOutputSumoLogic$Outbound,
   z.ZodTypeDef,
-  OutputSumoLogic
+  CreateOutputOutputSumoLogic
 > = z.object({
   id: z.string(),
   type: z.literal("sumo_logic"),
@@ -17385,7 +17633,7 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   url: z.string(),
   customSource: z.string().optional(),
   customCategory: z.string().optional(),
-  format: DataFormatSumoLogic$outboundSchema.optional(),
+  format: CreateOutputDataFormatSumoLogic$outboundSchema.optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -17418,18 +17666,23 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSumoLogic$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSumoLogic$outboundSchema)
+    .optional(),
   __template_url: z.string().optional(),
 });
 
-export function outputSumoLogicToJSON(
-  outputSumoLogic: OutputSumoLogic,
+export function createOutputOutputSumoLogicToJSON(
+  createOutputOutputSumoLogic: CreateOutputOutputSumoLogic,
 ): string {
-  return JSON.stringify(OutputSumoLogic$outboundSchema.parse(outputSumoLogic));
+  return JSON.stringify(
+    CreateOutputOutputSumoLogic$outboundSchema.parse(
+      createOutputOutputSumoLogic,
+    ),
+  );
 }
 
 /** @internal */
-export type HostSnmp$Outbound = {
+export type CreateOutputHostSnmp$Outbound = {
   host: string;
   port: number;
   __template_host?: string | undefined;
@@ -17437,10 +17690,10 @@ export type HostSnmp$Outbound = {
 };
 
 /** @internal */
-export const HostSnmp$outboundSchema: z.ZodType<
-  HostSnmp$Outbound,
+export const CreateOutputHostSnmp$outboundSchema: z.ZodType<
+  CreateOutputHostSnmp$Outbound,
   z.ZodTypeDef,
-  HostSnmp
+  CreateOutputHostSnmp
 > = z.object({
   host: z.string(),
   port: z.number(),
@@ -17448,28 +17701,32 @@ export const HostSnmp$outboundSchema: z.ZodType<
   __template_port: z.string().optional(),
 });
 
-export function hostSnmpToJSON(hostSnmp: HostSnmp): string {
-  return JSON.stringify(HostSnmp$outboundSchema.parse(hostSnmp));
+export function createOutputHostSnmpToJSON(
+  createOutputHostSnmp: CreateOutputHostSnmp,
+): string {
+  return JSON.stringify(
+    CreateOutputHostSnmp$outboundSchema.parse(createOutputHostSnmp),
+  );
 }
 
 /** @internal */
-export type OutputSnmp$Outbound = {
+export type CreateOutputOutputSnmp$Outbound = {
   id: string;
   type: "snmp";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  hosts: Array<HostSnmp$Outbound>;
+  hosts: Array<CreateOutputHostSnmp$Outbound>;
   dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const OutputSnmp$outboundSchema: z.ZodType<
-  OutputSnmp$Outbound,
+export const CreateOutputOutputSnmp$outboundSchema: z.ZodType<
+  CreateOutputOutputSnmp$Outbound,
   z.ZodTypeDef,
-  OutputSnmp
+  CreateOutputOutputSnmp
 > = z.object({
   id: z.string(),
   type: z.literal("snmp"),
@@ -17477,13 +17734,17 @@ export const OutputSnmp$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  hosts: z.array(z.lazy(() => HostSnmp$outboundSchema)),
+  hosts: z.array(z.lazy(() => CreateOutputHostSnmp$outboundSchema)),
   dnsResolvePeriodSec: z.number().optional(),
   description: z.string().optional(),
 });
 
-export function outputSnmpToJSON(outputSnmp: OutputSnmp): string {
-  return JSON.stringify(OutputSnmp$outboundSchema.parse(outputSnmp));
+export function createOutputOutputSnmpToJSON(
+  createOutputOutputSnmp: CreateOutputOutputSnmp,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputSnmp$outboundSchema.parse(createOutputOutputSnmp),
+  );
 }
 
 /** @internal */
@@ -17494,21 +17755,25 @@ export const CreateOutputQueueType$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateOutputQueueType);
 
 /** @internal */
-export type PqControlsSqs$Outbound = {};
+export type CreateOutputPqControlsSqs$Outbound = {};
 
 /** @internal */
-export const PqControlsSqs$outboundSchema: z.ZodType<
-  PqControlsSqs$Outbound,
+export const CreateOutputPqControlsSqs$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSqs$Outbound,
   z.ZodTypeDef,
-  PqControlsSqs
+  CreateOutputPqControlsSqs
 > = z.object({});
 
-export function pqControlsSqsToJSON(pqControlsSqs: PqControlsSqs): string {
-  return JSON.stringify(PqControlsSqs$outboundSchema.parse(pqControlsSqs));
+export function createOutputPqControlsSqsToJSON(
+  createOutputPqControlsSqs: CreateOutputPqControlsSqs,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsSqs$outboundSchema.parse(createOutputPqControlsSqs),
+  );
 }
 
 /** @internal */
-export type OutputSqs$Outbound = {
+export type CreateOutputOutputSqs$Outbound = {
   id: string;
   type: "sqs";
   pipeline?: string | undefined;
@@ -17549,7 +17814,7 @@ export type OutputSqs$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSqs$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSqs$Outbound | undefined;
   __template_queueName?: string | undefined;
   __template_awsAccountId?: string | undefined;
   __template_awsSecretKey?: string | undefined;
@@ -17560,10 +17825,10 @@ export type OutputSqs$Outbound = {
 };
 
 /** @internal */
-export const OutputSqs$outboundSchema: z.ZodType<
-  OutputSqs$Outbound,
+export const CreateOutputOutputSqs$outboundSchema: z.ZodType<
+  CreateOutputOutputSqs$Outbound,
   z.ZodTypeDef,
-  OutputSqs
+  CreateOutputOutputSqs
 > = z.object({
   id: z.string(),
   type: z.literal("sqs"),
@@ -17605,7 +17870,7 @@ export const OutputSqs$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSqs$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSqs$outboundSchema).optional(),
   __template_queueName: z.string().optional(),
   __template_awsAccountId: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
@@ -17615,33 +17880,41 @@ export const OutputSqs$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function outputSqsToJSON(outputSqs: OutputSqs): string {
-  return JSON.stringify(OutputSqs$outboundSchema.parse(outputSqs));
+export function createOutputOutputSqsToJSON(
+  createOutputOutputSqs: CreateOutputOutputSqs,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputSqs$outboundSchema.parse(createOutputOutputSqs),
+  );
 }
 
 /** @internal */
-export const SignatureVersionSns$outboundSchema: z.ZodType<
+export const CreateOutputSignatureVersionSns$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  SignatureVersionSns
-> = openEnums.outboundSchema(SignatureVersionSns);
+  CreateOutputSignatureVersionSns
+> = openEnums.outboundSchema(CreateOutputSignatureVersionSns);
 
 /** @internal */
-export type PqControlsSns$Outbound = {};
+export type CreateOutputPqControlsSns$Outbound = {};
 
 /** @internal */
-export const PqControlsSns$outboundSchema: z.ZodType<
-  PqControlsSns$Outbound,
+export const CreateOutputPqControlsSns$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSns$Outbound,
   z.ZodTypeDef,
-  PqControlsSns
+  CreateOutputPqControlsSns
 > = z.object({});
 
-export function pqControlsSnsToJSON(pqControlsSns: PqControlsSns): string {
-  return JSON.stringify(PqControlsSns$outboundSchema.parse(pqControlsSns));
+export function createOutputPqControlsSnsToJSON(
+  createOutputPqControlsSns: CreateOutputPqControlsSns,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsSns$outboundSchema.parse(createOutputPqControlsSns),
+  );
 }
 
 /** @internal */
-export type OutputSns$Outbound = {
+export type CreateOutputOutputSns$Outbound = {
   id: string;
   type: "sns";
   pipeline?: string | undefined;
@@ -17676,7 +17949,7 @@ export type OutputSns$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSns$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSns$Outbound | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
@@ -17685,10 +17958,10 @@ export type OutputSns$Outbound = {
 };
 
 /** @internal */
-export const OutputSns$outboundSchema: z.ZodType<
-  OutputSns$Outbound,
+export const CreateOutputOutputSns$outboundSchema: z.ZodType<
+  CreateOutputOutputSns$Outbound,
   z.ZodTypeDef,
-  OutputSns
+  CreateOutputOutputSns
 > = z.object({
   id: z.string(),
   type: z.literal("sns"),
@@ -17703,7 +17976,7 @@ export const OutputSns$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionSns$outboundSchema.optional(),
+  signatureVersion: CreateOutputSignatureVersionSns$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   enableAssumeRole: z.boolean().optional(),
@@ -17724,7 +17997,7 @@ export const OutputSns$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSns$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSns$outboundSchema).optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
@@ -17732,8 +18005,12 @@ export const OutputSns$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function outputSnsToJSON(outputSns: OutputSns): string {
-  return JSON.stringify(OutputSns$outboundSchema.parse(outputSns));
+export function createOutputOutputSnsToJSON(
+  createOutputOutputSns: CreateOutputOutputSns,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputSns$outboundSchema.parse(createOutputOutputSns),
+  );
 }
 
 /** @internal */
@@ -17765,7 +18042,7 @@ export function createOutputRuleToJSON(
 }
 
 /** @internal */
-export type OutputRouter$Outbound = {
+export type CreateOutputOutputRouter$Outbound = {
   id: string;
   type: "router";
   pipeline?: string | undefined;
@@ -17777,10 +18054,10 @@ export type OutputRouter$Outbound = {
 };
 
 /** @internal */
-export const OutputRouter$outboundSchema: z.ZodType<
-  OutputRouter$Outbound,
+export const CreateOutputOutputRouter$outboundSchema: z.ZodType<
+  CreateOutputOutputRouter$Outbound,
   z.ZodTypeDef,
-  OutputRouter
+  CreateOutputOutputRouter
 > = z.object({
   id: z.string(),
   type: z.literal("router"),
@@ -17792,30 +18069,36 @@ export const OutputRouter$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-export function outputRouterToJSON(outputRouter: OutputRouter): string {
-  return JSON.stringify(OutputRouter$outboundSchema.parse(outputRouter));
-}
-
-/** @internal */
-export type PqControlsGraphite$Outbound = {};
-
-/** @internal */
-export const PqControlsGraphite$outboundSchema: z.ZodType<
-  PqControlsGraphite$Outbound,
-  z.ZodTypeDef,
-  PqControlsGraphite
-> = z.object({});
-
-export function pqControlsGraphiteToJSON(
-  pqControlsGraphite: PqControlsGraphite,
+export function createOutputOutputRouterToJSON(
+  createOutputOutputRouter: CreateOutputOutputRouter,
 ): string {
   return JSON.stringify(
-    PqControlsGraphite$outboundSchema.parse(pqControlsGraphite),
+    CreateOutputOutputRouter$outboundSchema.parse(createOutputOutputRouter),
   );
 }
 
 /** @internal */
-export type OutputGraphite$Outbound = {
+export type CreateOutputPqControlsGraphite$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsGraphite$outboundSchema: z.ZodType<
+  CreateOutputPqControlsGraphite$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsGraphite
+> = z.object({});
+
+export function createOutputPqControlsGraphiteToJSON(
+  createOutputPqControlsGraphite: CreateOutputPqControlsGraphite,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsGraphite$outboundSchema.parse(
+      createOutputPqControlsGraphite,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputGraphite$Outbound = {
   id: string;
   type: "graphite";
   pipeline?: string | undefined;
@@ -17843,14 +18126,14 @@ export type OutputGraphite$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsGraphite$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsGraphite$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputGraphite$outboundSchema: z.ZodType<
-  OutputGraphite$Outbound,
+export const CreateOutputOutputGraphite$outboundSchema: z.ZodType<
+  CreateOutputOutputGraphite$Outbound,
   z.ZodTypeDef,
-  OutputGraphite
+  CreateOutputOutputGraphite
 > = z.object({
   id: z.string(),
   type: z.literal("graphite"),
@@ -17879,33 +18162,40 @@ export const OutputGraphite$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsGraphite$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsGraphite$outboundSchema)
+    .optional(),
 });
 
-export function outputGraphiteToJSON(outputGraphite: OutputGraphite): string {
-  return JSON.stringify(OutputGraphite$outboundSchema.parse(outputGraphite));
-}
-
-/** @internal */
-export type PqControlsStatsdExt$Outbound = {};
-
-/** @internal */
-export const PqControlsStatsdExt$outboundSchema: z.ZodType<
-  PqControlsStatsdExt$Outbound,
-  z.ZodTypeDef,
-  PqControlsStatsdExt
-> = z.object({});
-
-export function pqControlsStatsdExtToJSON(
-  pqControlsStatsdExt: PqControlsStatsdExt,
+export function createOutputOutputGraphiteToJSON(
+  createOutputOutputGraphite: CreateOutputOutputGraphite,
 ): string {
   return JSON.stringify(
-    PqControlsStatsdExt$outboundSchema.parse(pqControlsStatsdExt),
+    CreateOutputOutputGraphite$outboundSchema.parse(createOutputOutputGraphite),
   );
 }
 
 /** @internal */
-export type OutputStatsdExt$Outbound = {
+export type CreateOutputPqControlsStatsdExt$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsStatsdExt$outboundSchema: z.ZodType<
+  CreateOutputPqControlsStatsdExt$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsStatsdExt
+> = z.object({});
+
+export function createOutputPqControlsStatsdExtToJSON(
+  createOutputPqControlsStatsdExt: CreateOutputPqControlsStatsdExt,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsStatsdExt$outboundSchema.parse(
+      createOutputPqControlsStatsdExt,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputStatsdExt$Outbound = {
   id: string;
   type: "statsd_ext";
   pipeline?: string | undefined;
@@ -17933,14 +18223,14 @@ export type OutputStatsdExt$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsStatsdExt$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsStatsdExt$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputStatsdExt$outboundSchema: z.ZodType<
-  OutputStatsdExt$Outbound,
+export const CreateOutputOutputStatsdExt$outboundSchema: z.ZodType<
+  CreateOutputOutputStatsdExt$Outbound,
   z.ZodTypeDef,
-  OutputStatsdExt
+  CreateOutputOutputStatsdExt
 > = z.object({
   id: z.string(),
   type: z.literal("statsd_ext"),
@@ -17969,35 +18259,42 @@ export const OutputStatsdExt$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsStatsdExt$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsStatsdExt$outboundSchema)
+    .optional(),
 });
 
-export function outputStatsdExtToJSON(
-  outputStatsdExt: OutputStatsdExt,
-): string {
-  return JSON.stringify(OutputStatsdExt$outboundSchema.parse(outputStatsdExt));
-}
-
-/** @internal */
-export type PqControlsStatsd$Outbound = {};
-
-/** @internal */
-export const PqControlsStatsd$outboundSchema: z.ZodType<
-  PqControlsStatsd$Outbound,
-  z.ZodTypeDef,
-  PqControlsStatsd
-> = z.object({});
-
-export function pqControlsStatsdToJSON(
-  pqControlsStatsd: PqControlsStatsd,
+export function createOutputOutputStatsdExtToJSON(
+  createOutputOutputStatsdExt: CreateOutputOutputStatsdExt,
 ): string {
   return JSON.stringify(
-    PqControlsStatsd$outboundSchema.parse(pqControlsStatsd),
+    CreateOutputOutputStatsdExt$outboundSchema.parse(
+      createOutputOutputStatsdExt,
+    ),
   );
 }
 
 /** @internal */
-export type OutputStatsd$Outbound = {
+export type CreateOutputPqControlsStatsd$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsStatsd$outboundSchema: z.ZodType<
+  CreateOutputPqControlsStatsd$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsStatsd
+> = z.object({});
+
+export function createOutputPqControlsStatsdToJSON(
+  createOutputPqControlsStatsd: CreateOutputPqControlsStatsd,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsStatsd$outboundSchema.parse(
+      createOutputPqControlsStatsd,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputStatsd$Outbound = {
   id: string;
   type: "statsd";
   pipeline?: string | undefined;
@@ -18025,14 +18322,14 @@ export type OutputStatsd$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsStatsd$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsStatsd$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputStatsd$outboundSchema: z.ZodType<
-  OutputStatsd$Outbound,
+export const CreateOutputOutputStatsd$outboundSchema: z.ZodType<
+  CreateOutputOutputStatsd$Outbound,
   z.ZodTypeDef,
-  OutputStatsd
+  CreateOutputOutputStatsd
 > = z.object({
   id: z.string(),
   type: z.literal("statsd"),
@@ -18061,15 +18358,20 @@ export const OutputStatsd$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsStatsd$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsStatsd$outboundSchema)
+    .optional(),
 });
 
-export function outputStatsdToJSON(outputStatsd: OutputStatsd): string {
-  return JSON.stringify(OutputStatsd$outboundSchema.parse(outputStatsd));
+export function createOutputOutputStatsdToJSON(
+  createOutputOutputStatsd: CreateOutputOutputStatsd,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputStatsd$outboundSchema.parse(createOutputOutputStatsd),
+  );
 }
 
 /** @internal */
-export type OutputMinio$Outbound = {
+export type CreateOutputOutputMinio$Outbound = {
   id: string;
   type: "minio";
   pipeline?: string | undefined;
@@ -18137,10 +18439,10 @@ export type OutputMinio$Outbound = {
 };
 
 /** @internal */
-export const OutputMinio$outboundSchema: z.ZodType<
-  OutputMinio$Outbound,
+export const CreateOutputOutputMinio$outboundSchema: z.ZodType<
+  CreateOutputOutputMinio$Outbound,
   z.ZodTypeDef,
-  OutputMinio
+  CreateOutputOutputMinio
 > = z.object({
   id: z.string(),
   type: z.literal("minio"),
@@ -18210,30 +18512,36 @@ export const OutputMinio$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function outputMinioToJSON(outputMinio: OutputMinio): string {
-  return JSON.stringify(OutputMinio$outboundSchema.parse(outputMinio));
-}
-
-/** @internal */
-export type PqControlsCloudwatch$Outbound = {};
-
-/** @internal */
-export const PqControlsCloudwatch$outboundSchema: z.ZodType<
-  PqControlsCloudwatch$Outbound,
-  z.ZodTypeDef,
-  PqControlsCloudwatch
-> = z.object({});
-
-export function pqControlsCloudwatchToJSON(
-  pqControlsCloudwatch: PqControlsCloudwatch,
+export function createOutputOutputMinioToJSON(
+  createOutputOutputMinio: CreateOutputOutputMinio,
 ): string {
   return JSON.stringify(
-    PqControlsCloudwatch$outboundSchema.parse(pqControlsCloudwatch),
+    CreateOutputOutputMinio$outboundSchema.parse(createOutputOutputMinio),
   );
 }
 
 /** @internal */
-export type OutputCloudwatch$Outbound = {
+export type CreateOutputPqControlsCloudwatch$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsCloudwatch$outboundSchema: z.ZodType<
+  CreateOutputPqControlsCloudwatch$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsCloudwatch
+> = z.object({});
+
+export function createOutputPqControlsCloudwatchToJSON(
+  createOutputPqControlsCloudwatch: CreateOutputPqControlsCloudwatch,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsCloudwatch$outboundSchema.parse(
+      createOutputPqControlsCloudwatch,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputCloudwatch$Outbound = {
   id: string;
   type: "cloudwatch";
   pipeline?: string | undefined;
@@ -18269,7 +18577,7 @@ export type OutputCloudwatch$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsCloudwatch$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsCloudwatch$Outbound | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
   __template_assumeRoleArn?: string | undefined;
@@ -18278,10 +18586,10 @@ export type OutputCloudwatch$Outbound = {
 };
 
 /** @internal */
-export const OutputCloudwatch$outboundSchema: z.ZodType<
-  OutputCloudwatch$Outbound,
+export const CreateOutputOutputCloudwatch$outboundSchema: z.ZodType<
+  CreateOutputOutputCloudwatch$Outbound,
   z.ZodTypeDef,
-  OutputCloudwatch
+  CreateOutputOutputCloudwatch
 > = z.object({
   id: z.string(),
   type: z.literal("cloudwatch"),
@@ -18318,7 +18626,8 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsCloudwatch$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsCloudwatch$outboundSchema)
+    .optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
   __template_assumeRoleArn: z.string().optional(),
@@ -18326,48 +18635,52 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function outputCloudwatchToJSON(
-  outputCloudwatch: OutputCloudwatch,
+export function createOutputOutputCloudwatchToJSON(
+  createOutputOutputCloudwatch: CreateOutputOutputCloudwatch,
 ): string {
   return JSON.stringify(
-    OutputCloudwatch$outboundSchema.parse(outputCloudwatch),
+    CreateOutputOutputCloudwatch$outboundSchema.parse(
+      createOutputOutputCloudwatch,
+    ),
   );
 }
 
 /** @internal */
-export const TimestampPrecision$outboundSchema: z.ZodType<
+export const CreateOutputTimestampPrecision$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  TimestampPrecision
-> = openEnums.outboundSchema(TimestampPrecision);
+  CreateOutputTimestampPrecision
+> = openEnums.outboundSchema(CreateOutputTimestampPrecision);
 
 /** @internal */
-export const AuthenticationTypeInfluxdb$outboundSchema: z.ZodType<
+export const CreateOutputAuthenticationTypeInfluxdb$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  AuthenticationTypeInfluxdb
-> = openEnums.outboundSchema(AuthenticationTypeInfluxdb);
+  CreateOutputAuthenticationTypeInfluxdb
+> = openEnums.outboundSchema(CreateOutputAuthenticationTypeInfluxdb);
 
 /** @internal */
-export type PqControlsInfluxdb$Outbound = {};
+export type CreateOutputPqControlsInfluxdb$Outbound = {};
 
 /** @internal */
-export const PqControlsInfluxdb$outboundSchema: z.ZodType<
-  PqControlsInfluxdb$Outbound,
+export const CreateOutputPqControlsInfluxdb$outboundSchema: z.ZodType<
+  CreateOutputPqControlsInfluxdb$Outbound,
   z.ZodTypeDef,
-  PqControlsInfluxdb
+  CreateOutputPqControlsInfluxdb
 > = z.object({});
 
-export function pqControlsInfluxdbToJSON(
-  pqControlsInfluxdb: PqControlsInfluxdb,
+export function createOutputPqControlsInfluxdbToJSON(
+  createOutputPqControlsInfluxdb: CreateOutputPqControlsInfluxdb,
 ): string {
   return JSON.stringify(
-    PqControlsInfluxdb$outboundSchema.parse(pqControlsInfluxdb),
+    CreateOutputPqControlsInfluxdb$outboundSchema.parse(
+      createOutputPqControlsInfluxdb,
+    ),
   );
 }
 
 /** @internal */
-export type OutputInfluxdb$Outbound = {
+export type CreateOutputOutputInfluxdb$Outbound = {
   id: string;
   type: "influxdb";
   pipeline?: string | undefined;
@@ -18413,7 +18726,7 @@ export type OutputInfluxdb$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsInfluxdb$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsInfluxdb$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
@@ -18425,10 +18738,10 @@ export type OutputInfluxdb$Outbound = {
 };
 
 /** @internal */
-export const OutputInfluxdb$outboundSchema: z.ZodType<
-  OutputInfluxdb$Outbound,
+export const CreateOutputOutputInfluxdb$outboundSchema: z.ZodType<
+  CreateOutputOutputInfluxdb$Outbound,
   z.ZodTypeDef,
-  OutputInfluxdb
+  CreateOutputOutputInfluxdb
 > = z.object({
   id: z.string(),
   type: z.literal("influxdb"),
@@ -18438,7 +18751,7 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
   useV2API: z.boolean().optional(),
-  timestampPrecision: TimestampPrecision$outboundSchema.optional(),
+  timestampPrecision: CreateOutputTimestampPrecision$outboundSchema.optional(),
   dynamicValueFieldName: z.boolean().optional(),
   valueFieldName: z.string().optional(),
   concurrency: z.number().optional(),
@@ -18461,7 +18774,7 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthenticationTypeInfluxdb$outboundSchema.optional(),
+  authType: CreateOutputAuthenticationTypeInfluxdb$outboundSchema.optional(),
   description: z.string().optional(),
   database: z.string().optional(),
   bucket: z.string().optional(),
@@ -18476,7 +18789,8 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsInfluxdb$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsInfluxdb$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -18487,30 +18801,36 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   __template_bucket: z.string().optional(),
 });
 
-export function outputInfluxdbToJSON(outputInfluxdb: OutputInfluxdb): string {
-  return JSON.stringify(OutputInfluxdb$outboundSchema.parse(outputInfluxdb));
-}
-
-/** @internal */
-export type PqControlsNewrelicEvents$Outbound = {};
-
-/** @internal */
-export const PqControlsNewrelicEvents$outboundSchema: z.ZodType<
-  PqControlsNewrelicEvents$Outbound,
-  z.ZodTypeDef,
-  PqControlsNewrelicEvents
-> = z.object({});
-
-export function pqControlsNewrelicEventsToJSON(
-  pqControlsNewrelicEvents: PqControlsNewrelicEvents,
+export function createOutputOutputInfluxdbToJSON(
+  createOutputOutputInfluxdb: CreateOutputOutputInfluxdb,
 ): string {
   return JSON.stringify(
-    PqControlsNewrelicEvents$outboundSchema.parse(pqControlsNewrelicEvents),
+    CreateOutputOutputInfluxdb$outboundSchema.parse(createOutputOutputInfluxdb),
   );
 }
 
 /** @internal */
-export type OutputNewrelicEvents$Outbound = {
+export type CreateOutputPqControlsNewrelicEvents$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsNewrelicEvents$outboundSchema: z.ZodType<
+  CreateOutputPqControlsNewrelicEvents$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsNewrelicEvents
+> = z.object({});
+
+export function createOutputPqControlsNewrelicEventsToJSON(
+  createOutputPqControlsNewrelicEvents: CreateOutputPqControlsNewrelicEvents,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsNewrelicEvents$outboundSchema.parse(
+      createOutputPqControlsNewrelicEvents,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputNewrelicEvents$Outbound = {
   id: string;
   type: "newrelic_events";
   pipeline?: string | undefined;
@@ -18552,7 +18872,7 @@ export type OutputNewrelicEvents$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsNewrelicEvents$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsNewrelicEvents$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
   __template_region?: string | undefined;
@@ -18562,10 +18882,10 @@ export type OutputNewrelicEvents$Outbound = {
 };
 
 /** @internal */
-export const OutputNewrelicEvents$outboundSchema: z.ZodType<
-  OutputNewrelicEvents$Outbound,
+export const CreateOutputOutputNewrelicEvents$outboundSchema: z.ZodType<
+  CreateOutputOutputNewrelicEvents$Outbound,
   z.ZodTypeDef,
-  OutputNewrelicEvents
+  CreateOutputOutputNewrelicEvents
 > = z.object({
   id: z.string(),
   type: z.literal("newrelic_events"),
@@ -18609,7 +18929,8 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsNewrelicEvents$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsNewrelicEvents$outboundSchema)
+    .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
   __template_region: z.string().optional(),
@@ -18618,61 +18939,69 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   __template_customUrl: z.string().optional(),
 });
 
-export function outputNewrelicEventsToJSON(
-  outputNewrelicEvents: OutputNewrelicEvents,
+export function createOutputOutputNewrelicEventsToJSON(
+  createOutputOutputNewrelicEvents: CreateOutputOutputNewrelicEvents,
 ): string {
   return JSON.stringify(
-    OutputNewrelicEvents$outboundSchema.parse(outputNewrelicEvents),
+    CreateOutputOutputNewrelicEvents$outboundSchema.parse(
+      createOutputOutputNewrelicEvents,
+    ),
   );
 }
 
 /** @internal */
-export const FieldName$outboundSchema: z.ZodType<
+export const CreateOutputFieldName$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  FieldName
-> = openEnums.outboundSchema(FieldName);
+  CreateOutputFieldName
+> = openEnums.outboundSchema(CreateOutputFieldName);
 
 /** @internal */
-export type Metadatum$Outbound = {
+export type CreateOutputMetadatum$Outbound = {
   name: string;
   value: string;
 };
 
 /** @internal */
-export const Metadatum$outboundSchema: z.ZodType<
-  Metadatum$Outbound,
+export const CreateOutputMetadatum$outboundSchema: z.ZodType<
+  CreateOutputMetadatum$Outbound,
   z.ZodTypeDef,
-  Metadatum
+  CreateOutputMetadatum
 > = z.object({
-  name: FieldName$outboundSchema,
+  name: CreateOutputFieldName$outboundSchema,
   value: z.string(),
 });
 
-export function metadatumToJSON(metadatum: Metadatum): string {
-  return JSON.stringify(Metadatum$outboundSchema.parse(metadatum));
-}
-
-/** @internal */
-export type PqControlsNewrelic$Outbound = {};
-
-/** @internal */
-export const PqControlsNewrelic$outboundSchema: z.ZodType<
-  PqControlsNewrelic$Outbound,
-  z.ZodTypeDef,
-  PqControlsNewrelic
-> = z.object({});
-
-export function pqControlsNewrelicToJSON(
-  pqControlsNewrelic: PqControlsNewrelic,
+export function createOutputMetadatumToJSON(
+  createOutputMetadatum: CreateOutputMetadatum,
 ): string {
   return JSON.stringify(
-    PqControlsNewrelic$outboundSchema.parse(pqControlsNewrelic),
+    CreateOutputMetadatum$outboundSchema.parse(createOutputMetadatum),
   );
 }
 
 /** @internal */
-export type OutputNewrelic$Outbound = {
+export type CreateOutputPqControlsNewrelic$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsNewrelic$outboundSchema: z.ZodType<
+  CreateOutputPqControlsNewrelic$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsNewrelic
+> = z.object({});
+
+export function createOutputPqControlsNewrelicToJSON(
+  createOutputPqControlsNewrelic: CreateOutputPqControlsNewrelic,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsNewrelic$outboundSchema.parse(
+      createOutputPqControlsNewrelic,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputNewrelic$Outbound = {
   id: string;
   type: "newrelic";
   pipeline?: string | undefined;
@@ -18682,7 +19011,7 @@ export type OutputNewrelic$Outbound = {
   region?: string | undefined;
   logType?: string | undefined;
   messageField?: string | undefined;
-  metadata?: Array<Metadatum$Outbound> | undefined;
+  metadata?: Array<CreateOutputMetadatum$Outbound> | undefined;
   concurrency?: number | undefined;
   maxPayloadSizeKB?: number | undefined;
   maxPayloadEvents?: number | undefined;
@@ -18716,7 +19045,7 @@ export type OutputNewrelic$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsNewrelic$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsNewrelic$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
   __template_region?: string | undefined;
@@ -18725,10 +19054,10 @@ export type OutputNewrelic$Outbound = {
 };
 
 /** @internal */
-export const OutputNewrelic$outboundSchema: z.ZodType<
-  OutputNewrelic$Outbound,
+export const CreateOutputOutputNewrelic$outboundSchema: z.ZodType<
+  CreateOutputOutputNewrelic$Outbound,
   z.ZodTypeDef,
-  OutputNewrelic
+  CreateOutputOutputNewrelic
 > = z.object({
   id: z.string(),
   type: z.literal("newrelic"),
@@ -18739,7 +19068,8 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   region: models.RegionOptions$outboundSchema.optional(),
   logType: z.string().optional(),
   messageField: z.string().optional(),
-  metadata: z.array(z.lazy(() => Metadatum$outboundSchema)).optional(),
+  metadata: z.array(z.lazy(() => CreateOutputMetadatum$outboundSchema))
+    .optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
   maxPayloadEvents: z.number().optional(),
@@ -18774,7 +19104,8 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsNewrelic$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsNewrelic$outboundSchema)
+    .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
   __template_region: z.string().optional(),
@@ -18782,30 +19113,36 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   __template_messageField: z.string().optional(),
 });
 
-export function outputNewrelicToJSON(outputNewrelic: OutputNewrelic): string {
-  return JSON.stringify(OutputNewrelic$outboundSchema.parse(outputNewrelic));
-}
-
-/** @internal */
-export type PqControlsElasticCloud$Outbound = {};
-
-/** @internal */
-export const PqControlsElasticCloud$outboundSchema: z.ZodType<
-  PqControlsElasticCloud$Outbound,
-  z.ZodTypeDef,
-  PqControlsElasticCloud
-> = z.object({});
-
-export function pqControlsElasticCloudToJSON(
-  pqControlsElasticCloud: PqControlsElasticCloud,
+export function createOutputOutputNewrelicToJSON(
+  createOutputOutputNewrelic: CreateOutputOutputNewrelic,
 ): string {
   return JSON.stringify(
-    PqControlsElasticCloud$outboundSchema.parse(pqControlsElasticCloud),
+    CreateOutputOutputNewrelic$outboundSchema.parse(createOutputOutputNewrelic),
   );
 }
 
 /** @internal */
-export type OutputElasticCloud$Outbound = {
+export type CreateOutputPqControlsElasticCloud$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsElasticCloud$outboundSchema: z.ZodType<
+  CreateOutputPqControlsElasticCloud$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsElasticCloud
+> = z.object({});
+
+export function createOutputPqControlsElasticCloudToJSON(
+  createOutputPqControlsElasticCloud: CreateOutputPqControlsElasticCloud,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsElasticCloud$outboundSchema.parse(
+      createOutputPqControlsElasticCloud,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputElasticCloud$Outbound = {
   id: string;
   type: "elastic_cloud";
   pipeline?: string | undefined;
@@ -18847,14 +19184,14 @@ export type OutputElasticCloud$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsElasticCloud$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsElasticCloud$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputElasticCloud$outboundSchema: z.ZodType<
-  OutputElasticCloud$Outbound,
+export const CreateOutputOutputElasticCloud$outboundSchema: z.ZodType<
+  CreateOutputOutputElasticCloud$Outbound,
   z.ZodTypeDef,
-  OutputElasticCloud
+  CreateOutputOutputElasticCloud
 > = z.object({
   id: z.string(),
   type: z.literal("elastic_cloud"),
@@ -18899,73 +19236,82 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsElasticCloud$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsElasticCloud$outboundSchema)
+    .optional(),
 });
 
-export function outputElasticCloudToJSON(
-  outputElasticCloud: OutputElasticCloud,
+export function createOutputOutputElasticCloudToJSON(
+  createOutputOutputElasticCloud: CreateOutputOutputElasticCloud,
 ): string {
   return JSON.stringify(
-    OutputElasticCloud$outboundSchema.parse(outputElasticCloud),
+    CreateOutputOutputElasticCloud$outboundSchema.parse(
+      createOutputOutputElasticCloud,
+    ),
   );
 }
 
 /** @internal */
-export const ElasticVersion$outboundSchema: z.ZodType<
+export const CreateOutputElasticVersion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ElasticVersion
-> = openEnums.outboundSchema(ElasticVersion);
+  CreateOutputElasticVersion
+> = openEnums.outboundSchema(CreateOutputElasticVersion);
 
 /** @internal */
-export const WriteAction$outboundSchema: z.ZodType<
+export const CreateOutputWriteAction$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  WriteAction
-> = openEnums.outboundSchema(WriteAction);
+  CreateOutputWriteAction
+> = openEnums.outboundSchema(CreateOutputWriteAction);
 
 /** @internal */
-export type UrlElastic$Outbound = {
+export type CreateOutputUrlElastic$Outbound = {
   url: string;
   weight?: number | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const UrlElastic$outboundSchema: z.ZodType<
-  UrlElastic$Outbound,
+export const CreateOutputUrlElastic$outboundSchema: z.ZodType<
+  CreateOutputUrlElastic$Outbound,
   z.ZodTypeDef,
-  UrlElastic
+  CreateOutputUrlElastic
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
   __template_url: z.string().optional(),
 });
 
-export function urlElasticToJSON(urlElastic: UrlElastic): string {
-  return JSON.stringify(UrlElastic$outboundSchema.parse(urlElastic));
-}
-
-/** @internal */
-export type PqControlsElastic$Outbound = {};
-
-/** @internal */
-export const PqControlsElastic$outboundSchema: z.ZodType<
-  PqControlsElastic$Outbound,
-  z.ZodTypeDef,
-  PqControlsElastic
-> = z.object({});
-
-export function pqControlsElasticToJSON(
-  pqControlsElastic: PqControlsElastic,
+export function createOutputUrlElasticToJSON(
+  createOutputUrlElastic: CreateOutputUrlElastic,
 ): string {
   return JSON.stringify(
-    PqControlsElastic$outboundSchema.parse(pqControlsElastic),
+    CreateOutputUrlElastic$outboundSchema.parse(createOutputUrlElastic),
   );
 }
 
 /** @internal */
-export type OutputElastic$Outbound = {
+export type CreateOutputPqControlsElastic$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsElastic$outboundSchema: z.ZodType<
+  CreateOutputPqControlsElastic$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsElastic
+> = z.object({});
+
+export function createOutputPqControlsElasticToJSON(
+  createOutputPqControlsElastic: CreateOutputPqControlsElastic,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsElastic$outboundSchema.parse(
+      createOutputPqControlsElastic,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputElastic$Outbound = {
   id: string;
   type: "elastic";
   pipeline?: string | undefined;
@@ -19004,7 +19350,7 @@ export type OutputElastic$Outbound = {
   url?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   excludeSelf?: boolean | undefined;
-  urls?: Array<UrlElastic$Outbound> | undefined;
+  urls?: Array<CreateOutputUrlElastic$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   pqStrictOrdering?: boolean | undefined;
@@ -19017,15 +19363,15 @@ export type OutputElastic$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsElastic$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsElastic$Outbound | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const OutputElastic$outboundSchema: z.ZodType<
-  OutputElastic$Outbound,
+export const CreateOutputOutputElastic$outboundSchema: z.ZodType<
+  CreateOutputOutputElastic$Outbound,
   z.ZodTypeDef,
-  OutputElastic
+  CreateOutputOutputElastic
 > = z.object({
   id: z.string(),
   type: z.literal("elastic"),
@@ -19057,17 +19403,17 @@ export const OutputElastic$outboundSchema: z.ZodType<
   extraParams: z.array(models.ItemsTypeSaslSaslExtensions$outboundSchema)
     .optional(),
   auth: models.AuthType$outboundSchema.optional(),
-  elasticVersion: ElasticVersion$outboundSchema.optional(),
+  elasticVersion: CreateOutputElasticVersion$outboundSchema.optional(),
   elasticPipeline: z.string().optional(),
   includeDocId: z.boolean().optional(),
-  writeAction: WriteAction$outboundSchema.optional(),
+  writeAction: CreateOutputWriteAction$outboundSchema.optional(),
   retryPartialErrors: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   url: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   excludeSelf: z.boolean().optional(),
-  urls: z.array(z.lazy(() => UrlElastic$outboundSchema)).optional(),
+  urls: z.array(z.lazy(() => CreateOutputUrlElastic$outboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   pqStrictOrdering: z.boolean().optional(),
@@ -19080,30 +19426,39 @@ export const OutputElastic$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsElastic$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsElastic$outboundSchema)
+    .optional(),
   __template_url: z.string().optional(),
 });
 
-export function outputElasticToJSON(outputElastic: OutputElastic): string {
-  return JSON.stringify(OutputElastic$outboundSchema.parse(outputElastic));
+export function createOutputOutputElasticToJSON(
+  createOutputOutputElastic: CreateOutputOutputElastic,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputElastic$outboundSchema.parse(createOutputOutputElastic),
+  );
 }
 
 /** @internal */
-export type PqControlsMsk$Outbound = {};
+export type CreateOutputPqControlsMsk$Outbound = {};
 
 /** @internal */
-export const PqControlsMsk$outboundSchema: z.ZodType<
-  PqControlsMsk$Outbound,
+export const CreateOutputPqControlsMsk$outboundSchema: z.ZodType<
+  CreateOutputPqControlsMsk$Outbound,
   z.ZodTypeDef,
-  PqControlsMsk
+  CreateOutputPqControlsMsk
 > = z.object({});
 
-export function pqControlsMskToJSON(pqControlsMsk: PqControlsMsk): string {
-  return JSON.stringify(PqControlsMsk$outboundSchema.parse(pqControlsMsk));
+export function createOutputPqControlsMskToJSON(
+  createOutputPqControlsMsk: CreateOutputPqControlsMsk,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsMsk$outboundSchema.parse(createOutputPqControlsMsk),
+  );
 }
 
 /** @internal */
-export type OutputMsk$Outbound = {
+export type CreateOutputOutputMsk$Outbound = {
   id: string;
   type: "msk";
   pipeline?: string | undefined;
@@ -19159,7 +19514,7 @@ export type OutputMsk$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsMsk$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsMsk$Outbound | undefined;
   __template_topic?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -19169,10 +19524,10 @@ export type OutputMsk$Outbound = {
 };
 
 /** @internal */
-export const OutputMsk$outboundSchema: z.ZodType<
-  OutputMsk$Outbound,
+export const CreateOutputOutputMsk$outboundSchema: z.ZodType<
+  CreateOutputOutputMsk$Outbound,
   z.ZodTypeDef,
-  OutputMsk
+  CreateOutputOutputMsk
 > = z.object({
   id: z.string(),
   type: z.literal("msk"),
@@ -19227,7 +19582,7 @@ export const OutputMsk$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsMsk$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsMsk$outboundSchema).optional(),
   __template_topic: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
@@ -19236,30 +19591,36 @@ export const OutputMsk$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function outputMskToJSON(outputMsk: OutputMsk): string {
-  return JSON.stringify(OutputMsk$outboundSchema.parse(outputMsk));
-}
-
-/** @internal */
-export type PqControlsConfluentCloud$Outbound = {};
-
-/** @internal */
-export const PqControlsConfluentCloud$outboundSchema: z.ZodType<
-  PqControlsConfluentCloud$Outbound,
-  z.ZodTypeDef,
-  PqControlsConfluentCloud
-> = z.object({});
-
-export function pqControlsConfluentCloudToJSON(
-  pqControlsConfluentCloud: PqControlsConfluentCloud,
+export function createOutputOutputMskToJSON(
+  createOutputOutputMsk: CreateOutputOutputMsk,
 ): string {
   return JSON.stringify(
-    PqControlsConfluentCloud$outboundSchema.parse(pqControlsConfluentCloud),
+    CreateOutputOutputMsk$outboundSchema.parse(createOutputOutputMsk),
   );
 }
 
 /** @internal */
-export type OutputConfluentCloud$Outbound = {
+export type CreateOutputPqControlsConfluentCloud$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsConfluentCloud$outboundSchema: z.ZodType<
+  CreateOutputPqControlsConfluentCloud$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsConfluentCloud
+> = z.object({});
+
+export function createOutputPqControlsConfluentCloudToJSON(
+  createOutputPqControlsConfluentCloud: CreateOutputPqControlsConfluentCloud,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsConfluentCloud$outboundSchema.parse(
+      createOutputPqControlsConfluentCloud,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputConfluentCloud$Outbound = {
   id: string;
   type: "confluent_cloud";
   pipeline?: string | undefined;
@@ -19303,15 +19664,15 @@ export type OutputConfluentCloud$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsConfluentCloud$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsConfluentCloud$Outbound | undefined;
   __template_topic?: string | undefined;
 };
 
 /** @internal */
-export const OutputConfluentCloud$outboundSchema: z.ZodType<
-  OutputConfluentCloud$Outbound,
+export const CreateOutputOutputConfluentCloud$outboundSchema: z.ZodType<
+  CreateOutputOutputConfluentCloud$Outbound,
   z.ZodTypeDef,
-  OutputConfluentCloud
+  CreateOutputOutputConfluentCloud
 > = z.object({
   id: z.string(),
   type: z.literal("confluent_cloud"),
@@ -19354,36 +19715,43 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsConfluentCloud$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsConfluentCloud$outboundSchema)
+    .optional(),
   __template_topic: z.string().optional(),
 });
 
-export function outputConfluentCloudToJSON(
-  outputConfluentCloud: OutputConfluentCloud,
+export function createOutputOutputConfluentCloudToJSON(
+  createOutputOutputConfluentCloud: CreateOutputOutputConfluentCloud,
 ): string {
   return JSON.stringify(
-    OutputConfluentCloud$outboundSchema.parse(outputConfluentCloud),
+    CreateOutputOutputConfluentCloud$outboundSchema.parse(
+      createOutputOutputConfluentCloud,
+    ),
   );
 }
 
 /** @internal */
-export type PqControlsKafka$Outbound = {};
+export type CreateOutputPqControlsKafka$Outbound = {};
 
 /** @internal */
-export const PqControlsKafka$outboundSchema: z.ZodType<
-  PqControlsKafka$Outbound,
+export const CreateOutputPqControlsKafka$outboundSchema: z.ZodType<
+  CreateOutputPqControlsKafka$Outbound,
   z.ZodTypeDef,
-  PqControlsKafka
+  CreateOutputPqControlsKafka
 > = z.object({});
 
-export function pqControlsKafkaToJSON(
-  pqControlsKafka: PqControlsKafka,
+export function createOutputPqControlsKafkaToJSON(
+  createOutputPqControlsKafka: CreateOutputPqControlsKafka,
 ): string {
-  return JSON.stringify(PqControlsKafka$outboundSchema.parse(pqControlsKafka));
+  return JSON.stringify(
+    CreateOutputPqControlsKafka$outboundSchema.parse(
+      createOutputPqControlsKafka,
+    ),
+  );
 }
 
 /** @internal */
-export type OutputKafka$Outbound = {
+export type CreateOutputOutputKafka$Outbound = {
   id: string;
   type: "kafka";
   pipeline?: string | undefined;
@@ -19427,15 +19795,15 @@ export type OutputKafka$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsKafka$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsKafka$Outbound | undefined;
   __template_topic?: string | undefined;
 };
 
 /** @internal */
-export const OutputKafka$outboundSchema: z.ZodType<
-  OutputKafka$Outbound,
+export const CreateOutputOutputKafka$outboundSchema: z.ZodType<
+  CreateOutputOutputKafka$Outbound,
   z.ZodTypeDef,
-  OutputKafka
+  CreateOutputOutputKafka
 > = z.object({
   id: z.string(),
   type: z.literal("kafka"),
@@ -19478,16 +19846,21 @@ export const OutputKafka$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsKafka$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsKafka$outboundSchema)
+    .optional(),
   __template_topic: z.string().optional(),
 });
 
-export function outputKafkaToJSON(outputKafka: OutputKafka): string {
-  return JSON.stringify(OutputKafka$outboundSchema.parse(outputKafka));
+export function createOutputOutputKafkaToJSON(
+  createOutputOutputKafka: CreateOutputOutputKafka,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputKafka$outboundSchema.parse(createOutputOutputKafka),
+  );
 }
 
 /** @internal */
-export type OutputExabeam$Outbound = {
+export type CreateOutputOutputExabeam$Outbound = {
   id: string;
   type: "exabeam";
   pipeline?: string | undefined;
@@ -19529,10 +19902,10 @@ export type OutputExabeam$Outbound = {
 };
 
 /** @internal */
-export const OutputExabeam$outboundSchema: z.ZodType<
-  OutputExabeam$Outbound,
+export const CreateOutputOutputExabeam$outboundSchema: z.ZodType<
+  CreateOutputOutputExabeam$Outbound,
   z.ZodTypeDef,
-  OutputExabeam
+  CreateOutputOutputExabeam
 > = z.object({
   id: z.string(),
   type: z.literal("exabeam"),
@@ -19575,30 +19948,36 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   __template_region: z.string().optional(),
 });
 
-export function outputExabeamToJSON(outputExabeam: OutputExabeam): string {
-  return JSON.stringify(OutputExabeam$outboundSchema.parse(outputExabeam));
-}
-
-/** @internal */
-export type PqControlsGooglePubsub$Outbound = {};
-
-/** @internal */
-export const PqControlsGooglePubsub$outboundSchema: z.ZodType<
-  PqControlsGooglePubsub$Outbound,
-  z.ZodTypeDef,
-  PqControlsGooglePubsub
-> = z.object({});
-
-export function pqControlsGooglePubsubToJSON(
-  pqControlsGooglePubsub: PqControlsGooglePubsub,
+export function createOutputOutputExabeamToJSON(
+  createOutputOutputExabeam: CreateOutputOutputExabeam,
 ): string {
   return JSON.stringify(
-    PqControlsGooglePubsub$outboundSchema.parse(pqControlsGooglePubsub),
+    CreateOutputOutputExabeam$outboundSchema.parse(createOutputOutputExabeam),
   );
 }
 
 /** @internal */
-export type OutputGooglePubsub$Outbound = {
+export type CreateOutputPqControlsGooglePubsub$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsGooglePubsub$outboundSchema: z.ZodType<
+  CreateOutputPqControlsGooglePubsub$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsGooglePubsub
+> = z.object({});
+
+export function createOutputPqControlsGooglePubsubToJSON(
+  createOutputPqControlsGooglePubsub: CreateOutputPqControlsGooglePubsub,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsGooglePubsub$outboundSchema.parse(
+      createOutputPqControlsGooglePubsub,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputGooglePubsub$Outbound = {
   id: string;
   type: "google_pubsub";
   pipeline?: string | undefined;
@@ -19630,16 +20009,16 @@ export type OutputGooglePubsub$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsGooglePubsub$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsGooglePubsub$Outbound | undefined;
   __template_topicName?: string | undefined;
   __template_region?: string | undefined;
 };
 
 /** @internal */
-export const OutputGooglePubsub$outboundSchema: z.ZodType<
-  OutputGooglePubsub$Outbound,
+export const CreateOutputOutputGooglePubsub$outboundSchema: z.ZodType<
+  CreateOutputOutputGooglePubsub$Outbound,
   z.ZodTypeDef,
-  OutputGooglePubsub
+  CreateOutputOutputGooglePubsub
 > = z.object({
   id: z.string(),
   type: z.literal("google_pubsub"),
@@ -19673,55 +20052,59 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsGooglePubsub$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsGooglePubsub$outboundSchema)
+    .optional(),
   __template_topicName: z.string().optional(),
   __template_region: z.string().optional(),
 });
 
-export function outputGooglePubsubToJSON(
-  outputGooglePubsub: OutputGooglePubsub,
+export function createOutputOutputGooglePubsubToJSON(
+  createOutputOutputGooglePubsub: CreateOutputOutputGooglePubsub,
 ): string {
   return JSON.stringify(
-    OutputGooglePubsub$outboundSchema.parse(outputGooglePubsub),
-  );
-}
-
-/** @internal */
-export const LogLocationType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  LogLocationType
-> = openEnums.outboundSchema(LogLocationType);
-
-/** @internal */
-export const PayloadFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  PayloadFormat
-> = openEnums.outboundSchema(PayloadFormat);
-
-/** @internal */
-export type PqControlsGoogleCloudLogging$Outbound = {};
-
-/** @internal */
-export const PqControlsGoogleCloudLogging$outboundSchema: z.ZodType<
-  PqControlsGoogleCloudLogging$Outbound,
-  z.ZodTypeDef,
-  PqControlsGoogleCloudLogging
-> = z.object({});
-
-export function pqControlsGoogleCloudLoggingToJSON(
-  pqControlsGoogleCloudLogging: PqControlsGoogleCloudLogging,
-): string {
-  return JSON.stringify(
-    PqControlsGoogleCloudLogging$outboundSchema.parse(
-      pqControlsGoogleCloudLogging,
+    CreateOutputOutputGooglePubsub$outboundSchema.parse(
+      createOutputOutputGooglePubsub,
     ),
   );
 }
 
 /** @internal */
-export type OutputGoogleCloudLogging$Outbound = {
+export const CreateOutputLogLocationType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputLogLocationType
+> = openEnums.outboundSchema(CreateOutputLogLocationType);
+
+/** @internal */
+export const CreateOutputPayloadFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputPayloadFormat
+> = openEnums.outboundSchema(CreateOutputPayloadFormat);
+
+/** @internal */
+export type CreateOutputPqControlsGoogleCloudLogging$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsGoogleCloudLogging$outboundSchema: z.ZodType<
+  CreateOutputPqControlsGoogleCloudLogging$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsGoogleCloudLogging
+> = z.object({});
+
+export function createOutputPqControlsGoogleCloudLoggingToJSON(
+  createOutputPqControlsGoogleCloudLogging:
+    CreateOutputPqControlsGoogleCloudLogging,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsGoogleCloudLogging$outboundSchema.parse(
+      createOutputPqControlsGoogleCloudLogging,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputGoogleCloudLogging$Outbound = {
   id: string;
   type: "google_cloud_logging";
   pipeline?: string | undefined;
@@ -19790,14 +20173,14 @@ export type OutputGoogleCloudLogging$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsGoogleCloudLogging$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsGoogleCloudLogging$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
-  OutputGoogleCloudLogging$Outbound,
+export const CreateOutputOutputGoogleCloudLogging$outboundSchema: z.ZodType<
+  CreateOutputOutputGoogleCloudLogging$Outbound,
   z.ZodTypeDef,
-  OutputGoogleCloudLogging
+  CreateOutputOutputGoogleCloudLogging
 > = z.object({
   id: z.string(),
   type: z.literal("google_cloud_logging"),
@@ -19805,10 +20188,10 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  logLocationType: LogLocationType$outboundSchema,
+  logLocationType: CreateOutputLogLocationType$outboundSchema,
   logNameExpression: z.string(),
   sanitizeLogNames: z.boolean().optional(),
-  payloadFormat: PayloadFormat$outboundSchema.optional(),
+  payloadFormat: CreateOutputPayloadFormat$outboundSchema.optional(),
   logLabels: z.array(models.ItemsTypeLogLabels$outboundSchema).optional(),
   resourceTypeExpression: z.string().optional(),
   resourceTypeLabels: z.array(models.ItemsTypeLogLabels$outboundSchema)
@@ -19869,27 +20252,33 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsGoogleCloudLogging$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputPqControlsGoogleCloudLogging$outboundSchema
+  ).optional(),
 });
 
-export function outputGoogleCloudLoggingToJSON(
-  outputGoogleCloudLogging: OutputGoogleCloudLogging,
+export function createOutputOutputGoogleCloudLoggingToJSON(
+  createOutputOutputGoogleCloudLogging: CreateOutputOutputGoogleCloudLogging,
 ): string {
   return JSON.stringify(
-    OutputGoogleCloudLogging$outboundSchema.parse(outputGoogleCloudLogging),
+    CreateOutputOutputGoogleCloudLogging$outboundSchema.parse(
+      createOutputOutputGoogleCloudLogging,
+    ),
   );
 }
 
 /** @internal */
-export const AuthenticationMethodGoogleCloudStorage$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthenticationMethodGoogleCloudStorage
-> = openEnums.outboundSchema(AuthenticationMethodGoogleCloudStorage);
+export const CreateOutputAuthenticationMethodGoogleCloudStorage$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputAuthenticationMethodGoogleCloudStorage
+  > = openEnums.outboundSchema(
+    CreateOutputAuthenticationMethodGoogleCloudStorage,
+  );
 
 /** @internal */
-export type OutputGoogleCloudStorage$Outbound = {
+export type CreateOutputOutputGoogleCloudStorage$Outbound = {
   id: string;
   type: "google_cloud_storage";
   pipeline?: string | undefined;
@@ -19954,10 +20343,10 @@ export type OutputGoogleCloudStorage$Outbound = {
 };
 
 /** @internal */
-export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
-  OutputGoogleCloudStorage$Outbound,
+export const CreateOutputOutputGoogleCloudStorage$outboundSchema: z.ZodType<
+  CreateOutputOutputGoogleCloudStorage$Outbound,
   z.ZodTypeDef,
-  OutputGoogleCloudStorage
+  CreateOutputOutputGoogleCloudStorage
 > = z.object({
   id: z.string(),
   type: z.literal("google_cloud_storage"),
@@ -19969,8 +20358,9 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   region: z.string(),
   endpoint: z.string(),
   signatureVersion: models.SignatureVersionOptions4$outboundSchema.optional(),
-  awsAuthenticationMethod: AuthenticationMethodGoogleCloudStorage$outboundSchema
-    .optional(),
+  awsAuthenticationMethod:
+    CreateOutputAuthenticationMethodGoogleCloudStorage$outboundSchema
+      .optional(),
   stagePath: z.string(),
   destPath: z.string().optional(),
   verifyPermissions: z.boolean().optional(),
@@ -20024,11 +20414,13 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   __template_format: z.string().optional(),
 });
 
-export function outputGoogleCloudStorageToJSON(
-  outputGoogleCloudStorage: OutputGoogleCloudStorage,
+export function createOutputOutputGoogleCloudStorageToJSON(
+  createOutputOutputGoogleCloudStorage: CreateOutputOutputGoogleCloudStorage,
 ): string {
   return JSON.stringify(
-    OutputGoogleCloudStorage$outboundSchema.parse(outputGoogleCloudStorage),
+    CreateOutputOutputGoogleCloudStorage$outboundSchema.parse(
+      createOutputOutputGoogleCloudStorage,
+    ),
   );
 }
 
@@ -20040,63 +20432,73 @@ export const CreateOutputAPIVersion$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateOutputAPIVersion);
 
 /** @internal */
-export const AuthenticationMethodGoogleChronicle$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthenticationMethodGoogleChronicle
-> = openEnums.outboundSchema(AuthenticationMethodGoogleChronicle);
+export const CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputAuthenticationMethodGoogleChronicle
+  > = openEnums.outboundSchema(CreateOutputAuthenticationMethodGoogleChronicle);
 
 /** @internal */
-export const SendEventsAs$outboundSchema: z.ZodType<
+export const CreateOutputSendEventsAs$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  SendEventsAs
-> = openEnums.outboundSchema(SendEventsAs);
+  CreateOutputSendEventsAs
+> = openEnums.outboundSchema(CreateOutputSendEventsAs);
 
 /** @internal */
-export type ExtraLogType$Outbound = {
+export type CreateOutputExtraLogType$Outbound = {
   logType: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const ExtraLogType$outboundSchema: z.ZodType<
-  ExtraLogType$Outbound,
+export const CreateOutputExtraLogType$outboundSchema: z.ZodType<
+  CreateOutputExtraLogType$Outbound,
   z.ZodTypeDef,
-  ExtraLogType
+  CreateOutputExtraLogType
 > = z.object({
   logType: z.string(),
   description: z.string().optional(),
 });
 
-export function extraLogTypeToJSON(extraLogType: ExtraLogType): string {
-  return JSON.stringify(ExtraLogType$outboundSchema.parse(extraLogType));
-}
-
-/** @internal */
-export const UDMType$outboundSchema: z.ZodType<string, z.ZodTypeDef, UDMType> =
-  openEnums.outboundSchema(UDMType);
-
-/** @internal */
-export type PqControlsGoogleChronicle$Outbound = {};
-
-/** @internal */
-export const PqControlsGoogleChronicle$outboundSchema: z.ZodType<
-  PqControlsGoogleChronicle$Outbound,
-  z.ZodTypeDef,
-  PqControlsGoogleChronicle
-> = z.object({});
-
-export function pqControlsGoogleChronicleToJSON(
-  pqControlsGoogleChronicle: PqControlsGoogleChronicle,
+export function createOutputExtraLogTypeToJSON(
+  createOutputExtraLogType: CreateOutputExtraLogType,
 ): string {
   return JSON.stringify(
-    PqControlsGoogleChronicle$outboundSchema.parse(pqControlsGoogleChronicle),
+    CreateOutputExtraLogType$outboundSchema.parse(createOutputExtraLogType),
   );
 }
 
 /** @internal */
-export type OutputGoogleChronicle$Outbound = {
+export const CreateOutputUDMType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputUDMType
+> = openEnums.outboundSchema(CreateOutputUDMType);
+
+/** @internal */
+export type CreateOutputPqControlsGoogleChronicle$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsGoogleChronicle$outboundSchema: z.ZodType<
+  CreateOutputPqControlsGoogleChronicle$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsGoogleChronicle
+> = z.object({});
+
+export function createOutputPqControlsGoogleChronicleToJSON(
+  createOutputPqControlsGoogleChronicle: CreateOutputPqControlsGoogleChronicle,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsGoogleChronicle$outboundSchema.parse(
+      createOutputPqControlsGoogleChronicle,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputGoogleChronicle$Outbound = {
   id: string;
   type: "google_chronicle";
   pipeline?: string | undefined;
@@ -20128,7 +20530,7 @@ export type OutputGoogleChronicle$Outbound = {
   onBackpressure?: string | undefined;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  extraLogTypes?: Array<ExtraLogType$Outbound> | undefined;
+  extraLogTypes?: Array<CreateOutputExtraLogType$Outbound> | undefined;
   logType?: string | undefined;
   logTextField?: string | undefined;
   customerId?: string | undefined;
@@ -20149,17 +20551,17 @@ export type OutputGoogleChronicle$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsGoogleChronicle$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsGoogleChronicle$Outbound | undefined;
   __template_apiVersion?: string | undefined;
   __template_region?: string | undefined;
   __template_customerId?: string | undefined;
 };
 
 /** @internal */
-export const OutputGoogleChronicle$outboundSchema: z.ZodType<
-  OutputGoogleChronicle$Outbound,
+export const CreateOutputOutputGoogleChronicle$outboundSchema: z.ZodType<
+  CreateOutputOutputGoogleChronicle$Outbound,
   z.ZodTypeDef,
-  OutputGoogleChronicle
+  CreateOutputOutputGoogleChronicle
 > = z.object({
   id: z.string(),
   type: z.literal("google_chronicle"),
@@ -20168,15 +20570,15 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   apiVersion: CreateOutputAPIVersion$outboundSchema.optional(),
-  authenticationMethod: AuthenticationMethodGoogleChronicle$outboundSchema
-    .optional(),
+  authenticationMethod:
+    CreateOutputAuthenticationMethodGoogleChronicle$outboundSchema.optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
   timeoutRetrySettings: models.TimeoutRetrySettingsType$outboundSchema
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
-  logFormatType: SendEventsAs$outboundSchema,
+  logFormatType: CreateOutputSendEventsAs$outboundSchema,
   region: z.string().optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
@@ -20194,14 +20596,15 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  extraLogTypes: z.array(z.lazy(() => ExtraLogType$outboundSchema)).optional(),
+  extraLogTypes: z.array(z.lazy(() => CreateOutputExtraLogType$outboundSchema))
+    .optional(),
   logType: z.string().optional(),
   logTextField: z.string().optional(),
   customerId: z.string().optional(),
   namespace: z.string().optional(),
   customLabels: z.array(models.ItemsTypeKeyValueMetadata$outboundSchema)
     .optional(),
-  udmType: UDMType$outboundSchema.optional(),
+  udmType: CreateOutputUDMType$outboundSchema.optional(),
   apiKey: z.string().optional(),
   apiKeySecret: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
@@ -20216,40 +20619,45 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsGoogleChronicle$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsGoogleChronicle$outboundSchema)
+    .optional(),
   __template_apiVersion: z.string().optional(),
   __template_region: z.string().optional(),
   __template_customerId: z.string().optional(),
 });
 
-export function outputGoogleChronicleToJSON(
-  outputGoogleChronicle: OutputGoogleChronicle,
+export function createOutputOutputGoogleChronicleToJSON(
+  createOutputOutputGoogleChronicle: CreateOutputOutputGoogleChronicle,
 ): string {
   return JSON.stringify(
-    OutputGoogleChronicle$outboundSchema.parse(outputGoogleChronicle),
+    CreateOutputOutputGoogleChronicle$outboundSchema.parse(
+      createOutputOutputGoogleChronicle,
+    ),
   );
 }
 
 /** @internal */
-export type PqControlsAzureEventhub$Outbound = {};
+export type CreateOutputPqControlsAzureEventhub$Outbound = {};
 
 /** @internal */
-export const PqControlsAzureEventhub$outboundSchema: z.ZodType<
-  PqControlsAzureEventhub$Outbound,
+export const CreateOutputPqControlsAzureEventhub$outboundSchema: z.ZodType<
+  CreateOutputPqControlsAzureEventhub$Outbound,
   z.ZodTypeDef,
-  PqControlsAzureEventhub
+  CreateOutputPqControlsAzureEventhub
 > = z.object({});
 
-export function pqControlsAzureEventhubToJSON(
-  pqControlsAzureEventhub: PqControlsAzureEventhub,
+export function createOutputPqControlsAzureEventhubToJSON(
+  createOutputPqControlsAzureEventhub: CreateOutputPqControlsAzureEventhub,
 ): string {
   return JSON.stringify(
-    PqControlsAzureEventhub$outboundSchema.parse(pqControlsAzureEventhub),
+    CreateOutputPqControlsAzureEventhub$outboundSchema.parse(
+      createOutputPqControlsAzureEventhub,
+    ),
   );
 }
 
 /** @internal */
-export type OutputAzureEventhub$Outbound = {
+export type CreateOutputOutputAzureEventhub$Outbound = {
   id: string;
   type: "azure_eventhub";
   pipeline?: string | undefined;
@@ -20285,15 +20693,15 @@ export type OutputAzureEventhub$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsAzureEventhub$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsAzureEventhub$Outbound | undefined;
   __template_topic?: string | undefined;
 };
 
 /** @internal */
-export const OutputAzureEventhub$outboundSchema: z.ZodType<
-  OutputAzureEventhub$Outbound,
+export const CreateOutputOutputAzureEventhub$outboundSchema: z.ZodType<
+  CreateOutputOutputAzureEventhub$Outbound,
   z.ZodTypeDef,
-  OutputAzureEventhub
+  CreateOutputOutputAzureEventhub
 > = z.object({
   id: z.string(),
   type: z.literal("azure_eventhub"),
@@ -20330,38 +20738,43 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsAzureEventhub$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsAzureEventhub$outboundSchema)
+    .optional(),
   __template_topic: z.string().optional(),
 });
 
-export function outputAzureEventhubToJSON(
-  outputAzureEventhub: OutputAzureEventhub,
+export function createOutputOutputAzureEventhubToJSON(
+  createOutputOutputAzureEventhub: CreateOutputOutputAzureEventhub,
 ): string {
   return JSON.stringify(
-    OutputAzureEventhub$outboundSchema.parse(outputAzureEventhub),
+    CreateOutputOutputAzureEventhub$outboundSchema.parse(
+      createOutputOutputAzureEventhub,
+    ),
   );
 }
 
 /** @internal */
-export type PqControlsHoneycomb$Outbound = {};
+export type CreateOutputPqControlsHoneycomb$Outbound = {};
 
 /** @internal */
-export const PqControlsHoneycomb$outboundSchema: z.ZodType<
-  PqControlsHoneycomb$Outbound,
+export const CreateOutputPqControlsHoneycomb$outboundSchema: z.ZodType<
+  CreateOutputPqControlsHoneycomb$Outbound,
   z.ZodTypeDef,
-  PqControlsHoneycomb
+  CreateOutputPqControlsHoneycomb
 > = z.object({});
 
-export function pqControlsHoneycombToJSON(
-  pqControlsHoneycomb: PqControlsHoneycomb,
+export function createOutputPqControlsHoneycombToJSON(
+  createOutputPqControlsHoneycomb: CreateOutputPqControlsHoneycomb,
 ): string {
   return JSON.stringify(
-    PqControlsHoneycomb$outboundSchema.parse(pqControlsHoneycomb),
+    CreateOutputPqControlsHoneycomb$outboundSchema.parse(
+      createOutputPqControlsHoneycomb,
+    ),
   );
 }
 
 /** @internal */
-export type OutputHoneycomb$Outbound = {
+export type CreateOutputOutputHoneycomb$Outbound = {
   id: string;
   type: "honeycomb";
   pipeline?: string | undefined;
@@ -20400,16 +20813,16 @@ export type OutputHoneycomb$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsHoneycomb$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsHoneycomb$Outbound | undefined;
   team?: string | undefined;
   textSecret?: string | undefined;
 };
 
 /** @internal */
-export const OutputHoneycomb$outboundSchema: z.ZodType<
-  OutputHoneycomb$Outbound,
+export const CreateOutputOutputHoneycomb$outboundSchema: z.ZodType<
+  CreateOutputOutputHoneycomb$Outbound,
   z.ZodTypeDef,
-  OutputHoneycomb
+  CreateOutputOutputHoneycomb
 > = z.object({
   id: z.string(),
   type: z.literal("honeycomb"),
@@ -20450,15 +20863,20 @@ export const OutputHoneycomb$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsHoneycomb$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsHoneycomb$outboundSchema)
+    .optional(),
   team: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
-export function outputHoneycombToJSON(
-  outputHoneycomb: OutputHoneycomb,
+export function createOutputOutputHoneycombToJSON(
+  createOutputOutputHoneycomb: CreateOutputOutputHoneycomb,
 ): string {
-  return JSON.stringify(OutputHoneycomb$outboundSchema.parse(outputHoneycomb));
+  return JSON.stringify(
+    CreateOutputOutputHoneycomb$outboundSchema.parse(
+      createOutputOutputHoneycomb,
+    ),
+  );
 }
 
 /** @internal */
@@ -20469,25 +20887,27 @@ export const CreateOutputCompression$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateOutputCompression);
 
 /** @internal */
-export type PqControlsKinesis$Outbound = {};
+export type CreateOutputPqControlsKinesis$Outbound = {};
 
 /** @internal */
-export const PqControlsKinesis$outboundSchema: z.ZodType<
-  PqControlsKinesis$Outbound,
+export const CreateOutputPqControlsKinesis$outboundSchema: z.ZodType<
+  CreateOutputPqControlsKinesis$Outbound,
   z.ZodTypeDef,
-  PqControlsKinesis
+  CreateOutputPqControlsKinesis
 > = z.object({});
 
-export function pqControlsKinesisToJSON(
-  pqControlsKinesis: PqControlsKinesis,
+export function createOutputPqControlsKinesisToJSON(
+  createOutputPqControlsKinesis: CreateOutputPqControlsKinesis,
 ): string {
   return JSON.stringify(
-    PqControlsKinesis$outboundSchema.parse(pqControlsKinesis),
+    CreateOutputPqControlsKinesis$outboundSchema.parse(
+      createOutputPqControlsKinesis,
+    ),
   );
 }
 
 /** @internal */
-export type OutputKinesis$Outbound = {
+export type CreateOutputOutputKinesis$Outbound = {
   id: string;
   type: "kinesis";
   pipeline?: string | undefined;
@@ -20527,7 +20947,7 @@ export type OutputKinesis$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsKinesis$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsKinesis$Outbound | undefined;
   __template_streamName?: string | undefined;
   __template_awsSecretKey?: string | undefined;
   __template_region?: string | undefined;
@@ -20537,10 +20957,10 @@ export type OutputKinesis$Outbound = {
 };
 
 /** @internal */
-export const OutputKinesis$outboundSchema: z.ZodType<
-  OutputKinesis$Outbound,
+export const CreateOutputOutputKinesis$outboundSchema: z.ZodType<
+  CreateOutputOutputKinesis$Outbound,
   z.ZodTypeDef,
-  OutputKinesis
+  CreateOutputOutputKinesis
 > = z.object({
   id: z.string(),
   type: z.literal("kinesis"),
@@ -20581,7 +21001,8 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsKinesis$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsKinesis$outboundSchema)
+    .optional(),
   __template_streamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),
@@ -20590,37 +21011,41 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function outputKinesisToJSON(outputKinesis: OutputKinesis): string {
-  return JSON.stringify(OutputKinesis$outboundSchema.parse(outputKinesis));
-}
-
-/** @internal */
-export const AuthenticationMethodAzureLogs$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthenticationMethodAzureLogs
-> = openEnums.outboundSchema(AuthenticationMethodAzureLogs);
-
-/** @internal */
-export type PqControlsAzureLogs$Outbound = {};
-
-/** @internal */
-export const PqControlsAzureLogs$outboundSchema: z.ZodType<
-  PqControlsAzureLogs$Outbound,
-  z.ZodTypeDef,
-  PqControlsAzureLogs
-> = z.object({});
-
-export function pqControlsAzureLogsToJSON(
-  pqControlsAzureLogs: PqControlsAzureLogs,
+export function createOutputOutputKinesisToJSON(
+  createOutputOutputKinesis: CreateOutputOutputKinesis,
 ): string {
   return JSON.stringify(
-    PqControlsAzureLogs$outboundSchema.parse(pqControlsAzureLogs),
+    CreateOutputOutputKinesis$outboundSchema.parse(createOutputOutputKinesis),
   );
 }
 
 /** @internal */
-export type OutputAzureLogs$Outbound = {
+export const CreateOutputAuthenticationMethodAzureLogs$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateOutputAuthenticationMethodAzureLogs> =
+    openEnums.outboundSchema(CreateOutputAuthenticationMethodAzureLogs);
+
+/** @internal */
+export type CreateOutputPqControlsAzureLogs$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsAzureLogs$outboundSchema: z.ZodType<
+  CreateOutputPqControlsAzureLogs$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsAzureLogs
+> = z.object({});
+
+export function createOutputPqControlsAzureLogsToJSON(
+  createOutputPqControlsAzureLogs: CreateOutputPqControlsAzureLogs,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsAzureLogs$outboundSchema.parse(
+      createOutputPqControlsAzureLogs,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputAzureLogs$Outbound = {
   id: string;
   type: "azure_logs";
   pipeline?: string | undefined;
@@ -20661,7 +21086,7 @@ export type OutputAzureLogs$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsAzureLogs$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsAzureLogs$Outbound | undefined;
   workspaceId?: string | undefined;
   workspaceKey?: string | undefined;
   keypairSecret?: string | undefined;
@@ -20670,10 +21095,10 @@ export type OutputAzureLogs$Outbound = {
 };
 
 /** @internal */
-export const OutputAzureLogs$outboundSchema: z.ZodType<
-  OutputAzureLogs$Outbound,
+export const CreateOutputOutputAzureLogs$outboundSchema: z.ZodType<
+  CreateOutputOutputAzureLogs$Outbound,
   z.ZodTypeDef,
-  OutputAzureLogs
+  CreateOutputOutputAzureLogs
 > = z.object({
   id: z.string(),
   type: z.literal("azure_logs"),
@@ -20704,7 +21129,7 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthenticationMethodAzureLogs$outboundSchema.optional(),
+  authType: CreateOutputAuthenticationMethodAzureLogs$outboundSchema.optional(),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
@@ -20716,7 +21141,8 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsAzureLogs$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsAzureLogs$outboundSchema)
+    .optional(),
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
   keypairSecret: z.string().optional(),
@@ -20724,153 +21150,168 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   __template_workspaceKey: z.string().optional(),
 });
 
-export function outputAzureLogsToJSON(
-  outputAzureLogs: OutputAzureLogs,
-): string {
-  return JSON.stringify(OutputAzureLogs$outboundSchema.parse(outputAzureLogs));
-}
-
-/** @internal */
-export const IngestionMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  IngestionMode
-> = openEnums.outboundSchema(IngestionMode);
-
-/** @internal */
-export const OauthTypeAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OauthTypeAuthenticationMethod
-> = openEnums.outboundSchema(OauthTypeAuthenticationMethod);
-
-/** @internal */
-export type Certificate$Outbound = {
-  certificateName?: string | undefined;
-};
-
-/** @internal */
-export const Certificate$outboundSchema: z.ZodType<
-  Certificate$Outbound,
-  z.ZodTypeDef,
-  Certificate
-> = z.object({
-  certificateName: z.string().optional(),
-});
-
-export function certificateToJSON(certificate: Certificate): string {
-  return JSON.stringify(Certificate$outboundSchema.parse(certificate));
-}
-
-/** @internal */
-export const PrefixOptional$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  PrefixOptional
-> = openEnums.outboundSchema(PrefixOptional);
-
-/** @internal */
-export type ExtentTag$Outbound = {
-  prefix?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const ExtentTag$outboundSchema: z.ZodType<
-  ExtentTag$Outbound,
-  z.ZodTypeDef,
-  ExtentTag
-> = z.object({
-  prefix: PrefixOptional$outboundSchema.optional(),
-  value: z.string(),
-});
-
-export function extentTagToJSON(extentTag: ExtentTag): string {
-  return JSON.stringify(ExtentTag$outboundSchema.parse(extentTag));
-}
-
-/** @internal */
-export type IngestIfNotExist$Outbound = {
-  value: string;
-};
-
-/** @internal */
-export const IngestIfNotExist$outboundSchema: z.ZodType<
-  IngestIfNotExist$Outbound,
-  z.ZodTypeDef,
-  IngestIfNotExist
-> = z.object({
-  value: z.string(),
-});
-
-export function ingestIfNotExistToJSON(
-  ingestIfNotExist: IngestIfNotExist,
+export function createOutputOutputAzureLogsToJSON(
+  createOutputOutputAzureLogs: CreateOutputOutputAzureLogs,
 ): string {
   return JSON.stringify(
-    IngestIfNotExist$outboundSchema.parse(ingestIfNotExist),
-  );
-}
-
-/** @internal */
-export const ReportLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ReportLevel
-> = openEnums.outboundSchema(ReportLevel);
-
-/** @internal */
-export const ReportMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ReportMethod
-> = openEnums.outboundSchema(ReportMethod);
-
-/** @internal */
-export type AdditionalProperty$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const AdditionalProperty$outboundSchema: z.ZodType<
-  AdditionalProperty$Outbound,
-  z.ZodTypeDef,
-  AdditionalProperty
-> = z.object({
-  key: z.string(),
-  value: z.string(),
-});
-
-export function additionalPropertyToJSON(
-  additionalProperty: AdditionalProperty,
-): string {
-  return JSON.stringify(
-    AdditionalProperty$outboundSchema.parse(additionalProperty),
-  );
-}
-
-/** @internal */
-export type PqControlsAzureDataExplorer$Outbound = {};
-
-/** @internal */
-export const PqControlsAzureDataExplorer$outboundSchema: z.ZodType<
-  PqControlsAzureDataExplorer$Outbound,
-  z.ZodTypeDef,
-  PqControlsAzureDataExplorer
-> = z.object({});
-
-export function pqControlsAzureDataExplorerToJSON(
-  pqControlsAzureDataExplorer: PqControlsAzureDataExplorer,
-): string {
-  return JSON.stringify(
-    PqControlsAzureDataExplorer$outboundSchema.parse(
-      pqControlsAzureDataExplorer,
+    CreateOutputOutputAzureLogs$outboundSchema.parse(
+      createOutputOutputAzureLogs,
     ),
   );
 }
 
 /** @internal */
-export type OutputAzureDataExplorer$Outbound = {
+export const CreateOutputIngestionMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputIngestionMode
+> = openEnums.outboundSchema(CreateOutputIngestionMode);
+
+/** @internal */
+export const CreateOutputOauthTypeAuthenticationMethod$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateOutputOauthTypeAuthenticationMethod> =
+    openEnums.outboundSchema(CreateOutputOauthTypeAuthenticationMethod);
+
+/** @internal */
+export type CreateOutputCertificate$Outbound = {
+  certificateName?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputCertificate$outboundSchema: z.ZodType<
+  CreateOutputCertificate$Outbound,
+  z.ZodTypeDef,
+  CreateOutputCertificate
+> = z.object({
+  certificateName: z.string().optional(),
+});
+
+export function createOutputCertificateToJSON(
+  createOutputCertificate: CreateOutputCertificate,
+): string {
+  return JSON.stringify(
+    CreateOutputCertificate$outboundSchema.parse(createOutputCertificate),
+  );
+}
+
+/** @internal */
+export const CreateOutputPrefixOptional$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputPrefixOptional
+> = openEnums.outboundSchema(CreateOutputPrefixOptional);
+
+/** @internal */
+export type CreateOutputExtentTag$Outbound = {
+  prefix?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const CreateOutputExtentTag$outboundSchema: z.ZodType<
+  CreateOutputExtentTag$Outbound,
+  z.ZodTypeDef,
+  CreateOutputExtentTag
+> = z.object({
+  prefix: CreateOutputPrefixOptional$outboundSchema.optional(),
+  value: z.string(),
+});
+
+export function createOutputExtentTagToJSON(
+  createOutputExtentTag: CreateOutputExtentTag,
+): string {
+  return JSON.stringify(
+    CreateOutputExtentTag$outboundSchema.parse(createOutputExtentTag),
+  );
+}
+
+/** @internal */
+export type CreateOutputIngestIfNotExist$Outbound = {
+  value: string;
+};
+
+/** @internal */
+export const CreateOutputIngestIfNotExist$outboundSchema: z.ZodType<
+  CreateOutputIngestIfNotExist$Outbound,
+  z.ZodTypeDef,
+  CreateOutputIngestIfNotExist
+> = z.object({
+  value: z.string(),
+});
+
+export function createOutputIngestIfNotExistToJSON(
+  createOutputIngestIfNotExist: CreateOutputIngestIfNotExist,
+): string {
+  return JSON.stringify(
+    CreateOutputIngestIfNotExist$outboundSchema.parse(
+      createOutputIngestIfNotExist,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateOutputReportLevel$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputReportLevel
+> = openEnums.outboundSchema(CreateOutputReportLevel);
+
+/** @internal */
+export const CreateOutputReportMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputReportMethod
+> = openEnums.outboundSchema(CreateOutputReportMethod);
+
+/** @internal */
+export type CreateOutputAdditionalProperty$Outbound = {
+  key: string;
+  value: string;
+};
+
+/** @internal */
+export const CreateOutputAdditionalProperty$outboundSchema: z.ZodType<
+  CreateOutputAdditionalProperty$Outbound,
+  z.ZodTypeDef,
+  CreateOutputAdditionalProperty
+> = z.object({
+  key: z.string(),
+  value: z.string(),
+});
+
+export function createOutputAdditionalPropertyToJSON(
+  createOutputAdditionalProperty: CreateOutputAdditionalProperty,
+): string {
+  return JSON.stringify(
+    CreateOutputAdditionalProperty$outboundSchema.parse(
+      createOutputAdditionalProperty,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputPqControlsAzureDataExplorer$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsAzureDataExplorer$outboundSchema: z.ZodType<
+  CreateOutputPqControlsAzureDataExplorer$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsAzureDataExplorer
+> = z.object({});
+
+export function createOutputPqControlsAzureDataExplorerToJSON(
+  createOutputPqControlsAzureDataExplorer:
+    CreateOutputPqControlsAzureDataExplorer,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsAzureDataExplorer$outboundSchema.parse(
+      createOutputPqControlsAzureDataExplorer,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputAzureDataExplorer$Outbound = {
   id: string;
   type: "azure_data_explorer";
   pipeline?: string | undefined;
@@ -20890,7 +21331,7 @@ export type OutputAzureDataExplorer$Outbound = {
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
-  certificate?: Certificate$Outbound | undefined;
+  certificate?: CreateOutputCertificate$Outbound | undefined;
   format?: string | undefined;
   compress: string;
   compressionLevel?: string | undefined;
@@ -20931,11 +21372,13 @@ export type OutputAzureDataExplorer$Outbound = {
   timeoutSec?: number | undefined;
   flushImmediately?: boolean | undefined;
   retainBlobOnSuccess?: boolean | undefined;
-  extentTags?: Array<ExtentTag$Outbound> | undefined;
-  ingestIfNotExists?: Array<IngestIfNotExist$Outbound> | undefined;
+  extentTags?: Array<CreateOutputExtentTag$Outbound> | undefined;
+  ingestIfNotExists?: Array<CreateOutputIngestIfNotExist$Outbound> | undefined;
   reportLevel?: string | undefined;
   reportMethod?: string | undefined;
-  additionalProperties?: Array<AdditionalProperty$Outbound> | undefined;
+  additionalProperties?:
+    | Array<CreateOutputAdditionalProperty$Outbound>
+    | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
@@ -20958,7 +21401,7 @@ export type OutputAzureDataExplorer$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsAzureDataExplorer$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsAzureDataExplorer$Outbound | undefined;
   __template_clusterUrl?: string | undefined;
   __template_database?: string | undefined;
   __template_table?: string | undefined;
@@ -20971,10 +21414,10 @@ export type OutputAzureDataExplorer$Outbound = {
 };
 
 /** @internal */
-export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
-  OutputAzureDataExplorer$Outbound,
+export const CreateOutputOutputAzureDataExplorer$outboundSchema: z.ZodType<
+  CreateOutputOutputAzureDataExplorer$Outbound,
   z.ZodTypeDef,
-  OutputAzureDataExplorer
+  CreateOutputOutputAzureDataExplorer
 > = z.object({
   id: z.string(),
   type: z.literal("azure_data_explorer"),
@@ -20986,17 +21429,17 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   database: z.string(),
   table: z.string(),
   validateDatabaseSettings: z.boolean().optional(),
-  ingestMode: IngestionMode$outboundSchema.optional(),
+  ingestMode: CreateOutputIngestionMode$outboundSchema.optional(),
   oauthEndpoint:
     models.MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema,
   tenantId: z.string(),
   clientId: z.string(),
   scope: z.string(),
-  oauthType: OauthTypeAuthenticationMethod$outboundSchema,
+  oauthType: CreateOutputOauthTypeAuthenticationMethod$outboundSchema,
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  certificate: z.lazy(() => Certificate$outboundSchema).optional(),
+  certificate: z.lazy(() => CreateOutputCertificate$outboundSchema).optional(),
   format: models.DataFormatOptions$outboundSchema.optional(),
   compress: models.CompressionOptions2$outboundSchema,
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
@@ -21038,13 +21481,16 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   timeoutSec: z.number().optional(),
   flushImmediately: z.boolean().optional(),
   retainBlobOnSuccess: z.boolean().optional(),
-  extentTags: z.array(z.lazy(() => ExtentTag$outboundSchema)).optional(),
-  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist$outboundSchema))
+  extentTags: z.array(z.lazy(() => CreateOutputExtentTag$outboundSchema))
     .optional(),
-  reportLevel: ReportLevel$outboundSchema.optional(),
-  reportMethod: ReportMethod$outboundSchema.optional(),
-  additionalProperties: z.array(z.lazy(() => AdditionalProperty$outboundSchema))
-    .optional(),
+  ingestIfNotExists: z.array(
+    z.lazy(() => CreateOutputIngestIfNotExist$outboundSchema),
+  ).optional(),
+  reportLevel: CreateOutputReportLevel$outboundSchema.optional(),
+  reportMethod: CreateOutputReportMethod$outboundSchema.optional(),
+  additionalProperties: z.array(
+    z.lazy(() => CreateOutputAdditionalProperty$outboundSchema),
+  ).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
@@ -21068,8 +21514,9 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsAzureDataExplorer$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputPqControlsAzureDataExplorer$outboundSchema
+  ).optional(),
   __template_clusterUrl: z.string().optional(),
   __template_database: z.string().optional(),
   __template_table: z.string().optional(),
@@ -21081,23 +21528,25 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   __template_ingestUrl: z.string().optional(),
 });
 
-export function outputAzureDataExplorerToJSON(
-  outputAzureDataExplorer: OutputAzureDataExplorer,
+export function createOutputOutputAzureDataExplorerToJSON(
+  createOutputOutputAzureDataExplorer: CreateOutputOutputAzureDataExplorer,
 ): string {
   return JSON.stringify(
-    OutputAzureDataExplorer$outboundSchema.parse(outputAzureDataExplorer),
+    CreateOutputOutputAzureDataExplorer$outboundSchema.parse(
+      createOutputOutputAzureDataExplorer,
+    ),
   );
 }
 
 /** @internal */
-export const BlobAccessTier$outboundSchema: z.ZodType<
+export const CreateOutputBlobAccessTier$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  BlobAccessTier
-> = openEnums.outboundSchema(BlobAccessTier);
+  CreateOutputBlobAccessTier
+> = openEnums.outboundSchema(CreateOutputBlobAccessTier);
 
 /** @internal */
-export type OutputAzureBlob$Outbound = {
+export type CreateOutputOutputAzureBlob$Outbound = {
   id: string;
   type: "azure_blob";
   pipeline?: string | undefined;
@@ -21167,10 +21616,10 @@ export type OutputAzureBlob$Outbound = {
 };
 
 /** @internal */
-export const OutputAzureBlob$outboundSchema: z.ZodType<
-  OutputAzureBlob$Outbound,
+export const CreateOutputOutputAzureBlob$outboundSchema: z.ZodType<
+  CreateOutputOutputAzureBlob$Outbound,
   z.ZodTypeDef,
-  OutputAzureBlob
+  CreateOutputOutputAzureBlob
 > = z.object({
   id: z.string(),
   type: z.literal("azure_blob"),
@@ -21202,7 +21651,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   authType: models.AuthenticationMethodOptions$outboundSchema.optional(),
-  storageClass: BlobAccessTier$outboundSchema.optional(),
+  storageClass: CreateOutputBlobAccessTier$outboundSchema.optional(),
   description: z.string().optional(),
   compress: models.CompressionOptions2$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
@@ -21240,14 +21689,18 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   __template_clientId: z.string().optional(),
 });
 
-export function outputAzureBlobToJSON(
-  outputAzureBlob: OutputAzureBlob,
+export function createOutputOutputAzureBlobToJSON(
+  createOutputOutputAzureBlob: CreateOutputOutputAzureBlob,
 ): string {
-  return JSON.stringify(OutputAzureBlob$outboundSchema.parse(outputAzureBlob));
+  return JSON.stringify(
+    CreateOutputOutputAzureBlob$outboundSchema.parse(
+      createOutputOutputAzureBlob,
+    ),
+  );
 }
 
 /** @internal */
-export type OutputS3$Outbound = {
+export type CreateOutputOutputS3$Outbound = {
   id: string;
   type: "s3";
   pipeline?: string | undefined;
@@ -21324,10 +21777,10 @@ export type OutputS3$Outbound = {
 };
 
 /** @internal */
-export const OutputS3$outboundSchema: z.ZodType<
-  OutputS3$Outbound,
+export const CreateOutputOutputS3$outboundSchema: z.ZodType<
+  CreateOutputOutputS3$Outbound,
   z.ZodTypeDef,
-  OutputS3
+  CreateOutputOutputS3
 > = z.object({
   id: z.string(),
   type: z.literal("s3"),
@@ -21407,12 +21860,16 @@ export const OutputS3$outboundSchema: z.ZodType<
   __template_awsApiKey: z.string().optional(),
 });
 
-export function outputS3ToJSON(outputS3: OutputS3): string {
-  return JSON.stringify(OutputS3$outboundSchema.parse(outputS3));
+export function createOutputOutputS3ToJSON(
+  createOutputOutputS3: CreateOutputOutputS3,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputS3$outboundSchema.parse(createOutputOutputS3),
+  );
 }
 
 /** @internal */
-export type OutputFilesystem$Outbound = {
+export type CreateOutputOutputFilesystem$Outbound = {
   id: string;
   type: "filesystem";
   pipeline?: string | undefined;
@@ -21462,10 +21919,10 @@ export type OutputFilesystem$Outbound = {
 };
 
 /** @internal */
-export const OutputFilesystem$outboundSchema: z.ZodType<
-  OutputFilesystem$Outbound,
+export const CreateOutputOutputFilesystem$outboundSchema: z.ZodType<
+  CreateOutputOutputFilesystem$Outbound,
   z.ZodTypeDef,
-  OutputFilesystem
+  CreateOutputOutputFilesystem
 > = z.object({
   id: z.string(),
   type: z.literal("filesystem"),
@@ -21516,34 +21973,38 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   __template_format: z.string().optional(),
 });
 
-export function outputFilesystemToJSON(
-  outputFilesystem: OutputFilesystem,
+export function createOutputOutputFilesystemToJSON(
+  createOutputOutputFilesystem: CreateOutputOutputFilesystem,
 ): string {
   return JSON.stringify(
-    OutputFilesystem$outboundSchema.parse(outputFilesystem),
+    CreateOutputOutputFilesystem$outboundSchema.parse(
+      createOutputOutputFilesystem,
+    ),
   );
 }
 
 /** @internal */
-export type PqControlsSignalfx$Outbound = {};
+export type CreateOutputPqControlsSignalfx$Outbound = {};
 
 /** @internal */
-export const PqControlsSignalfx$outboundSchema: z.ZodType<
-  PqControlsSignalfx$Outbound,
+export const CreateOutputPqControlsSignalfx$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSignalfx$Outbound,
   z.ZodTypeDef,
-  PqControlsSignalfx
+  CreateOutputPqControlsSignalfx
 > = z.object({});
 
-export function pqControlsSignalfxToJSON(
-  pqControlsSignalfx: PqControlsSignalfx,
+export function createOutputPqControlsSignalfxToJSON(
+  createOutputPqControlsSignalfx: CreateOutputPqControlsSignalfx,
 ): string {
   return JSON.stringify(
-    PqControlsSignalfx$outboundSchema.parse(pqControlsSignalfx),
+    CreateOutputPqControlsSignalfx$outboundSchema.parse(
+      createOutputPqControlsSignalfx,
+    ),
   );
 }
 
 /** @internal */
-export type OutputSignalfx$Outbound = {
+export type CreateOutputOutputSignalfx$Outbound = {
   id: string;
   type: "signalfx";
   pipeline?: string | undefined;
@@ -21584,14 +22045,14 @@ export type OutputSignalfx$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSignalfx$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSignalfx$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputSignalfx$outboundSchema: z.ZodType<
-  OutputSignalfx$Outbound,
+export const CreateOutputOutputSignalfx$outboundSchema: z.ZodType<
+  CreateOutputOutputSignalfx$Outbound,
   z.ZodTypeDef,
-  OutputSignalfx
+  CreateOutputOutputSignalfx
 > = z.object({
   id: z.string(),
   type: z.literal("signalfx"),
@@ -21635,33 +22096,40 @@ export const OutputSignalfx$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSignalfx$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSignalfx$outboundSchema)
+    .optional(),
 });
 
-export function outputSignalfxToJSON(outputSignalfx: OutputSignalfx): string {
-  return JSON.stringify(OutputSignalfx$outboundSchema.parse(outputSignalfx));
-}
-
-/** @internal */
-export type PqControlsWavefront$Outbound = {};
-
-/** @internal */
-export const PqControlsWavefront$outboundSchema: z.ZodType<
-  PqControlsWavefront$Outbound,
-  z.ZodTypeDef,
-  PqControlsWavefront
-> = z.object({});
-
-export function pqControlsWavefrontToJSON(
-  pqControlsWavefront: PqControlsWavefront,
+export function createOutputOutputSignalfxToJSON(
+  createOutputOutputSignalfx: CreateOutputOutputSignalfx,
 ): string {
   return JSON.stringify(
-    PqControlsWavefront$outboundSchema.parse(pqControlsWavefront),
+    CreateOutputOutputSignalfx$outboundSchema.parse(createOutputOutputSignalfx),
   );
 }
 
 /** @internal */
-export type OutputWavefront$Outbound = {
+export type CreateOutputPqControlsWavefront$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsWavefront$outboundSchema: z.ZodType<
+  CreateOutputPqControlsWavefront$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsWavefront
+> = z.object({});
+
+export function createOutputPqControlsWavefrontToJSON(
+  createOutputPqControlsWavefront: CreateOutputPqControlsWavefront,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsWavefront$outboundSchema.parse(
+      createOutputPqControlsWavefront,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputWavefront$Outbound = {
   id: string;
   type: "wavefront";
   pipeline?: string | undefined;
@@ -21702,14 +22170,14 @@ export type OutputWavefront$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsWavefront$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsWavefront$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputWavefront$outboundSchema: z.ZodType<
-  OutputWavefront$Outbound,
+export const CreateOutputOutputWavefront$outboundSchema: z.ZodType<
+  CreateOutputOutputWavefront$Outbound,
   z.ZodTypeDef,
-  OutputWavefront
+  CreateOutputOutputWavefront
 > = z.object({
   id: z.string(),
   type: z.literal("wavefront"),
@@ -21753,35 +22221,42 @@ export const OutputWavefront$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsWavefront$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsWavefront$outboundSchema)
+    .optional(),
 });
 
-export function outputWavefrontToJSON(
-  outputWavefront: OutputWavefront,
-): string {
-  return JSON.stringify(OutputWavefront$outboundSchema.parse(outputWavefront));
-}
-
-/** @internal */
-export type PqControlsTcpjson$Outbound = {};
-
-/** @internal */
-export const PqControlsTcpjson$outboundSchema: z.ZodType<
-  PqControlsTcpjson$Outbound,
-  z.ZodTypeDef,
-  PqControlsTcpjson
-> = z.object({});
-
-export function pqControlsTcpjsonToJSON(
-  pqControlsTcpjson: PqControlsTcpjson,
+export function createOutputOutputWavefrontToJSON(
+  createOutputOutputWavefront: CreateOutputOutputWavefront,
 ): string {
   return JSON.stringify(
-    PqControlsTcpjson$outboundSchema.parse(pqControlsTcpjson),
+    CreateOutputOutputWavefront$outboundSchema.parse(
+      createOutputOutputWavefront,
+    ),
   );
 }
 
 /** @internal */
-export type OutputTcpjson$Outbound = {
+export type CreateOutputPqControlsTcpjson$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsTcpjson$outboundSchema: z.ZodType<
+  CreateOutputPqControlsTcpjson$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsTcpjson
+> = z.object({});
+
+export function createOutputPqControlsTcpjsonToJSON(
+  createOutputPqControlsTcpjson: CreateOutputPqControlsTcpjson,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsTcpjson$outboundSchema.parse(
+      createOutputPqControlsTcpjson,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputTcpjson$Outbound = {
   id: string;
   type: "tcpjson";
   pipeline?: string | undefined;
@@ -21819,7 +22294,7 @@ export type OutputTcpjson$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsTcpjson$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsTcpjson$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
   __template_host?: string | undefined;
@@ -21827,10 +22302,10 @@ export type OutputTcpjson$Outbound = {
 };
 
 /** @internal */
-export const OutputTcpjson$outboundSchema: z.ZodType<
-  OutputTcpjson$Outbound,
+export const CreateOutputOutputTcpjson$outboundSchema: z.ZodType<
+  CreateOutputOutputTcpjson$Outbound,
   z.ZodTypeDef,
-  OutputTcpjson
+  CreateOutputOutputTcpjson
 > = z.object({
   id: z.string(),
   type: z.literal("tcpjson"),
@@ -21869,37 +22344,44 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsTcpjson$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsTcpjson$outboundSchema)
+    .optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
 
-export function outputTcpjsonToJSON(outputTcpjson: OutputTcpjson): string {
-  return JSON.stringify(OutputTcpjson$outboundSchema.parse(outputTcpjson));
-}
-
-/** @internal */
-export type PqControlsWizHec$Outbound = {};
-
-/** @internal */
-export const PqControlsWizHec$outboundSchema: z.ZodType<
-  PqControlsWizHec$Outbound,
-  z.ZodTypeDef,
-  PqControlsWizHec
-> = z.object({});
-
-export function pqControlsWizHecToJSON(
-  pqControlsWizHec: PqControlsWizHec,
+export function createOutputOutputTcpjsonToJSON(
+  createOutputOutputTcpjson: CreateOutputOutputTcpjson,
 ): string {
   return JSON.stringify(
-    PqControlsWizHec$outboundSchema.parse(pqControlsWizHec),
+    CreateOutputOutputTcpjson$outboundSchema.parse(createOutputOutputTcpjson),
   );
 }
 
 /** @internal */
-export type OutputWizHec$Outbound = {
+export type CreateOutputPqControlsWizHec$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsWizHec$outboundSchema: z.ZodType<
+  CreateOutputPqControlsWizHec$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsWizHec
+> = z.object({});
+
+export function createOutputPqControlsWizHecToJSON(
+  createOutputPqControlsWizHec: CreateOutputPqControlsWizHec,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsWizHec$outboundSchema.parse(
+      createOutputPqControlsWizHec,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputWizHec$Outbound = {
   id: string;
   type: "wiz_hec";
   pipeline?: string | undefined;
@@ -21945,7 +22427,7 @@ export type OutputWizHec$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsWizHec$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsWizHec$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
   __template_wiz_environment?: string | undefined;
@@ -21954,10 +22436,10 @@ export type OutputWizHec$Outbound = {
 };
 
 /** @internal */
-export const OutputWizHec$outboundSchema: z.ZodType<
-  OutputWizHec$Outbound,
+export const CreateOutputOutputWizHec$outboundSchema: z.ZodType<
+  CreateOutputOutputWizHec$Outbound,
   z.ZodTypeDef,
-  OutputWizHec
+  CreateOutputOutputWizHec
 > = z.object({
   id: z.string(),
   type: z.literal("wiz_hec"),
@@ -22006,7 +22488,8 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsWizHec$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsWizHec$outboundSchema)
+    .optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   __template_wiz_environment: z.string().optional(),
@@ -22014,52 +22497,62 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   __template_wiz_sourcetype: z.string().optional(),
 });
 
-export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {
-  return JSON.stringify(OutputWizHec$outboundSchema.parse(outputWizHec));
+export function createOutputOutputWizHecToJSON(
+  createOutputOutputWizHec: CreateOutputOutputWizHec,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputWizHec$outboundSchema.parse(createOutputOutputWizHec),
+  );
 }
 
 /** @internal */
-export type UrlSplunkHec$Outbound = {
+export type CreateOutputUrlSplunkHec$Outbound = {
   url: string;
   weight?: number | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const UrlSplunkHec$outboundSchema: z.ZodType<
-  UrlSplunkHec$Outbound,
+export const CreateOutputUrlSplunkHec$outboundSchema: z.ZodType<
+  CreateOutputUrlSplunkHec$Outbound,
   z.ZodTypeDef,
-  UrlSplunkHec
+  CreateOutputUrlSplunkHec
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
   __template_url: z.string().optional(),
 });
 
-export function urlSplunkHecToJSON(urlSplunkHec: UrlSplunkHec): string {
-  return JSON.stringify(UrlSplunkHec$outboundSchema.parse(urlSplunkHec));
-}
-
-/** @internal */
-export type PqControlsSplunkHec$Outbound = {};
-
-/** @internal */
-export const PqControlsSplunkHec$outboundSchema: z.ZodType<
-  PqControlsSplunkHec$Outbound,
-  z.ZodTypeDef,
-  PqControlsSplunkHec
-> = z.object({});
-
-export function pqControlsSplunkHecToJSON(
-  pqControlsSplunkHec: PqControlsSplunkHec,
+export function createOutputUrlSplunkHecToJSON(
+  createOutputUrlSplunkHec: CreateOutputUrlSplunkHec,
 ): string {
   return JSON.stringify(
-    PqControlsSplunkHec$outboundSchema.parse(pqControlsSplunkHec),
+    CreateOutputUrlSplunkHec$outboundSchema.parse(createOutputUrlSplunkHec),
   );
 }
 
 /** @internal */
-export type OutputSplunkHec$Outbound = {
+export type CreateOutputPqControlsSplunkHec$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsSplunkHec$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSplunkHec$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsSplunkHec
+> = z.object({});
+
+export function createOutputPqControlsSplunkHecToJSON(
+  createOutputPqControlsSplunkHec: CreateOutputPqControlsSplunkHec,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsSplunkHec$outboundSchema.parse(
+      createOutputPqControlsSplunkHec,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputSplunkHec$Outbound = {
   id: string;
   type: "splunk_hec";
   pipeline?: string | undefined;
@@ -22094,7 +22587,7 @@ export type OutputSplunkHec$Outbound = {
   url?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   excludeSelf?: boolean | undefined;
-  urls?: Array<UrlSplunkHec$Outbound> | undefined;
+  urls?: Array<CreateOutputUrlSplunkHec$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   token?: string | undefined;
@@ -22109,15 +22602,15 @@ export type OutputSplunkHec$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSplunkHec$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSplunkHec$Outbound | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const OutputSplunkHec$outboundSchema: z.ZodType<
-  OutputSplunkHec$Outbound,
+export const CreateOutputOutputSplunkHec$outboundSchema: z.ZodType<
+  CreateOutputOutputSplunkHec$Outbound,
   z.ZodTypeDef,
-  OutputSplunkHec
+  CreateOutputOutputSplunkHec
 > = z.object({
   id: z.string(),
   type: z.literal("splunk_hec"),
@@ -22155,7 +22648,8 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   url: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   excludeSelf: z.boolean().optional(),
-  urls: z.array(z.lazy(() => UrlSplunkHec$outboundSchema)).optional(),
+  urls: z.array(z.lazy(() => CreateOutputUrlSplunkHec$outboundSchema))
+    .optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
@@ -22170,14 +22664,19 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSplunkHec$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSplunkHec$outboundSchema)
+    .optional(),
   __template_url: z.string().optional(),
 });
 
-export function outputSplunkHecToJSON(
-  outputSplunkHec: OutputSplunkHec,
+export function createOutputOutputSplunkHecToJSON(
+  createOutputOutputSplunkHec: CreateOutputOutputSplunkHec,
 ): string {
-  return JSON.stringify(OutputSplunkHec$outboundSchema.parse(outputSplunkHec));
+  return JSON.stringify(
+    CreateOutputOutputSplunkHec$outboundSchema.parse(
+      createOutputOutputSplunkHec,
+    ),
+  );
 }
 
 /** @internal */
@@ -22208,7 +22707,7 @@ export function createOutputAuthTokenToJSON(
 }
 
 /** @internal */
-export type IndexerDiscoveryConfigs$Outbound = {
+export type CreateOutputIndexerDiscoveryConfigs$Outbound = {
   site: string;
   masterUri: string;
   refreshIntervalSec: number;
@@ -22220,10 +22719,10 @@ export type IndexerDiscoveryConfigs$Outbound = {
 };
 
 /** @internal */
-export const IndexerDiscoveryConfigs$outboundSchema: z.ZodType<
-  IndexerDiscoveryConfigs$Outbound,
+export const CreateOutputIndexerDiscoveryConfigs$outboundSchema: z.ZodType<
+  CreateOutputIndexerDiscoveryConfigs$Outbound,
   z.ZodTypeDef,
-  IndexerDiscoveryConfigs
+  CreateOutputIndexerDiscoveryConfigs
 > = z.object({
   site: z.string(),
   masterUri: z.string(),
@@ -22237,34 +22736,38 @@ export const IndexerDiscoveryConfigs$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 
-export function indexerDiscoveryConfigsToJSON(
-  indexerDiscoveryConfigs: IndexerDiscoveryConfigs,
+export function createOutputIndexerDiscoveryConfigsToJSON(
+  createOutputIndexerDiscoveryConfigs: CreateOutputIndexerDiscoveryConfigs,
 ): string {
   return JSON.stringify(
-    IndexerDiscoveryConfigs$outboundSchema.parse(indexerDiscoveryConfigs),
+    CreateOutputIndexerDiscoveryConfigs$outboundSchema.parse(
+      createOutputIndexerDiscoveryConfigs,
+    ),
   );
 }
 
 /** @internal */
-export type PqControlsSplunkLb$Outbound = {};
+export type CreateOutputPqControlsSplunkLb$Outbound = {};
 
 /** @internal */
-export const PqControlsSplunkLb$outboundSchema: z.ZodType<
-  PqControlsSplunkLb$Outbound,
+export const CreateOutputPqControlsSplunkLb$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSplunkLb$Outbound,
   z.ZodTypeDef,
-  PqControlsSplunkLb
+  CreateOutputPqControlsSplunkLb
 > = z.object({});
 
-export function pqControlsSplunkLbToJSON(
-  pqControlsSplunkLb: PqControlsSplunkLb,
+export function createOutputPqControlsSplunkLbToJSON(
+  createOutputPqControlsSplunkLb: CreateOutputPqControlsSplunkLb,
 ): string {
   return JSON.stringify(
-    PqControlsSplunkLb$outboundSchema.parse(pqControlsSplunkLb),
+    CreateOutputPqControlsSplunkLb$outboundSchema.parse(
+      createOutputPqControlsSplunkLb,
+    ),
   );
 }
 
 /** @internal */
-export type OutputSplunkLb$Outbound = {
+export type CreateOutputOutputSplunkLb$Outbound = {
   id: string;
   type: "splunk_lb";
   pipeline?: string | undefined;
@@ -22292,7 +22795,9 @@ export type OutputSplunkLb$Outbound = {
   description?: string | undefined;
   maxFailedHealthChecks?: number | undefined;
   compress?: string | undefined;
-  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs$Outbound | undefined;
+  indexerDiscoveryConfigs?:
+    | CreateOutputIndexerDiscoveryConfigs$Outbound
+    | undefined;
   excludeSelf?: boolean | undefined;
   hosts: Array<models.ItemsTypeHosts$Outbound>;
   pqStrictOrdering?: boolean | undefined;
@@ -22305,16 +22810,16 @@ export type OutputSplunkLb$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSplunkLb$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSplunkLb$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
 /** @internal */
-export const OutputSplunkLb$outboundSchema: z.ZodType<
-  OutputSplunkLb$Outbound,
+export const CreateOutputOutputSplunkLb$outboundSchema: z.ZodType<
+  CreateOutputOutputSplunkLb$Outbound,
   z.ZodTypeDef,
-  OutputSplunkLb
+  CreateOutputOutputSplunkLb
 > = z.object({
   id: z.string(),
   type: z.literal("splunk_lb"),
@@ -22344,8 +22849,9 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
   description: z.string().optional(),
   maxFailedHealthChecks: z.number().optional(),
   compress: models.CompressionOptions$outboundSchema.optional(),
-  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs$outboundSchema)
-    .optional(),
+  indexerDiscoveryConfigs: z.lazy(() =>
+    CreateOutputIndexerDiscoveryConfigs$outboundSchema
+  ).optional(),
   excludeSelf: z.boolean().optional(),
   hosts: z.array(models.ItemsTypeHosts$outboundSchema),
   pqStrictOrdering: z.boolean().optional(),
@@ -22358,35 +22864,42 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSplunkLb$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSplunkLb$outboundSchema)
+    .optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
-export function outputSplunkLbToJSON(outputSplunkLb: OutputSplunkLb): string {
-  return JSON.stringify(OutputSplunkLb$outboundSchema.parse(outputSplunkLb));
-}
-
-/** @internal */
-export type PqControlsSplunk$Outbound = {};
-
-/** @internal */
-export const PqControlsSplunk$outboundSchema: z.ZodType<
-  PqControlsSplunk$Outbound,
-  z.ZodTypeDef,
-  PqControlsSplunk
-> = z.object({});
-
-export function pqControlsSplunkToJSON(
-  pqControlsSplunk: PqControlsSplunk,
+export function createOutputOutputSplunkLbToJSON(
+  createOutputOutputSplunkLb: CreateOutputOutputSplunkLb,
 ): string {
   return JSON.stringify(
-    PqControlsSplunk$outboundSchema.parse(pqControlsSplunk),
+    CreateOutputOutputSplunkLb$outboundSchema.parse(createOutputOutputSplunkLb),
   );
 }
 
 /** @internal */
-export type OutputSplunk$Outbound = {
+export type CreateOutputPqControlsSplunk$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsSplunk$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSplunk$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsSplunk
+> = z.object({});
+
+export function createOutputPqControlsSplunkToJSON(
+  createOutputPqControlsSplunk: CreateOutputPqControlsSplunk,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsSplunk$outboundSchema.parse(
+      createOutputPqControlsSplunk,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputSplunk$Outbound = {
   id: string;
   type: "splunk";
   pipeline?: string | undefined;
@@ -22421,7 +22934,7 @@ export type OutputSplunk$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSplunk$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSplunk$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
   __template_host?: string | undefined;
@@ -22429,10 +22942,10 @@ export type OutputSplunk$Outbound = {
 };
 
 /** @internal */
-export const OutputSplunk$outboundSchema: z.ZodType<
-  OutputSplunk$Outbound,
+export const CreateOutputOutputSplunk$outboundSchema: z.ZodType<
+  CreateOutputOutputSplunk$Outbound,
   z.ZodTypeDef,
-  OutputSplunk
+  CreateOutputOutputSplunk
 > = z.object({
   id: z.string(),
   type: z.literal("splunk"),
@@ -22469,72 +22982,79 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSplunk$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSplunk$outboundSchema)
+    .optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
 
-export function outputSplunkToJSON(outputSplunk: OutputSplunk): string {
-  return JSON.stringify(OutputSplunk$outboundSchema.parse(outputSplunk));
-}
-
-/** @internal */
-export const ProtocolSyslog$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ProtocolSyslog
-> = openEnums.outboundSchema(ProtocolSyslog);
-
-/** @internal */
-export const Facility$outboundSchema: z.ZodType<
-  number,
-  z.ZodTypeDef,
-  Facility
-> = openEnums.outboundSchemaInt(Facility);
-
-/** @internal */
-export const SeveritySyslog$outboundSchema: z.ZodType<
-  number,
-  z.ZodTypeDef,
-  SeveritySyslog
-> = openEnums.outboundSchemaInt(SeveritySyslog);
-
-/** @internal */
-export const MessageFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  MessageFormat
-> = openEnums.outboundSchema(MessageFormat);
-
-/** @internal */
-export const TimestampFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  TimestampFormat
-> = openEnums.outboundSchema(TimestampFormat);
-
-/** @internal */
-export type PqControlsSyslog$Outbound = {};
-
-/** @internal */
-export const PqControlsSyslog$outboundSchema: z.ZodType<
-  PqControlsSyslog$Outbound,
-  z.ZodTypeDef,
-  PqControlsSyslog
-> = z.object({});
-
-export function pqControlsSyslogToJSON(
-  pqControlsSyslog: PqControlsSyslog,
+export function createOutputOutputSplunkToJSON(
+  createOutputOutputSplunk: CreateOutputOutputSplunk,
 ): string {
   return JSON.stringify(
-    PqControlsSyslog$outboundSchema.parse(pqControlsSyslog),
+    CreateOutputOutputSplunk$outboundSchema.parse(createOutputOutputSplunk),
   );
 }
 
 /** @internal */
-export type OutputSyslog$Outbound = {
+export const CreateOutputProtocolSyslog$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputProtocolSyslog
+> = openEnums.outboundSchema(CreateOutputProtocolSyslog);
+
+/** @internal */
+export const CreateOutputFacility$outboundSchema: z.ZodType<
+  number,
+  z.ZodTypeDef,
+  CreateOutputFacility
+> = openEnums.outboundSchemaInt(CreateOutputFacility);
+
+/** @internal */
+export const CreateOutputSeveritySyslog$outboundSchema: z.ZodType<
+  number,
+  z.ZodTypeDef,
+  CreateOutputSeveritySyslog
+> = openEnums.outboundSchemaInt(CreateOutputSeveritySyslog);
+
+/** @internal */
+export const CreateOutputMessageFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputMessageFormat
+> = openEnums.outboundSchema(CreateOutputMessageFormat);
+
+/** @internal */
+export const CreateOutputTimestampFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputTimestampFormat
+> = openEnums.outboundSchema(CreateOutputTimestampFormat);
+
+/** @internal */
+export type CreateOutputPqControlsSyslog$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsSyslog$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSyslog$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsSyslog
+> = z.object({});
+
+export function createOutputPqControlsSyslogToJSON(
+  createOutputPqControlsSyslog: CreateOutputPqControlsSyslog,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsSyslog$outboundSchema.parse(
+      createOutputPqControlsSyslog,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputSyslog$Outbound = {
   id: string;
   type: "syslog";
   pipeline?: string | undefined;
@@ -22578,16 +23098,16 @@ export type OutputSyslog$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSyslog$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSyslog$Outbound | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
 };
 
 /** @internal */
-export const OutputSyslog$outboundSchema: z.ZodType<
-  OutputSyslog$Outbound,
+export const CreateOutputOutputSyslog$outboundSchema: z.ZodType<
+  CreateOutputOutputSyslog$Outbound,
   z.ZodTypeDef,
-  OutputSyslog
+  CreateOutputOutputSyslog
 > = z.object({
   id: z.string(),
   type: z.literal("syslog"),
@@ -22595,12 +23115,12 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: ProtocolSyslog$outboundSchema.optional(),
-  facility: Facility$outboundSchema.optional(),
-  severity: SeveritySyslog$outboundSchema.optional(),
+  protocol: CreateOutputProtocolSyslog$outboundSchema.optional(),
+  facility: CreateOutputFacility$outboundSchema.optional(),
+  severity: CreateOutputSeveritySyslog$outboundSchema.optional(),
   appName: z.string().optional(),
-  messageFormat: MessageFormat$outboundSchema.optional(),
-  timestampFormat: TimestampFormat$outboundSchema.optional(),
+  messageFormat: CreateOutputMessageFormat$outboundSchema.optional(),
+  timestampFormat: CreateOutputTimestampFormat$outboundSchema.optional(),
   throttleRatePerSec: z.string().optional(),
   octetCountFraming: z.boolean().optional(),
   logFailedRequests: z.boolean().optional(),
@@ -22631,17 +23151,22 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSyslog$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSyslog$outboundSchema)
+    .optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
 });
 
-export function outputSyslogToJSON(outputSyslog: OutputSyslog): string {
-  return JSON.stringify(OutputSyslog$outboundSchema.parse(outputSyslog));
+export function createOutputOutputSyslogToJSON(
+  createOutputOutputSyslog: CreateOutputOutputSyslog,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputSyslog$outboundSchema.parse(createOutputOutputSyslog),
+  );
 }
 
 /** @internal */
-export type OutputDevnull$Outbound = {
+export type CreateOutputOutputDevnull$Outbound = {
   id: string;
   type: "devnull";
   pipeline?: string | undefined;
@@ -22651,10 +23176,10 @@ export type OutputDevnull$Outbound = {
 };
 
 /** @internal */
-export const OutputDevnull$outboundSchema: z.ZodType<
-  OutputDevnull$Outbound,
+export const CreateOutputOutputDevnull$outboundSchema: z.ZodType<
+  CreateOutputOutputDevnull$Outbound,
   z.ZodTypeDef,
-  OutputDevnull
+  CreateOutputOutputDevnull
 > = z.object({
   id: z.string(),
   type: z.literal("devnull"),
@@ -22664,51 +23189,57 @@ export const OutputDevnull$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
 });
 
-export function outputDevnullToJSON(outputDevnull: OutputDevnull): string {
-  return JSON.stringify(OutputDevnull$outboundSchema.parse(outputDevnull));
-}
-
-/** @internal */
-export const AuthType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthType
-> = openEnums.outboundSchema(AuthType);
-
-/** @internal */
-export const EndpointConfiguration$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  EndpointConfiguration
-> = openEnums.outboundSchema(EndpointConfiguration);
-
-/** @internal */
-export const FormatSentinel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  FormatSentinel
-> = openEnums.outboundSchema(FormatSentinel);
-
-/** @internal */
-export type PqControlsSentinel$Outbound = {};
-
-/** @internal */
-export const PqControlsSentinel$outboundSchema: z.ZodType<
-  PqControlsSentinel$Outbound,
-  z.ZodTypeDef,
-  PqControlsSentinel
-> = z.object({});
-
-export function pqControlsSentinelToJSON(
-  pqControlsSentinel: PqControlsSentinel,
+export function createOutputOutputDevnullToJSON(
+  createOutputOutputDevnull: CreateOutputOutputDevnull,
 ): string {
   return JSON.stringify(
-    PqControlsSentinel$outboundSchema.parse(pqControlsSentinel),
+    CreateOutputOutputDevnull$outboundSchema.parse(createOutputOutputDevnull),
   );
 }
 
 /** @internal */
-export type OutputSentinel$Outbound = {
+export const CreateOutputAuthType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputAuthType
+> = openEnums.outboundSchema(CreateOutputAuthType);
+
+/** @internal */
+export const CreateOutputEndpointConfiguration$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputEndpointConfiguration
+> = openEnums.outboundSchema(CreateOutputEndpointConfiguration);
+
+/** @internal */
+export const CreateOutputFormatSentinel$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputFormatSentinel
+> = openEnums.outboundSchema(CreateOutputFormatSentinel);
+
+/** @internal */
+export type CreateOutputPqControlsSentinel$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsSentinel$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSentinel$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsSentinel
+> = z.object({});
+
+export function createOutputPqControlsSentinelToJSON(
+  createOutputPqControlsSentinel: CreateOutputPqControlsSentinel,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsSentinel$outboundSchema.parse(
+      createOutputPqControlsSentinel,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputSentinel$Outbound = {
   id: string;
   type: "sentinel";
   pipeline?: string | undefined;
@@ -22762,7 +23293,7 @@ export type OutputSentinel$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSentinel$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSentinel$Outbound | undefined;
   url?: string | undefined;
   dcrID?: string | undefined;
   dceEndpoint?: string | undefined;
@@ -22778,10 +23309,10 @@ export type OutputSentinel$Outbound = {
 };
 
 /** @internal */
-export const OutputSentinel$outboundSchema: z.ZodType<
-  OutputSentinel$Outbound,
+export const CreateOutputOutputSentinel$outboundSchema: z.ZodType<
+  CreateOutputOutputSentinel$Outbound,
   z.ZodTypeDef,
-  OutputSentinel
+  CreateOutputOutputSentinel
 > = z.object({
   id: z.string(),
   type: z.literal("sentinel"),
@@ -22810,15 +23341,15 @@ export const OutputSentinel$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthType$outboundSchema.optional(),
+  authType: CreateOutputAuthType$outboundSchema.optional(),
   loginUrl: z.string(),
   secret: z.string(),
   client_id: z.string(),
   scope: z.string().optional(),
-  endpointURLConfiguration: EndpointConfiguration$outboundSchema,
+  endpointURLConfiguration: CreateOutputEndpointConfiguration$outboundSchema,
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  format: FormatSentinel$outboundSchema.optional(),
+  format: CreateOutputFormatSentinel$outboundSchema.optional(),
   customSourceExpression: z.string().optional(),
   customDropWhenNull: z.boolean().optional(),
   customEventDelimiter: z.string().optional(),
@@ -22837,7 +23368,8 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSentinel$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSentinel$outboundSchema)
+    .optional(),
   url: z.string().optional(),
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
@@ -22852,106 +23384,124 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   __template_streamName: z.string().optional(),
 });
 
-export function outputSentinelToJSON(outputSentinel: OutputSentinel): string {
-  return JSON.stringify(OutputSentinel$outboundSchema.parse(outputSentinel));
-}
-
-/** @internal */
-export const FormatWebhook$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  FormatWebhook
-> = openEnums.outboundSchema(FormatWebhook);
-
-/** @internal */
-export const AuthenticationTypeWebhook$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthenticationTypeWebhook
-> = openEnums.outboundSchema(AuthenticationTypeWebhook);
-
-/** @internal */
-export type PqControlsWebhook$Outbound = {};
-
-/** @internal */
-export const PqControlsWebhook$outboundSchema: z.ZodType<
-  PqControlsWebhook$Outbound,
-  z.ZodTypeDef,
-  PqControlsWebhook
-> = z.object({});
-
-export function pqControlsWebhookToJSON(
-  pqControlsWebhook: PqControlsWebhook,
+export function createOutputOutputSentinelToJSON(
+  createOutputOutputSentinel: CreateOutputOutputSentinel,
 ): string {
   return JSON.stringify(
-    PqControlsWebhook$outboundSchema.parse(pqControlsWebhook),
+    CreateOutputOutputSentinel$outboundSchema.parse(createOutputOutputSentinel),
   );
 }
 
 /** @internal */
-export type OauthParam$Outbound = {
+export const CreateOutputFormatWebhook$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputFormatWebhook
+> = openEnums.outboundSchema(CreateOutputFormatWebhook);
+
+/** @internal */
+export const CreateOutputAuthenticationTypeWebhook$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputAuthenticationTypeWebhook
+> = openEnums.outboundSchema(CreateOutputAuthenticationTypeWebhook);
+
+/** @internal */
+export type CreateOutputPqControlsWebhook$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsWebhook$outboundSchema: z.ZodType<
+  CreateOutputPqControlsWebhook$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsWebhook
+> = z.object({});
+
+export function createOutputPqControlsWebhookToJSON(
+  createOutputPqControlsWebhook: CreateOutputPqControlsWebhook,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsWebhook$outboundSchema.parse(
+      createOutputPqControlsWebhook,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOauthParam$Outbound = {
   name: string;
   value: string;
 };
 
 /** @internal */
-export const OauthParam$outboundSchema: z.ZodType<
-  OauthParam$Outbound,
+export const CreateOutputOauthParam$outboundSchema: z.ZodType<
+  CreateOutputOauthParam$Outbound,
   z.ZodTypeDef,
-  OauthParam
+  CreateOutputOauthParam
 > = z.object({
   name: z.string(),
   value: z.string(),
 });
 
-export function oauthParamToJSON(oauthParam: OauthParam): string {
-  return JSON.stringify(OauthParam$outboundSchema.parse(oauthParam));
+export function createOutputOauthParamToJSON(
+  createOutputOauthParam: CreateOutputOauthParam,
+): string {
+  return JSON.stringify(
+    CreateOutputOauthParam$outboundSchema.parse(createOutputOauthParam),
+  );
 }
 
 /** @internal */
-export type OauthHeader$Outbound = {
+export type CreateOutputOauthHeader$Outbound = {
   name: string;
   value: string;
 };
 
 /** @internal */
-export const OauthHeader$outboundSchema: z.ZodType<
-  OauthHeader$Outbound,
+export const CreateOutputOauthHeader$outboundSchema: z.ZodType<
+  CreateOutputOauthHeader$Outbound,
   z.ZodTypeDef,
-  OauthHeader
+  CreateOutputOauthHeader
 > = z.object({
   name: z.string(),
   value: z.string(),
 });
 
-export function oauthHeaderToJSON(oauthHeader: OauthHeader): string {
-  return JSON.stringify(OauthHeader$outboundSchema.parse(oauthHeader));
+export function createOutputOauthHeaderToJSON(
+  createOutputOauthHeader: CreateOutputOauthHeader,
+): string {
+  return JSON.stringify(
+    CreateOutputOauthHeader$outboundSchema.parse(createOutputOauthHeader),
+  );
 }
 
 /** @internal */
-export type UrlWebhook$Outbound = {
+export type CreateOutputUrlWebhook$Outbound = {
   url: string;
   weight?: number | undefined;
   __template_url?: string | undefined;
 };
 
 /** @internal */
-export const UrlWebhook$outboundSchema: z.ZodType<
-  UrlWebhook$Outbound,
+export const CreateOutputUrlWebhook$outboundSchema: z.ZodType<
+  CreateOutputUrlWebhook$Outbound,
   z.ZodTypeDef,
-  UrlWebhook
+  CreateOutputUrlWebhook
 > = z.object({
   url: z.string(),
   weight: z.number().optional(),
   __template_url: z.string().optional(),
 });
 
-export function urlWebhookToJSON(urlWebhook: UrlWebhook): string {
-  return JSON.stringify(UrlWebhook$outboundSchema.parse(urlWebhook));
+export function createOutputUrlWebhookToJSON(
+  createOutputUrlWebhook: CreateOutputUrlWebhook,
+): string {
+  return JSON.stringify(
+    CreateOutputUrlWebhook$outboundSchema.parse(createOutputUrlWebhook),
+  );
 }
 
 /** @internal */
-export type OutputWebhook$Outbound = {
+export type CreateOutputOutputWebhook$Outbound = {
   id: string;
   type: "webhook";
   pipeline?: string | undefined;
@@ -23003,7 +23553,7 @@ export type OutputWebhook$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsWebhook$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsWebhook$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
@@ -23015,11 +23565,11 @@ export type OutputWebhook$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr?: string | undefined;
   tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<OauthParam$Outbound> | undefined;
-  oauthHeaders?: Array<OauthHeader$Outbound> | undefined;
+  oauthParams?: Array<CreateOutputOauthParam$Outbound> | undefined;
+  oauthHeaders?: Array<CreateOutputOauthHeader$Outbound> | undefined;
   url?: string | undefined;
   excludeSelf?: boolean | undefined;
-  urls?: Array<UrlWebhook$Outbound> | undefined;
+  urls?: Array<CreateOutputUrlWebhook$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   __template_loginUrl?: string | undefined;
@@ -23028,10 +23578,10 @@ export type OutputWebhook$Outbound = {
 };
 
 /** @internal */
-export const OutputWebhook$outboundSchema: z.ZodType<
-  OutputWebhook$Outbound,
+export const CreateOutputOutputWebhook$outboundSchema: z.ZodType<
+  CreateOutputOutputWebhook$Outbound,
   z.ZodTypeDef,
-  OutputWebhook
+  CreateOutputOutputWebhook
 > = z.object({
   id: z.string(),
   type: z.literal("webhook"),
@@ -23040,7 +23590,7 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   method: models.MethodOptions$outboundSchema.optional(),
-  format: FormatWebhook$outboundSchema.optional(),
+  format: CreateOutputFormatWebhook$outboundSchema.optional(),
   keepAlive: z.boolean().optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
@@ -23062,7 +23612,7 @@ export const OutputWebhook$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthenticationTypeWebhook$outboundSchema.optional(),
+  authType: CreateOutputAuthenticationTypeWebhook$outboundSchema.optional(),
   tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   loadBalanced: z.boolean().optional(),
@@ -23085,7 +23635,8 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsWebhook$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsWebhook$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -23097,11 +23648,13 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(z.lazy(() => OauthParam$outboundSchema)).optional(),
-  oauthHeaders: z.array(z.lazy(() => OauthHeader$outboundSchema)).optional(),
+  oauthParams: z.array(z.lazy(() => CreateOutputOauthParam$outboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => CreateOutputOauthHeader$outboundSchema))
+    .optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().optional(),
-  urls: z.array(z.lazy(() => UrlWebhook$outboundSchema)).optional(),
+  urls: z.array(z.lazy(() => CreateOutputUrlWebhook$outboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   __template_loginUrl: z.string().optional(),
@@ -23109,26 +23662,30 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   __template_url: z.string().optional(),
 });
 
-export function outputWebhookToJSON(outputWebhook: OutputWebhook): string {
-  return JSON.stringify(OutputWebhook$outboundSchema.parse(outputWebhook));
+export function createOutputOutputWebhookToJSON(
+  createOutputOutputWebhook: CreateOutputOutputWebhook,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputWebhook$outboundSchema.parse(createOutputOutputWebhook),
+  );
 }
 
 /** @internal */
-export type OutputDefault$Outbound = {
+export type CreateOutputOutputDefault$Outbound = {
   id: string;
   type: "default";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  defaultId: string | null;
+  defaultId: string;
 };
 
 /** @internal */
-export const OutputDefault$outboundSchema: z.ZodType<
-  OutputDefault$Outbound,
+export const CreateOutputOutputDefault$outboundSchema: z.ZodType<
+  CreateOutputOutputDefault$Outbound,
   z.ZodTypeDef,
-  OutputDefault
+  CreateOutputOutputDefault
 > = z.object({
   id: z.string(),
   type: z.literal("default"),
@@ -23136,88 +23693,94 @@ export const OutputDefault$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  defaultId: z.nullable(z.string()),
+  defaultId: z.string(),
 });
 
-export function outputDefaultToJSON(outputDefault: OutputDefault): string {
-  return JSON.stringify(OutputDefault$outboundSchema.parse(outputDefault));
+export function createOutputOutputDefaultToJSON(
+  createOutputOutputDefault: CreateOutputOutputDefault,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputDefault$outboundSchema.parse(createOutputOutputDefault),
+  );
 }
 
 /** @internal */
 export type CreateOutputRequest$Outbound =
-  | OutputDefault$Outbound
-  | OutputWebhook$Outbound
-  | OutputSentinel$Outbound
-  | OutputDevnull$Outbound
-  | OutputSyslog$Outbound
-  | OutputSplunk$Outbound
-  | OutputSplunkLb$Outbound
-  | OutputSplunkHec$Outbound
-  | OutputWizHec$Outbound
-  | OutputTcpjson$Outbound
-  | OutputWavefront$Outbound
-  | OutputSignalfx$Outbound
-  | OutputFilesystem$Outbound
-  | OutputS3$Outbound
-  | OutputAzureBlob$Outbound
-  | OutputAzureDataExplorer$Outbound
-  | OutputAzureLogs$Outbound
-  | OutputKinesis$Outbound
-  | OutputHoneycomb$Outbound
-  | OutputAzureEventhub$Outbound
-  | OutputGoogleChronicle$Outbound
-  | OutputGoogleCloudStorage$Outbound
-  | OutputGoogleCloudLogging$Outbound
-  | OutputGooglePubsub$Outbound
-  | OutputExabeam$Outbound
-  | OutputKafka$Outbound
-  | OutputConfluentCloud$Outbound
-  | OutputMsk$Outbound
-  | OutputElastic$Outbound
-  | OutputElasticCloud$Outbound
-  | OutputNewrelic$Outbound
-  | OutputNewrelicEvents$Outbound
-  | OutputInfluxdb$Outbound
-  | OutputCloudwatch$Outbound
-  | OutputMinio$Outbound
-  | OutputStatsd$Outbound
-  | OutputStatsdExt$Outbound
-  | OutputGraphite$Outbound
-  | OutputRouter$Outbound
-  | OutputSns$Outbound
-  | OutputSqs$Outbound
-  | OutputSnmp$Outbound
-  | OutputSumoLogic$Outbound
-  | OutputDatadog$Outbound
+  | CreateOutputOutputDefault$Outbound
+  | CreateOutputOutputWebhook$Outbound
+  | CreateOutputOutputSentinel$Outbound
+  | CreateOutputOutputDevnull$Outbound
+  | CreateOutputOutputSyslog$Outbound
+  | CreateOutputOutputSplunk$Outbound
+  | CreateOutputOutputSplunkLb$Outbound
+  | CreateOutputOutputSplunkHec$Outbound
+  | CreateOutputOutputWizHec$Outbound
+  | CreateOutputOutputTcpjson$Outbound
+  | CreateOutputOutputWavefront$Outbound
+  | CreateOutputOutputSignalfx$Outbound
+  | CreateOutputOutputFilesystem$Outbound
+  | CreateOutputOutputS3$Outbound
+  | CreateOutputOutputAzureBlob$Outbound
+  | CreateOutputOutputAzureDataExplorer$Outbound
+  | CreateOutputOutputAzureLogs$Outbound
+  | CreateOutputOutputKinesis$Outbound
+  | CreateOutputOutputHoneycomb$Outbound
+  | CreateOutputOutputAzureEventhub$Outbound
+  | CreateOutputOutputGoogleChronicle$Outbound
+  | CreateOutputOutputGoogleCloudStorage$Outbound
+  | CreateOutputOutputGoogleCloudLogging$Outbound
+  | CreateOutputOutputGooglePubsub$Outbound
+  | CreateOutputOutputExabeam$Outbound
+  | CreateOutputOutputKafka$Outbound
+  | CreateOutputOutputConfluentCloud$Outbound
+  | CreateOutputOutputMsk$Outbound
+  | CreateOutputOutputElastic$Outbound
+  | CreateOutputOutputElasticCloud$Outbound
+  | CreateOutputOutputNewrelic$Outbound
+  | CreateOutputOutputNewrelicEvents$Outbound
+  | CreateOutputOutputInfluxdb$Outbound
+  | CreateOutputOutputCloudwatch$Outbound
+  | CreateOutputOutputMinio$Outbound
+  | CreateOutputOutputStatsd$Outbound
+  | CreateOutputOutputStatsdExt$Outbound
+  | CreateOutputOutputGraphite$Outbound
+  | CreateOutputOutputRouter$Outbound
+  | CreateOutputOutputSns$Outbound
+  | CreateOutputOutputSqs$Outbound
+  | CreateOutputOutputSnmp$Outbound
+  | CreateOutputOutputSumoLogic$Outbound
+  | CreateOutputOutputDatadog$Outbound
   | (
-    | OutputGrafanaCloudGrafanaCloud1$Outbound
-    | OutputGrafanaCloudGrafanaCloud2$Outbound & { type: "grafana_cloud" }
+    | CreateOutputOutputGrafanaCloudGrafanaCloud1$Outbound
+    | CreateOutputOutputGrafanaCloudGrafanaCloud2$Outbound & {
+      type: "grafana_cloud";
+    }
   )
-  | OutputLoki$Outbound
-  | OutputPrometheus$Outbound
-  | OutputRing$Outbound
-  | OutputOpenTelemetry$Outbound
-  | OutputServiceNow$Outbound
-  | OutputDataset$Outbound
-  | OutputCriblTcp$Outbound
-  | OutputCriblHttp$Outbound
-  | OutputCriblSearchEngine$Outbound
-  | OutputHumioHec$Outbound
-  | OutputCrowdstrikeNextGenSiem$Outbound
-  | OutputDlS3$Outbound
-  | OutputSecurityLake$Outbound
-  | OutputCriblLake$Outbound
-  | OutputDiskSpool$Outbound
-  | OutputClickHouse$Outbound
-  | OutputXsiam$Outbound
-  | OutputNetflow$Outbound
-  | OutputDynatraceHttp$Outbound
-  | OutputDynatraceOtlp$Outbound
-  | OutputSentinelOneAiSiem$Outbound
-  | OutputChronicle$Outbound
-  | OutputDatabricks$Outbound
-  | OutputMicrosoftFabric$Outbound
-  | OutputCloudflareR2$Outbound;
+  | CreateOutputOutputLoki$Outbound
+  | CreateOutputOutputPrometheus$Outbound
+  | CreateOutputOutputRing$Outbound
+  | CreateOutputOutputOpenTelemetry$Outbound
+  | CreateOutputOutputServiceNow$Outbound
+  | CreateOutputOutputDataset$Outbound
+  | CreateOutputOutputCriblTcp$Outbound
+  | CreateOutputOutputCriblHttp$Outbound
+  | CreateOutputOutputCriblSearchEngine$Outbound
+  | CreateOutputOutputHumioHec$Outbound
+  | CreateOutputOutputCrowdstrikeNextGenSiem$Outbound
+  | CreateOutputOutputDlS3$Outbound
+  | CreateOutputOutputSecurityLake$Outbound
+  | CreateOutputOutputCriblLake$Outbound
+  | CreateOutputOutputDiskSpool$Outbound
+  | CreateOutputOutputClickHouse$Outbound
+  | CreateOutputOutputXsiam$Outbound
+  | CreateOutputOutputNetflow$Outbound
+  | CreateOutputOutputDynatraceHttp$Outbound
+  | CreateOutputOutputDynatraceOtlp$Outbound
+  | CreateOutputOutputSentinelOneAiSiem$Outbound
+  | CreateOutputOutputChronicle$Outbound
+  | CreateOutputOutputDatabricks$Outbound
+  | CreateOutputOutputMicrosoftFabric$Outbound
+  | CreateOutputOutputCloudflareR2$Outbound;
 
 /** @internal */
 export const CreateOutputRequest$outboundSchema: z.ZodType<
@@ -23225,79 +23788,79 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateOutputRequest
 > = z.union([
-  z.lazy(() => OutputDefault$outboundSchema),
-  z.lazy(() => OutputWebhook$outboundSchema),
-  z.lazy(() => OutputSentinel$outboundSchema),
-  z.lazy(() => OutputDevnull$outboundSchema),
-  z.lazy(() => OutputSyslog$outboundSchema),
-  z.lazy(() => OutputSplunk$outboundSchema),
-  z.lazy(() => OutputSplunkLb$outboundSchema),
-  z.lazy(() => OutputSplunkHec$outboundSchema),
-  z.lazy(() => OutputWizHec$outboundSchema),
-  z.lazy(() => OutputTcpjson$outboundSchema),
-  z.lazy(() => OutputWavefront$outboundSchema),
-  z.lazy(() => OutputSignalfx$outboundSchema),
-  z.lazy(() => OutputFilesystem$outboundSchema),
-  z.lazy(() => OutputS3$outboundSchema),
-  z.lazy(() => OutputAzureBlob$outboundSchema),
-  z.lazy(() => OutputAzureDataExplorer$outboundSchema),
-  z.lazy(() => OutputAzureLogs$outboundSchema),
-  z.lazy(() => OutputKinesis$outboundSchema),
-  z.lazy(() => OutputHoneycomb$outboundSchema),
-  z.lazy(() => OutputAzureEventhub$outboundSchema),
-  z.lazy(() => OutputGoogleChronicle$outboundSchema),
-  z.lazy(() => OutputGoogleCloudStorage$outboundSchema),
-  z.lazy(() => OutputGoogleCloudLogging$outboundSchema),
-  z.lazy(() => OutputGooglePubsub$outboundSchema),
-  z.lazy(() => OutputExabeam$outboundSchema),
-  z.lazy(() => OutputKafka$outboundSchema),
-  z.lazy(() => OutputConfluentCloud$outboundSchema),
-  z.lazy(() => OutputMsk$outboundSchema),
-  z.lazy(() => OutputElastic$outboundSchema),
-  z.lazy(() => OutputElasticCloud$outboundSchema),
-  z.lazy(() => OutputNewrelic$outboundSchema),
-  z.lazy(() => OutputNewrelicEvents$outboundSchema),
-  z.lazy(() => OutputInfluxdb$outboundSchema),
-  z.lazy(() => OutputCloudwatch$outboundSchema),
-  z.lazy(() => OutputMinio$outboundSchema),
-  z.lazy(() => OutputStatsd$outboundSchema),
-  z.lazy(() => OutputStatsdExt$outboundSchema),
-  z.lazy(() => OutputGraphite$outboundSchema),
-  z.lazy(() => OutputRouter$outboundSchema),
-  z.lazy(() => OutputSns$outboundSchema),
-  z.lazy(() => OutputSqs$outboundSchema),
-  z.lazy(() => OutputSnmp$outboundSchema),
-  z.lazy(() => OutputSumoLogic$outboundSchema),
-  z.lazy(() => OutputDatadog$outboundSchema),
+  z.lazy(() => CreateOutputOutputDefault$outboundSchema),
+  z.lazy(() => CreateOutputOutputWebhook$outboundSchema),
+  z.lazy(() => CreateOutputOutputSentinel$outboundSchema),
+  z.lazy(() => CreateOutputOutputDevnull$outboundSchema),
+  z.lazy(() => CreateOutputOutputSyslog$outboundSchema),
+  z.lazy(() => CreateOutputOutputSplunk$outboundSchema),
+  z.lazy(() => CreateOutputOutputSplunkLb$outboundSchema),
+  z.lazy(() => CreateOutputOutputSplunkHec$outboundSchema),
+  z.lazy(() => CreateOutputOutputWizHec$outboundSchema),
+  z.lazy(() => CreateOutputOutputTcpjson$outboundSchema),
+  z.lazy(() => CreateOutputOutputWavefront$outboundSchema),
+  z.lazy(() => CreateOutputOutputSignalfx$outboundSchema),
+  z.lazy(() => CreateOutputOutputFilesystem$outboundSchema),
+  z.lazy(() => CreateOutputOutputS3$outboundSchema),
+  z.lazy(() => CreateOutputOutputAzureBlob$outboundSchema),
+  z.lazy(() => CreateOutputOutputAzureDataExplorer$outboundSchema),
+  z.lazy(() => CreateOutputOutputAzureLogs$outboundSchema),
+  z.lazy(() => CreateOutputOutputKinesis$outboundSchema),
+  z.lazy(() => CreateOutputOutputHoneycomb$outboundSchema),
+  z.lazy(() => CreateOutputOutputAzureEventhub$outboundSchema),
+  z.lazy(() => CreateOutputOutputGoogleChronicle$outboundSchema),
+  z.lazy(() => CreateOutputOutputGoogleCloudStorage$outboundSchema),
+  z.lazy(() => CreateOutputOutputGoogleCloudLogging$outboundSchema),
+  z.lazy(() => CreateOutputOutputGooglePubsub$outboundSchema),
+  z.lazy(() => CreateOutputOutputExabeam$outboundSchema),
+  z.lazy(() => CreateOutputOutputKafka$outboundSchema),
+  z.lazy(() => CreateOutputOutputConfluentCloud$outboundSchema),
+  z.lazy(() => CreateOutputOutputMsk$outboundSchema),
+  z.lazy(() => CreateOutputOutputElastic$outboundSchema),
+  z.lazy(() => CreateOutputOutputElasticCloud$outboundSchema),
+  z.lazy(() => CreateOutputOutputNewrelic$outboundSchema),
+  z.lazy(() => CreateOutputOutputNewrelicEvents$outboundSchema),
+  z.lazy(() => CreateOutputOutputInfluxdb$outboundSchema),
+  z.lazy(() => CreateOutputOutputCloudwatch$outboundSchema),
+  z.lazy(() => CreateOutputOutputMinio$outboundSchema),
+  z.lazy(() => CreateOutputOutputStatsd$outboundSchema),
+  z.lazy(() => CreateOutputOutputStatsdExt$outboundSchema),
+  z.lazy(() => CreateOutputOutputGraphite$outboundSchema),
+  z.lazy(() => CreateOutputOutputRouter$outboundSchema),
+  z.lazy(() => CreateOutputOutputSns$outboundSchema),
+  z.lazy(() => CreateOutputOutputSqs$outboundSchema),
+  z.lazy(() => CreateOutputOutputSnmp$outboundSchema),
+  z.lazy(() => CreateOutputOutputSumoLogic$outboundSchema),
+  z.lazy(() => CreateOutputOutputDatadog$outboundSchema),
   smartUnion([
-    z.lazy(() => OutputGrafanaCloudGrafanaCloud1$outboundSchema),
-    z.lazy(() => OutputGrafanaCloudGrafanaCloud2$outboundSchema),
+    z.lazy(() => CreateOutputOutputGrafanaCloudGrafanaCloud1$outboundSchema),
+    z.lazy(() => CreateOutputOutputGrafanaCloudGrafanaCloud2$outboundSchema),
   ]).and(z.object({ type: z.literal("grafana_cloud") })),
-  z.lazy(() => OutputLoki$outboundSchema),
-  z.lazy(() => OutputPrometheus$outboundSchema),
-  z.lazy(() => OutputRing$outboundSchema),
-  z.lazy(() => OutputOpenTelemetry$outboundSchema),
-  z.lazy(() => OutputServiceNow$outboundSchema),
-  z.lazy(() => OutputDataset$outboundSchema),
-  z.lazy(() => OutputCriblTcp$outboundSchema),
-  z.lazy(() => OutputCriblHttp$outboundSchema),
-  z.lazy(() => OutputCriblSearchEngine$outboundSchema),
-  z.lazy(() => OutputHumioHec$outboundSchema),
-  z.lazy(() => OutputCrowdstrikeNextGenSiem$outboundSchema),
-  z.lazy(() => OutputDlS3$outboundSchema),
-  z.lazy(() => OutputSecurityLake$outboundSchema),
-  z.lazy(() => OutputCriblLake$outboundSchema),
-  z.lazy(() => OutputDiskSpool$outboundSchema),
-  z.lazy(() => OutputClickHouse$outboundSchema),
-  z.lazy(() => OutputXsiam$outboundSchema),
-  z.lazy(() => OutputNetflow$outboundSchema),
-  z.lazy(() => OutputDynatraceHttp$outboundSchema),
-  z.lazy(() => OutputDynatraceOtlp$outboundSchema),
-  z.lazy(() => OutputSentinelOneAiSiem$outboundSchema),
-  z.lazy(() => OutputChronicle$outboundSchema),
-  z.lazy(() => OutputDatabricks$outboundSchema),
-  z.lazy(() => OutputMicrosoftFabric$outboundSchema),
-  z.lazy(() => OutputCloudflareR2$outboundSchema),
+  z.lazy(() => CreateOutputOutputLoki$outboundSchema),
+  z.lazy(() => CreateOutputOutputPrometheus$outboundSchema),
+  z.lazy(() => CreateOutputOutputRing$outboundSchema),
+  z.lazy(() => CreateOutputOutputOpenTelemetry$outboundSchema),
+  z.lazy(() => CreateOutputOutputServiceNow$outboundSchema),
+  z.lazy(() => CreateOutputOutputDataset$outboundSchema),
+  z.lazy(() => CreateOutputOutputCriblTcp$outboundSchema),
+  z.lazy(() => CreateOutputOutputCriblHttp$outboundSchema),
+  z.lazy(() => CreateOutputOutputCriblSearchEngine$outboundSchema),
+  z.lazy(() => CreateOutputOutputHumioHec$outboundSchema),
+  z.lazy(() => CreateOutputOutputCrowdstrikeNextGenSiem$outboundSchema),
+  z.lazy(() => CreateOutputOutputDlS3$outboundSchema),
+  z.lazy(() => CreateOutputOutputSecurityLake$outboundSchema),
+  z.lazy(() => CreateOutputOutputCriblLake$outboundSchema),
+  z.lazy(() => CreateOutputOutputDiskSpool$outboundSchema),
+  z.lazy(() => CreateOutputOutputClickHouse$outboundSchema),
+  z.lazy(() => CreateOutputOutputXsiam$outboundSchema),
+  z.lazy(() => CreateOutputOutputNetflow$outboundSchema),
+  z.lazy(() => CreateOutputOutputDynatraceHttp$outboundSchema),
+  z.lazy(() => CreateOutputOutputDynatraceOtlp$outboundSchema),
+  z.lazy(() => CreateOutputOutputSentinelOneAiSiem$outboundSchema),
+  z.lazy(() => CreateOutputOutputChronicle$outboundSchema),
+  z.lazy(() => CreateOutputOutputDatabricks$outboundSchema),
+  z.lazy(() => CreateOutputOutputMicrosoftFabric$outboundSchema),
+  z.lazy(() => CreateOutputOutputCloudflareR2$outboundSchema),
 ]);
 
 export function createOutputRequestToJSON(
