@@ -39,7 +39,8 @@ let value: Pipeline = {
     groups: {
       "key": {
         name: "<value>",
-        description: "far-flung like instead zowie pertain concrete shovel",
+        description:
+          "efface aw bonfire promptly carefully really versus wisely annually alienated",
         disabled: true,
       },
     },
