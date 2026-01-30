@@ -28,7 +28,6 @@ import {
   PipelineInput,
   RoutesRoute,
 } from "../dist/esm/models";
-import { InputTcpjson, OutputS3 } from "../dist/esm/models/operations";
 import { baseUrl, createCriblClient } from "./auth";
 
 const PACK_URL = "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.5/cribl-palo-alto-networks-d6bc6883-1.1.5.crbl";
@@ -49,26 +48,26 @@ const groupUrl = `${baseUrl}/m/${WORKER_GROUP_ID}`;
 const packUrl = `${groupUrl}/p/${PACK_ID}`;
 
 // TCP JSON Source configuration
-const tcpJsonSource: InputTcpjson = {
+const tcpJsonSource = {
   id: "my-tcp-json",
-  type: "tcpjson",
+  type: "tcpjson" as const,
   host: "0.0.0.0",
   port: PORT,
-  authType: "manual",
+  authType: "manual" as const,
   authToken: AUTH_TOKEN,
 };
 
 // Amazon S3 Destination configuration
-const s3Destination: OutputS3 = {
+const s3Destination = {
   id: "my-s3-destination",
-  type: "s3",
+  type: "s3" as const,
   bucket: AWS_BUCKET_NAME,
   region: AWS_REGION,
   awsSecretKey: AWS_SECRET_KEY,
   awsApiKey: AWS_API_KEY,
   stagePath: "/tmp/s3-staging",
-  compress: "gzip",
-  compressionLevel: "best_speed",
+  compress: "gzip" as const,
+  compressionLevel: "best_speed" as const,
   emptyDirCleanupSec: 300,
 };
 

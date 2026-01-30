@@ -19,11 +19,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -218,7 +218,7 @@ export type InputSystemState = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   collectors?: Collectors | undefined;
   persistence?: InputSystemStatePersistence | undefined;
   /**
@@ -761,9 +761,7 @@ export const InputSystemState$inboundSchema: z.ZodType<
   ),
   pq: types.optional(PqType$inboundSchema),
   interval: types.optional(types.number()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   collectors: types.optional(z.lazy(() => Collectors$inboundSchema)),
   persistence: types.optional(
     z.lazy(() => InputSystemStatePersistence$inboundSchema),
@@ -785,7 +783,7 @@ export type InputSystemState$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   interval?: number | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   collectors?: Collectors$Outbound | undefined;
   persistence?: InputSystemStatePersistence$Outbound | undefined;
   disableNativeModule?: boolean | undefined;
@@ -810,7 +808,7 @@ export const InputSystemState$outboundSchema: z.ZodType<
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   interval: z.number().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   collectors: z.lazy(() => Collectors$outboundSchema).optional(),
   persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
     .optional(),

@@ -14,11 +14,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -96,7 +96,7 @@ export type InputJournalFiles = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -168,9 +168,7 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
   ),
   currentBoot: types.optional(types.boolean()),
   maxAgeDur: types.optional(types.string()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
 });
 /** @internal */
@@ -191,7 +189,7 @@ export type InputJournalFiles$Outbound = {
   rules?: Array<InputJournalFilesRule$Outbound> | undefined;
   currentBoot?: boolean | undefined;
   maxAgeDur?: string | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -217,7 +215,7 @@ export const InputJournalFiles$outboundSchema: z.ZodType<
   rules: z.array(z.lazy(() => InputJournalFilesRule$outboundSchema)).optional(),
   currentBoot: z.boolean().optional(),
   maxAgeDur: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 

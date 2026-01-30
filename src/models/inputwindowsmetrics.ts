@@ -21,11 +21,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   ModeOptionsHost,
   ModeOptionsHost$inboundSchema,
@@ -348,7 +348,7 @@ export type InputWindowsMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   persistence?: InputWindowsMetricsPersistence | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
@@ -827,9 +827,7 @@ export const InputWindowsMetrics$inboundSchema: z.ZodType<
   interval: types.optional(types.number()),
   host: types.optional(z.lazy(() => InputWindowsMetricsHost$inboundSchema)),
   process: types.optional(ProcessType$inboundSchema),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   persistence: types.optional(
     z.lazy(() => InputWindowsMetricsPersistence$inboundSchema),
   ),
@@ -851,7 +849,7 @@ export type InputWindowsMetrics$Outbound = {
   interval?: number | undefined;
   host?: InputWindowsMetricsHost$Outbound | undefined;
   process?: ProcessType$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   persistence?: InputWindowsMetricsPersistence$Outbound | undefined;
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
@@ -876,7 +874,7 @@ export const InputWindowsMetrics$outboundSchema: z.ZodType<
   interval: z.number().optional(),
   host: z.lazy(() => InputWindowsMetricsHost$outboundSchema).optional(),
   process: ProcessType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   persistence: z.lazy(() => InputWindowsMetricsPersistence$outboundSchema)
     .optional(),
   disableNativeModule: z.boolean().optional(),

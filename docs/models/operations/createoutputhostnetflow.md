@@ -1,0 +1,23 @@
+# CreateOutputHostNetflow
+
+## Example Usage
+
+```typescript
+import { CreateOutputHostNetflow } from "cribl-control-plane/models/operations";
+
+let value: CreateOutputHostNetflow = {
+  host: "average-lieu.com",
+  port: 8575.81,
+  __template_host: "<value>",
+  __template_port: "<value>",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                 | Type                                                                                                                                                                                  | Required                                                                                                                                                                              | Description                                                                                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `host`                                                                                                                                                                                | *string*                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                    | Destination host                                                                                                                                                                      |
+| `port`                                                                                                                                                                                | *number*                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                    | Destination port, default is 2055                                                                                                                                                     |
+| `templateHost`                                                                                                                                                                        | *string*                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                    | Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime. |
+| `templatePort`                                                                                                                                                                        | *string*                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                    | Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime. |
