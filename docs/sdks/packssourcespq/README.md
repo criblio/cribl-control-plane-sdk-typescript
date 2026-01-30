@@ -1,19 +1,19 @@
-# Sources.Pq
+# Packs.Sources.Pq
 
 ## Overview
 
 ### Available Operations
 
-* [clear](#clear) - Clear the persistent queue for a Source
-* [get](#get) - Get information about the latest job to clear the persistent queue for a Source
+* [clear](#clear) - Clear the persistent queue for a Source within a Pack
+* [get](#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
 
 ## clear
 
-Clear the persistent queue (PQ) for the specified Source.
+Clear the persistent queue (PQ) for the specified Source within the specified Pack.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="deleteInputPqById" method="delete" path="/system/inputs/{id}/pq" -->
+<!-- UsageSnippet language="typescript" operationID="deleteInputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/inputs/{id}/pq" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -25,8 +25,9 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.sources.pq.clear({
+  const result = await criblControlPlane.packs.sources.pq.clear({
     id: "<id>",
+    pack: "<value>",
   });
 
   console.log(result);
@@ -41,7 +42,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { sourcesPqClear } from "cribl-control-plane/funcs/sourcesPqClear.js";
+import { packsSourcesPqClear } from "cribl-control-plane/funcs/packsSourcesPqClear.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -53,14 +54,15 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await sourcesPqClear(criblControlPlane, {
+  const res = await packsSourcesPqClear(criblControlPlane, {
     id: "<id>",
+    pack: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("sourcesPqClear failed:", res.error);
+    console.log("packsSourcesPqClear failed:", res.error);
   }
 }
 
@@ -71,7 +73,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteInputPqByIdRequest](../../models/operations/deleteinputpqbyidrequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.DeleteInputSystemPqByPackAndIdRequest](../../models/operations/deleteinputsystempqbypackandidrequest.md)                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -89,11 +91,11 @@ run();
 
 ## get
 
-Get information about the latest job to clear the persistent queue (PQ) for the specified Source.
+Get information about the latest job to clear the persistent queue (PQ) for the specified Source within the specified Pack.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getInputPqById" method="get" path="/system/inputs/{id}/pq" -->
+<!-- UsageSnippet language="typescript" operationID="getInputSystemPqByPackAndId" method="get" path="/p/{pack}/system/inputs/{id}/pq" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -105,8 +107,9 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.sources.pq.get({
+  const result = await criblControlPlane.packs.sources.pq.get({
     id: "<id>",
+    pack: "<value>",
   });
 
   console.log(result);
@@ -121,7 +124,7 @@ The standalone function version of this method:
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { sourcesPqGet } from "cribl-control-plane/funcs/sourcesPqGet.js";
+import { packsSourcesPqGet } from "cribl-control-plane/funcs/packsSourcesPqGet.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -133,14 +136,15 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await sourcesPqGet(criblControlPlane, {
+  const res = await packsSourcesPqGet(criblControlPlane, {
     id: "<id>",
+    pack: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("sourcesPqGet failed:", res.error);
+    console.log("packsSourcesPqGet failed:", res.error);
   }
 }
 
@@ -151,7 +155,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetInputPqByIdRequest](../../models/operations/getinputpqbyidrequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetInputSystemPqByPackAndIdRequest](../../models/operations/getinputsystempqbypackandidrequest.md)                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
