@@ -20,21 +20,16 @@ import { System } from "./system.js";
 import { Versions } from "./versions.js";
 
 export class CriblControlPlane extends ClientSDK {
-  private _lakeDatasets?: LakeDatasets;
-  get lakeDatasets(): LakeDatasets {
-    return (this._lakeDatasets ??= new LakeDatasets(this._options));
-  }
-
-  private _collectors?: Collectors;
-  get collectors(): Collectors {
-    return (this._collectors ??= new Collectors(this._options));
-  }
-
   private _databaseConnections?: DatabaseConnections;
   get databaseConnections(): DatabaseConnections {
     return (this._databaseConnections ??= new DatabaseConnections(
       this._options,
     ));
+  }
+
+  private _functions?: Functions;
+  get functions(): Functions {
+    return (this._functions ??= new Functions(this._options));
   }
 
   private _sources?: Sources;
@@ -62,6 +57,21 @@ export class CriblControlPlane extends ClientSDK {
     return (this._routes ??= new Routes(this._options));
   }
 
+  private _collectors?: Collectors;
+  get collectors(): Collectors {
+    return (this._collectors ??= new Collectors(this._options));
+  }
+
+  private _groups?: Groups;
+  get groups(): Groups {
+    return (this._groups ??= new Groups(this._options));
+  }
+
+  private _lakeDatasets?: LakeDatasets;
+  get lakeDatasets(): LakeDatasets {
+    return (this._lakeDatasets ??= new LakeDatasets(this._options));
+  }
+
   private _auth?: Auth;
   get auth(): Auth {
     return (this._auth ??= new Auth(this._options));
@@ -72,6 +82,11 @@ export class CriblControlPlane extends ClientSDK {
     return (this._system ??= new System(this._options));
   }
 
+  private _nodes?: Nodes;
+  get nodes(): Nodes {
+    return (this._nodes ??= new Nodes(this._options));
+  }
+
   private _health?: Health;
   get health(): Health {
     return (this._health ??= new Health(this._options));
@@ -80,20 +95,5 @@ export class CriblControlPlane extends ClientSDK {
   private _versions?: Versions;
   get versions(): Versions {
     return (this._versions ??= new Versions(this._options));
-  }
-
-  private _functions?: Functions;
-  get functions(): Functions {
-    return (this._functions ??= new Functions(this._options));
-  }
-
-  private _nodes?: Nodes;
-  get nodes(): Nodes {
-    return (this._nodes ??= new Nodes(this._options));
-  }
-
-  private _groups?: Groups;
-  get groups(): Groups {
-    return (this._groups ??= new Groups(this._options));
   }
 }

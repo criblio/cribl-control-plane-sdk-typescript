@@ -14,10 +14,10 @@ import {
 } from "./cacheconnection.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  FormatOptionsCriblLakeDataset,
-  FormatOptionsCriblLakeDataset$inboundSchema,
-  FormatOptionsCriblLakeDataset$outboundSchema,
-} from "./formatoptionscribllakedataset.js";
+  FormatOptions,
+  FormatOptions$inboundSchema,
+  FormatOptions$outboundSchema,
+} from "./formatoptions.js";
 import {
   LakeDatasetMetrics,
   LakeDatasetMetrics$inboundSchema,
@@ -37,7 +37,7 @@ export type CriblLakeDataset = {
   cacheConnection?: CacheConnection | undefined;
   deletionStartedAt?: number | undefined;
   description?: string | undefined;
-  format?: FormatOptionsCriblLakeDataset | undefined;
+  format?: FormatOptions | undefined;
   httpDAUsed?: boolean | undefined;
   id: string;
   metrics?: LakeDatasetMetrics | undefined;
@@ -58,7 +58,7 @@ export const CriblLakeDataset$inboundSchema: z.ZodType<
   cacheConnection: types.optional(CacheConnection$inboundSchema),
   deletionStartedAt: types.optional(types.number()),
   description: types.optional(types.string()),
-  format: types.optional(FormatOptionsCriblLakeDataset$inboundSchema),
+  format: types.optional(FormatOptions$inboundSchema),
   httpDAUsed: types.optional(types.boolean()),
   id: types.string(),
   metrics: types.optional(LakeDatasetMetrics$inboundSchema),
@@ -95,7 +95,7 @@ export const CriblLakeDataset$outboundSchema: z.ZodType<
   cacheConnection: CacheConnection$outboundSchema.optional(),
   deletionStartedAt: z.number().optional(),
   description: z.string().optional(),
-  format: FormatOptionsCriblLakeDataset$outboundSchema.optional(),
+  format: FormatOptions$outboundSchema.optional(),
   httpDAUsed: z.boolean().optional(),
   id: z.string(),
   metrics: LakeDatasetMetrics$outboundSchema.optional(),

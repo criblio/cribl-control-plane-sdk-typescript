@@ -20,7 +20,7 @@ specific category of applications.
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { lakeDatasetsCreate } from "cribl-control-plane/funcs/lakeDatasetsCreate.js";
+import { databaseConnectionsCreate } from "cribl-control-plane/funcs/databaseConnectionsCreate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -32,65 +32,25 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await lakeDatasetsCreate(criblControlPlane, {
-    lakeId: "<id>",
-    criblLakeDataset: {
-      acceleratedFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      bucketName: "<value>",
-      cacheConnection: {
-        acceleratedFields: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        backfillStatus: "pending",
-        cacheRef: "<value>",
-        createdAt: 7795.06,
-        lakehouseConnectionType: "cache",
-        migrationQueryId: "<id>",
-        retentionInDays: 1466.58,
-      },
-      deletionStartedAt: 8310.58,
-      description: "pleased toothbrush long brush smooth swiftly rightfully phooey chapel",
-      format: "ddss",
-      httpDAUsed: true,
-      id: "<id>",
-      metrics: {
-        currentSizeBytes: 6170.04,
-        metricsDate: "<value>",
-      },
-      retentionPeriodInDays: 456.37,
-      searchConfig: {
-        datatypes: [
-          "<value 1>",
-        ],
-        metadata: {
-          earliest: "<value>",
-          enableAcceleration: true,
-          fieldList: [
-            "<value 1>",
-            "<value 2>",
-          ],
-          latestRunInfo: {
-            earliestScannedTime: 4334.7,
-            finishedAt: 6811.22,
-            latestScannedTime: 5303.3,
-            objectCount: 9489.04,
-          },
-          scanMode: "detailed",
-        },
-      },
-      storageLocationId: "<id>",
-      viewName: "<value>",
-    },
+  const res = await databaseConnectionsCreate(criblControlPlane, {
+    authType: "connectionString",
+    configObj: "<value>",
+    connectionString: "mysql://admin:password123@mysql.example.com:3306/production?ssl=true",
+    connectionTimeout: 10000,
+    credsSecrets: "<value>",
+    databaseType: "mysql",
+    description: "Production MySQL database for customer data",
+    id: "mysql-prod-db",
+    password: "QpvMa8DI_lUJL_b",
+    requestTimeout: 4657.19,
+    tags: "production,mysql,customer-data",
+    user: "Dolores.Feil",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("lakeDatasetsCreate failed:", res.error);
+    console.log("databaseConnectionsCreate failed:", res.error);
   }
 }
 

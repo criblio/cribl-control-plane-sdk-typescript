@@ -11,7 +11,7 @@ let value: CollectorFilesystem = {
   type: "filesystem",
   conf: {
     outputName: "<value>",
-    path: "/Library",
+    path: "/private",
     extractors: [
       {
         key: "<key>",
@@ -19,7 +19,7 @@ let value: CollectorFilesystem = {
       },
     ],
     recurse: false,
-    maxBatchSize: 4087.23,
+    maxBatchSize: 8097.94,
   },
   destructive: true,
   encoding: "<value>",

@@ -43,11 +43,10 @@ const value: operations.CreateInputSystemByPackInputCollection = {
   ],
   staleChannelFlushMs: 7987.47,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   throttleRatePerSec: "<value>",
@@ -2859,11 +2858,10 @@ const value: operations.CreateInputSystemByPackInputCrowdstrike = {
   durationSeconds: 8169.95,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -3350,11 +3348,10 @@ const value: operations.CreateInputSystemByPackInputS3 = {
   durationSeconds: 6928.41,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -3446,11 +3443,10 @@ const value: operations.CreateInputSystemByPackInputS3Inventory = {
   durationSeconds: 2711.14,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -3970,11 +3966,10 @@ const value: operations.CreateInputSystemByPackInputTcp = {
   staleChannelFlushMs: 8808.2,
   enableHeader: false,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   description: "breakable ambitious frizzy per",
@@ -4622,11 +4617,10 @@ const value: operations.CreateInputSystemByPackInputSecurityLake = {
   durationSeconds: 9091.26,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [

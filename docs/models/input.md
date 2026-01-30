@@ -38,11 +38,10 @@ const value: models.InputCollection = {
   ],
   staleChannelFlushMs: 8467.21,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   throttleRatePerSec: "<value>",
@@ -2839,11 +2838,10 @@ const value: models.InputCrowdstrike = {
   durationSeconds: 818.63,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -3330,11 +3328,10 @@ const value: models.InputS3 = {
   durationSeconds: 3111.12,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -3426,11 +3423,10 @@ const value: models.InputS3Inventory = {
   durationSeconds: 7697.09,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -3949,11 +3945,10 @@ const value: models.InputTcp = {
   staleChannelFlushMs: 3615.97,
   enableHeader: false,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   description: "meh pharmacopoeia yummy",
@@ -4613,11 +4608,10 @@ const value: models.InputSecurityLake = {
   durationSeconds: 1160.94,
   enableSQSAssumeRole: false,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [

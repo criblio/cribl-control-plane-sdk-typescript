@@ -20,11 +20,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -143,7 +143,7 @@ export type InputHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
@@ -200,9 +200,7 @@ export const InputHttp$inboundSchema: z.ZodType<
   elasticAPI: types.optional(types.string()),
   splunkHecAPI: types.optional(types.string()),
   splunkHecAcks: types.optional(types.boolean()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   authTokensExt: types.optional(z.array(ItemsTypeAuthTokensExt$inboundSchema)),
   description: types.optional(types.string()),
   __template_host: types.optional(types.string()),
@@ -240,7 +238,7 @@ export type InputHttp$Outbound = {
   elasticAPI?: string | undefined;
   splunkHecAPI?: string | undefined;
   splunkHecAcks?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   authTokensExt?: Array<ItemsTypeAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
@@ -283,7 +281,7 @@ export const InputHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().optional(),
   splunkHecAPI: z.string().optional(),
   splunkHecAcks: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   authTokensExt: z.array(ItemsTypeAuthTokensExt$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
