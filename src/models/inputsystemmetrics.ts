@@ -21,11 +21,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   ModeOptionsHost,
   ModeOptionsHost$inboundSchema,
@@ -422,7 +422,7 @@ export type InputSystemMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   persistence?: InputSystemMetricsPersistence | undefined;
   description?: string | undefined;
 };
@@ -1015,9 +1015,7 @@ export const InputSystemMetrics$inboundSchema: z.ZodType<
   host: types.optional(z.lazy(() => InputSystemMetricsHost$inboundSchema)),
   process: types.optional(ProcessType$inboundSchema),
   container: types.optional(z.lazy(() => Container$inboundSchema)),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   persistence: types.optional(
     z.lazy(() => InputSystemMetricsPersistence$inboundSchema),
   ),
@@ -1039,7 +1037,7 @@ export type InputSystemMetrics$Outbound = {
   host?: InputSystemMetricsHost$Outbound | undefined;
   process?: ProcessType$Outbound | undefined;
   container?: Container$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   persistence?: InputSystemMetricsPersistence$Outbound | undefined;
   description?: string | undefined;
 };
@@ -1064,7 +1062,7 @@ export const InputSystemMetrics$outboundSchema: z.ZodType<
   host: z.lazy(() => InputSystemMetricsHost$outboundSchema).optional(),
   process: ProcessType$outboundSchema.optional(),
   container: z.lazy(() => Container$outboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   persistence: z.lazy(() => InputSystemMetricsPersistence$outboundSchema)
     .optional(),
   description: z.string().optional(),

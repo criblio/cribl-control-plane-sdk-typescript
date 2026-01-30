@@ -3,6 +3,7 @@
  */
 
 import { packsSourcesPqClear } from "../funcs/packsSourcesPqClear.js";
+import { packsSourcesPqGet } from "../funcs/packsSourcesPqGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
@@ -20,6 +21,23 @@ export class SourcesPq extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.CountedString> {
     return unwrapAsync(packsSourcesPqClear(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get information about the latest job to clear the persistent queue for a Source within a Pack
+   *
+   * @remarks
+   * Get information about the latest job to clear the persistent queue (PQ) for the specified Source within the specified Pack.
+   */
+  async get(
+    request: operations.GetInputSystemPqByPackAndIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedObject> {
+    return unwrapAsync(packsSourcesPqGet(
       this,
       request,
       options,

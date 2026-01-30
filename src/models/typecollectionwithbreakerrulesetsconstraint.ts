@@ -10,17 +10,17 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
-  PreprocessTypeSavedJobCollectionInput,
-  PreprocessTypeSavedJobCollectionInput$inboundSchema,
-  PreprocessTypeSavedJobCollectionInput$Outbound,
-  PreprocessTypeSavedJobCollectionInput$outboundSchema,
-} from "./preprocesstypesavedjobcollectioninput.js";
+  PreprocessType,
+  PreprocessType$inboundSchema,
+  PreprocessType$Outbound,
+  PreprocessType$outboundSchema,
+} from "./preprocesstype.js";
 
 export const TypeCollectionWithBreakerRulesetsConstraintType = {
   Collection: "collection",
@@ -43,7 +43,7 @@ export type TypeCollectionWithBreakerRulesetsConstraint = {
    * Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
    */
   sendToRoutes?: boolean | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: PreprocessType | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -51,7 +51,7 @@ export type TypeCollectionWithBreakerRulesetsConstraint = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Pipeline to process results
    */
@@ -90,13 +90,9 @@ export const TypeCollectionWithBreakerRulesetsConstraint$inboundSchema:
     breakerRulesets: types.optional(z.array(types.string())),
     staleChannelFlushMs: types.optional(types.number()),
     sendToRoutes: types.optional(types.boolean()),
-    preprocess: types.optional(
-      PreprocessTypeSavedJobCollectionInput$inboundSchema,
-    ),
+    preprocess: types.optional(PreprocessType$inboundSchema),
     throttleRatePerSec: types.optional(types.string()),
-    metadata: types.optional(
-      z.array(ItemsTypeNotificationMetadata$inboundSchema),
-    ),
+    metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
     pipeline: types.optional(types.string()),
     output: types.optional(types.string()),
   });
@@ -106,9 +102,9 @@ export type TypeCollectionWithBreakerRulesetsConstraint$Outbound = {
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   sendToRoutes?: boolean | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
+  preprocess?: PreprocessType$Outbound | undefined;
   throttleRatePerSec?: string | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   pipeline?: string | undefined;
   output?: string | undefined;
 };
@@ -125,9 +121,9 @@ export const TypeCollectionWithBreakerRulesetsConstraint$outboundSchema:
     breakerRulesets: z.array(z.string()).optional(),
     staleChannelFlushMs: z.number().optional(),
     sendToRoutes: z.boolean().optional(),
-    preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
+    preprocess: PreprocessType$outboundSchema.optional(),
     throttleRatePerSec: z.string().optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+    metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
     pipeline: z.string().optional(),
     output: z.string().optional(),
   });

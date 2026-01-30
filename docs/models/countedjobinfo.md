@@ -56,8 +56,8 @@ let value: CountedJobInfo = {
         },
         run: {
           rescheduleDroppedTasks: true,
-          maxTaskReschedule: 3930.98,
-          logLevel: "silly",
+          maxTaskReschedule: 8551.94,
+          logLevel: "info",
           jobTimeout: "<value>",
         },
       },
@@ -68,8 +68,9 @@ let value: CountedJobInfo = {
         reason: {
           "key": "<value>",
           "key1": "<value>",
+          "key2": "<value>",
         },
-        state: 9,
+        state: 7,
       },
     },
   ],

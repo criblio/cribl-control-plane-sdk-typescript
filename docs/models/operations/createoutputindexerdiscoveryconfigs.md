@@ -1,0 +1,39 @@
+# CreateOutputIndexerDiscoveryConfigs
+
+List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+
+## Example Usage
+
+```typescript
+import { CreateOutputIndexerDiscoveryConfigs } from "cribl-control-plane/models/operations";
+
+let value: CreateOutputIndexerDiscoveryConfigs = {
+  site: "<value>",
+  masterUri: "https://quixotic-formation.net",
+  refreshIntervalSec: 9769.82,
+  rejectUnauthorized: true,
+  authTokens: [
+    {
+      authType: "secret",
+      authToken: "<value>",
+      textSecret: "<value>",
+    },
+  ],
+  authType: "secret",
+  authToken: "<value>",
+  textSecret: "<value>",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                         | Type                                                                                                                                                                          | Required                                                                                                                                                                      | Description                                                                                                                                                                   |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `site`                                                                                                                                                                        | *string*                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                            | Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.                                     |
+| `masterUri`                                                                                                                                                                   | *string*                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                            | Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089                                                                                 |
+| `refreshIntervalSec`                                                                                                                                                          | *number*                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                            | Time interval, in seconds, between two consecutive indexer list fetches from cluster manager                                                                                  |
+| `rejectUnauthorized`                                                                                                                                                          | *boolean*                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                            | During indexer discovery, reject cluster manager certificates that are not authorized by the system's CA. Disable to allow untrusted (for example, self-signed) certificates. |
+| `authTokens`                                                                                                                                                                  | [operations.CreateOutputAuthToken](../../models/operations/createoutputauthtoken.md)[]                                                                                        | :heavy_minus_sign:                                                                                                                                                            | Tokens required to authenticate to cluster manager for indexer discovery                                                                                                      |
+| `authType`                                                                                                                                                                    | [models.AuthenticationMethodOptionsAuthTokensItems](../../models/authenticationmethodoptionsauthtokensitems.md)                                                               | :heavy_minus_sign:                                                                                                                                                            | Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate                                                                          |
+| `authToken`                                                                                                                                                                   | *string*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                            | Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.                                                           |
+| `textSecret`                                                                                                                                                                  | *string*                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                            | Select or create a stored text secret                                                                                                                                         |

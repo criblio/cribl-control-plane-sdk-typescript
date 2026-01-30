@@ -1,0 +1,19 @@
+# CreateInputSystemByPackInputJournalFilesRule
+
+## Example Usage
+
+```typescript
+import { CreateInputSystemByPackInputJournalFilesRule } from "cribl-control-plane/models/operations";
+
+let value: CreateInputSystemByPackInputJournalFilesRule = {
+  filter: "<value>",
+  description: "unless madly babyish pfft",
+};
+```
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `filter`                                                                       | *string*                                                                       | :heavy_check_mark:                                                             | JavaScript expression applied to Journal objects. Return 'true' to include it. |
+| `description`                                                                  | *string*                                                                       | :heavy_minus_sign:                                                             | Optional description of this rule's purpose                                    |

@@ -4,92 +4,15 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const ScheduleTypeSavedJobCollectionType = {
-  Collection: "collection",
-} as const;
-export type ScheduleTypeSavedJobCollectionType = OpenEnum<
-  typeof ScheduleTypeSavedJobCollectionType
->;
-
-/**
- * Level at which to set task logging
- */
-export const ScheduleTypeSavedJobCollectionLogLevel = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-  Silly: "silly",
-} as const;
-/**
- * Level at which to set task logging
- */
-export type ScheduleTypeSavedJobCollectionLogLevel = OpenEnum<
-  typeof ScheduleTypeSavedJobCollectionLogLevel
->;
-
-export type TimeWarning = {};
-
-export type ScheduleTypeSavedJobCollectionRunSettings = {
-  type?: ScheduleTypeSavedJobCollectionType | undefined;
-  /**
-   * Reschedule tasks that failed with non-fatal errors
-   */
-  rescheduleDroppedTasks?: boolean | undefined;
-  /**
-   * Maximum number of times a task can be rescheduled
-   */
-  maxTaskReschedule?: number | undefined;
-  /**
-   * Level at which to set task logging
-   */
-  logLevel?: ScheduleTypeSavedJobCollectionLogLevel | undefined;
-  /**
-   * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
-   */
-  jobTimeout?: string | undefined;
-  /**
-   * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
-   */
-  mode: string;
-  timeRangeType?: string | undefined;
-  /**
-   * Earliest time to collect data for the selected timezone
-   */
-  earliest?: number | undefined;
-  /**
-   * Latest time to collect data for the selected timezone
-   */
-  latest?: number | undefined;
-  timestampTimezone?: any | undefined;
-  timeWarning?: TimeWarning | undefined;
-  /**
-   * A filter for tokens in the provided collect path and/or the events being collected
-   */
-  expression?: string | undefined;
-  /**
-   * Limits the bundle size for small tasks. For example,
-   *
-   * @remarks
-   *
-   *         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
-   */
-  minTaskSize?: string | undefined;
-  /**
-   * Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-   *
-   * @remarks
-   *
-   *         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
-   */
-  maxTaskSize?: string | undefined;
-};
+import {
+  RunSettingsTypeSavedJobCollectionSchedule,
+  RunSettingsTypeSavedJobCollectionSchedule$inboundSchema,
+  RunSettingsTypeSavedJobCollectionSchedule$Outbound,
+  RunSettingsTypeSavedJobCollectionSchedule$outboundSchema,
+} from "./runsettingstypesavedjobcollectionschedule.js";
 
 /**
  * Configuration for a scheduled job
@@ -115,153 +38,8 @@ export type ScheduleTypeSavedJobCollection = {
    * The maximum number of instances of this scheduled job that may be running at any time
    */
   maxConcurrentRuns?: number | undefined;
-  run?: ScheduleTypeSavedJobCollectionRunSettings | undefined;
+  run?: RunSettingsTypeSavedJobCollectionSchedule | undefined;
 };
-
-/** @internal */
-export const ScheduleTypeSavedJobCollectionType$inboundSchema: z.ZodType<
-  ScheduleTypeSavedJobCollectionType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ScheduleTypeSavedJobCollectionType);
-/** @internal */
-export const ScheduleTypeSavedJobCollectionType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ScheduleTypeSavedJobCollectionType
-> = openEnums.outboundSchema(ScheduleTypeSavedJobCollectionType);
-
-/** @internal */
-export const ScheduleTypeSavedJobCollectionLogLevel$inboundSchema: z.ZodType<
-  ScheduleTypeSavedJobCollectionLogLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ScheduleTypeSavedJobCollectionLogLevel);
-/** @internal */
-export const ScheduleTypeSavedJobCollectionLogLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ScheduleTypeSavedJobCollectionLogLevel
-> = openEnums.outboundSchema(ScheduleTypeSavedJobCollectionLogLevel);
-
-/** @internal */
-export const TimeWarning$inboundSchema: z.ZodType<
-  TimeWarning,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type TimeWarning$Outbound = {};
-
-/** @internal */
-export const TimeWarning$outboundSchema: z.ZodType<
-  TimeWarning$Outbound,
-  z.ZodTypeDef,
-  TimeWarning
-> = z.object({});
-
-export function timeWarningToJSON(timeWarning: TimeWarning): string {
-  return JSON.stringify(TimeWarning$outboundSchema.parse(timeWarning));
-}
-export function timeWarningFromJSON(
-  jsonString: string,
-): SafeParseResult<TimeWarning, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TimeWarning$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TimeWarning' from JSON`,
-  );
-}
-
-/** @internal */
-export const ScheduleTypeSavedJobCollectionRunSettings$inboundSchema: z.ZodType<
-  ScheduleTypeSavedJobCollectionRunSettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: types.optional(ScheduleTypeSavedJobCollectionType$inboundSchema),
-  rescheduleDroppedTasks: types.optional(types.boolean()),
-  maxTaskReschedule: types.optional(types.number()),
-  logLevel: types.optional(
-    ScheduleTypeSavedJobCollectionLogLevel$inboundSchema,
-  ),
-  jobTimeout: types.optional(types.string()),
-  mode: types.string(),
-  timeRangeType: types.optional(types.string()),
-  earliest: types.optional(types.number()),
-  latest: types.optional(types.number()),
-  timestampTimezone: types.optional(z.any()),
-  timeWarning: types.optional(z.lazy(() => TimeWarning$inboundSchema)),
-  expression: types.optional(types.string()),
-  minTaskSize: types.optional(types.string()),
-  maxTaskSize: types.optional(types.string()),
-});
-/** @internal */
-export type ScheduleTypeSavedJobCollectionRunSettings$Outbound = {
-  type?: string | undefined;
-  rescheduleDroppedTasks?: boolean | undefined;
-  maxTaskReschedule?: number | undefined;
-  logLevel?: string | undefined;
-  jobTimeout?: string | undefined;
-  mode: string;
-  timeRangeType?: string | undefined;
-  earliest?: number | undefined;
-  latest?: number | undefined;
-  timestampTimezone?: any | undefined;
-  timeWarning?: TimeWarning$Outbound | undefined;
-  expression?: string | undefined;
-  minTaskSize?: string | undefined;
-  maxTaskSize?: string | undefined;
-};
-
-/** @internal */
-export const ScheduleTypeSavedJobCollectionRunSettings$outboundSchema:
-  z.ZodType<
-    ScheduleTypeSavedJobCollectionRunSettings$Outbound,
-    z.ZodTypeDef,
-    ScheduleTypeSavedJobCollectionRunSettings
-  > = z.object({
-    type: ScheduleTypeSavedJobCollectionType$outboundSchema.optional(),
-    rescheduleDroppedTasks: z.boolean().optional(),
-    maxTaskReschedule: z.number().optional(),
-    logLevel: ScheduleTypeSavedJobCollectionLogLevel$outboundSchema.optional(),
-    jobTimeout: z.string().optional(),
-    mode: z.string(),
-    timeRangeType: z.string().optional(),
-    earliest: z.number().optional(),
-    latest: z.number().optional(),
-    timestampTimezone: z.any().optional(),
-    timeWarning: z.lazy(() => TimeWarning$outboundSchema).optional(),
-    expression: z.string().optional(),
-    minTaskSize: z.string().optional(),
-    maxTaskSize: z.string().optional(),
-  });
-
-export function scheduleTypeSavedJobCollectionRunSettingsToJSON(
-  scheduleTypeSavedJobCollectionRunSettings:
-    ScheduleTypeSavedJobCollectionRunSettings,
-): string {
-  return JSON.stringify(
-    ScheduleTypeSavedJobCollectionRunSettings$outboundSchema.parse(
-      scheduleTypeSavedJobCollectionRunSettings,
-    ),
-  );
-}
-export function scheduleTypeSavedJobCollectionRunSettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  ScheduleTypeSavedJobCollectionRunSettings,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ScheduleTypeSavedJobCollectionRunSettings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'ScheduleTypeSavedJobCollectionRunSettings' from JSON`,
-  );
-}
 
 /** @internal */
 export const ScheduleTypeSavedJobCollection$inboundSchema: z.ZodType<
@@ -274,9 +52,7 @@ export const ScheduleTypeSavedJobCollection$inboundSchema: z.ZodType<
   resumeMissed: types.optional(types.boolean()),
   cronSchedule: types.optional(types.string()),
   maxConcurrentRuns: types.optional(types.number()),
-  run: types.optional(
-    z.lazy(() => ScheduleTypeSavedJobCollectionRunSettings$inboundSchema),
-  ),
+  run: types.optional(RunSettingsTypeSavedJobCollectionSchedule$inboundSchema),
 });
 /** @internal */
 export type ScheduleTypeSavedJobCollection$Outbound = {
@@ -285,7 +61,7 @@ export type ScheduleTypeSavedJobCollection$Outbound = {
   resumeMissed?: boolean | undefined;
   cronSchedule?: string | undefined;
   maxConcurrentRuns?: number | undefined;
-  run?: ScheduleTypeSavedJobCollectionRunSettings$Outbound | undefined;
+  run?: RunSettingsTypeSavedJobCollectionSchedule$Outbound | undefined;
 };
 
 /** @internal */
@@ -299,8 +75,7 @@ export const ScheduleTypeSavedJobCollection$outboundSchema: z.ZodType<
   resumeMissed: z.boolean().optional(),
   cronSchedule: z.string().optional(),
   maxConcurrentRuns: z.number().optional(),
-  run: z.lazy(() => ScheduleTypeSavedJobCollectionRunSettings$outboundSchema)
-    .optional(),
+  run: RunSettingsTypeSavedJobCollectionSchedule$outboundSchema.optional(),
 });
 
 export function scheduleTypeSavedJobCollectionToJSON(

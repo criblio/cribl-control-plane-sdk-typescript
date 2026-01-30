@@ -1,0 +1,29 @@
+# CreateInputSystemByPackNetworkWindowsMetrics
+
+## Example Usage
+
+```typescript
+import { CreateInputSystemByPackNetworkWindowsMetrics } from "cribl-control-plane/models/operations";
+
+let value: CreateInputSystemByPackNetworkWindowsMetrics = {
+  mode: "all",
+  detail: false,
+  protocols: false,
+  devices: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  perInterface: false,
+};
+```
+
+## Fields
+
+| Field                                                                                                                                      | Type                                                                                                                                       | Required                                                                                                                                   | Description                                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `mode`                                                                                                                                     | [operations.CreateInputSystemByPackNetworkModeWindowsMetrics](../../models/operations/createinputsystembypacknetworkmodewindowsmetrics.md) | :heavy_minus_sign:                                                                                                                         | Select the level of details for network metrics                                                                                            |
+| `detail`                                                                                                                                   | *boolean*                                                                                                                                  | :heavy_minus_sign:                                                                                                                         | Generate full network metrics                                                                                                              |
+| `protocols`                                                                                                                                | *boolean*                                                                                                                                  | :heavy_minus_sign:                                                                                                                         | Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite                                                                      |
+| `devices`                                                                                                                                  | *string*[]                                                                                                                                 | :heavy_minus_sign:                                                                                                                         | Network interfaces to include/exclude. All interfaces are included if this list is empty.                                                  |
+| `perInterface`                                                                                                                             | *boolean*                                                                                                                                  | :heavy_minus_sign:                                                                                                                         | Generate separate metrics for each interface                                                                                               |

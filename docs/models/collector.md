@@ -82,7 +82,7 @@ const value: models.CollectorFilesystem = {
   type: "filesystem",
   conf: {
     outputName: "<value>",
-    path: "/Library",
+    path: "/private",
     extractors: [
       {
         key: "<key>",
@@ -90,7 +90,7 @@ const value: models.CollectorFilesystem = {
       },
     ],
     recurse: false,
-    maxBatchSize: 4087.23,
+    maxBatchSize: 8097.94,
   },
   destructive: true,
   encoding: "<value>",
@@ -332,15 +332,13 @@ const value: models.CollectorScript = {
 const value: models.CollectorSplunk = {
   type: "splunk",
   conf: {
-    authentication: "basic",
-    username: "Enrico53",
-    password: "a6l5mrPhEvtGkTu",
+    authentication: "none",
     searchHead: "<value>",
     search: "<value>",
     earliest: "<value>",
     latest: "<value>",
     endpoint: "<value>",
-    outputMode: "json",
+    outputMode: "csv",
     collectRequestParams: [
       {
         name: "<value>",
@@ -353,20 +351,20 @@ const value: models.CollectorSplunk = {
         value: "<value>",
       },
     ],
-    timeout: 2992.03,
-    useRoundRobinDns: true,
-    disableTimeFilter: true,
-    rejectUnauthorized: true,
+    timeout: 8513.39,
+    useRoundRobinDns: false,
+    disableTimeFilter: false,
+    rejectUnauthorized: false,
     handleEscapedChars: false,
     retryRules: {
-      type: "static",
+      type: "backoff",
       interval: "<value>",
       limit: "<value>",
+      multiplier: "<value>",
       codes: "<value>",
       enableHeader: "<value>",
       retryConnectTimeout: "<value>",
       retryConnectReset: "<value>",
-      multiplier: "<value>",
     },
   },
   destructive: true,
