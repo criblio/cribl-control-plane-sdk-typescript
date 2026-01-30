@@ -31,7 +31,6 @@ import {
   PipelineInput,
   RoutesRoute,
 } from "../dist/esm/models";
-import { InputTcpjson, OutputFilesystem } from "../dist/esm/models/operations";
 import { baseUrl, createCriblClient } from "./auth";
 
 const PORT = 9020;
@@ -45,19 +44,19 @@ const myWorkerGroup: ConfigGroup = {
 };
 
 // TCP JSON Source configuration
-const tcpJsonSource: InputTcpjson = {
+const tcpJsonSource = {
   id: "my-tcp-json",
-  type: "tcpjson",
+  type: "tcpjson" as const,
   host: "0.0.0.0",
   port: PORT,
-  authType: "manual",
+  authType: "manual" as const,
   authToken: AUTH_TOKEN,
 };
 
 // Filesystem Destination configuration
-const fileSystemDestination: OutputFilesystem = {
+const fileSystemDestination = {
   id: "my-fs-destination",
-  type: "filesystem",
+  type: "filesystem" as const,
   destPath: "/tmp/my-output",
 };
 

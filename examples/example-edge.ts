@@ -43,7 +43,6 @@ import {
   PipelineInput,
   RoutesRoute,
 } from "../dist/esm/models";
-import { InputSyslog, OutputS3 } from "../dist/esm/models/operations";
 import { baseUrl, createCriblClient } from "./auth";
 
 // Create Fleet
@@ -56,9 +55,9 @@ const myFleet: ConfigGroup = {
 };
 
 // Create Syslog Source
-const syslogSource: InputSyslog = {
+const syslogSource = {
   id: "my-syslog-source",
-  type: "syslog",
+  type: "syslog" as const,
   host: "0.0.0.0",
   tcpPort: SYSLOG_PORT,
   tls: {
@@ -67,16 +66,16 @@ const syslogSource: InputSyslog = {
 };
 
 // Create Amazon S3 Destination
-const s3Destination: OutputS3 = {
+const s3Destination = {
   id: "my-s3-destination",
-  type: "s3",
+  type: "s3" as const,
   bucket: AWS_BUCKET_NAME,
   region: AWS_REGION,
   awsSecretKey: AWS_SECRET_KEY,
   awsApiKey: AWS_API_KEY,
   stagePath: "/tmp/s3-staging",
-  compress: "gzip",
-  compressionLevel: "best_speed",
+  compress: "gzip" as const,
+  compressionLevel: "best_speed" as const,
   emptyDirCleanupSec: 300,
 };
 
