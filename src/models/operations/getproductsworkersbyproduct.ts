@@ -3,8 +3,13 @@
  */
 
 import * as z from "zod/v3";
+import * as models from "../index.js";
 
-export type GetWorkersRequest = {
+export type GetProductsWorkersByProductRequest = {
+  /**
+   * Name of the Cribl product to get Worker or Edge Nodes for.
+   */
+  product: models.ProductsBase;
   /**
    * Filter expression to evaluate against Nodes for inclusion in the response.
    */
@@ -32,7 +37,8 @@ export type GetWorkersRequest = {
 };
 
 /** @internal */
-export type GetWorkersRequest$Outbound = {
+export type GetProductsWorkersByProductRequest$Outbound = {
+  product: string;
   filterExp?: string | undefined;
   sortExp?: string | undefined;
   filter?: string | undefined;
@@ -42,11 +48,12 @@ export type GetWorkersRequest$Outbound = {
 };
 
 /** @internal */
-export const GetWorkersRequest$outboundSchema: z.ZodType<
-  GetWorkersRequest$Outbound,
+export const GetProductsWorkersByProductRequest$outboundSchema: z.ZodType<
+  GetProductsWorkersByProductRequest$Outbound,
   z.ZodTypeDef,
-  GetWorkersRequest
+  GetProductsWorkersByProductRequest
 > = z.object({
+  product: models.ProductsBase$outboundSchema,
   filterExp: z.string().optional(),
   sortExp: z.string().optional(),
   filter: z.string().optional(),
@@ -55,10 +62,12 @@ export const GetWorkersRequest$outboundSchema: z.ZodType<
   offset: z.number().int().optional(),
 });
 
-export function getWorkersRequestToJSON(
-  getWorkersRequest: GetWorkersRequest,
+export function getProductsWorkersByProductRequestToJSON(
+  getProductsWorkersByProductRequest: GetProductsWorkersByProductRequest,
 ): string {
   return JSON.stringify(
-    GetWorkersRequest$outboundSchema.parse(getWorkersRequest),
+    GetProductsWorkersByProductRequest$outboundSchema.parse(
+      getProductsWorkersByProductRequest,
+    ),
   );
 }

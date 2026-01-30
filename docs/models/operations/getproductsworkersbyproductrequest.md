@@ -1,17 +1,18 @@
-# GetWorkersRequest
+# GetProductsWorkersByProductRequest
 
 ## Example Usage
 
 ```typescript
-import { GetWorkersRequest } from "cribl-control-plane/models/operations";
+import { GetProductsWorkersByProductRequest } from "cribl-control-plane/models/operations";
 
-let value: GetWorkersRequest = {
+let value: GetProductsWorkersByProductRequest = {
+  product: "edge",
   filterExp: "<value>",
   sortExp: "<value>",
   filter: "<value>",
   sort: "<value>",
-  limit: 13912,
-  offset: 386093,
+  limit: 576351,
+  offset: 762853,
 };
 ```
 
@@ -19,6 +20,7 @@ let value: GetWorkersRequest = {
 
 | Field                                                                                                                                              | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `product`                                                                                                                                          | [models.ProductsBase](../../models/productsbase.md)                                                                                                | :heavy_check_mark:                                                                                                                                 | Name of the Cribl product to get Worker or Edge Nodes for.                                                                                         |
 | `filterExp`                                                                                                                                        | *string*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | Filter expression to evaluate against Nodes for inclusion in the response.                                                                         |
 | `sortExp`                                                                                                                                          | *string*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | Sorting expression to evaluate against Nodes to specify the sort order for the response.                                                           |
 | `filter`                                                                                                                                           | *string*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | JSON-stringified filter object to evaluate against Nodes for inclusion in the response.                                                            |
