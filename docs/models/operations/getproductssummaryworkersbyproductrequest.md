@@ -1,11 +1,12 @@
-# GetSummaryWorkersRequest
+# GetProductsSummaryWorkersByProductRequest
 
 ## Example Usage
 
 ```typescript
-import { GetSummaryWorkersRequest } from "cribl-control-plane/models/operations";
+import { GetProductsSummaryWorkersByProductRequest } from "cribl-control-plane/models/operations";
 
-let value: GetSummaryWorkersRequest = {
+let value: GetProductsSummaryWorkersByProductRequest = {
+  product: "stream",
   filterExp: "<value>",
 };
 ```
@@ -14,4 +15,5 @@ let value: GetSummaryWorkersRequest = {
 
 | Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `product`                                                                  | [models.ProductsBase](../../models/productsbase.md)                        | :heavy_check_mark:                                                         | Name of the Cribl product to get the count of Worker or Edge Nodes for.    |
 | `filterExp`                                                                | *string*                                                                   | :heavy_minus_sign:                                                         | Filter expression to evaluate against Nodes for inclusion in the response. |

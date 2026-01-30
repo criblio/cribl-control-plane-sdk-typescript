@@ -27,18 +27,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Clear the persistent queue for a Source
+ * Get detailed metadata for a Worker or Edge Node
  *
  * @remarks
- * Clear the persistent queue (PQ) for the specified Source.
+ * Get detailed metadata for the specified Worker or Edge Node for the specified Cribl product.
  */
-export function sourcesPqClear(
+export function nodesGet(
   client: CriblControlPlaneCore,
-  request: operations.DeleteInputPqByIdRequest,
+  request: operations.GetProductsWorkersByProductAndIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedString,
+    models.CountedMasterWorkerEntry,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -59,12 +59,12 @@ export function sourcesPqClear(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.DeleteInputPqByIdRequest,
+  request: operations.GetProductsWorkersByProductAndIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      models.CountedString,
+      models.CountedMasterWorkerEntry,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,7 +80,10 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.DeleteInputPqByIdRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.GetProductsWorkersByProductAndIdRequest$outboundSchema.parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -94,9 +97,13 @@ async function $do(
       explode: false,
       charEncoding: "percent",
     }),
+    product: encodeSimple("product", payload.product, {
+      explode: false,
+      charEncoding: "percent",
+    }),
   };
 
-  const path = pathToFunc("/system/inputs/{id}/pq")(pathParams);
+  const path = pathToFunc("/products/{product}/workers/{id}")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -108,7 +115,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "deleteInputPqById",
+    operationID: "getProductsWorkersByProductAndId",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -132,7 +139,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "DELETE",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -147,7 +154,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -161,7 +168,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedString,
+    models.CountedMasterWorkerEntry,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -172,9 +179,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, models.CountedString$inboundSchema),
+    M.json(200, models.CountedMasterWorkerEntry$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail([401, 403, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

@@ -12,17 +12,11 @@ import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { HecTokens } from "./hectokens.js";
-import { SourcesPq } from "./sourcespq.js";
 
 export class Sources extends ClientSDK {
   private _hecTokens?: HecTokens;
   get hecTokens(): HecTokens {
     return (this._hecTokens ??= new HecTokens(this._options));
-  }
-
-  private _pq?: SourcesPq;
-  get pq(): SourcesPq {
-    return (this._pq ??= new SourcesPq(this._options));
   }
 
   /**
