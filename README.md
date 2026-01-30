@@ -308,8 +308,10 @@ run();
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
-* [~~count~~](docs/sdks/nodes/README.md#count) - Get a count of Worker and Edge Nodes :warning: **Deprecated**
-* [~~list~~](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker and Edge Nodes :warning: **Deprecated**
+* [count](docs/sdks/nodes/README.md#count) - Get a count of Worker or Edge Nodes
+* [get](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker or Edge Node
+* [list](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker or Edge Nodes
+* [restart](docs/sdks/nodes/README.md#restart) - Restart Worker or Edge Nodes
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
@@ -479,6 +481,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`lakeDatasetsGet`](docs/sdks/lakedatasets/README.md#get) - Get a Lake Dataset
 - [`lakeDatasetsList`](docs/sdks/lakedatasets/README.md#list) - List all Lake Datasets
 - [`lakeDatasetsUpdate`](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset
+- [`nodesCount`](docs/sdks/nodes/README.md#count) - Get a count of Worker or Edge Nodes
+- [`nodesGet`](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker or Edge Node
+- [`nodesList`](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker or Edge Nodes
+- [`nodesRestart`](docs/sdks/nodes/README.md#restart) - Restart Worker or Edge Nodes
 - [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 - [`packsDestinationsCreate`](docs/sdks/packsdestinations/README.md#create) - Create a Destination within a Pack
@@ -536,8 +542,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`versionsCommitsUndo`](docs/sdks/commits/README.md#undo) - Discard uncommitted (staged) changes
 - [`versionsConfigsGet`](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
 - [`versionsStatusesGet`](docs/sdks/statuses/README.md#get) - Get the status of the current working tree
-- ~~[`nodesCount`](docs/sdks/nodes/README.md#count)~~ - Get a count of Worker and Edge Nodes :warning: **Deprecated**
-- ~~[`nodesList`](docs/sdks/nodes/README.md#list)~~ - Get detailed metadata for Worker and Edge Nodes :warning: **Deprecated**
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->

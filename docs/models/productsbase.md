@@ -1,11 +1,11 @@
-# Status
+# ProductsBase
 
 ## Example Usage
 
 ```typescript
-import { Status } from "cribl-control-plane/models";
+import { ProductsBase } from "cribl-control-plane/models";
 
-let value: Status = "healthy";
+let value: ProductsBase = "stream";
 ```
 
 ## Values
@@ -13,5 +13,5 @@ let value: Status = "healthy";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"shutting down" | "healthy" | "standby" | Unrecognized<string>
+"stream" | "edge" | Unrecognized<string>
 ```
