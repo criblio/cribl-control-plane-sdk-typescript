@@ -9,9 +9,9 @@ import {
   CacheConnection$outboundSchema,
 } from "./cacheconnection.js";
 import {
-  FormatOptionsCriblLakeDataset,
-  FormatOptionsCriblLakeDataset$outboundSchema,
-} from "./formatoptionscribllakedataset.js";
+  FormatOptions,
+  FormatOptions$outboundSchema,
+} from "./formatoptions.js";
 import {
   LakeDatasetMetrics,
   LakeDatasetMetrics$Outbound,
@@ -29,7 +29,7 @@ export type CriblLakeDatasetUpdate = {
   cacheConnection?: CacheConnection | undefined;
   deletionStartedAt?: number | undefined;
   description?: string | undefined;
-  format?: FormatOptionsCriblLakeDataset | undefined;
+  format?: FormatOptions | undefined;
   httpDAUsed?: boolean | undefined;
   id?: string | undefined;
   metrics?: LakeDatasetMetrics | undefined;
@@ -67,7 +67,7 @@ export const CriblLakeDatasetUpdate$outboundSchema: z.ZodType<
   cacheConnection: CacheConnection$outboundSchema.optional(),
   deletionStartedAt: z.number().optional(),
   description: z.string().optional(),
-  format: FormatOptionsCriblLakeDataset$outboundSchema.optional(),
+  format: FormatOptions$outboundSchema.optional(),
   httpDAUsed: z.boolean().optional(),
   id: z.string().optional(),
   metrics: LakeDatasetMetrics$outboundSchema.optional(),

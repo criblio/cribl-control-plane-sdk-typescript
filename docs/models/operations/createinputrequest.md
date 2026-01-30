@@ -5,10 +5,10 @@ Input object
 
 ## Supported Types
 
-### `operations.InputCollection`
+### `operations.CreateInputInputCollection`
 
 ```typescript
-const value: operations.InputCollection = {
+const value: operations.CreateInputInputCollection = {
   id: "<id>",
   type: "collection",
   disabled: false,
@@ -18,6 +18,8 @@ const value: operations.InputCollection = {
   pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -37,14 +39,15 @@ const value: operations.InputCollection = {
   },
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  staleChannelFlushMs: 5680.54,
+  staleChannelFlushMs: 6953.4,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   throttleRatePerSec: "<value>",
@@ -58,20 +61,19 @@ const value: operations.InputCollection = {
 };
 ```
 
-### `operations.InputKafka`
+### `operations.CreateInputInputKafka`
 
 ```typescript
-const value: operations.InputKafka = {
+const value: operations.CreateInputInputKafka = {
   id: "<id>",
   type: "kafka",
   disabled: true,
   pipeline: "<value>",
-  sendToRoutes: false,
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -89,12 +91,16 @@ const value: operations.InputKafka = {
     compress: "none",
     pqControls: {},
   },
-  brokers: [],
+  brokers: [
+    "<value 1>",
+    "<value 2>",
+  ],
   topics: [
     "<value 1>",
+    "<value 2>",
   ],
   groupId: "<id>",
-  fromBeginning: true,
+  fromBeginning: false,
   kafkaSchemaRegistry: {
     disabled: true,
     schemaRegistryURL: "https://regal-switchboard.biz/",
@@ -118,14 +124,14 @@ const value: operations.InputKafka = {
       maxVersion: "TLSv1.1",
     },
   },
-  connectionTimeout: 9400.64,
-  requestTimeout: 8670.69,
-  maxRetries: 7481.22,
-  maxBackOff: 6874.43,
-  initialBackoff: 675.29,
-  backoffRate: 7831.91,
-  authenticationTimeout: 4838.24,
-  reauthenticationThreshold: 4484.32,
+  connectionTimeout: 9692.08,
+  requestTimeout: 5620.09,
+  maxRetries: 4287.72,
+  maxBackOff: 2609.07,
+  initialBackoff: 2554.03,
+  backoffRate: 7156.92,
+  authenticationTimeout: 6017.26,
+  reauthenticationThreshold: 3293.85,
   sasl: {
     disabled: true,
     username: "Mertie.Abbott",
@@ -166,38 +172,40 @@ const value: operations.InputKafka = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1.1",
   },
-  sessionTimeout: 2927.84,
-  rebalanceTimeout: 5598.08,
-  heartbeatInterval: 1961.16,
-  autoCommitInterval: 6350.5,
-  autoCommitThreshold: 7008.45,
-  maxBytesPerPartition: 9759.86,
-  maxBytes: 5913.02,
-  maxSocketErrors: 1895.95,
+  sessionTimeout: 5106.76,
+  rebalanceTimeout: 9099.46,
+  heartbeatInterval: 1185.83,
+  autoCommitInterval: 7260.25,
+  autoCommitThreshold: 8295.72,
+  maxBytesPerPartition: 8684.58,
+  maxBytes: 2507.28,
+  maxSocketErrors: 8317.76,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "under simple pfft solicit coexist mousse for",
+  description:
+    "suffocate within finally gosh who meanwhile especially paralyse owlishly",
 };
 ```
 
-### `operations.InputMsk`
+### `operations.CreateInputInputMsk`
 
 ```typescript
-const value: operations.InputMsk = {
+const value: operations.CreateInputInputMsk = {
   id: "<id>",
   type: "msk",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
-  sendToRoutes: false,
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -216,15 +224,12 @@ const value: operations.InputMsk = {
     pqControls: {},
   },
   brokers: [],
-  topics: [
-    "<value 1>",
-    "<value 2>",
-  ],
+  topics: [],
   groupId: "<id>",
-  fromBeginning: false,
-  sessionTimeout: 202,
-  rebalanceTimeout: 3914.11,
-  heartbeatInterval: 8903.9,
+  fromBeginning: true,
+  sessionTimeout: 8255.3,
+  rebalanceTimeout: 756.43,
+  heartbeatInterval: 943.01,
   metadata: [
     {
       name: "<value>",
@@ -254,25 +259,25 @@ const value: operations.InputMsk = {
       maxVersion: "TLSv1.1",
     },
   },
-  connectionTimeout: 4330.24,
-  requestTimeout: 5946.4,
-  maxRetries: 5493.72,
-  maxBackOff: 5512.41,
-  initialBackoff: 6513.53,
-  backoffRate: 1824.69,
-  authenticationTimeout: 1180.47,
-  reauthenticationThreshold: 7734.92,
+  connectionTimeout: 8992.69,
+  requestTimeout: 1847.49,
+  maxRetries: 9294.19,
+  maxBackOff: 6182.09,
+  initialBackoff: 6504.84,
+  backoffRate: 2636.73,
+  authenticationTimeout: 7525.57,
+  reauthenticationThreshold: 7608.54,
   awsAuthenticationMethod: "<value>",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
   signatureVersion: "v2",
   reuseConnections: false,
-  rejectUnauthorized: false,
-  enableAssumeRole: true,
+  rejectUnauthorized: true,
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 9728.95,
+  durationSeconds: 9937.61,
   tls: {
     disabled: false,
     rejectUnauthorized: true,
@@ -285,12 +290,12 @@ const value: operations.InputMsk = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1.1",
   },
-  autoCommitInterval: 31.15,
-  autoCommitThreshold: 3276.24,
-  maxBytesPerPartition: 2416.1,
-  maxBytes: 8058.54,
-  maxSocketErrors: 370.82,
-  description: "sparkling wavy joyously anticodon each bouncy",
+  autoCommitInterval: 9745.78,
+  autoCommitThreshold: 514.67,
+  maxBytesPerPartition: 6170.55,
+  maxBytes: 2385.56,
+  maxSocketErrors: 4529.46,
+  description: "translation despite digit",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   __template_awsSecretKey: "<value>",
@@ -301,19 +306,21 @@ const value: operations.InputMsk = {
 };
 ```
 
-### `operations.InputHttp`
+### `operations.CreateInputInputHttp`
 
 ```typescript
-const value: operations.InputHttp = {
+const value: operations.CreateInputInputHttp = {
   id: "<id>",
   type: "http",
   disabled: true,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -331,8 +338,8 @@ const value: operations.InputHttp = {
     compress: "none",
     pqControls: {},
   },
-  host: "excellent-pearl.name",
-  port: 4829.29,
+  host: "weary-in-joke.net",
+  port: 3517.37,
   authTokens: [
     "<value 1>",
   ],
@@ -349,15 +356,15 @@ const value: operations.InputHttp = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 3531.58,
-  maxRequestsPerSocket: 401797,
-  enableProxyHeader: true,
+  maxActiveReq: 2895.17,
+  maxRequestsPerSocket: 505416,
+  enableProxyHeader: false,
   captureHeaders: false,
-  activityLogSampleRate: 7981.88,
-  requestTimeout: 5786.11,
-  socketTimeout: 1731.04,
-  keepAliveTimeout: 1298.25,
-  enableHealthCheck: true,
+  activityLogSampleRate: 6809.46,
+  requestTimeout: 4208.52,
+  socketTimeout: 8078.43,
+  keepAliveTimeout: 3215.47,
+  enableHealthCheck: false,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   criblAPI: "<value>",
@@ -382,22 +389,22 @@ const value: operations.InputHttp = {
       ],
     },
   ],
-  description: "preregister oddly atomize why",
+  description: "fooey as whether interestingly grizzled miscalculate glow sway",
   __template_host: "<value>",
   __template_port: "<value>",
   __template_splunkHecAPI: "<value>",
 };
 ```
 
-### `operations.InputSplunk`
+### `operations.CreateInputInputSplunk`
 
 ```typescript
-const value: operations.InputSplunk = {
+const value: operations.CreateInputInputSplunk = {
   id: "<id>",
   type: "splunk",
   disabled: true,
   pipeline: "<value>",
-  sendToRoutes: false,
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
@@ -420,8 +427,8 @@ const value: operations.InputSplunk = {
     compress: "none",
     pqControls: {},
   },
-  host: "winding-hydrant.net",
-  port: 5795.44,
+  host: "prestigious-issue.net",
+  port: 6281.3,
   tls: {
     disabled: false,
     requestCert: true,
@@ -436,11 +443,11 @@ const value: operations.InputSplunk = {
     maxVersion: "TLSv1",
   },
   ipWhitelistRegex: "<value>",
-  maxActiveCxn: 2043.55,
-  socketIdleTimeout: 7553.42,
-  socketEndingMaxWait: 196.24,
-  socketMaxLifespan: 3552.88,
-  enableProxyHeader: true,
+  maxActiveCxn: 3581.09,
+  socketIdleTimeout: 826.1,
+  socketEndingMaxWait: 7663.3,
+  socketMaxLifespan: 6658.64,
+  enableProxyHeader: false,
   metadata: [
     {
       name: "<value>",
@@ -450,17 +457,17 @@ const value: operations.InputSplunk = {
   breakerRulesets: [
     "<value 1>",
   ],
-  staleChannelFlushMs: 5266.6,
+  staleChannelFlushMs: 8028.37,
   authTokens: [
     {
       token: "<value>",
-      description: "longingly gulp yum excluding pull pointed the travel",
+      description: "jagged about famously softly since against unique",
     },
   ],
-  maxS2Sversion: "v4",
-  description: "diligently incidentally to finally playfully",
+  maxS2Sversion: "v3",
+  description: "who lawmaker why indeed boldly",
   useFwdTimezone: true,
-  dropControlFields: false,
+  dropControlFields: true,
   extractMetrics: false,
   compress: "auto",
   __template_host: "<value>",
@@ -468,21 +475,19 @@ const value: operations.InputSplunk = {
 };
 ```
 
-### `operations.InputSplunkSearch`
+### `operations.CreateInputInputSplunkSearch`
 
 ```typescript
-const value: operations.InputSplunkSearch = {
+const value: operations.CreateInputInputSplunkSearch = {
   id: "<id>",
   type: "splunk_search",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -520,13 +525,13 @@ const value: operations.InputSplunkSearch = {
     },
   ],
   logLevel: "error",
-  requestTimeout: 215.19,
-  useRoundRobinDns: false,
-  rejectUnauthorized: false,
+  requestTimeout: 4738.05,
+  useRoundRobinDns: true,
+  rejectUnauthorized: true,
   encoding: "<value>",
-  keepAliveTime: 1841.77,
+  keepAliveTime: 1715.88,
   jobTimeout: "<value>",
-  maxMissedKeepAlives: 6631.27,
+  maxMissedKeepAlives: 1857.84,
   ttl: "<value>",
   ignoreGroupJobsLimit: true,
   metadata: [
@@ -551,34 +556,31 @@ const value: operations.InputSplunkSearch = {
   },
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  staleChannelFlushMs: 2782.5,
-  authType: "basic",
-  description: "birth or apud fooey numeric singing whereas nautical",
-  username: "Vida1",
-  password: "9JWrbdohpQJfHCn",
+  staleChannelFlushMs: 3880.48,
+  authType: "textSecret",
+  description: "consequently from flashy deficient",
+  username: "Emilio_Stokes-Feeney21",
+  password: "s2oTjG_ZcurGmVh",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
 };
 ```
 
-### `operations.InputSplunkHec`
+### `operations.CreateInputInputSplunkHec`
 
 ```typescript
-const value: operations.InputSplunkHec = {
+const value: operations.CreateInputInputSplunkHec = {
   id: "<id>",
   type: "splunk_hec",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
-  sendToRoutes: false,
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
   ],
   connections: [
     {
@@ -596,18 +598,17 @@ const value: operations.InputSplunkHec = {
     compress: "none",
     pqControls: {},
   },
-  host: "neglected-platter.net",
-  port: 5410.31,
+  host: "bulky-independence.biz",
+  port: 8564.1,
   authTokens: [
     {
       authType: "secret",
       tokenSecret: "<value>",
       token: "<value>",
       enabled: true,
-      description: "guacamole corporation daddy gym colorfully giggle",
+      description: "cheerful selfish unfortunately",
       allowedIndexesAtToken: [
         "<value 1>",
-        "<value 2>",
       ],
       metadata: [
         {
@@ -630,14 +631,14 @@ const value: operations.InputSplunkHec = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 9702.28,
-  maxRequestsPerSocket: 262517,
+  maxActiveReq: 2466.66,
+  maxRequestsPerSocket: 114690,
   enableProxyHeader: true,
   captureHeaders: true,
-  activityLogSampleRate: 2959.6,
-  requestTimeout: 2106.04,
-  socketTimeout: 9520.52,
-  keepAliveTimeout: 7646.16,
+  activityLogSampleRate: 9768.52,
+  requestTimeout: 8684.48,
+  socketTimeout: 296.55,
+  keepAliveTimeout: 1476.93,
   enableHealthCheck: "<value>",
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
@@ -650,39 +651,40 @@ const value: operations.InputSplunkHec = {
   ],
   allowedIndexes: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   splunkHecAcks: false,
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  staleChannelFlushMs: 5366.47,
-  useFwdTimezone: true,
-  dropControlFields: false,
-  extractMetrics: true,
+  staleChannelFlushMs: 6607.52,
+  useFwdTimezone: false,
+  dropControlFields: true,
+  extractMetrics: false,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  emitTokenMetrics: true,
-  description:
-    "slimy sticky hm gosh indeed wherever anneal notwithstanding anenst as",
+  emitTokenMetrics: false,
+  description: "longingly famously bonnet tectonics breastplate apropos keenly",
   __template_host: "<value>",
   __template_port: "<value>",
   __template_splunkHecAPI: "<value>",
 };
 ```
 
-### `operations.InputAzureBlob`
+### `operations.CreateInputInputAzureBlob`
 
 ```typescript
-const value: operations.InputAzureBlob = {
+const value: operations.CreateInputInputAzureBlob = {
   id: "<id>",
   type: "azure_blob",
   disabled: false,
@@ -711,11 +713,11 @@ const value: operations.InputAzureBlob = {
   },
   queueName: "<value>",
   fileFilter: "<value>",
-  visibilityTimeout: 668.73,
-  numReceivers: 8084.51,
-  maxMessages: 6142.34,
-  servicePeriodSecs: 1655.47,
-  skipOnError: false,
+  visibilityTimeout: 4835.86,
+  numReceivers: 3117.53,
+  maxMessages: 2553.29,
+  servicePeriodSecs: 1034.08,
+  skipOnError: true,
   metadata: [
     {
       name: "<value>",
@@ -724,12 +726,13 @@ const value: operations.InputAzureBlob = {
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
-  staleChannelFlushMs: 7468.6,
-  parquetChunkSizeMB: 4637.82,
-  parquetChunkDownloadTimeout: 9629.28,
-  authType: "manual",
-  description: "disapprove cinch dowse until unusual interior rout helpfully",
+  staleChannelFlushMs: 5196.9,
+  parquetChunkSizeMB: 5454.03,
+  parquetChunkDownloadTimeout: 3546.42,
+  authType: "clientSecret",
+  description: "knavishly considering oddball blissfully gust provision",
   connectionString: "<value>",
   textSecret: "<value>",
   storageAccountName: "<value>",
@@ -748,17 +751,17 @@ const value: operations.InputAzureBlob = {
 };
 ```
 
-### `operations.InputElastic`
+### `operations.CreateInputInputElastic`
 
 ```typescript
-const value: operations.InputElastic = {
+const value: operations.CreateInputInputElastic = {
   id: "<id>",
   type: "elastic",
   disabled: false,
   pipeline: "<value>",
   sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -779,8 +782,8 @@ const value: operations.InputElastic = {
     compress: "none",
     pqControls: {},
   },
-  host: "damp-jungle.org",
-  port: 9874.95,
+  host: "upright-descendant.biz",
+  port: 1994.2,
   tls: {
     disabled: false,
     requestCert: true,
@@ -794,20 +797,20 @@ const value: operations.InputElastic = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 5135.96,
-  maxRequestsPerSocket: 194839,
-  enableProxyHeader: false,
+  maxActiveReq: 9761.4,
+  maxRequestsPerSocket: 105501,
+  enableProxyHeader: true,
   captureHeaders: true,
-  activityLogSampleRate: 6560.16,
-  requestTimeout: 5068.06,
-  socketTimeout: 5652.9,
-  keepAliveTimeout: 8898.64,
-  enableHealthCheck: false,
+  activityLogSampleRate: 6306.51,
+  requestTimeout: 2851.27,
+  socketTimeout: 2533.58,
+  keepAliveTimeout: 1385.04,
+  enableHealthCheck: true,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   elasticAPI: "<value>",
-  authType: "credentialsSecret",
-  apiVersion: "6.8.4",
+  authType: "none",
+  apiVersion: "custom",
   extraHttpHeaders: [
     {
       name: "<value>",
@@ -821,28 +824,28 @@ const value: operations.InputElastic = {
     },
   ],
   proxyMode: {
-    enabled: false,
-    authType: "manual",
-    username: "Toy_Quitzon",
-    password: "NaY2Ax9cyA7phV3",
+    enabled: true,
+    authType: "secret",
+    username: "Emelie_Boyer",
+    password: "HAM85xwjsD77_XY",
     credentialsSecret: "<value>",
-    url: "https://golden-petal.name",
-    rejectUnauthorized: false,
+    url: "https://gripping-hundred.name/",
+    rejectUnauthorized: true,
     removeHeaders: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
-    timeoutSec: 9264.12,
-    __template_url: "https://orderly-haircut.biz",
+    timeoutSec: 4349.44,
+    __template_url: "https://elderly-platypus.biz/",
   },
-  description: "optimal collectivization yippee",
-  username: "Everette11",
-  password: "XPFr_bql4rORDjf",
+  description:
+    "honesty angle supposing pfft victoriously unfortunate phooey forenenst",
+  username: "Pearl_Lakin",
+  password: "EDUWDG03tvA_GmE",
   credentialsSecret: "<value>",
   authTokens: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   customAPIVersion: "<value>",
   __template_host: "<value>",
@@ -850,21 +853,19 @@ const value: operations.InputElastic = {
 };
 ```
 
-### `operations.InputConfluentCloud`
+### `operations.CreateInputInputConfluentCloud`
 
 ```typescript
-const value: operations.InputConfluentCloud = {
+const value: operations.CreateInputInputConfluentCloud = {
   id: "<id>",
   type: "confluent_cloud",
   disabled: false,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -885,7 +886,6 @@ const value: operations.InputConfluentCloud = {
   brokers: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   tls: {
     disabled: false,
@@ -899,7 +899,11 @@ const value: operations.InputConfluentCloud = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1.1",
   },
-  topics: [],
+  topics: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
   groupId: "<id>",
   fromBeginning: true,
   kafkaSchemaRegistry: {
@@ -925,14 +929,14 @@ const value: operations.InputConfluentCloud = {
       maxVersion: "TLSv1.1",
     },
   },
-  connectionTimeout: 5875.82,
-  requestTimeout: 4430.43,
-  maxRetries: 6258.28,
-  maxBackOff: 5076.67,
-  initialBackoff: 442.78,
-  backoffRate: 2457.87,
-  authenticationTimeout: 3230.45,
-  reauthenticationThreshold: 3594.49,
+  connectionTimeout: 7987.69,
+  requestTimeout: 3066.87,
+  maxRetries: 2390.74,
+  maxBackOff: 2601.26,
+  initialBackoff: 9247.11,
+  backoffRate: 219.13,
+  authenticationTimeout: 9757.52,
+  reauthenticationThreshold: 1450.19,
   sasl: {
     disabled: true,
     username: "Mertie.Abbott",
@@ -961,35 +965,36 @@ const value: operations.InputConfluentCloud = {
       },
     ],
   },
-  sessionTimeout: 6214.84,
-  rebalanceTimeout: 6484.38,
-  heartbeatInterval: 129.76,
-  autoCommitInterval: 642.99,
-  autoCommitThreshold: 8706.81,
-  maxBytesPerPartition: 6940.47,
-  maxBytes: 9878.43,
-  maxSocketErrors: 6571.24,
+  sessionTimeout: 913.27,
+  rebalanceTimeout: 5941.13,
+  heartbeatInterval: 2991.92,
+  autoCommitInterval: 7957.68,
+  autoCommitThreshold: 5397.11,
+  maxBytesPerPartition: 6515.87,
+  maxBytes: 9301,
+  maxSocketErrors: 8624.5,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "soliloquy daily ack know carelessly after",
+  description:
+    "jagged legislature briefly than whose noteworthy outrun concrete",
 };
 ```
 
-### `operations.InputGrafana`
+### `operations.CreateInputInputGrafanaUnion`
 
 ```typescript
-const value: operations.InputGrafana = {
+const value: operations.CreateInputInputGrafanaUnion = {
   id: "<id>",
   type: "grafana",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -1011,8 +1016,8 @@ const value: operations.InputGrafana = {
     compress: "none",
     pqControls: {},
   },
-  host: "equatorial-colon.biz",
-  port: 2154.72,
+  host: "adolescent-loaf.name",
+  port: 481.29,
   tls: {
     disabled: false,
     requestCert: true,
@@ -1026,31 +1031,31 @@ const value: operations.InputGrafana = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 6769.73,
-  maxRequestsPerSocket: 590709,
-  enableProxyHeader: false,
+  maxActiveReq: 8932.11,
+  maxRequestsPerSocket: 798378,
+  enableProxyHeader: true,
   captureHeaders: true,
-  activityLogSampleRate: 7133.02,
-  requestTimeout: 575.67,
-  socketTimeout: 5267.17,
-  keepAliveTimeout: 8184.82,
-  enableHealthCheck: true,
+  activityLogSampleRate: 2528.84,
+  requestTimeout: 5187.22,
+  socketTimeout: 9155.07,
+  keepAliveTimeout: 9394.19,
+  enableHealthCheck: false,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   prometheusAPI: "<value>",
   lokiAPI: "<value>",
   prometheusAuth: {
     authType: "token",
-    username: "Kameron.Krajcik",
-    password: "TRzTJ4CieT2pr2j",
+    username: "Jocelyn66",
+    password: "2LPMCGbi0B6WWa8",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
   },
   lokiAuth: {
-    authType: "none",
-    username: "Tatum.Cormier46",
-    password: "P5YnNQJeNfbiSbB",
+    authType: "textSecret",
+    username: "Odell_Rosenbaum68",
+    password: "1jlFjr1rDrE9Bo1",
     token: "<value>",
     credentialsSecret: "<value>",
     textSecret: "<value>",
@@ -1061,19 +1066,94 @@ const value: operations.InputGrafana = {
       value: "<value>",
     },
   ],
-  description: "meanwhile till uncomfortable till onto utter",
+  description: "private scoff around seemingly even bowed",
   __template_host: "<value>",
   __template_port: "<value>",
 };
 ```
 
-### `operations.InputLoki`
+### `operations.CreateInputInputLoki`
 
 ```typescript
-const value: operations.InputLoki = {
+const value: operations.CreateInputInputLoki = {
   id: "<id>",
   type: "loki",
   disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "experienced-overcoat.info",
+  port: 8983.16,
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  maxActiveReq: 9908.18,
+  maxRequestsPerSocket: 187926,
+  enableProxyHeader: true,
+  captureHeaders: true,
+  activityLogSampleRate: 1276.29,
+  requestTimeout: 9876.12,
+  socketTimeout: 1017.7,
+  keepAliveTimeout: 2146.08,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  lokiAPI: "<value>",
+  authType: "basic",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "yahoo less fowl atop",
+  username: "Liam.Cummerata",
+  password: "kRFxPjJqMY1REPs",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  __template_host: "<value>",
+  __template_port: "<value>",
+};
+```
+
+### `operations.CreateInputInputPrometheusRw`
+
+```typescript
+const value: operations.CreateInputInputPrometheusRw = {
+  id: "<id>",
+  type: "prometheus_rw",
+  disabled: true,
   pipeline: "<value>",
   sendToRoutes: true,
   environment: "<value>",
@@ -1099,8 +1179,8 @@ const value: operations.InputLoki = {
     compress: "none",
     pqControls: {},
   },
-  host: "different-halt.org",
-  port: 3834.62,
+  host: "bossy-fraudster.info",
+  port: 3855.59,
   tls: {
     disabled: false,
     requestCert: true,
@@ -1114,105 +1194,28 @@ const value: operations.InputLoki = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 2025.7,
-  maxRequestsPerSocket: 813603,
-  enableProxyHeader: true,
-  captureHeaders: false,
-  activityLogSampleRate: 4542.77,
-  requestTimeout: 9300.73,
-  socketTimeout: 9100.49,
-  keepAliveTimeout: 4092.62,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  lokiAPI: "<value>",
-  authType: "token",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "emphasize joshingly at oof notwithstanding married flawed pfft",
-  username: "Layne.Schroeder",
-  password: "Cct1yQtgvQ6PZpB",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  __template_host: "<value>",
-  __template_port: "<value>",
-};
-```
-
-### `operations.InputPrometheusRw`
-
-```typescript
-const value: operations.InputPrometheusRw = {
-  id: "<id>",
-  type: "prometheus_rw",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "nifty-surface.info",
-  port: 3397.29,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 6203.03,
-  maxRequestsPerSocket: 555303,
+  maxActiveReq: 9452.46,
+  maxRequestsPerSocket: 443325,
   enableProxyHeader: false,
   captureHeaders: false,
-  activityLogSampleRate: 1438.4,
-  requestTimeout: 4633.67,
-  socketTimeout: 4441.4,
-  keepAliveTimeout: 605.07,
+  activityLogSampleRate: 9786.83,
+  requestTimeout: 5226.27,
+  socketTimeout: 4774.19,
+  keepAliveTimeout: 9902.91,
   enableHealthCheck: false,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   prometheusAPI: "<value>",
-  authType: "credentialsSecret",
+  authType: "textSecret",
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "sightseeing wavy except keenly wide",
-  username: "Cara6",
-  password: "lUYYKvzYoOK8P9O",
+  description: "interviewer for webbed pulp drat finally ick gah",
+  username: "Allen.Dicki69",
+  password: "6ps8oHvyofD5TkH",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
@@ -1222,21 +1225,19 @@ const value: operations.InputPrometheusRw = {
 };
 ```
 
-### `operations.InputPrometheus`
+### `operations.CreateInputInputPrometheus`
 
 ```typescript
-const value: operations.InputPrometheus = {
+const value: operations.CreateInputInputPrometheus = {
   id: "<id>",
   type: "prometheus",
   disabled: true,
   pipeline: "<value>",
   sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1256,17 +1257,15 @@ const value: operations.InputPrometheus = {
   },
   dimensionList: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  discoveryType: "dns",
-  interval: 7932.5,
+  discoveryType: "ec2",
+  interval: 1108.53,
   logLevel: "error",
   rejectUnauthorized: false,
-  timeout: 7495.43,
-  keepAliveTime: 3867.11,
+  timeout: 7553.64,
+  keepAliveTime: 1523.81,
   jobTimeout: "<value>",
-  maxMissedKeepAlives: 3956.43,
+  maxMissedKeepAlives: 2298.79,
   ttl: "<value>",
   ignoreGroupJobsLimit: false,
   metadata: [
@@ -1275,13 +1274,114 @@ const value: operations.InputPrometheus = {
       value: "<value>",
     },
   ],
-  authType: "secret",
-  description: "yet mainstream snoop grown atop ruin drat ethyl",
+  authType: "manual",
+  description: "perfectly trustworthy gloom ajar sting",
   targetList: [
     "<value 1>",
+    "<value 2>",
+  ],
+  recordType: "A",
+  scrapePort: 5792.03,
+  nameList: [
+    "<value 1>",
+  ],
+  scrapeProtocol: "https",
+  scrapePath: "<value>",
+  awsAuthenticationMethod: "<value>",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  usePublicIp: false,
+  searchFilter: [
+    {
+      Name: "<value>",
+      Values: [
+        "<value 1>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  signatureVersion: "v2",
+  reuseConnections: false,
+  enableAssumeRole: true,
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  durationSeconds: 7507.64,
+  username: "Iva.Lynch26",
+  password: "fj7pulXo01FYWct",
+  credentialsSecret: "<value>",
+  __template_logLevel: "<value>",
+  __template_awsApiKey: "<value>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
+};
+```
+
+### `operations.CreateInputInputEdgePrometheus`
+
+```typescript
+const value: operations.CreateInputInputEdgePrometheus = {
+  id: "<id>",
+  type: "edge_prometheus",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+  ],
+  discoveryType: "k8s-node",
+  interval: 7432.46,
+  timeout: 8220.38,
+  persistence: {
+    enable: false,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authType: "kubernetes",
+  description: "sedately which rule boggle plus nor upright why as",
+  targets: [
+    {
+      protocol: "https",
+      host: "concerned-pliers.net",
+      port: 6188.91,
+      path: "/selinux",
+    },
   ],
   recordType: "AAAA",
-  scrapePort: 451.83,
+  scrapePort: 9093.03,
   nameList: [
     "<value 1>",
     "<value 2>",
@@ -1304,128 +1404,25 @@ const value: operations.InputPrometheus = {
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
-  signatureVersion: "v2",
-  reuseConnections: false,
+  signatureVersion: "v4",
+  reuseConnections: true,
+  rejectUnauthorized: true,
   enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 2640.6,
-  username: "Jalen_Kris",
-  password: "PUxEKSAbzVy9MPn",
-  credentialsSecret: "<value>",
-  __template_logLevel: "<value>",
-  __template_awsApiKey: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-};
-```
-
-### `operations.InputEdgePrometheus`
-
-```typescript
-const value: operations.InputEdgePrometheus = {
-  id: "<id>",
-  type: "edge_prometheus",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  dimensionList: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  discoveryType: "ec2",
-  interval: 3025.46,
-  timeout: 8305.52,
-  persistence: {
-    enable: false,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "gzip",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authType: "manual",
-  description: "jut yum hm swat what lock nervously upon standard",
-  targets: [
-    {
-      protocol: "https",
-      host: "paltry-strait.net",
-      port: 7269.58,
-      path: "/var/yp",
-    },
-  ],
-  recordType: "SRV",
-  scrapePort: 2494.02,
-  nameList: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  scrapeProtocol: "http",
-  scrapePath: "<value>",
-  awsAuthenticationMethod: "<value>",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  usePublicIp: false,
-  searchFilter: [
-    {
-      Name: "<value>",
-      Values: [
-        "<value 1>",
-      ],
-    },
-  ],
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v2",
-  reuseConnections: false,
-  rejectUnauthorized: true,
-  enableAssumeRole: true,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 7941.22,
+  durationSeconds: 2194.37,
   scrapeProtocolExpr: "<value>",
   scrapePortExpr: "<value>",
   scrapePathExpr: "<value>",
   podFilter: [
     {
       filter: "<value>",
-      description: "um which tune cease formamide whose aha general",
+      description:
+        "who scoop horse promise shampoo injunction rosin swiftly brr ack",
     },
   ],
-  username: "Uriel.Schinner43",
-  password: "_GfZ57KuJW1Epqr",
+  username: "Kamron_Dibbert",
+  password: "TM6jPr78ZWM5oF8",
   credentialsSecret: "<value>",
   __template_awsApiKey: "<value>",
   __template_awsSecretKey: "<value>",
@@ -1435,13 +1432,13 @@ const value: operations.InputEdgePrometheus = {
 };
 ```
 
-### `operations.InputOffice365Mgmt`
+### `operations.CreateInputInputOffice365Mgmt`
 
 ```typescript
-const value: operations.InputOffice365Mgmt = {
+const value: operations.CreateInputInputOffice365Mgmt = {
   id: "<id>",
   type: "office365_mgmt",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
   sendToRoutes: false,
   environment: "<value>",
@@ -1466,13 +1463,13 @@ const value: operations.InputOffice365Mgmt = {
     compress: "none",
     pqControls: {},
   },
-  planType: "gcc_high",
+  planType: "enterprise_gcc",
   tenantId: "<id>",
   appId: "<id>",
-  timeout: 788.07,
-  keepAliveTime: 1427.54,
+  timeout: 6352.01,
+  keepAliveTime: 6035.08,
   jobTimeout: "<value>",
-  maxMissedKeepAlives: 875.19,
+  maxMissedKeepAlives: 3382.81,
   ttl: "<value>",
   ignoreGroupJobsLimit: true,
   metadata: [
@@ -1485,14 +1482,13 @@ const value: operations.InputOffice365Mgmt = {
   contentConfig: [
     {
       contentType: "<value>",
-      description:
-        "blowgun barge burdensome faint carelessly enthusiastically before lest under",
-      interval: 2831.36,
-      logLevel: "warn",
-      enabled: true,
+      description: "immediately once nab whether",
+      interval: 8097.17,
+      logLevel: "info",
+      enabled: false,
     },
   ],
-  ingestionLag: 8240.57,
+  ingestionLag: 7746.02,
   retryRules: {
     type: "<value>",
     interval: 6390.37,
@@ -1507,8 +1503,8 @@ const value: operations.InputOffice365Mgmt = {
     retryConnectTimeout: true,
     retryConnectReset: true,
   },
-  authType: "secret",
-  description: "impassioned which whereas ravage seagull boldly",
+  authType: "manual",
+  description: "information wire supposing impressive yuck address which",
   clientSecret: "<value>",
   textSecret: "<value>",
   __template_tenantId: "<id>",
@@ -1518,17 +1514,17 @@ const value: operations.InputOffice365Mgmt = {
 };
 ```
 
-### `operations.InputOffice365Service`
+### `operations.CreateInputInputOffice365Service`
 
 ```typescript
-const value: operations.InputOffice365Service = {
+const value: operations.CreateInputInputOffice365Service = {
   id: "<id>",
   type: "office365_service",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
-  sendToRoutes: false,
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -1550,13 +1546,13 @@ const value: operations.InputOffice365Service = {
     compress: "none",
     pqControls: {},
   },
-  planType: "dod",
+  planType: "enterprise_gcc",
   tenantId: "<id>",
   appId: "<id>",
-  timeout: 4191.41,
-  keepAliveTime: 3815.37,
+  timeout: 4696,
+  keepAliveTime: 6627.43,
   jobTimeout: "<value>",
-  maxMissedKeepAlives: 5709.83,
+  maxMissedKeepAlives: 2386.97,
   ttl: "<value>",
   ignoreGroupJobsLimit: false,
   metadata: [
@@ -1569,10 +1565,10 @@ const value: operations.InputOffice365Service = {
     {
       contentType: "<value>",
       description:
-        "plus conjecture unrealistic than kielbasa important whoa yuck if confusion",
-      interval: 1014.03,
+        "hm stealthily because slump mysteriously yahoo as until however drowse",
+      interval: 2776.83,
       logLevel: "info",
-      enabled: false,
+      enabled: true,
     },
   ],
   retryRules: {
@@ -1590,7 +1586,7 @@ const value: operations.InputOffice365Service = {
     retryConnectReset: true,
   },
   authType: "manual",
-  description: "yippee fail stiffen duh",
+  description: "foolishly suffice yuck our aware thorny",
   clientSecret: "<value>",
   textSecret: "<value>",
   __template_tenantId: "<id>",
@@ -1599,21 +1595,20 @@ const value: operations.InputOffice365Service = {
 };
 ```
 
-### `operations.InputOffice365MsgTrace`
+### `operations.CreateInputInputOffice365MsgTrace`
 
 ```typescript
-const value: operations.InputOffice365MsgTrace = {
+const value: operations.CreateInputInputOffice365MsgTrace = {
   id: "<id>",
   type: "office365_msg_trace",
   disabled: true,
   pipeline: "<value>",
   sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1631,19 +1626,19 @@ const value: operations.InputOffice365MsgTrace = {
     compress: "none",
     pqControls: {},
   },
-  url: "https://wicked-bid.info/",
-  interval: 943.75,
+  url: "https://married-wafer.name",
+  interval: 2208.14,
   startDate: "<value>",
   endDate: "<value>",
-  timeout: 570.06,
-  disableTimeFilter: true,
-  authType: "oauthSecret",
+  timeout: 7476.2,
+  disableTimeFilter: false,
+  authType: "oauth",
   rescheduleDroppedTasks: false,
-  maxTaskReschedule: 2640.61,
-  logLevel: "info",
+  maxTaskReschedule: 8325.69,
+  logLevel: "silly",
   jobTimeout: "<value>",
-  keepAliveTime: 8376.56,
-  maxMissedKeepAlives: 2084.53,
+  keepAliveTime: 7705.66,
+  maxMissedKeepAlives: 6063.77,
   ttl: "<value>",
   ignoreGroupJobsLimit: false,
   metadata: [
@@ -1666,15 +1661,15 @@ const value: operations.InputOffice365MsgTrace = {
     retryConnectTimeout: true,
     retryConnectReset: true,
   },
-  description: "deed whether until naturally degrease",
-  username: "Mireya36",
-  password: "JZFZfNY3kgTm5fh",
+  description: "hmph digestive probable",
+  username: "Sophia.Johnston86",
+  password: "xHT77R9c6nCz3FV",
   credentialsSecret: "<value>",
   clientSecret: "<value>",
   tenantId: "<id>",
   clientId: "<id>",
   resource: "<value>",
-  planType: "gcc_high",
+  planType: "dod",
   textSecret: "<value>",
   certOptions: {
     certificateName: "<value>",
@@ -1682,26 +1677,27 @@ const value: operations.InputOffice365MsgTrace = {
     passphrase: "<value>",
     certPath: "<value>",
   },
-  __template_url: "https://carefree-lifestyle.com/",
+  __template_url: "https://inferior-step.net",
   __template_tenantId: "<id>",
   __template_clientId: "<id>",
   __template_resource: "<value>",
 };
 ```
 
-### `operations.InputEventhub`
+### `operations.CreateInputInputEventhub`
 
 ```typescript
-const value: operations.InputEventhub = {
+const value: operations.CreateInputInputEventhub = {
   id: "<id>",
   type: "eventhub",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
   sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -1722,20 +1718,19 @@ const value: operations.InputEventhub = {
   brokers: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  topics: [
-    "<value 1>",
-  ],
+  topics: [],
   groupId: "<id>",
   fromBeginning: false,
-  connectionTimeout: 2410.87,
-  requestTimeout: 6948.17,
-  maxRetries: 7510.39,
-  maxBackOff: 5913.86,
-  initialBackoff: 359.02,
-  backoffRate: 5781.86,
-  authenticationTimeout: 6168.83,
-  reauthenticationThreshold: 5575.38,
+  connectionTimeout: 1314.59,
+  requestTimeout: 3229.77,
+  maxRetries: 9480.17,
+  maxBackOff: 9786.6,
+  initialBackoff: 992.9,
+  backoffRate: 2381.84,
+  authenticationTimeout: 59.92,
+  reauthenticationThreshold: 3173.39,
   sasl: {
     disabled: false,
     authType: "manual",
@@ -1759,41 +1754,39 @@ const value: operations.InputEventhub = {
     disabled: false,
     rejectUnauthorized: false,
   },
-  sessionTimeout: 2694.17,
-  rebalanceTimeout: 7726.24,
-  heartbeatInterval: 7886.72,
-  autoCommitInterval: 6500.9,
-  autoCommitThreshold: 6832.17,
-  maxBytesPerPartition: 56.52,
-  maxBytes: 9270.09,
-  maxSocketErrors: 8676.76,
-  minimizeDuplicates: true,
+  sessionTimeout: 8485.45,
+  rebalanceTimeout: 545.14,
+  heartbeatInterval: 4053.62,
+  autoCommitInterval: 1065.88,
+  autoCommitThreshold: 8588.7,
+  maxBytesPerPartition: 3648.89,
+  maxBytes: 2631.85,
+  maxSocketErrors: 9740.19,
+  minimizeDuplicates: false,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "economise ramp the inquisitively hence anenst with even rusty mmm",
+  description: "forenenst drat obesity sweatshop mmm",
 };
 ```
 
-### `operations.InputExec`
+### `operations.CreateInputInputExec`
 
 ```typescript
-const value: operations.InputExec = {
+const value: operations.CreateInputInputExec = {
   id: "<id>",
   type: "exec",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
-  sendToRoutes: false,
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1812,30 +1805,29 @@ const value: operations.InputExec = {
     pqControls: {},
   },
   command: "<value>",
-  retries: 7725.09,
-  scheduleType: "cronSchedule",
+  retries: 1000.19,
+  scheduleType: "interval",
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  staleChannelFlushMs: 5694.82,
+  staleChannelFlushMs: 4265.46,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "opera wring dress likewise",
-  interval: 8781.63,
+  description:
+    "separately valuable intently lovingly knowledgeably furthermore inconsequential appropriate merrily fellow",
+  interval: 5838.56,
   cronSchedule: "<value>",
 };
 ```
 
-### `operations.InputFirehose`
+### `operations.CreateInputInputFirehose`
 
 ```typescript
-const value: operations.InputFirehose = {
+const value: operations.CreateInputInputFirehose = {
   id: "<id>",
   type: "firehose",
   disabled: false,
@@ -1846,7 +1838,6 @@ const value: operations.InputFirehose = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -1864,8 +1855,8 @@ const value: operations.InputFirehose = {
     compress: "none",
     pqControls: {},
   },
-  host: "skeletal-council.info",
-  port: 6949.37,
+  host: "illustrious-taro.name",
+  port: 5846.15,
   authTokens: [
     "<value 1>",
     "<value 2>",
@@ -1884,14 +1875,14 @@ const value: operations.InputFirehose = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 8100.76,
-  maxRequestsPerSocket: 863638,
+  maxActiveReq: 6256.07,
+  maxRequestsPerSocket: 19566,
   enableProxyHeader: true,
-  captureHeaders: true,
-  activityLogSampleRate: 43.36,
-  requestTimeout: 5334.79,
-  socketTimeout: 2247.58,
-  keepAliveTimeout: 9021.98,
+  captureHeaders: false,
+  activityLogSampleRate: 7484.75,
+  requestTimeout: 1925.49,
+  socketTimeout: 4971.34,
+  keepAliveTimeout: 538.97,
   enableHealthCheck: false,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
@@ -1901,23 +1892,23 @@ const value: operations.InputFirehose = {
       value: "<value>",
     },
   ],
-  description: "postbox psst however till athwart lightly",
+  description: "regular towards after experienced",
   __template_host: "<value>",
   __template_port: "<value>",
 };
 ```
 
-### `operations.InputGooglePubsub`
+### `operations.CreateInputInputGooglePubsub`
 
 ```typescript
-const value: operations.InputGooglePubsub = {
+const value: operations.CreateInputInputGooglePubsub = {
   id: "<id>",
   type: "google_pubsub",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
   sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -1943,32 +1934,32 @@ const value: operations.InputGooglePubsub = {
   subscriptionName: "<value>",
   monitorSubscription: false,
   createTopic: false,
-  createSubscription: false,
+  createSubscription: true,
   region: "<value>",
-  googleAuthMethod: "secret",
+  googleAuthMethod: "auto",
   serviceAccountCredentials: "<value>",
   secret: "<value>",
-  maxBacklog: 6970.64,
-  concurrency: 8341.33,
-  requestTimeout: 8554.64,
+  maxBacklog: 1522.38,
+  concurrency: 4546.12,
+  requestTimeout: 9024.14,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "past creator or given slowly glossy nutritious volunteer but",
-  orderedDelivery: true,
+  description: "healthily whether accelerator redevelop yet",
+  orderedDelivery: false,
   __template_topicName: "<value>",
   __template_subscriptionName: "<value>",
   __template_region: "<value>",
 };
 ```
 
-### `operations.InputCribl`
+### `operations.CreateInputInputCribl`
 
 ```typescript
-const value: operations.InputCribl = {
+const value: operations.CreateInputInputCribl = {
   id: "<id>",
   type: "cribl",
   disabled: true,
@@ -2003,17 +1994,87 @@ const value: operations.InputCribl = {
       value: "<value>",
     },
   ],
-  description:
-    "which eternity scuttle cheerfully whereas yet mmm playfully pecan what",
+  description: "dally parade yet after ameliorate weakly",
 };
 ```
 
-### `operations.InputCriblTcp`
+### `operations.CreateInputInputCriblTcp`
 
 ```typescript
-const value: operations.InputCriblTcp = {
+const value: operations.CreateInputInputCriblTcp = {
   id: "<id>",
   type: "cribl_tcp",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "big-daddy.net",
+  port: 2066.41,
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  maxActiveCxn: 4431.24,
+  socketIdleTimeout: 5274.64,
+  socketEndingMaxWait: 8668.25,
+  socketMaxLifespan: 873.59,
+  enableProxyHeader: true,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  enableLoadBalancing: true,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      enabled: true,
+      description: "technician flimsy and ha",
+    },
+  ],
+  description: "cheerfully however atop only tackle gadzooks",
+  __template_host: "<value>",
+  __template_port: "<value>",
+};
+```
+
+### `operations.CreateInputInputCriblHttp`
+
+```typescript
+const value: operations.CreateInputInputCriblHttp = {
+  id: "<id>",
+  type: "cribl_http",
   disabled: true,
   pipeline: "<value>",
   sendToRoutes: false,
@@ -2038,8 +2099,15 @@ const value: operations.InputCriblTcp = {
     compress: "none",
     pqControls: {},
   },
-  host: "partial-status.org",
-  port: 8551.78,
+  host: "angelic-ghost.info",
+  port: 1399.4,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      enabled: true,
+      description: "technician flimsy and ha",
+    },
+  ],
   tls: {
     disabled: false,
     requestCert: true,
@@ -2053,42 +2121,207 @@ const value: operations.InputCriblTcp = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveCxn: 8321.6,
-  socketIdleTimeout: 8630.72,
-  socketEndingMaxWait: 895.97,
-  socketMaxLifespan: 4455.26,
-  enableProxyHeader: false,
+  maxActiveReq: 9564.82,
+  maxRequestsPerSocket: 1619,
+  enableProxyHeader: true,
+  captureHeaders: false,
+  activityLogSampleRate: 2923.55,
+  requestTimeout: 4049.38,
+  socketTimeout: 260.08,
+  keepAliveTimeout: 2738.68,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  enableLoadBalancing: true,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      enabled: true,
-      description: "technician flimsy and ha",
-    },
-  ],
-  description: "ouch warmly encode probable regularly boyfriend almost across",
+  description: "drat tame bah as westernise other though wherever yet whenever",
   __template_host: "<value>",
   __template_port: "<value>",
 };
 ```
 
-### `operations.InputCriblHttp`
+### `operations.CreateInputInputCriblLakeHttp`
 
 ```typescript
-const value: operations.InputCriblHttp = {
+const value: operations.CreateInputInputCriblLakeHttp = {
   id: "<id>",
-  type: "cribl_http",
-  disabled: false,
+  type: "cribl_lake_http",
+  disabled: true,
   pipeline: "<value>",
   sendToRoutes: true,
   environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "bruised-goodwill.net",
+  port: 1682.79,
+  authTokens: [
+    "<value 1>",
+  ],
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  maxActiveReq: 9281.49,
+  maxRequestsPerSocket: 491416,
+  enableProxyHeader: true,
+  captureHeaders: true,
+  activityLogSampleRate: 6865.53,
+  requestTimeout: 4150.2,
+  socketTimeout: 3170.13,
+  keepAliveTimeout: 6627.26,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  criblAPI: "<value>",
+  elasticAPI: "<value>",
+  splunkHecAPI: "<value>",
+  splunkHecAcks: true,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "traduce anxiously trivial nougat buttery waist hence",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      splunkHecMetadata: {
+        enabled: true,
+        defaultDataset: "<value>",
+        allowedIndexesAtToken: [
+          "<value 1>",
+        ],
+      },
+      elasticsearchMetadata: {
+        enabled: false,
+        defaultDataset: "<value>",
+      },
+    },
+  ],
+  description: "anti knowledgeably of inasmuch blah unlined judgementally",
+  __template_host: "<value>",
+  __template_port: "<value>",
+  __template_splunkHecAPI: "<value>",
+};
+```
+
+### `operations.CreateInputInputTcpjson`
+
+```typescript
+const value: operations.CreateInputInputTcpjson = {
+  id: "<id>",
+  type: "tcpjson",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
   pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "impeccable-switch.name",
+  port: 1090.61,
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  ipWhitelistRegex: "<value>",
+  maxActiveCxn: 2929.16,
+  socketIdleTimeout: 8996.97,
+  socketEndingMaxWait: 9039.83,
+  socketMaxLifespan: 6172.19,
+  enableProxyHeader: true,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  enableLoadBalancing: false,
+  authType: "secret",
+  description: "whale silky yin over pluck zowie um colorfully sans silent",
+  authToken: "<value>",
+  textSecret: "<value>",
+  __template_host: "<value>",
+  __template_port: "<value>",
+};
+```
+
+### `operations.CreateInputInputSystemMetrics`
+
+```typescript
+const value: operations.CreateInputInputSystemMetrics = {
+  id: "<id>",
+  type: "system_metrics",
+  disabled: true,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -2110,285 +2343,41 @@ const value: operations.InputCriblHttp = {
     compress: "none",
     pqControls: {},
   },
-  host: "biodegradable-worth.net",
-  port: 6748.87,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      enabled: true,
-      description: "technician flimsy and ha",
-    },
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 3998.15,
-  maxRequestsPerSocket: 640223,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 3450.45,
-  requestTimeout: 3926.55,
-  socketTimeout: 8507.54,
-  keepAliveTimeout: 8449.54,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "tune earth since likewise furthermore tooth folklore",
-  __template_host: "<value>",
-  __template_port: "<value>",
-};
-```
-
-### `operations.InputCriblLakeHttp`
-
-```typescript
-const value: operations.InputCriblLakeHttp = {
-  id: "<id>",
-  type: "cribl_lake_http",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "worse-convection.com",
-  port: 466.24,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 7820.45,
-  maxRequestsPerSocket: 243793,
-  enableProxyHeader: true,
-  captureHeaders: true,
-  activityLogSampleRate: 7534.49,
-  requestTimeout: 4513.21,
-  socketTimeout: 6554.3,
-  keepAliveTimeout: 1793.5,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  criblAPI: "<value>",
-  elasticAPI: "<value>",
-  splunkHecAPI: "<value>",
-  splunkHecAcks: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "obtrude chime along",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      splunkHecMetadata: {
-        enabled: true,
-        defaultDataset: "<value>",
-        allowedIndexesAtToken: [
-          "<value 1>",
-        ],
-      },
-      elasticsearchMetadata: {
-        enabled: true,
-        defaultDataset: "<value>",
-      },
-    },
-  ],
-  description: "if acceptable once numeric",
-  __template_host: "<value>",
-  __template_port: "<value>",
-  __template_splunkHecAPI: "<value>",
-};
-```
-
-### `operations.InputTcpjson`
-
-```typescript
-const value: operations.InputTcpjson = {
-  id: "<id>",
-  type: "tcpjson",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "prudent-bungalow.name",
-  port: 9637.46,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  ipWhitelistRegex: "<value>",
-  maxActiveCxn: 9134.66,
-  socketIdleTimeout: 748.05,
-  socketEndingMaxWait: 6406.81,
-  socketMaxLifespan: 5580.85,
-  enableProxyHeader: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  enableLoadBalancing: false,
-  authType: "manual",
-  description: "menacing swing oh lovingly",
-  authToken: "<value>",
-  textSecret: "<value>",
-  __template_host: "<value>",
-  __template_port: "<value>",
-};
-```
-
-### `operations.InputSystemMetrics`
-
-```typescript
-const value: operations.InputSystemMetrics = {
-  id: "<id>",
-  type: "system_metrics",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  interval: 5754.52,
+  interval: 7388.27,
   host: {
-    mode: "custom",
+    mode: "basic",
     custom: {
       system: {
-        mode: "all",
+        mode: "custom",
         processes: true,
       },
       cpu: {
         mode: "custom",
         perCpu: false,
-        detail: true,
-        time: false,
+        detail: false,
+        time: true,
       },
       memory: {
-        mode: "all",
-        detail: false,
+        mode: "basic",
+        detail: true,
       },
       network: {
-        mode: "custom",
-        detail: false,
-        protocols: false,
+        mode: "all",
+        detail: true,
+        protocols: true,
         devices: [
           "<value 1>",
           "<value 2>",
         ],
-        perInterface: false,
+        perInterface: true,
       },
       disk: {
-        mode: "custom",
-        detail: true,
-        inodes: false,
+        mode: "basic",
+        detail: false,
+        inodes: true,
         devices: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
         mountpoints: [
           "<value 1>",
@@ -2396,9 +2385,8 @@ const value: operations.InputSystemMetrics = {
         fstypes: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
-        perDevice: true,
+        perDevice: false,
       },
     },
   },
@@ -2412,19 +2400,18 @@ const value: operations.InputSystemMetrics = {
     ],
   },
   container: {
-    mode: "custom",
+    mode: "basic",
     dockerSocket: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
-    dockerTimeout: 2610.95,
+    dockerTimeout: 2917.13,
     filters: [
       {
         expr: "<value>",
       },
     ],
-    allContainers: true,
+    allContainers: false,
     perDevice: true,
     detail: true,
   },
@@ -2435,30 +2422,31 @@ const value: operations.InputSystemMetrics = {
     },
   ],
   persistence: {
-    enable: true,
+    enable: false,
     timeWindow: "<value>",
     maxDataSize: "<value>",
     maxDataTime: "<value>",
-    compress: "none",
+    compress: "gzip",
     destPath: "<value>",
   },
-  description: "trash frequent instead badly though schedule dual vainly zowie",
+  description: "climb sweatshop surge",
 };
 ```
 
-### `operations.InputSystemState`
+### `operations.CreateInputInputSystemState`
 
 ```typescript
-const value: operations.InputSystemState = {
+const value: operations.CreateInputInputSystemState = {
   id: "<id>",
   type: "system_state",
   disabled: true,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -2476,7 +2464,7 @@ const value: operations.InputSystemState = {
     compress: "none",
     pqControls: {},
   },
-  interval: 7525.13,
+  interval: 5601.54,
   metadata: [
     {
       name: "<value>",
@@ -2485,25 +2473,25 @@ const value: operations.InputSystemState = {
   ],
   collectors: {
     hostsfile: {
-      enable: true,
+      enable: false,
     },
     interfaces: {
-      enable: true,
+      enable: false,
     },
     disk: {
       enable: true,
     },
     metadata: {
-      enable: true,
+      enable: false,
     },
     routes: {
-      enable: false,
+      enable: true,
     },
     dns: {
       enable: true,
     },
     user: {
-      enable: false,
+      enable: true,
     },
     firewall: {
       enable: false,
@@ -2519,23 +2507,23 @@ const value: operations.InputSystemState = {
     },
   },
   persistence: {
-    enable: true,
+    enable: false,
     timeWindow: "<value>",
     maxDataSize: "<value>",
     maxDataTime: "<value>",
     compress: "none",
     destPath: "<value>",
   },
-  disableNativeModule: false,
-  disableNativeLastLogModule: false,
-  description: "chapel search petty",
+  disableNativeModule: true,
+  disableNativeLastLogModule: true,
+  description: "materialise citizen doting wetly inasmuch into",
 };
 ```
 
-### `operations.InputKubeMetrics`
+### `operations.CreateInputInputKubeMetrics`
 
 ```typescript
-const value: operations.InputKubeMetrics = {
+const value: operations.CreateInputInputKubeMetrics = {
   id: "<id>",
   type: "kube_metrics",
   disabled: false,
@@ -2562,7 +2550,7 @@ const value: operations.InputKubeMetrics = {
     compress: "none",
     pqControls: {},
   },
-  interval: 5280.18,
+  interval: 1901.33,
   rules: [
     {
       filter: "<value>",
@@ -2580,23 +2568,22 @@ const value: operations.InputKubeMetrics = {
     timeWindow: "<value>",
     maxDataSize: "<value>",
     maxDataTime: "<value>",
-    compress: "gzip",
+    compress: "none",
     destPath: "<value>",
   },
-  description:
-    "unless meanwhile upbeat where stall mmm fabricate athwart throughout",
+  description: "passport impact offensively",
 };
 ```
 
-### `operations.InputKubeLogs`
+### `operations.CreateInputInputKubeLogs`
 
 ```typescript
-const value: operations.InputKubeLogs = {
+const value: operations.CreateInputInputKubeLogs = {
   id: "<id>",
   type: "kube_logs",
   disabled: false,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
@@ -2620,12 +2607,12 @@ const value: operations.InputKubeLogs = {
     compress: "none",
     pqControls: {},
   },
-  interval: 7999.71,
+  interval: 8324.91,
   rules: [
     {
       filter: "<value>",
       description:
-        "now after brr unsightly smoothly sham incidentally reclassify service",
+        "whoa before readily criminal drat quirkily alongside mortar gaseous",
     },
   ],
   timestamps: false,
@@ -2646,25 +2633,27 @@ const value: operations.InputKubeLogs = {
     "<value 1>",
     "<value 2>",
   ],
-  staleChannelFlushMs: 8901.57,
+  staleChannelFlushMs: 6279.08,
   enableLoadBalancing: true,
-  description: "now while bah er between lotion husk wedge courageously before",
+  description: "whether for that happy the serene pants whereas",
 };
 ```
 
-### `operations.InputKubeEvents`
+### `operations.CreateInputInputKubeEvents`
 
 ```typescript
-const value: operations.InputKubeEvents = {
+const value: operations.CreateInputInputKubeEvents = {
   id: "<id>",
   type: "kube_events",
   disabled: false,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -2694,16 +2683,277 @@ const value: operations.InputKubeEvents = {
       value: "<value>",
     },
   ],
-  description: "under refute cleverly until popularize",
+  description: "however svelte unlike gah slide unblinking",
 };
 ```
 
-### `operations.InputWindowsMetrics`
+### `operations.CreateInputInputWindowsMetrics`
 
 ```typescript
-const value: operations.InputWindowsMetrics = {
+const value: operations.CreateInputInputWindowsMetrics = {
   id: "<id>",
   type: "windows_metrics",
+  disabled: true,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  interval: 3556.41,
+  host: {
+    mode: "disabled",
+    custom: {
+      system: {
+        mode: "disabled",
+        detail: true,
+      },
+      cpu: {
+        mode: "basic",
+        perCpu: true,
+        detail: true,
+        time: false,
+      },
+      memory: {
+        mode: "all",
+        detail: true,
+      },
+      network: {
+        mode: "all",
+        detail: false,
+        protocols: true,
+        devices: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        perInterface: true,
+      },
+      disk: {
+        mode: "custom",
+        perVolume: true,
+        detail: false,
+        volumes: [
+          "<value 1>",
+        ],
+      },
+    },
+  },
+  process: {
+    sets: [
+      {
+        name: "<value>",
+        filter: "<value>",
+        includeChildren: true,
+      },
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  persistence: {
+    enable: true,
+    timeWindow: "<value>",
+    maxDataSize: "<value>",
+    maxDataTime: "<value>",
+    compress: "gzip",
+    destPath: "<value>",
+  },
+  disableNativeModule: true,
+  description: "almost wring psst angle ugh evenly by hmph",
+};
+```
+
+### `operations.CreateInputInputCrowdstrike`
+
+```typescript
+const value: operations.CreateInputInputCrowdstrike = {
+  id: "<id>",
+  type: "crowdstrike",
+  disabled: true,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  queueName: "<value>",
+  fileFilter: "<value>",
+  awsAccountId: "<id>",
+  awsAuthenticationMethod: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  signatureVersion: "v4",
+  reuseConnections: false,
+  rejectUnauthorized: false,
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  staleChannelFlushMs: 6253.05,
+  maxMessages: 782.98,
+  visibilityTimeout: 3168.62,
+  numReceivers: 6250.01,
+  socketTimeout: 4592.73,
+  skipOnError: false,
+  includeSqsMetadata: false,
+  enableAssumeRole: false,
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  durationSeconds: 5715.25,
+  enableSQSAssumeRole: true,
+  preprocess: {
+    disabled: false,
+    command: "<value>",
+    args: [
+      "<value 1>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  checkpointing: {
+    enabled: true,
+    retries: 263.57,
+  },
+  pollTimeout: 4535.96,
+  encoding: "<value>",
+  description: "nervously separately finally peninsula",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  tagAfterProcessing: "false",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
+  __template_queueName: "<value>",
+  __template_awsAccountId: "<id>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
+  __template_awsApiKey: "<value>",
+};
+```
+
+### `operations.CreateInputInputDatadogAgent`
+
+```typescript
+const value: operations.CreateInputInputDatadogAgent = {
+  id: "<id>",
+  type: "datadog_agent",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "admired-printer.com",
+  port: 9489.96,
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  maxActiveReq: 7207.15,
+  maxRequestsPerSocket: 407421,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 1033.92,
+  requestTimeout: 7543.73,
+  socketTimeout: 1512.2,
+  keepAliveTimeout: 5374.66,
+  enableHealthCheck: true,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  extractMetrics: false,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  proxyMode: {
+    enabled: false,
+    rejectUnauthorized: true,
+  },
+  description: "fathom unimpressively guilt cripple harvest",
+  __template_host: "<value>",
+  __template_port: "<value>",
+};
+```
+
+### `operations.CreateInputInputDatagen`
+
+```typescript
+const value: operations.CreateInputInputDatagen = {
+  id: "<id>",
+  type: "datagen",
   disabled: false,
   pipeline: "<value>",
   sendToRoutes: true,
@@ -2729,53 +2979,278 @@ const value: operations.InputWindowsMetrics = {
     compress: "none",
     pqControls: {},
   },
-  interval: 1405.59,
-  host: {
-    mode: "basic",
-    custom: {
-      system: {
-        mode: "custom",
-        detail: true,
-      },
-      cpu: {
-        mode: "custom",
-        perCpu: false,
-        detail: true,
-        time: true,
-      },
-      memory: {
-        mode: "custom",
-        detail: false,
-      },
-      network: {
-        mode: "custom",
-        detail: false,
-        protocols: false,
-        devices: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-        perInterface: true,
-      },
-      disk: {
-        mode: "custom",
-        perVolume: true,
-        detail: true,
-        volumes: [
-          "<value 1>",
-        ],
-      },
+  samples: [],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
     },
+  ],
+  description:
+    "guidance or multicolored torn finally unlike incomplete bah neck yet",
+};
+```
+
+### `operations.CreateInputInputHttpRaw`
+
+```typescript
+const value: operations.CreateInputInputHttpRaw = {
+  id: "<id>",
+  type: "http_raw",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
   },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-        includeChildren: true,
-      },
-    ],
+  host: "weary-goat.com",
+  port: 5913.5,
+  authTokens: [
+    "<value 1>",
+  ],
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  maxActiveReq: 5455.24,
+  maxRequestsPerSocket: 460147,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 5267.73,
+  requestTimeout: 2225.5,
+  socketTimeout: 2009.31,
+  keepAliveTimeout: 4161.55,
+  enableHealthCheck: false,
+  ipAllowlistRegex: "<value>",
+  ipDenylistRegex: "<value>",
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  staleChannelFlushMs: 7593.24,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedPaths: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  allowedMethods: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  authTokensExt: [
+    {
+      token: "<value>",
+      description: "instead worth trek drain eek below",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  description: "yippee sternly everlasting within",
+  __template_host: "<value>",
+  __template_port: "<value>",
+};
+```
+
+### `operations.CreateInputInputKinesis`
+
+```typescript
+const value: operations.CreateInputInputKinesis = {
+  id: "<id>",
+  type: "kinesis",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  streamName: "<value>",
+  serviceInterval: 4582.73,
+  shardExpr: "<value>",
+  shardIteratorType: "TRIM_HORIZON",
+  payloadFormat: "cloudwatch",
+  getRecordsLimit: 4881.25,
+  getRecordsLimitTotal: 569.19,
+  loadBalancingAlgorithm: "RoundRobin",
+  awsAuthenticationMethod: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  signatureVersion: "v2",
+  reuseConnections: true,
+  rejectUnauthorized: true,
+  enableAssumeRole: false,
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  durationSeconds: 1661.49,
+  verifyKPLCheckSums: true,
+  avoidDuplicates: false,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "devastation oof opposite",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  __template_streamName: "<value>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
+  __template_awsApiKey: "<value>",
+};
+```
+
+### `operations.CreateInputInputCriblmetrics`
+
+```typescript
+const value: operations.CreateInputInputCriblmetrics = {
+  id: "<id>",
+  type: "criblmetrics",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  prefix: "<value>",
+  fullFidelity: true,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "because barring apropos whose navigate exhaust knife",
+};
+```
+
+### `operations.CreateInputInputMetrics`
+
+```typescript
+const value: operations.CreateInputInputMetrics = {
+  id: "<id>",
+  type: "metrics",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: false,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  host: "annual-soybean.info",
+  udpPort: 2736.87,
+  tcpPort: 4134.94,
+  maxBufferSize: 5180.4,
+  ipWhitelistRegex: "<value>",
+  enableProxyHeader: false,
+  tls: {
+    disabled: false,
+    requestCert: true,
+    rejectUnauthorized: true,
+    commonNameRegex: "<value>",
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -2783,30 +3258,25 @@ const value: operations.InputWindowsMetrics = {
       value: "<value>",
     },
   ],
-  persistence: {
-    enable: false,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "none",
-    destPath: "<value>",
-  },
-  disableNativeModule: true,
-  description: "unabashedly ugh so rule swiftly an reflecting mobilize",
+  udpSocketRxBufSize: 7489.41,
+  description: "low geez cop-out",
+  __template_host: "<value>",
+  __template_udpPort: "<value>",
+  __template_tcpPort: "<value>",
 };
 ```
 
-### `operations.InputCrowdstrike`
+### `operations.CreateInputInputS3`
 
 ```typescript
-const value: operations.InputCrowdstrike = {
+const value: operations.CreateInputInputS3 = {
   id: "<id>",
-  type: "crowdstrike",
-  disabled: true,
+  type: "s3",
+  disabled: false,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
   ],
@@ -2835,28 +3305,28 @@ const value: operations.InputCrowdstrike = {
   endpoint: "<value>",
   signatureVersion: "v4",
   reuseConnections: true,
-  rejectUnauthorized: false,
+  rejectUnauthorized: true,
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
   ],
-  staleChannelFlushMs: 733.68,
-  maxMessages: 7984.46,
-  visibilityTimeout: 1856.44,
-  numReceivers: 7008.52,
-  socketTimeout: 5247.82,
+  staleChannelFlushMs: 782,
+  maxMessages: 7517.36,
+  visibilityTimeout: 7333.95,
+  numReceivers: 2541.51,
+  socketTimeout: 1712.77,
   skipOnError: true,
-  includeSqsMetadata: true,
-  enableAssumeRole: false,
+  includeSqsMetadata: false,
+  enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 1140.91,
+  durationSeconds: 6091.84,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -2865,13 +3335,111 @@ const value: operations.InputCrowdstrike = {
       value: "<value>",
     },
   ],
+  parquetChunkSizeMB: 6041.72,
+  parquetChunkDownloadTimeout: 7647.31,
   checkpointing: {
     enabled: true,
     retries: 263.57,
   },
-  pollTimeout: 4653.01,
+  pollTimeout: 3362.08,
   encoding: "<value>",
-  description: "woot boohoo lively by likewise calmly boohoo woot",
+  tagAfterProcessing: true,
+  description: "circa sideboard proofread triumphantly marvelous",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  processedTagKey: "<value>",
+  processedTagValue: "<value>",
+  __template_queueName: "<value>",
+  __template_awsAccountId: "<id>",
+  __template_awsSecretKey: "<value>",
+  __template_region: "<value>",
+  __template_assumeRoleArn: "<value>",
+  __template_assumeRoleExternalId: "<id>",
+  __template_awsApiKey: "<value>",
+};
+```
+
+### `operations.CreateInputInputS3Inventory`
+
+```typescript
+const value: operations.CreateInputInputS3Inventory = {
+  id: "<id>",
+  type: "s3_inventory",
+  disabled: true,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: true,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  queueName: "<value>",
+  fileFilter: "<value>",
+  awsAccountId: "<id>",
+  awsAuthenticationMethod: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  signatureVersion: "v2",
+  reuseConnections: false,
+  rejectUnauthorized: true,
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  staleChannelFlushMs: 2262.91,
+  maxMessages: 7081.05,
+  visibilityTimeout: 5194,
+  numReceivers: 9647.24,
+  socketTimeout: 642.23,
+  skipOnError: true,
+  includeSqsMetadata: false,
+  enableAssumeRole: false,
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  durationSeconds: 8092.52,
+  enableSQSAssumeRole: true,
+  preprocess: {
+    disabled: false,
+    command: "<value>",
+    args: [
+      "<value 1>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  parquetChunkSizeMB: 3556.92,
+  parquetChunkDownloadTimeout: 653.95,
+  checkpointing: {
+    enabled: true,
+    retries: 263.57,
+  },
+  pollTimeout: 6892.41,
+  checksumSuffix: "<value>",
+  maxManifestSizeKB: 666835,
+  validateInventoryFiles: true,
+  description: "pish but boo",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "false",
@@ -2887,604 +3455,15 @@ const value: operations.InputCrowdstrike = {
 };
 ```
 
-### `operations.InputDatadogAgent`
+### `operations.CreateInputInputSnmp`
 
 ```typescript
-const value: operations.InputDatadogAgent = {
-  id: "<id>",
-  type: "datadog_agent",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "authorized-sanity.info",
-  port: 4355.2,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 9905.9,
-  maxRequestsPerSocket: 306070,
-  enableProxyHeader: true,
-  captureHeaders: false,
-  activityLogSampleRate: 220.22,
-  requestTimeout: 3474.87,
-  socketTimeout: 4505.49,
-  keepAliveTimeout: 1952.35,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  extractMetrics: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  proxyMode: {
-    enabled: false,
-    rejectUnauthorized: false,
-  },
-  description: "although minister enraged howl understated standard marimba",
-  __template_host: "<value>",
-  __template_port: "<value>",
-};
-```
-
-### `operations.InputDatagen`
-
-```typescript
-const value: operations.InputDatagen = {
-  id: "<id>",
-  type: "datagen",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  samples: [
-    {
-      sample: "<value>",
-      eventsPerSec: 9663.81,
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "sidetrack kiss mesh qua limp satirize yippee partridge yuck",
-};
-```
-
-### `operations.InputHttpRaw`
-
-```typescript
-const value: operations.InputHttpRaw = {
-  id: "<id>",
-  type: "http_raw",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "able-slipper.com",
-  port: 8023.04,
-  authTokens: [
-    "<value 1>",
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 2744.85,
-  maxRequestsPerSocket: 164381,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 8851.97,
-  requestTimeout: 1960.89,
-  socketTimeout: 8196.57,
-  keepAliveTimeout: 9161.38,
-  enableHealthCheck: true,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 4442.45,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedPaths: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  allowedMethods: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "instead worth trek drain eek below",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description:
-    "orientate pfft excepting voluntarily till dependable failing likewise",
-  __template_host: "<value>",
-  __template_port: "<value>",
-};
-```
-
-### `operations.InputKinesis`
-
-```typescript
-const value: operations.InputKinesis = {
-  id: "<id>",
-  type: "kinesis",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  streamName: "<value>",
-  serviceInterval: 6770.38,
-  shardExpr: "<value>",
-  shardIteratorType: "TRIM_HORIZON",
-  payloadFormat: "cribl",
-  getRecordsLimit: 6240.06,
-  getRecordsLimitTotal: 3491.48,
-  loadBalancingAlgorithm: "RoundRobin",
-  awsAuthenticationMethod: "<value>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v2",
-  reuseConnections: true,
-  rejectUnauthorized: true,
-  enableAssumeRole: false,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 6181.69,
-  verifyKPLCheckSums: false,
-  avoidDuplicates: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "yahoo um aw concerning instead but than amendment",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  __template_streamName: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
-};
-```
-
-### `operations.InputCriblmetrics`
-
-```typescript
-const value: operations.InputCriblmetrics = {
-  id: "<id>",
-  type: "criblmetrics",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  prefix: "<value>",
-  fullFidelity: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "slowly yahoo fax jam-packed excluding",
-};
-```
-
-### `operations.InputMetrics`
-
-```typescript
-const value: operations.InputMetrics = {
-  id: "<id>",
-  type: "metrics",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "untried-issue.org",
-  udpPort: 5392.88,
-  tcpPort: 1494.72,
-  maxBufferSize: 3461.98,
-  ipWhitelistRegex: "<value>",
-  enableProxyHeader: true,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 9826.8,
-  description:
-    "free antelope dependent mushy bandwidth internal adaptation gosh",
-  __template_host: "<value>",
-  __template_udpPort: "<value>",
-  __template_tcpPort: "<value>",
-};
-```
-
-### `operations.InputS3`
-
-```typescript
-const value: operations.InputS3 = {
-  id: "<id>",
-  type: "s3",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  queueName: "<value>",
-  fileFilter: "<value>",
-  awsAccountId: "<id>",
-  awsAuthenticationMethod: "<value>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v2",
-  reuseConnections: true,
-  rejectUnauthorized: true,
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 3022.43,
-  maxMessages: 6822.6,
-  visibilityTimeout: 5507.13,
-  numReceivers: 5367.73,
-  socketTimeout: 4409.74,
-  skipOnError: true,
-  includeSqsMetadata: true,
-  enableAssumeRole: true,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 2021.66,
-  enableSQSAssumeRole: false,
-  preprocess: {
-    disabled: true,
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  parquetChunkSizeMB: 9578.15,
-  parquetChunkDownloadTimeout: 3370,
-  checkpointing: {
-    enabled: true,
-    retries: 263.57,
-  },
-  pollTimeout: 4285.53,
-  encoding: "<value>",
-  tagAfterProcessing: true,
-  description: "drat since wherever um readjust indeed lest",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  processedTagKey: "<value>",
-  processedTagValue: "<value>",
-  __template_queueName: "<value>",
-  __template_awsAccountId: "<id>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
-};
-```
-
-### `operations.InputS3Inventory`
-
-```typescript
-const value: operations.InputS3Inventory = {
-  id: "<id>",
-  type: "s3_inventory",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  queueName: "<value>",
-  fileFilter: "<value>",
-  awsAccountId: "<id>",
-  awsAuthenticationMethod: "<value>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v2",
-  reuseConnections: true,
-  rejectUnauthorized: false,
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  staleChannelFlushMs: 6245.83,
-  maxMessages: 106.38,
-  visibilityTimeout: 525.72,
-  numReceivers: 2680.09,
-  socketTimeout: 1176.88,
-  skipOnError: true,
-  includeSqsMetadata: false,
-  enableAssumeRole: false,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 4249.9,
-  enableSQSAssumeRole: false,
-  preprocess: {
-    disabled: true,
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  parquetChunkSizeMB: 6112.87,
-  parquetChunkDownloadTimeout: 9257.35,
-  checkpointing: {
-    enabled: true,
-    retries: 263.57,
-  },
-  pollTimeout: 7639.42,
-  checksumSuffix: "<value>",
-  maxManifestSizeKB: 981790,
-  validateInventoryFiles: false,
-  description: "plus via tabulate judgementally",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  tagAfterProcessing: "true",
-  processedTagKey: "<value>",
-  processedTagValue: "<value>",
-  __template_queueName: "<value>",
-  __template_awsAccountId: "<id>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
-  __template_awsApiKey: "<value>",
-};
-```
-
-### `operations.InputSnmp`
-
-```typescript
-const value: operations.InputSnmp = {
+const value: operations.CreateInputInputSnmp = {
   id: "<id>",
   type: "snmp",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
-  sendToRoutes: false,
+  sendToRoutes: true,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
@@ -3507,22 +3486,22 @@ const value: operations.InputSnmp = {
     compress: "none",
     pqControls: {},
   },
-  host: "robust-reservation.org",
-  port: 6329.76,
+  host: "big-heating.org",
+  port: 5679.07,
   snmpV3Auth: {
     v3AuthEnabled: true,
     allowUnmatchedTrap: false,
     v3Users: [
       {
         name: "<value>",
-        authProtocol: "none",
+        authProtocol: "sha512",
         authKey: "<value>",
-        privProtocol: "aes",
+        privProtocol: "aes256b",
         privKey: "<value>",
       },
     ],
   },
-  maxBufferSize: 9645.47,
+  maxBufferSize: 5639.81,
   ipWhitelistRegex: "<value>",
   metadata: [
     {
@@ -3530,30 +3509,28 @@ const value: operations.InputSnmp = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 9521.08,
+  udpSocketRxBufSize: 5277.13,
   varbindsWithTypes: true,
   bestEffortParsing: false,
-  description: "behind versus omelet",
+  description: "pant obnoxiously abandoned",
   __template_host: "<value>",
   __template_port: "<value>",
 };
 ```
 
-### `operations.InputOpenTelemetry`
+### `operations.CreateInputInputOpenTelemetry`
 
 ```typescript
-const value: operations.InputOpenTelemetry = {
+const value: operations.CreateInputInputOpenTelemetry = {
   id: "<id>",
   type: "open_telemetry",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
   sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -3571,8 +3548,8 @@ const value: operations.InputOpenTelemetry = {
     compress: "none",
     pqControls: {},
   },
-  host: "enchanting-swim.name",
-  port: 91.8,
+  host: "uncomfortable-experience.info",
+  port: 3966.16,
   tls: {
     disabled: false,
     requestCert: true,
@@ -3586,20 +3563,20 @@ const value: operations.InputOpenTelemetry = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 3623.37,
-  maxRequestsPerSocket: 167017,
+  maxActiveReq: 2727.71,
+  maxRequestsPerSocket: 756828,
   enableProxyHeader: "<value>",
   captureHeaders: "<value>",
   activityLogSampleRate: "<value>",
-  requestTimeout: 4856.31,
-  socketTimeout: 6530.93,
-  keepAliveTimeout: 2682.96,
-  enableHealthCheck: false,
+  requestTimeout: 8744.82,
+  socketTimeout: 8572.46,
+  keepAliveTimeout: 8086.78,
+  enableHealthCheck: true,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   protocol: "grpc",
   extractSpans: false,
-  extractMetrics: true,
+  extractMetrics: false,
   otlpVersion: "1.3.1",
   authType: "credentialsSecret",
   metadata: [
@@ -3608,34 +3585,33 @@ const value: operations.InputOpenTelemetry = {
       value: "<value>",
     },
   ],
-  maxActiveCxn: 9401.69,
-  description: "phony er whoa however oof svelte yowza",
-  username: "Althea_Parker79",
-  password: "QsmyV5PHv6hDzLi",
+  maxActiveCxn: 8050.89,
+  description:
+    "likewise queasily ick apostrophize meaty hmph intellect oof teammate homeschool",
+  username: "Isabel_Keeling-Hudson",
+  password: "Etm_Ob17cJ0D68A",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  extractLogs: false,
+  extractLogs: true,
   __template_host: "<value>",
   __template_port: "<value>",
 };
 ```
 
-### `operations.InputModelDrivenTelemetry`
+### `operations.CreateInputInputModelDrivenTelemetry`
 
 ```typescript
-const value: operations.InputModelDrivenTelemetry = {
+const value: operations.CreateInputInputModelDrivenTelemetry = {
   id: "<id>",
   type: "model_driven_telemetry",
   disabled: false,
   pipeline: "<value>",
   sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -3653,8 +3629,8 @@ const value: operations.InputModelDrivenTelemetry = {
     compress: "none",
     pqControls: {},
   },
-  host: "impressive-patroller.org",
-  port: 3171.72,
+  host: "internal-median.net",
+  port: 2508.88,
   tls: {
     disabled: false,
     requestCert: true,
@@ -3674,27 +3650,29 @@ const value: operations.InputModelDrivenTelemetry = {
       value: "<value>",
     },
   ],
-  maxActiveCxn: 7750.59,
-  shutdownTimeoutMs: 7039.55,
-  description: "insert connect metabolise flight",
+  maxActiveCxn: 892.86,
+  shutdownTimeoutMs: 5117.79,
+  description: "cheap which yahoo puny",
   __template_host: "<value>",
   __template_port: "<value>",
 };
 ```
 
-### `operations.InputSqs`
+### `operations.CreateInputInputSqs`
 
 ```typescript
-const value: operations.InputSqs = {
+const value: operations.CreateInputInputSqs = {
   id: "<id>",
   type: "sqs",
-  disabled: true,
+  disabled: false,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -3713,33 +3691,33 @@ const value: operations.InputSqs = {
     pqControls: {},
   },
   queueName: "<value>",
-  queueType: "fifo",
+  queueType: "standard",
   awsAccountId: "<id>",
-  createQueue: false,
+  createQueue: true,
   awsAuthenticationMethod: "<value>",
   awsSecretKey: "<value>",
   region: "<value>",
   endpoint: "<value>",
   signatureVersion: "v2",
-  reuseConnections: false,
-  rejectUnauthorized: false,
+  reuseConnections: true,
+  rejectUnauthorized: true,
   enableAssumeRole: true,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 5766.22,
-  maxMessages: 3871.51,
-  visibilityTimeout: 4486.16,
+  durationSeconds: 9251.7,
+  maxMessages: 9173.17,
+  visibilityTimeout: 3932.36,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  pollTimeout: 1932.15,
-  description: "outfox cleverly wisely despite ideal",
+  pollTimeout: 509.23,
+  description: "mmm hm yowza barring",
   awsApiKey: "<value>",
   awsSecret: "<value>",
-  numReceivers: 4387.78,
+  numReceivers: 9641.23,
   __template_queueName: "<value>",
   __template_awsAccountId: "<id>",
   __template_awsSecretKey: "<value>",
@@ -3750,15 +3728,15 @@ const value: operations.InputSqs = {
 };
 ```
 
-### `operations.InputSyslog`
+### `operations.CreateInputInputSyslogUnion`
 
 ```typescript
-const value: operations.InputSyslog = {
+const value: operations.CreateInputInputSyslogUnion = {
   id: "<id>",
   type: "syslog",
   disabled: true,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: true,
   streamtags: [
@@ -3780,27 +3758,25 @@ const value: operations.InputSyslog = {
     compress: "none",
     pqControls: {},
   },
-  host: "old-fashioned-leading.com",
-  udpPort: 9754.95,
-  tcpPort: 4042.01,
-  maxBufferSize: 2456,
+  host: "quick-witted-slide.info",
+  udpPort: 1488.34,
+  tcpPort: 3230.6,
+  maxBufferSize: 4342.19,
   ipWhitelistRegex: "<value>",
   timestampTimezone: "<value>",
-  singleMsgUdpPackets: false,
+  singleMsgUdpPackets: true,
   enableProxyHeader: true,
   keepFieldsList: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   octetCounting: true,
-  inferFraming: true,
-  strictlyInferOctetCounting: false,
-  allowNonStandardAppName: true,
-  maxActiveCxn: 1234.54,
-  socketIdleTimeout: 5106.2,
-  socketEndingMaxWait: 5819,
-  socketMaxLifespan: 2768.86,
+  inferFraming: false,
+  strictlyInferOctetCounting: true,
+  allowNonStandardAppName: false,
+  maxActiveCxn: 4342.62,
+  socketIdleTimeout: 4563.7,
+  socketEndingMaxWait: 9910.17,
+  socketMaxLifespan: 5770.65,
   tls: {
     disabled: false,
     requestCert: true,
@@ -3820,9 +3796,9 @@ const value: operations.InputSyslog = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 7607.34,
+  udpSocketRxBufSize: 6951.69,
   enableLoadBalancing: true,
-  description: "because mispronounce tarragon that typewriter",
+  description: "excluding urgently frozen geez blah by",
   enableEnhancedProxyHeaderParsing: true,
   __template_host: "<value>",
   __template_udpPort: "<value>",
@@ -3830,12 +3806,77 @@ const value: operations.InputSyslog = {
 };
 ```
 
-### `operations.InputFile`
+### `operations.CreateInputInputFile`
 
 ```typescript
-const value: operations.InputFile = {
+const value: operations.CreateInputInputFile = {
   id: "<id>",
   type: "file",
+  disabled: false,
+  pipeline: "<value>",
+  sendToRoutes: true,
+  environment: "<value>",
+  pqEnabled: false,
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    mode: "always",
+    maxBufferSize: 357.77,
+    commitFrequency: 1717.96,
+    maxFileSize: "<value>",
+    maxSize: "<value>",
+    path: "/etc/namedb",
+    compress: "none",
+    pqControls: {},
+  },
+  mode: "manual",
+  interval: 8277.37,
+  filenames: [
+    "<value 1>",
+  ],
+  filterArchivedFiles: false,
+  tailOnly: false,
+  idleTimeout: 1378.8,
+  minAgeDur: "<value>",
+  maxAgeDur: "<value>",
+  checkFileModTime: false,
+  forceText: false,
+  hashLen: 7894.69,
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  staleChannelFlushMs: 2441,
+  description: "tenant necessary pulverize sometimes",
+  path: "/usr/local/src",
+  depth: 7380.42,
+  suppressMissingPathErrors: false,
+  deleteFiles: false,
+  saltHash: false,
+  includeUnidentifiableBinary: true,
+};
+```
+
+### `operations.CreateInputInputTcp`
+
+```typescript
+const value: operations.CreateInputInputTcp = {
+  id: "<id>",
+  type: "tcp",
   disabled: false,
   pipeline: "<value>",
   sendToRoutes: true,
@@ -3844,7 +3885,6 @@ const value: operations.InputFile = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -3862,76 +3902,8 @@ const value: operations.InputFile = {
     compress: "none",
     pqControls: {},
   },
-  mode: "auto",
-  interval: 2930.4,
-  filenames: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  filterArchivedFiles: false,
-  tailOnly: true,
-  idleTimeout: 1865.04,
-  minAgeDur: "<value>",
-  maxAgeDur: "<value>",
-  checkFileModTime: false,
-  forceText: true,
-  hashLen: 2536.06,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  staleChannelFlushMs: 938.78,
-  description:
-    "pear linear outside absentmindedly mostly truthfully sanity brr immediately commonly",
-  path: "/var/yp",
-  depth: 2604.05,
-  suppressMissingPathErrors: true,
-  deleteFiles: true,
-  saltHash: true,
-  includeUnidentifiableBinary: true,
-};
-```
-
-### `operations.InputTcp`
-
-```typescript
-const value: operations.InputTcp = {
-  id: "<id>",
-  type: "tcp",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "cloudy-premier.net",
-  port: 9499.86,
+  host: "specific-tool.org",
+  port: 2579.77,
   tls: {
     disabled: false,
     requestCert: true,
@@ -3946,11 +3918,11 @@ const value: operations.InputTcp = {
     maxVersion: "TLSv1",
   },
   ipWhitelistRegex: "<value>",
-  maxActiveCxn: 5648.33,
-  socketIdleTimeout: 6675.69,
-  socketEndingMaxWait: 3998.18,
-  socketMaxLifespan: 464.91,
-  enableProxyHeader: true,
+  maxActiveCxn: 5732.61,
+  socketIdleTimeout: 6314.83,
+  socketEndingMaxWait: 7155.71,
+  socketMaxLifespan: 3063.67,
+  enableProxyHeader: false,
   metadata: [
     {
       name: "<value>",
@@ -3960,40 +3932,41 @@ const value: operations.InputTcp = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  staleChannelFlushMs: 7437.62,
+  staleChannelFlushMs: 124.68,
   enableHeader: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
-  description: "mmm than excepting",
+  description: "aw forenenst atop so ouch coaxingly godparent for",
   authToken: "<value>",
-  authType: "secret",
+  authType: "manual",
   textSecret: "<value>",
   __template_host: "<value>",
   __template_port: "<value>",
 };
 ```
 
-### `operations.InputAppscope`
+### `operations.CreateInputInputAppscope`
 
 ```typescript
-const value: operations.InputAppscope = {
+const value: operations.CreateInputInputAppscope = {
   id: "<id>",
   type: "appscope",
   disabled: true,
   pipeline: "<value>",
   sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: false,
+  pqEnabled: true,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -4012,11 +3985,11 @@ const value: operations.InputAppscope = {
     pqControls: {},
   },
   ipWhitelistRegex: "<value>",
-  maxActiveCxn: 3550.56,
-  socketIdleTimeout: 9471.94,
-  socketEndingMaxWait: 6434.91,
-  socketMaxLifespan: 1034.62,
-  enableProxyHeader: true,
+  maxActiveCxn: 6442.87,
+  socketIdleTimeout: 5991.93,
+  socketEndingMaxWait: 9225.83,
+  socketMaxLifespan: 3347.2,
+  enableProxyHeader: false,
   metadata: [
     {
       name: "<value>",
@@ -4025,10 +3998,8 @@ const value: operations.InputAppscope = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  staleChannelFlushMs: 9828.57,
+  staleChannelFlushMs: 9471.82,
   enableUnixPath: true,
   filter: {
     allow: [
@@ -4038,7 +4009,7 @@ const value: operations.InputAppscope = {
         config: "<value>",
       },
     ],
-    transportURL: "https://best-trolley.net",
+    transportURL: "https://staid-tapioca.biz",
   },
   persistence: {
     enable: false,
@@ -4049,9 +4020,9 @@ const value: operations.InputAppscope = {
     destPath: "<value>",
   },
   authType: "manual",
-  description: "interestingly oof hasty during",
-  host: "international-duster.info",
-  port: 7222.33,
+  description: "beneficial seldom ick",
+  host: "rich-cheese.net",
+  port: 1820.69,
   tls: {
     disabled: false,
     requestCert: true,
@@ -4074,19 +4045,20 @@ const value: operations.InputAppscope = {
 };
 ```
 
-### `operations.InputWef`
+### `operations.CreateInputInputWef`
 
 ```typescript
-const value: operations.InputWef = {
+const value: operations.CreateInputInputWef = {
   id: "<id>",
   type: "wef",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -4104,12 +4076,12 @@ const value: operations.InputWef = {
     compress: "none",
     pqControls: {},
   },
-  host: "limp-merit.com",
-  port: 8774.54,
+  host: "swift-fog.info",
+  port: 3395.8,
   authMethod: "kerberos",
   tls: {
-    disabled: false,
-    rejectUnauthorized: false,
+    disabled: true,
+    rejectUnauthorized: true,
     requestCert: false,
     certificateName: "<value>",
     privKeyPath: "<value>",
@@ -4117,51 +4089,83 @@ const value: operations.InputWef = {
     certPath: "<value>",
     caPath: "<value>",
     commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1.2",
-    ocspCheck: true,
+    ocspCheck: false,
     keytab: "<value>",
     principal: "<value>",
     ocspCheckFailClose: true,
   },
-  maxActiveReq: 9277.92,
-  maxRequestsPerSocket: 66275,
-  enableProxyHeader: true,
-  captureHeaders: true,
-  keepAliveTimeout: 1075.6,
+  maxActiveReq: 1531.1,
+  maxRequestsPerSocket: 548717,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  keepAliveTimeout: 7861.5,
   enableHealthCheck: true,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
-  socketTimeout: 2108.93,
+  socketTimeout: 2566.62,
   caFingerprint: "<value>",
   keytab: "<value>",
   principal: "<value>",
   allowMachineIdMismatch: false,
-  subscriptions: [],
+  subscriptions: [
+    {
+      subscriptionName: "<value>",
+      version: "<value>",
+      contentFormat: "RenderedText",
+      heartbeatInterval: 1812.27,
+      batchTimeout: 9931.54,
+      readExistingEvents: false,
+      sendBookmarks: false,
+      compress: false,
+      targets: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      locale: "zh",
+      querySelector: "xml",
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+      queries: [
+        {
+          path: "/etc/mail",
+          queryExpression: "<value>",
+        },
+      ],
+      xmlQuery: "<value>",
+    },
+  ],
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "weighty firsthand wing meanwhile tomatillo",
-  logFingerprintMismatch: false,
+  description:
+    "about shadowbox generally underneath cruelly meanwhile capitalise awkwardly",
+  logFingerprintMismatch: true,
   __template_host: "<value>",
   __template_port: "<value>",
 };
 ```
 
-### `operations.InputWinEventLogs`
+### `operations.CreateInputInputWinEventLogs`
 
 ```typescript
-const value: operations.InputWinEventLogs = {
+const value: operations.CreateInputInputWinEventLogs = {
   id: "<id>",
   type: "win_event_logs",
   disabled: false,
   pipeline: "<value>",
-  sendToRoutes: false,
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -4183,39 +4187,34 @@ const value: operations.InputWinEventLogs = {
     compress: "none",
     pqControls: {},
   },
-  logNames: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  readMode: "oldest",
+  logNames: [],
+  readMode: "newest",
   eventFormat: "json",
-  disableNativeModule: false,
-  interval: 4446.87,
-  batchSize: 303.57,
+  disableNativeModule: true,
+  interval: 3417.78,
+  batchSize: 8216.6,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  maxEventBytes: 3683.2,
-  description:
-    "fill knowingly irk narrowcast reprimand hence opposite ill-fated psst including",
-  disableJsonRendering: true,
-  disableXmlRendering: false,
+  maxEventBytes: 3070.67,
+  description: "blah chip orange inure mechanically",
+  disableJsonRendering: false,
+  disableXmlRendering: true,
 };
 ```
 
-### `operations.InputRawUdp`
+### `operations.CreateInputInputRawUdp`
 
 ```typescript
-const value: operations.InputRawUdp = {
+const value: operations.CreateInputInputRawUdp = {
   id: "<id>",
   type: "raw_udp",
   disabled: false,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
@@ -4237,40 +4236,38 @@ const value: operations.InputRawUdp = {
     compress: "none",
     pqControls: {},
   },
-  host: "neighboring-overheard.biz",
-  port: 6658.22,
-  maxBufferSize: 6427.1,
+  host: "adolescent-density.info",
+  port: 8358.67,
+  maxBufferSize: 5817.05,
   ipWhitelistRegex: "<value>",
-  singleMsgUdpPackets: true,
+  singleMsgUdpPackets: false,
   ingestRawBytes: false,
-  udpSocketRxBufSize: 6926.76,
+  udpSocketRxBufSize: 2227.48,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "wearily around so",
+  description: "onto override deeply eke",
   __template_host: "<value>",
   __template_port: "<value>",
 };
 ```
 
-### `operations.InputJournalFiles`
+### `operations.CreateInputInputJournalFiles`
 
 ```typescript
-const value: operations.InputJournalFiles = {
+const value: operations.CreateInputInputJournalFiles = {
   id: "<id>",
   type: "journal_files",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -4288,8 +4285,8 @@ const value: operations.InputJournalFiles = {
     compress: "none",
     pqControls: {},
   },
-  path: "/opt/sbin",
-  interval: 3645.26,
+  path: "/Users",
+  interval: 4203.3,
   journals: [
     "<value 1>",
     "<value 2>",
@@ -4298,7 +4295,7 @@ const value: operations.InputJournalFiles = {
   rules: [
     {
       filter: "<value>",
-      description: "worthless smog outside by handle into massage nor meh",
+      description: "powerfully ack lazily apropos",
     },
   ],
   currentBoot: false,
@@ -4309,24 +4306,25 @@ const value: operations.InputJournalFiles = {
       value: "<value>",
     },
   ],
-  description: "upwardly summer uncommon minus",
+  description: "juggernaut ha fairly",
 };
 ```
 
-### `operations.InputWiz`
+### `operations.CreateInputInputWiz`
 
 ```typescript
-const value: operations.InputWiz = {
+const value: operations.CreateInputInputWiz = {
   id: "<id>",
   type: "wiz",
   disabled: false,
   pipeline: "<value>",
-  sendToRoutes: false,
+  sendToRoutes: true,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -4345,7 +4343,7 @@ const value: operations.InputWiz = {
     pqControls: {},
   },
   endpoint: "<value>",
-  authUrl: "https://critical-premeditation.biz/",
+  authUrl: "https://runny-packaging.net/",
   authAudienceOverride: "<value>",
   clientId: "<id>",
   contentConfig: [
@@ -4362,13 +4360,13 @@ const value: operations.InputWiz = {
       earliest: "<value>",
       latest: "<value>",
       jobTimeout: "<value>",
-      logLevel: "warn",
-      maxPages: 9147.3,
+      logLevel: "silly",
+      maxPages: 2440.42,
     },
   ],
-  requestTimeout: 436.67,
-  keepAliveTime: 9447.62,
-  maxMissedKeepAlives: 3253.16,
+  requestTimeout: 9477.33,
+  keepAliveTime: 666.97,
+  maxMissedKeepAlives: 3466.54,
   ttl: "<value>",
   ignoreGroupJobsLimit: true,
   metadata: [
@@ -4392,23 +4390,22 @@ const value: operations.InputWiz = {
     retryConnectReset: false,
   },
   authType: "secret",
-  description:
-    "furiously unfinished honestly pfft seemingly unearth remand foretell whoever",
+  description: "always information unto gah but above provided for but",
   clientSecret: "<value>",
   textSecret: "<value>",
   __template_endpoint: "<value>",
-  __template_authUrl: "https://self-assured-embarrassment.org/",
+  __template_authUrl: "https://serpentine-opera.org",
   __template_clientId: "<id>",
 };
 ```
 
-### `operations.InputWizWebhook`
+### `operations.CreateInputInputWizWebhook`
 
 ```typescript
-const value: operations.InputWizWebhook = {
+const value: operations.CreateInputInputWizWebhook = {
   id: "<id>",
   type: "wiz_webhook",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
   sendToRoutes: false,
   environment: "<value>",
@@ -4432,12 +4429,11 @@ const value: operations.InputWizWebhook = {
     compress: "none",
     pqControls: {},
   },
-  host: "eminent-sport.info",
-  port: 9697.37,
+  host: "improbable-ribbon.name",
+  port: 1396.98,
   authTokens: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   tls: {
     disabled: false,
@@ -4452,21 +4448,23 @@ const value: operations.InputWizWebhook = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 9856.66,
-  maxRequestsPerSocket: 916,
+  maxActiveReq: 9272.44,
+  maxRequestsPerSocket: 486428,
   enableProxyHeader: true,
-  captureHeaders: false,
-  activityLogSampleRate: 985.96,
-  requestTimeout: 253.53,
-  socketTimeout: 94.02,
-  keepAliveTimeout: 5673.81,
-  enableHealthCheck: false,
+  captureHeaders: true,
+  activityLogSampleRate: 6395.07,
+  requestTimeout: 5515.59,
+  socketTimeout: 6681.76,
+  keepAliveTimeout: 9221.35,
+  enableHealthCheck: true,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  staleChannelFlushMs: 8355.45,
+  staleChannelFlushMs: 195.61,
   metadata: [
     {
       name: "<value>",
@@ -4479,8 +4477,6 @@ const value: operations.InputWizWebhook = {
   ],
   allowedMethods: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   authTokensExt: [
     {
@@ -4494,25 +4490,27 @@ const value: operations.InputWizWebhook = {
       ],
     },
   ],
-  description: "metallic devoted behind weakly phrase what mosh faithfully",
+  description: "tail correctly eulogise while",
   __template_host: "<value>",
   __template_port: "<value>",
 };
 ```
 
-### `operations.InputNetflow`
+### `operations.CreateInputInputNetflow`
 
 ```typescript
-const value: operations.InputNetflow = {
+const value: operations.CreateInputInputNetflow = {
   id: "<id>",
   type: "netflow",
-  disabled: false,
+  disabled: true,
   pipeline: "<value>",
   sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -4530,15 +4528,15 @@ const value: operations.InputNetflow = {
     compress: "none",
     pqControls: {},
   },
-  host: "zealous-fund.org",
-  port: 3209.42,
-  enablePassThrough: false,
+  host: "likely-lay.net",
+  port: 7606.62,
+  enablePassThrough: true,
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
-  udpSocketRxBufSize: 8327.74,
-  templateCacheMinutes: 7161.42,
-  v5Enabled: false,
-  v9Enabled: true,
+  udpSocketRxBufSize: 5041.1,
+  templateCacheMinutes: 1481.93,
+  v5Enabled: true,
+  v9Enabled: false,
   ipfixEnabled: false,
   metadata: [
     {
@@ -4546,21 +4544,21 @@ const value: operations.InputNetflow = {
       value: "<value>",
     },
   ],
-  description: "schlep however question step entice yowza past whoever",
+  description: "excess forsaken tragic consequently",
   __template_host: "<value>",
   __template_port: "<value>",
 };
 ```
 
-### `operations.InputSecurityLake`
+### `operations.CreateInputInputSecurityLake`
 
 ```typescript
-const value: operations.InputSecurityLake = {
+const value: operations.CreateInputInputSecurityLake = {
   id: "<id>",
   type: "security_lake",
   disabled: true,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
   pqEnabled: false,
   streamtags: [
@@ -4592,29 +4590,27 @@ const value: operations.InputSecurityLake = {
   endpoint: "<value>",
   signatureVersion: "v4",
   reuseConnections: true,
-  rejectUnauthorized: true,
+  rejectUnauthorized: false,
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
-  staleChannelFlushMs: 8288.23,
-  maxMessages: 8530.47,
-  visibilityTimeout: 1695.02,
-  numReceivers: 7805.23,
-  socketTimeout: 9417.28,
-  skipOnError: true,
-  includeSqsMetadata: true,
+  staleChannelFlushMs: 5665.41,
+  maxMessages: 4459.76,
+  visibilityTimeout: 3574.14,
+  numReceivers: 9670.36,
+  socketTimeout: 4285.59,
+  skipOnError: false,
+  includeSqsMetadata: false,
   enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  durationSeconds: 9621.57,
-  enableSQSAssumeRole: false,
+  durationSeconds: 105.51,
+  enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -4623,15 +4619,16 @@ const value: operations.InputSecurityLake = {
       value: "<value>",
     },
   ],
-  parquetChunkSizeMB: 5822.3,
-  parquetChunkDownloadTimeout: 7613.55,
+  parquetChunkSizeMB: 7841.72,
+  parquetChunkDownloadTimeout: 8321.12,
   checkpointing: {
     enabled: true,
     retries: 263.57,
   },
-  pollTimeout: 4072.53,
+  pollTimeout: 5820.37,
   encoding: "<value>",
-  description: "searchingly geez yowza utilized",
+  description:
+    "conversation duh consequently versus upon even even edge critical aha",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   tagAfterProcessing: "false",
@@ -4647,10 +4644,10 @@ const value: operations.InputSecurityLake = {
 };
 ```
 
-### `operations.InputZscalerHec`
+### `operations.CreateInputInputZscalerHec`
 
 ```typescript
-const value: operations.InputZscalerHec = {
+const value: operations.CreateInputInputZscalerHec = {
   id: "<id>",
   type: "zscaler_hec",
   disabled: true,
@@ -4660,6 +4657,8 @@ const value: operations.InputZscalerHec = {
   pqEnabled: true,
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -4677,15 +4676,15 @@ const value: operations.InputZscalerHec = {
     compress: "none",
     pqControls: {},
   },
-  host: "fatal-zebra.org",
-  port: 4695.79,
+  host: "impossible-crest.biz",
+  port: 6510.64,
   authTokens: [
     {
-      authType: "secret",
+      authType: "manual",
       tokenSecret: "<value>",
       token: "<value>",
-      enabled: true,
-      description: "up whereas energetically limply verbally incline",
+      enabled: false,
+      description: "lazily secrecy manipulate zany",
       allowedIndexesAtToken: [
         "<value 1>",
         "<value 2>",
@@ -4711,14 +4710,14 @@ const value: operations.InputZscalerHec = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 15.52,
-  maxRequestsPerSocket: 645270,
-  enableProxyHeader: true,
-  captureHeaders: true,
-  activityLogSampleRate: 7751.55,
-  requestTimeout: 1204.99,
-  socketTimeout: 3725.58,
-  keepAliveTimeout: 7932.87,
+  maxActiveReq: 2751.28,
+  maxRequestsPerSocket: 875618,
+  enableProxyHeader: false,
+  captureHeaders: false,
+  activityLogSampleRate: 6823.69,
+  requestTimeout: 3162.27,
+  socketTimeout: 6639.21,
+  keepAliveTimeout: 2040.93,
   enableHealthCheck: "<value>",
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
@@ -4731,37 +4730,36 @@ const value: operations.InputZscalerHec = {
   ],
   allowedIndexes: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   hecAcks: false,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
   ],
   emitTokenMetrics: false,
-  description: "concerning essence validity runny ick ew log",
+  description: "but upwardly yearly um save lest SUV furthermore although",
   __template_host: "<value>",
   __template_port: "<value>",
   __template_hecAPI: "<value>",
 };
 ```
 
-### `operations.InputCloudflareHec`
+### `operations.CreateInputInputCloudflareHec`
 
 ```typescript
-const value: operations.InputCloudflareHec = {
+const value: operations.CreateInputInputCloudflareHec = {
   id: "<id>",
   type: "cloudflare_hec",
   disabled: false,
   pipeline: "<value>",
-  sendToRoutes: true,
+  sendToRoutes: false,
   environment: "<value>",
-  pqEnabled: true,
+  pqEnabled: false,
   streamtags: [
     "<value 1>",
     "<value 2>",
@@ -4783,15 +4781,15 @@ const value: operations.InputCloudflareHec = {
     compress: "none",
     pqControls: {},
   },
-  host: "young-longboat.org",
-  port: 9920.98,
+  host: "well-to-do-sock.biz",
+  port: 6728.66,
   authTokens: [
     {
       authType: "secret",
       tokenSecret: "<value>",
       token: "<value>",
-      enabled: true,
-      description: "yahoo incidentally verify gee once oof sell capitalise up",
+      enabled: false,
+      description: "wherever till dislocate",
       allowedIndexesAtToken: [
         "<value 1>",
         "<value 2>",
@@ -4818,14 +4816,14 @@ const value: operations.InputCloudflareHec = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
-  maxActiveReq: 9647.87,
-  maxRequestsPerSocket: 131184,
-  enableProxyHeader: false,
-  captureHeaders: false,
-  activityLogSampleRate: 1441.29,
-  requestTimeout: 3258.21,
-  socketTimeout: 9447.02,
-  keepAliveTimeout: 7012.45,
+  maxActiveReq: 5735.33,
+  maxRequestsPerSocket: 630662,
+  enableProxyHeader: true,
+  captureHeaders: true,
+  activityLogSampleRate: 8755.71,
+  requestTimeout: 1745.86,
+  socketTimeout: 8917.47,
+  keepAliveTimeout: 8069.18,
   enableHealthCheck: "<value>",
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
@@ -4838,22 +4836,24 @@ const value: operations.InputCloudflareHec = {
   ],
   allowedIndexes: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  staleChannelFlushMs: 2062.1,
+  staleChannelFlushMs: 8352.22,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
+    "<value 2>",
   ],
-  emitTokenMetrics: false,
-  description: "lounge surprisingly failing geez sonata",
+  emitTokenMetrics: true,
+  description: "lid understated insecure private grizzled mask",
   __template_host: "<value>",
   __template_port: "<value>",
 };

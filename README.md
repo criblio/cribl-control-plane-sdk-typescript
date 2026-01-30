@@ -201,60 +201,20 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.create({
-    lakeId: "<id>",
-    criblLakeDataset: {
-      acceleratedFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      bucketName: "<value>",
-      cacheConnection: {
-        acceleratedFields: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        backfillStatus: "pending",
-        cacheRef: "<value>",
-        createdAt: 7795.06,
-        lakehouseConnectionType: "cache",
-        migrationQueryId: "<id>",
-        retentionInDays: 1466.58,
-      },
-      deletionStartedAt: 8310.58,
-      description:
-        "pleased toothbrush long brush smooth swiftly rightfully phooey chapel",
-      format: "ddss",
-      httpDAUsed: true,
-      id: "<id>",
-      metrics: {
-        currentSizeBytes: 6170.04,
-        metricsDate: "<value>",
-      },
-      retentionPeriodInDays: 456.37,
-      searchConfig: {
-        datatypes: [
-          "<value 1>",
-        ],
-        metadata: {
-          earliest: "<value>",
-          enableAcceleration: true,
-          fieldList: [
-            "<value 1>",
-            "<value 2>",
-          ],
-          latestRunInfo: {
-            earliestScannedTime: 4334.7,
-            finishedAt: 6811.22,
-            latestScannedTime: 5303.3,
-            objectCount: 9489.04,
-          },
-          scanMode: "detailed",
-        },
-      },
-      storageLocationId: "<id>",
-      viewName: "<value>",
-    },
+  const result = await criblControlPlane.databaseConnections.create({
+    authType: "connectionString",
+    configObj: "<value>",
+    connectionString:
+      "mysql://admin:password123@mysql.example.com:3306/production?ssl=true",
+    connectionTimeout: 10000,
+    credsSecrets: "<value>",
+    databaseType: "mysql",
+    description: "Production MySQL database for customer data",
+    id: "mysql-prod-db",
+    password: "QpvMa8DI_lUJL_b",
+    requestTimeout: 4657.19,
+    tags: "production,mysql,customer-data",
+    user: "Dolores.Feil",
   });
 
   console.log(result);
@@ -364,9 +324,28 @@ run();
 * [get](docs/sdks/packs/README.md#get) - Get a Pack
 * [update](docs/sdks/packs/README.md#update) - Upgrade a Pack
 
+#### [Packs.Destinations](docs/sdks/packsdestinations/README.md)
+
+* [list](docs/sdks/packsdestinations/README.md#list) - List all Destinations within a Pack
+* [create](docs/sdks/packsdestinations/README.md#create) - Create a Destination within a Pack
+* [get](docs/sdks/packsdestinations/README.md#get) - Get a Destination within a Pack
+* [update](docs/sdks/packsdestinations/README.md#update) - Update a Destination within a Pack
+* [delete](docs/sdks/packsdestinations/README.md#delete) - Delete a Destination within a Pack
+
+##### [Packs.Destinations.Pq](docs/sdks/packsdestinationspq/README.md)
+
+* [clear](docs/sdks/packsdestinationspq/README.md#clear) - Clear the persistent queue for a Destination within a Pack
+* [get](docs/sdks/packsdestinationspq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination within a Pack
+
+##### [Packs.Destinations.Samples](docs/sdks/packssamples/README.md)
+
+* [get](docs/sdks/packssamples/README.md#get) - Get sample event data for a Destination within a Pack
+* [create](docs/sdks/packssamples/README.md#create) - Send sample event data to a Destination within a Pack
+
 #### [Packs.Sources](docs/sdks/packssources/README.md)
 
 * [list](docs/sdks/packssources/README.md#list) - List all Sources within a Pack
+* [create](docs/sdks/packssources/README.md#create) - Create a Source within a Pack
 * [get](docs/sdks/packssources/README.md#get) - Get a Source within a Pack
 * [update](docs/sdks/packssources/README.md#update) - Update a Source within a Pack
 * [delete](docs/sdks/packssources/README.md#delete) - Delete a Source within a Pack
@@ -379,6 +358,7 @@ run();
 ##### [Packs.Sources.Pq](docs/sdks/sourcespq/README.md)
 
 * [clear](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
+* [get](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
@@ -501,15 +481,26 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`lakeDatasetsUpdate`](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset
 - [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
+- [`packsDestinationsCreate`](docs/sdks/packsdestinations/README.md#create) - Create a Destination within a Pack
+- [`packsDestinationsDelete`](docs/sdks/packsdestinations/README.md#delete) - Delete a Destination within a Pack
+- [`packsDestinationsGet`](docs/sdks/packsdestinations/README.md#get) - Get a Destination within a Pack
+- [`packsDestinationsList`](docs/sdks/packsdestinations/README.md#list) - List all Destinations within a Pack
+- [`packsDestinationsPqClear`](docs/sdks/packsdestinationspq/README.md#clear) - Clear the persistent queue for a Destination within a Pack
+- [`packsDestinationsPqGet`](docs/sdks/packsdestinationspq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination within a Pack
+- [`packsDestinationsSamplesCreate`](docs/sdks/packssamples/README.md#create) - Send sample event data to a Destination within a Pack
+- [`packsDestinationsSamplesGet`](docs/sdks/packssamples/README.md#get) - Get sample event data for a Destination within a Pack
+- [`packsDestinationsUpdate`](docs/sdks/packsdestinations/README.md#update) - Update a Destination within a Pack
 - [`packsGet`](docs/sdks/packs/README.md#get) - Get a Pack
 - [`packsInstall`](docs/sdks/packs/README.md#install) - Install a Pack
 - [`packsList`](docs/sdks/packs/README.md#list) - List all Packs
+- [`packsSourcesCreate`](docs/sdks/packssources/README.md#create) - Create a Source within a Pack
 - [`packsSourcesDelete`](docs/sdks/packssources/README.md#delete) - Delete a Source within a Pack
 - [`packsSourcesGet`](docs/sdks/packssources/README.md#get) - Get a Source within a Pack
 - [`packsSourcesHecTokensCreate`](docs/sdks/packshectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source within a Pack
 - [`packsSourcesHecTokensUpdate`](docs/sdks/packshectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source within a Pack
 - [`packsSourcesList`](docs/sdks/packssources/README.md#list) - List all Sources within a Pack
 - [`packsSourcesPqClear`](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
+- [`packsSourcesPqGet`](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
 - [`packsSourcesUpdate`](docs/sdks/packssources/README.md#update) - Update a Source within a Pack
 - [`packsUpdate`](docs/sdks/packs/README.md#update) - Upgrade a Pack
 - [`packsUpload`](docs/sdks/packs/README.md#upload) - Upload a Pack file

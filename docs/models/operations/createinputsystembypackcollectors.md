@@ -1,0 +1,59 @@
+# CreateInputSystemByPackCollectors
+
+## Example Usage
+
+```typescript
+import { CreateInputSystemByPackCollectors } from "cribl-control-plane/models/operations";
+
+let value: CreateInputSystemByPackCollectors = {
+  hostsfile: {
+    enable: true,
+  },
+  interfaces: {
+    enable: true,
+  },
+  disk: {
+    enable: false,
+  },
+  metadata: {
+    enable: false,
+  },
+  routes: {
+    enable: true,
+  },
+  dns: {
+    enable: true,
+  },
+  user: {
+    enable: true,
+  },
+  firewall: {
+    enable: false,
+  },
+  services: {
+    enable: true,
+  },
+  ports: {
+    enable: false,
+  },
+  loginUsers: {
+    enable: true,
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                                          | Type                                                                                                                           | Required                                                                                                                       | Description                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| `hostsfile`                                                                                                                    | [operations.CreateInputSystemByPackHostsFile](../../models/operations/createinputsystembypackhostsfile.md)                     | :heavy_minus_sign:                                                                                                             | Creates events based on entries collected from the hosts file                                                                  |
+| `interfaces`                                                                                                                   | [operations.CreateInputSystemByPackInterfaces](../../models/operations/createinputsystembypackinterfaces.md)                   | :heavy_minus_sign:                                                                                                             | Creates events for each of the host’s network interfaces                                                                       |
+| `disk`                                                                                                                         | [operations.CreateInputSystemByPackDisksAndFileSystems](../../models/operations/createinputsystembypackdisksandfilesystems.md) | :heavy_minus_sign:                                                                                                             | Creates events for physical disks, partitions, and file systems                                                                |
+| `metadata`                                                                                                                     | [operations.CreateInputSystemByPackHostInfo](../../models/operations/createinputsystembypackhostinfo.md)                       | :heavy_minus_sign:                                                                                                             | Creates events based on the host system’s current state                                                                        |
+| `routes`                                                                                                                       | [operations.CreateInputSystemByPackRoutes](../../models/operations/createinputsystembypackroutes.md)                           | :heavy_minus_sign:                                                                                                             | Creates events based on entries collected from the host’s network routes                                                       |
+| `dns`                                                                                                                          | [operations.CreateInputSystemByPackDNS](../../models/operations/createinputsystembypackdns.md)                                 | :heavy_minus_sign:                                                                                                             | Creates events for DNS resolvers and search entries                                                                            |
+| `user`                                                                                                                         | [operations.CreateInputSystemByPackUsersAndGroups](../../models/operations/createinputsystembypackusersandgroups.md)           | :heavy_minus_sign:                                                                                                             | Creates events for local users and groups                                                                                      |
+| `firewall`                                                                                                                     | [operations.CreateInputSystemByPackFirewall](../../models/operations/createinputsystembypackfirewall.md)                       | :heavy_minus_sign:                                                                                                             | Creates events for Firewall rules entries                                                                                      |
+| `services`                                                                                                                     | [operations.CreateInputSystemByPackServices](../../models/operations/createinputsystembypackservices.md)                       | :heavy_minus_sign:                                                                                                             | Creates events from the list of services                                                                                       |
+| `ports`                                                                                                                        | [operations.CreateInputSystemByPackListeningPorts](../../models/operations/createinputsystembypacklisteningports.md)           | :heavy_minus_sign:                                                                                                             | Creates events from list of listening ports                                                                                    |
+| `loginUsers`                                                                                                                   | [operations.CreateInputSystemByPackLoggedInUsers](../../models/operations/createinputsystembypackloggedinusers.md)             | :heavy_minus_sign:                                                                                                             | Creates events from list of logged-in users                                                                                    |
