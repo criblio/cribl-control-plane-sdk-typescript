@@ -13,6 +13,7 @@ import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { PacksDestinations } from "./packsdestinations.js";
+import { PacksRoutes } from "./packsroutes.js";
 import { PacksSources } from "./packssources.js";
 
 export class Packs extends ClientSDK {
@@ -24,6 +25,11 @@ export class Packs extends ClientSDK {
   private _destinations?: PacksDestinations;
   get destinations(): PacksDestinations {
     return (this._destinations ??= new PacksDestinations(this._options));
+  }
+
+  private _routes?: PacksRoutes;
+  get routes(): PacksRoutes {
+    return (this._routes ??= new PacksRoutes(this._options));
   }
 
   /**
