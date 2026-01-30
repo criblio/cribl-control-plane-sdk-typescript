@@ -3,7 +3,9 @@
  */
 
 import { nodesCount } from "../funcs/nodesCount.js";
+import { nodesGet } from "../funcs/nodesGet.js";
 import { nodesList } from "../funcs/nodesList.js";
+import { nodesRestart } from "../funcs/nodesRestart.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
@@ -17,15 +19,13 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Get a count of Worker and Edge Nodes
+   * Get a count of Worker or Edge Nodes
    *
    * @remarks
-   * Get a count of all Worker and Edge Nodes. Deprecated. Use /products/{product}/summary/workers instead.
-   *
-   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+   * Get a count of all Worker or Edge Nodes for the specified Cribl product.
    */
   async count(
-    request?: operations.GetSummaryWorkersRequest | undefined,
+    request: operations.GetProductsSummaryWorkersByProductRequest,
     options?: RequestOptions,
   ): Promise<models.CountedNumber> {
     return unwrapAsync(nodesCount(
@@ -36,18 +36,50 @@ export class Nodes extends ClientSDK {
   }
 
   /**
-   * Get detailed metadata for Worker and Edge Nodes
+   * Get detailed metadata for a Worker or Edge Node
    *
    * @remarks
-   * Get detailed metadata for Worker and Edge Nodes. Deprecated. Use /products/{product}/workers instead.
+   * Get detailed metadata for the specified Worker or Edge Node for the specified Cribl product.
+   */
+  async get(
+    request: operations.GetProductsWorkersByProductAndIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedMasterWorkerEntry> {
+    return unwrapAsync(nodesGet(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get detailed metadata for Worker or Edge Nodes
    *
-   * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+   * @remarks
+   * Get detailed metadata for Worker or Edge Nodes for the specified Cribl product.
    */
   async list(
-    request?: operations.GetWorkersRequest | undefined,
+    request: operations.GetProductsWorkersByProductRequest,
     options?: RequestOptions,
   ): Promise<models.CountedMasterWorkerEntry> {
     return unwrapAsync(nodesList(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Restart Worker or Edge Nodes
+   *
+   * @remarks
+   * Restart all Worker or Edge Nodes for the specified Cribl product.
+   */
+  async restart(
+    request: operations.UpdateProductsWorkersRestartByProductRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedRestartResponse> {
+    return unwrapAsync(nodesRestart(
       this,
       request,
       options,

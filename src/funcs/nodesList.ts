@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,16 +27,14 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get detailed metadata for Worker and Edge Nodes
+ * Get detailed metadata for Worker or Edge Nodes
  *
  * @remarks
- * Get detailed metadata for Worker and Edge Nodes. Deprecated. Use /products/{product}/workers instead.
- *
- * @deprecated method: This will be removed in a future release, please migrate away from it as soon as possible.
+ * Get detailed metadata for Worker or Edge Nodes for the specified Cribl product.
  */
 export function nodesList(
   client: CriblControlPlaneCore,
-  request?: operations.GetWorkersRequest | undefined,
+  request: operations.GetProductsWorkersByProductRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -61,7 +59,7 @@ export function nodesList(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request?: operations.GetWorkersRequest | undefined,
+  request: operations.GetProductsWorkersByProductRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -83,7 +81,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetWorkersRequest$outboundSchema.optional().parse(value),
+      operations.GetProductsWorkersByProductRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -92,15 +90,22 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const path = pathToFunc("/master/workers")();
+  const pathParams = {
+    product: encodeSimple("product", payload.product, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+  };
+
+  const path = pathToFunc("/products/{product}/workers")(pathParams);
 
   const query = encodeFormQuery({
-    "filter": payload?.filter,
-    "filterExp": payload?.filterExp,
-    "limit": payload?.limit,
-    "offset": payload?.offset,
-    "sort": payload?.sort,
-    "sortExp": payload?.sortExp,
+    "filter": payload.filter,
+    "filterExp": payload.filterExp,
+    "limit": payload.limit,
+    "offset": payload.offset,
+    "sort": payload.sort,
+    "sortExp": payload.sortExp,
   });
 
   const headers = new Headers(compactMap({
@@ -113,7 +118,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getWorkers",
+    operationID: "getProductsWorkersByProduct",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -153,7 +158,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -180,7 +185,7 @@ async function $do(
   >(
     M.json(200, models.CountedMasterWorkerEntry$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail([400, 401, 403, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

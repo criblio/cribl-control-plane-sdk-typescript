@@ -300,8 +300,10 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
-* [~~count~~](docs/sdks/nodes/README.md#count) - Get a count of Worker and Edge Nodes :warning: **Deprecated**
-* [~~list~~](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker and Edge Nodes :warning: **Deprecated**
+* [count](docs/sdks/nodes/README.md#count) - Get a count of Worker or Edge Nodes
+* [get](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker or Edge Node
+* [list](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker or Edge Nodes
+* [restart](docs/sdks/nodes/README.md#restart) - Restart Worker or Edge Nodes
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
@@ -347,10 +349,10 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [create](docs/sdks/packshectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source within a Pack
 * [update](docs/sdks/packshectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source within a Pack
 
-##### [Packs.Sources.Pq](docs/sdks/packssourcespq/README.md)
+##### [Packs.Sources.Pq](docs/sdks/sourcespq/README.md)
 
-* [clear](docs/sdks/packssourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
-* [get](docs/sdks/packssourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
+* [clear](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
+* [get](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
@@ -379,11 +381,6 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [create](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 * [update](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
-
-#### [Sources.Pq](docs/sdks/sourcespq/README.md)
-
-* [clear](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source
-* [get](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source
 
 ### [System.Captures](docs/sdks/captures/README.md)
 
@@ -476,6 +473,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`lakeDatasetsGet`](docs/sdks/lakedatasets/README.md#get) - Get a Lake Dataset
 - [`lakeDatasetsList`](docs/sdks/lakedatasets/README.md#list) - List all Lake Datasets
 - [`lakeDatasetsUpdate`](docs/sdks/lakedatasets/README.md#update) - Update a Lake Dataset
+- [`nodesCount`](docs/sdks/nodes/README.md#count) - Get a count of Worker or Edge Nodes
+- [`nodesGet`](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker or Edge Node
+- [`nodesList`](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker or Edge Nodes
+- [`nodesRestart`](docs/sdks/nodes/README.md#restart) - Restart Worker or Edge Nodes
 - [`nodesSummariesGet`](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment
 - [`packsDelete`](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 - [`packsDestinationsCreate`](docs/sdks/packsdestinations/README.md#create) - Create a Destination within a Pack
@@ -496,8 +497,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`packsSourcesHecTokensCreate`](docs/sdks/packshectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source within a Pack
 - [`packsSourcesHecTokensUpdate`](docs/sdks/packshectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source within a Pack
 - [`packsSourcesList`](docs/sdks/packssources/README.md#list) - List all Sources within a Pack
-- [`packsSourcesPqClear`](docs/sdks/packssourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
-- [`packsSourcesPqGet`](docs/sdks/packssourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
+- [`packsSourcesPqClear`](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
+- [`packsSourcesPqGet`](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
 - [`packsSourcesUpdate`](docs/sdks/packssources/README.md#update) - Update a Source within a Pack
 - [`packsUpdate`](docs/sdks/packs/README.md#update) - Upgrade a Pack
 - [`packsUpload`](docs/sdks/packs/README.md#upload) - Upload a Pack file
@@ -516,8 +517,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesHecTokensCreate`](docs/sdks/hectokens/README.md#create) - Add an HEC token and optional metadata to a Splunk HEC Source
 - [`sourcesHecTokensUpdate`](docs/sdks/hectokens/README.md#update) - Update metadata for an HEC token for a Splunk HEC Source
 - [`sourcesList`](docs/sdks/sources/README.md#list) - List all Sources
-- [`sourcesPqClear`](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source
-- [`sourcesPqGet`](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source
 - [`sourcesUpdate`](docs/sdks/sources/README.md#update) - Update a Source
 - [`systemCapturesCreate`](docs/sdks/captures/README.md#create) - Capture live incoming data
 - [`systemSettingsCriblList`](docs/sdks/cribl/README.md#list) - Get Cribl system settings
@@ -535,8 +534,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`versionsCommitsUndo`](docs/sdks/commits/README.md#undo) - Discard uncommitted (staged) changes
 - [`versionsConfigsGet`](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
 - [`versionsStatusesGet`](docs/sdks/statuses/README.md#get) - Get the status of the current working tree
-- ~~[`nodesCount`](docs/sdks/nodes/README.md#count)~~ - Get a count of Worker and Edge Nodes :warning: **Deprecated**
-- ~~[`nodesList`](docs/sdks/nodes/README.md#list)~~ - Get detailed metadata for Worker and Edge Nodes :warning: **Deprecated**
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->

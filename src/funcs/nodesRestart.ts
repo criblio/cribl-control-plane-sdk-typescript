@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeSimple } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,18 +27,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get information about the latest job to clear the persistent queue for a Source
+ * Restart Worker or Edge Nodes
  *
  * @remarks
- * Get information about the latest job to clear the persistent queue (PQ) for the specified Source.
+ * Restart all Worker or Edge Nodes for the specified Cribl product.
  */
-export function sourcesPqGet(
+export function nodesRestart(
   client: CriblControlPlaneCore,
-  request: operations.GetInputPqByIdRequest,
+  request: operations.UpdateProductsWorkersRestartByProductRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedObject,
+    models.CountedRestartResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -59,12 +59,12 @@ export function sourcesPqGet(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetInputPqByIdRequest,
+  request: operations.UpdateProductsWorkersRestartByProductRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      models.CountedObject,
+      models.CountedRestartResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,25 +80,28 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.GetInputPqByIdRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.UpdateProductsWorkersRestartByProductRequest$outboundSchema
+        .parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = null;
+  const body = encodeJSON("body", payload.RestartRequest, { explode: true });
 
   const pathParams = {
-    id: encodeSimple("id", payload.id, {
+    product: encodeSimple("product", payload.product, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/system/inputs/{id}/pq")(pathParams);
+  const path = pathToFunc("/products/{product}/workers/restart")(pathParams);
 
   const headers = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -108,7 +111,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getInputPqById",
+    operationID: "updateProductsWorkersRestartByProduct",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -132,7 +135,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "PATCH",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
@@ -147,7 +150,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -161,7 +164,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedObject,
+    models.CountedRestartResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -172,9 +175,9 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedObject$inboundSchema),
+    M.json(200, models.CountedRestartResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail([400, 401, 403, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
