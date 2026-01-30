@@ -44,11 +44,10 @@ const value: operations.CreateInputInputCollection = {
   ],
   staleChannelFlushMs: 6953.4,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   throttleRatePerSec: "<value>",
@@ -2842,11 +2841,10 @@ const value: operations.CreateInputInputCrowdstrike = {
   durationSeconds: 5715.25,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -3325,11 +3323,10 @@ const value: operations.CreateInputInputS3 = {
   durationSeconds: 6091.84,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -3420,11 +3417,10 @@ const value: operations.CreateInputInputS3Inventory = {
   durationSeconds: 8092.52,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [
@@ -3941,11 +3937,10 @@ const value: operations.CreateInputInputTcp = {
   staleChannelFlushMs: 124.68,
   enableHeader: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   description: "aw forenenst atop so ouch coaxingly godparent for",
@@ -4612,11 +4607,10 @@ const value: operations.CreateInputInputSecurityLake = {
   durationSeconds: 105.51,
   enableSQSAssumeRole: true,
   preprocess: {
-    disabled: true,
+    disabled: false,
     command: "<value>",
     args: [
       "<value 1>",
-      "<value 2>",
     ],
   },
   metadata: [

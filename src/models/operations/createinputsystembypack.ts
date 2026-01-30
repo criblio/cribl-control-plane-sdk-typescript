@@ -41,7 +41,7 @@ export type CreateInputSystemByPackAuthTokenCloudflareHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
 };
 
 export type CreateInputSystemByPackInputCloudflareHec = {
@@ -137,7 +137,7 @@ export type CreateInputSystemByPackInputCloudflareHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -195,7 +195,7 @@ export type CreateInputSystemByPackAuthTokenZscalerHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
 };
 
 export type CreateInputSystemByPackInputZscalerHec = {
@@ -291,7 +291,7 @@ export type CreateInputSystemByPackInputZscalerHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -448,11 +448,11 @@ export type CreateInputSystemByPackInputSecurityLake = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -590,7 +590,7 @@ export type CreateInputSystemByPackInputNetflow = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -702,7 +702,7 @@ export type CreateInputSystemByPackInputWizWebhook = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List of URI paths accepted by this input. Wildcards are supported (such as /api/v* /hook). Defaults to allow all.
    */
@@ -867,7 +867,7 @@ export type CreateInputSystemByPackInputWiz = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   retryRules?: models.RetryRulesType | undefined;
   /**
    * Enter client secret directly, or select a stored secret
@@ -966,7 +966,7 @@ export type CreateInputSystemByPackInputJournalFiles = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -1033,7 +1033,7 @@ export type CreateInputSystemByPackInputRawUdp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -1144,7 +1144,7 @@ export type CreateInputSystemByPackInputWinEventLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * The maximum number of bytes in an event before it is flushed to the pipelines
    */
@@ -1310,7 +1310,7 @@ export type CreateInputSystemByPackSubscription = {
   /**
    * Fields to add to events ingested under this subscription
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   queries?: Array<CreateInputSystemByPackQuery> | undefined;
   /**
    * The XPath query to use for selecting events
@@ -1424,7 +1424,7 @@ export type CreateInputSystemByPackInputWef = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
@@ -1549,7 +1549,7 @@ export type CreateInputSystemByPackInputAppscope = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -1672,7 +1672,7 @@ export type CreateInputSystemByPackInputTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -1685,7 +1685,7 @@ export type CreateInputSystemByPackInputTcp = {
    * Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
    */
   enableHeader?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   description?: string | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
@@ -1808,7 +1808,7 @@ export type CreateInputSystemByPackInputFile = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -1952,7 +1952,7 @@ export type CreateInputSystemByPackInputSyslogSyslog2 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -2091,7 +2091,7 @@ export type CreateInputSystemByPackInputSyslogSyslog1 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -2243,7 +2243,7 @@ export type CreateInputSystemByPackInputSqs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -2332,7 +2332,7 @@ export type CreateInputSystemByPackInputModelDrivenTelemetry = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -2491,7 +2491,7 @@ export type CreateInputSystemByPackInputOpenTelemetry = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -2629,7 +2629,7 @@ export type CreateInputSystemByPackInputSnmp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -2774,11 +2774,11 @@ export type CreateInputSystemByPackInputS3Inventory = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -2970,11 +2970,11 @@ export type CreateInputSystemByPackInputS3 = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -3100,7 +3100,7 @@ export type CreateInputSystemByPackInputMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -3163,7 +3163,7 @@ export type CreateInputSystemByPackInputCriblmetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -3353,7 +3353,7 @@ export type CreateInputSystemByPackInputKinesis = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -3486,7 +3486,7 @@ export type CreateInputSystemByPackInputHttpRaw = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List of URI paths accepted by this input, wildcards are supported, e.g /api/v* /hook. Defaults to allow all.
    */
@@ -3554,7 +3554,7 @@ export type CreateInputSystemByPackInputDatagen = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -3661,7 +3661,7 @@ export type CreateInputSystemByPackInputDatadogAgent = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   proxyMode?: CreateInputSystemByPackProxyModeDatadogAgent | undefined;
   description?: string | undefined;
   /**
@@ -3795,11 +3795,11 @@ export type CreateInputSystemByPackInputCrowdstrike = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   checkpointing?: models.CheckpointingType | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
@@ -4158,7 +4158,7 @@ export type CreateInputSystemByPackInputWindowsMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   persistence?: CreateInputSystemByPackPersistenceWindowsMetrics | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
@@ -4206,7 +4206,7 @@ export type CreateInputSystemByPackInputKubeEvents = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -4268,7 +4268,7 @@ export type CreateInputSystemByPackInputKubeLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   persistence?: models.DiskSpoolingType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -4352,7 +4352,7 @@ export type CreateInputSystemByPackInputKubeMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   persistence?: CreateInputSystemByPackPersistenceKubeMetrics | undefined;
   description?: string | undefined;
 };
@@ -4544,7 +4544,7 @@ export type CreateInputSystemByPackInputSystemState = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   collectors?: CreateInputSystemByPackCollectors | undefined;
   persistence?: CreateInputSystemByPackPersistenceSystemState | undefined;
   /**
@@ -4938,7 +4938,7 @@ export type CreateInputSystemByPackInputSystemMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   persistence?: CreateInputSystemByPackPersistenceSystemMetrics | undefined;
   description?: string | undefined;
 };
@@ -5011,7 +5011,7 @@ export type CreateInputSystemByPackInputTcpjson = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -5056,7 +5056,7 @@ export type CreateInputSystemByPackAuthTokensExt = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   splunkHecMetadata?: CreateInputSystemByPackSplunkHecMetadata | undefined;
   elasticsearchMetadata?:
     | CreateInputSystemByPackElasticsearchMetadata
@@ -5168,7 +5168,7 @@ export type CreateInputSystemByPackInputCriblLakeHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   authTokensExt?: Array<CreateInputSystemByPackAuthTokensExt> | undefined;
   description?: string | undefined;
   /**
@@ -5277,7 +5277,7 @@ export type CreateInputSystemByPackInputCriblHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -5353,7 +5353,7 @@ export type CreateInputSystemByPackInputCriblTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -5409,7 +5409,7 @@ export type CreateInputSystemByPackInputCribl = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -5496,7 +5496,7 @@ export type CreateInputSystemByPackInputGooglePubsub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
@@ -5608,7 +5608,7 @@ export type CreateInputSystemByPackInputFirehose = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -5689,7 +5689,7 @@ export type CreateInputSystemByPackInputExec = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Interval between command executions in seconds.
@@ -5838,7 +5838,7 @@ export type CreateInputSystemByPackInputEventhub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -5991,7 +5991,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   retryRules?: models.RetryRulesType1 | undefined;
   description?: string | undefined;
   /**
@@ -6137,7 +6137,7 @@ export type CreateInputSystemByPackInputOffice365Service = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
@@ -6260,7 +6260,7 @@ export type CreateInputSystemByPackInputOffice365Mgmt = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
    */
@@ -6435,7 +6435,7 @@ export type CreateInputSystemByPackInputEdgePrometheus = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -6705,7 +6705,7 @@ export type CreateInputSystemByPackInputPrometheus = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -6919,7 +6919,7 @@ export type CreateInputSystemByPackInputPrometheusRw = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -7045,7 +7045,7 @@ export type CreateInputSystemByPackInputLoki = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -7218,7 +7218,7 @@ export type CreateInputSystemByPackInputGrafanaGrafana2 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -7377,7 +7377,7 @@ export type CreateInputSystemByPackInputGrafanaGrafana1 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -7529,7 +7529,7 @@ export type CreateInputSystemByPackInputConfluentCloud = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -7732,7 +7732,7 @@ export type CreateInputSystemByPackInputElastic = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   proxyMode?: CreateInputSystemByPackProxyModeElastic | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -7822,7 +7822,7 @@ export type CreateInputSystemByPackInputAzureBlob = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -7917,7 +7917,7 @@ export type CreateInputSystemByPackAuthTokenSplunkHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
 };
 
 export type CreateInputSystemByPackInputSplunkHec = {
@@ -8013,7 +8013,7 @@ export type CreateInputSystemByPackInputSplunkHec = {
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -8244,7 +8244,7 @@ export type CreateInputSystemByPackInputSplunkSearch = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   retryRules?: models.RetryRulesType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -8395,7 +8395,7 @@ export type CreateInputSystemByPackInputSplunk = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -8544,7 +8544,7 @@ export type CreateInputSystemByPackInputHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
@@ -8640,7 +8640,7 @@ export type CreateInputSystemByPackInputMsk = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType
     | undefined;
@@ -8902,7 +8902,7 @@ export type CreateInputSystemByPackInputKafka = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -8946,7 +8946,7 @@ export type CreateInputSystemByPackInputCollection = {
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -8954,7 +8954,7 @@ export type CreateInputSystemByPackInputCollection = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Destination to send results to
    */
@@ -9127,7 +9127,7 @@ export type CreateInputSystemByPackAuthTokenCloudflareHec$Outbound = {
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
 };
 
 /** @internal */
@@ -9145,8 +9145,7 @@ export const CreateInputSystemByPackAuthTokenCloudflareHec$outboundSchema:
     enabled: z.boolean().optional(),
     description: z.string().optional(),
     allowedIndexesAtToken: z.array(z.string()).optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   });
 
 export function createInputSystemByPackAuthTokenCloudflareHecToJSON(
@@ -9190,7 +9189,7 @@ export type CreateInputSystemByPackInputCloudflareHec$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   hecAPI: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
@@ -9240,8 +9239,7 @@ export const CreateInputSystemByPackInputCloudflareHec$outboundSchema:
     ipAllowlistRegex: z.string().optional(),
     ipDenylistRegex: z.string().optional(),
     hecAPI: z.string(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     allowedIndexes: z.array(z.string()).optional(),
     breakerRulesets: z.array(z.string()).optional(),
     staleChannelFlushMs: z.number().optional(),
@@ -9272,7 +9270,7 @@ export type CreateInputSystemByPackAuthTokenZscalerHec$Outbound = {
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
 };
 
 /** @internal */
@@ -9289,8 +9287,7 @@ export const CreateInputSystemByPackAuthTokenZscalerHec$outboundSchema:
     enabled: z.boolean().optional(),
     description: z.string().optional(),
     allowedIndexesAtToken: z.array(z.string()).optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   });
 
 export function createInputSystemByPackAuthTokenZscalerHecToJSON(
@@ -9334,7 +9331,7 @@ export type CreateInputSystemByPackInputZscalerHec$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   hecAPI: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   hecAcks?: boolean | undefined;
   accessControlAllowOrigin?: Array<string> | undefined;
@@ -9381,8 +9378,7 @@ export const CreateInputSystemByPackInputZscalerHec$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   hecAPI: z.string(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   hecAcks: z.boolean().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
@@ -9440,10 +9436,8 @@ export type CreateInputSystemByPackInputSecurityLake$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: models.CheckpointingType$Outbound | undefined;
@@ -9505,10 +9499,8 @@ export const CreateInputSystemByPackInputSecurityLake$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: models.CheckpointingType$outboundSchema.optional(),
@@ -9563,7 +9555,7 @@ export type CreateInputSystemByPackInputNetflow$Outbound = {
   v5Enabled?: boolean | undefined;
   v9Enabled?: boolean | undefined;
   ipfixEnabled?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -9596,8 +9588,7 @@ export const CreateInputSystemByPackInputNetflow$outboundSchema: z.ZodType<
   v5Enabled: z.boolean().optional(),
   v9Enabled: z.boolean().optional(),
   ipfixEnabled: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -9642,7 +9633,7 @@ export type CreateInputSystemByPackInputWizWebhook$Outbound = {
   ipDenylistRegex?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedPaths?: Array<string> | undefined;
   allowedMethods?: Array<string> | undefined;
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
@@ -9685,8 +9676,7 @@ export const CreateInputSystemByPackInputWizWebhook$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
   authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
@@ -9810,7 +9800,7 @@ export type CreateInputSystemByPackInputWiz$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: models.RetryRulesType$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
@@ -9850,8 +9840,7 @@ export const CreateInputSystemByPackInputWiz$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
   authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
   description: z.string().optional(),
@@ -9920,7 +9909,7 @@ export type CreateInputSystemByPackInputJournalFiles$Outbound = {
     | undefined;
   currentBoot?: boolean | undefined;
   maxAgeDur?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -9949,8 +9938,7 @@ export const CreateInputSystemByPackInputJournalFiles$outboundSchema: z.ZodType<
   ).optional(),
   currentBoot: z.boolean().optional(),
   maxAgeDur: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -9984,7 +9972,7 @@ export type CreateInputSystemByPackInputRawUdp$Outbound = {
   singleMsgUdpPackets?: boolean | undefined;
   ingestRawBytes?: boolean | undefined;
   udpSocketRxBufSize?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -10014,8 +10002,7 @@ export const CreateInputSystemByPackInputRawUdp$outboundSchema: z.ZodType<
   singleMsgUdpPackets: z.boolean().optional(),
   ingestRawBytes: z.boolean().optional(),
   udpSocketRxBufSize: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -10063,7 +10050,7 @@ export type CreateInputSystemByPackInputWinEventLogs$Outbound = {
   disableNativeModule?: boolean | undefined;
   interval?: number | undefined;
   batchSize?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   maxEventBytes?: number | undefined;
   description?: string | undefined;
   disableJsonRendering?: boolean | undefined;
@@ -10093,8 +10080,7 @@ export const CreateInputSystemByPackInputWinEventLogs$outboundSchema: z.ZodType<
   disableNativeModule: z.boolean().optional(),
   interval: z.number().optional(),
   batchSize: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   maxEventBytes: z.number().optional(),
   description: z.string().optional(),
   disableJsonRendering: z.boolean().optional(),
@@ -10229,7 +10215,7 @@ export type CreateInputSystemByPackSubscription$Outbound = {
   targets: Array<string>;
   locale?: string | undefined;
   querySelector?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   queries?: Array<CreateInputSystemByPackQuery$Outbound> | undefined;
   xmlQuery?: string | undefined;
 };
@@ -10252,8 +10238,7 @@ export const CreateInputSystemByPackSubscription$outboundSchema: z.ZodType<
   locale: z.string().optional(),
   querySelector: CreateInputSystemByPackQueryBuilderMode$outboundSchema
     .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   queries: z.array(z.lazy(() => CreateInputSystemByPackQuery$outboundSchema))
     .optional(),
   xmlQuery: z.string().optional(),
@@ -10299,7 +10284,7 @@ export type CreateInputSystemByPackInputWef$Outbound = {
   principal?: string | undefined;
   allowMachineIdMismatch?: boolean | undefined;
   subscriptions: Array<CreateInputSystemByPackSubscription$Outbound>;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   logFingerprintMismatch?: boolean | undefined;
   __template_host?: string | undefined;
@@ -10346,8 +10331,7 @@ export const CreateInputSystemByPackInputWef$outboundSchema: z.ZodType<
   subscriptions: z.array(
     z.lazy(() => CreateInputSystemByPackSubscription$outboundSchema),
   ),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().optional(),
   __template_host: z.string().optional(),
@@ -10474,7 +10458,7 @@ export type CreateInputSystemByPackInputAppscope$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   enableUnixPath?: boolean | undefined;
@@ -10516,8 +10500,7 @@ export const CreateInputSystemByPackInputAppscope$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   enableUnixPath: z.boolean().optional(),
@@ -10571,13 +10554,11 @@ export type CreateInputSystemByPackInputTcp$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   enableHeader?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
   description?: string | undefined;
   authToken?: string | undefined;
   authType?: string | undefined;
@@ -10612,13 +10593,11 @@ export const CreateInputSystemByPackInputTcp$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   enableHeader: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
   description: z.string().optional(),
   authToken: z.string().optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
@@ -10668,7 +10647,7 @@ export type CreateInputSystemByPackInputFile$Outbound = {
   checkFileModTime?: boolean | undefined;
   forceText?: boolean | undefined;
   hashLen?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
@@ -10708,8 +10687,7 @@ export const CreateInputSystemByPackInputFile$outboundSchema: z.ZodType<
   checkFileModTime: z.boolean().optional(),
   forceText: z.boolean().optional(),
   hashLen: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   description: z.string().optional(),
@@ -10766,7 +10744,7 @@ export type CreateInputSystemByPackInputSyslogSyslog2$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
@@ -10812,8 +10790,7 @@ export const CreateInputSystemByPackInputSyslogSyslog2$outboundSchema:
     socketEndingMaxWait: z.number().optional(),
     socketMaxLifespan: z.number().optional(),
     tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     udpSocketRxBufSize: z.number().optional(),
     enableLoadBalancing: z.boolean().optional(),
     description: z.string().optional(),
@@ -10869,7 +10846,7 @@ export type CreateInputSystemByPackInputSyslogSyslog1$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
@@ -10915,8 +10892,7 @@ export const CreateInputSystemByPackInputSyslogSyslog1$outboundSchema:
     socketEndingMaxWait: z.number().optional(),
     socketMaxLifespan: z.number().optional(),
     tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     udpSocketRxBufSize: z.number().optional(),
     enableLoadBalancing: z.boolean().optional(),
     description: z.string().optional(),
@@ -10999,7 +10975,7 @@ export type CreateInputSystemByPackInputSqs$Outbound = {
   durationSeconds?: number | undefined;
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   pollTimeout?: number | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
@@ -11048,8 +11024,7 @@ export const CreateInputSystemByPackInputSqs$outboundSchema: z.ZodType<
   durationSeconds: z.number().optional(),
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   pollTimeout: z.number().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
@@ -11089,7 +11064,7 @@ export type CreateInputSystemByPackInputModelDrivenTelemetry$Outbound = {
   host: string;
   port: number;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   maxActiveCxn?: number | undefined;
   shutdownTimeoutMs?: number | undefined;
   description?: string | undefined;
@@ -11118,8 +11093,7 @@ export const CreateInputSystemByPackInputModelDrivenTelemetry$outboundSchema:
     host: z.string(),
     port: z.number(),
     tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     maxActiveCxn: z.number().optional(),
     shutdownTimeoutMs: z.number().optional(),
     description: z.string().optional(),
@@ -11183,7 +11157,7 @@ export type CreateInputSystemByPackInputOpenTelemetry$Outbound = {
   extractMetrics?: boolean | undefined;
   otlpVersion?: string | undefined;
   authType?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   maxActiveCxn?: number | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -11233,8 +11207,7 @@ export const CreateInputSystemByPackInputOpenTelemetry$outboundSchema:
     extractMetrics: z.boolean().optional(),
     otlpVersion: CreateInputSystemByPackOTLPVersion$outboundSchema.optional(),
     authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     maxActiveCxn: z.number().optional(),
     description: z.string().optional(),
     username: z.string().optional(),
@@ -11347,7 +11320,7 @@ export type CreateInputSystemByPackInputSnmp$Outbound = {
   snmpV3Auth?: CreateInputSystemByPackSNMPv3Authentication$Outbound | undefined;
   maxBufferSize?: number | undefined;
   ipWhitelistRegex?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   varbindsWithTypes?: boolean | undefined;
   bestEffortParsing?: boolean | undefined;
@@ -11380,8 +11353,7 @@ export const CreateInputSystemByPackInputSnmp$outboundSchema: z.ZodType<
   ).optional(),
   maxBufferSize: z.number().optional(),
   ipWhitelistRegex: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   varbindsWithTypes: z.boolean().optional(),
   bestEffortParsing: z.boolean().optional(),
@@ -11435,10 +11407,8 @@ export type CreateInputSystemByPackInputS3Inventory$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: models.CheckpointingType$Outbound | undefined;
@@ -11502,10 +11472,8 @@ export const CreateInputSystemByPackInputS3Inventory$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: models.CheckpointingType$outboundSchema.optional(),
@@ -11575,10 +11543,8 @@ export type CreateInputSystemByPackInputS3$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: models.CheckpointingType$Outbound | undefined;
@@ -11640,10 +11606,8 @@ export const CreateInputSystemByPackInputS3$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: models.CheckpointingType$outboundSchema.optional(),
@@ -11693,7 +11657,7 @@ export type CreateInputSystemByPackInputMetrics$Outbound = {
   ipWhitelistRegex?: string | undefined;
   enableProxyHeader?: boolean | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
@@ -11725,8 +11689,7 @@ export const CreateInputSystemByPackInputMetrics$outboundSchema: z.ZodType<
   ipWhitelistRegex: z.string().optional(),
   enableProxyHeader: z.boolean().optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
@@ -11758,7 +11721,7 @@ export type CreateInputSystemByPackInputCriblmetrics$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   prefix?: string | undefined;
   fullFidelity?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -11781,8 +11744,7 @@ export const CreateInputSystemByPackInputCriblmetrics$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   prefix: z.string().optional(),
   fullFidelity: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -11847,7 +11809,7 @@ export type CreateInputSystemByPackInputKinesis$Outbound = {
   durationSeconds?: number | undefined;
   verifyKPLCheckSums?: boolean | undefined;
   avoidDuplicates?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
@@ -11900,8 +11862,7 @@ export const CreateInputSystemByPackInputKinesis$outboundSchema: z.ZodType<
   durationSeconds: z.number().optional(),
   verifyKPLCheckSums: z.boolean().optional(),
   avoidDuplicates: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
@@ -11952,7 +11913,7 @@ export type CreateInputSystemByPackInputHttpRaw$Outbound = {
   ipDenylistRegex?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedPaths?: Array<string> | undefined;
   allowedMethods?: Array<string> | undefined;
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
@@ -11995,8 +11956,7 @@ export const CreateInputSystemByPackInputHttpRaw$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
   authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
@@ -12055,7 +12015,7 @@ export type CreateInputSystemByPackInputDatagen$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   samples: Array<CreateInputSystemByPackSample$Outbound>;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -12077,8 +12037,7 @@ export const CreateInputSystemByPackInputDatagen$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   samples: z.array(z.lazy(() => CreateInputSystemByPackSample$outboundSchema)),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -12147,7 +12106,7 @@ export type CreateInputSystemByPackInputDatadogAgent$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   extractMetrics?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   proxyMode?: CreateInputSystemByPackProxyModeDatadogAgent$Outbound | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
@@ -12186,8 +12145,7 @@ export const CreateInputSystemByPackInputDatadogAgent$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   extractMetrics: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   proxyMode: z.lazy(() =>
     CreateInputSystemByPackProxyModeDatadogAgent$outboundSchema
   ).optional(),
@@ -12242,10 +12200,8 @@ export type CreateInputSystemByPackInputCrowdstrike$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   checkpointing?: models.CheckpointingType$Outbound | undefined;
   pollTimeout?: number | undefined;
   encoding?: string | undefined;
@@ -12305,10 +12261,8 @@ export const CreateInputSystemByPackInputCrowdstrike$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   checkpointing: models.CheckpointingType$outboundSchema.optional(),
   pollTimeout: z.number().optional(),
   encoding: z.string().optional(),
@@ -12662,7 +12616,7 @@ export type CreateInputSystemByPackInputWindowsMetrics$Outbound = {
   interval?: number | undefined;
   host?: CreateInputSystemByPackHostWindowsMetrics$Outbound | undefined;
   process?: models.ProcessType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   persistence?:
     | CreateInputSystemByPackPersistenceWindowsMetrics$Outbound
     | undefined;
@@ -12692,8 +12646,7 @@ export const CreateInputSystemByPackInputWindowsMetrics$outboundSchema:
     host: z.lazy(() => CreateInputSystemByPackHostWindowsMetrics$outboundSchema)
       .optional(),
     process: models.ProcessType$outboundSchema.optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     persistence: z.lazy(() =>
       CreateInputSystemByPackPersistenceWindowsMetrics$outboundSchema
     ).optional(),
@@ -12725,7 +12678,7 @@ export type CreateInputSystemByPackInputKubeEvents$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   rules?: Array<models.ItemsTypeRules$Outbound> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -12747,8 +12700,7 @@ export const CreateInputSystemByPackInputKubeEvents$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   rules: z.array(models.ItemsTypeRules$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -12804,7 +12756,7 @@ export type CreateInputSystemByPackInputKubeLogs$Outbound = {
   interval?: number | undefined;
   rules?: Array<CreateInputSystemByPackRuleKubeLogs$Outbound> | undefined;
   timestamps?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   persistence?: models.DiskSpoolingType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
@@ -12834,8 +12786,7 @@ export const CreateInputSystemByPackInputKubeLogs$outboundSchema: z.ZodType<
     z.lazy(() => CreateInputSystemByPackRuleKubeLogs$outboundSchema),
   ).optional(),
   timestamps: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   persistence: models.DiskSpoolingType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
@@ -12904,7 +12855,7 @@ export type CreateInputSystemByPackInputKubeMetrics$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
   rules?: Array<models.ItemsTypeRules$Outbound> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   persistence?:
     | CreateInputSystemByPackPersistenceKubeMetrics$Outbound
     | undefined;
@@ -12930,8 +12881,7 @@ export const CreateInputSystemByPackInputKubeMetrics$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   interval: z.number().optional(),
   rules: z.array(models.ItemsTypeRules$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   persistence: z.lazy(() =>
     CreateInputSystemByPackPersistenceKubeMetrics$outboundSchema
   ).optional(),
@@ -13316,7 +13266,7 @@ export type CreateInputSystemByPackInputSystemState$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   collectors?: CreateInputSystemByPackCollectors$Outbound | undefined;
   persistence?:
     | CreateInputSystemByPackPersistenceSystemState$Outbound
@@ -13344,8 +13294,7 @@ export const CreateInputSystemByPackInputSystemState$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   interval: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   collectors: z.lazy(() => CreateInputSystemByPackCollectors$outboundSchema)
     .optional(),
   persistence: z.lazy(() =>
@@ -13759,7 +13708,7 @@ export type CreateInputSystemByPackInputSystemMetrics$Outbound = {
   host?: CreateInputSystemByPackHostSystemMetrics$Outbound | undefined;
   process?: models.ProcessType$Outbound | undefined;
   container?: CreateInputSystemByPackContainer$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   persistence?:
     | CreateInputSystemByPackPersistenceSystemMetrics$Outbound
     | undefined;
@@ -13790,8 +13739,7 @@ export const CreateInputSystemByPackInputSystemMetrics$outboundSchema:
     process: models.ProcessType$outboundSchema.optional(),
     container: z.lazy(() => CreateInputSystemByPackContainer$outboundSchema)
       .optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     persistence: z.lazy(() =>
       CreateInputSystemByPackPersistenceSystemMetrics$outboundSchema
     ).optional(),
@@ -13830,7 +13778,7 @@ export type CreateInputSystemByPackInputTcpjson$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   enableLoadBalancing?: boolean | undefined;
   authType?: string | undefined;
   description?: string | undefined;
@@ -13866,8 +13814,7 @@ export const CreateInputSystemByPackInputTcpjson$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   enableLoadBalancing: z.boolean().optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
@@ -13949,7 +13896,7 @@ export function createInputSystemByPackElasticsearchMetadataToJSON(
 export type CreateInputSystemByPackAuthTokensExt$Outbound = {
   token: string;
   description?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   splunkHecMetadata?:
     | CreateInputSystemByPackSplunkHecMetadata$Outbound
     | undefined;
@@ -13966,8 +13913,7 @@ export const CreateInputSystemByPackAuthTokensExt$outboundSchema: z.ZodType<
 > = z.object({
   token: z.string(),
   description: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   splunkHecMetadata: z.lazy(() =>
     CreateInputSystemByPackSplunkHecMetadata$outboundSchema
   ).optional(),
@@ -14017,7 +13963,7 @@ export type CreateInputSystemByPackInputCriblLakeHttp$Outbound = {
   elasticAPI?: string | undefined;
   splunkHecAPI?: string | undefined;
   splunkHecAcks?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   authTokensExt?:
     | Array<CreateInputSystemByPackAuthTokensExt$Outbound>
     | undefined;
@@ -14064,8 +14010,7 @@ export const CreateInputSystemByPackInputCriblLakeHttp$outboundSchema:
     elasticAPI: z.string().optional(),
     splunkHecAPI: z.string().optional(),
     splunkHecAcks: z.boolean().optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     authTokensExt: z.array(
       z.lazy(() => CreateInputSystemByPackAuthTokensExt$outboundSchema),
     ).optional(),
@@ -14113,7 +14058,7 @@ export type CreateInputSystemByPackInputCriblHttp$Outbound = {
   enableHealthCheck?: boolean | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -14151,8 +14096,7 @@ export const CreateInputSystemByPackInputCriblHttp$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -14188,7 +14132,7 @@ export type CreateInputSystemByPackInputCriblTcp$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   enableLoadBalancing?: boolean | undefined;
   authTokens?: Array<models.ItemsTypeAuthTokens$Outbound> | undefined;
   description?: string | undefined;
@@ -14221,8 +14165,7 @@ export const CreateInputSystemByPackInputCriblTcp$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   enableLoadBalancing: z.boolean().optional(),
   authTokens: z.array(models.ItemsTypeAuthTokens$outboundSchema).optional(),
   description: z.string().optional(),
@@ -14253,7 +14196,7 @@ export type CreateInputSystemByPackInputCribl$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   filter?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -14275,8 +14218,7 @@ export const CreateInputSystemByPackInputCribl$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   filter: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -14314,7 +14256,7 @@ export type CreateInputSystemByPackInputGooglePubsub$Outbound = {
   maxBacklog?: number | undefined;
   concurrency?: number | undefined;
   requestTimeout?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   orderedDelivery?: boolean | undefined;
   __template_topicName?: string | undefined;
@@ -14352,8 +14294,7 @@ export const CreateInputSystemByPackInputGooglePubsub$outboundSchema: z.ZodType<
   maxBacklog: z.number().optional(),
   concurrency: z.number().optional(),
   requestTimeout: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   orderedDelivery: z.boolean().optional(),
   __template_topicName: z.string().optional(),
@@ -14399,7 +14340,7 @@ export type CreateInputSystemByPackInputFirehose$Outbound = {
   enableHealthCheck?: boolean | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -14437,8 +14378,7 @@ export const CreateInputSystemByPackInputFirehose$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -14478,7 +14418,7 @@ export type CreateInputSystemByPackInputExec$Outbound = {
   scheduleType?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   interval?: number | undefined;
   cronSchedule?: string | undefined;
@@ -14506,8 +14446,7 @@ export const CreateInputSystemByPackInputExec$outboundSchema: z.ZodType<
   scheduleType: CreateInputSystemByPackScheduleType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   interval: z.number().optional(),
   cronSchedule: z.string().optional(),
@@ -14558,7 +14497,7 @@ export type CreateInputSystemByPackInputEventhub$Outbound = {
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
   minimizeDuplicates?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -14602,8 +14541,7 @@ export const CreateInputSystemByPackInputEventhub$outboundSchema: z.ZodType<
   maxBytes: z.number().optional(),
   maxSocketErrors: z.number().optional(),
   minimizeDuplicates: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -14694,7 +14632,7 @@ export type CreateInputSystemByPackInputOffice365MsgTrace$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: models.RetryRulesType1$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -14749,8 +14687,7 @@ export const CreateInputSystemByPackInputOffice365MsgTrace$outboundSchema:
     maxMissedKeepAlives: z.number().optional(),
     ttl: z.string().optional(),
     ignoreGroupJobsLimit: z.boolean().optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     retryRules: models.RetryRulesType1$outboundSchema.optional(),
     description: z.string().optional(),
     username: z.string().optional(),
@@ -14837,7 +14774,7 @@ export type CreateInputSystemByPackInputOffice365Service$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   contentConfig?:
     | Array<CreateInputSystemByPackContentConfigOffice365Service$Outbound>
     | undefined;
@@ -14878,8 +14815,7 @@ export const CreateInputSystemByPackInputOffice365Service$outboundSchema:
     maxMissedKeepAlives: z.number().optional(),
     ttl: z.string().optional(),
     ignoreGroupJobsLimit: z.boolean().optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     contentConfig: z.array(
       z.lazy(() =>
         CreateInputSystemByPackContentConfigOffice365Service$outboundSchema
@@ -14962,7 +14898,7 @@ export type CreateInputSystemByPackInputOffice365Mgmt$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   publisherIdentifier?: string | undefined;
   contentConfig?:
     | Array<CreateInputSystemByPackContentConfigOffice365Mgmt$Outbound>
@@ -15006,8 +14942,7 @@ export const CreateInputSystemByPackInputOffice365Mgmt$outboundSchema:
     maxMissedKeepAlives: z.number().optional(),
     ttl: z.string().optional(),
     ignoreGroupJobsLimit: z.boolean().optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     publisherIdentifier: z.string().optional(),
     contentConfig: z.array(
       z.lazy(() =>
@@ -15130,7 +15065,7 @@ export type CreateInputSystemByPackInputEdgePrometheus$Outbound = {
   interval: number;
   timeout?: number | undefined;
   persistence?: models.DiskSpoolingType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   targets?: Array<CreateInputSystemByPackTarget$Outbound> | undefined;
@@ -15192,8 +15127,7 @@ export const CreateInputSystemByPackInputEdgePrometheus$outboundSchema:
     interval: z.number(),
     timeout: z.number().optional(),
     persistence: models.DiskSpoolingType$outboundSchema.optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     authType:
       CreateInputSystemByPackAuthenticationMethodEdgePrometheus$outboundSchema
         .optional(),
@@ -15292,7 +15226,7 @@ export type CreateInputSystemByPackInputPrometheus$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   targetList?: Array<string> | undefined;
@@ -15355,8 +15289,7 @@ export const CreateInputSystemByPackInputPrometheus$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   authType: models.AuthenticationMethodOptionsSasl$outboundSchema.optional(),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
@@ -15430,7 +15363,7 @@ export type CreateInputSystemByPackInputPrometheusRw$Outbound = {
   ipDenylistRegex?: string | undefined;
   prometheusAPI: string;
   authType?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -15476,8 +15409,7 @@ export const CreateInputSystemByPackInputPrometheusRw$outboundSchema: z.ZodType<
   prometheusAPI: z.string(),
   authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
     .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -15528,7 +15460,7 @@ export type CreateInputSystemByPackInputLoki$Outbound = {
   ipDenylistRegex?: string | undefined;
   lokiAPI: string;
   authType?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -15572,8 +15504,7 @@ export const CreateInputSystemByPackInputLoki$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   lokiAPI: z.string(),
   authType: models.AuthenticationTypeOptionsLokiAuth$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -15699,7 +15630,7 @@ export type CreateInputSystemByPackInputGrafanaGrafana2$Outbound = {
   lokiAPI: string;
   prometheusAuth?: CreateInputSystemByPackPrometheusAuth2$Outbound | undefined;
   lokiAuth?: CreateInputSystemByPackLokiAuth2$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -15744,8 +15675,7 @@ export const CreateInputSystemByPackInputGrafanaGrafana2$outboundSchema:
     ).optional(),
     lokiAuth: z.lazy(() => CreateInputSystemByPackLokiAuth2$outboundSchema)
       .optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     description: z.string().optional(),
     __template_host: z.string().optional(),
     __template_port: z.string().optional(),
@@ -15867,7 +15797,7 @@ export type CreateInputSystemByPackInputGrafanaGrafana1$Outbound = {
   lokiAPI?: string | undefined;
   prometheusAuth?: CreateInputSystemByPackPrometheusAuth1$Outbound | undefined;
   lokiAuth?: CreateInputSystemByPackLokiAuth1$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -15912,8 +15842,7 @@ export const CreateInputSystemByPackInputGrafanaGrafana1$outboundSchema:
     ).optional(),
     lokiAuth: z.lazy(() => CreateInputSystemByPackLokiAuth1$outboundSchema)
       .optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     description: z.string().optional(),
     __template_host: z.string().optional(),
     __template_port: z.string().optional(),
@@ -15995,7 +15924,7 @@ export type CreateInputSystemByPackInputConfluentCloud$Outbound = {
   maxBytesPerPartition?: number | undefined;
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -16042,8 +15971,7 @@ export const CreateInputSystemByPackInputConfluentCloud$outboundSchema:
     maxBytesPerPartition: z.number().optional(),
     maxBytes: z.number().optional(),
     maxSocketErrors: z.number().optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
     description: z.string().optional(),
   });
 
@@ -16161,7 +16089,7 @@ export type CreateInputSystemByPackInputElastic$Outbound = {
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   proxyMode?: CreateInputSystemByPackProxyModeElastic$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -16210,8 +16138,7 @@ export const CreateInputSystemByPackInputElastic$outboundSchema: z.ZodType<
   apiVersion: CreateInputSystemByPackAPIVersion$outboundSchema.optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   proxyMode: z.lazy(() =>
     CreateInputSystemByPackProxyModeElastic$outboundSchema
   ).optional(),
@@ -16254,7 +16181,7 @@ export type CreateInputSystemByPackInputAzureBlob$Outbound = {
   maxMessages?: number | undefined;
   servicePeriodSecs?: number | undefined;
   skipOnError?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
@@ -16302,8 +16229,7 @@ export const CreateInputSystemByPackInputAzureBlob$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   servicePeriodSecs: z.number().optional(),
   skipOnError: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
@@ -16344,7 +16270,7 @@ export type CreateInputSystemByPackAuthTokenSplunkHec$Outbound = {
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
 };
 
 /** @internal */
@@ -16361,8 +16287,7 @@ export const CreateInputSystemByPackAuthTokenSplunkHec$outboundSchema:
     enabled: z.boolean().optional(),
     description: z.string().optional(),
     allowedIndexesAtToken: z.array(z.string()).optional(),
-    metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-      .optional(),
+    metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   });
 
 export function createInputSystemByPackAuthTokenSplunkHecToJSON(
@@ -16406,7 +16331,7 @@ export type CreateInputSystemByPackInputSplunkHec$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   splunkHecAPI: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   splunkHecAcks?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
@@ -16458,8 +16383,7 @@ export const CreateInputSystemByPackInputSplunkHec$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   splunkHecAPI: z.string(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   splunkHecAcks: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
@@ -16588,7 +16512,7 @@ export type CreateInputSystemByPackInputSplunkSearch$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: models.RetryRulesType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
@@ -16642,8 +16566,7 @@ export const CreateInputSystemByPackInputSplunkSearch$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
@@ -16730,7 +16653,7 @@ export type CreateInputSystemByPackInputSplunk$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   authTokens?:
@@ -16772,8 +16695,7 @@ export const CreateInputSystemByPackInputSplunk$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   authTokens: z.array(
@@ -16830,7 +16752,7 @@ export type CreateInputSystemByPackInputHttp$Outbound = {
   elasticAPI?: string | undefined;
   splunkHecAPI?: string | undefined;
   splunkHecAcks?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
@@ -16874,8 +16796,7 @@ export const CreateInputSystemByPackInputHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().optional(),
   splunkHecAPI: z.string().optional(),
   splunkHecAcks: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
     .optional(),
   description: z.string().optional(),
@@ -16913,7 +16834,7 @@ export type CreateInputSystemByPackInputMsk$Outbound = {
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
   heartbeatInterval?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType$Outbound
     | undefined;
@@ -16978,8 +16899,7 @@ export const CreateInputSystemByPackInputMsk$outboundSchema: z.ZodType<
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),
   heartbeatInterval: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   kafkaSchemaRegistry: models
     .KafkaSchemaRegistryAuthenticationType$outboundSchema.optional(),
   connectionTimeout: z.number().optional(),
@@ -17067,7 +16987,7 @@ export type CreateInputSystemByPackInputKafka$Outbound = {
   maxBytesPerPartition?: number | undefined;
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -17113,8 +17033,7 @@ export const CreateInputSystemByPackInputKafka$outboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().optional(),
   maxBytes: z.number().optional(),
   maxSocketErrors: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
@@ -17142,11 +17061,9 @@ export type CreateInputSystemByPackInputCollection$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
   throttleRatePerSec?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   output?: string | undefined;
 };
 
@@ -17169,11 +17086,9 @@ export const CreateInputSystemByPackInputCollection$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
   throttleRatePerSec: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   output: z.string().optional(),
 });
 

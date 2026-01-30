@@ -21,11 +21,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -178,7 +178,7 @@ export type InputOpenTelemetry = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -275,9 +275,7 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   extractMetrics: types.optional(types.boolean()),
   otlpVersion: types.optional(InputOpenTelemetryOTLPVersion$inboundSchema),
   authType: types.optional(AuthenticationTypeOptions$inboundSchema),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   maxActiveCxn: types.optional(types.number()),
   description: types.optional(types.string()),
   username: types.optional(types.string()),
@@ -320,7 +318,7 @@ export type InputOpenTelemetry$Outbound = {
   extractMetrics?: boolean | undefined;
   otlpVersion?: string | undefined;
   authType?: string | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   maxActiveCxn?: number | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -368,7 +366,7 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   extractMetrics: z.boolean().optional(),
   otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.optional(),
   authType: AuthenticationTypeOptions$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   maxActiveCxn: z.number().optional(),
   description: z.string().optional(),
   username: z.string().optional(),

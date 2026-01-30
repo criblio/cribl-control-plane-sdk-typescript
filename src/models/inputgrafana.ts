@@ -26,11 +26,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -189,7 +189,7 @@ export type InputGrafanaGrafana2 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -346,7 +346,7 @@ export type InputGrafanaGrafana1 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -509,9 +509,7 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
   lokiAPI: types.string(),
   prometheusAuth: types.optional(z.lazy(() => PrometheusAuth2$inboundSchema)),
   lokiAuth: types.optional(z.lazy(() => LokiAuth2$inboundSchema)),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
@@ -546,7 +544,7 @@ export type InputGrafanaGrafana2$Outbound = {
   lokiAPI: string;
   prometheusAuth?: PrometheusAuth2$Outbound | undefined;
   lokiAuth?: LokiAuth2$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -586,7 +584,7 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   lokiAPI: z.string(),
   prometheusAuth: z.lazy(() => PrometheusAuth2$outboundSchema).optional(),
   lokiAuth: z.lazy(() => LokiAuth2$outboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),
@@ -758,9 +756,7 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
   lokiAPI: types.optional(types.string()),
   prometheusAuth: types.optional(z.lazy(() => PrometheusAuth1$inboundSchema)),
   lokiAuth: types.optional(z.lazy(() => LokiAuth1$inboundSchema)),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
   __template_host: types.optional(types.string()),
   __template_port: types.optional(types.string()),
@@ -795,7 +791,7 @@ export type InputGrafanaGrafana1$Outbound = {
   lokiAPI?: string | undefined;
   prometheusAuth?: PrometheusAuth1$Outbound | undefined;
   lokiAuth?: LokiAuth1$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   __template_host?: string | undefined;
   __template_port?: string | undefined;
@@ -835,7 +831,7 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   lokiAPI: z.string().optional(),
   prometheusAuth: z.lazy(() => PrometheusAuth1$outboundSchema).optional(),
   lokiAuth: z.lazy(() => LokiAuth1$outboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   __template_host: z.string().optional(),
   __template_port: z.string().optional(),

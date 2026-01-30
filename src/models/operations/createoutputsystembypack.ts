@@ -2289,8 +2289,8 @@ export type CreateOutputSystemByPackOutputCriblLake = {
    * Maximum number of files that can be waiting for upload before backpressure is applied
    */
   maxClosingFilesToBackpressure?: number | undefined;
-  awsAuthenticationMethod?: models.MethodOptionsCredentials | undefined;
-  format?: models.FormatOptionsCriblLakeDataset | undefined;
+  awsAuthenticationMethod?: models.AwsAuthenticationMethodOptions | undefined;
+  format?: models.FormatOptions | undefined;
   /**
    * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
    */
@@ -15453,9 +15453,9 @@ export const CreateOutputSystemByPackOutputCriblLake$outboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().optional(),
   verifyPermissions: z.boolean().optional(),
   maxClosingFilesToBackpressure: z.number().optional(),
-  awsAuthenticationMethod: models.MethodOptionsCredentials$outboundSchema
+  awsAuthenticationMethod: models.AwsAuthenticationMethodOptions$outboundSchema
     .optional(),
-  format: models.FormatOptionsCriblLakeDataset$outboundSchema.optional(),
+  format: models.FormatOptions$outboundSchema.optional(),
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
   emptyDirCleanupSec: z.number().optional(),

@@ -20,11 +20,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -32,11 +32,11 @@ import {
   PqType$outboundSchema,
 } from "./pqtype.js";
 import {
-  PreprocessTypeSavedJobCollectionInput,
-  PreprocessTypeSavedJobCollectionInput$inboundSchema,
-  PreprocessTypeSavedJobCollectionInput$Outbound,
-  PreprocessTypeSavedJobCollectionInput$outboundSchema,
-} from "./preprocesstypesavedjobcollectioninput.js";
+  PreprocessType,
+  PreprocessType$inboundSchema,
+  PreprocessType$Outbound,
+  PreprocessType$outboundSchema,
+} from "./preprocesstype.js";
 import {
   SignatureVersionOptionsS3CollectorConf,
   SignatureVersionOptionsS3CollectorConf$inboundSchema,
@@ -169,11 +169,11 @@ export type InputSecurityLake = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -279,12 +279,8 @@ export const InputSecurityLake$inboundSchema: z.ZodType<
   assumeRoleExternalId: types.optional(types.string()),
   durationSeconds: types.optional(types.number()),
   enableSQSAssumeRole: types.optional(types.boolean()),
-  preprocess: types.optional(
-    PreprocessTypeSavedJobCollectionInput$inboundSchema,
-  ),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  preprocess: types.optional(PreprocessType$inboundSchema),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   parquetChunkSizeMB: types.optional(types.number()),
   parquetChunkDownloadTimeout: types.optional(types.number()),
   checkpointing: types.optional(CheckpointingType$inboundSchema),
@@ -339,8 +335,8 @@ export type InputSecurityLake$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: PreprocessType$Outbound | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: CheckpointingType$Outbound | undefined;
@@ -401,8 +397,8 @@ export const InputSecurityLake$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  preprocess: PreprocessType$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: CheckpointingType$outboundSchema.optional(),
