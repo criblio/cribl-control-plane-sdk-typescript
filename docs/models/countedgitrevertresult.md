@@ -24,9 +24,10 @@ let value: CountedGitRevertResult = {
             "<value 2>",
           ],
           renamed: [
-            "<value 1>",
-            "<value 2>",
-            "<value 3>",
+            {
+              from: "<value>",
+              to: "<value>",
+            },
           ],
         },
         group: "<value>",
