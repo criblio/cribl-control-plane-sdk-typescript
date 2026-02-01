@@ -232,6 +232,7 @@ export * from "./gitcommitsummary.js";
 export * from "./gitcountresult.js";
 export * from "./gitdiffresult.js";
 export * from "./gitfile.js";
+export * from "./gitfilerename.js";
 export * from "./gitfilesresponse.js";
 export * from "./gitinfo.js";
 export * from "./gitlogresult.js";

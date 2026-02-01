@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 0fd989f44d2a92d064297dbf1c66a900
-  docVersion: 4.17.0-alpha.1769792035279-6d75f81b
+  docChecksum: f222a015d80df9ac29434f63a4c7dd3b
+  docVersion: 4.17.0-alpha.1769900545768-040eb70e
   speakeasyVersion: 1.697.5
   generationVersion: 2.799.0
-  releaseVersion: 0.6.0-beta.6
-  configChecksum: 28f66c4994589746b69f34ef8e74ee0c
+  releaseVersion: 0.6.0-beta.7
+  configChecksum: 67a6c1358eecde24499b35d49b492692
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: b000c022-59e5-454e-ab49-32898190b0cf
-  pristine_commit_hash: cfe2a6917b3661018bfdc3ec6b2d62c56c8c7ab2
-  pristine_tree_hash: 3587fce42b9f5ff51b84e23f1d3b0eb06a07c262
+  generation_id: c6f1ccd9-53eb-4482-937f-0d15c1911c1f
+  pristine_commit_hash: 9a0ecb0725927e0954c067aeaa1ba2b125979eb8
+  pristine_tree_hash: d6a6785d3d1a8375e79f3df60014af177e00167a
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -124,8 +124,8 @@ trackedFiles:
     pristine_git_object: c657e47a504f0fa3626f577a701e4d80871c587c
   docs/models/audit.md:
     id: 122233ecf5ac
-    last_write_checksum: sha1:c31bc94688bb00ac91911dc000771c713ca3aa48
-    pristine_git_object: 00c7cb9c2df46b702fd58d9160ffbc8c4583a482
+    last_write_checksum: sha1:986cccc2e8cb30d9e320547cee4edb915edd07cd
+    pristine_git_object: d35f4755341b132a95988ac23611ff2111cdfc60
   docs/models/authenticationmethodoptions.md:
     id: bc281788d27c
     last_write_checksum: sha1:bcfc702255b50cb56d1ad3952e5f44afa8d18b57
@@ -464,8 +464,8 @@ trackedFiles:
     pristine_git_object: 9036c51a587e1b1b5411a1fcc4ed64e0ff445cc4
   docs/models/confinput.md:
     id: d60ee29375da
-    last_write_checksum: sha1:bafd2f01cd4ab095359c552f8977cc31ffdeeda7
-    pristine_git_object: 6623ef230382eeaadf242a0255beb0bc05ea956d
+    last_write_checksum: sha1:5c234f9c4f6cbc43b988350ce8e0a07dc74d8292
+    pristine_git_object: 204ce74c2a7627e625f8aa0263d4ac40cb75d9de
   docs/models/container.md:
     id: d907521490d4
     last_write_checksum: sha1:929a0b61d3fe3118a5347a5040c970d2a17f3a41
@@ -504,8 +504,8 @@ trackedFiles:
     pristine_git_object: 4b61229deb09f38d2620ef0a6d856076ac1d02a5
   docs/models/countedgitcommitsummary.md:
     id: 1f68fdbc15aa
-    last_write_checksum: sha1:f89ba5afd7dddee483b093da9f1a06ac0a1628bf
-    pristine_git_object: 9ae7eee135b4564eb6902145a6d9dc2a5f2659cf
+    last_write_checksum: sha1:e0a691db0ebdfb4a6d35610cf6e57890bdbbf3ad
+    pristine_git_object: 8ab4ef5354a7b68fbdef2204386b0f4f8b06e64b
   docs/models/countedgitcountresult.md:
     id: 277799168ff0
     last_write_checksum: sha1:c0af0a012b338b1732d9de801f1a01c83d7cf7c7
@@ -528,8 +528,8 @@ trackedFiles:
     pristine_git_object: e1b87acbe296f4c28bbfa2ca36a6a94381efa369
   docs/models/countedgitrevertresult.md:
     id: e68dc76a9769
-    last_write_checksum: sha1:102a5f7cc974d74690f1658f4c7233d4fb7252a0
-    pristine_git_object: 82c008466feb7cc53cc3e344eda6ae855f31e7a3
+    last_write_checksum: sha1:dee24612742af53c363de6b4b77d99c9a4f54d43
+    pristine_git_object: a12f5bff9d84ec7a0b9f46b38ccad69f76a7819e
   docs/models/countedgitshowresult.md:
     id: ae859dbbd66d
     last_write_checksum: sha1:1193aef6175f6970f877a8404897955d3d5633b3
@@ -588,16 +588,16 @@ trackedFiles:
     pristine_git_object: 9289dec74d94fa063116395467aacfa62703107f
   docs/models/countedpipeline.md:
     id: 381bbf78066a
-    last_write_checksum: sha1:4ef7d1eb8f1e1dd01bc94b003be3e9202db3869a
-    pristine_git_object: 5e89b4ba1189c2c7be6f07939059c3dca9d1a8ed
+    last_write_checksum: sha1:57196b527d8bd6419fa4b5198f7db189535c5cf8
+    pristine_git_object: 145b6920f1cdaea425ecbd9622a9e01d87078a82
   docs/models/countedrestartresponse.md:
     id: 565297be8b11
     last_write_checksum: sha1:8fddff8f32101b7fbd5df0dea971bc52f9d6f458
     pristine_git_object: 5248bed0459f90a59a5464aa5fc4f552c0b5f2ee
   docs/models/countedroutes.md:
     id: 5bd8f7e84bbf
-    last_write_checksum: sha1:bdfcd150e382097c9247e6e62f1e8c3bba92d0a5
-    pristine_git_object: 476082ce779db69d710d0f8a8f5c231a6451daf1
+    last_write_checksum: sha1:e7a548f6a8d252f66dc6a49027b7db3792e01be9
+    pristine_git_object: 17569ea8b13b850c6787439bdd90f08450d4378e
   docs/models/countedsavedjob.md:
     id: 06e589ee1f27
     last_write_checksum: sha1:7145e3caf7bc0066b34555811336bcec253fa4b5
@@ -864,8 +864,8 @@ trackedFiles:
     pristine_git_object: da5583ffae3c89cee28f432ca014f84f60f970bd
   docs/models/filestypegitcommitsummary.md:
     id: d5edfb21ac9b
-    last_write_checksum: sha1:0c039d4d4169e2f15f5f26505798b40c609df920
-    pristine_git_object: 80844f393e164c328f21ff6b7ddee64fa03019aa
+    last_write_checksum: sha1:45b9a86bc6ff6c88c378218389f227afd342c908
+    pristine_git_object: 9900c5c31d3824046533519076564e5af1a3188e
   docs/models/filesystemcollectorconf.md:
     id: 4db4fa5904f6
     last_write_checksum: sha1:d8b91525a0b01869585658eb07113ee97177d8c6
@@ -1320,8 +1320,8 @@ trackedFiles:
     pristine_git_object: a89a98bc0ec40c09d1f1f82641913cf732e7534f
   docs/models/gitcommitsummary.md:
     id: 920bd26404b9
-    last_write_checksum: sha1:f0f5aedd1af946e488c848f499ed5a4bd444687a
-    pristine_git_object: 1b913b25d31486806a3da9566c475e0f3ac140e1
+    last_write_checksum: sha1:baae4f15d9c310baa250af85e3eb4a0e96ccfd9a
+    pristine_git_object: 29b5e9ee59dcbc159b5553d2c6b22130813be172
   docs/models/gitcountresult.md:
     id: 91f44201c893
     last_write_checksum: sha1:cd5fb3bfa071de4f42f22f5fc6284d389f9a1084
@@ -1334,6 +1334,10 @@ trackedFiles:
     id: c3bda2f7c322
     last_write_checksum: sha1:5ce7a01db80b869627d14f1aaa0b7c6be029a37e
     pristine_git_object: 27b507209bb59850b2f9ef65c3ba71b5cff1813d
+  docs/models/gitfilerename.md:
+    id: 30535178b14b
+    last_write_checksum: sha1:8522668fb87ec6b6301d1f386f79add0ff092e8e
+    pristine_git_object: 7740a2f191bf4a1094008d09da88d25b6dc57d61
   docs/models/gitfilesresponse.md:
     id: 3b1672587112
     last_write_checksum: sha1:986554ed53fadd790b006a0065a857612ea7151c
@@ -1352,8 +1356,8 @@ trackedFiles:
     pristine_git_object: 4228976a950657cecbc18ff60c4e3dc37a5a2810
   docs/models/gitrevertresult.md:
     id: f2f03bb177ff
-    last_write_checksum: sha1:dd80870fcd74ab5a11d5cd01a1ac0a05efb7eb96
-    pristine_git_object: 7ffb100693803af10d561bc9970e4af8c59c2aa0
+    last_write_checksum: sha1:d01a597f5541ca01ad98b47be317e4e948e1f9db
+    pristine_git_object: f1b9b422c74fbbb989d366db5fe55192c08444b7
   docs/models/gitshowresult.md:
     id: 339c91fd59bc
     last_write_checksum: sha1:4d9ab7210e00197ba57f4746bbd82f1697321efb
@@ -6140,8 +6144,12 @@ trackedFiles:
     pristine_git_object: 90f889955452e7b8841fcd314cc46d649161e660
   docs/models/operations/createroutesappendbyidrequest.md:
     id: 339cd5b78188
-    last_write_checksum: sha1:da44a6da51bd81ce7247ac04b476a95e0931d7ec
-    pristine_git_object: 77e9870b3b7a65b7efbcc6c8a865b61a3a31d06c
+    last_write_checksum: sha1:74ef5c8b315be8bdc456ed52c4890541a5930d0a
+    pristine_git_object: dfe9a6ba7c322c4392d391c64b756e8e78cefbad
+  docs/models/operations/createroutesappendbypackandidrequest.md:
+    id: 380b3449514c
+    last_write_checksum: sha1:e0f8efbf4128dacc900f627c837c0318855acb98
+    pristine_git_object: caa77e2260503e16b8b572b95671af7bb4343d09
   docs/models/operations/createsavedjobrequest.md:
     id: 3f389c028a6e
     last_write_checksum: sha1:7b22f2dc02e591c56f5ae4fbde7a12d571a9c8f6
@@ -6322,6 +6330,14 @@ trackedFiles:
     id: e9b6a90a9825
     last_write_checksum: sha1:a2781c869d1ded3ba735538694d4d1c7167b6a3d
     pristine_git_object: 8a7599326129969bd37dc86c10c278793d5e6acc
+  docs/models/operations/getroutesbypackandidrequest.md:
+    id: 3440cb7ebff9
+    last_write_checksum: sha1:c5695b913563483425da80fbbd4b530da359fcae
+    pristine_git_object: 99a5ec6c31e1f57588ae7debf404adc070c8ef17
+  docs/models/operations/getroutesbypackrequest.md:
+    id: 8571cf04a147
+    last_write_checksum: sha1:7f8a8434503344db3a28e7e1567fd879c56860e9
+    pristine_git_object: bca795402a3371abce193ec17fd7a080deb30be7
   docs/models/operations/getsavedjobbyidrequest.md:
     id: ec2cffba6967
     last_write_checksum: sha1:8d255742c6b4a8b1e5775947b99f45fb30aea9bd
@@ -6412,16 +6428,20 @@ trackedFiles:
     pristine_git_object: b825aba41a4a3107e64e80a020f56fc5e18a172e
   docs/models/operations/updatepipelinesbyidrequest.md:
     id: e7a852a863cf
-    last_write_checksum: sha1:8a6f7f8da4ade1e5214906ae7d123654a1714427
-    pristine_git_object: 743bf0d109a6e7dc44efbdbdb8c886467b56ed08
+    last_write_checksum: sha1:457eb2d114ae0008d3358006dba0dfda0e9666d2
+    pristine_git_object: 163d8ddc7a69a6abf523993eaae4ef81e7e1c933
   docs/models/operations/updateproductsworkersrestartbyproductrequest.md:
     id: 71d4cc7a7a0c
     last_write_checksum: sha1:e61d658ff240e6f052ffcd55370397f1df8ba174
     pristine_git_object: df150f174b7bf18719792521c55c5f30a66b1599
   docs/models/operations/updateroutesbyidrequest.md:
     id: fb4fce29d689
-    last_write_checksum: sha1:b3d8b5ec8fa8dad08ed33557c4d9b726886a7c8d
-    pristine_git_object: 97cb70dcf6c19ece2349f26b3bff65b8ef3ff8dd
+    last_write_checksum: sha1:b8a1875582f9fa378f8bb028d80068cb6299b1be
+    pristine_git_object: 981fce30ee7c6ae7c5fd50e15514516fecb0ab18
+  docs/models/operations/updateroutesbypackandidrequest.md:
+    id: 1d3cb281f059
+    last_write_checksum: sha1:7209c7a2743c130bdbb8b7e2efc2937e4b8e8bd0
+    pristine_git_object: caee5ecb6fbb6c18f9a709aa5f513b14a60dc355
   docs/models/operations/updatesavedjobbyidrequest.md:
     id: f124cd469e7a
     last_write_checksum: sha1:97caff6aa0cc64347a49cd4c38573c06c1f7e62d
@@ -7196,12 +7216,12 @@ trackedFiles:
     pristine_git_object: 652642f20be786c85e5acd7f8631ee62a43f9074
   docs/models/pipeline.md:
     id: 7bf10de52bd9
-    last_write_checksum: sha1:8839579b45c141d00310daf3d2fb1ad353402511
-    pristine_git_object: 64986247b825a4b67bc84c423c3104cef8ab14a8
+    last_write_checksum: sha1:77d52ee17fa3c49834c94c3ba50fe6fadfec57f1
+    pristine_git_object: d17e25716cd96ce3a4a6120d16c8d73e6bee4242
   docs/models/pipelineconf.md:
     id: e98782925cec
-    last_write_checksum: sha1:c164cc56f2c9f983ccbc6c0db516e960030df2d2
-    pristine_git_object: b71bba54b9dae71c7db069dce1ff75add6676f70
+    last_write_checksum: sha1:674810e0a1d59e03c7de06f9e4993623fef2fb2a
+    pristine_git_object: 599052eb3a5722b3b4b20c7c116972ae8a4e6bd6
   docs/models/pipelinefunctionaggregatemetrics.md:
     id: 480cec57b095
     last_write_checksum: sha1:92941249f2d7d229a9be7b42cbdbd533ed5ceca7
@@ -7612,8 +7632,8 @@ trackedFiles:
     pristine_git_object: 546ac17d3a921b949aefd42389aa4ebe7f4e2a8a
   docs/models/pipelineinput.md:
     id: 53330660965e
-    last_write_checksum: sha1:6c7ecffbfc4032afe81766362deddcc5d3f692d4
-    pristine_git_object: 11909d9e02fd367adfdc4599db2346a6d685d38a
+    last_write_checksum: sha1:bd91c8cbe4e38227c840514c59f63b154f46d7ae
+    pristine_git_object: 0f9d2f1ff6f46504e2d74d632d045d49dc645db3
   docs/models/podfilter.md:
     id: 6ea58eba047c
     last_write_checksum: sha1:ae99d8d2a0107f0fe7293e35ae5a17a7ca34d094
@@ -9620,8 +9640,8 @@ trackedFiles:
     pristine_git_object: d81787a75e0e31ddd447d9846e4cb0e4d1e08816
   docs/models/routes.md:
     id: 7b56d6da5562
-    last_write_checksum: sha1:b71c87a4b946ed3790b58d03425f506494546dda
-    pristine_git_object: 90ad025f4bf2f8f29563e18ffbae4befd704d80b
+    last_write_checksum: sha1:d1009f8124c6c83c39b7e709832b62e639794e0a
+    pristine_git_object: 50bf0c37ee0847eda416d5c2f644fffe46c22d39
   docs/models/routesroute.md:
     id: 7afbb6882ec5
     last_write_checksum: sha1:493862dda924270a8d5b39784b24e83216bb7aa8
@@ -10346,6 +10366,10 @@ trackedFiles:
     id: 7c22dc9d7d8c
     last_write_checksum: sha1:a4933ecf0af660a0fd71c2db3f44551d75bab495
     pristine_git_object: 762a20c2eb055a4fdc5be634bc1767ddcf8bb537
+  docs/sdks/packsroutes/README.md:
+    id: a1fb73e27b09
+    last_write_checksum: sha1:0cb9f791a0030377aef661fa0d3312fe2082df70
+    pristine_git_object: 2d4988253ad8ee0bd046ea7de966e7cf94efa6ec
   docs/sdks/packssamples/README.md:
     id: d2c04868bca4
     last_write_checksum: sha1:a027de251f2b8456db553b64c88eb5fefddd0323
@@ -10404,12 +10428,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:053a516f4a3801025313e7cdf99044add90484d3
-    pristine_git_object: d4b7ba395236ff0ea248e5f4eb905bb726171eb7
+    last_write_checksum: sha1:1fa495ecae38c6bcc4d8848e4cb4ccd7ecf66153
+    pristine_git_object: 81a8ba3e1aa4ef2f9a69962aab143f90b1dbe79e
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:e150b4f7912a52101196fb62b2c514d7625ade2d
-    pristine_git_object: d21cb764f19d5aa20bdcc6adf4faeda124e6b1ec
+    last_write_checksum: sha1:166b7f49d21744e6849beb27a0575e40300b1310
+    pristine_git_object: fe1c73209fbb2fc308fca77bdaa0e16cb86957d1
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -10630,6 +10654,22 @@ trackedFiles:
     id: 015c85c177f2
     last_write_checksum: sha1:509bc27af3de7f73c41c3aa682b1986816c21a73
     pristine_git_object: 2e654df11ebb8deba1dbbb7f2f41fb5ae1d9b103
+  src/funcs/packsRoutesAppend.ts:
+    id: d9e7b161dc1d
+    last_write_checksum: sha1:efd9b927b48803f96694dacc1d636cbe72579b02
+    pristine_git_object: b470b32ceeb2c9a07b08c00e4da13e63738cf861
+  src/funcs/packsRoutesGet.ts:
+    id: 1f3d5b518090
+    last_write_checksum: sha1:472b657d4fe4860cd039f3ea156d1b4b17186fcf
+    pristine_git_object: 9a6d5ec6f2e0d3f04f6582e6bc1f2b067e45a116
+  src/funcs/packsRoutesList.ts:
+    id: 53b7056c0183
+    last_write_checksum: sha1:7a91791d76cbb2920f460c98468ba4f2707509a5
+    pristine_git_object: 181e313c06d7107b2fa84c8638b960eb1a4996ec
+  src/funcs/packsRoutesUpdate.ts:
+    id: 093d083c91a5
+    last_write_checksum: sha1:38ed20d3a393edf686127e624c0397e1edac1f41
+    pristine_git_object: aa5e5d7307a0e4e54b12ba421c5a48697b6acb69
   src/funcs/packsSourcesCreate.ts:
     id: 31796fa8357e
     last_write_checksum: sha1:005890a1f736706ebfbebc08569176de6c81dbc7
@@ -10836,8 +10876,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:8fd3a616411a9b3d4553d29896a49e12d1ef909b
-    pristine_git_object: d240fd112bc43bce22e8f6dae4b9e87ce6b34276
+    last_write_checksum: sha1:39f5aeacaa74b52b8b0a122c63bc9a0171aadddc
+    pristine_git_object: e1b2c92c9781ee4eb22c8b3cd701b75d78c3e8ee
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -11444,8 +11484,8 @@ trackedFiles:
     pristine_git_object: 40a03ddc1115216816f4ae24cadcb06b88d0d548
   src/models/filestypegitcommitsummary.ts:
     id: fbe6218aa4d9
-    last_write_checksum: sha1:9a723de8e289d8fd23b5ca765ef275de05179ee9
-    pristine_git_object: 6af35d1930b919025de666e754562cbc848db6f8
+    last_write_checksum: sha1:b2919a4911636f73b374b8bf44c41a85c7bf4f83
+    pristine_git_object: c072c102bb4788de3a215ac891bce8a74dc4ba6f
   src/models/filesystemcollectorconf.ts:
     id: b62674438400
     last_write_checksum: sha1:19ff55784805290f11e44c13d4da90e41a4ddf3a
@@ -11854,6 +11894,10 @@ trackedFiles:
     id: 0d875b03e390
     last_write_checksum: sha1:c80f30d73419ac4839099e500daeac9808cc1519
     pristine_git_object: 0c5ad045e6671667a5ec690e711360e54090e2d2
+  src/models/gitfilerename.ts:
+    id: 3896715cd647
+    last_write_checksum: sha1:e924090ca0a88b2511ac75ea68a01c99e68694f6
+    pristine_git_object: 7f38b281d04f23a900c500218bb36467c5334cd9
   src/models/gitfilesresponse.ts:
     id: b4930831654f
     last_write_checksum: sha1:7bc7931842e3d8dce8cbc25c175188ca24c4f3f7
@@ -11928,8 +11972,8 @@ trackedFiles:
     pristine_git_object: c1bbef9bdace9960ec217f63372212041f1fc367
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:a00f44139c1d9b481ac4e7d0853ab346d444cb2b
-    pristine_git_object: 6adc3651f26ab71e61ff717138c69365e268fd2e
+    last_write_checksum: sha1:2d5420a04cf382134d7f0c4eeab2437beb9853fe
+    pristine_git_object: 9e66e0c4c8e70d699e9d9ee4609c05793f8972dc
   src/models/input.ts:
     id: 3b376a2db155
     last_write_checksum: sha1:1522601e04f096712c0307ff2d5097261655d798
@@ -12450,6 +12494,10 @@ trackedFiles:
     id: 57529520a07e
     last_write_checksum: sha1:889829b3fe98b4d85b296240df2fa14557306d95
     pristine_git_object: 1be491cc012c36a9ab32019b3b594f46ece586f7
+  src/models/operations/createroutesappendbypackandid.ts:
+    id: d46e945d5018
+    last_write_checksum: sha1:a4e90d646afd56401a6075cac6eabfa246131a85
+    pristine_git_object: 9c382da22610636ad5089ba9bc4f11582c979222
   src/models/operations/createsavedjob.ts:
     id: b4cf4402bded
     last_write_checksum: sha1:a1f31484d677807c9e2c7646304697420b097441
@@ -12630,6 +12678,14 @@ trackedFiles:
     id: e59e2499b66b
     last_write_checksum: sha1:ecdf74680f47a060e3a5feabd2f0453eb9994afd
     pristine_git_object: 2a4dff72ac599eedd9a44cdcf5b027a28b9e8d55
+  src/models/operations/getroutesbypack.ts:
+    id: 7dcfebf28c1b
+    last_write_checksum: sha1:7c39c0711f95c3b76879e9e37b6e4260205f4b26
+    pristine_git_object: 84ca0265952b06e9d5b826bca8f044e2aa5f97bb
+  src/models/operations/getroutesbypackandid.ts:
+    id: 65feac3b3260
+    last_write_checksum: sha1:5804565823d463770cf1e6818a925f0976632832
+    pristine_git_object: 75fb7ac16ae76124e1fa1c7249881c7f9a926810
   src/models/operations/getsavedjob.ts:
     id: c1e8dd7a5325
     last_write_checksum: sha1:d6cde85fdc0fc714bda44140d560c0554babe8b6
@@ -12668,8 +12724,8 @@ trackedFiles:
     pristine_git_object: ace99032f9ee013fa5146ad64374d84b1437c41c
   src/models/operations/index.ts:
     id: 0d9ffaf774d2
-    last_write_checksum: sha1:7f16e4ef49ca4c7dd5d964314ec195e09c86e236
-    pristine_git_object: 124d0ec855cc76c7e48f550d41306de2ededa170
+    last_write_checksum: sha1:d0bd34f3456c4d1aa6fe3faa53226f0a7cf5cd11
+    pristine_git_object: 58cbb5ae10974a309cf3e8aa3e3727e83b0f9d26
   src/models/operations/listconfiggroupbyproduct.ts:
     id: 8a7f80e31e44
     last_write_checksum: sha1:365a266174db80417a4b0240b1a5166efc246c6c
@@ -12734,6 +12790,10 @@ trackedFiles:
     id: 7f7fcac20851
     last_write_checksum: sha1:9a6320cf6563a28f2129d3ca939a972215001b4b
     pristine_git_object: c3692559d90d20c4633aa4fe3461ab9664b07523
+  src/models/operations/updateroutesbypackandid.ts:
+    id: fe189191bdcc
+    last_write_checksum: sha1:cd4993906759a723797d43eb0c969fa75e3ecf7b
+    pristine_git_object: 4de1f65f0b4b81cfe02bc91e07c48aef300fcd62
   src/models/operations/updatesavedjobbyid.ts:
     id: 6eadfdb4717a
     last_write_checksum: sha1:58fb07f2217db28117e9e8fb31cffb18c2831434
@@ -13804,8 +13864,8 @@ trackedFiles:
     pristine_git_object: f6f493bc8a467a81932f7890a4066e1023ae1bf4
   src/sdk/packs.ts:
     id: 0aa30e4fa7b3
-    last_write_checksum: sha1:99b04bcf5b130ed9df5343f67c51de69d5574705
-    pristine_git_object: 63aa0986c7e465cb9b8cae2a8d41588b2ee12b0c
+    last_write_checksum: sha1:e882c163abaf2c3f348407746e619ec8520eb34b
+    pristine_git_object: f1a5f6d79d416169c2f7ca0d219dc9026754af6a
   src/sdk/packsdestinations.ts:
     id: 4d5e5a66471b
     last_write_checksum: sha1:c1d1b8fdb2d499bafb21f2a4a687dffc16fa36bd
@@ -13818,6 +13878,10 @@ trackedFiles:
     id: 79dfeed4a851
     last_write_checksum: sha1:a9ba4b6ae0e592e488fdd36d6c52ea717902c9c9
     pristine_git_object: c0b4e989d28870a77cfe9e20f0513ecc13ae0d2b
+  src/sdk/packsroutes.ts:
+    id: 48db8a974dfd
+    last_write_checksum: sha1:4c87c77eeed325259afe63ead4bbc2761b779ba3
+    pristine_git_object: e2580b222b2a2426a23a8f364be66ecb37f3dd91
   src/sdk/packssamples.ts:
     id: 659b5b5b562c
     last_write_checksum: sha1:fcaae063e72ad8ea2c7270ca1f8d2aa3c37b73bc
@@ -17532,7 +17596,7 @@ examples:
         application/json: {"effective": false, "files": ["<value 1>"], "group": "<value>", "message": "<value>"}
       responses:
         "200":
-          application/json: {"count": 374317, "items": [{"author": {"email": "Calista86@gmail.com", "name": "<value>"}, "branch": "<value>", "commit": "<value>", "files": {"created": ["<value 1>", "<value 2>"], "deleted": ["<value 1>", "<value 2>", "<value 3>"], "modified": ["<value 1>", "<value 2>"], "renamed": ["<value 1>", "<value 2>"]}, "summary": {"changes": 4465.33, "deletions": 0.91, "insertions": 1352.98}}]}
+          application/json: {"count": 374317, "items": [{"author": {"email": "Calista86@gmail.com", "name": "<value>"}, "branch": "<value>", "commit": "<value>", "files": {"created": ["<value 1>", "<value 2>"], "deleted": ["<value 1>", "<value 2>", "<value 3>"], "modified": ["<value 1>", "<value 2>"], "renamed": [{"from": "<value>", "to": "<value>"}, {"from": "<value>", "to": "<value>"}]}, "summary": {"changes": 4465.33, "deletions": 0.91, "insertions": 1352.98}}]}
         "500":
           application/json: {"message": "<value>"}
   getVersionCount:
@@ -17606,7 +17670,7 @@ examples:
         application/json: {"commit": "<value>", "force": false, "message": "<value>"}
       responses:
         "200":
-          application/json: {"count": 397635, "items": [{"audit": {"files": {"created": ["<value 1>", "<value 2>", "<value 3>"], "deleted": ["<value 1>"], "modified": ["<value 1>"], "renamed": ["<value 1>", "<value 2>"]}, "group": "<value>", "id": "<id>"}, "reverted": true}]}
+          application/json: {"count": 397635, "items": [{"audit": {"files": {"created": ["<value 1>", "<value 2>", "<value 3>"], "deleted": ["<value 1>"], "modified": ["<value 1>"], "renamed": [{"from": "<value>", "to": "<value>"}, {"from": "<value>", "to": "<value>"}]}, "group": "<value>", "id": "<id>"}, "reverted": true}]}
         "500":
           application/json: {"message": "<value>"}
   getVersionShow:
@@ -22913,6 +22977,125 @@ examples:
           application/json: {"count": 533931, "items": [{}]}
         "500":
           application/json: {"message": "<value>"}
+  getRoutesByPackAndId:
+    speakeasy-default-get-routes-by-pack-and-id:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "200":
+          application/json: {"count": 741291, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "selfishly phooey bah ouch whoa until whoever always good unlike", "disabled": true}}, "comments": [{"comment": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality"}]}]}
+        "500":
+          application/json: {"message": "<value>"}
+  updateRoutesByPackAndId:
+    RoutesUpdateExamplesBasicRoute:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: {"id": "default", "routes": [{"id": "default", "name": "my-route", "disabled": true, "filter": "source == \"access.log\"", "pipeline": "main", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "Route access logs to main pipeline", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}
+      responses:
+        "200":
+          application/json: {"count": 937121, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": true, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "woot joyfully along", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    RoutesUpdateExamplesMultipleRoutes:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: {"id": "default", "routes": [{"id": "route-speedtest", "name": "speedtest", "disabled": true, "filter": "source == \"speedtest.log\"", "pipeline": "main", "enableOutputExpression": false, "output": "default", "outputExpression": "<value>", "description": "Route speedtest logs", "final": false}, {"id": "route-mtr", "name": "mtr", "disabled": false, "filter": "source == \"mtr.log\"", "pipeline": "passthru", "enableOutputExpression": false, "output": "default", "outputExpression": "<value>", "description": "Route mtr logs", "final": false}, {"id": "route-statsd", "name": "statsd", "disabled": true, "filter": "source == \"statsd.log\"", "pipeline": "prometheus_metrics", "enableOutputExpression": false, "output": "devnull", "outputExpression": "<value>", "description": "Route statsd metrics", "final": false}, {"id": "route-default", "name": "default", "disabled": false, "filter": "true", "pipeline": "main", "enableOutputExpression": false, "output": "default", "outputExpression": "<value>", "description": "Catch-all Route for all other events", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}
+      responses:
+        "200":
+          application/json: {"count": 937121, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": true, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "woot joyfully along", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    RoutesUpdateExamplesRouteWithOutputExpression:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: {"id": "default", "routes": [{"id": "route-dynamic", "name": "dynamic-output", "disabled": true, "filter": "source == \"dynamic.log\"", "pipeline": "main", "enableOutputExpression": true, "output": "<value>", "outputExpression": "`myDest_${C.logStreamEnv}`", "description": "Route with dynamic Destination based on environment", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}
+      responses:
+        "200":
+          application/json: {"count": 937121, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": true, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "woot joyfully along", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    speakeasy-default-update-routes-by-pack-and-id:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: {"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": true, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "woot joyfully along", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}
+      responses:
+        "200":
+          application/json: {"count": 937121, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": true, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": false, "output": "<value>", "outputExpression": "<value>", "description": "woot joyfully along", "final": true}], "groups": {"key": {"name": "<value>", "description": "ridge impassioned amount happily", "disabled": false}}, "comments": [{"comment": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016"}]}]}
+        "500":
+          application/json: {"message": "<value>"}
+  getRoutesByPack:
+    speakeasy-default-get-routes-by-pack:
+      parameters:
+        path:
+          pack: "<value>"
+      responses:
+        "200":
+          application/json: {"count": 55447, "items": [{"id": "<id>", "routes": [], "groups": {"key": {"name": "<value>", "description": "reproachfully reflecting notwithstanding remand uh-huh instead overwork um mmm cow", "disabled": false}}, "comments": [{"comment": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J"}]}]}
+        "500":
+          application/json: {"message": "<value>"}
+  createRoutesAppendByPackAndId:
+    RoutesAppendExamplesSingleRoute:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: [{"clones": [{}, {"key": "<value>"}], "context": "<value>", "description": "Route new logs to main pipeline", "disabled": false, "enableOutputExpression": true, "filter": "source == \"new.log\"", "final": true, "groupId": "<id>", "id": "route-new", "name": "new-route", "output": "<value>", "outputExpression": "<value>", "pipeline": "main", "targetContext": "pack"}]
+      responses:
+        "200":
+          application/json: {"count": 580070, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": true, "output": "<value>", "outputExpression": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "final": true}], "groups": {"key": {"name": "<value>", "description": "converse eggplant sturdy excepting bah ham likewise however", "disabled": false}}, "comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients"}]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    RoutesAppendExamplesMultipleRoutes:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>", "key1": "<value>", "key2": "<value>"}, {"key": "<value>", "key1": "<value>", "key2": "<value>"}], "context": "<value>", "description": "Route audit logs", "disabled": false, "enableOutputExpression": false, "filter": "source == \"audit.log\"", "final": false, "groupId": "<id>", "id": "route-audit", "name": "audit", "output": "default", "outputExpression": "<value>", "pipeline": "main", "targetContext": "group"}, {"clones": [{"key": "<value>", "key1": "<value>", "key2": "<value>"}], "context": "<value>", "description": "Route security logs", "disabled": false, "enableOutputExpression": false, "filter": "source == \"security.log\"", "final": false, "groupId": "<id>", "id": "route-security", "name": "security", "output": "devnull", "outputExpression": "<value>", "pipeline": "passthru", "targetContext": "pack"}]
+      responses:
+        "200":
+          application/json: {"count": 580070, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": true, "output": "<value>", "outputExpression": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "final": true}], "groups": {"key": {"name": "<value>", "description": "converse eggplant sturdy excepting bah ham likewise however", "disabled": false}}, "comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients"}]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    RoutesAppendExamplesRouteWithOutputExpression:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: [{"clones": [{"key": "<value>"}, {"key": "<value>", "key1": "<value>", "key2": "<value>"}], "context": "<value>", "description": "Route with dynamic Destination based on environment", "disabled": true, "enableOutputExpression": true, "filter": "source == \"dynamic.log\"", "final": true, "groupId": "<id>", "id": "route-dynamic-append", "name": "dynamic-append", "output": "<value>", "outputExpression": "`myDest_${C.logStreamEnv}`", "pipeline": "main", "targetContext": "pack"}]
+      responses:
+        "200":
+          application/json: {"count": 580070, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": true, "output": "<value>", "outputExpression": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "final": true}], "groups": {"key": {"name": "<value>", "description": "converse eggplant sturdy excepting bah ham likewise however", "disabled": false}}, "comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients"}]}]}
+        "500":
+          application/json: {"message": "<value>"}
+    speakeasy-default-create-routes-append-by-pack-and-id:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: [{"clones": [{"key": "<value>", "key1": "<value>"}, {"key": "<value>"}, {"key": "<value>", "key1": "<value>"}], "context": "<value>", "description": "majestic frenetically lasting refer gloom char hm jell nougat", "disabled": false, "enableOutputExpression": true, "filter": "<value>", "final": true, "groupId": "<id>", "id": "<id>", "name": "<value>", "output": "<value>", "outputExpression": "<value>", "pipeline": "<value>", "targetContext": "group"}]
+      responses:
+        "200":
+          application/json: {"count": 580070, "items": [{"id": "<id>", "routes": [{"id": "<id>", "name": "<value>", "disabled": false, "filter": "<value>", "pipeline": "<value>", "enableOutputExpression": true, "output": "<value>", "outputExpression": "<value>", "description": "digital unconscious puff circa lazily potentially um righteously", "final": true}], "groups": {"key": {"name": "<value>", "description": "converse eggplant sturdy excepting bah ham likewise however", "disabled": false}}, "comments": [{"comment": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients"}]}]}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:03:38+02:00"
@@ -22978,6 +23161,14 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: |
+  ## Typescript SDK Changes:
+  * `criblcontrolplane.versions.commits.create()`:  `response.items.[].files.renamed.[]` **Changed** **Breaking** :warning:
+  * `criblcontrolplane.versions.commits.revert()`:  `response.items.[].audit.files.renamed.[]` **Changed** **Breaking** :warning:
+  * `criblcontrolplane.packs.routes.get()`: **Added**
+  * `criblcontrolplane.packs.routes.update()`: **Added**
+  * `criblcontrolplane.packs.routes.list()`: **Added**
+  * `criblcontrolplane.packs.routes.append()`: **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

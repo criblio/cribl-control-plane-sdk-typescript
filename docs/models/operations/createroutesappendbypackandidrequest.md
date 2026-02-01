@@ -1,45 +1,14 @@
-# CreateRoutesAppendByIdRequest
+# CreateRoutesAppendByPackAndIdRequest
 
 ## Example Usage
 
 ```typescript
-import { CreateRoutesAppendByIdRequest } from "cribl-control-plane/models/operations";
+import { CreateRoutesAppendByPackAndIdRequest } from "cribl-control-plane/models/operations";
 
-let value: CreateRoutesAppendByIdRequest = {
+let value: CreateRoutesAppendByPackAndIdRequest = {
   id: "<id>",
-  requestBody: [
-    {
-      clones: [
-        {
-          "key": "<value>",
-          "key1": "<value>",
-          "key2": "<value>",
-        },
-        {
-          "key": "<value>",
-          "key1": "<value>",
-        },
-        {
-          "key": "<value>",
-          "key1": "<value>",
-          "key2": "<value>",
-        },
-      ],
-      context: "<value>",
-      description: "yippee sans energetically banish gum loosely finger",
-      disabled: false,
-      enableOutputExpression: false,
-      filter: "<value>",
-      final: false,
-      groupId: "<id>",
-      id: "<id>",
-      name: "<value>",
-      output: "<value>",
-      outputExpression: "<value>",
-      pipeline: "<value>",
-      targetContext: "pack",
-    },
-  ],
+  pack: "<value>",
+  requestBody: [],
 };
 ```
 
@@ -48,4 +17,5 @@ let value: CreateRoutesAppendByIdRequest = {
 | Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
 | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `id`                                                                                                       | *string*                                                                                                   | :heavy_check_mark:                                                                                         | The <code>id</code> of the Routing table to add the Route to. The supported value is <code>default</code>. |
+| `pack`                                                                                                     | *string*                                                                                                   | :heavy_check_mark:                                                                                         | The <code>id</code> of the Pack to append.                                                                 |
 | `requestBody`                                                                                              | [models.RouteConf](../../models/routeconf.md)[]                                                            | :heavy_check_mark:                                                                                         | RouteDefinitions object                                                                                    |

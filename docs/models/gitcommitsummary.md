@@ -26,15 +26,16 @@ let value: GitCommitSummary = {
       "<value 2>",
     ],
     renamed: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
+      {
+        from: "<value>",
+        to: "<value>",
+      },
     ],
   },
   summary: {
-    changes: 4408.76,
-    deletions: 7943.47,
-    insertions: 6422.14,
+    changes: 8921.98,
+    deletions: 4408.76,
+    insertions: 7943.47,
   },
 };
 ```
