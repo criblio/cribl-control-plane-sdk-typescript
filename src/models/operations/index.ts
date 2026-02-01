@@ -16,6 +16,7 @@ export * from "./createoutputtestbyid.js";
 export * from "./createroutesappendbyid.js";
 export * from "./createroutesappendbypackandid.js";
 export * from "./createsavedjob.js";
+export * from "./createsystemsettingsrestart.js";
 export * from "./createversioncommit.js";
 export * from "./createversionrevert.js";
 export * from "./createversionundo.js";
