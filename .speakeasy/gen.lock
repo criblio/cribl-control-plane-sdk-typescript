@@ -5,15 +5,15 @@ management:
   docVersion: 4.17.0-alpha.1769951982349-a4340e10
   speakeasyVersion: 1.697.5
   generationVersion: 2.799.0
-  releaseVersion: 0.6.0-beta.8
-  configChecksum: b8154cf566da9cbd2aa4635c0a61e5bb
+  releaseVersion: 0.6.0-beta.9
+  configChecksum: 79782327d83401156b20b58bb85b52d5
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: fe625440-e47c-4350-a929-a991c0a05cf6
-  pristine_commit_hash: 5103a176b175c30ae4ba4452b0f410e401804ed8
-  pristine_tree_hash: 5880541f4cc613f7933afc71f2df6dee47e7c62b
+  generation_id: f49a40dc-b334-46d7-bc40-7e634d7f5a13
+  pristine_commit_hash: 0edf3ad51df48e440fda0d6c2dfeba99454ee299
+  pristine_tree_hash: 03fef7493014e9b67d59413bab9908908b53331b
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -10428,12 +10428,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:4365d4349e75659e424d88016c19248a4e347824
-    pristine_git_object: 5f17d4ce0cecd6a3e759dd99394b672aa6799de0
+    last_write_checksum: sha1:6e07801328cf000d6924fa2540ea058c79a95795
+    pristine_git_object: 653fe570b96f4ce5e9f39b7c269e36459b1943e4
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:41af2cbbfe8db6e6c1350060a782e93096bd3d62
-    pristine_git_object: a835b1b4d3190ef8b98ab7f2bcede4ca17aed7dd
+    last_write_checksum: sha1:c42bd944200b3c288a6eba12165be4f72752b9fb
+    pristine_git_object: a6310a677937688755151ca3028f7bc0f4fe95d5
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -10876,8 +10876,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:98969daeab0b94b8bab168fab6fdb94043cd7ead
-    pristine_git_object: 742b8ad2d6ea190cc09aac74704a5763625f911a
+    last_write_checksum: sha1:05ed85542510d7a4c1e0b2e77ad0d29a48231b8c
+    pristine_git_object: 2654dbb7202c573e7d5b6ab82ffc02f44f19eb90
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -23161,7 +23161,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.packs.destinations.list()`:  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.packs.destinations.create()`: \n  *  `request.requestBody.[default].defaultId` **Changed**\n  *  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.packs.destinations.get()`:  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.packs.destinations.update()`: \n  *  `request.output.[default].defaultId` **Changed**\n  *  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.packs.destinations.delete()`:  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[default].defaultId` **Changed**\n  *  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[default].defaultId` **Changed**\n  *  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
