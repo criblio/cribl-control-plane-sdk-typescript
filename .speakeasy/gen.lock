@@ -5,15 +5,15 @@ management:
   docVersion: 4.17.0-alpha.1769952892661-37214dcd
   speakeasyVersion: 1.697.5
   generationVersion: 2.799.0
-  releaseVersion: 0.6.0-rc.8
-  configChecksum: e8c43f4fa17ff2d3e2523f6a4f3fe712
+  releaseVersion: 0.6.0-rc.9
+  configChecksum: 2fb7e624413892c5fcfd9980441cb843
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: cb01ca69-f200-4db8-a011-90d527f92c24
-  pristine_commit_hash: 069d06555200deb256495985aa78a90a5569acd9
-  pristine_tree_hash: 8791fb58f4102857709cc2676825d4fc679dc3ad
+  generation_id: 6d180b77-51c9-4495-9280-b126f3f31c48
+  pristine_commit_hash: 2961b7856a861fca0f77ece56770ded48343d56a
+  pristine_tree_hash: d655bb626c432e77ca7ea9e421fcdb433c6688e9
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -10445,12 +10445,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:6405747d465aa10eb1d87e0d130c94ac995e73d3
-    pristine_git_object: 9ec3f6e5177e67f6d632f9bdf8ea5a885c2fa190
+    last_write_checksum: sha1:c5042e55cbfa89d17590045a46faa380beba8913
+    pristine_git_object: 4bbf88a6a6ec8a65f6f945f254fb88fe23d73267
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:cc354e9900063285ff449330648caa855f89c403
-    pristine_git_object: 032db1214d58d30f3cd724c589f9b4aa518bccc7
+    last_write_checksum: sha1:b368b691c772bab365f8a1586f773858cbc8ca3b
+    pristine_git_object: e76911d54db5cae7e8bc5617d50118d177a116cc
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -10897,8 +10897,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:464454063d544c2b998b8ee6ee4526faffd4c4af
-    pristine_git_object: e103da95b753b4ba4f8905b0651803203d31f4de
+    last_write_checksum: sha1:414c7f4ac0cf132765d78de5123f88cdc0aa2fef
+    pristine_git_object: fbbad6100cbd44b3d9eb0c303195911daf30f5ea
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -23212,7 +23212,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.packs.destinations.list()`:  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.packs.destinations.create()`: \n  *  `request.requestBody.[default].defaultId` **Changed**\n  *  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.packs.destinations.get()`:  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.packs.destinations.update()`: \n  *  `request.output.[default].defaultId` **Changed**\n  *  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.packs.destinations.delete()`:  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[default].defaultId` **Changed**\n  *  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[default].defaultId` **Changed**\n  *  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[default].defaultId` **Changed** **Breaking** :warning:\n* `criblcontrolplane.versions.commits.create()`:  `response.items.[].files.renamed.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.versions.commits.revert()`:  `response.items.[].audit.files.renamed.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.system.settings.restart()`: **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
