@@ -13,9 +13,10 @@
  * 4. A Pipeline that filters events and keeps only data in the "name" 
  * field.
  * 5. A Route that connects the Source to the Pipeline and Destination.
+ * 6. Captures live events from the pipeline using the capture API.
  * 
  * This example also deploys the configuration to the Worker Group to make it 
- * active.
+ * active, and then demonstrates capturing events from the configured pipeline.
  * 
  * Data flow: TCP JSON Source → Route → Pipeline → Filesystem Destination
  *
@@ -30,6 +31,8 @@ import {
   ConfigGroup,
   PipelineInput,
   RoutesRoute,
+  CaptureParams,
+  CaptureLevel,
 } from "../dist/esm/models";
 import { baseUrl, createCriblClient } from "./auth";
 
@@ -149,6 +152,27 @@ async function main() {
     deployRequest: { version },
   });
   console.log(`✅ Worker Group changes deployed: ${myWorkerGroup.id}`);
+
+  // Capture live events from the pipeline
+  console.log("\n📡 Starting event capture...");
+  const captureParams: CaptureParams = {
+    duration: 30,
+    filter: "__inputId=='tcpjson:my-tcp-json'",
+    level: CaptureLevel.BeforeRoutes,
+    maxEvents: 100,
+  };
+  const captureStream = await cribl.system.captures.create(captureParams);
+  console.log(`✅ Capture started. Capturing events for ${captureParams.duration} seconds...`);
+  
+  let eventCount = 0;
+  for await (const event of captureStream) {
+    eventCount++;
+    console.log(`   Event ${eventCount}:`, JSON.stringify(event, null, 2));
+    if (eventCount >= captureParams.maxEvents) {
+      break;
+    }
+  }
+  console.log(`\n✅ Capture completed. Total events captured: ${eventCount}`);
 }
 
 main().catch(error => {

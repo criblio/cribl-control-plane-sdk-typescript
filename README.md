@@ -78,6 +78,7 @@ For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
 
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
+import { CaptureLevel } from "cribl-control-plane/models";
 
 const criblControlPlane = new CriblControlPlane({
   serverURL: "https://api.example.com",
@@ -175,6 +176,17 @@ async function run() {
     id: workerGroupId,
     deployRequest: { version },
   });
+
+  // Capture live events from the pipeline
+  const captureStream = await criblControlPlane.system.captures.create({
+    duration: 30,
+    filter: "__inputId=='tcpjson:my-tcp-json'",
+    level: CaptureLevel.BeforeRoutes,
+    maxEvents: 100,
+  });
+  for await (const event of captureStream) {
+    console.log(event);
+  }
 }
 
 run();
