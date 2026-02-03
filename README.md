@@ -177,7 +177,7 @@ async function run() {
     deployRequest: { version },
   });
 
-  // Capture live events from the pipeline
+  // Capture live events from the Pipeline
   const captureStream = await criblControlPlane.system.captures.create({
     duration: 30,
     filter: "__inputId=='tcpjson:my-tcp-json'",
@@ -196,7 +196,7 @@ run();
 > [!NOTE]
 > Additional examples demonstrating various SDK features and use cases can be found in the [`examples`](./examples) directory.
 
-<!-- No End SDK Example Usage [usage] -->
+<!-- No SDK Example Usage [usage] -->
 
 ## Authentication
 

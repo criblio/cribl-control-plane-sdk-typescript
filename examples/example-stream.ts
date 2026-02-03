@@ -13,10 +13,10 @@
  * 4. A Pipeline that filters events and keeps only data in the "name" 
  * field.
  * 5. A Route that connects the Source to the Pipeline and Destination.
- * 6. Captures live events from the pipeline using the capture API.
+ * 6. Captures live events from the Pipeline using the capture API.
  * 
  * This example also deploys the configuration to the Worker Group to make it 
- * active, and then demonstrates capturing events from the configured pipeline.
+ * active and demonstrates capturing events from the configured Pipeline.
  * 
  * Data flow: TCP JSON Source → Route → Pipeline → Filesystem Destination
  *
@@ -153,7 +153,7 @@ async function main() {
   });
   console.log(`✅ Worker Group changes deployed: ${myWorkerGroup.id}`);
 
-  // Capture live events from the pipeline
+  // Capture live events from the Pipeline
   console.log("\n📡 Starting event capture...");
   const captureParams: CaptureParams = {
     duration: 30,
