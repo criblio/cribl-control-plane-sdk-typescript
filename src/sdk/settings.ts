@@ -5,7 +5,6 @@
 import { systemSettingsRestart } from "../funcs/systemSettingsRestart.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
-import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { Cribl } from "./cribl.js";
 
@@ -16,18 +15,16 @@ export class Settings extends ClientSDK {
   }
 
   /**
-   * Restart Cribl server
+   * Restart the Cribl server
    *
    * @remarks
-   * Restart Cribl server
+   * Restart the Cribl server.Useful for applying configuration changes that require a full process restart, such as changes to system-level settings that cannot be applied by reloading.
    */
   async restart(
-    request?: operations.CreateSystemSettingsRestartRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.CountedSystemRestartResponse> {
     return unwrapAsync(systemSettingsRestart(
       this,
-      request,
       options,
     ));
   }

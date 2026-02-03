@@ -3,8 +3,10 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -20,21 +22,23 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Restart the Cribl server
+ * List all Pipelines within a Pack
  *
  * @remarks
- * Restart the Cribl server.Useful for applying configuration changes that require a full process restart, such as changes to system-level settings that cannot be applied by reloading.
+ * Get a list of all Pipelines within the specified Pack.
  */
-export function systemSettingsRestart(
+export function packsPipelinesList(
   client: CriblControlPlaneCore,
+  request: operations.GetPipelinesByPackRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedSystemRestartResponse,
+    models.CountedPipeline,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -48,17 +52,19 @@ export function systemSettingsRestart(
 > {
   return new APIPromise($do(
     client,
+    request,
     options,
   ));
 }
 
 async function $do(
   client: CriblControlPlaneCore,
+  request: operations.GetPipelinesByPackRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      models.CountedSystemRestartResponse,
+      models.CountedPipeline,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -72,7 +78,25 @@ async function $do(
     APICall,
   ]
 > {
-  const path = pathToFunc("/system/settings/restart")();
+  const parsed = safeParse(
+    request,
+    (value) => operations.GetPipelinesByPackRequest$outboundSchema.parse(value),
+    "Input validation failed",
+  );
+  if (!parsed.ok) {
+    return [parsed, { status: "invalid" }];
+  }
+  const payload = parsed.value;
+  const body = null;
+
+  const pathParams = {
+    pack: encodeSimple("pack", payload.pack, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+  };
+
+  const path = pathToFunc("/p/{pack}/pipelines")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -84,7 +108,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "createSystemSettingsRestart",
+    operationID: "getPipelinesByPack",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -108,10 +132,11 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
@@ -136,7 +161,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedSystemRestartResponse,
+    models.CountedPipeline,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -147,7 +172,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedSystemRestartResponse$inboundSchema),
+    M.json(200, models.CountedPipeline$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

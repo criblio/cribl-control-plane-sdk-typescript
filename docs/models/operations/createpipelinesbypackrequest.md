@@ -1,12 +1,12 @@
-# UpdatePipelinesByIdRequest
+# CreatePipelinesByPackRequest
 
 ## Example Usage
 
 ```typescript
-import { UpdatePipelinesByIdRequest } from "cribl-control-plane/models/operations";
+import { CreatePipelinesByPackRequest } from "cribl-control-plane/models/operations";
 
-let value: UpdatePipelinesByIdRequest = {
-  id: "<id>",
+let value: CreatePipelinesByPackRequest = {
+  pack: "<value>",
   pipeline: {
     id: "<id>",
     conf: {
@@ -54,5 +54,5 @@ let value: UpdatePipelinesByIdRequest = {
 
 | Field                                                 | Type                                                  | Required                                              | Description                                           |
 | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | The <code>id</code> of the Pipeline to update.        |
+| `pack`                                                | *string*                                              | :heavy_check_mark:                                    | The <code>id</code> of the Pack to create.            |
 | `pipeline`                                            | [models.PipelineInput](../../models/pipelineinput.md) | :heavy_check_mark:                                    | Pipeline object                                       |
