@@ -28,7 +28,7 @@ export class Commits extends ClientSDK {
    * Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
    */
   async create(
-    request: operations.CreateVersionCommitRequest,
+    request: models.GitCommitParams,
     options?: RequestOptions,
   ): Promise<models.CountedGitCommitSummary> {
     return unwrapAsync(versionsCommitsCreate(
@@ -94,7 +94,7 @@ export class Commits extends ClientSDK {
    * Revert a commit in the local repository.
    */
   async revert(
-    request: operations.CreateVersionRevertRequest,
+    request: models.GitRevertParams,
     options?: RequestOptions,
   ): Promise<models.CountedGitRevertResult> {
     return unwrapAsync(versionsCommitsRevert(
@@ -128,12 +128,10 @@ export class Commits extends ClientSDK {
    * Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.
    */
   async undo(
-    request?: operations.CreateVersionUndoRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.CountedObject> {
     return unwrapAsync(versionsCommitsUndo(
       this,
-      request,
       options,
     ));
   }

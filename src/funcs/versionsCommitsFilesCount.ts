@@ -94,7 +94,6 @@ async function $do(
 
   const query = encodeFormQuery({
     "commit": payload?.commit,
-    "groupId": payload?.groupId,
   });
 
   const headers = new Headers(compactMap({
