@@ -138,9 +138,9 @@ async function main() {
   console.log(`✅ Route added: ${route.id}`);
 
   // Commit configuration changes
-  const commitResponse = await cribl.versions.commits.create({ groupId: myWorkerGroup.id, gitCommitParams: {
-    message: "Commit for Stream example", effective: true, files: ["."]}
-  });
+  const commitResponse = await cribl.versions.commits.create({
+    message: "Commit for Stream example", effective: true, files: ["."]
+  }, { serverURL: groupUrl });
 
   const version: string = commitResponse.items![0].commit;
   console.log(`✅ Committed configuration changes to the group: ${myWorkerGroup.id}, commit ID: ${version}`);
