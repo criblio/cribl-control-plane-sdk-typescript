@@ -336,6 +336,14 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [get](docs/sdks/packssamples/README.md#get) - Get sample event data for a Destination within a Pack
 * [create](docs/sdks/packssamples/README.md#create) - Send sample event data to a Destination within a Pack
 
+#### [Packs.Pipelines](docs/sdks/packspipelines/README.md)
+
+* [create](docs/sdks/packspipelines/README.md#create) - Create a Pipeline within a Pack
+* [list](docs/sdks/packspipelines/README.md#list) - List all Pipelines within a Pack
+* [delete](docs/sdks/packspipelines/README.md#delete) - Delete a Pipeline within a Pack
+* [get](docs/sdks/packspipelines/README.md#get) - Get a Pipeline within a Pack
+* [update](docs/sdks/packspipelines/README.md#update) - Update a Pipeline within a Pack
+
 #### [Packs.Routes](docs/sdks/packsroutes/README.md)
 
 * [get](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
@@ -400,7 +408,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [System.Settings](docs/sdks/settings/README.md)
 
-* [restart](docs/sdks/settings/README.md#restart) - Restart Cribl server
+* [restart](docs/sdks/settings/README.md#restart) - Restart the Cribl server
 
 #### [System.Settings.Cribl](docs/sdks/cribl/README.md)
 
@@ -507,6 +515,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`packsGet`](docs/sdks/packs/README.md#get) - Get a Pack
 - [`packsInstall`](docs/sdks/packs/README.md#install) - Install a Pack
 - [`packsList`](docs/sdks/packs/README.md#list) - List all Packs
+- [`packsPipelinesCreate`](docs/sdks/packspipelines/README.md#create) - Create a Pipeline within a Pack
+- [`packsPipelinesDelete`](docs/sdks/packspipelines/README.md#delete) - Delete a Pipeline within a Pack
+- [`packsPipelinesGet`](docs/sdks/packspipelines/README.md#get) - Get a Pipeline within a Pack
+- [`packsPipelinesList`](docs/sdks/packspipelines/README.md#list) - List all Pipelines within a Pack
+- [`packsPipelinesUpdate`](docs/sdks/packspipelines/README.md#update) - Update a Pipeline within a Pack
 - [`packsRoutesAppend`](docs/sdks/packsroutes/README.md#append) - Add a Route to the end of the Routing table within a Pack
 - [`packsRoutesGet`](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
 - [`packsRoutesList`](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
@@ -543,7 +556,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`systemCapturesCreate`](docs/sdks/captures/README.md#create) - Capture live incoming data
 - [`systemSettingsCriblList`](docs/sdks/cribl/README.md#list) - Get Cribl system settings
 - [`systemSettingsCriblUpdate`](docs/sdks/cribl/README.md#update) - Update Cribl system settings
-- [`systemSettingsRestart`](docs/sdks/settings/README.md#restart) - Restart Cribl server
+- [`systemSettingsRestart`](docs/sdks/settings/README.md#restart) - Restart the Cribl server
 - [`versionsBranchesGet`](docs/sdks/branches/README.md#get) - Get the name of the Git branch that the Cribl configuration is checked out to
 - [`versionsBranchesList`](docs/sdks/branches/README.md#list) - List all branches in the Git repository used for Cribl configuration
 - [`versionsCommitsCreate`](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration

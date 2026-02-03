@@ -12,6 +12,6 @@ let value: SystemRestartResponse = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `restart`          | *true*             | :heavy_check_mark: | N/A                |
+| Field                       | Type                        | Required                    | Description                 |
+| --------------------------- | --------------------------- | --------------------------- | --------------------------- |
+| `restart`                   | *true*                      | :heavy_check_mark:          | Restart operation initiated |

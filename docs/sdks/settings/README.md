@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [restart](#restart) - Restart Cribl server
+* [restart](#restart) - Restart the Cribl server
 
 ## restart
 
-Restart Cribl server
+Restart the Cribl server.Useful for applying configuration changes that require a full process restart, such as changes to system-level settings that cannot be applied by reloading.
 
 ### Example Usage
 
@@ -24,9 +24,7 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.system.settings.restart({
-    groupId: "<id>",
-  });
+  const result = await criblControlPlane.system.settings.restart();
 
   console.log(result);
 }
@@ -52,9 +50,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await systemSettingsRestart(criblControlPlane, {
-    groupId: "<id>",
-  });
+  const res = await systemSettingsRestart(criblControlPlane);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
@@ -70,7 +66,6 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.CreateSystemSettingsRestartRequest](../../models/operations/createsystemsettingsrestartrequest.md)                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
