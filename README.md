@@ -185,8 +185,13 @@ run();
 
 <!-- No End SDK Example Usage [usage] -->
 
-<!-- Start Authentication [security] -->
 ## Authentication
+
+Except for the `health.get` and `auth.tokens.get` methods, all Cribl SDK requests require you to authenticate with a Bearer token. You must include a valid Bearer token in the configuration when initializing your SDK client. The Bearer token verifies your identity and ensures secure access to the requested resources. The SDK automatically manages the `Authorization` header for subsequent requests once properly authenticated.
+
+For information about Bearer token expiration, see [Token Management](https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-token-mgmt) in the Cribl as Code documentation.
+
+**Authentication happens once during SDK initialization**. After you initialize the SDK client with authentication as shown in the [authentication examples](#authentication-examples), the SDK automatically handles authentication for all subsequent API calls. You do not need to include authentication parameters in individual API requests. The [SDK Example Usage](#sdk-example-usage) section shows how to initialize the SDK and make API calls, but if you've properly initialized your client as shown in the authentication examples, you only need to make the API method calls themselves without re-initializing.
 
 ### Per-Client Security Schemes
 
@@ -197,81 +202,19 @@ This SDK supports the following security schemes globally:
 | `bearerAuth`  | http   | HTTP Bearer  | `CRIBLCONTROLPLANE_BEARER_AUTH`  |
 | `clientOauth` | oauth2 | OAuth2 token | `CRIBLCONTROLPLANE_CLIENT_OAUTH` |
 
-You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
+To configure authentication on Cribl.Cloud and in hybrid deployments, use the `clientOauth` security scheme. The SDK uses the OAuth credentials that you provide to obtain a Bearer token and refresh the token within its expiration window using the standard OAuth2 flow.
 
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
+In on-prem deployments, use the `bearerAuth` security scheme. The SDK uses the username/password credentials that you provide to obtain a Bearer token. Automatically refreshing the Bearer token within its expiration window requires a callback function as shown in the [On-Prem Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-typescript/blob/main/examples/example-onprem-auth.ts).
 
-async function run() {
-  const result = await criblControlPlane.lakeDatasets.create({
-    lakeId: "<id>",
-    criblLakeDataset: {
-      acceleratedFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      bucketName: "<value>",
-      cacheConnection: {
-        acceleratedFields: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        backfillStatus: "pending",
-        cacheRef: "<value>",
-        createdAt: 7795.06,
-        lakehouseConnectionType: "cache",
-        migrationQueryId: "<id>",
-        retentionInDays: 1466.58,
-      },
-      deletionStartedAt: 8310.58,
-      description:
-        "pleased toothbrush long brush smooth swiftly rightfully phooey chapel",
-      format: "ddss",
-      httpDAUsed: true,
-      id: "<id>",
-      metrics: {
-        currentSizeBytes: 6170.04,
-        metricsDate: "<value>",
-      },
-      retentionPeriodInDays: 456.37,
-      searchConfig: {
-        datatypes: [
-          "<value 1>",
-        ],
-        metadata: {
-          earliest: "<value>",
-          enableAcceleration: true,
-          fieldList: [
-            "<value 1>",
-            "<value 2>",
-          ],
-          latestRunInfo: {
-            earliestScannedTime: 4334.7,
-            finishedAt: 6811.22,
-            latestScannedTime: 5303.3,
-            objectCount: 9489.04,
-          },
-          scanMode: "detailed",
-        },
-      },
-      storageLocationId: "<id>",
-      viewName: "<value>",
-    },
-  });
+Set the security scheme through the `security` optional parameter when initializing the SDK client instance. The SDK uses the selected scheme by default to authenticate with the API for all operations that support it.
 
-  console.log(result);
-}
+### Authentication Examples
 
-run();
+The [Cribl.Cloud and Hybrid Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-typescript/blob/main/examples/example-cloud-auth.ts) demonstrates how to configure authentication on Cribl.Cloud and in hybrid deployments. To obtain the Client ID and Client Secret you'll need to initialize using the `clientOauth` security schema, follow the [instructions for creating an API Credential](https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-auth-cloud) in the Cribl as Code documentation.
 
-```
-<!-- End Authentication [security] -->
+The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-typescript/blob/main/examples/example-onprem-auth.ts) demonstrates how to configure authentication in on-prem deployments using your username and password.
+
+<!-- No Authentication [security] -->
 
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
