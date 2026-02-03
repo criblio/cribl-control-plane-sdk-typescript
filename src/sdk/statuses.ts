@@ -5,7 +5,6 @@
 import { versionsStatusesGet } from "../funcs/versionsStatusesGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
-import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Statuses extends ClientSDK {
@@ -16,12 +15,10 @@ export class Statuses extends ClientSDK {
    * Get the status of the current working tree of the Git repository used for Cribl configuration. The response includes details about modified, staged, untracked, and conflicted files, as well as branch and remote tracking information.
    */
   async get(
-    request?: operations.GetVersionStatusRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.CountedGitStatusResult> {
     return unwrapAsync(versionsStatusesGet(
       this,
-      request,
       options,
     ));
   }

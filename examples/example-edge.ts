@@ -148,9 +148,9 @@ async function main() {
   console.log(`✅ Route added: ${route.id}`);
 
   // Commit configuration changes
-  const commitResponse = await cribl.versions.commits.create({ groupId: myFleet.id, gitCommitParams: {
-    message: "Commit for Edge example", effective: true, files: ["."]}
-  });
+  const commitResponse = await cribl.versions.commits.create({
+    message: "Commit for Edge example", effective: true, files: ["."]
+  }, { serverURL: groupUrl });
 
   const version: string = commitResponse.items![0].commit;
   console.log(`✅ Committed configuration changes to the fleet: ${myFleet.id}, commit ID: ${version}`);

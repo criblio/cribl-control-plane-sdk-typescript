@@ -7,9 +7,9 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 export const NodeActiveUpgradeStatus = {
-  Zero: 0,
-  One: 1,
-  Two: 2,
+  Pending: 0,
+  Queued: 1,
+  Upgrading: 2,
 } as const;
 export type NodeActiveUpgradeStatus = OpenEnum<typeof NodeActiveUpgradeStatus>;
 

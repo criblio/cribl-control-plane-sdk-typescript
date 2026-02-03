@@ -13,15 +13,15 @@ export const AcknowledgmentsOptions1 = {
   /**
    * Leader
    */
-  One: 1,
+  Leader: 1,
   /**
    * None
    */
-  Zero: 0,
+  None: 0,
   /**
    * All
    */
-  Minus1: -1,
+  All: -1,
 } as const;
 /**
  * Control the number of required acknowledgments.
