@@ -14,15 +14,14 @@ let value: CountedRoutes = {
       groups: {
         "key": {
           name: "<value>",
-          description:
-            "efface aw bonfire promptly carefully really versus wisely annually alienated",
+          description: "far-flung like instead zowie pertain concrete shovel",
           disabled: true,
         },
       },
       comments: [
         {
           comment:
-            "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
+            "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
         },
       ],
     },

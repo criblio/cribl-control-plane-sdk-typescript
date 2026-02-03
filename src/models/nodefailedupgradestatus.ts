@@ -7,8 +7,8 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 export const NodeFailedUpgradeStatus = {
-  Zero: 0,
-  One: 1,
+  UpgradeErrorOnNode: 0,
+  UpgradeInstallationRollback: 1,
 } as const;
 export type NodeFailedUpgradeStatus = OpenEnum<typeof NodeFailedUpgradeStatus>;
 
