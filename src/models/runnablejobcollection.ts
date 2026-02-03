@@ -53,19 +53,19 @@ export const WhereToCapture = {
   /**
    * 1. Before pre-processing Pipeline
    */
-  Zero: 0,
+  BeforePreProcessingPipeline: 0,
   /**
    * 2. Before the Routes
    */
-  One: 1,
+  BeforeTheRoutes: 1,
   /**
    * 3. Before post-processing Pipeline
    */
-  Two: 2,
+  BeforePostProcessingPipeline: 2,
   /**
    * 4. Before the Destination
    */
-  Three: 3,
+  BeforeTheDestination: 3,
 } as const;
 export type WhereToCapture = OpenEnum<typeof WhereToCapture>;
 

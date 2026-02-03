@@ -12414,35 +12414,35 @@ export const CreateOutputSeveritySyslog = {
   /**
    * emergency
    */
-  Zero: 0,
+  Emergency: 0,
   /**
    * alert
    */
-  One: 1,
+  Alert: 1,
   /**
    * critical
    */
-  Two: 2,
+  Critical: 2,
   /**
    * error
    */
-  Three: 3,
+  Error: 3,
   /**
    * warning
    */
-  Four: 4,
+  Warning: 4,
   /**
    * notice
    */
-  Five: 5,
+  Notice: 5,
   /**
    * info
    */
-  Six: 6,
+  Info: 6,
   /**
    * debug
    */
-  Seven: 7,
+  Debug: 7,
 } as const;
 /**
  * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
