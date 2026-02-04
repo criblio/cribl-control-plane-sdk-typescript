@@ -13,6 +13,12 @@ export const TargetContext = {
 export type TargetContext = OpenEnum<typeof TargetContext>;
 
 /** @internal */
+export const TargetContext$inboundSchema: z.ZodType<
+  TargetContext,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(TargetContext);
+/** @internal */
 export const TargetContext$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,

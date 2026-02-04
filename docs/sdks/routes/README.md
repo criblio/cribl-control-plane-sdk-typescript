@@ -112,31 +112,42 @@ async function run() {
   const result = await criblControlPlane.routes.update({
     id: "<id>",
     routes: {
-      id: "default",
-      routes: [
+      comments: [
         {
-          id: "default",
-          name: "my-route",
-          disabled: true,
-          filter: "source == \"access.log\"",
-          pipeline: "main",
-          enableOutputExpression: false,
-          output: "<value>",
-          outputExpression: "<value>",
-          description: "Route access logs to main pipeline",
-          final: true,
+          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+          groupId: "<id>",
+          id: "<id>",
+          index: 3844.57,
         },
       ],
       groups: {
         "key": {
-          name: "<value>",
           description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
-          disabled: false,
+          index: 8899.36,
+          name: "<value>",
         },
       },
-      comments: [
+      id: "default",
+      routes: [
         {
-          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+          clones: [
+            {
+              "key": "<value>",
+            },
+          ],
+          context: "<value>",
+          description: "Route access logs to main pipeline",
+          disabled: true,
+          enableOutputExpression: false,
+          filter: "source == \"access.log\"",
+          final: true,
+          groupId: "<id>",
+          id: "default",
+          name: "my-route",
+          output: "<value>",
+          outputExpression: "<value>",
+          pipeline: "main",
+          targetContext: "group",
         },
       ],
     },
@@ -169,31 +180,42 @@ async function run() {
   const res = await routesUpdate(criblControlPlane, {
     id: "<id>",
     routes: {
-      id: "default",
-      routes: [
+      comments: [
         {
-          id: "default",
-          name: "my-route",
-          disabled: true,
-          filter: "source == \"access.log\"",
-          pipeline: "main",
-          enableOutputExpression: false,
-          output: "<value>",
-          outputExpression: "<value>",
-          description: "Route access logs to main pipeline",
-          final: true,
+          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+          groupId: "<id>",
+          id: "<id>",
+          index: 3844.57,
         },
       ],
       groups: {
         "key": {
-          name: "<value>",
           description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
-          disabled: false,
+          index: 8899.36,
+          name: "<value>",
         },
       },
-      comments: [
+      id: "default",
+      routes: [
         {
-          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+          clones: [
+            {
+              "key": "<value>",
+            },
+          ],
+          context: "<value>",
+          description: "Route access logs to main pipeline",
+          disabled: true,
+          enableOutputExpression: false,
+          filter: "source == \"access.log\"",
+          final: true,
+          groupId: "<id>",
+          id: "default",
+          name: "my-route",
+          output: "<value>",
+          outputExpression: "<value>",
+          pipeline: "main",
+          targetContext: "group",
         },
       ],
     },

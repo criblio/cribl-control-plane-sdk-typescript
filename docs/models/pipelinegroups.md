@@ -1,15 +1,14 @@
-# AdditionalPropertiesTypePipelineConfGroups
+# PipelineGroups
 
 ## Example Usage
 
 ```typescript
-import { AdditionalPropertiesTypePipelineConfGroups } from "cribl-control-plane/models";
+import { PipelineGroups } from "cribl-control-plane/models";
 
-let value: AdditionalPropertiesTypePipelineConfGroups = {
+let value: PipelineGroups = {
   name: "<value>",
-  description:
-    "excluding how yesterday outrun kookily swim gosh trench starboard",
-  disabled: true,
+  description: "during folklore that young swine everlasting tough refine",
+  disabled: false,
 };
 ```
 
