@@ -10,10 +10,6 @@ export type GetVersionShowRequest = {
    */
   commit?: string | undefined;
   /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to get the diff and log message for.
-   */
-  groupId?: string | undefined;
-  /**
    * The relative path of the file to get the diff and log message for.
    */
   filename?: string | undefined;
@@ -26,7 +22,6 @@ export type GetVersionShowRequest = {
 /** @internal */
 export type GetVersionShowRequest$Outbound = {
   commit?: string | undefined;
-  groupId?: string | undefined;
   filename?: string | undefined;
   diffLineLimit?: number | undefined;
 };
@@ -38,7 +33,6 @@ export const GetVersionShowRequest$outboundSchema: z.ZodType<
   GetVersionShowRequest
 > = z.object({
   commit: z.string().optional(),
-  groupId: z.string().optional(),
   filename: z.string().optional(),
   diffLineLimit: z.number().int().optional(),
 });
