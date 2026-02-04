@@ -113,31 +113,43 @@ async function run() {
     id: "<id>",
     pack: "<value>",
     routes: {
-      id: "default",
-      routes: [
+      comments: [
         {
-          id: "default",
-          name: "my-route",
-          disabled: true,
-          filter: "source == \"access.log\"",
-          pipeline: "main",
-          enableOutputExpression: false,
-          output: "<value>",
-          outputExpression: "<value>",
-          description: "Route access logs to main pipeline",
-          final: true,
+          comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
+          groupId: "<id>",
+          id: "<id>",
+          index: 4999.72,
         },
       ],
       groups: {
         "key": {
-          name: "<value>",
           description: "ridge impassioned amount happily",
-          disabled: false,
+          index: 8485.39,
+          name: "<value>",
         },
       },
-      comments: [
+      id: "default",
+      routes: [
         {
-          comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
+          clones: [
+            {
+              "key": "<value>",
+              "key1": "<value>",
+            },
+          ],
+          context: "<value>",
+          description: "Route access logs to main pipeline",
+          disabled: true,
+          enableOutputExpression: false,
+          filter: "source == \"access.log\"",
+          final: true,
+          groupId: "<id>",
+          id: "default",
+          name: "my-route",
+          output: "<value>",
+          outputExpression: "<value>",
+          pipeline: "main",
+          targetContext: "group",
         },
       ],
     },
@@ -171,31 +183,43 @@ async function run() {
     id: "<id>",
     pack: "<value>",
     routes: {
-      id: "default",
-      routes: [
+      comments: [
         {
-          id: "default",
-          name: "my-route",
-          disabled: true,
-          filter: "source == \"access.log\"",
-          pipeline: "main",
-          enableOutputExpression: false,
-          output: "<value>",
-          outputExpression: "<value>",
-          description: "Route access logs to main pipeline",
-          final: true,
+          comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
+          groupId: "<id>",
+          id: "<id>",
+          index: 4999.72,
         },
       ],
       groups: {
         "key": {
-          name: "<value>",
           description: "ridge impassioned amount happily",
-          disabled: false,
+          index: 8485.39,
+          name: "<value>",
         },
       },
-      comments: [
+      id: "default",
+      routes: [
         {
-          comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
+          clones: [
+            {
+              "key": "<value>",
+              "key1": "<value>",
+            },
+          ],
+          context: "<value>",
+          description: "Route access logs to main pipeline",
+          disabled: true,
+          enableOutputExpression: false,
+          filter: "source == \"access.log\"",
+          final: true,
+          groupId: "<id>",
+          id: "default",
+          name: "my-route",
+          output: "<value>",
+          outputExpression: "<value>",
+          pipeline: "main",
+          targetContext: "group",
         },
       ],
     },

@@ -3,28 +3,93 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TargetContext,
+  TargetContext$inboundSchema,
   TargetContext$outboundSchema,
 } from "./targetcontext.js";
 
 export type RouteConf = {
+  /**
+   * Create clones with the following fields set and feed to Pipeline (original event continues down the Routes)
+   */
   clones?: Array<{ [k: string]: string }> | undefined;
+  /**
+   * Context for the route
+   */
   context?: string | undefined;
+  /**
+   * Optional description of this route
+   */
   description?: string | undefined;
+  /**
+   * Disable this routing rule
+   */
   disabled?: boolean | undefined;
+  /**
+   * Enable to use a JavaScript expression that evaluates to the name of the destination
+   */
   enableOutputExpression?: boolean | undefined;
+  /**
+   * JavaScript expression to select data to route
+   */
   filter?: string | undefined;
+  /**
+   * Flag to control whether the event gets consumed by this Route (Final), or cloned into it
+   */
   final: boolean;
+  /**
+   * Optional group identifier
+   */
   groupId?: string | undefined;
+  /**
+   * Route ID
+   */
   id: string;
+  /**
+   * Route name
+   */
   name: string;
+  /**
+   * Destination to send events to after they are processed by the Pipeline
+   */
   output?: string | undefined;
+  /**
+   * JavaScript expression that will be evaluated as the name of the destination. Evaluation happens at Route construction time (not per event)
+   */
   outputExpression?: string | undefined;
+  /**
+   * Pipeline to send the matching data to
+   */
   pipeline: string;
   targetContext?: TargetContext | undefined;
 };
 
+/** @internal */
+export const RouteConf$inboundSchema: z.ZodType<
+  RouteConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  clones: types.optional(z.array(z.record(types.string()))),
+  context: types.optional(types.string()),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  enableOutputExpression: types.optional(types.boolean()),
+  filter: types.optional(types.string()),
+  final: types.boolean(),
+  groupId: types.optional(types.string()),
+  id: types.string(),
+  name: types.string(),
+  output: types.optional(types.string()),
+  outputExpression: types.optional(types.string()),
+  pipeline: types.string(),
+  targetContext: types.optional(TargetContext$inboundSchema),
+});
 /** @internal */
 export type RouteConf$Outbound = {
   clones?: Array<{ [k: string]: string }> | undefined;
@@ -67,4 +132,13 @@ export const RouteConf$outboundSchema: z.ZodType<
 
 export function routeConfToJSON(routeConf: RouteConf): string {
   return JSON.stringify(RouteConf$outboundSchema.parse(routeConf));
+}
+export function routeConfFromJSON(
+  jsonString: string,
+): SafeParseResult<RouteConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RouteConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RouteConf' from JSON`,
+  );
 }

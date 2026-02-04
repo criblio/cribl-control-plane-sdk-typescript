@@ -6,97 +6,109 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import {
-  AdditionalPropertiesTypePipelineConfGroups,
-  AdditionalPropertiesTypePipelineConfGroups$inboundSchema,
-  AdditionalPropertiesTypePipelineConfGroups$Outbound,
-  AdditionalPropertiesTypePipelineConfGroups$outboundSchema,
-} from "./additionalpropertiestypepipelineconfgroups.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  RoutesRoute,
-  RoutesRoute$inboundSchema,
-  RoutesRoute$Outbound,
-  RoutesRoute$outboundSchema,
-} from "./routesroute.js";
+  RouteComment,
+  RouteComment$inboundSchema,
+  RouteComment$Outbound,
+  RouteComment$outboundSchema,
+} from "./routecomment.js";
+import {
+  RouteConf,
+  RouteConf$inboundSchema,
+  RouteConf$Outbound,
+  RouteConf$outboundSchema,
+} from "./routeconf.js";
 
-export type Comment = {
+export type RoutesGroups = {
   /**
-   * Optional, short description of this Route's purpose
+   * Short description of this group.
    */
-  comment?: string | undefined;
-  [additionalProperties: string]: unknown;
+  description?: string | undefined;
+  /**
+   * Index of the group
+   */
+  index: number;
+  /**
+   * Group name.
+   */
+  name: string;
 };
 
 export type Routes = {
   /**
+   * Comments
+   */
+  comments?: Array<RouteComment> | undefined;
+  /**
+   * Map of route groups
+   */
+  groups?: { [k: string]: RoutesGroups } | undefined;
+  /**
    * Routes ID
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Pipeline routing rules
    */
-  routes: Array<RoutesRoute>;
-  groups?:
-    | { [k: string]: AdditionalPropertiesTypePipelineConfGroups }
-    | undefined;
-  /**
-   * Comments
-   */
-  comments?: Array<Comment> | undefined;
+  routes: Array<RouteConf>;
 };
 
 /** @internal */
-export const Comment$inboundSchema: z.ZodType<Comment, z.ZodTypeDef, unknown> =
-  z.object({
-    comment: types.optional(types.string()),
-  }).catchall(z.any());
-/** @internal */
-export type Comment$Outbound = {
-  comment?: string | undefined;
-  [additionalProperties: string]: unknown;
-};
-
-/** @internal */
-export const Comment$outboundSchema: z.ZodType<
-  Comment$Outbound,
+export const RoutesGroups$inboundSchema: z.ZodType<
+  RoutesGroups,
   z.ZodTypeDef,
-  Comment
+  unknown
 > = z.object({
-  comment: z.string().optional(),
-}).catchall(z.any());
+  description: types.optional(types.string()),
+  index: types.number(),
+  name: types.string(),
+});
+/** @internal */
+export type RoutesGroups$Outbound = {
+  description?: string | undefined;
+  index: number;
+  name: string;
+};
 
-export function commentToJSON(comment: Comment): string {
-  return JSON.stringify(Comment$outboundSchema.parse(comment));
+/** @internal */
+export const RoutesGroups$outboundSchema: z.ZodType<
+  RoutesGroups$Outbound,
+  z.ZodTypeDef,
+  RoutesGroups
+> = z.object({
+  description: z.string().optional(),
+  index: z.number(),
+  name: z.string(),
+});
+
+export function routesGroupsToJSON(routesGroups: RoutesGroups): string {
+  return JSON.stringify(RoutesGroups$outboundSchema.parse(routesGroups));
 }
-export function commentFromJSON(
+export function routesGroupsFromJSON(
   jsonString: string,
-): SafeParseResult<Comment, SDKValidationError> {
+): SafeParseResult<RoutesGroups, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Comment$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Comment' from JSON`,
+    (x) => RoutesGroups$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RoutesGroups' from JSON`,
   );
 }
 
 /** @internal */
 export const Routes$inboundSchema: z.ZodType<Routes, z.ZodTypeDef, unknown> = z
   .object({
-    id: types.optional(types.string()),
-    routes: z.array(RoutesRoute$inboundSchema),
-    groups: types.optional(
-      z.record(AdditionalPropertiesTypePipelineConfGroups$inboundSchema),
-    ),
-    comments: types.optional(z.array(z.lazy(() => Comment$inboundSchema))),
+    comments: types.optional(z.array(RouteComment$inboundSchema)),
+    groups: types.optional(z.record(z.lazy(() => RoutesGroups$inboundSchema))),
+    id: types.string(),
+    routes: z.array(RouteConf$inboundSchema),
   });
 /** @internal */
 export type Routes$Outbound = {
-  id?: string | undefined;
-  routes: Array<RoutesRoute$Outbound>;
-  groups?:
-    | { [k: string]: AdditionalPropertiesTypePipelineConfGroups$Outbound }
-    | undefined;
-  comments?: Array<Comment$Outbound> | undefined;
+  comments?: Array<RouteComment$Outbound> | undefined;
+  groups?: { [k: string]: RoutesGroups$Outbound } | undefined;
+  id: string;
+  routes: Array<RouteConf$Outbound>;
 };
 
 /** @internal */
@@ -105,11 +117,10 @@ export const Routes$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Routes
 > = z.object({
-  id: z.string().optional(),
-  routes: z.array(RoutesRoute$outboundSchema),
-  groups: z.record(AdditionalPropertiesTypePipelineConfGroups$outboundSchema)
-    .optional(),
-  comments: z.array(z.lazy(() => Comment$outboundSchema)).optional(),
+  comments: z.array(RouteComment$outboundSchema).optional(),
+  groups: z.record(z.lazy(() => RoutesGroups$outboundSchema)).optional(),
+  id: z.string(),
+  routes: z.array(RouteConf$outboundSchema),
 });
 
 export function routesToJSON(routes: Routes): string {

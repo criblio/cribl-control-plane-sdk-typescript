@@ -14,9 +14,9 @@ let value: PipelineFunctionSort = {
   conf: {
     sortId: "<id>",
     comparisonExpression: "<value>",
-    topN: 4741.25,
-    maxEvents: 2967.01,
-    suppressPreviews: false,
+    topN: 3645.17,
+    maxEvents: 9120.6,
+    suppressPreviews: true,
   },
   groupId: "<id>",
 };

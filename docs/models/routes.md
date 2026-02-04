@@ -6,29 +6,33 @@
 import { Routes } from "cribl-control-plane/models";
 
 let value: Routes = {
-  id: "<id>",
-  routes: [],
-  groups: {
-    "key": {
-      name: "<value>",
-      description: "far-flung like instead zowie pertain concrete shovel",
-      disabled: true,
-    },
-  },
   comments: [
     {
       comment:
-        "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+        "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
+      groupId: "<id>",
+      id: "<id>",
+      index: 9969.55,
     },
   ],
+  groups: {
+    "key": {
+      description:
+        "since armchair thoroughly mmm miserably basket ugh rectangular",
+      index: 5527.34,
+      name: "<value>",
+    },
+  },
+  id: "<id>",
+  routes: [],
 };
 ```
 
 ## Fields
 
-| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                         | *string*                                                                                                                     | :heavy_minus_sign:                                                                                                           | Routes ID                                                                                                                    |
-| `routes`                                                                                                                     | [models.RoutesRoute](../models/routesroute.md)[]                                                                             | :heavy_check_mark:                                                                                                           | Pipeline routing rules                                                                                                       |
-| `groups`                                                                                                                     | Record<string, [models.AdditionalPropertiesTypePipelineConfGroups](../models/additionalpropertiestypepipelineconfgroups.md)> | :heavy_minus_sign:                                                                                                           | N/A                                                                                                                          |
-| `comments`                                                                                                                   | [models.Comment](../models/comment.md)[]                                                                                     | :heavy_minus_sign:                                                                                                           | Comments                                                                                                                     |
+| Field                                                            | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `comments`                                                       | [models.RouteComment](../models/routecomment.md)[]               | :heavy_minus_sign:                                               | Comments                                                         |
+| `groups`                                                         | Record<string, [models.RoutesGroups](../models/routesgroups.md)> | :heavy_minus_sign:                                               | Map of route groups                                              |
+| `id`                                                             | *string*                                                         | :heavy_check_mark:                                               | Routes ID                                                        |
+| `routes`                                                         | [models.RouteConf](../models/routeconf.md)[]                     | :heavy_check_mark:                                               | Pipeline routing rules                                           |

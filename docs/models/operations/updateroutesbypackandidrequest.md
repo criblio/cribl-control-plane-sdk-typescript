@@ -9,32 +9,45 @@ let value: UpdateRoutesByPackAndIdRequest = {
   id: "<id>",
   pack: "<value>",
   routes: {
-    id: "<id>",
-    routes: [
+    comments: [
       {
+        comment:
+          "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
+        groupId: "<id>",
         id: "<id>",
-        name: "<value>",
-        disabled: true,
-        filter: "<value>",
-        pipeline: "<value>",
-        enableOutputExpression: false,
-        output: "<value>",
-        outputExpression: "<value>",
-        description: "instance gah squiggly however",
-        final: false,
+        index: 9969.55,
       },
     ],
     groups: {
       "key": {
+        description:
+          "since armchair thoroughly mmm miserably basket ugh rectangular",
+        index: 5527.34,
         name: "<value>",
-        description: "far-flung like instead zowie pertain concrete shovel",
-        disabled: true,
       },
     },
-    comments: [
+    id: "<id>",
+    routes: [
       {
-        comment:
-          "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+        clones: [
+          {
+            "key": "<value>",
+            "key1": "<value>",
+          },
+        ],
+        context: "<value>",
+        description: "instance gah squiggly however",
+        disabled: false,
+        enableOutputExpression: true,
+        filter: "<value>",
+        final: true,
+        groupId: "<id>",
+        id: "<id>",
+        name: "<value>",
+        output: "<value>",
+        outputExpression: "<value>",
+        pipeline: "<value>",
+        targetContext: "group",
       },
     ],
   },

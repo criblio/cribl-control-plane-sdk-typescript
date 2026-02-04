@@ -29,6 +29,8 @@ let value: UpdatePipelinesByPackAndIdRequest = {
             command: "<value>",
             args: [
               "<value 1>",
+              "<value 2>",
+              "<value 3>",
             ],
             restartOnExit: true,
             env: {
