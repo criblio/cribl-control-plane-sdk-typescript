@@ -6,10 +6,6 @@ import * as z from "zod/v3";
 
 export type GetVersionFilesRequest = {
   /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to get file names and status for.
-   */
-  groupId?: string | undefined;
-  /**
    * The Git commit hash to use as the starting point for the request.
    */
   commit?: string | undefined;
@@ -17,7 +13,6 @@ export type GetVersionFilesRequest = {
 
 /** @internal */
 export type GetVersionFilesRequest$Outbound = {
-  groupId?: string | undefined;
   commit?: string | undefined;
 };
 
@@ -27,7 +22,6 @@ export const GetVersionFilesRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetVersionFilesRequest
 > = z.object({
-  groupId: z.string().optional(),
   commit: z.string().optional(),
 });
 
