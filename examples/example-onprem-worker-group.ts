@@ -86,14 +86,11 @@ async function main() {
   console.log(`   Minimum Worker Processes: ${workersConfig.minimum}`);
 
   // Commit configuration changes
-  const commitResponse = await cribl.versions.commits.create({ 
-    groupId: WORKER_GROUP_ID, 
-    gitCommitParams: {
-      message: "Optimize Worker Process settings",
-      effective: true,
-      files: ["."]
-    }
-  });
+  const commitResponse = await cribl.versions.commits.create({
+    message: "Optimize Worker Process settings",
+    effective: true,
+    files: ["."]
+  }, { serverURL: groupUrl });
   const version: string = commitResponse.items![0].commit;
   console.log(`✅ Committed configuration changes to the Worker Group: ${WORKER_GROUP_ID}, commit ID: ${version}`);
 

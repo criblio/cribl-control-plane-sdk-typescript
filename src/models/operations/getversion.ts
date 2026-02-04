@@ -6,10 +6,6 @@ import * as z from "zod/v3";
 
 export type GetVersionRequest = {
   /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to get the commit history for.
-   */
-  groupId?: string | undefined;
-  /**
    * Maximum number of commits to return in the response for this request.
    */
   count?: number | undefined;
@@ -17,7 +13,6 @@ export type GetVersionRequest = {
 
 /** @internal */
 export type GetVersionRequest$Outbound = {
-  groupId?: string | undefined;
   count?: number | undefined;
 };
 
@@ -27,7 +22,6 @@ export const GetVersionRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetVersionRequest
 > = z.object({
-  groupId: z.string().optional(),
   count: z.number().int().optional(),
 });
 
