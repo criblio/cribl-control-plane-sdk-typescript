@@ -10,13 +10,13 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Summaries extends ClientSDK {
   /**
-   * Get a summary of the Distributed deployment
+   * Get a summary of the Distributed deployment for a specific product
    *
    * @remarks
-   * Get a summary of the Distributed deployment. The response includes counts of Worker Groups, Edge Fleets, Pipelines, Routes, Sources, Destinations, and Worker and Edge Nodes, as well as statistics for the Worker and Edge Nodes.
+   * Get a summary of the Distributed deployment for a specific Cribl product (Stream or Edge). The response includes counts of Worker Groups or Edge Fleets, Pipelines, Routes, Sources, Destinations, and Worker or Edge Nodes, as well as statistics for the nodes.
    */
   async get(
-    request?: operations.GetSummaryRequest | undefined,
+    request: operations.GetProductsSummaryByProductRequest,
     options?: RequestOptions,
   ): Promise<models.CountedDistributedSummary> {
     return unwrapAsync(nodesSummariesGet(

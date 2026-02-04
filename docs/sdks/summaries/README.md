@@ -4,15 +4,15 @@
 
 ### Available Operations
 
-* [get](#get) - Get a summary of the Distributed deployment
+* [get](#get) - Get a summary of the Distributed deployment for a specific product
 
 ## get
 
-Get a summary of the Distributed deployment. The response includes counts of Worker Groups, Edge Fleets, Pipelines, Routes, Sources, Destinations, and Worker and Edge Nodes, as well as statistics for the Worker and Edge Nodes.
+Get a summary of the Distributed deployment for a specific Cribl product (Stream or Edge). The response includes counts of Worker Groups or Edge Fleets, Pipelines, Routes, Sources, Destinations, and Worker or Edge Nodes, as well as statistics for the nodes.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getSummary" method="get" path="/master/summary" -->
+<!-- UsageSnippet language="typescript" operationID="getProductsSummaryByProduct" method="get" path="/products/{product}/summary" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -25,7 +25,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.nodes.summaries.get({
-    mode: "worker",
+    product: "stream",
   });
 
   console.log(result);
@@ -53,7 +53,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await nodesSummariesGet(criblControlPlane, {
-    mode: "worker",
+    product: "stream",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -70,7 +70,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetSummaryRequest](../../models/operations/getsummaryrequest.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetProductsSummaryByProductRequest](../../models/operations/getproductssummarybyproductrequest.md)                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
