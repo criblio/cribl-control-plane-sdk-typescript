@@ -26,7 +26,7 @@
 
 import {
   PipelineInput,
-  RoutesRoute,
+  RouteConf,
 } from "../dist/esm/models";
 import { CreateInputRequest, CreateOutputRequest } from "../dist/esm/models/operations";
 import { baseUrl, createCriblClient } from "./auth";
@@ -93,7 +93,7 @@ const pipeline: PipelineInput = {
 };
 
 // Route configuration: route data from the Source to the Pipeline and Destination
-const route: RoutesRoute = {
+const route: RouteConf = {
   final: false,
   id: "my-route",
   name: "my-route",
@@ -101,7 +101,6 @@ const route: RoutesRoute = {
   output: s3Destination.id,
   filter: "__inputId=='tcpjson:my-tcp-json'",
   description: "This is my new Route",
-  additionalProperties: {},
 };
 
 async function main() {
