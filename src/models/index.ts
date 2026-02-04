@@ -616,4 +616,3 @@ export * from "./upgradesettings.js";
 export * from "./uploadpackresponse.js";
 export * from "./useraccesscontrollist.js";
 export * from "./workerstypesystemsettingsconf.js";
-export * from "./workertypes.js";

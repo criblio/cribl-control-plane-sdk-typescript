@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import { encodeSimple } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,14 +27,14 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get a summary of the Distributed deployment
+ * Get a summary of the Distributed deployment for a specific product
  *
  * @remarks
- * Get a summary of the Distributed deployment. The response includes counts of Worker Groups, Edge Fleets, Pipelines, Routes, Sources, Destinations, and Worker and Edge Nodes, as well as statistics for the Worker and Edge Nodes.
+ * Get a summary of the Distributed deployment for a specific Cribl product (Stream or Edge). The response includes counts of Worker Groups or Edge Fleets, Pipelines, Routes, Sources, Destinations, and Worker or Edge Nodes, as well as statistics for the nodes.
  */
 export function nodesSummariesGet(
   client: CriblControlPlaneCore,
-  request?: operations.GetSummaryRequest | undefined,
+  request: operations.GetProductsSummaryByProductRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function nodesSummariesGet(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request?: operations.GetSummaryRequest | undefined,
+  request: operations.GetProductsSummaryByProductRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -81,7 +81,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      operations.GetSummaryRequest$outboundSchema.optional().parse(value),
+      operations.GetProductsSummaryByProductRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -90,11 +90,14 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const path = pathToFunc("/master/summary")();
+  const pathParams = {
+    product: encodeSimple("product", payload.product, {
+      explode: false,
+      charEncoding: "percent",
+    }),
+  };
 
-  const query = encodeFormQuery({
-    "mode": payload?.mode,
-  });
+  const path = pathToFunc("/products/{product}/summary")(pathParams);
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
@@ -106,7 +109,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getSummary",
+    operationID: "getProductsSummaryByProduct",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -134,7 +137,6 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -146,7 +148,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -173,7 +175,7 @@ async function $do(
   >(
     M.json(200, models.CountedDistributedSummary$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail([400, 401, 403, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
