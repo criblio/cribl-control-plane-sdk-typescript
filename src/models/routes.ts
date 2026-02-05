@@ -26,7 +26,7 @@ export type RoutesGroups = {
    */
   description?: string | undefined;
   /**
-   * Index of the group
+   * Index of the group.
    */
   index: number;
   /**
@@ -37,19 +37,19 @@ export type RoutesGroups = {
 
 export type Routes = {
   /**
-   * Comments
+   * Comments.
    */
   comments?: Array<RouteComment> | undefined;
   /**
-   * Map of route groups
+   * Map of route groups.
    */
   groups?: { [k: string]: RoutesGroups } | undefined;
   /**
-   * Routes ID
+   * Routes ID.
    */
   id: string;
   /**
-   * Pipeline routing rules
+   * Pipeline routing rules.
    */
   routes: Array<RouteConf>;
 };

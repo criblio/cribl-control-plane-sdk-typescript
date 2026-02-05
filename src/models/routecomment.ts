@@ -10,19 +10,19 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type RouteComment = {
   /**
-   * Optional, short description of this Route's purpose
+   * Description of this Route's purpose.
    */
   comment: string;
   /**
-   * Optional group identifier
+   * Optional group identifier.
    */
   groupId?: string | undefined;
   /**
-   * Unique identifier for the comment
+   * Unique identifier for the comment.
    */
   id: string;
   /**
-   * Position index of the comment
+   * Position index of the comment.
    */
   index: number;
 };

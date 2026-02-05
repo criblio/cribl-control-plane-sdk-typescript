@@ -18,5 +18,5 @@ let value: RoutesGroups = {
 | Field                            | Type                             | Required                         | Description                      |
 | -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
 | `description`                    | *string*                         | :heavy_minus_sign:               | Short description of this group. |
-| `index`                          | *number*                         | :heavy_check_mark:               | Index of the group               |
+| `index`                          | *number*                         | :heavy_check_mark:               | Index of the group.              |
 | `name`                           | *string*                         | :heavy_check_mark:               | Group name.                      |
