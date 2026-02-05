@@ -15,55 +15,55 @@ import {
 
 export type RouteConf = {
   /**
-   * Create clones with the following fields set and feed to Pipeline (original event continues down the Routes)
+   * Create clones with the following fields set and feed to Pipeline (original event continues down the Routes).
    */
   clones?: Array<{ [k: string]: string }> | undefined;
   /**
-   * Context for the route
+   * Context for the route.
    */
   context?: string | undefined;
   /**
-   * Optional description of this route
+   * Description of this route.
    */
   description?: string | undefined;
   /**
-   * Disable this routing rule
+   * Disable this routing rule.
    */
   disabled?: boolean | undefined;
   /**
-   * Enable to use a JavaScript expression that evaluates to the name of the destination
+   * Enable to use a JavaScript expression that evaluates to the name of the destination.
    */
   enableOutputExpression?: boolean | undefined;
   /**
-   * JavaScript expression to select data to route
+   * JavaScript expression to select data to route.
    */
   filter?: string | undefined;
   /**
-   * Flag to control whether the event gets consumed by this Route (Final), or cloned into it
+   * Flag to control whether the event gets consumed by this Route (Final), or cloned into it.
    */
   final: boolean;
   /**
-   * Optional group identifier
+   * Route group identifier.
    */
   groupId?: string | undefined;
   /**
-   * Route ID
+   * Route ID.
    */
   id: string;
   /**
-   * Route name
+   * Route name.
    */
   name: string;
   /**
-   * Destination to send events to after they are processed by the Pipeline
+   * Destination to send events to after they are processed by the Pipeline.
    */
   output?: string | undefined;
   /**
-   * JavaScript expression that will be evaluated as the name of the destination. Evaluation happens at Route construction time (not per event)
+   * JavaScript expression that will be evaluated as the name of the destination. Evaluation happens at Route construction time (not per event).
    */
   outputExpression?: string | undefined;
   /**
-   * Pipeline to send the matching data to
+   * Pipeline to send the matching data to.
    */
   pipeline: string;
   targetContext?: TargetContext | undefined;
