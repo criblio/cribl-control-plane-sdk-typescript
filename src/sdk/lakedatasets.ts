@@ -14,10 +14,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class LakeDatasets extends ClientSDK {
   /**
-   * Create a Lake Dataset
+   * Create a Lake Dataset (Cribl.Cloud only)
    *
    * @remarks
-   * Create a new Lake Dataset in the specified Lake.
+   * Create a new Lake Dataset in the specified Lake (Cribl.Cloud only).
    */
   async create(
     request: operations.CreateCriblLakeDatasetByLakeIdRequest,
@@ -31,10 +31,10 @@ export class LakeDatasets extends ClientSDK {
   }
 
   /**
-   * List all Lake Datasets
+   * List all Lake Datasets (Cribl.Cloud only)
    *
    * @remarks
-   * Get a list of all Lake Datasets in the specified Lake.
+   * Get a list of all Lake Datasets in the specified Lake (Cribl.Cloud only).
    */
   async list(
     request: operations.GetCriblLakeDatasetByLakeIdRequest,
@@ -48,10 +48,10 @@ export class LakeDatasets extends ClientSDK {
   }
 
   /**
-   * Delete a Lake Dataset
+   * Delete a Lake Dataset (Cribl.Cloud only)
    *
    * @remarks
-   * Delete the specified Lake Dataset in the specified Lake
+   * Delete the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
    */
   async delete(
     request: operations.DeleteCriblLakeDatasetByLakeIdAndIdRequest,
@@ -65,10 +65,10 @@ export class LakeDatasets extends ClientSDK {
   }
 
   /**
-   * Get a Lake Dataset
+   * Get a Lake Dataset (Cribl.Cloud only)
    *
    * @remarks
-   * Get the specified Lake Dataset in the specified Lake.
+   * Get the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
    */
   async get(
     request: operations.GetCriblLakeDatasetByLakeIdAndIdRequest,
@@ -82,10 +82,10 @@ export class LakeDatasets extends ClientSDK {
   }
 
   /**
-   * Update a Lake Dataset
+   * Update a Lake Dataset (Cribl.Cloud only)
    *
    * @remarks
-   * Update the specified Lake Dataset in the specified Lake.
+   * Update the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
    */
   async update(
     request: operations.UpdateCriblLakeDatasetByLakeIdAndIdRequest,

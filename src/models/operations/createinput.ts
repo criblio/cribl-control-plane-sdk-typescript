@@ -43,6 +43,51 @@ export type CreateInputAuthTokenCloudflareHec = {
   metadata?: Array<models.ItemsTypeMetadata> | undefined;
 };
 
+export type CreateInputTLSSettingsServerSide = {
+  /**
+   * Enable or disable TLS. Defaults to enabled for Cloudflare sources.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl private key when TLS is enabled.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl certificate when TLS is enabled.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?:
+    | models.MinimumTlsVersionOptionsKafkaSchemaRegistryTls
+    | undefined;
+  maxVersion?:
+    | models.MaximumTlsVersionOptionsKafkaSchemaRegistryTls
+    | undefined;
+};
+
 export type CreateInputInputCloudflareHec = {
   /**
    * Unique ID for this input
@@ -87,7 +132,7 @@ export type CreateInputInputCloudflareHec = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<CreateInputAuthTokenCloudflareHec> | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  tls?: CreateInputTLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -9045,6 +9090,52 @@ export function createInputAuthTokenCloudflareHecToJSON(
 }
 
 /** @internal */
+export type CreateInputTLSSettingsServerSide$Outbound = {
+  disabled?: boolean | undefined;
+  requestCert?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  commonNameRegex?: string | undefined;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputTLSSettingsServerSide$outboundSchema: z.ZodType<
+  CreateInputTLSSettingsServerSide$Outbound,
+  z.ZodTypeDef,
+  CreateInputTLSSettingsServerSide
+> = z.object({
+  disabled: z.boolean().optional(),
+  requestCert: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  commonNameRegex: z.string().optional(),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: models
+    .MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+  maxVersion: models
+    .MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+});
+
+export function createInputTLSSettingsServerSideToJSON(
+  createInputTLSSettingsServerSide: CreateInputTLSSettingsServerSide,
+): string {
+  return JSON.stringify(
+    CreateInputTLSSettingsServerSide$outboundSchema.parse(
+      createInputTLSSettingsServerSide,
+    ),
+  );
+}
+
+/** @internal */
 export type CreateInputInputCloudflareHec$Outbound = {
   id: string;
   type: "cloudflare_hec";
@@ -9059,7 +9150,7 @@ export type CreateInputInputCloudflareHec$Outbound = {
   host: string;
   port: number;
   authTokens?: Array<CreateInputAuthTokenCloudflareHec$Outbound> | undefined;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  tls?: CreateInputTLSSettingsServerSide$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
   enableProxyHeader?: boolean | undefined;
@@ -9106,7 +9197,7 @@ export const CreateInputInputCloudflareHec$outboundSchema: z.ZodType<
   authTokens: z.array(
     z.lazy(() => CreateInputAuthTokenCloudflareHec$outboundSchema),
   ).optional(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => CreateInputTLSSettingsServerSide$outboundSchema).optional(),
   maxActiveReq: z.number().optional(),
   maxRequestsPerSocket: z.number().int().optional(),
   enableProxyHeader: z.boolean().optional(),

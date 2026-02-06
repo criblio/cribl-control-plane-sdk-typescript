@@ -9,7 +9,7 @@
 
 ## list
 
-Get Cribl system settings
+Get Cribl system settings.
 
 ### Example Usage
 
@@ -84,7 +84,7 @@ run();
 
 ## update
 
-Update Cribl system settings
+Update Cribl system settings.
 
 ### Example Usage
 
