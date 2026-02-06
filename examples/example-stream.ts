@@ -30,7 +30,7 @@
 import {
   ConfigGroup,
   PipelineInput,
-  RoutesRoute,
+  RouteConf,
   CaptureParams,
   CaptureLevel,
 } from "../dist/esm/models";
@@ -86,7 +86,7 @@ const pipeline: PipelineInput = {
 };
 
 // Route configuration: route data from the Source to the Pipeline and Destination
-const route: RoutesRoute = {
+const route: RouteConf = {
   final: false,
   id: "my-route",
   name: "my-route",
@@ -94,7 +94,6 @@ const route: RoutesRoute = {
   output: fileSystemDestination.id,
   filter: "__inputId=='tcpjson:my-tcp-json'",
   description: "This is my new route",
-  additionalProperties: {},
 };
 const groupUrl = `${baseUrl}/m/${myWorkerGroup.id}`;
 

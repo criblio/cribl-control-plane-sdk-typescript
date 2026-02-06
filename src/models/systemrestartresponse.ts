@@ -10,7 +10,7 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type SystemRestartResponse = {
   /**
-   * Restart operation initiated
+   * Restart operation initiated.
    */
   restart: true;
 };

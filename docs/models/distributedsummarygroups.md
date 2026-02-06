@@ -1,18 +1,18 @@
-# Groups
+# DistributedSummaryGroups
 
 ## Example Usage
 
 ```typescript
-import { Groups } from "cribl-control-plane/models";
+import { DistributedSummaryGroups } from "cribl-control-plane/models";
 
-let value: Groups = {
-  count: 8372.45,
-  destinations: 6223.64,
-  packs: 4415.29,
-  pipelines: 6552.07,
-  quickConnects: 1531.66,
-  routes: 1008.39,
-  sources: 436.3,
+let value: DistributedSummaryGroups = {
+  count: 9726.46,
+  destinations: 9904.62,
+  packs: 3309.92,
+  pipelines: 8730.51,
+  quickConnects: 6647.76,
+  routes: 1014.99,
+  sources: 3261.19,
 };
 ```
 

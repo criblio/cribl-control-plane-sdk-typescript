@@ -3,28 +3,93 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TargetContext,
+  TargetContext$inboundSchema,
   TargetContext$outboundSchema,
 } from "./targetcontext.js";
 
 export type RouteConf = {
+  /**
+   * Array of clone configurations, each with a key-value pair to set or overwrite in cloned events. Original events continue to the next Route.
+   */
   clones?: Array<{ [k: string]: string }> | undefined;
+  /**
+   * Context for the Route: <code>group</code> (Worker Group or Edge Fleet) or <code>pack</code>.
+   */
   context?: string | undefined;
+  /**
+   * Brief description of the Route.
+   */
   description?: string | undefined;
+  /**
+   * If <code>true</code>, disable the Route. Otherwise, <code>false</code>.
+   */
   disabled?: boolean | undefined;
+  /**
+   * If <code>true</code>, use the <code>outputExpression</code> for dynamic Destination selection. Otherwise, <code>false</code>.
+   */
   enableOutputExpression?: boolean | undefined;
+  /**
+   * JavaScript expression to select events for routing.
+   */
   filter?: string | undefined;
+  /**
+   * If <code>true</code> the Route processes matched events and sends them to the specified Pipeline. Matched events do not continue to the next Route, but non-matched events do continue to the next Route. If <code>false</code>, the Route processes matched events and sends them to the specified Pipeline, and all events (matched and non-matched) continue to the next Route. Must be <code>false</code> to clone events.
+   */
   final: boolean;
+  /**
+   * Unique identifier for the Route Group that the Route is associated with.
+   */
   groupId?: string | undefined;
+  /**
+   * Unique identifier for the Route.
+   */
   id: string;
+  /**
+   * Name of the Route.
+   */
   name: string;
+  /**
+   * Destination that the Route sends matching events to after the Pipeline processes the events.
+   */
   output?: string | undefined;
+  /**
+   * JavaScript expression to evaluate for dynamic Destination selection. Evaluation occurs when the Route is constructed, not for each event.
+   */
   outputExpression?: string | undefined;
+  /**
+   * Pipeline that the Route sends matching events to.
+   */
   pipeline: string;
   targetContext?: TargetContext | undefined;
 };
 
+/** @internal */
+export const RouteConf$inboundSchema: z.ZodType<
+  RouteConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  clones: types.optional(z.array(z.record(types.string()))),
+  context: types.optional(types.string()),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  enableOutputExpression: types.optional(types.boolean()),
+  filter: types.optional(types.string()),
+  final: types.boolean(),
+  groupId: types.optional(types.string()),
+  id: types.string(),
+  name: types.string(),
+  output: types.optional(types.string()),
+  outputExpression: types.optional(types.string()),
+  pipeline: types.string(),
+  targetContext: types.optional(TargetContext$inboundSchema),
+});
 /** @internal */
 export type RouteConf$Outbound = {
   clones?: Array<{ [k: string]: string }> | undefined;
@@ -67,4 +132,13 @@ export const RouteConf$outboundSchema: z.ZodType<
 
 export function routeConfToJSON(routeConf: RouteConf): string {
   return JSON.stringify(RouteConf$outboundSchema.parse(routeConf));
+}
+export function routeConfFromJSON(
+  jsonString: string,
+): SafeParseResult<RouteConf, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RouteConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RouteConf' from JSON`,
+  );
 }
