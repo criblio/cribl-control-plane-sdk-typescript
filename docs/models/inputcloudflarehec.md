@@ -65,17 +65,17 @@ let value: InputCloudflareHec = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.3",
   },
-  maxActiveReq: 9067.51,
-  maxRequestsPerSocket: 172617,
-  enableProxyHeader: true,
+  maxActiveReq: 5776.74,
+  maxRequestsPerSocket: 684676,
+  enableProxyHeader: false,
   captureHeaders: true,
-  activityLogSampleRate: 9421.24,
-  requestTimeout: 5776.74,
-  socketTimeout: 6846.76,
-  keepAliveTimeout: 5123.82,
+  activityLogSampleRate: 6552.52,
+  requestTimeout: 8049.23,
+  socketTimeout: 4244.89,
+  keepAliveTimeout: 6374.67,
   enableHealthCheck: "<value>",
   ipAllowlistRegex: "<value>",
   ipDenylistRegex: "<value>",
@@ -88,23 +88,23 @@ let value: InputCloudflareHec = {
   ],
   allowedIndexes: [
     "<value 1>",
-    "<value 2>",
   ],
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  staleChannelFlushMs: 8049.23,
+  staleChannelFlushMs: 7840.92,
   accessControlAllowOrigin: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
-  emitTokenMetrics: true,
-  description: "and ugh white besmirch brightly but afore libel cinch",
+  emitTokenMetrics: false,
+  description: "grade midst until and whoa plain lift",
   __template_host: "<value>",
   __template_port: "<value>",
 };
@@ -127,7 +127,7 @@ let value: InputCloudflareHec = {
 | `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
 | `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
 | `authTokens`                                                                                                                                                                                                                                 | [models.InputCloudflareHecAuthToken](../models/inputcloudflarehecauthtoken.md)[]                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.                                                                                                                            |
-| `tls`                                                                                                                                                                                                                                        | [models.TlsSettingsServerSideType](../models/tlssettingsserversidetype.md)                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `tls`                                                                                                                                                                                                                                        | [models.TLSSettingsServerSide](../models/tlssettingsserverside.md)                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `maxActiveReq`                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.                      |
 | `maxRequestsPerSocket`                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).                                                                                                              |
 | `enableProxyHeader`                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.                                                           |

@@ -12,6 +12,7 @@ import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { DestinationsPq } from "./destinationspq.js";
+import { DestinationsStatuses } from "./destinationsstatuses.js";
 import { Samples } from "./samples.js";
 
 export class Destinations extends ClientSDK {
@@ -23,6 +24,11 @@ export class Destinations extends ClientSDK {
   private _samples?: Samples;
   get samples(): Samples {
     return (this._samples ??= new Samples(this._options));
+  }
+
+  private _statuses?: DestinationsStatuses;
+  get statuses(): DestinationsStatuses {
+    return (this._statuses ??= new DestinationsStatuses(this._options));
   }
 
   /**

@@ -129,7 +129,7 @@ export class Commits extends ClientSDK {
    */
   async undo(
     options?: RequestOptions,
-  ): Promise<models.CountedObject> {
+  ): Promise<models.CountedBoolean> {
     return unwrapAsync(versionsCommitsUndo(
       this,
       options,

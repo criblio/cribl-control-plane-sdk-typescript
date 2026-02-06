@@ -22,34 +22,34 @@ import {
 
 export type RoutesGroups = {
   /**
-   * Short description of this group.
+   * Brief description of the Route Group.
    */
   description?: string | undefined;
   /**
-   * Index of the group.
+   * Relative position of the Route Group among all Route Groups. Routes are evaluated in ascending order according to the index value of their Route Group.
    */
   index: number;
   /**
-   * Group name.
+   * Name of the Route Group.
    */
   name: string;
 };
 
 export type Routes = {
   /**
-   * Comments.
+   * Array of user-provided comments that describe or annotate Routes.
    */
   comments?: Array<RouteComment> | undefined;
   /**
-   * Map of route groups.
+   * Information about the Route Groups that the Route is associated with.
    */
   groups?: { [k: string]: RoutesGroups } | undefined;
   /**
-   * Routes ID.
+   * Unique identifier for the Routing table. The supported value is <code>default</code>.
    */
   id: string;
   /**
-   * Pipeline routing rules.
+   * Array of Route configurations that define how events are processed and routed.
    */
   routes: Array<RouteConf>;
 };

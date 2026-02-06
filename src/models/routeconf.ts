@@ -15,55 +15,55 @@ import {
 
 export type RouteConf = {
   /**
-   * Create clones with the following fields set and feed to Pipeline (original event continues down the Routes).
+   * Array of clone configurations, each with a key-value pair to set or overwrite in cloned events. Original events continue to the next Route.
    */
   clones?: Array<{ [k: string]: string }> | undefined;
   /**
-   * Context for the route.
+   * Context for the Route: <code>group</code> (Worker Group or Edge Fleet) or <code>pack</code>.
    */
   context?: string | undefined;
   /**
-   * Description of this route.
+   * Brief description of the Route.
    */
   description?: string | undefined;
   /**
-   * Disable this routing rule.
+   * If <code>true</code>, disable the Route. Otherwise, <code>false</code>.
    */
   disabled?: boolean | undefined;
   /**
-   * Enable to use a JavaScript expression that evaluates to the name of the destination.
+   * If <code>true</code>, use the <code>outputExpression</code> for dynamic Destination selection. Otherwise, <code>false</code>.
    */
   enableOutputExpression?: boolean | undefined;
   /**
-   * JavaScript expression to select data to route.
+   * JavaScript expression to select events for routing.
    */
   filter?: string | undefined;
   /**
-   * Flag to control whether the event gets consumed by this Route (Final), or cloned into it.
+   * If <code>true</code> the Route processes matched events and sends them to the specified Pipeline. Matched events do not continue to the next Route, but non-matched events do continue to the next Route. If <code>false</code>, the Route processes matched events and sends them to the specified Pipeline, and all events (matched and non-matched) continue to the next Route. Must be <code>false</code> to clone events.
    */
   final: boolean;
   /**
-   * Route group identifier.
+   * Unique identifier for the Route Group that the Route is associated with.
    */
   groupId?: string | undefined;
   /**
-   * Route ID.
+   * Unique identifier for the Route.
    */
   id: string;
   /**
-   * Route name.
+   * Name of the Route.
    */
   name: string;
   /**
-   * Destination to send events to after they are processed by the Pipeline.
+   * Destination that the Route sends matching events to after the Pipeline processes the events.
    */
   output?: string | undefined;
   /**
-   * JavaScript expression that will be evaluated as the name of the destination. Evaluation happens at Route construction time (not per event).
+   * JavaScript expression to evaluate for dynamic Destination selection. Evaluation occurs when the Route is constructed, not for each event.
    */
   outputExpression?: string | undefined;
   /**
-   * Pipeline to send the matching data to.
+   * Pipeline that the Route sends matching events to.
    */
   pipeline: string;
   targetContext?: TargetContext | undefined;
