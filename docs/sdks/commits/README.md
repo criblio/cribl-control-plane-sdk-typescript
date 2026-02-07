@@ -575,7 +575,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedObject](../../models/countedobject.md)\>**
+**Promise\<[models.CountedBoolean](../../models/countedboolean.md)\>**
 
 ### Errors
 
