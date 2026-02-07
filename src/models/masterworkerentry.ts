@@ -8,6 +8,10 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import {
+  ConnectionProtocol,
+  ConnectionProtocol$inboundSchema,
+} from "./connectionprotocol.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   HeartbeatMetadata,
@@ -34,6 +38,7 @@ export type MasterWorkerEntryWorkers = {
 };
 
 export type MasterWorkerEntry = {
+  connectionProtocol?: ConnectionProtocol | undefined;
   deployable?: boolean | undefined;
   disconnected?: boolean | undefined;
   firstMsgTime: number;
@@ -82,6 +87,7 @@ export const MasterWorkerEntry$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  connectionProtocol: types.optional(ConnectionProtocol$inboundSchema),
   deployable: types.optional(types.boolean()),
   disconnected: types.optional(types.boolean()),
   firstMsgTime: types.number(),

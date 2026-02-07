@@ -271,7 +271,7 @@ Restart all Worker or Edge Nodes for the specified Cribl product.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="updateProductsWorkersRestartByProduct" method="patch" path="/products/{product}/workers/restart" -->
+<!-- UsageSnippet language="typescript" operationID="updateProductsWorkersRestartByProduct" method="patch" path="/products/{product}/workers/restart" example="RestartWorkersExamplesRestartWorkers" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

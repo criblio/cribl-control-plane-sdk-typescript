@@ -8,18 +8,20 @@ import { NodeProvidedInfo } from "cribl-control-plane/models";
 let value: NodeProvidedInfo = {
   architecture: "<value>",
   aws: {
-    enabled: false,
+    enabled: true,
     instanceId: "<id>",
     region: "<value>",
     tags: {
       "key": "<value>",
+      "key1": "<value>",
+      "key2": "<value>",
     },
     type: "<value>",
     zone: "<value>",
   },
   azure: {
-    enabled: false,
-    hostname: "hidden-hundred.net",
+    enabled: true,
+    hostname: "jittery-someplace.com",
     instanceId: "<id>",
     name: "<value>",
     region: "<value>",
@@ -27,6 +29,8 @@ let value: NodeProvidedInfo = {
     subscriptionId: "<id>",
     tags: {
       "key": "<value>",
+      "key1": "<value>",
+      "key2": "<value>",
     },
     type: "<value>",
     vmId: "<id>",
@@ -37,31 +41,36 @@ let value: NodeProvidedInfo = {
   cribl: {
     config: {
       featuresRev: "<value>",
-      hbPeriodSeconds: 6830.62,
+      hbPeriodSeconds: 4320.82,
       logStreamEnv: "<value>",
       policyRev: "<value>",
       version: "<value>",
     },
     deploymentId: "<id>",
-    disableSNIRouting: true,
-    distMode: "outpost",
-    edgeNodes: 809.07,
+    disableSNIRouting: false,
+    distMode: "single",
+    edgeNodes: 2603.28,
     group: "<value>",
     guid: "<id>",
     installType: "<value>",
     lookupVersions: {
-      "key": {},
+      "key": {
+        "key": "<value>",
+        "key1": "<value>",
+      },
     },
     master: {
-      host: "serene-corporation.biz",
-      port: 3710.27,
+      host: "diligent-festival.info",
+      port: 3411.24,
       servername: "<value>",
       tls: true,
     },
-    pid: 2440.94,
-    socksEnabled: false,
-    startTime: 2048.24,
-    tags: [],
+    pid: 9285.54,
+    socksEnabled: true,
+    startTime: 1526.71,
+    tags: [
+      "<value 1>",
+    ],
     version: "<value>",
   },
   env: {
@@ -73,15 +82,16 @@ let value: NodeProvidedInfo = {
     addresses: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
-    enabled: false,
+    enabled: true,
     id: "<id>",
     version: "<value>",
   },
   hostname: "tender-thigh.com",
   isSaasWorker: true,
   kube: {
-    enabled: true,
+    enabled: false,
     namespace: "<value>",
     node: "<value>",
     owner: {
@@ -94,18 +104,20 @@ let value: NodeProvidedInfo = {
   localTime: 813.42,
   metadata: {
     aws: {
-      enabled: false,
+      enabled: true,
       instanceId: "<id>",
       region: "<value>",
       tags: {
         "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
       },
       type: "<value>",
       zone: "<value>",
     },
     azure: {
-      enabled: false,
-      hostname: "hidden-hundred.net",
+      enabled: true,
+      hostname: "jittery-someplace.com",
       instanceId: "<id>",
       name: "<value>",
       region: "<value>",
@@ -113,6 +125,8 @@ let value: NodeProvidedInfo = {
       subscriptionId: "<id>",
       tags: {
         "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
       },
       type: "<value>",
       vmId: "<id>",
@@ -122,13 +136,14 @@ let value: NodeProvidedInfo = {
       addresses: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
-      enabled: false,
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
     kube: {
-      enabled: true,
+      enabled: false,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -139,7 +154,11 @@ let value: NodeProvidedInfo = {
       source: "<value>",
     },
     os: {
-      addresses: [],
+      addresses: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
       enabled: false,
       id: "<id>",
       version: "<value>",
@@ -149,13 +168,11 @@ let value: NodeProvidedInfo = {
   os: {
     addresses: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
   },
   outpost: {
     guid: "<id>",
-    host: "honored-massage.org",
+    host: "nippy-tribe.org",
   },
   platform: "<value>",
   release: "<value>",
