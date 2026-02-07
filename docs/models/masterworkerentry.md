@@ -6,26 +6,29 @@
 import { MasterWorkerEntry } from "cribl-control-plane/models";
 
 let value: MasterWorkerEntry = {
-  deployable: true,
+  connectionProtocol: "tcp",
+  deployable: false,
   disconnected: false,
-  firstMsgTime: 7209.39,
+  firstMsgTime: 7161.68,
   group: "<value>",
   id: "<id>",
   info: {
     architecture: "<value>",
     aws: {
-      enabled: false,
+      enabled: true,
       instanceId: "<id>",
       region: "<value>",
       tags: {
         "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
       },
       type: "<value>",
       zone: "<value>",
     },
     azure: {
-      enabled: false,
-      hostname: "hidden-hundred.net",
+      enabled: true,
+      hostname: "jittery-someplace.com",
       instanceId: "<id>",
       name: "<value>",
       region: "<value>",
@@ -33,60 +36,68 @@ let value: MasterWorkerEntry = {
       subscriptionId: "<id>",
       tags: {
         "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
       },
       type: "<value>",
       vmId: "<id>",
       zone: "<value>",
     },
     conn_ip: "<value>",
-    cpus: 6874.61,
+    cpus: 6830.62,
     cribl: {
       config: {
         featuresRev: "<value>",
-        hbPeriodSeconds: 6830.62,
+        hbPeriodSeconds: 4320.82,
         logStreamEnv: "<value>",
         policyRev: "<value>",
         version: "<value>",
       },
       deploymentId: "<id>",
-      disableSNIRouting: true,
-      distMode: "outpost",
-      edgeNodes: 809.07,
+      disableSNIRouting: false,
+      distMode: "single",
+      edgeNodes: 2603.28,
       group: "<value>",
       guid: "<id>",
       installType: "<value>",
       lookupVersions: {
-        "key": {},
+        "key": {
+          "key": "<value>",
+          "key1": "<value>",
+        },
       },
       master: {
-        host: "serene-corporation.biz",
-        port: 3710.27,
+        host: "diligent-festival.info",
+        port: 3411.24,
         servername: "<value>",
         tls: true,
       },
-      pid: 2440.94,
-      socksEnabled: false,
-      startTime: 2048.24,
-      tags: [],
+      pid: 9285.54,
+      socksEnabled: true,
+      startTime: 1526.71,
+      tags: [
+        "<value 1>",
+      ],
       version: "<value>",
     },
     env: {
       "key": "<value>",
     },
-    freeDiskSpace: 2959.09,
+    freeDiskSpace: 6285.73,
     hostOs: {
       addresses: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
-      enabled: false,
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
-    hostname: "jumbo-decongestant.biz",
-    isSaasWorker: false,
+    hostname: "emotional-contrail.name",
+    isSaasWorker: true,
     kube: {
-      enabled: true,
+      enabled: false,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -96,21 +107,23 @@ let value: MasterWorkerEntry = {
       pod: "<value>",
       source: "<value>",
     },
-    localTime: 5260.28,
+    localTime: 268.82,
     metadata: {
       aws: {
-        enabled: false,
+        enabled: true,
         instanceId: "<id>",
         region: "<value>",
         tags: {
           "key": "<value>",
+          "key1": "<value>",
+          "key2": "<value>",
         },
         type: "<value>",
         zone: "<value>",
       },
       azure: {
-        enabled: false,
-        hostname: "hidden-hundred.net",
+        enabled: true,
+        hostname: "jittery-someplace.com",
         instanceId: "<id>",
         name: "<value>",
         region: "<value>",
@@ -118,6 +131,8 @@ let value: MasterWorkerEntry = {
         subscriptionId: "<id>",
         tags: {
           "key": "<value>",
+          "key1": "<value>",
+          "key2": "<value>",
         },
         type: "<value>",
         vmId: "<id>",
@@ -127,13 +142,14 @@ let value: MasterWorkerEntry = {
         addresses: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
-        enabled: false,
+        enabled: true,
         id: "<id>",
         version: "<value>",
       },
       kube: {
-        enabled: true,
+        enabled: false,
         namespace: "<value>",
         node: "<value>",
         owner: {
@@ -144,7 +160,11 @@ let value: MasterWorkerEntry = {
         source: "<value>",
       },
       os: {
-        addresses: [],
+        addresses: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
         enabled: false,
         id: "<id>",
         version: "<value>",
@@ -154,39 +174,39 @@ let value: MasterWorkerEntry = {
     os: {
       addresses: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
     },
     outpost: {
       guid: "<id>",
-      host: "honored-massage.org",
+      host: "nippy-tribe.org",
     },
     platform: "<value>",
     release: "<value>",
-    totalDiskSpace: 9804.66,
-    totalmem: 3742.53,
+    totalDiskSpace: 3742.53,
+    totalmem: 1410.02,
   },
   lastMetrics: {
     "key": "<value>",
     "key1": "<value>",
     "key2": "<value>",
   },
-  lastMsgTime: 8518.59,
+  lastMsgTime: 3638.57,
   metadata: {
     aws: {
-      enabled: false,
+      enabled: true,
       instanceId: "<id>",
       region: "<value>",
       tags: {
         "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
       },
       type: "<value>",
       zone: "<value>",
     },
     azure: {
-      enabled: false,
-      hostname: "hidden-hundred.net",
+      enabled: true,
+      hostname: "jittery-someplace.com",
       instanceId: "<id>",
       name: "<value>",
       region: "<value>",
@@ -194,6 +214,8 @@ let value: MasterWorkerEntry = {
       subscriptionId: "<id>",
       tags: {
         "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
       },
       type: "<value>",
       vmId: "<id>",
@@ -203,13 +225,14 @@ let value: MasterWorkerEntry = {
       addresses: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
-      enabled: false,
+      enabled: true,
       id: "<id>",
       version: "<value>",
     },
     kube: {
-      enabled: true,
+      enabled: false,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -220,7 +243,11 @@ let value: MasterWorkerEntry = {
       source: "<value>",
     },
     os: {
-      addresses: [],
+      addresses: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
       enabled: false,
       id: "<id>",
       version: "<value>",
@@ -228,16 +255,16 @@ let value: MasterWorkerEntry = {
   },
   nodeUpgradeStatus: {
     active: 2,
-    failed: 1,
-    skipped: 0,
-    state: 1,
-    timestamp: 1259.2,
+    failed: 0,
+    skipped: 1,
+    state: 0,
+    timestamp: 9226.83,
   },
   status: "<value>",
   type: "req",
-  workerProcesses: 5121.94,
+  workerProcesses: 5282.77,
   workers: {
-    count: 1569.79,
+    count: 7865.45,
   },
 };
 ```
@@ -246,6 +273,7 @@ let value: MasterWorkerEntry = {
 
 | Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
 | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `connectionProtocol`                                                     | [models.ConnectionProtocol](../models/connectionprotocol.md)             | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `deployable`                                                             | *boolean*                                                                | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `disconnected`                                                           | *boolean*                                                                | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `firstMsgTime`                                                           | *number*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |

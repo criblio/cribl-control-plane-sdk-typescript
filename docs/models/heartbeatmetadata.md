@@ -7,18 +7,20 @@ import { HeartbeatMetadata } from "cribl-control-plane/models";
 
 let value: HeartbeatMetadata = {
   aws: {
-    enabled: false,
+    enabled: true,
     instanceId: "<id>",
     region: "<value>",
     tags: {
       "key": "<value>",
+      "key1": "<value>",
+      "key2": "<value>",
     },
     type: "<value>",
     zone: "<value>",
   },
   azure: {
-    enabled: false,
-    hostname: "hidden-hundred.net",
+    enabled: true,
+    hostname: "jittery-someplace.com",
     instanceId: "<id>",
     name: "<value>",
     region: "<value>",
@@ -26,6 +28,8 @@ let value: HeartbeatMetadata = {
     subscriptionId: "<id>",
     tags: {
       "key": "<value>",
+      "key1": "<value>",
+      "key2": "<value>",
     },
     type: "<value>",
     vmId: "<id>",
@@ -35,13 +39,14 @@ let value: HeartbeatMetadata = {
     addresses: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
-    enabled: false,
+    enabled: true,
     id: "<id>",
     version: "<value>",
   },
   kube: {
-    enabled: true,
+    enabled: false,
     namespace: "<value>",
     node: "<value>",
     owner: {
@@ -52,7 +57,11 @@ let value: HeartbeatMetadata = {
     source: "<value>",
   },
   os: {
-    addresses: [],
+    addresses: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
     enabled: false,
     id: "<id>",
     version: "<value>",
