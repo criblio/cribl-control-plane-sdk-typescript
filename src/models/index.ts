@@ -64,6 +64,7 @@ export * from "./compressionoptionspq.js";
 export * from "./configgroup.js";
 export * from "./configgroupcloud.js";
 export * from "./configgrouplookups.js";
+export * from "./countedboolean.js";
 export * from "./countedbranchinfo.js";
 export * from "./countedconfiggroup.js";
 export * from "./countedcribllakedataset.js";
