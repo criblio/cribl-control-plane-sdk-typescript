@@ -6,39 +6,16 @@
 import { PipelineFunctionAggregateMetrics } from "cribl-control-plane/models";
 
 let value: PipelineFunctionAggregateMetrics = {
-  filter: "<value>",
   id: "aggregate_metrics",
-  description: "along kindly down edge diagram meh whereas",
-  disabled: false,
-  final: true,
   conf: {
-    passthrough: true,
-    preserveGroupBys: true,
-    sufficientStatsOnly: true,
-    prefix: "<value>",
     timeWindow: "<value>",
     aggregations: [
       {
-        metricType: "timer",
+        metricType: "automatic",
         agg: "<value>",
       },
     ],
-    groupbys: [
-      "<value 1>",
-    ],
-    flushEventLimit: 6231.35,
-    flushMemLimit: "<value>",
-    cumulative: true,
-    shouldTreatDotsAsLiterals: false,
-    add: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    flushOnInputClose: true,
   },
-  groupId: "<id>",
 };
 ```
 

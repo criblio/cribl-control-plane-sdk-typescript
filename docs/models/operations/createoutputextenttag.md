@@ -6,7 +6,6 @@
 import { CreateOutputExtentTag } from "cribl-control-plane/models/operations";
 
 let value: CreateOutputExtentTag = {
-  prefix: "ingestBy",
   value: "<value>",
 };
 ```

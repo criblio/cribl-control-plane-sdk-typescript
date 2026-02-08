@@ -6,8 +6,6 @@
 import { GetOutputStatusSystemOutputsByPackRequest } from "cribl-control-plane/models/operations";
 
 let value: GetOutputStatusSystemOutputsByPackRequest = {
-  metrics: true,
-  type: true,
   pack: "<value>",
 };
 ```

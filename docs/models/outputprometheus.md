@@ -6,77 +6,8 @@
 import { OutputPrometheus } from "cribl-control-plane/models";
 
 let value: OutputPrometheus = {
-  id: "<id>",
   type: "prometheus",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  url: "https://appropriate-atrium.name/",
-  metricRenameExpr: "<value>",
-  sendMetadata: true,
-  concurrency: 6711.09,
-  maxPayloadSizeKB: 9356.15,
-  maxPayloadEvents: 3423.42,
-  rejectUnauthorized: false,
-  timeoutSec: 856.52,
-  flushPeriodSec: 4555.01,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: false,
-  failedRequestLoggingMode: "none",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "drop",
-  authType: "textSecret",
-  description:
-    "fooey confirm jaunty um pleasing synthesise gadzooks firsthand rosy bah",
-  metricsFlushPeriodSec: 9275.94,
-  pqStrictOrdering: false,
-  pqRatePerSec: 5281.55,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 456.26,
-  pqMaxBackpressureSec: 6963.69,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "block",
-  pqControls: {},
-  username: "Zoey.Crooks",
-  password: "RjFCA3oOaKcArkt",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  __template_url: "https://kaleidoscopic-overload.info/",
+  url: "https://regal-expense.com/",
 };
 ```
 

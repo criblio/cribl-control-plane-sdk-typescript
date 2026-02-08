@@ -8,39 +8,9 @@ import { CreateOutputOutputGraphite } from "cribl-control-plane/models/operation
 let value: CreateOutputOutputGraphite = {
   id: "<id>",
   type: "graphite",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
   protocol: "tcp",
-  host: "mealy-custom.com",
-  port: 7461.96,
-  mtu: 6058.95,
-  flushPeriodSec: 3175.69,
-  dnsResolvePeriodSec: 3020.52,
-  description:
-    "unethically pixellate retention absent nervous hm pretty question",
-  throttleRatePerSec: "<value>",
-  connectionTimeout: 8654.62,
-  writeTimeout: 3160.22,
-  onBackpressure: "block",
-  pqStrictOrdering: true,
-  pqRatePerSec: 1507.04,
-  pqMode: "always",
-  pqMaxBufferSize: 3340.76,
-  pqMaxBackpressureSec: 257.72,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
+  host: "fantastic-quinoa.name",
+  port: 2135.91,
 };
 ```
 

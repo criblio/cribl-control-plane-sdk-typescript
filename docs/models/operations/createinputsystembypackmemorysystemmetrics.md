@@ -5,10 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackMemorySystemMetrics } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackMemorySystemMetrics = {
-  mode: "basic",
-  detail: true,
-};
+let value: CreateInputSystemByPackMemorySystemMetrics = {};
 ```
 
 ## Fields

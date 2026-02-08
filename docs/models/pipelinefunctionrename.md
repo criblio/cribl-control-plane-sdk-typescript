@@ -6,27 +6,8 @@
 import { PipelineFunctionRename } from "cribl-control-plane/models";
 
 let value: PipelineFunctionRename = {
-  filter: "<value>",
   id: "rename",
-  description: "eek hmph vainly and",
-  disabled: true,
-  final: false,
-  conf: {
-    baseFields: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    rename: [
-      {
-        currentName: "<value>",
-        newName: "<value>",
-      },
-    ],
-    renameExpr: "<value>",
-    wildcardDepth: 400895,
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

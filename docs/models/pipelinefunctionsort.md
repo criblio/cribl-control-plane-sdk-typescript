@@ -6,19 +6,10 @@
 import { PipelineFunctionSort } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSort = {
-  filter: "<value>",
   id: "sort",
-  description: "babyish schlep inside",
-  disabled: false,
-  final: false,
   conf: {
-    sortId: "<id>",
     comparisonExpression: "<value>",
-    topN: 3645.17,
-    maxEvents: 9120.6,
-    suppressPreviews: true,
   },
-  groupId: "<id>",
 };
 ```
 

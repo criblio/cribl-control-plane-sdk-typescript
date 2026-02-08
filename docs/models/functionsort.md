@@ -7,24 +7,13 @@ import { FunctionSort } from "cribl-control-plane/models";
 
 let value: FunctionSort = {
   __filename: "example.file",
-  asyncTimeout: 4827.88,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "sort",
-  loadTime: 1943.19,
-  modTime: 3061.75,
+  loadTime: 4827.88,
+  modTime: 1053.28,
   name: "<value>",
-  sync: true,
-  uischema: {
-    "key": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

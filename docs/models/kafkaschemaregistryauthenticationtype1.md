@@ -7,28 +7,6 @@ import { KafkaSchemaRegistryAuthenticationType1 } from "cribl-control-plane/mode
 
 let value: KafkaSchemaRegistryAuthenticationType1 = {
   disabled: true,
-  schemaRegistryURL: "https://peaceful-morbidity.name/",
-  connectionTimeout: 2484.88,
-  requestTimeout: 6606.5,
-  maxRetries: 9758.84,
-  auth: {
-    disabled: false,
-    credentialsSecret: "<value>",
-  },
-  tls: {
-    disabled: false,
-    rejectUnauthorized: true,
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  defaultKeySchemaId: 9258.1,
-  defaultValueSchemaId: 8804.5,
 };
 ```
 

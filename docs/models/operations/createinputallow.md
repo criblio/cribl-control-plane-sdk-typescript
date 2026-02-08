@@ -7,7 +7,6 @@ import { CreateInputAllow } from "cribl-control-plane/models/operations";
 
 let value: CreateInputAllow = {
   procname: "<value>",
-  arg: "<value>",
   config: "<value>",
 };
 ```

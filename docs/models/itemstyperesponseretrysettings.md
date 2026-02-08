@@ -7,9 +7,6 @@ import { ItemsTypeResponseRetrySettings } from "cribl-control-plane/models";
 
 let value: ItemsTypeResponseRetrySettings = {
   httpStatus: 8143.95,
-  initialBackoff: 9094.38,
-  backoffRate: 7400.03,
-  maxBackoff: 9558.58,
 };
 ```
 

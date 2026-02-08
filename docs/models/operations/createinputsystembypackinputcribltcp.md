@@ -8,68 +8,8 @@ import { CreateInputSystemByPackInputCriblTcp } from "cribl-control-plane/models
 let value: CreateInputSystemByPackInputCriblTcp = {
   id: "<id>",
   type: "cribl_tcp",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "fixed-antelope.org",
-  port: 9691.28,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveCxn: 8997.73,
-  socketIdleTimeout: 6180.59,
-  socketEndingMaxWait: 5691.6,
-  socketMaxLifespan: 7600.64,
-  enableProxyHeader: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  enableLoadBalancing: false,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      enabled: true,
-      description: "technician flimsy and ha",
-    },
-  ],
-  description:
-    "bootleg insecure cinch hyphenation molasses hornet arbitrate about",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "brisk-embarrassment.net",
+  port: 1008.96,
 };
 ```
 

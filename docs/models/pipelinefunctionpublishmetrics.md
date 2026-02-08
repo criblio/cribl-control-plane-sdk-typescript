@@ -6,34 +6,8 @@
 import { PipelineFunctionPublishMetrics } from "cribl-control-plane/models";
 
 let value: PipelineFunctionPublishMetrics = {
-  filter: "<value>",
   id: "publish_metrics",
-  description: "madly after pushy gosh bustling anenst as geez past blind",
-  disabled: true,
-  final: true,
-  conf: {
-    fields: [
-      {
-        inFieldName: "<value>",
-        outFieldExpr: "<value>",
-        metricType: "counter",
-      },
-    ],
-    overwrite: true,
-    dimensions: [
-      "<value 1>",
-    ],
-    removeMetrics: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    removeDimensions: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

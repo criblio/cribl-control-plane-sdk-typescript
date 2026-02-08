@@ -141,34 +141,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.packs.install({
-    id: "<id>",
-    spec: "<value>",
-    version: "<value>",
-    minLogStreamVersion: "<value>",
-    displayName: "Jennyfer.Bogan",
-    author: "<value>",
-    description: "ack that sparkling if blah bourgeoisie or phooey",
     source: "git+https://github.com/criblio/cribl_ocsf_postprocessing",
-    tags: {
-      dataType: [
-        "double",
-        "boolean",
-      ],
-      domain: [
-        "delectable-transom.com",
-        "radiant-sightseeing.info",
-      ],
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      technology: [
-        "<value 1>",
-      ],
-    },
     allowCustomFunctions: false,
-    force: true,
   });
 
   console.log(result);
@@ -196,34 +170,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await packsInstall(criblControlPlane, {
-    id: "<id>",
-    spec: "<value>",
-    version: "<value>",
-    minLogStreamVersion: "<value>",
-    displayName: "Jennyfer.Bogan",
-    author: "<value>",
-    description: "ack that sparkling if blah bourgeoisie or phooey",
     source: "git+https://github.com/criblio/cribl_ocsf_postprocessing",
-    tags: {
-      dataType: [
-        "double",
-        "boolean",
-      ],
-      domain: [
-        "delectable-transom.com",
-        "radiant-sightseeing.info",
-      ],
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      technology: [
-        "<value 1>",
-      ],
-    },
     allowCustomFunctions: false,
-    force: true,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -250,32 +198,7 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.packs.install({
-    id: "<id>",
-    spec: "<value>",
-    version: "<value>",
-    minLogStreamVersion: "<value>",
-    displayName: "June30",
-    author: "<value>",
-    description: "and banish crossly abacus",
     source: "https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl",
-    tags: {
-      dataType: [
-        "double",
-        "boolean",
-      ],
-      domain: [
-        "delectable-transom.com",
-        "radiant-sightseeing.info",
-      ],
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      technology: [
-        "<value 1>",
-      ],
-    },
     allowCustomFunctions: true,
     force: true,
   });
@@ -305,32 +228,7 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await packsInstall(criblControlPlane, {
-    id: "<id>",
-    spec: "<value>",
-    version: "<value>",
-    minLogStreamVersion: "<value>",
-    displayName: "June30",
-    author: "<value>",
-    description: "and banish crossly abacus",
     source: "https://packs.cribl.io/dl/cribl-duo-rest-io/latest/cribl-duo-rest-io-latest.crbl",
-    tags: {
-      dataType: [
-        "double",
-        "boolean",
-      ],
-      domain: [
-        "delectable-transom.com",
-        "radiant-sightseeing.info",
-      ],
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      technology: [
-        "<value 1>",
-      ],
-    },
     allowCustomFunctions: true,
     force: true,
   });
@@ -359,34 +257,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.packs.install({
-    id: "<id>",
-    spec: "<value>",
-    version: "<value>",
-    minLogStreamVersion: "<value>",
-    displayName: "Lavon.Russel",
-    author: "<value>",
-    description: "ferociously haunting meh into instantly",
     source: "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl",
-    tags: {
-      dataType: [
-        "double",
-        "boolean",
-      ],
-      domain: [
-        "delectable-transom.com",
-        "radiant-sightseeing.info",
-      ],
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      technology: [
-        "<value 1>",
-      ],
-    },
     allowCustomFunctions: false,
-    force: false,
   });
 
   console.log(result);
@@ -414,34 +286,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await packsInstall(criblControlPlane, {
-    id: "<id>",
-    spec: "<value>",
-    version: "<value>",
-    minLogStreamVersion: "<value>",
-    displayName: "Lavon.Russel",
-    author: "<value>",
-    description: "ferociously haunting meh into instantly",
     source: "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl",
-    tags: {
-      dataType: [
-        "double",
-        "boolean",
-      ],
-      domain: [
-        "delectable-transom.com",
-        "radiant-sightseeing.info",
-      ],
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      technology: [
-        "<value 1>",
-      ],
-    },
     allowCustomFunctions: false,
-    force: false,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -469,33 +315,8 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.packs.install({
     id: "cribl-search-missing-logs",
-    spec: "<value>",
-    version: "<value>",
-    minLogStreamVersion: "<value>",
-    displayName: "Onie_Miller",
-    author: "<value>",
-    description: "than eek before fledgling absent astride depart till",
     source: "cribl-search-missing-logs-1.0.1.Do7DH5I.crbl",
-    tags: {
-      dataType: [
-        "double",
-        "boolean",
-      ],
-      domain: [
-        "delectable-transom.com",
-        "radiant-sightseeing.info",
-      ],
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      technology: [
-        "<value 1>",
-      ],
-    },
     allowCustomFunctions: false,
-    force: true,
   });
 
   console.log(result);
@@ -524,33 +345,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await packsInstall(criblControlPlane, {
     id: "cribl-search-missing-logs",
-    spec: "<value>",
-    version: "<value>",
-    minLogStreamVersion: "<value>",
-    displayName: "Onie_Miller",
-    author: "<value>",
-    description: "than eek before fledgling absent astride depart till",
     source: "cribl-search-missing-logs-1.0.1.Do7DH5I.crbl",
-    tags: {
-      dataType: [
-        "double",
-        "boolean",
-      ],
-      domain: [
-        "delectable-transom.com",
-        "radiant-sightseeing.info",
-      ],
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      technology: [
-        "<value 1>",
-      ],
-    },
     allowCustomFunctions: false,
-    force: true,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -928,10 +724,7 @@ async function run() {
   const result = await criblControlPlane.packs.update({
     id: "<id>",
     packUpgradeRequest: {
-      allowCustomFunctions: true,
-      minor: "<value>",
       source: "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl",
-      spec: "<value>",
     },
   });
 
@@ -962,10 +755,7 @@ async function run() {
   const res = await packsUpdate(criblControlPlane, {
     id: "<id>",
     packUpgradeRequest: {
-      allowCustomFunctions: true,
-      minor: "<value>",
       source: "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl",
-      spec: "<value>",
     },
   });
   if (res.ok) {

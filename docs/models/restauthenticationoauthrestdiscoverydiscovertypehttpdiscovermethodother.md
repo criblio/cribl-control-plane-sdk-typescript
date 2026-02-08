@@ -9,23 +9,8 @@ let value:
   RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther = {
     discoverMethod: "other",
     discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestParams: "<value>",
     discoverType: "http",
     discoverUrl: "https://superficial-bourgeoisie.name",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: true,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: true,
   };
 ```
 

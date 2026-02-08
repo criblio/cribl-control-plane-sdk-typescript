@@ -6,7 +6,6 @@
 import { ItemsTypeExtraHttpHeaders } from "cribl-control-plane/models";
 
 let value: ItemsTypeExtraHttpHeaders = {
-  name: "<value>",
   value: "<value>",
 };
 ```

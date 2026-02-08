@@ -8,61 +8,7 @@ import { CreateInputInputMetrics } from "cribl-control-plane/models/operations";
 let value: CreateInputInputMetrics = {
   id: "<id>",
   type: "metrics",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "annual-soybean.info",
-  udpPort: 2736.87,
-  tcpPort: 4134.94,
-  maxBufferSize: 5180.4,
-  ipWhitelistRegex: "<value>",
-  enableProxyHeader: false,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 7489.41,
-  description: "low geez cop-out",
-  __template_host: "<value>",
-  __template_udpPort: "<value>",
-  __template_tcpPort: "<value>",
+  host: "zesty-retention.info",
 };
 ```
 

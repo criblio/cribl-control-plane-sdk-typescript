@@ -7,7 +7,6 @@ import { CreateInputRuleKubeLogs } from "cribl-control-plane/models/operations";
 
 let value: CreateInputRuleKubeLogs = {
   filter: "<value>",
-  description: "oxidize than which",
 };
 ```
 

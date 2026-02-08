@@ -8,51 +8,8 @@ import { CreateInputSystemByPackInputNetflow } from "cribl-control-plane/models/
 let value: CreateInputSystemByPackInputNetflow = {
   id: "<id>",
   type: "netflow",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "cloudy-gradient.net",
-  port: 3420.26,
-  enablePassThrough: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  udpSocketRxBufSize: 7453.32,
-  templateCacheMinutes: 1568.09,
-  v5Enabled: true,
-  v9Enabled: false,
-  ipfixEnabled: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "enrich yuck electrify boo",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "bustling-summer.org",
+  port: 9790.23,
 };
 ```
 

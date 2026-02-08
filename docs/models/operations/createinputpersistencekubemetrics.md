@@ -5,14 +5,7 @@
 ```typescript
 import { CreateInputPersistenceKubeMetrics } from "cribl-control-plane/models/operations";
 
-let value: CreateInputPersistenceKubeMetrics = {
-  enable: false,
-  timeWindow: "<value>",
-  maxDataSize: "<value>",
-  maxDataTime: "<value>",
-  compress: "none",
-  destPath: "<value>",
-};
+let value: CreateInputPersistenceKubeMetrics = {};
 ```
 
 ## Fields

@@ -7,9 +7,7 @@ Creates events from the list of services
 ```typescript
 import { CreateInputServices } from "cribl-control-plane/models/operations";
 
-let value: CreateInputServices = {
-  enable: true,
-};
+let value: CreateInputServices = {};
 ```
 
 ## Fields

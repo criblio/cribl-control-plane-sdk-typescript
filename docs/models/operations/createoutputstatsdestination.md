@@ -5,15 +5,7 @@
 ```typescript
 import { CreateOutputStatsDestination } from "cribl-control-plane/models/operations";
 
-let value: CreateOutputStatsDestination = {
-  url: "https://elderly-confusion.biz/",
-  database: "<value>",
-  tableName: "<value>",
-  authType: "<value>",
-  username: "Blake.Klocko76",
-  sqlUsername: "<value>",
-  password: "3Pm7xqiE7xf7xp5",
-};
+let value: CreateOutputStatsDestination = {};
 ```
 
 ## Fields

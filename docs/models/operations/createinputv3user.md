@@ -7,10 +7,6 @@ import { CreateInputV3User } from "cribl-control-plane/models/operations";
 
 let value: CreateInputV3User = {
   name: "<value>",
-  authProtocol: "sha256",
-  authKey: "<value>",
-  privProtocol: "aes256b",
-  privKey: "<value>",
 };
 ```
 

@@ -8,13 +8,6 @@ import { PipelineFunctionSerdeConf } from "cribl-control-plane/models";
 let value: PipelineFunctionSerdeConf = {
   mode: "extract",
   type: "grok",
-  delimChar: "<value>",
-  quoteChar: "<value>",
-  escapeChar: "<value>",
-  nullValue: "<value>",
-  srcField: "<value>",
-  dstField: "<value>",
-  cleanFields: "<value>",
 };
 ```
 

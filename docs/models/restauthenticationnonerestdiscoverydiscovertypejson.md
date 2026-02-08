@@ -8,7 +8,6 @@ import { RestAuthenticationNoneRestDiscoveryDiscoverTypeJson } from "cribl-contr
 let value: RestAuthenticationNoneRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

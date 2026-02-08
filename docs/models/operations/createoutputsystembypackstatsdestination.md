@@ -5,15 +5,7 @@
 ```typescript
 import { CreateOutputSystemByPackStatsDestination } from "cribl-control-plane/models/operations";
 
-let value: CreateOutputSystemByPackStatsDestination = {
-  url: "https://brave-pine.com/",
-  database: "<value>",
-  tableName: "<value>",
-  authType: "<value>",
-  username: "Creola_Hoeger",
-  sqlUsername: "<value>",
-  password: "vvJpOYIcYw24WDp",
-};
+let value: CreateOutputSystemByPackStatsDestination = {};
 ```
 
 ## Fields

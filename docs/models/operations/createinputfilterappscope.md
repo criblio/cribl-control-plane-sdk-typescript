@@ -5,16 +5,7 @@
 ```typescript
 import { CreateInputFilterAppscope } from "cribl-control-plane/models/operations";
 
-let value: CreateInputFilterAppscope = {
-  allow: [
-    {
-      procname: "<value>",
-      arg: "<value>",
-      config: "<value>",
-    },
-  ],
-  transportURL: "https://ecstatic-bungalow.com/",
-};
+let value: CreateInputFilterAppscope = {};
 ```
 
 ## Fields

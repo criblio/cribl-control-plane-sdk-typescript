@@ -6,74 +6,9 @@
 import { InputCriblHttp } from "cribl-control-plane/models";
 
 let value: InputCriblHttp = {
-  id: "<id>",
   type: "cribl_http",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "stingy-postbox.com",
-  port: 8372.55,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      enabled: true,
-      description: "technician flimsy and ha",
-    },
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 2912.8,
-  maxRequestsPerSocket: 948559,
-  enableProxyHeader: false,
-  captureHeaders: false,
-  activityLogSampleRate: 5732.3,
-  requestTimeout: 7297.45,
-  socketTimeout: 9093.35,
-  keepAliveTimeout: 5310.92,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "midst meh off aha",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "well-off-exterior.info",
+  port: 394.56,
 };
 ```
 

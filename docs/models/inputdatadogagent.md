@@ -6,74 +6,9 @@
 import { InputDatadogAgent } from "cribl-control-plane/models";
 
 let value: InputDatadogAgent = {
-  id: "<id>",
   type: "datadog_agent",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "stable-hovercraft.info",
-  port: 5714.97,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 9434.99,
-  maxRequestsPerSocket: 378452,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 550,
-  requestTimeout: 8039.38,
-  socketTimeout: 7657.4,
-  keepAliveTimeout: 771,
-  enableHealthCheck: true,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  extractMetrics: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  proxyMode: {
-    enabled: false,
-    rejectUnauthorized: false,
-  },
-  description:
-    "upright outflank mmm per successfully yum ape councilman between grandpa",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "standard-granny.net",
+  port: 3507.99,
 };
 ```
 

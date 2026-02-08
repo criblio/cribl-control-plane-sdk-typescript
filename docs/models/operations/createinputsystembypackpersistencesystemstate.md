@@ -5,14 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackPersistenceSystemState } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackPersistenceSystemState = {
-  enable: false,
-  timeWindow: "<value>",
-  maxDataSize: "<value>",
-  maxDataTime: "<value>",
-  compress: "none",
-  destPath: "<value>",
-};
+let value: CreateInputSystemByPackPersistenceSystemState = {};
 ```
 
 ## Fields

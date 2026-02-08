@@ -9,7 +9,6 @@ import { AuthTypeKafkaSchemaRegistry } from "cribl-control-plane/models";
 
 let value: AuthTypeKafkaSchemaRegistry = {
   disabled: true,
-  credentialsSecret: "<value>",
 };
 ```
 

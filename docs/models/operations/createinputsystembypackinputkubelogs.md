@@ -8,62 +8,6 @@ import { CreateInputSystemByPackInputKubeLogs } from "cribl-control-plane/models
 let value: CreateInputSystemByPackInputKubeLogs = {
   id: "<id>",
   type: "kube_logs",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  interval: 1490.72,
-  rules: [
-    {
-      filter: "<value>",
-      description:
-        "through why without uselessly feather linseed joshingly charter",
-    },
-  ],
-  timestamps: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {
-    enable: false,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "gzip",
-  },
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 232.58,
-  enableLoadBalancing: false,
-  description:
-    "supposing put brr meanwhile meh correctly inside broadly huddle",
 };
 ```
 

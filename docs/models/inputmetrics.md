@@ -6,62 +6,8 @@
 import { InputMetrics } from "cribl-control-plane/models";
 
 let value: InputMetrics = {
-  id: "<id>",
   type: "metrics",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "needy-pepper.biz",
-  udpPort: 2964.3,
-  tcpPort: 4101.12,
-  maxBufferSize: 9929.73,
-  ipWhitelistRegex: "<value>",
-  enableProxyHeader: false,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 9051.37,
-  description: "aha off whose blah however",
-  __template_host: "<value>",
-  __template_udpPort: "<value>",
-  __template_tcpPort: "<value>",
+  host: "unfinished-circumference.name",
 };
 ```
 

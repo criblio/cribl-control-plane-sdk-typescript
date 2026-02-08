@@ -8,79 +8,8 @@ import { CreateOutputSystemByPackOutputElasticCloud } from "cribl-control-plane/
 let value: CreateOutputSystemByPackOutputElasticCloud = {
   id: "<id>",
   type: "elastic_cloud",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  url: "https://major-taro.name/",
+  url: "https://little-fraudster.info/",
   index: "<value>",
-  concurrency: 2868.77,
-  maxPayloadSizeKB: 4958.84,
-  maxPayloadEvents: 8521.05,
-  compress: false,
-  rejectUnauthorized: false,
-  timeoutSec: 5401.79,
-  flushPeriodSec: 7985.29,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  extraParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  auth: {
-    disabled: false,
-    username: "Mckayla_Brown",
-    password: "zmUAKCdYqdY6aTZ",
-    authType: "secret",
-    credentialsSecret: "<value>",
-    manualAPIKey: "<value>",
-    textSecret: "<value>",
-  },
-  elasticPipeline: "<value>",
-  includeDocId: false,
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "queue",
-  description: "painfully upright enrich though waist",
-  pqStrictOrdering: true,
-  pqRatePerSec: 9279.15,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 4277.05,
-  pqMaxBackpressureSec: 8233.04,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 

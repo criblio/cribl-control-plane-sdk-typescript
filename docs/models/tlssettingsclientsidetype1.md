@@ -5,17 +5,7 @@
 ```typescript
 import { TlsSettingsClientSideType1 } from "cribl-control-plane/models";
 
-let value: TlsSettingsClientSideType1 = {
-  disabled: false,
-  servername: "<value>",
-  certificateName: "<value>",
-  caPath: "<value>",
-  privKeyPath: "<value>",
-  certPath: "<value>",
-  passphrase: "<value>",
-  minVersion: "TLSv1.2",
-  maxVersion: "TLSv1.3",
-};
+let value: TlsSettingsClientSideType1 = {};
 ```
 
 ## Fields

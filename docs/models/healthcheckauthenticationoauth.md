@@ -8,52 +8,11 @@ import { HealthCheckAuthenticationOauth } from "cribl-control-plane/models";
 let value: HealthCheckAuthenticationOauth = {
   authentication: "oauth",
   loginUrl: "https://jittery-almighty.com/",
-  tokenRespAttribute: "<value>",
   authHeaderExpr: "<value>",
   clientSecretParamName: "<value>",
   clientSecretParamValue: "<value>",
-  authRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://rowdy-hose.biz/",
-  collectMethod: "post",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: true,
-  timeout: 8452.96,
-  rejectUnauthorized: false,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  retryRules: {
-    type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    multiplier: "<value>",
-  },
+  collectUrl: "https://incomparable-populist.info/",
+  collectMethod: "get",
 };
 ```
 

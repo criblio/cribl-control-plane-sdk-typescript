@@ -6,10 +6,7 @@
 import { CreateInputSystemByPackTarget } from "cribl-control-plane/models/operations";
 
 let value: CreateInputSystemByPackTarget = {
-  protocol: "https",
-  host: "parallel-license.info",
-  port: 1103.32,
-  path: "/Users",
+  host: "milky-mythology.name",
 };
 ```
 

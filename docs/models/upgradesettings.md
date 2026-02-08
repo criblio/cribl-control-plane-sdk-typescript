@@ -5,18 +5,7 @@
 ```typescript
 import { UpgradeSettings } from "cribl-control-plane/models";
 
-let value: UpgradeSettings = {
-  automaticUpgradeCheckPeriod: "<value>",
-  disableAutomaticUpgrade: true,
-  enableLegacyEdgeUpgrade: false,
-  packageUrls: [
-    {
-      packageHashUrl: "https://best-import.com/",
-      packageUrl: "https://appropriate-responsibility.net/",
-    },
-  ],
-  upgradeSource: "<value>",
-};
+let value: UpgradeSettings = {};
 ```
 
 ## Fields

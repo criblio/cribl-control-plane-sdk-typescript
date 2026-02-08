@@ -8,8 +8,6 @@ import { CreateOutputHostSnmp } from "cribl-control-plane/models/operations";
 let value: CreateOutputHostSnmp = {
   host: "incomplete-place.net",
   port: 9328.21,
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 

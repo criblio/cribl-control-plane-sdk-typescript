@@ -5,16 +5,7 @@
 ```typescript
 import { FunctionConfSchemaSnmpTrapSerialize } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaSnmpTrapSerialize = {
-  strict: false,
-  dropFailedEvents: false,
-  v3User: {
-    name: "<value>",
-    authProtocol: "sha384",
-    authKey: "<value>",
-    privProtocol: "<value>",
-  },
-};
+let value: FunctionConfSchemaSnmpTrapSerialize = {};
 ```
 
 ## Fields

@@ -8,91 +8,11 @@ import { CreateInputSystemByPackInputSplunkSearch } from "cribl-control-plane/mo
 let value: CreateInputSystemByPackInputSplunkSearch = {
   id: "<id>",
   type: "splunk_search",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   searchHead: "<value>",
   search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
   cronSchedule: "<value>",
   endpoint: "<value>",
-  outputMode: "json",
-  endpointParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  endpointHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  logLevel: "warn",
-  requestTimeout: 9173.83,
-  useRoundRobinDns: true,
-  rejectUnauthorized: true,
-  encoding: "<value>",
-  keepAliveTime: 4128.11,
-  jobTimeout: "<value>",
-  maxMissedKeepAlives: 4201.68,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    type: "<value>",
-    interval: 376.03,
-    limit: 6996.29,
-    multiplier: 5006.8,
-    codes: [
-      2139.95,
-      9559.24,
-      6726.47,
-    ],
-    enableHeader: false,
-    retryConnectTimeout: true,
-    retryConnectReset: false,
-  },
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 9985.59,
-  authType: "credentialsSecret",
-  description: "rubric proceed after till median marten than own",
-  username: "Krystina_Tremblay37",
-  password: "5HGjLa1KVQmLq_X",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
+  outputMode: "csv",
 };
 ```
 

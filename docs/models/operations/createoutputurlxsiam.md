@@ -7,7 +7,6 @@ import { CreateOutputUrlXsiam } from "cribl-control-plane/models/operations";
 
 let value: CreateOutputUrlXsiam = {
   url: "https://potable-typewriter.info",
-  weight: 6825.15,
 };
 ```
 

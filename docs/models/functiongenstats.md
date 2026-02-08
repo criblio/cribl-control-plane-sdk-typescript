@@ -7,24 +7,13 @@ import { FunctionGenStats } from "cribl-control-plane/models";
 
 let value: FunctionGenStats = {
   __filename: "example.file",
-  asyncTimeout: 3025.75,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "gen_stats",
-  loadTime: 1067.22,
-  modTime: 9199.44,
+  loadTime: 3025.75,
+  modTime: 9945.34,
   name: "<value>",
-  sync: false,
-  uischema: {
-    "key": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

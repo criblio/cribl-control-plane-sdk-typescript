@@ -7,53 +7,8 @@ import { RestAuthenticationNone } from "cribl-control-plane/models";
 
 let value: RestAuthenticationNone = {
   authentication: "none",
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://inexperienced-unblinking.biz/",
+  collectUrl: "https://elastic-hawk.org/",
   collectMethod: "get",
-  collectVerb: "<value>",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "none",
-  },
-  timeout: 3213.74,
-  useRoundRobinDns: false,
-  disableTimeFilter: false,
-  decodeUrl: false,
-  rejectUnauthorized: true,
-  captureHeaders: true,
-  stopOnEmptyResults: false,
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: true,
-    },
-  },
 };
 ```
 

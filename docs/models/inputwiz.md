@@ -6,70 +6,11 @@
 import { InputWiz } from "cribl-control-plane/models";
 
 let value: InputWiz = {
-  id: "<id>",
   type: "wiz",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   endpoint: "<value>",
-  authUrl: "https://dependable-riser.name/",
-  authAudienceOverride: "<value>",
+  authUrl: "https://lone-cinder.name/",
   clientId: "<id>",
   contentConfig: [],
-  requestTimeout: 2735.91,
-  keepAliveTime: 4208.71,
-  maxMissedKeepAlives: 632.03,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    type: "<value>",
-    interval: 376.03,
-    limit: 6996.29,
-    multiplier: 5006.8,
-    codes: [
-      2139.95,
-      9559.24,
-      6726.47,
-    ],
-    enableHeader: false,
-    retryConnectTimeout: true,
-    retryConnectReset: false,
-  },
-  authType: "manual",
-  description: "stark cannibalise flint fumigate",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-  __template_endpoint: "<value>",
-  __template_authUrl: "https://elegant-operating.net",
-  __template_clientId: "<id>",
 };
 ```
 

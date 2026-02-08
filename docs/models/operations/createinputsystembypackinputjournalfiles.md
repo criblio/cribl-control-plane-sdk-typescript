@@ -8,50 +8,11 @@ import { CreateInputSystemByPackInputJournalFiles } from "cribl-control-plane/mo
 let value: CreateInputSystemByPackInputJournalFiles = {
   id: "<id>",
   type: "journal_files",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
+  path: "/opt",
+  journals: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  path: "/proc",
-  interval: 57.97,
-  journals: [],
-  rules: [
-    {
-      filter: "<value>",
-      description: "likewise near wherever below yesterday",
-    },
-  ],
-  currentBoot: false,
-  maxAgeDur: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "whereas anti hoot",
 };
 ```
 

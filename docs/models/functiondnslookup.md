@@ -7,23 +7,13 @@ import { FunctionDnsLookup } from "cribl-control-plane/models";
 
 let value: FunctionDnsLookup = {
   __filename: "example.file",
-  asyncTimeout: 8310.14,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "dns_lookup",
-  loadTime: 3614.94,
-  modTime: 6338.43,
+  loadTime: 8310.14,
+  modTime: 1603.98,
   name: "<value>",
-  sync: true,
-  uischema: {
-    "key": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

@@ -102,9 +102,6 @@ async function run() {
     filter: "__inputId.startsWith(\"http:\") && status >= 400 && status < 500",
     level: 1,
     maxEvents: 500,
-    stepDuration: 921861,
-    workerId: "<id>",
-    workerThreshold: 208781,
   });
 
   for await (const event of result) {
@@ -139,9 +136,6 @@ async function run() {
     filter: "__inputId.startsWith(\"http:\") && status >= 400 && status < 500",
     level: 1,
     maxEvents: 500,
-    stepDuration: 921861,
-    workerId: "<id>",
-    workerThreshold: 208781,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -175,9 +169,6 @@ async function run() {
     filter: "sourcetype===\"pan:traffic\" && src_zone===\"trusted\"",
     level: 0,
     maxEvents: 100,
-    stepDuration: 882563,
-    workerId: "<id>",
-    workerThreshold: 392678,
   });
 
   for await (const event of result) {
@@ -212,9 +203,6 @@ async function run() {
     filter: "sourcetype===\"pan:traffic\" && src_zone===\"trusted\"",
     level: 0,
     maxEvents: 100,
-    stepDuration: 882563,
-    workerId: "<id>",
-    workerThreshold: 392678,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -248,9 +236,6 @@ async function run() {
     filter: "sourcetype===\"pan:traffic\" && dest_geoip.country.iso_code === \"US\"",
     level: 0,
     maxEvents: 100,
-    stepDuration: 377776,
-    workerId: "<id>",
-    workerThreshold: 429562,
   });
 
   for await (const event of result) {
@@ -285,9 +270,6 @@ async function run() {
     filter: "sourcetype===\"pan:traffic\" && dest_geoip.country.iso_code === \"US\"",
     level: 0,
     maxEvents: 100,
-    stepDuration: 377776,
-    workerId: "<id>",
-    workerThreshold: 429562,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -321,9 +303,6 @@ async function run() {
     filter: "sourcetype===\"pan:traffic\"",
     level: 0,
     maxEvents: 100,
-    stepDuration: 994184,
-    workerId: "<id>",
-    workerThreshold: 771620,
   });
 
   for await (const event of result) {
@@ -358,9 +337,6 @@ async function run() {
     filter: "sourcetype===\"pan:traffic\"",
     level: 0,
     maxEvents: 100,
-    stepDuration: 994184,
-    workerId: "<id>",
-    workerThreshold: 771620,
   });
   if (res.ok) {
     const { value: result } = res;

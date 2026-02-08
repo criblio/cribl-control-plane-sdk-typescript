@@ -5,14 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackLokiAuth1 } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackLokiAuth1 = {
-  authType: "basic",
-  username: "Polly.Runte4",
-  password: "C0Vfw2n07zEfPgo",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-};
+let value: CreateInputSystemByPackLokiAuth1 = {};
 ```
 
 ## Fields

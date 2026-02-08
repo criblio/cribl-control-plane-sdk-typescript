@@ -8,21 +8,7 @@ import { AzureBlobAuthTypeSecret } from "cribl-control-plane/models";
 let value: AzureBlobAuthTypeSecret = {
   authType: "secret",
   textSecret: "<value>",
-  outputName: "<value>",
   containerName: "<value>",
-  path: "/private/var",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  recurse: false,
-  includeMetadata: true,
-  includeTags: false,
-  maxBatchSize: 434.23,
-  parquetChunkSizeMB: 3297.83,
-  parquetChunkDownloadTimeout: 1878.93,
 };
 ```
 

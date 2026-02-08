@@ -7,15 +7,6 @@ import { PipelineFunctionGeoipConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionGeoipConf = {
   file: "<value>",
-  inField: "<value>",
-  outField: "<value>",
-  additionalFields: [
-    {
-      extraInField: "<value>",
-      extraOutField: "<value>",
-    },
-  ],
-  outFieldMappings: {},
 };
 ```
 

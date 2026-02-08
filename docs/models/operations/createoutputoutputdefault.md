@@ -8,18 +8,6 @@ import { CreateOutputOutputDefault } from "cribl-control-plane/models/operations
 let value: CreateOutputOutputDefault = {
   id: "<id>",
   type: "default",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
   defaultId: "<id>",
 };
 ```

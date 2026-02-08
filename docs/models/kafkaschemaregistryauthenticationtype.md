@@ -7,26 +7,6 @@ import { KafkaSchemaRegistryAuthenticationType } from "cribl-control-plane/model
 
 let value: KafkaSchemaRegistryAuthenticationType = {
   disabled: true,
-  schemaRegistryURL: "https://long-term-dash.biz",
-  connectionTimeout: 4131.82,
-  requestTimeout: 6169.49,
-  maxRetries: 6797.38,
-  auth: {
-    disabled: false,
-    credentialsSecret: "<value>",
-  },
-  tls: {
-    disabled: false,
-    rejectUnauthorized: true,
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
 };
 ```
 

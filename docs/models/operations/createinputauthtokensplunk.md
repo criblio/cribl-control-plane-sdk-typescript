@@ -7,7 +7,6 @@ import { CreateInputAuthTokenSplunk } from "cribl-control-plane/models/operation
 
 let value: CreateInputAuthTokenSplunk = {
   token: "<value>",
-  description: "uh-huh shudder where than at inasmuch nor horse",
 };
 ```
 

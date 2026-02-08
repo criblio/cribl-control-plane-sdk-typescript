@@ -7,8 +7,6 @@ import { GetOutputStatusSystemOutputsByPackAndIdRequest } from "cribl-control-pl
 
 let value: GetOutputStatusSystemOutputsByPackAndIdRequest = {
   id: "<id>",
-  metrics: true,
-  type: true,
   pack: "<value>",
 };
 ```

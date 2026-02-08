@@ -8,58 +8,8 @@ import { CreateInputSystemByPackInputModelDrivenTelemetry } from "cribl-control-
 let value: CreateInputSystemByPackInputModelDrivenTelemetry = {
   id: "<id>",
   type: "model_driven_telemetry",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "snarling-procurement.org",
-  port: 1950.94,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  maxActiveCxn: 6586.22,
-  shutdownTimeoutMs: 2902.14,
-  description: "about tune-up ew",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "aged-fax.net",
+  port: 7179.56,
 };
 ```
 

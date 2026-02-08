@@ -8,48 +8,8 @@ import { CreateInputSystemByPackInputRawUdp } from "cribl-control-plane/models/o
 let value: CreateInputSystemByPackInputRawUdp = {
   id: "<id>",
   type: "raw_udp",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "whopping-step.name",
-  port: 6211.85,
-  maxBufferSize: 8656.9,
-  ipWhitelistRegex: "<value>",
-  singleMsgUdpPackets: false,
-  ingestRawBytes: false,
-  udpSocketRxBufSize: 6570.19,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description:
-    "babushka prime properly acidic starboard before questionable as afterwards",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "worldly-paintwork.com",
+  port: 3995.05,
 };
 ```
 

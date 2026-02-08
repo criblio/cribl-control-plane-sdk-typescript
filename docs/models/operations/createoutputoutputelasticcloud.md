@@ -8,79 +8,8 @@ import { CreateOutputOutputElasticCloud } from "cribl-control-plane/models/opera
 let value: CreateOutputOutputElasticCloud = {
   id: "<id>",
   type: "elastic_cloud",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  url: "https://shameless-steeple.info/",
+  url: "https://impractical-courtroom.net/",
   index: "<value>",
-  concurrency: 3442.25,
-  maxPayloadSizeKB: 3846.11,
-  maxPayloadEvents: 5696.77,
-  compress: true,
-  rejectUnauthorized: false,
-  timeoutSec: 3710.78,
-  flushPeriodSec: 2919.52,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  failedRequestLoggingMode: "payload",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  extraParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  auth: {
-    disabled: false,
-    username: "Mckayla_Brown",
-    password: "zmUAKCdYqdY6aTZ",
-    authType: "secret",
-    credentialsSecret: "<value>",
-    manualAPIKey: "<value>",
-    textSecret: "<value>",
-  },
-  elasticPipeline: "<value>",
-  includeDocId: false,
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "block",
-  description: "rapidly bad boring",
-  pqStrictOrdering: true,
-  pqRatePerSec: 5433.89,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 1143.18,
-  pqMaxBackpressureSec: 2631.9,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 

@@ -5,41 +5,7 @@
 ```typescript
 import { CreateInputCollectors } from "cribl-control-plane/models/operations";
 
-let value: CreateInputCollectors = {
-  hostsfile: {
-    enable: false,
-  },
-  interfaces: {
-    enable: false,
-  },
-  disk: {
-    enable: true,
-  },
-  metadata: {
-    enable: false,
-  },
-  routes: {
-    enable: true,
-  },
-  dns: {
-    enable: true,
-  },
-  user: {
-    enable: true,
-  },
-  firewall: {
-    enable: false,
-  },
-  services: {
-    enable: false,
-  },
-  ports: {
-    enable: true,
-  },
-  loginUsers: {
-    enable: true,
-  },
-};
+let value: CreateInputCollectors = {};
 ```
 
 ## Fields

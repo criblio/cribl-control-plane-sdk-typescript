@@ -8,19 +8,8 @@ Persistent queue status information (if persistent queue is enabled).
 import { PqTypeStatus } from "cribl-control-plane/models";
 
 let value: PqTypeStatus = {
-  error: {
-    details: {
-      "key": "<value>",
-    },
-    message: "<value>",
-  },
   health: "Red",
-  healthCounts: {
-    Green: 8119.52,
-    Yellow: 3353.72,
-    Red: 1624.06,
-    Unknown: 3450.08,
-  },
+  healthCounts: {},
   timestamp: 7374.06,
 };
 ```

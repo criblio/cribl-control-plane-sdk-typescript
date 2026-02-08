@@ -6,8 +6,6 @@
 import { GetInputStatusSystemInputsByPackRequest } from "cribl-control-plane/models/operations";
 
 let value: GetInputStatusSystemInputsByPackRequest = {
-  metrics: false,
-  type: false,
   pack: "<value>",
 };
 ```

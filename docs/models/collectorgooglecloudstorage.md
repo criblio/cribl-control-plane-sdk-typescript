@@ -12,24 +12,8 @@ let value: CollectorGoogleCloudStorage = {
   conf: {
     authType: "secret",
     textSecret: "<value>",
-    outputName: "<value>",
     bucket: "<value>",
-    path: "/private/tmp",
-    extractors: [
-      {
-        key: "<key>",
-        expression: "<value>",
-      },
-    ],
-    endpoint: "<value>",
-    disableTimeFilter: true,
-    recurse: false,
-    maxBatchSize: 60.67,
-    parquetChunkSizeMB: 2920.25,
-    parquetChunkDownloadTimeout: 430.44,
   },
-  destructive: false,
-  encoding: "<value>",
 };
 ```
 

@@ -8,68 +8,8 @@ import { CreateInputInputCriblTcp } from "cribl-control-plane/models/operations"
 let value: CreateInputInputCriblTcp = {
   id: "<id>",
   type: "cribl_tcp",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "big-daddy.net",
-  port: 2066.41,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveCxn: 4431.24,
-  socketIdleTimeout: 5274.64,
-  socketEndingMaxWait: 8668.25,
-  socketMaxLifespan: 873.59,
-  enableProxyHeader: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  enableLoadBalancing: true,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      enabled: true,
-      description: "technician flimsy and ha",
-    },
-  ],
-  description: "cheerfully however atop only tackle gadzooks",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "svelte-duster.org",
+  port: 3701.97,
 };
 ```
 

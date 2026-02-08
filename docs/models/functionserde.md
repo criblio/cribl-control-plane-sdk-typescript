@@ -7,21 +7,16 @@ import { FunctionSerde } from "cribl-control-plane/models";
 
 let value: FunctionSerde = {
   __filename: "example.file",
-  asyncTimeout: 7712.14,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: false,
   id: "serde",
-  loadTime: 7488.44,
-  modTime: 5208.3,
+  loadTime: 7712.14,
+  modTime: 6884.35,
   name: "<value>",
-  sync: false,
-  uischema: {},
-  version: "<value>",
-  schema: {
+  uischema: {
     "key": "<value>",
+    "key1": "<value>",
   },
+  version: "<value>",
 };
 ```
 

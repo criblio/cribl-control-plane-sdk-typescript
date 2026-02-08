@@ -9,17 +9,9 @@ let value: UpdateDatabaseConnectionConfigByIdRequest = {
   id: "<id>",
   databaseConnectionConfig: {
     authType: "<value>",
-    configObj: "<value>",
-    connectionString: "<value>",
-    connectionTimeout: 2937.96,
-    credsSecrets: "<value>",
-    databaseType: "mysql",
-    description: "where ew swiftly stormy oh",
+    databaseType: "oracle",
+    description: "beret geez hungry watery",
     id: "<id>",
-    password: "q2dwurVAaOg4Xqt",
-    requestTimeout: 4934.02,
-    tags: "<value>",
-    user: "Tyler_Franecki95",
   },
 };
 ```

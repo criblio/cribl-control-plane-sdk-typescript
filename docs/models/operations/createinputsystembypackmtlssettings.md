@@ -6,21 +6,9 @@
 import { CreateInputSystemByPackMTLSSettings } from "cribl-control-plane/models/operations";
 
 let value: CreateInputSystemByPackMTLSSettings = {
-  disabled: true,
-  rejectUnauthorized: false,
-  requestCert: true,
-  certificateName: "<value>",
   privKeyPath: "<value>",
-  passphrase: "<value>",
   certPath: "<value>",
   caPath: "<value>",
-  commonNameRegex: "<value>",
-  minVersion: "TLSv1",
-  maxVersion: "TLSv1",
-  ocspCheck: true,
-  keytab: "<value>",
-  principal: "<value>",
-  ocspCheckFailClose: true,
 };
 ```
 

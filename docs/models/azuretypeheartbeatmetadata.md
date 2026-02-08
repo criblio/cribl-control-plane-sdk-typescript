@@ -7,18 +7,6 @@ import { AzureTypeHeartbeatMetadata } from "cribl-control-plane/models";
 
 let value: AzureTypeHeartbeatMetadata = {
   enabled: false,
-  hostname: "pastel-prohibition.name",
-  instanceId: "<id>",
-  name: "<value>",
-  region: "<value>",
-  resourceGroup: "<value>",
-  subscriptionId: "<id>",
-  tags: {
-    "key": "<value>",
-  },
-  type: "<value>",
-  vmId: "<id>",
-  zone: "<value>",
 };
 ```
 

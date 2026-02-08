@@ -9,16 +9,6 @@ import { CreateInputSNMPv3Authentication } from "cribl-control-plane/models/oper
 
 let value: CreateInputSNMPv3Authentication = {
   v3AuthEnabled: false,
-  allowUnmatchedTrap: false,
-  v3Users: [
-    {
-      name: "<value>",
-      authProtocol: "sha512",
-      authKey: "<value>",
-      privProtocol: "aes256b",
-      privKey: "<value>",
-    },
-  ],
 };
 ```
 

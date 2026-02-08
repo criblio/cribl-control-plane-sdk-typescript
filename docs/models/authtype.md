@@ -7,12 +7,6 @@ import { AuthType } from "cribl-control-plane/models";
 
 let value: AuthType = {
   disabled: true,
-  username: "Edison53",
-  password: "BJ_e8f4NBWf8p6d",
-  authType: "secret",
-  credentialsSecret: "<value>",
-  manualAPIKey: "<value>",
-  textSecret: "<value>",
 };
 ```
 

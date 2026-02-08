@@ -13,7 +13,6 @@ let value: RestCollectMethodGetRestPaginationTypeResponseBody = {
     "<value 3>",
   ],
   maxPages: 8083.82,
-  lastPageExpr: "<value>",
 };
 ```
 

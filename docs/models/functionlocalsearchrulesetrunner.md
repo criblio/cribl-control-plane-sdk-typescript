@@ -7,25 +7,17 @@ import { FunctionLocalSearchRulesetRunner } from "cribl-control-plane/models";
 
 let value: FunctionLocalSearchRulesetRunner = {
   __filename: "example.file",
-  asyncTimeout: 9962.28,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: false,
   id: "local_search_ruleset_runner",
-  loadTime: 95.2,
-  modTime: 7621.53,
+  loadTime: 9962.28,
+  modTime: 3956.82,
   name: "<value>",
-  sync: false,
   uischema: {
-    "key": "<value>",
-  },
-  version: "<value>",
-  schema: {
     "key": "<value>",
     "key1": "<value>",
     "key2": "<value>",
   },
+  version: "<value>",
 };
 ```
 

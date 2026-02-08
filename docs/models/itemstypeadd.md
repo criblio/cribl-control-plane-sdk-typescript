@@ -6,7 +6,6 @@
 import { ItemsTypeAdd } from "cribl-control-plane/models";
 
 let value: ItemsTypeAdd = {
-  name: "<value>",
   value: "<value>",
 };
 ```

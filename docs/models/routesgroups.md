@@ -6,9 +6,7 @@
 import { RoutesGroups } from "cribl-control-plane/models";
 
 let value: RoutesGroups = {
-  description:
-    "meanwhile past cardboard hydrocarbon celebrated oh inwardly gah poorly",
-  index: 9206.04,
+  index: 7663.1,
   name: "<value>",
 };
 ```

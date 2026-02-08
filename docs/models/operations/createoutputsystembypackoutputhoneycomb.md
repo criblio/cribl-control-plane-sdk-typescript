@@ -8,67 +8,7 @@ import { CreateOutputSystemByPackOutputHoneycomb } from "cribl-control-plane/mod
 let value: CreateOutputSystemByPackOutputHoneycomb = {
   id: "<id>",
   type: "honeycomb",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
   dataset: "<value>",
-  concurrency: 1056.19,
-  maxPayloadSizeKB: 9729.61,
-  maxPayloadEvents: 70.78,
-  compress: true,
-  rejectUnauthorized: false,
-  timeoutSec: 8522.19,
-  flushPeriodSec: 3878.42,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "payload",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "drop",
-  authType: "secret",
-  description: "correctly ravel aha distorted anneal ha vice debit",
-  pqStrictOrdering: false,
-  pqRatePerSec: 2195.22,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 9030.08,
-  pqMaxBackpressureSec: 3099.69,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "block",
-  pqControls: {},
-  team: "<value>",
-  textSecret: "<value>",
 };
 ```
 

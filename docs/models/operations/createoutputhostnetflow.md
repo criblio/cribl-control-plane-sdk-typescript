@@ -8,8 +8,6 @@ import { CreateOutputHostNetflow } from "cribl-control-plane/models/operations";
 let value: CreateOutputHostNetflow = {
   host: "average-lieu.com",
   port: 8575.81,
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 

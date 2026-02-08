@@ -7,36 +7,8 @@ import { HealthCheckCollectMethodGet } from "cribl-control-plane/models";
 
 let value: HealthCheckCollectMethodGet = {
   collectMethod: "post",
-  collectRequestParams: "<value>",
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://specific-rust.name/",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: true,
-  authentication: "none",
-  timeout: 7597.1,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  retryRules: {
-    type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    multiplier: "<value>",
-  },
+  collectUrl: "https://disloyal-scale.net/",
+  authentication: "loginSecret",
 };
 ```
 

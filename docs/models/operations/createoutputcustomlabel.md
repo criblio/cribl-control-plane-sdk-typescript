@@ -8,7 +8,6 @@ import { CreateOutputCustomLabel } from "cribl-control-plane/models/operations";
 let value: CreateOutputCustomLabel = {
   key: "<key>",
   value: "<value>",
-  rbacEnabled: true,
 };
 ```
 

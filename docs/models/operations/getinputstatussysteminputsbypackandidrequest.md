@@ -7,8 +7,6 @@ import { GetInputStatusSystemInputsByPackAndIdRequest } from "cribl-control-plan
 
 let value: GetInputStatusSystemInputsByPackAndIdRequest = {
   id: "<id>",
-  metrics: false,
-  type: false,
   pack: "<value>",
 };
 ```

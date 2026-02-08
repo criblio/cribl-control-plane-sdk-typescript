@@ -11,7 +11,6 @@ let value: RestCollectMethodPostRestPaginationTypeResponseBody = {
     "<value 1>",
   ],
   maxPages: 919.59,
-  lastPageExpr: "<value>",
 };
 ```
 

@@ -8,55 +8,8 @@ import { RestCollectMethodOther } from "cribl-control-plane/models";
 let value: RestCollectMethodOther = {
   collectMethod: "other",
   collectVerb: "<value>",
-  collectBody: "<value>",
-  collectRequestParams: "<value>",
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://private-appliance.net/",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "response_header_link",
-    nextRelationAttribute: "<value>",
-    curRelationAttribute: "<value>",
-    maxPages: 4831.74,
-  },
-  authentication: "oauth",
-  timeout: 4293.89,
-  useRoundRobinDns: false,
-  disableTimeFilter: true,
-  decodeUrl: false,
-  rejectUnauthorized: false,
-  captureHeaders: true,
-  stopOnEmptyResults: true,
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: true,
-    },
-  },
+  collectUrl: "https://courageous-institute.name/",
+  authentication: "login",
 };
 ```
 

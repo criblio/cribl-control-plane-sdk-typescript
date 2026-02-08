@@ -7,13 +7,6 @@ import { PipelineFunctionTeeConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionTeeConf = {
   command: "<value>",
-  args: [
-    "<value 1>",
-  ],
-  restartOnExit: true,
-  env: {
-    "key": "<value>",
-  },
 };
 ```
 

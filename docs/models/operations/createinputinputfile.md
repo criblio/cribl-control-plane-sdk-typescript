@@ -8,62 +8,6 @@ import { CreateInputInputFile } from "cribl-control-plane/models/operations";
 let value: CreateInputInputFile = {
   id: "<id>",
   type: "file",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  mode: "manual",
-  interval: 8277.37,
-  filenames: [
-    "<value 1>",
-  ],
-  filterArchivedFiles: false,
-  tailOnly: false,
-  idleTimeout: 1378.8,
-  minAgeDur: "<value>",
-  maxAgeDur: "<value>",
-  checkFileModTime: false,
-  forceText: false,
-  hashLen: 7894.69,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  staleChannelFlushMs: 2441,
-  description: "tenant necessary pulverize sometimes",
-  path: "/usr/local/src",
-  depth: 7380.42,
-  suppressMissingPathErrors: false,
-  deleteFiles: false,
-  saltHash: false,
-  includeUnidentifiableBinary: true,
 };
 ```
 

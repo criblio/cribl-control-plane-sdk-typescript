@@ -7,7 +7,6 @@ import { CreateOutputSystemByPackColumnMapping } from "cribl-control-plane/model
 
 let value: CreateOutputSystemByPackColumnMapping = {
   columnName: "<value>",
-  columnType: "<value>",
   columnValueExpression: "<value>",
 };
 ```

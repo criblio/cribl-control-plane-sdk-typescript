@@ -7,8 +7,6 @@ import { OutputElasticUrl } from "cribl-control-plane/models";
 
 let value: OutputElasticUrl = {
   url: "https://wicked-mozzarella.biz",
-  weight: 4920.02,
-  __template_url: "https://tasty-gastropod.info",
 };
 ```
 

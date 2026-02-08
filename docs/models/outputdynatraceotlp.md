@@ -6,82 +6,12 @@
 import { OutputDynatraceOtlp } from "cribl-control-plane/models";
 
 let value: OutputDynatraceOtlp = {
-  id: "<id>",
   type: "dynatrace_otlp",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
   protocol: "http",
   endpoint: "<value>",
   otlpVersion: "1.3.1",
-  compress: "none",
-  httpCompress: "gzip",
-  httpTracesEndpointOverride: "<value>",
-  httpMetricsEndpointOverride: "<value>",
-  httpLogsEndpointOverride: "<value>",
-  metadata: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
-  concurrency: 2221.37,
-  maxPayloadSizeKB: 5917.54,
-  timeoutSec: 4794.55,
-  flushPeriodSec: 411.99,
-  failedRequestLoggingMode: "payload",
-  connectionTimeout: 1093.95,
-  keepAliveTime: 563.54,
-  keepAlive: false,
-  endpointType: "ag",
+  endpointType: "saas",
   tokenSecret: "<value>",
-  authTokenName: "<value>",
-  onBackpressure: "drop",
-  description: "freely divine object knight ouch bonnet all hunt pfft",
-  rejectUnauthorized: true,
-  useRoundRobinDns: false,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  pqStrictOrdering: true,
-  pqRatePerSec: 3149.15,
-  pqMode: "error",
-  pqMaxBufferSize: 4857.83,
-  pqMaxBackpressureSec: 9511.57,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "block",
-  pqControls: {},
 };
 ```
 

@@ -7,9 +7,7 @@ Creates events for physical disks, partitions, and file systems
 ```typescript
 import { CreateInputDisksAndFileSystems } from "cribl-control-plane/models/operations";
 
-let value: CreateInputDisksAndFileSystems = {
-  enable: true,
-};
+let value: CreateInputDisksAndFileSystems = {};
 ```
 
 ## Fields

@@ -6,9 +6,7 @@
 import { CreateInputCertOptions } from "cribl-control-plane/models/operations";
 
 let value: CreateInputCertOptions = {
-  certificateName: "<value>",
   privKeyPath: "<value>",
-  passphrase: "<value>",
   certPath: "<value>",
 };
 ```

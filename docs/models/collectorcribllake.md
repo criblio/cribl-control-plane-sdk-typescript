@@ -12,8 +12,6 @@ let value: CollectorCriblLake = {
   conf: {
     dataset: "<value>",
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 

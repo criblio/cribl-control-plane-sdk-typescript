@@ -7,10 +7,6 @@ import { InputSnmpV3User } from "cribl-control-plane/models";
 
 let value: InputSnmpV3User = {
   name: "<value>",
-  authProtocol: "md5",
-  authKey: "<value>",
-  privProtocol: "aes256r",
-  privKey: "<value>",
 };
 ```
 

@@ -7,9 +7,7 @@ Creates events for local users and groups
 ```typescript
 import { UsersAndGroups } from "cribl-control-plane/models";
 
-let value: UsersAndGroups = {
-  enable: false,
-};
+let value: UsersAndGroups = {};
 ```
 
 ## Fields

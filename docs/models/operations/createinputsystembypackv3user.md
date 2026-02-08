@@ -7,10 +7,6 @@ import { CreateInputSystemByPackV3User } from "cribl-control-plane/models/operat
 
 let value: CreateInputSystemByPackV3User = {
   name: "<value>",
-  authProtocol: "sha512",
-  authKey: "<value>",
-  privProtocol: "aes",
-  privKey: "<value>",
 };
 ```
 

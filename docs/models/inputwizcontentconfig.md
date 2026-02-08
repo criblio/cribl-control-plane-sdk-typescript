@@ -7,19 +7,10 @@ import { InputWizContentConfig } from "cribl-control-plane/models";
 
 let value: InputWizContentConfig = {
   contentType: "<value>",
-  contentDescription: "<value>",
-  enabled: true,
-  stateTracking: false,
-  stateUpdateExpression: "<value>",
-  stateMergeExpression: "<value>",
-  manageState: {},
   contentQuery: "<value>",
   cronSchedule: "<value>",
   earliest: "<value>",
   latest: "<value>",
-  jobTimeout: "<value>",
-  logLevel: "warn",
-  maxPages: 6628.56,
 };
 ```
 

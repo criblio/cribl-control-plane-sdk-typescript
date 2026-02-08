@@ -9,19 +9,6 @@ import { CreateOutputSystemByPackAuthentication } from "cribl-control-plane/mode
 
 let value: CreateOutputSystemByPackAuthentication = {
   disabled: false,
-  mechanism: "plain",
-  username: "Mathias35",
-  textSecret: "<value>",
-  clientSecretAuthType: "certificate",
-  clientTextSecret: "<value>",
-  certificateName: "<value>",
-  certPath: "<value>",
-  privKeyPath: "<value>",
-  passphrase: "<value>",
-  oauthEndpoint: "https://login.microsoftonline.com",
-  clientId: "<id>",
-  tenantId: "<id>",
-  scope: "<value>",
 };
 ```
 
