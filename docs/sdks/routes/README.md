@@ -95,9 +95,9 @@ run();
 
 Update a Route in the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body. This endpoint does not support partial updates. Cribl removes any omitted Routes and fields when updating.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
 
-### Example Usage
+### Example Usage: RoutesUpdateExamplesBasicRoute
 
-<!-- UsageSnippet language="typescript" operationID="updateRoutesById" method="patch" path="/routes/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="RoutesUpdateExamplesBasicRoute" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -230,6 +230,476 @@ async function run() {
 
 run();
 ```
+### Example Usage: RoutesUpdateExamplesMultipleRoutes
+
+<!-- UsageSnippet language="typescript" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="RoutesUpdateExamplesMultipleRoutes" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.routes.update({
+    id: "<id>",
+    routes: {
+      comments: [
+        {
+          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+          groupId: "<id>",
+          id: "<id>",
+          index: 1800.08,
+        },
+      ],
+      groups: {
+        "key": {
+          description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
+          index: 557.98,
+          name: "<value>",
+        },
+      },
+      id: "default",
+      routes: [
+        {
+          clones: [
+            {
+              "key": "<value>",
+            },
+            {
+              "key": "<value>",
+              "key1": "<value>",
+              "key2": "<value>",
+            },
+          ],
+          context: "<value>",
+          description: "Route speedtest logs",
+          disabled: false,
+          enableOutputExpression: false,
+          filter: "source == \"speedtest.log\"",
+          final: false,
+          groupId: "<id>",
+          id: "route-speedtest",
+          name: "speedtest",
+          output: "default",
+          outputExpression: "<value>",
+          pipeline: "main",
+          targetContext: "pack",
+        },
+        {
+          clones: [
+            {
+              "key": "<value>",
+              "key1": "<value>",
+              "key2": "<value>",
+            },
+            {
+              "key": "<value>",
+            },
+            {
+              "key": "<value>",
+              "key1": "<value>",
+              "key2": "<value>",
+            },
+          ],
+          context: "<value>",
+          description: "Route mtr logs",
+          disabled: false,
+          enableOutputExpression: false,
+          filter: "source == \"mtr.log\"",
+          final: false,
+          groupId: "<id>",
+          id: "route-mtr",
+          name: "mtr",
+          output: "default",
+          outputExpression: "<value>",
+          pipeline: "passthru",
+          targetContext: "group",
+        },
+        {
+          clones: [
+            {
+              "key": "<value>",
+              "key1": "<value>",
+              "key2": "<value>",
+            },
+            {
+              "key": "<value>",
+              "key1": "<value>",
+            },
+            {
+
+            },
+          ],
+          context: "<value>",
+          description: "Route statsd metrics",
+          disabled: true,
+          enableOutputExpression: false,
+          filter: "source == \"statsd.log\"",
+          final: false,
+          groupId: "<id>",
+          id: "route-statsd",
+          name: "statsd",
+          output: "devnull",
+          outputExpression: "<value>",
+          pipeline: "prometheus_metrics",
+          targetContext: "group",
+        },
+        {
+          clones: [
+            {
+
+            },
+            {
+              "key": "<value>",
+              "key1": "<value>",
+            },
+            {
+              "key": "<value>",
+              "key1": "<value>",
+            },
+          ],
+          context: "<value>",
+          description: "Catch-all Route for all other events",
+          disabled: true,
+          enableOutputExpression: false,
+          filter: "true",
+          final: true,
+          groupId: "<id>",
+          id: "route-default",
+          name: "default",
+          output: "default",
+          outputExpression: "<value>",
+          pipeline: "main",
+          targetContext: "pack",
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { routesUpdate } from "cribl-control-plane/funcs/routesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await routesUpdate(criblControlPlane, {
+    id: "<id>",
+    routes: {
+      comments: [
+        {
+          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+          groupId: "<id>",
+          id: "<id>",
+          index: 1800.08,
+        },
+      ],
+      groups: {
+        "key": {
+          description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
+          index: 557.98,
+          name: "<value>",
+        },
+      },
+      id: "default",
+      routes: [
+        {
+          clones: [
+            {
+              "key": "<value>",
+            },
+            {
+              "key": "<value>",
+              "key1": "<value>",
+              "key2": "<value>",
+            },
+          ],
+          context: "<value>",
+          description: "Route speedtest logs",
+          disabled: false,
+          enableOutputExpression: false,
+          filter: "source == \"speedtest.log\"",
+          final: false,
+          groupId: "<id>",
+          id: "route-speedtest",
+          name: "speedtest",
+          output: "default",
+          outputExpression: "<value>",
+          pipeline: "main",
+          targetContext: "pack",
+        },
+        {
+          clones: [
+            {
+              "key": "<value>",
+              "key1": "<value>",
+              "key2": "<value>",
+            },
+            {
+              "key": "<value>",
+            },
+            {
+              "key": "<value>",
+              "key1": "<value>",
+              "key2": "<value>",
+            },
+          ],
+          context: "<value>",
+          description: "Route mtr logs",
+          disabled: false,
+          enableOutputExpression: false,
+          filter: "source == \"mtr.log\"",
+          final: false,
+          groupId: "<id>",
+          id: "route-mtr",
+          name: "mtr",
+          output: "default",
+          outputExpression: "<value>",
+          pipeline: "passthru",
+          targetContext: "group",
+        },
+        {
+          clones: [
+            {
+              "key": "<value>",
+              "key1": "<value>",
+              "key2": "<value>",
+            },
+            {
+              "key": "<value>",
+              "key1": "<value>",
+            },
+            {
+  
+            },
+          ],
+          context: "<value>",
+          description: "Route statsd metrics",
+          disabled: true,
+          enableOutputExpression: false,
+          filter: "source == \"statsd.log\"",
+          final: false,
+          groupId: "<id>",
+          id: "route-statsd",
+          name: "statsd",
+          output: "devnull",
+          outputExpression: "<value>",
+          pipeline: "prometheus_metrics",
+          targetContext: "group",
+        },
+        {
+          clones: [
+            {
+  
+            },
+            {
+              "key": "<value>",
+              "key1": "<value>",
+            },
+            {
+              "key": "<value>",
+              "key1": "<value>",
+            },
+          ],
+          context: "<value>",
+          description: "Catch-all Route for all other events",
+          disabled: true,
+          enableOutputExpression: false,
+          filter: "true",
+          final: true,
+          groupId: "<id>",
+          id: "route-default",
+          name: "default",
+          output: "default",
+          outputExpression: "<value>",
+          pipeline: "main",
+          targetContext: "pack",
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("routesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: RoutesUpdateExamplesRouteWithOutputExpression
+
+<!-- UsageSnippet language="typescript" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="RoutesUpdateExamplesRouteWithOutputExpression" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.routes.update({
+    id: "<id>",
+    routes: {
+      comments: [
+        {
+          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+          groupId: "<id>",
+          id: "<id>",
+          index: 2035.39,
+        },
+      ],
+      groups: {
+        "key": {
+          description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
+          index: 3962.06,
+          name: "<value>",
+        },
+      },
+      id: "default",
+      routes: [
+        {
+          clones: [
+            {
+
+            },
+            {
+              "key": "<value>",
+              "key1": "<value>",
+              "key2": "<value>",
+            },
+            {
+
+            },
+          ],
+          context: "<value>",
+          description: "Route with dynamic Destination based on environment",
+          disabled: true,
+          enableOutputExpression: true,
+          filter: "source == \"dynamic.log\"",
+          final: true,
+          groupId: "<id>",
+          id: "route-dynamic",
+          name: "dynamic-output",
+          output: "<value>",
+          outputExpression: "`myDest_${C.logStreamEnv}`",
+          pipeline: "main",
+          targetContext: "pack",
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { routesUpdate } from "cribl-control-plane/funcs/routesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await routesUpdate(criblControlPlane, {
+    id: "<id>",
+    routes: {
+      comments: [
+        {
+          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+          groupId: "<id>",
+          id: "<id>",
+          index: 2035.39,
+        },
+      ],
+      groups: {
+        "key": {
+          description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
+          index: 3962.06,
+          name: "<value>",
+        },
+      },
+      id: "default",
+      routes: [
+        {
+          clones: [
+            {
+  
+            },
+            {
+              "key": "<value>",
+              "key1": "<value>",
+              "key2": "<value>",
+            },
+            {
+  
+            },
+          ],
+          context: "<value>",
+          description: "Route with dynamic Destination based on environment",
+          disabled: true,
+          enableOutputExpression: true,
+          filter: "source == \"dynamic.log\"",
+          final: true,
+          groupId: "<id>",
+          id: "route-dynamic",
+          name: "dynamic-output",
+          output: "<value>",
+          outputExpression: "`myDest_${C.logStreamEnv}`",
+          pipeline: "main",
+          targetContext: "pack",
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("routesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
 
 ### Parameters
 
@@ -330,9 +800,263 @@ run();
 
 Add a Route to the end of the specified Routing table.
 
-### Example Usage
+### Example Usage: RoutesAppendExamplesMultipleRoutes
 
-<!-- UsageSnippet language="typescript" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" -->
+<!-- UsageSnippet language="typescript" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="RoutesAppendExamplesMultipleRoutes" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.routes.append({
+    id: "<id>",
+    requestBody: [
+      {
+        clones: [
+          {
+            "key": "<value>",
+            "key1": "<value>",
+          },
+        ],
+        context: "<value>",
+        description: "Route audit logs",
+        disabled: false,
+        enableOutputExpression: false,
+        filter: "source == \"audit.log\"",
+        final: false,
+        groupId: "<id>",
+        id: "route-audit",
+        name: "audit",
+        output: "default",
+        outputExpression: "<value>",
+        pipeline: "main",
+        targetContext: "group",
+      },
+      {
+        clones: [
+          {
+
+          },
+          {
+
+          },
+          {
+
+          },
+        ],
+        context: "<value>",
+        description: "Route security logs",
+        disabled: true,
+        enableOutputExpression: false,
+        filter: "source == \"security.log\"",
+        final: false,
+        groupId: "<id>",
+        id: "route-security",
+        name: "security",
+        output: "devnull",
+        outputExpression: "<value>",
+        pipeline: "passthru",
+        targetContext: "group",
+      },
+    ],
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { routesAppend } from "cribl-control-plane/funcs/routesAppend.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await routesAppend(criblControlPlane, {
+    id: "<id>",
+    requestBody: [
+      {
+        clones: [
+          {
+            "key": "<value>",
+            "key1": "<value>",
+          },
+        ],
+        context: "<value>",
+        description: "Route audit logs",
+        disabled: false,
+        enableOutputExpression: false,
+        filter: "source == \"audit.log\"",
+        final: false,
+        groupId: "<id>",
+        id: "route-audit",
+        name: "audit",
+        output: "default",
+        outputExpression: "<value>",
+        pipeline: "main",
+        targetContext: "group",
+      },
+      {
+        clones: [
+          {
+  
+          },
+          {
+  
+          },
+          {
+  
+          },
+        ],
+        context: "<value>",
+        description: "Route security logs",
+        disabled: true,
+        enableOutputExpression: false,
+        filter: "source == \"security.log\"",
+        final: false,
+        groupId: "<id>",
+        id: "route-security",
+        name: "security",
+        output: "devnull",
+        outputExpression: "<value>",
+        pipeline: "passthru",
+        targetContext: "group",
+      },
+    ],
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("routesAppend failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: RoutesAppendExamplesRouteWithOutputExpression
+
+<!-- UsageSnippet language="typescript" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="RoutesAppendExamplesRouteWithOutputExpression" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.routes.append({
+    id: "<id>",
+    requestBody: [
+      {
+        clones: [
+          {
+            "key": "<value>",
+            "key1": "<value>",
+          },
+        ],
+        context: "<value>",
+        description: "Route with dynamic Destination based on environment",
+        disabled: false,
+        enableOutputExpression: true,
+        filter: "source == \"dynamic.log\"",
+        final: true,
+        groupId: "<id>",
+        id: "route-dynamic-append",
+        name: "dynamic-append",
+        output: "<value>",
+        outputExpression: "`myDest_${C.logStreamEnv}`",
+        pipeline: "main",
+        targetContext: "group",
+      },
+    ],
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { routesAppend } from "cribl-control-plane/funcs/routesAppend.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await routesAppend(criblControlPlane, {
+    id: "<id>",
+    requestBody: [
+      {
+        clones: [
+          {
+            "key": "<value>",
+            "key1": "<value>",
+          },
+        ],
+        context: "<value>",
+        description: "Route with dynamic Destination based on environment",
+        disabled: false,
+        enableOutputExpression: true,
+        filter: "source == \"dynamic.log\"",
+        final: true,
+        groupId: "<id>",
+        id: "route-dynamic-append",
+        name: "dynamic-append",
+        output: "<value>",
+        outputExpression: "`myDest_${C.logStreamEnv}`",
+        pipeline: "main",
+        targetContext: "group",
+      },
+    ],
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("routesAppend failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: RoutesAppendExamplesSingleRoute
+
+<!-- UsageSnippet language="typescript" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="RoutesAppendExamplesSingleRoute" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 

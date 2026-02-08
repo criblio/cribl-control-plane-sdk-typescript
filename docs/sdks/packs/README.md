@@ -17,9 +17,227 @@ Actions related to Packs
 
 Install a Pack.<br><br>To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br><br>To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br><br>To install a Pack by importing from a Git repository, provide <code>git+<repo-url></code> as the <code>source</code> parameter in the request body.<br><br>If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
 
-### Example Usage
+### Example Usage: PackInstallExamplesEmptyPack
 
-<!-- UsageSnippet language="typescript" operationID="createPacks" method="post" path="/packs" -->
+<!-- UsageSnippet language="typescript" operationID="createPacks" method="post" path="/packs" example="PackInstallExamplesEmptyPack" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.install({
+    id: "<id>",
+    spec: "<value>",
+    version: "<value>",
+    minLogStreamVersion: "<value>",
+    displayName: "Amely_Gusikowski",
+    author: "<value>",
+    description: "crowded that truly sideboard ample yahoo gracious enraged",
+    source: "<value>",
+    tags: {
+      dataType: [
+        "double",
+        "boolean",
+      ],
+      domain: [
+        "delectable-transom.com",
+        "radiant-sightseeing.info",
+      ],
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      technology: [
+        "<value 1>",
+      ],
+    },
+    allowCustomFunctions: false,
+    force: true,
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsInstall } from "cribl-control-plane/funcs/packsInstall.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsInstall(criblControlPlane, {
+    id: "<id>",
+    spec: "<value>",
+    version: "<value>",
+    minLogStreamVersion: "<value>",
+    displayName: "Amely_Gusikowski",
+    author: "<value>",
+    description: "crowded that truly sideboard ample yahoo gracious enraged",
+    source: "<value>",
+    tags: {
+      dataType: [
+        "double",
+        "boolean",
+      ],
+      domain: [
+        "delectable-transom.com",
+        "radiant-sightseeing.info",
+      ],
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      technology: [
+        "<value 1>",
+      ],
+    },
+    allowCustomFunctions: false,
+    force: true,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsInstall failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: PackInstallExamplesGitRepository
+
+<!-- UsageSnippet language="typescript" operationID="createPacks" method="post" path="/packs" example="PackInstallExamplesGitRepository" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.install({
+    id: "<id>",
+    spec: "<value>",
+    version: "<value>",
+    minLogStreamVersion: "<value>",
+    displayName: "Jennyfer.Bogan",
+    author: "<value>",
+    description: "ack that sparkling if blah bourgeoisie or phooey",
+    source: "git+https://github.com/criblio/cribl_ocsf_postprocessing",
+    tags: {
+      dataType: [
+        "double",
+        "boolean",
+      ],
+      domain: [
+        "delectable-transom.com",
+        "radiant-sightseeing.info",
+      ],
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      technology: [
+        "<value 1>",
+      ],
+    },
+    allowCustomFunctions: false,
+    force: true,
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsInstall } from "cribl-control-plane/funcs/packsInstall.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsInstall(criblControlPlane, {
+    id: "<id>",
+    spec: "<value>",
+    version: "<value>",
+    minLogStreamVersion: "<value>",
+    displayName: "Jennyfer.Bogan",
+    author: "<value>",
+    description: "ack that sparkling if blah bourgeoisie or phooey",
+    source: "git+https://github.com/criblio/cribl_ocsf_postprocessing",
+    tags: {
+      dataType: [
+        "double",
+        "boolean",
+      ],
+      domain: [
+        "delectable-transom.com",
+        "radiant-sightseeing.info",
+      ],
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      technology: [
+        "<value 1>",
+      ],
+    },
+    allowCustomFunctions: false,
+    force: true,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsInstall failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: PackInstallExamplesPackDispensary
+
+<!-- UsageSnippet language="typescript" operationID="createPacks" method="post" path="/packs" example="PackInstallExamplesPackDispensary" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -114,6 +332,224 @@ async function run() {
       ],
     },
     allowCustomFunctions: true,
+    force: true,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsInstall failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: PackInstallExamplesURL
+
+<!-- UsageSnippet language="typescript" operationID="createPacks" method="post" path="/packs" example="PackInstallExamplesURL" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.install({
+    id: "<id>",
+    spec: "<value>",
+    version: "<value>",
+    minLogStreamVersion: "<value>",
+    displayName: "Lavon.Russel",
+    author: "<value>",
+    description: "ferociously haunting meh into instantly",
+    source: "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl",
+    tags: {
+      dataType: [
+        "double",
+        "boolean",
+      ],
+      domain: [
+        "delectable-transom.com",
+        "radiant-sightseeing.info",
+      ],
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      technology: [
+        "<value 1>",
+      ],
+    },
+    allowCustomFunctions: false,
+    force: false,
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsInstall } from "cribl-control-plane/funcs/packsInstall.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsInstall(criblControlPlane, {
+    id: "<id>",
+    spec: "<value>",
+    version: "<value>",
+    minLogStreamVersion: "<value>",
+    displayName: "Lavon.Russel",
+    author: "<value>",
+    description: "ferociously haunting meh into instantly",
+    source: "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl",
+    tags: {
+      dataType: [
+        "double",
+        "boolean",
+      ],
+      domain: [
+        "delectable-transom.com",
+        "radiant-sightseeing.info",
+      ],
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      technology: [
+        "<value 1>",
+      ],
+    },
+    allowCustomFunctions: false,
+    force: false,
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("packsInstall failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: PackInstallExamplesUploadedFile
+
+<!-- UsageSnippet language="typescript" operationID="createPacks" method="post" path="/packs" example="PackInstallExamplesUploadedFile" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.packs.install({
+    id: "cribl-search-missing-logs",
+    spec: "<value>",
+    version: "<value>",
+    minLogStreamVersion: "<value>",
+    displayName: "Onie_Miller",
+    author: "<value>",
+    description: "than eek before fledgling absent astride depart till",
+    source: "cribl-search-missing-logs-1.0.1.Do7DH5I.crbl",
+    tags: {
+      dataType: [
+        "double",
+        "boolean",
+      ],
+      domain: [
+        "delectable-transom.com",
+        "radiant-sightseeing.info",
+      ],
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      technology: [
+        "<value 1>",
+      ],
+    },
+    allowCustomFunctions: false,
+    force: true,
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { packsInstall } from "cribl-control-plane/funcs/packsInstall.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await packsInstall(criblControlPlane, {
+    id: "cribl-search-missing-logs",
+    spec: "<value>",
+    version: "<value>",
+    minLogStreamVersion: "<value>",
+    displayName: "Onie_Miller",
+    author: "<value>",
+    description: "than eek before fledgling absent astride depart till",
+    source: "cribl-search-missing-logs-1.0.1.Do7DH5I.crbl",
+    tags: {
+      dataType: [
+        "double",
+        "boolean",
+      ],
+      domain: [
+        "delectable-transom.com",
+        "radiant-sightseeing.info",
+      ],
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      technology: [
+        "<value 1>",
+      ],
+    },
+    allowCustomFunctions: false,
     force: true,
   });
   if (res.ok) {
@@ -477,7 +913,7 @@ Upgrade the specified Pack.</br></br>If the Pack includes any user-modified vers
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="updatePacksById" method="patch" path="/packs/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="updatePacksById" method="patch" path="/packs/{id}" example="PackUpgradeExamplesUpgradeFromURL" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
