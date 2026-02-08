@@ -6,18 +6,8 @@
 import { PipelineFunctionGenStats } from "cribl-control-plane/models";
 
 let value: PipelineFunctionGenStats = {
-  filter: "<value>",
   id: "gen_stats",
-  description:
-    "another but revoke juvenile nearly why anti jogging reboot asset",
-  disabled: true,
-  final: true,
-  conf: {
-    fields: [
-      "<value 1>",
-    ],
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

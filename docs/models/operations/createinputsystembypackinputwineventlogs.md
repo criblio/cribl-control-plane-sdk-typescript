@@ -8,50 +8,7 @@ import { CreateInputSystemByPackInputWinEventLogs } from "cribl-control-plane/mo
 let value: CreateInputSystemByPackInputWinEventLogs = {
   id: "<id>",
   type: "win_event_logs",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  logNames: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  readMode: "oldest",
-  eventFormat: "xml",
-  disableNativeModule: true,
-  interval: 3034.17,
-  batchSize: 4251.5,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  maxEventBytes: 3209.48,
-  description: "going cricket sham lest physically beside",
-  disableJsonRendering: false,
-  disableXmlRendering: true,
+  logNames: [],
 };
 ```
 

@@ -7,7 +7,6 @@ import { CreateInputSystemByPackInputJournalFilesRule } from "cribl-control-plan
 
 let value: CreateInputSystemByPackInputJournalFilesRule = {
   filter: "<value>",
-  description: "unless madly babyish pfft",
 };
 ```
 

@@ -8,48 +8,11 @@ import { CreateInputInputWinEventLogs } from "cribl-control-plane/models/operati
 let value: CreateInputInputWinEventLogs = {
   id: "<id>",
   type: "win_event_logs",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
+  logNames: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  logNames: [],
-  readMode: "newest",
-  eventFormat: "json",
-  disableNativeModule: true,
-  interval: 3417.78,
-  batchSize: 8216.6,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  maxEventBytes: 3070.67,
-  description: "blah chip orange inure mechanically",
-  disableJsonRendering: false,
-  disableXmlRendering: true,
 };
 ```
 

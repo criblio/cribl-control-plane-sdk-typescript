@@ -7,8 +7,6 @@ import { PipelineGroups } from "cribl-control-plane/models";
 
 let value: PipelineGroups = {
   name: "<value>",
-  description: "during folklore that young swine everlasting tough refine",
-  disabled: false,
 };
 ```
 

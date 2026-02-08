@@ -8,70 +8,8 @@ import { CreateOutputOutputHumioHec } from "cribl-control-plane/models/operation
 let value: CreateOutputOutputHumioHec = {
   id: "<id>",
   type: "humio_hec",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  url: "https://soggy-produce.com",
-  concurrency: 9086.67,
-  maxPayloadSizeKB: 4963.8,
-  maxPayloadEvents: 9405.79,
-  compress: true,
-  rejectUnauthorized: false,
-  timeoutSec: 6467.21,
-  flushPeriodSec: 2541.44,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: false,
-  failedRequestLoggingMode: "none",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  format: "JSON",
-  authType: "manual",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "queue",
-  description:
-    "when aboard paintwork phooey geez consequently when via feminize huzzah",
-  token: "<value>",
-  textSecret: "<value>",
-  pqStrictOrdering: false,
-  pqRatePerSec: 1741.42,
-  pqMode: "error",
-  pqMaxBufferSize: 54.38,
-  pqMaxBackpressureSec: 3832.32,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
-  __template_url: "https://lean-legend.org/",
+  url: "https://standard-tenant.net/",
+  format: "raw",
 };
 ```
 

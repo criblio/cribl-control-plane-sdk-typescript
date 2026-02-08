@@ -7,14 +7,6 @@ import { RestCollectMethodGetRestRetryRulesTypeStatic } from "cribl-control-plan
 
 let value: RestCollectMethodGetRestRetryRulesTypeStatic = {
   type: "static",
-  interval: "<value>",
-  limit: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  retryConnectTimeout: "<value>",
-  retryConnectReset: "<value>",
-  multiplier: "<value>",
-  maxIntervalMs: "<value>",
 };
 ```
 

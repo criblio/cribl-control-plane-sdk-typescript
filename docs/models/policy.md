@@ -7,31 +7,13 @@ import { Policy } from "cribl-control-plane/models";
 
 let value: Policy = {
   id: "<id>",
-  disabled: false,
-  waitToGroup: 3142.86,
-  groupByLabels: [
-    "<value 1>",
+  templateTargetPairs: [
+    {
+      templateId: "<id>",
+      targetId: "<id>",
+    },
   ],
-  conditions: [
-    [
-      {
-        key: "<key>",
-        operator: "=",
-        value: true,
-      },
-    ],
-    [],
-    [
-      {
-        key: "<key>",
-        operator: "=",
-        value: true,
-      },
-    ],
-  ],
-  templateTargetPairs: [],
-  final: false,
-  order: 6422.55,
+  order: 3142.86,
 };
 ```
 

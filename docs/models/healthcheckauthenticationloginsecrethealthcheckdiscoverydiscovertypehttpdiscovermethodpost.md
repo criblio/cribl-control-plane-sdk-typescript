@@ -11,17 +11,8 @@ let value:
   HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost =
     {
       discoverMethod: "post",
-      discoverRequestParams: "<value>",
       discoverType: "http",
       discoverUrl: "https://understated-lamp.info/",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

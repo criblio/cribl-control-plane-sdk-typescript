@@ -9,17 +9,8 @@
 const value:
   models.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttp = {
     discoverMethod: "post",
-    discoverRequestParams: "<value>",
     discoverType: "list",
     discoverUrl: "https://mediocre-hippodrome.com/",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    discoverDataField: "<value>",
   };
 ```
 
@@ -30,7 +21,6 @@ const value:
   models.HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJson = {
     discoverType: "json",
     manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
   };
 ```
 

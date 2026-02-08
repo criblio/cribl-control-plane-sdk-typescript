@@ -8,24 +8,8 @@ import { RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost 
 let value:
   RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost = {
     discoverMethod: "post",
-    discoverRequestParams: "<value>",
     discoverType: "list",
     discoverUrl: "https://genuine-trench.name/",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: false,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: true,
   };
 ```
 

@@ -5,10 +5,7 @@
 ```typescript
 import { FunctionConfSchemaOtlpLogs } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaOtlpLogs = {
-  dropNonLogEvents: true,
-  batchOTLPLogs: false,
-};
+let value: FunctionConfSchemaOtlpLogs = {};
 ```
 
 ## Fields

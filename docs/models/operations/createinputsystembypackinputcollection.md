@@ -8,52 +8,6 @@ import { CreateInputSystemByPackInputCollection } from "cribl-control-plane/mode
 let value: CreateInputSystemByPackInputCollection = {
   id: "<id>",
   type: "collection",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  staleChannelFlushMs: 7987.47,
-  preprocess: {
-    disabled: false,
-    command: "<value>",
-    args: [
-      "<value 1>",
-    ],
-  },
-  throttleRatePerSec: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  output: "<value>",
 };
 ```
 

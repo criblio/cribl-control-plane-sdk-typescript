@@ -7,8 +7,6 @@ import { GetOutputStatusByIdRequest } from "cribl-control-plane/models/operation
 
 let value: GetOutputStatusByIdRequest = {
   id: "<id>",
-  metrics: true,
-  type: true,
 };
 ```
 

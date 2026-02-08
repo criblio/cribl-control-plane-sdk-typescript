@@ -5,41 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackCustomWindowsMetrics } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackCustomWindowsMetrics = {
-  system: {
-    mode: "custom",
-    detail: false,
-  },
-  cpu: {
-    mode: "disabled",
-    perCpu: false,
-    detail: false,
-    time: true,
-  },
-  memory: {
-    mode: "custom",
-    detail: false,
-  },
-  network: {
-    mode: "basic",
-    detail: false,
-    protocols: false,
-    devices: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    perInterface: false,
-  },
-  disk: {
-    mode: "disabled",
-    perVolume: true,
-    detail: false,
-    volumes: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-};
+let value: CreateInputSystemByPackCustomWindowsMetrics = {};
 ```
 
 ## Fields

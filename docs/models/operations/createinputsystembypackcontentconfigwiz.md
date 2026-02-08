@@ -7,19 +7,10 @@ import { CreateInputSystemByPackContentConfigWiz } from "cribl-control-plane/mod
 
 let value: CreateInputSystemByPackContentConfigWiz = {
   contentType: "<value>",
-  contentDescription: "<value>",
-  enabled: false,
-  stateTracking: true,
-  stateUpdateExpression: "<value>",
-  stateMergeExpression: "<value>",
-  manageState: {},
   contentQuery: "<value>",
   cronSchedule: "<value>",
   earliest: "<value>",
   latest: "<value>",
-  jobTimeout: "<value>",
-  logLevel: "info",
-  maxPages: 3443.67,
 };
 ```
 

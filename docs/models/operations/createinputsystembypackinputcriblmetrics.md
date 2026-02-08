@@ -8,41 +8,6 @@ import { CreateInputSystemByPackInputCriblmetrics } from "cribl-control-plane/mo
 let value: CreateInputSystemByPackInputCriblmetrics = {
   id: "<id>",
   type: "criblmetrics",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  prefix: "<value>",
-  fullFidelity: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "humiliating tightly gosh now",
 };
 ```
 

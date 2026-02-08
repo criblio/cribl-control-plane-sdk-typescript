@@ -7,7 +7,6 @@ import { PipelineFunctionJsonUnrollConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionJsonUnrollConf = {
   path: "/usr/libdata",
-  name: "<value>",
 };
 ```
 

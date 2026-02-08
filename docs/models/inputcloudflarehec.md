@@ -6,107 +6,10 @@
 import { InputCloudflareHec } from "cribl-control-plane/models";
 
 let value: InputCloudflareHec = {
-  id: "<id>",
   type: "cloudflare_hec",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "disloyal-challenge.name",
-  port: 9753.01,
-  authTokens: [
-    {
-      authType: "secret",
-      tokenSecret: "<value>",
-      token: "<value>",
-      enabled: false,
-      description: "vamoose woot vainly yellowish while scarily whenever",
-      allowedIndexesAtToken: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.3",
-  },
-  maxActiveReq: 5776.74,
-  maxRequestsPerSocket: 684676,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 6552.52,
-  requestTimeout: 8049.23,
-  socketTimeout: 4244.89,
-  keepAliveTimeout: 6374.67,
-  enableHealthCheck: "<value>",
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
+  host: "grizzled-receptor.com",
+  port: 5918.65,
   hecAPI: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedIndexes: [
-    "<value 1>",
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  staleChannelFlushMs: 7840.92,
-  accessControlAllowOrigin: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  accessControlAllowHeaders: [
-    "<value 1>",
-  ],
-  emitTokenMetrics: false,
-  description: "grade midst until and whoa plain lift",
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 

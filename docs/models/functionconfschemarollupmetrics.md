@@ -5,14 +5,7 @@
 ```typescript
 import { FunctionConfSchemaRollupMetrics } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaRollupMetrics = {
-  dimensions: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  timeWindow: "<value>",
-  gaugeRollup: "min",
-};
+let value: FunctionConfSchemaRollupMetrics = {};
 ```
 
 ## Fields

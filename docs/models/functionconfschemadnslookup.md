@@ -5,34 +5,7 @@
 ```typescript
 import { FunctionConfSchemaDnsLookup } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaDnsLookup = {
-  dnsLookupFields: [
-    {
-      inFieldName: "<value>",
-      resourceRecordType: "A",
-      outFieldName: "<value>",
-    },
-  ],
-  reverseLookupFields: [
-    {
-      inFieldName: "<value>",
-      outFieldName: "<value>",
-    },
-  ],
-  dnsServers: [
-    "<value 1>",
-  ],
-  cacheTTL: 477.42,
-  maxCacheSize: 9685.05,
-  useResolvConf: true,
-  lookupFallback: true,
-  domainOverrides: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  lookupFailLogLevel: "error",
-};
+let value: FunctionConfSchemaDnsLookup = {};
 ```
 
 ## Fields

@@ -7,24 +7,6 @@ import { CreateInputAuthTokensExt } from "cribl-control-plane/models/operations"
 
 let value: CreateInputAuthTokensExt = {
   token: "<value>",
-  description: "anesthetize cheetah when demonstrate",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  splunkHecMetadata: {
-    enabled: true,
-    defaultDataset: "<value>",
-    allowedIndexesAtToken: [
-      "<value 1>",
-    ],
-  },
-  elasticsearchMetadata: {
-    enabled: false,
-    defaultDataset: "<value>",
-  },
 };
 ```
 

@@ -8,26 +8,12 @@ import { CreateOutputSystemByPackOutputRouter } from "cribl-control-plane/models
 let value: CreateOutputSystemByPackOutputRouter = {
   id: "<id>",
   type: "router",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
   rules: [
     {
       filter: "<value>",
       output: "<value>",
-      description: "unless unless char bah toward",
-      final: false,
     },
   ],
-  description: "tough aching gadzooks",
 };
 ```
 

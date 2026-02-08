@@ -5,13 +5,7 @@
 ```typescript
 import { CountedBoolean } from "cribl-control-plane/models";
 
-let value: CountedBoolean = {
-  count: 905404,
-  items: [
-    false,
-    false,
-  ],
-};
+let value: CountedBoolean = {};
 ```
 
 ## Fields

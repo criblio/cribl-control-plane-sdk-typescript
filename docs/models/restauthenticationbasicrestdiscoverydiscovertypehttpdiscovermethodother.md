@@ -9,23 +9,8 @@ let value:
   RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther = {
     discoverMethod: "other",
     discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestParams: "<value>",
     discoverType: "none",
     discoverUrl: "https://foolhardy-premium.name",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: true,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: false,
   };
 ```
 

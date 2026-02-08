@@ -7,8 +7,6 @@ import { DeleteSavedJobByIdRequest } from "cribl-control-plane/models/operations
 
 let value: DeleteSavedJobByIdRequest = {
   id: "<id>",
-  criblPack: "<value>",
-  groupId: "<id>",
 };
 ```
 

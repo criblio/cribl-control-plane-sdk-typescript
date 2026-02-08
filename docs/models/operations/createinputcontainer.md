@@ -5,23 +5,7 @@
 ```typescript
 import { CreateInputContainer } from "cribl-control-plane/models/operations";
 
-let value: CreateInputContainer = {
-  mode: "basic",
-  dockerSocket: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  dockerTimeout: 7866.4,
-  filters: [
-    {
-      expr: "<value>",
-    },
-  ],
-  allContainers: true,
-  perDevice: true,
-  detail: false,
-};
+let value: CreateInputContainer = {};
 ```
 
 ## Fields

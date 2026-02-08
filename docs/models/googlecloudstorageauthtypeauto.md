@@ -7,21 +7,7 @@ import { GoogleCloudStorageAuthTypeAuto } from "cribl-control-plane/models";
 
 let value: GoogleCloudStorageAuthTypeAuto = {
   authType: "auto",
-  outputName: "<value>",
   bucket: "<value>",
-  path: "/usr/obj",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  endpoint: "<value>",
-  disableTimeFilter: true,
-  recurse: true,
-  maxBatchSize: 8324.8,
-  parquetChunkSizeMB: 2453.03,
-  parquetChunkDownloadTimeout: 8070.41,
 };
 ```
 

@@ -6,34 +6,10 @@
 import { PipelineFunctionLookup } from "cribl-control-plane/models";
 
 let value: PipelineFunctionLookup = {
-  filter: "<value>",
   id: "lookup",
-  description: "ack pish wrongly",
-  disabled: true,
-  final: true,
   conf: {
     file: "<value>",
-    dbLookup: false,
-    matchMode: "<value>",
-    matchType: "<value>",
-    reloadPeriodSec: "<value>",
-    inFields: [
-      {
-        eventField: "<value>",
-        lookupField: "<value>",
-      },
-    ],
-    outFields: [
-      {
-        lookupField: "<value>",
-        eventField: "<value>",
-        defaultValue: "<value>",
-      },
-    ],
-    addToEvent: false,
-    ignoreCase: "<value>",
   },
-  groupId: "<id>",
 };
 ```
 

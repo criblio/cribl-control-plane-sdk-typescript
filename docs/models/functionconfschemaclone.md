@@ -5,16 +5,7 @@
 ```typescript
 import { FunctionConfSchemaClone } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaClone = {
-  clones: [
-    {
-      "key": "<value>",
-      "key1": "<value>",
-      "key2": "<value>",
-    },
-    {},
-  ],
-};
+let value: FunctionConfSchemaClone = {};
 ```
 
 ## Fields

@@ -9,10 +9,10 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type HealthCountType = {
-  Green: number;
-  Yellow: number;
-  Red: number;
-  Unknown: number;
+  Green?: number | undefined;
+  Yellow?: number | undefined;
+  Red?: number | undefined;
+  Unknown?: number | undefined;
 };
 
 /** @internal */
@@ -21,10 +21,10 @@ export const HealthCountType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  Green: types.number(),
-  Yellow: types.number(),
-  Red: types.number(),
-  Unknown: types.number(),
+  Green: types.optional(types.number()),
+  Yellow: types.optional(types.number()),
+  Red: types.optional(types.number()),
+  Unknown: types.optional(types.number()),
 });
 
 export function healthCountTypeFromJSON(

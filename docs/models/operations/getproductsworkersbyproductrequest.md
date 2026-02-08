@@ -7,12 +7,6 @@ import { GetProductsWorkersByProductRequest } from "cribl-control-plane/models/o
 
 let value: GetProductsWorkersByProductRequest = {
   product: "edge",
-  filterExp: "<value>",
-  sortExp: "<value>",
-  filter: "<value>",
-  sort: "<value>",
-  limit: 576351,
-  offset: 762853,
 };
 ```
 

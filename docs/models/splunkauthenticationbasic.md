@@ -11,37 +11,8 @@ let value: SplunkAuthenticationBasic = {
   password: "Hwqh2mRqngRWb8D",
   searchHead: "<value>",
   search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
   endpoint: "<value>",
   outputMode: "json",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  timeout: 7103.1,
-  useRoundRobinDns: true,
-  disableTimeFilter: false,
-  rejectUnauthorized: false,
-  handleEscapedChars: true,
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
 };
 ```
 

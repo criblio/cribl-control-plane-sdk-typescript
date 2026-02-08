@@ -34,17 +34,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await databaseConnectionsCreate(criblControlPlane, {
     authType: "connectionString",
-    configObj: "<value>",
     connectionString: "mysql://admin:password123@mysql.example.com:3306/production?ssl=true",
     connectionTimeout: 10000,
-    credsSecrets: "<value>",
     databaseType: "mysql",
     description: "Production MySQL database for customer data",
     id: "mysql-prod-db",
-    password: "QpvMa8DI_lUJL_b",
-    requestTimeout: 4657.19,
     tags: "production,mysql,customer-data",
-    user: "Dolores.Feil",
   });
   if (res.ok) {
     const { value: result } = res;

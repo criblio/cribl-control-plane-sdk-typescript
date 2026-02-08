@@ -7,25 +7,17 @@ import { FunctionSampling } from "cribl-control-plane/models";
 
 let value: FunctionSampling = {
   __filename: "example.file",
-  asyncTimeout: 6318.17,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: false,
   id: "sampling",
-  loadTime: 2657.5,
-  modTime: 2561.69,
+  loadTime: 6318.17,
+  modTime: 3413.17,
   name: "<value>",
-  sync: false,
   uischema: {
-    "key": "<value>",
-  },
-  version: "<value>",
-  schema: {
     "key": "<value>",
     "key1": "<value>",
     "key2": "<value>",
   },
+  version: "<value>",
 };
 ```
 

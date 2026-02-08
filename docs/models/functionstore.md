@@ -7,24 +7,15 @@ import { FunctionStore } from "cribl-control-plane/models";
 
 let value: FunctionStore = {
   __filename: "example.file",
-  asyncTimeout: 1052.71,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "store",
-  loadTime: 6678.2,
-  modTime: 3006.47,
+  loadTime: 1052.71,
+  modTime: 6406.03,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

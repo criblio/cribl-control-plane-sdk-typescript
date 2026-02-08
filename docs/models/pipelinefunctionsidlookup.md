@@ -6,21 +6,8 @@
 import { PipelineFunctionSidlookup } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSidlookup = {
-  filter: "<value>",
   id: "sidlookup",
-  description: "sequester fictionalize shout uh-huh tensely frail aha",
-  disabled: true,
-  final: true,
-  conf: {
-    fields: [
-      {
-        name: "<value>",
-        expr: "<value>",
-        disabled: false,
-      },
-    ],
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

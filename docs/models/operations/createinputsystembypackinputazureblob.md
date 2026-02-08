@@ -8,67 +8,7 @@ import { CreateInputSystemByPackInputAzureBlob } from "cribl-control-plane/model
 let value: CreateInputSystemByPackInputAzureBlob = {
   id: "<id>",
   type: "azure_blob",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   queueName: "<value>",
-  fileFilter: "<value>",
-  visibilityTimeout: 4534.16,
-  numReceivers: 2287.75,
-  maxMessages: 1907.53,
-  servicePeriodSecs: 6556.87,
-  skipOnError: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 3031.81,
-  parquetChunkSizeMB: 3186.68,
-  parquetChunkDownloadTimeout: 3373.76,
-  authType: "clientCert",
-  description: "even steeple spiffy brr",
-  connectionString: "<value>",
-  textSecret: "<value>",
-  storageAccountName: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  azureCloud: "<value>",
-  endpointSuffix: "<value>",
-  clientTextSecret: "<value>",
-  certificate: {
-    certificateName: "<value>",
-  },
-  __template_queueName: "<value>",
-  __template_connectionString: "<value>",
-  __template_tenantId: "<id>",
-  __template_clientId: "<id>",
 };
 ```
 

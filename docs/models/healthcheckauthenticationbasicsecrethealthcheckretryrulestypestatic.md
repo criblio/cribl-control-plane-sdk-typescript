@@ -8,11 +8,6 @@ import { HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic } f
 let value: HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic =
   {
     type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    multiplier: "<value>",
   };
 ```
 

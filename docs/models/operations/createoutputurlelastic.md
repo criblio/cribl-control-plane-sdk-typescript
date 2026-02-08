@@ -7,8 +7,6 @@ import { CreateOutputUrlElastic } from "cribl-control-plane/models/operations";
 
 let value: CreateOutputUrlElastic = {
   url: "https://fair-pension.name/",
-  weight: 3760.8,
-  __template_url: "https://gigantic-wafer.com",
 };
 ```
 

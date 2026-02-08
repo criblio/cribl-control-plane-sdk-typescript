@@ -6,58 +6,8 @@
 import { GroupCreateRequest } from "cribl-control-plane/models";
 
 let value: GroupCreateRequest = {
-  cloud: {
-    provider: "azure",
-    region: "<value>",
-  },
-  deployingWorkerCount: 9605.52,
-  description:
-    "gosh continually bestride trusting merrily whoa whether gifted even deliberately",
   estimatedIngestRate: 4096,
-  git: {
-    commit: "<value>",
-    localChanges: 3203.95,
-    log: [
-      {
-        author_email: "<value>",
-        author_name: "<value>",
-        date: "2024-04-14",
-        hash: "<value>",
-        message: "<value>",
-        short: "<value>",
-      },
-    ],
-  },
   id: "<id>",
-  incompatibleWorkerCount: 5091.12,
-  inherits: "<value>",
-  lookupDeployments: [
-    {
-      context: "<value>",
-      lookups: [
-        {
-          deployedVersion: "<value>",
-          file: "<value>",
-          version: "<value>",
-        },
-      ],
-    },
-  ],
-  maxWorkerAge: "<value>",
-  name: "<value>",
-  onPrem: false,
-  provisioned: false,
-  sourceGroupId: "<id>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  tags: "<value>",
-  type: "stream",
-  upgradeVersion: "<value>",
-  workerCount: 7541.81,
-  workerRemoteAccess: true,
 };
 ```
 

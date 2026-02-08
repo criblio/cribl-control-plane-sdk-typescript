@@ -11,17 +11,8 @@ let value:
   HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost =
     {
       discoverMethod: "post",
-      discoverRequestParams: "<value>",
       discoverType: "http",
       discoverUrl: "https://anguished-tuxedo.name/",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

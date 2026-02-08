@@ -7,8 +7,6 @@ import { GetInputStatusByIdRequest } from "cribl-control-plane/models/operations
 
 let value: GetInputStatusByIdRequest = {
   id: "<id>",
-  metrics: true,
-  type: true,
 };
 ```
 

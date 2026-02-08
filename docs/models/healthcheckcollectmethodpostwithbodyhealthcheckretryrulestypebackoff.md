@@ -8,11 +8,6 @@ import { HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff } 
 let value:
   HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff = {
     type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
   };
 ```
 

@@ -5,32 +5,7 @@
 ```typescript
 import { CountedRoutes } from "cribl-control-plane/models";
 
-let value: CountedRoutes = {
-  count: 540829,
-  items: [
-    {
-      comments: [
-        {
-          comment:
-            "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
-          groupId: "<id>",
-          id: "<id>",
-          index: 9969.55,
-        },
-      ],
-      groups: {
-        "key": {
-          description:
-            "since armchair thoroughly mmm miserably basket ugh rectangular",
-          index: 5527.34,
-          name: "<value>",
-        },
-      },
-      id: "<id>",
-      routes: [],
-    },
-  ],
-};
+let value: CountedRoutes = {};
 ```
 
 ## Fields

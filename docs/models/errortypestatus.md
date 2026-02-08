@@ -8,11 +8,6 @@ Error information, if applicable.
 import { ErrorTypeStatus } from "cribl-control-plane/models";
 
 let value: ErrorTypeStatus = {
-  details: {
-    "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
-  },
   message: "<value>",
 };
 ```

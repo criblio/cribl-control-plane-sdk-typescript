@@ -7,7 +7,6 @@ import { CreateInputPodFilter } from "cribl-control-plane/models/operations";
 
 let value: CreateInputPodFilter = {
   filter: "<value>",
-  description: "substantiate rudely irritably gee",
 };
 ```
 

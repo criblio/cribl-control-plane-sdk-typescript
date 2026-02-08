@@ -11,17 +11,8 @@ let value:
   HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost =
     {
       discoverMethod: "post",
-      discoverRequestParams: "<value>",
       discoverType: "json",
       discoverUrl: "https://elderly-derby.biz/",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

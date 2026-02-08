@@ -8,62 +8,7 @@ import { CreateInputSystemByPackInputMetrics } from "cribl-control-plane/models/
 let value: CreateInputSystemByPackInputMetrics = {
   id: "<id>",
   type: "metrics",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "emotional-seagull.info",
-  udpPort: 775.98,
-  tcpPort: 2902.26,
-  maxBufferSize: 8020.67,
-  ipWhitelistRegex: "<value>",
-  enableProxyHeader: true,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 3109.06,
-  description:
-    "geez ugh possible cafe shrilly rudely frankly from meanwhile well-worn",
-  __template_host: "<value>",
-  __template_udpPort: "<value>",
-  __template_tcpPort: "<value>",
+  host: "shoddy-adviser.net",
 };
 ```
 

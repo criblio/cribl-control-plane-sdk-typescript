@@ -8,23 +8,6 @@ import { CreateOutputSystemByPackOutputDiskSpool } from "cribl-control-plane/mod
 let value: CreateOutputSystemByPackOutputDiskSpool = {
   id: "<id>",
   type: "disk_spool",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  timeWindow: "<value>",
-  maxDataSize: "<value>",
-  maxDataTime: "<value>",
-  compress: "none",
-  partitionExpr: "<value>",
-  description:
-    "where exactly obstruct acceptable equatorial homeschool cruelly exhaust rise athletic",
 };
 ```
 

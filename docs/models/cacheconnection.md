@@ -6,16 +6,9 @@
 import { CacheConnection } from "cribl-control-plane/models";
 
 let value: CacheConnection = {
-  acceleratedFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  backfillStatus: "finished",
   cacheRef: "<value>",
-  createdAt: 5990.6,
-  lakehouseConnectionType: "cache",
-  migrationQueryId: "<id>",
-  retentionInDays: 2885.84,
+  createdAt: 4271.29,
+  retentionInDays: 7452.06,
 };
 ```
 

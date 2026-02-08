@@ -11,17 +11,8 @@ let value:
   HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
     {
       discoverMethod: "post_with_body",
-      discoverBody: "<value>",
       discoverType: "json",
       discoverUrl: "https://muffled-folklore.info",
-      discoverRequestParams: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

@@ -6,29 +6,16 @@
 import { PipelineFunctionNotify } from "cribl-control-plane/models";
 
 let value: PipelineFunctionNotify = {
-  filter: "<value>",
   id: "notify",
-  description:
-    "friendly bathhouse but preside structure reprove scarily ouch jet pip",
-  disabled: false,
-  final: true,
   conf: {
     group: "<value>",
     notificationId: "<id>",
     searchId: "<id>",
     savedQueryId: "<id>",
-    trigger: "<value>",
-    triggerType: "resultsCount",
-    triggerComparator: "===",
-    triggerCount: 1191.97,
-    resultsLimit: 7066.61,
-    searchUrl: "https://silent-legend.org/",
-    message: "<value>",
+    searchUrl: "https://pretty-remark.info",
     authToken: "<value>",
     messagesEndpoint: "<value>",
-    tenantId: "<id>",
   },
-  groupId: "<id>",
 };
 ```
 

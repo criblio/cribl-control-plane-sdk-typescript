@@ -9,45 +9,13 @@ let value: UpdateRoutesByPackAndIdRequest = {
   id: "<id>",
   pack: "<value>",
   routes: {
-    comments: [
-      {
-        comment:
-          "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
-        groupId: "<id>",
-        id: "<id>",
-        index: 9969.55,
-      },
-    ],
-    groups: {
-      "key": {
-        description:
-          "since armchair thoroughly mmm miserably basket ugh rectangular",
-        index: 5527.34,
-        name: "<value>",
-      },
-    },
     id: "<id>",
     routes: [
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-          },
-        ],
-        context: "<value>",
-        description: "instance gah squiggly however",
-        disabled: false,
-        enableOutputExpression: true,
-        filter: "<value>",
         final: true,
-        groupId: "<id>",
         id: "<id>",
         name: "<value>",
-        output: "<value>",
-        outputExpression: "<value>",
         pipeline: "<value>",
-        targetContext: "group",
       },
     ],
   },

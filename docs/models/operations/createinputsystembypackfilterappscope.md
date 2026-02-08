@@ -5,16 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackFilterAppscope } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackFilterAppscope = {
-  allow: [
-    {
-      procname: "<value>",
-      arg: "<value>",
-      config: "<value>",
-    },
-  ],
-  transportURL: "https://sparkling-bend.biz/",
-};
+let value: CreateInputSystemByPackFilterAppscope = {};
 ```
 
 ## Fields

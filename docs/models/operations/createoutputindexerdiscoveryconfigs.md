@@ -11,17 +11,6 @@ let value: CreateOutputIndexerDiscoveryConfigs = {
   site: "<value>",
   masterUri: "https://quixotic-formation.net",
   refreshIntervalSec: 9769.82,
-  rejectUnauthorized: true,
-  authTokens: [
-    {
-      authType: "secret",
-      authToken: "<value>",
-      textSecret: "<value>",
-    },
-  ],
-  authType: "secret",
-  authToken: "<value>",
-  textSecret: "<value>",
 };
 ```
 

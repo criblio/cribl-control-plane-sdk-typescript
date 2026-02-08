@@ -6,72 +6,9 @@
 import { OutputHumioHec } from "cribl-control-plane/models";
 
 let value: OutputHumioHec = {
-  id: "<id>",
   type: "humio_hec",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  url: "https://unkempt-asset.info",
-  concurrency: 4992.58,
-  maxPayloadSizeKB: 6193.96,
-  maxPayloadEvents: 2277.62,
-  compress: true,
-  rejectUnauthorized: false,
-  timeoutSec: 3802.89,
-  flushPeriodSec: 647.79,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "payload",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
+  url: "https://happy-object.org/",
   format: "JSON",
-  authType: "manual",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "block",
-  description: "pish underpants deceivingly beside after yuck atop",
-  token: "<value>",
-  textSecret: "<value>",
-  pqStrictOrdering: false,
-  pqRatePerSec: 5897.68,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 3809.36,
-  pqMaxBackpressureSec: 5092.39,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
-  __template_url: "https://black-postbox.biz",
 };
 ```
 

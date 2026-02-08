@@ -6,18 +6,8 @@
 import { PipelineFunctionOtlpTraces } from "cribl-control-plane/models";
 
 let value: PipelineFunctionOtlpTraces = {
-  filter: "<value>",
   id: "otlp_traces",
-  description:
-    "make hyphenation ack next overspend furthermore plus lest modulo",
-  disabled: true,
-  final: false,
-  conf: {
-    dropNonTraceEvents: false,
-    otlpVersion: "1.3.1",
-    batchOTLPTraces: true,
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

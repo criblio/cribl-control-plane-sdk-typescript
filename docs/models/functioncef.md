@@ -7,24 +7,16 @@ import { FunctionCef } from "cribl-control-plane/models";
 
 let value: FunctionCef = {
   __filename: "example.file",
-  asyncTimeout: 6108.55,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: false,
   id: "cef",
-  loadTime: 339.21,
-  modTime: 515.96,
+  loadTime: 6108.55,
+  modTime: 3878.51,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
     "key1": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

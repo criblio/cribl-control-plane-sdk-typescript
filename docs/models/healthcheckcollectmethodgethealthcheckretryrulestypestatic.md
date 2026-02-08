@@ -7,11 +7,6 @@ import { HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic } from "crib
 
 let value: HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic = {
   type: "static",
-  interval: "<value>",
-  limit: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  multiplier: "<value>",
 };
 ```
 

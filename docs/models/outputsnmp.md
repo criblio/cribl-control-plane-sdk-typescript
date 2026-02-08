@@ -6,28 +6,8 @@
 import { OutputSnmp } from "cribl-control-plane/models";
 
 let value: OutputSnmp = {
-  id: "<id>",
   type: "snmp",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  hosts: [
-    {
-      host: "gray-godparent.net",
-      port: 4283.88,
-      __template_host: "<value>",
-      __template_port: "<value>",
-    },
-  ],
-  dnsResolvePeriodSec: 5311.32,
-  description: "hence caring lobster hole metabolise",
+  hosts: [],
 };
 ```
 

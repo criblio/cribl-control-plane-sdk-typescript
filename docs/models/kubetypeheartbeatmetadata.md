@@ -9,10 +9,6 @@ let value: KubeTypeHeartbeatMetadata = {
   enabled: true,
   namespace: "<value>",
   node: "<value>",
-  owner: {
-    kind: "<value>",
-    name: "<value>",
-  },
   pod: "<value>",
   source: "<value>",
 };

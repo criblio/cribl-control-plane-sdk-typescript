@@ -8,12 +8,9 @@ import { RestAuthenticationOauthSecretRestPaginationTypeRequestPage } from "crib
 let value: RestAuthenticationOauthSecretRestPaginationTypeRequestPage = {
   type: "request_page",
   pageField: "<value>",
-  page: 3011.24,
   sizeField: "<value>",
-  size: 6791.62,
-  totalPageField: "<value>",
-  totalRecordField: "<value>",
-  maxPages: 9725.5,
+  size: 3011.24,
+  maxPages: 6791.62,
   zeroIndexed: false,
 };
 ```

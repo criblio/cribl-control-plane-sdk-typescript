@@ -9,18 +9,6 @@ let value: CreateInputSystemHecTokenByPackAndIdRequest = {
   id: "<id>",
   pack: "<value>",
   addHecTokenRequest: {
-    allowedIndexesAtToken: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    description: "circumference before likewise arrogantly gosh parade um",
-    enabled: false,
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
     token: "<value>",
   },
 };

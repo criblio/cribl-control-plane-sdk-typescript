@@ -8,71 +8,8 @@ import { CreateOutputSystemByPackOutputHumioHec } from "cribl-control-plane/mode
 let value: CreateOutputSystemByPackOutputHumioHec = {
   id: "<id>",
   type: "humio_hec",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  url: "https://grave-thongs.info",
-  concurrency: 7487.15,
-  maxPayloadSizeKB: 9483.83,
-  maxPayloadEvents: 515.1,
-  compress: false,
-  rejectUnauthorized: false,
-  timeoutSec: 1511.73,
-  flushPeriodSec: 8028.6,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  format: "JSON",
-  authType: "manual",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "queue",
-  description:
-    "configuration whether flame intently sweatshop cycle astride ugh supposing",
-  token: "<value>",
-  textSecret: "<value>",
-  pqStrictOrdering: true,
-  pqRatePerSec: 4384.04,
-  pqMode: "always",
-  pqMaxBufferSize: 5304.72,
-  pqMaxBackpressureSec: 3982.89,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
-  __template_url: "https://nutritious-forage.info/",
+  url: "https://realistic-someplace.info/",
+  format: "raw",
 };
 ```
 

@@ -6,69 +6,9 @@
 import { InputTcpjson } from "cribl-control-plane/models";
 
 let value: InputTcpjson = {
-  id: "<id>",
   type: "tcpjson",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "intrepid-pendant.com",
-  port: 4813.44,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  ipWhitelistRegex: "<value>",
-  maxActiveCxn: 7055.47,
-  socketIdleTimeout: 5503.1,
-  socketEndingMaxWait: 712.24,
-  socketMaxLifespan: 4264.81,
-  enableProxyHeader: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  enableLoadBalancing: true,
-  authType: "manual",
-  description:
-    "snappy knitting absent denitrify furthermore dwell quietly elevation",
-  authToken: "<value>",
-  textSecret: "<value>",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "frilly-pillbox.net",
+  port: 8074.93,
 };
 ```
 

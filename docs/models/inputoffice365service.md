@@ -6,77 +6,9 @@
 import { InputOffice365Service } from "cribl-control-plane/models";
 
 let value: InputOffice365Service = {
-  id: "<id>",
   type: "office365_service",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  planType: "gcc",
   tenantId: "<id>",
   appId: "<id>",
-  timeout: 1685.12,
-  keepAliveTime: 4274.38,
-  jobTimeout: "<value>",
-  maxMissedKeepAlives: 1113.52,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  contentConfig: [
-    {
-      contentType: "<value>",
-      description: "with these overconfidently",
-      interval: 9163.06,
-      logLevel: "debug",
-      enabled: true,
-    },
-  ],
-  retryRules: {
-    type: "<value>",
-    interval: 6390.37,
-    limit: 2107.49,
-    multiplier: 2764.09,
-    codes: [
-      1648,
-      6941.51,
-      1223.37,
-    ],
-    enableHeader: true,
-    retryConnectTimeout: true,
-    retryConnectReset: true,
-  },
-  authType: "manual",
-  description: "as incidentally until bell",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-  __template_tenantId: "<id>",
-  __template_appId: "<id>",
-  __template_clientSecret: "<value>",
 };
 ```
 

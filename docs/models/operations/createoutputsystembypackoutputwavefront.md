@@ -8,68 +8,7 @@ import { CreateOutputSystemByPackOutputWavefront } from "cribl-control-plane/mod
 let value: CreateOutputSystemByPackOutputWavefront = {
   id: "<id>",
   type: "wavefront",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  authType: "manual",
-  domain: "limping-hamburger.org",
-  concurrency: 2934.92,
-  maxPayloadSizeKB: 448.54,
-  maxPayloadEvents: 1325.56,
-  compress: false,
-  rejectUnauthorized: false,
-  timeoutSec: 6075.78,
-  flushPeriodSec: 581.25,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: false,
-  failedRequestLoggingMode: "none",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "queue",
-  description:
-    "discontinue considering midst slight optimistically pension incomplete approximate efface whack",
-  token: "<value>",
-  textSecret: "<value>",
-  pqStrictOrdering: true,
-  pqRatePerSec: 7246.55,
-  pqMode: "error",
-  pqMaxBufferSize: 2236.96,
-  pqMaxBackpressureSec: 2553.38,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
+  domain: "oily-fellow.com",
 };
 ```
 

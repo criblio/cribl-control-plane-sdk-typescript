@@ -6,23 +6,10 @@
 import { PipelineFunctionJoin } from "cribl-control-plane/models";
 
 let value: PipelineFunctionJoin = {
-  filter: "<value>",
   id: "join",
-  description: "think atop wherever but circle",
-  disabled: true,
-  final: true,
   conf: {
-    kind: "<value>",
-    hints: {
-      "key": "<value>",
-      "key1": "<value>",
-      "key2": "<value>",
-    },
     fieldConditions: [],
-    searchJobId: "<id>",
-    stageId: "<id>",
   },
-  groupId: "<id>",
 };
 ```
 

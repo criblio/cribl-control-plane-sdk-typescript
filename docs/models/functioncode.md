@@ -7,25 +7,15 @@ import { FunctionCode } from "cribl-control-plane/models";
 
 let value: FunctionCode = {
   __filename: "example.file",
-  asyncTimeout: 1570.95,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "code",
-  loadTime: 1247.74,
-  modTime: 2997.82,
+  loadTime: 1570.95,
+  modTime: 6444.78,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
-    "key1": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

@@ -8,56 +8,8 @@ import { CreateInputInputModelDrivenTelemetry } from "cribl-control-plane/models
 let value: CreateInputInputModelDrivenTelemetry = {
   id: "<id>",
   type: "model_driven_telemetry",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "internal-median.net",
-  port: 2508.88,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  maxActiveCxn: 892.86,
-  shutdownTimeoutMs: 5117.79,
-  description: "cheap which yahoo puny",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "old-grouper.info",
+  port: 829.27,
 };
 ```
 

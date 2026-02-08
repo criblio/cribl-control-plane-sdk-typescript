@@ -8,60 +8,8 @@ import { CreateInputInputSnmp } from "cribl-control-plane/models/operations";
 let value: CreateInputInputSnmp = {
   id: "<id>",
   type: "snmp",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "big-heating.org",
-  port: 5679.07,
-  snmpV3Auth: {
-    v3AuthEnabled: true,
-    allowUnmatchedTrap: false,
-    v3Users: [
-      {
-        name: "<value>",
-        authProtocol: "sha512",
-        authKey: "<value>",
-        privProtocol: "aes256b",
-        privKey: "<value>",
-      },
-    ],
-  },
-  maxBufferSize: 5639.81,
-  ipWhitelistRegex: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 5277.13,
-  varbindsWithTypes: true,
-  bestEffortParsing: false,
-  description: "pant obnoxiously abandoned",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "stupendous-flint.info",
+  port: 4514.07,
 };
 ```
 

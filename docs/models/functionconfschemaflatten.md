@@ -5,16 +5,7 @@
 ```typescript
 import { FunctionConfSchemaFlatten } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaFlatten = {
-  fields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  prefix: "<value>",
-  depth: 7805.15,
-  delimiter: "<value>",
-};
+let value: FunctionConfSchemaFlatten = {};
 ```
 
 ## Fields

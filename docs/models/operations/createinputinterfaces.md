@@ -7,9 +7,7 @@ Creates events for each of the host’s network interfaces
 ```typescript
 import { CreateInputInterfaces } from "cribl-control-plane/models/operations";
 
-let value: CreateInputInterfaces = {
-  enable: false,
-};
+let value: CreateInputInterfaces = {};
 ```
 
 ## Fields

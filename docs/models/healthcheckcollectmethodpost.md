@@ -7,37 +7,8 @@ import { HealthCheckCollectMethodPost } from "cribl-control-plane/models";
 
 let value: HealthCheckCollectMethodPost = {
   collectMethod: "post_with_body",
-  collectRequestParams: "<value>",
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://shimmering-fencing.net/",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: true,
-  authentication: "basicSecret",
-  timeout: 8625.9,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
+  collectUrl: "https://impartial-fishery.com/",
+  authentication: "loginSecret",
 };
 ```
 

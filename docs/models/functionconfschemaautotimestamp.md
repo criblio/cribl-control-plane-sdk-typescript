@@ -5,24 +5,7 @@
 ```typescript
 import { FunctionConfSchemaAutoTimestamp } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaAutoTimestamp = {
-  srcField: "<value>",
-  dstField: "<value>",
-  defaultTimezone: "<value>",
-  timeExpression: "<value>",
-  offset: 1966.04,
-  maxLen: 3905.75,
-  defaultTime: "none",
-  latestDateAllowed: "<value>",
-  spacer: "<value>",
-  earliestDateAllowed: "<value>",
-  timestamps: [
-    {
-      regex: "<value>",
-      strptime: "<value>",
-    },
-  ],
-};
+let value: FunctionConfSchemaAutoTimestamp = {};
 ```
 
 ## Fields

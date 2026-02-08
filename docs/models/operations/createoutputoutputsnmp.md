@@ -8,26 +8,7 @@ import { CreateOutputOutputSnmp } from "cribl-control-plane/models/operations";
 let value: CreateOutputOutputSnmp = {
   id: "<id>",
   type: "snmp",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  hosts: [
-    {
-      host: "royal-heartbeat.net",
-      port: 2513.7,
-      __template_host: "<value>",
-      __template_port: "<value>",
-    },
-  ],
-  dnsResolvePeriodSec: 8130.88,
-  description:
-    "never immediately independence superficial following those astride failing wherever bicycle",
+  hosts: [],
 };
 ```
 

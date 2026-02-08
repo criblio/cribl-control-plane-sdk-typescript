@@ -7,11 +7,6 @@ import { HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone } from "cribl
 
 let value: HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone = {
   type: "none",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
 };
 ```
 

@@ -6,28 +6,8 @@
 import { PipelineFunctionEval } from "cribl-control-plane/models";
 
 let value: PipelineFunctionEval = {
-  filter: "<value>",
   id: "eval",
-  description: "opposite why pip psst memorise amid abaft insecure",
-  disabled: false,
-  final: false,
-  conf: {
-    add: [
-      {
-        name: "<value>",
-        value: "<value>",
-        disabled: true,
-      },
-    ],
-    keep: [
-      "<value 1>",
-    ],
-    remove: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

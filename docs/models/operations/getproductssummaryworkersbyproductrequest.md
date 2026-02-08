@@ -7,7 +7,6 @@ import { GetProductsSummaryWorkersByProductRequest } from "cribl-control-plane/m
 
 let value: GetProductsSummaryWorkersByProductRequest = {
   product: "stream",
-  filterExp: "<value>",
 };
 ```
 

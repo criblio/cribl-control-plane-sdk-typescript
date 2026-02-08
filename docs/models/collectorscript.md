@@ -12,16 +12,7 @@ let value: CollectorScript = {
   conf: {
     discoverScript: "<value>",
     collectScript: "<value>",
-    shell: "<value>",
-    envVars: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 

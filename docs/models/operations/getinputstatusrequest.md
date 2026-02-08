@@ -5,10 +5,7 @@
 ```typescript
 import { GetInputStatusRequest } from "cribl-control-plane/models/operations";
 
-let value: GetInputStatusRequest = {
-  metrics: false,
-  type: false,
-};
+let value: GetInputStatusRequest = {};
 ```
 
 ## Fields

@@ -41,14 +41,10 @@ async function run() {
         {
           filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))",
           id: "aggregate_metrics",
-          description: "humiliating guidance highly hundred er round zowie ew",
-          disabled: false,
-          final: false,
           conf: {
             passthrough: false,
             preserveGroupBys: false,
             sufficientStatsOnly: false,
-            prefix: "<value>",
             timeWindow: "10s",
             aggregations: [
               {
@@ -67,19 +63,10 @@ async function run() {
             groupbys: [
               "proc",
             ],
-            flushEventLimit: 5554.41,
-            flushMemLimit: "<value>",
             cumulative: false,
             shouldTreatDotsAsLiterals: true,
-            add: [
-              {
-                name: "<value>",
-                value: "<value>",
-              },
-            ],
             flushOnInputClose: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -123,14 +110,10 @@ async function run() {
         {
           filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))",
           id: "aggregate_metrics",
-          description: "humiliating guidance highly hundred er round zowie ew",
-          disabled: false,
-          final: false,
           conf: {
             passthrough: false,
             preserveGroupBys: false,
             sufficientStatsOnly: false,
-            prefix: "<value>",
             timeWindow: "10s",
             aggregations: [
               {
@@ -149,19 +132,10 @@ async function run() {
             groupbys: [
               "proc",
             ],
-            flushEventLimit: 5554.41,
-            flushMemLimit: "<value>",
             cumulative: false,
             shouldTreatDotsAsLiterals: true,
-            add: [
-              {
-                name: "<value>",
-                value: "<value>",
-              },
-            ],
             flushOnInputClose: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -204,15 +178,11 @@ async function run() {
         {
           filter: "true",
           id: "aggregation",
-          description: "classic huzzah slip gah or from versus spirit worth down",
-          disabled: true,
-          final: true,
           conf: {
             passthrough: false,
             preserveGroupBys: false,
             sufficientStatsOnly: false,
             metricsMode: false,
-            prefix: "<value>",
             timeWindow: "10s",
             aggregations: [
               "sum(bytes).where(action==\"REJECT\").as(TotalBytes)",
@@ -220,20 +190,10 @@ async function run() {
             groupbys: [
               "srcaddr",
             ],
-            flushEventLimit: 6647.4,
-            flushMemLimit: "<value>",
             cumulative: false,
-            searchAggMode: "<value>",
-            add: [
-              {
-                name: "<value>",
-                value: "<value>",
-              },
-            ],
             shouldTreatDotsAsLiterals: false,
             flushOnInputClose: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -277,15 +237,11 @@ async function run() {
         {
           filter: "true",
           id: "aggregation",
-          description: "classic huzzah slip gah or from versus spirit worth down",
-          disabled: true,
-          final: true,
           conf: {
             passthrough: false,
             preserveGroupBys: false,
             sufficientStatsOnly: false,
             metricsMode: false,
-            prefix: "<value>",
             timeWindow: "10s",
             aggregations: [
               "sum(bytes).where(action==\"REJECT\").as(TotalBytes)",
@@ -293,20 +249,10 @@ async function run() {
             groupbys: [
               "srcaddr",
             ],
-            flushEventLimit: 6647.4,
-            flushMemLimit: "<value>",
             cumulative: false,
-            searchAggMode: "<value>",
-            add: [
-              {
-                name: "<value>",
-                value: "<value>",
-              },
-            ],
             shouldTreatDotsAsLiterals: false,
             flushOnInputClose: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -349,9 +295,6 @@ async function run() {
         {
           filter: "true",
           id: "auto_timestamp",
-          description: "out slide blah irresponsible even squeaky finally atop noisily",
-          disabled: true,
-          final: false,
           conf: {
             srcField: "_raw",
             dstField: "_time",
@@ -361,7 +304,6 @@ async function run() {
             maxLen: 150,
             defaultTime: "now",
             latestDateAllowed: "+1week",
-            spacer: "<value>",
             earliestDateAllowed: "-420weeks",
             timestamps: [
               {
@@ -370,7 +312,6 @@ async function run() {
               },
             ],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -414,9 +355,6 @@ async function run() {
         {
           filter: "true",
           id: "auto_timestamp",
-          description: "out slide blah irresponsible even squeaky finally atop noisily",
-          disabled: true,
-          final: false,
           conf: {
             srcField: "_raw",
             dstField: "_time",
@@ -426,7 +364,6 @@ async function run() {
             maxLen: 150,
             defaultTime: "now",
             latestDateAllowed: "+1week",
-            spacer: "<value>",
             earliestDateAllowed: "-420weeks",
             timestamps: [
               {
@@ -435,7 +372,6 @@ async function run() {
               },
             ],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -478,9 +414,6 @@ async function run() {
         {
           filter: "true",
           id: "cef",
-          description: "gadzooks always as likable aboard ad gadzooks foolish ham",
-          disabled: true,
-          final: true,
           conf: {
             outputField: "_raw",
             header: [
@@ -513,7 +446,6 @@ async function run() {
               },
             ],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -557,9 +489,6 @@ async function run() {
         {
           filter: "true",
           id: "cef",
-          description: "gadzooks always as likable aboard ad gadzooks foolish ham",
-          disabled: true,
-          final: true,
           conf: {
             outputField: "_raw",
             header: [
@@ -592,7 +521,6 @@ async function run() {
               },
             ],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -635,13 +563,9 @@ async function run() {
         {
           filter: "true",
           id: "chain",
-          description: "cantaloupe hasty where gee yum excepting",
-          disabled: true,
-          final: true,
           conf: {
             processor: "prometheus_metrics",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -685,13 +609,9 @@ async function run() {
         {
           filter: "true",
           id: "chain",
-          description: "cantaloupe hasty where gee yum excepting",
-          disabled: true,
-          final: true,
           conf: {
             processor: "prometheus_metrics",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -734,9 +654,6 @@ async function run() {
         {
           filter: "true",
           id: "clone",
-          description: "sailor finally magnetize plus aware forenenst good gloss",
-          disabled: true,
-          final: false,
           conf: {
             clones: [
               {
@@ -747,7 +664,6 @@ async function run() {
               },
             ],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -791,9 +707,6 @@ async function run() {
         {
           filter: "true",
           id: "clone",
-          description: "sailor finally magnetize plus aware forenenst good gloss",
-          disabled: true,
-          final: false,
           conf: {
             clones: [
               {
@@ -804,7 +717,6 @@ async function run() {
               },
             ],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -847,13 +759,9 @@ async function run() {
         {
           filter: "true",
           id: "comment",
-          description: "weekly boggle oof modulo when pleased consequently oddly",
-          disabled: true,
-          final: true,
           conf: {
             comment: "This function processes security events and enriches them with DNS lookups",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -897,13 +805,9 @@ async function run() {
         {
           filter: "true",
           id: "comment",
-          description: "weekly boggle oof modulo when pleased consequently oddly",
-          disabled: true,
-          final: true,
           conf: {
             comment: "This function processes security events and enriches them with DNS lookups",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -946,9 +850,6 @@ async function run() {
         {
           filter: "true",
           id: "dns_lookup",
-          description: "unlike victoriously dredger lest frightfully gifted instantly",
-          disabled: false,
-          final: true,
           conf: {
             dnsLookupFields: [
               {
@@ -963,19 +864,12 @@ async function run() {
                 outFieldName: "src_hostname",
               },
             ],
-            dnsServers: [
-              "<value 1>",
-            ],
             cacheTTL: 30,
             maxCacheSize: 5000,
             useResolvConf: false,
             lookupFallback: false,
-            domainOverrides: [
-              "<value 1>",
-            ],
             lookupFailLogLevel: "error",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1019,9 +913,6 @@ async function run() {
         {
           filter: "true",
           id: "dns_lookup",
-          description: "unlike victoriously dredger lest frightfully gifted instantly",
-          disabled: false,
-          final: true,
           conf: {
             dnsLookupFields: [
               {
@@ -1036,19 +927,12 @@ async function run() {
                 outFieldName: "src_hostname",
               },
             ],
-            dnsServers: [
-              "<value 1>",
-            ],
             cacheTTL: 30,
             maxCacheSize: 5000,
             useResolvConf: false,
             lookupFallback: false,
-            domainOverrides: [
-              "<value 1>",
-            ],
             lookupFailLogLevel: "error",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1091,11 +975,7 @@ async function run() {
         {
           filter: "_raw.search(/success/i)>=0",
           id: "drop",
-          description: "yahoo restfully hearten meanwhile absent naturally",
-          disabled: false,
-          final: true,
           conf: {},
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1139,11 +1019,7 @@ async function run() {
         {
           filter: "_raw.search(/success/i)>=0",
           id: "drop",
-          description: "yahoo restfully hearten meanwhile absent naturally",
-          disabled: false,
-          final: true,
           conf: {},
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1186,9 +1062,6 @@ async function run() {
         {
           filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) && (__criblMetrics[0].dims.includes(\"proc\"))",
           id: "drop_dimensions",
-          description: "vacation wrongly hmph celebrate ignite",
-          disabled: false,
-          final: true,
           conf: {
             timeWindow: "10s",
             dropDimensions: [
@@ -1198,7 +1071,6 @@ async function run() {
             ],
             flushOnInputClose: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1242,9 +1114,6 @@ async function run() {
         {
           filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) && (__criblMetrics[0].dims.includes(\"proc\"))",
           id: "drop_dimensions",
-          description: "vacation wrongly hmph celebrate ignite",
-          disabled: false,
-          final: true,
           conf: {
             timeWindow: "10s",
             dropDimensions: [
@@ -1254,7 +1123,6 @@ async function run() {
             ],
             flushOnInputClose: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1297,9 +1165,6 @@ async function run() {
         {
           filter: "true",
           id: "dynamic_sampling",
-          description: "gee ick why sniff um mouser mosh utterly monthly er",
-          disabled: false,
-          final: true,
           conf: {
             mode: "sqrt",
             keyExpr: "`${domain}:${httpCode}`",
@@ -1307,7 +1172,6 @@ async function run() {
             minEvents: 3,
             maxSampleRate: 3,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1351,9 +1215,6 @@ async function run() {
         {
           filter: "true",
           id: "dynamic_sampling",
-          description: "gee ick why sniff um mouser mosh utterly monthly er",
-          disabled: false,
-          final: true,
           conf: {
             mode: "sqrt",
             keyExpr: "`${domain}:${httpCode}`",
@@ -1361,7 +1222,6 @@ async function run() {
             minEvents: 3,
             maxSampleRate: 3,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1479,20 +1339,15 @@ async function run() {
         {
           filter: "true",
           id: "eval",
-          description: "well-to-do boo jaunty bank censor magnificent",
-          disabled: true,
-          final: true,
           conf: {
             add: [
               {
                 name: "action",
                 value: "login == 'error' ? 'blocked' : action",
-                disabled: true,
               },
               {
                 name: "myTags",
                 value: "login == 'error' ? [...myTags, 'error'] : myTags",
-                disabled: true,
               },
             ],
             keep: [
@@ -1505,7 +1360,6 @@ async function run() {
               "identification",
             ],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1549,20 +1403,15 @@ async function run() {
         {
           filter: "true",
           id: "eval",
-          description: "well-to-do boo jaunty bank censor magnificent",
-          disabled: true,
-          final: true,
           conf: {
             add: [
               {
                 name: "action",
                 value: "login == 'error' ? 'blocked' : action",
-                disabled: true,
               },
               {
                 name: "myTags",
                 value: "login == 'error' ? [...myTags, 'error'] : myTags",
-                disabled: true,
               },
             ],
             keep: [
@@ -1575,7 +1424,6 @@ async function run() {
               "identification",
             ],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1618,14 +1466,10 @@ async function run() {
         {
           filter: "true",
           id: "event_breaker",
-          description: "outside utterly each toward sailor",
-          disabled: false,
-          final: true,
           conf: {
             existingOrNew: "new",
             shouldMarkCriblBreaker: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1669,14 +1513,10 @@ async function run() {
         {
           filter: "true",
           id: "event_breaker",
-          description: "outside utterly each toward sailor",
-          disabled: false,
-          final: true,
           conf: {
             existingOrNew: "new",
             shouldMarkCriblBreaker: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1719,16 +1559,12 @@ async function run() {
         {
           filter: "true",
           id: "flatten",
-          description: "countess majority excluding staid woot when swill",
-          disabled: false,
-          final: true,
           conf: {
             fields: [],
             prefix: "",
             depth: 5,
             delimiter: "_",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1772,16 +1608,12 @@ async function run() {
         {
           filter: "true",
           id: "flatten",
-          description: "countess majority excluding staid woot when swill",
-          disabled: false,
-          final: true,
           conf: {
             fields: [],
             prefix: "",
             depth: 5,
             delimiter: "_",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1824,15 +1656,11 @@ async function run() {
         {
           filter: "true",
           id: "foldkeys",
-          description: "evenly eek aw but grave uh-huh",
-          disabled: true,
-          final: true,
           conf: {
             deleteOriginal: true,
             separator: "_",
             selectionRegExp: "^data",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1876,15 +1704,11 @@ async function run() {
         {
           filter: "true",
           id: "foldkeys",
-          description: "evenly eek aw but grave uh-huh",
-          disabled: true,
-          final: true,
           conf: {
             deleteOriginal: true,
             separator: "_",
             selectionRegExp: "^data",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1927,9 +1751,6 @@ async function run() {
         {
           filter: "true",
           id: "geoip",
-          description: "likewise abnormally fishery supposing quizzically",
-          disabled: false,
-          final: true,
           conf: {
             file: "GeoLite2-City.mmdb",
             inField: "ip",
@@ -1940,9 +1761,7 @@ async function run() {
                 extraOutField: "src_geoip",
               },
             ],
-            outFieldMappings: {},
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -1986,9 +1805,6 @@ async function run() {
         {
           filter: "true",
           id: "geoip",
-          description: "likewise abnormally fishery supposing quizzically",
-          disabled: false,
-          final: true,
           conf: {
             file: "GeoLite2-City.mmdb",
             inField: "ip",
@@ -1999,9 +1815,7 @@ async function run() {
                 extraOutField: "src_geoip",
               },
             ],
-            outFieldMappings: {},
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2044,15 +1858,11 @@ async function run() {
         {
           filter: "true",
           id: "grok",
-          description: "wildly secondary diligently relieve ack like intermix christen upright",
-          disabled: false,
-          final: false,
           conf: {
             pattern: "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}",
             patternList: [],
             source: "_raw",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2096,15 +1906,11 @@ async function run() {
         {
           filter: "true",
           id: "grok",
-          description: "wildly secondary diligently relieve ack like intermix christen upright",
-          disabled: false,
-          final: false,
           conf: {
             pattern: "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}",
             patternList: [],
             source: "_raw",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2147,9 +1953,6 @@ async function run() {
         {
           filter: "true",
           id: "sensitive_data_scanner",
-          description: "sadly inasmuch waft modulo ah yippee upright those colorfully aw",
-          disabled: true,
-          final: true,
           conf: {
             rules: [
               {
@@ -2169,9 +1972,7 @@ async function run() {
               },
             ],
             includeDetectedRules: true,
-            backgroundDetection: false,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2215,9 +2016,6 @@ async function run() {
         {
           filter: "true",
           id: "sensitive_data_scanner",
-          description: "sadly inasmuch waft modulo ah yippee upright those colorfully aw",
-          disabled: true,
-          final: true,
           conf: {
             rules: [
               {
@@ -2237,9 +2035,7 @@ async function run() {
               },
             ],
             includeDetectedRules: true,
-            backgroundDetection: false,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2282,14 +2078,10 @@ async function run() {
         {
           filter: "true",
           id: "json_unroll",
-          description: "dispense ha psst across role ha",
-          disabled: true,
-          final: false,
           conf: {
             path: "allCars",
             name: "cars",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2333,14 +2125,10 @@ async function run() {
         {
           filter: "true",
           id: "json_unroll",
-          description: "dispense ha psst across role ha",
-          disabled: true,
-          final: false,
           conf: {
             path: "allCars",
             name: "cars",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2383,14 +2171,10 @@ async function run() {
         {
           filter: "true",
           id: "lookup",
-          description: "ouch whether unnaturally ha",
-          disabled: false,
-          final: true,
           conf: {
             file: "ip_locations.csv",
             dbLookup: false,
             matchMode: "exact",
-            matchType: "<value>",
             reloadPeriodSec: -1,
             inFields: [
               {
@@ -2408,7 +2192,6 @@ async function run() {
             addToEvent: false,
             ignoreCase: false,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2452,14 +2235,10 @@ async function run() {
         {
           filter: "true",
           id: "lookup",
-          description: "ouch whether unnaturally ha",
-          disabled: false,
-          final: true,
           conf: {
             file: "ip_locations.csv",
             dbLookup: false,
             matchMode: "exact",
-            matchType: "<value>",
             reloadPeriodSec: -1,
             inFields: [
               {
@@ -2477,7 +2256,6 @@ async function run() {
             addToEvent: false,
             ignoreCase: false,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2520,9 +2298,6 @@ async function run() {
         {
           filter: "true",
           id: "mask",
-          description: "uselessly quinoa over smuggle acidly libel whenever",
-          disabled: true,
-          final: true,
           conf: {
             rules: [
               {
@@ -2535,14 +2310,7 @@ async function run() {
               "_raw",
             ],
             depth: 5,
-            flags: [
-              {
-                name: "<value>",
-                value: "<value>",
-              },
-            ],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2586,9 +2354,6 @@ async function run() {
         {
           filter: "true",
           id: "mask",
-          description: "uselessly quinoa over smuggle acidly libel whenever",
-          disabled: true,
-          final: true,
           conf: {
             rules: [
               {
@@ -2601,14 +2366,7 @@ async function run() {
               "_raw",
             ],
             depth: 5,
-            flags: [
-              {
-                name: "<value>",
-                value: "<value>",
-              },
-            ],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2651,16 +2409,12 @@ async function run() {
         {
           filter: "true",
           id: "numerify",
-          description: "reward badly loyally eek toward unless mild quirkily noxious blah",
-          disabled: false,
-          final: true,
           conf: {
             depth: 5,
             ignoreFields: [],
             filterExpr: "",
             format: "none",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2704,16 +2458,12 @@ async function run() {
         {
           filter: "true",
           id: "numerify",
-          description: "reward badly loyally eek toward unless mild quirkily noxious blah",
-          disabled: false,
-          final: true,
           conf: {
             depth: 5,
             ignoreFields: [],
             filterExpr: "",
             format: "none",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2756,14 +2506,10 @@ async function run() {
         {
           filter: "__inputId=='open_telemetry:open_telemetry'",
           id: "otlp_logs",
-          description: "import dividend between reassuringly",
-          disabled: false,
-          final: true,
           conf: {
             dropNonLogEvents: false,
             batchOTLPLogs: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2807,14 +2553,10 @@ async function run() {
         {
           filter: "__inputId=='open_telemetry:open_telemetry'",
           id: "otlp_logs",
-          description: "import dividend between reassuringly",
-          disabled: false,
-          final: true,
           conf: {
             dropNonLogEvents: false,
             batchOTLPLogs: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2857,9 +2599,6 @@ async function run() {
         {
           filter: "__inputId=='prometheus_rw:prom_rw_in'",
           id: "otlp_metrics",
-          description: "institutionalize briskly whether intend",
-          disabled: false,
-          final: true,
           conf: {
             resourceAttributePrefixes: [
               "service",
@@ -2874,7 +2613,6 @@ async function run() {
             otlpVersion: "0.10.0",
             batchOTLPMetrics: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2918,9 +2656,6 @@ async function run() {
         {
           filter: "__inputId=='prometheus_rw:prom_rw_in'",
           id: "otlp_metrics",
-          description: "institutionalize briskly whether intend",
-          disabled: false,
-          final: true,
           conf: {
             resourceAttributePrefixes: [
               "service",
@@ -2935,7 +2670,6 @@ async function run() {
             otlpVersion: "0.10.0",
             batchOTLPMetrics: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -2978,15 +2712,11 @@ async function run() {
         {
           filter: "__inputId=='open_telemetry:open_telemetry'",
           id: "otlp_traces",
-          description: "fortunately duh yearly",
-          disabled: true,
-          final: true,
           conf: {
             dropNonTraceEvents: false,
             otlpVersion: "0.10.0",
             batchOTLPTraces: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3030,15 +2760,11 @@ async function run() {
         {
           filter: "__inputId=='open_telemetry:open_telemetry'",
           id: "otlp_traces",
-          description: "fortunately duh yearly",
-          disabled: true,
-          final: true,
           conf: {
             dropNonTraceEvents: false,
             otlpVersion: "0.10.0",
             batchOTLPTraces: true,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3081,21 +2807,12 @@ async function run() {
         {
           filter: "true",
           id: "serde",
-          description: "finally brr whoever as yippee igloo at against",
-          disabled: false,
-          final: false,
           conf: {
             mode: "extract",
             type: "kvp",
-            delimChar: "<value>",
-            quoteChar: "<value>",
-            escapeChar: "<value>",
-            nullValue: "<value>",
             srcField: "_raw",
-            dstField: "<value>",
             cleanFields: false,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3139,21 +2856,12 @@ async function run() {
         {
           filter: "true",
           id: "serde",
-          description: "finally brr whoever as yippee igloo at against",
-          disabled: false,
-          final: false,
           conf: {
             mode: "extract",
             type: "kvp",
-            delimChar: "<value>",
-            quoteChar: "<value>",
-            escapeChar: "<value>",
-            nullValue: "<value>",
             srcField: "_raw",
-            dstField: "<value>",
             cleanFields: false,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3196,9 +2904,6 @@ async function run() {
         {
           filter: "true",
           id: "publish_metrics",
-          description: "pace inborn atomize emboss pronoun tremendously",
-          disabled: true,
-          final: false,
           conf: {
             fields: [
               {
@@ -3221,7 +2926,6 @@ async function run() {
             removeMetrics: [],
             removeDimensions: [],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3265,9 +2969,6 @@ async function run() {
         {
           filter: "true",
           id: "publish_metrics",
-          description: "pace inborn atomize emboss pronoun tremendously",
-          disabled: true,
-          final: false,
           conf: {
             fields: [
               {
@@ -3290,7 +2991,6 @@ async function run() {
             removeMetrics: [],
             removeDimensions: [],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3333,9 +3033,6 @@ async function run() {
         {
           filter: "true",
           id: "redis",
-          description: "gadzooks kosher hollow cumbersome loose but webbed solidly mousse furthermore",
-          disabled: true,
-          final: false,
           conf: {
             commands: [
               {
@@ -3348,9 +3045,7 @@ async function run() {
             deploymentType: "standalone",
             authType: "none",
             maxBlockSecs: 60,
-            enableClientSideCaching: false,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3394,9 +3089,6 @@ async function run() {
         {
           filter: "true",
           id: "redis",
-          description: "gadzooks kosher hollow cumbersome loose but webbed solidly mousse furthermore",
-          disabled: true,
-          final: false,
           conf: {
             commands: [
               {
@@ -3409,9 +3101,7 @@ async function run() {
             deploymentType: "standalone",
             authType: "none",
             maxBlockSecs: 60,
-            enableClientSideCaching: false,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3454,22 +3144,12 @@ async function run() {
         {
           filter: "true",
           id: "regex_extract",
-          description: "scrape spew playfully jaggedly whether follower ah sarcastic",
-          disabled: false,
-          final: false,
           conf: {
             regex: "/metric1=(?<metric1>\\d+)/",
-            regexList: [
-              {
-                regex: "<value>",
-              },
-            ],
             source: "_raw",
             iterations: 100,
-            fieldNameExpression: "<value>",
             overwrite: false,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3513,22 +3193,12 @@ async function run() {
         {
           filter: "true",
           id: "regex_extract",
-          description: "scrape spew playfully jaggedly whether follower ah sarcastic",
-          disabled: false,
-          final: false,
           conf: {
             regex: "/metric1=(?<metric1>\\d+)/",
-            regexList: [
-              {
-                regex: "<value>",
-              },
-            ],
             source: "_raw",
             iterations: 100,
-            fieldNameExpression: "<value>",
             overwrite: false,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3571,19 +3241,10 @@ async function run() {
         {
           filter: "true",
           id: "regex_filter",
-          description: "colorize reprimand cope appertain",
-          disabled: false,
-          final: false,
           conf: {
             regex: "/Opera/",
-            regexList: [
-              {
-                regex: "<value>",
-              },
-            ],
             field: "_raw",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3627,19 +3288,10 @@ async function run() {
         {
           filter: "true",
           id: "regex_filter",
-          description: "colorize reprimand cope appertain",
-          disabled: false,
-          final: false,
           conf: {
             regex: "/Opera/",
-            regexList: [
-              {
-                regex: "<value>",
-              },
-            ],
             field: "_raw",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3682,9 +3334,6 @@ async function run() {
         {
           filter: "true",
           id: "rename",
-          description: "amidst within solvency lay",
-          disabled: false,
-          final: false,
           conf: {
             baseFields: [],
             rename: [
@@ -3696,7 +3345,6 @@ async function run() {
             renameExpr: "name.startsWith('out') ? name.toUpperCase() : name",
             wildcardDepth: 5,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3740,9 +3388,6 @@ async function run() {
         {
           filter: "true",
           id: "rename",
-          description: "amidst within solvency lay",
-          disabled: false,
-          final: false,
           conf: {
             baseFields: [],
             rename: [
@@ -3754,7 +3399,6 @@ async function run() {
             renameExpr: "name.startsWith('out') ? name.toUpperCase() : name",
             wildcardDepth: 5,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3797,9 +3441,6 @@ async function run() {
         {
           filter: "true",
           id: "rollup_metrics",
-          description: "consequently drat wasteful inasmuch terribly unabashedly",
-          disabled: true,
-          final: false,
           conf: {
             dimensions: [
               "*",
@@ -3807,7 +3448,6 @@ async function run() {
             timeWindow: "30s",
             gaugeRollup: "last",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3851,9 +3491,6 @@ async function run() {
         {
           filter: "true",
           id: "rollup_metrics",
-          description: "consequently drat wasteful inasmuch terribly unabashedly",
-          disabled: true,
-          final: false,
           conf: {
             dimensions: [
               "*",
@@ -3861,7 +3498,6 @@ async function run() {
             timeWindow: "30s",
             gaugeRollup: "last",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3904,20 +3540,10 @@ async function run() {
         {
           filter: "true",
           id: "snmp_trap_serialize",
-          description: "on while among crushing sheepishly",
-          disabled: false,
-          final: true,
           conf: {
             strict: true,
             dropFailedEvents: true,
-            v3User: {
-              name: "<value>",
-              authProtocol: "sha512",
-              authKey: "<value>",
-              privProtocol: "<value>",
-            },
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -3961,20 +3587,10 @@ async function run() {
         {
           filter: "true",
           id: "snmp_trap_serialize",
-          description: "on while among crushing sheepishly",
-          disabled: false,
-          final: true,
           conf: {
             strict: true,
             dropFailedEvents: true,
-            v3User: {
-              name: "<value>",
-              authProtocol: "sha512",
-              authKey: "<value>",
-              privProtocol: "<value>",
-            },
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4017,9 +3633,6 @@ async function run() {
         {
           filter: "true",
           id: "sampling",
-          description: "animated obtrude jive dental",
-          disabled: true,
-          final: true,
           conf: {
             rules: [
               {
@@ -4028,7 +3641,6 @@ async function run() {
               },
             ],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4072,9 +3684,6 @@ async function run() {
         {
           filter: "true",
           id: "sampling",
-          description: "animated obtrude jive dental",
-          disabled: true,
-          final: true,
           conf: {
             rules: [
               {
@@ -4083,7 +3692,6 @@ async function run() {
               },
             ],
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4126,15 +3734,8 @@ async function run() {
         {
           filter: "true",
           id: "serialize",
-          description: "midst kissingly deduct versus embossing possible fraudster dislocate barring",
-          disabled: false,
-          final: true,
           conf: {
             type: "json",
-            delimChar: "<value>",
-            quoteChar: "<value>",
-            escapeChar: "<value>",
-            nullValue: "<value>",
             fields: [
               "city",
               "state",
@@ -4142,7 +3743,6 @@ async function run() {
             srcField: "",
             dstField: "_raw",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4186,15 +3786,8 @@ async function run() {
         {
           filter: "true",
           id: "serialize",
-          description: "midst kissingly deduct versus embossing possible fraudster dislocate barring",
-          disabled: false,
-          final: true,
           conf: {
             type: "json",
-            delimChar: "<value>",
-            quoteChar: "<value>",
-            escapeChar: "<value>",
-            nullValue: "<value>",
             fields: [
               "city",
               "state",
@@ -4202,7 +3795,6 @@ async function run() {
             srcField: "",
             dstField: "_raw",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4245,9 +3837,6 @@ async function run() {
         {
           filter: "true",
           id: "suppress",
-          description: "excepting drat lucky bah however account outrun gah lightly that",
-          disabled: false,
-          final: false,
           conf: {
             keyExpr: "`${ip}:${port}`",
             allow: 1,
@@ -4257,7 +3846,6 @@ async function run() {
             cacheIdleTimeoutPeriods: 2,
             numEventsIdleTimeoutTrigger: 10000,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4301,9 +3889,6 @@ async function run() {
         {
           filter: "true",
           id: "suppress",
-          description: "excepting drat lucky bah however account outrun gah lightly that",
-          disabled: false,
-          final: false,
           conf: {
             keyExpr: "`${ip}:${port}`",
             allow: 1,
@@ -4313,7 +3898,6 @@ async function run() {
             cacheIdleTimeoutPeriods: 2,
             numEventsIdleTimeoutTrigger: 10000,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4356,9 +3940,6 @@ async function run() {
         {
           filter: "true",
           id: "tee",
-          description: "somber splash oh following against alongside",
-          disabled: true,
-          final: true,
           conf: {
             command: "tee",
             args: [
@@ -4369,7 +3950,6 @@ async function run() {
 
             },
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4413,9 +3993,6 @@ async function run() {
         {
           filter: "true",
           id: "tee",
-          description: "somber splash oh following against alongside",
-          disabled: true,
-          final: true,
           conf: {
             command: "tee",
             args: [
@@ -4426,7 +4003,6 @@ async function run() {
   
             },
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4469,14 +4045,10 @@ async function run() {
         {
           filter: "true",
           id: "unroll",
-          description: "soupy familiar how psst",
-          disabled: true,
-          final: false,
           conf: {
             srcExpr: "_raw.split(/\\n/)",
             dstField: "_raw",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4520,14 +4092,10 @@ async function run() {
         {
           filter: "true",
           id: "unroll",
-          description: "soupy familiar how psst",
-          disabled: true,
-          final: false,
           conf: {
             srcExpr: "_raw.split(/\\n/)",
             dstField: "_raw",
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4570,16 +4138,12 @@ async function run() {
         {
           filter: "true",
           id: "xml_unroll",
-          description: "within or pfft",
-          disabled: true,
-          final: true,
           conf: {
             unroll: "^Parent\\.Child$",
             inherit: "^Parent\\.(myID|branchLocation)$",
             unrollIdxField: "unroll_idx",
             pretty: false,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4623,16 +4187,12 @@ async function run() {
         {
           filter: "true",
           id: "xml_unroll",
-          description: "within or pfft",
-          disabled: true,
-          final: true,
           conf: {
             unroll: "^Parent\\.Child$",
             inherit: "^Parent\\.(myID|branchLocation)$",
             unrollIdxField: "unroll_idx",
             pretty: false,
           },
-          groupId: "<id>",
         },
       ],
       groups: {
@@ -4937,14 +4497,10 @@ async function run() {
           {
             filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))",
             id: "aggregate_metrics",
-            description: "off fooey tight supposing or oval underneath",
-            disabled: true,
-            final: false,
             conf: {
               passthrough: false,
               preserveGroupBys: false,
               sufficientStatsOnly: false,
-              prefix: "<value>",
               timeWindow: "10s",
               aggregations: [
                 {
@@ -4963,19 +4519,10 @@ async function run() {
               groupbys: [
                 "proc",
               ],
-              flushEventLimit: 4997.28,
-              flushMemLimit: "<value>",
               cumulative: false,
               shouldTreatDotsAsLiterals: true,
-              add: [
-                {
-                  name: "<value>",
-                  value: "<value>",
-                },
-              ],
               flushOnInputClose: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5022,14 +4569,10 @@ async function run() {
           {
             filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))",
             id: "aggregate_metrics",
-            description: "off fooey tight supposing or oval underneath",
-            disabled: true,
-            final: false,
             conf: {
               passthrough: false,
               preserveGroupBys: false,
               sufficientStatsOnly: false,
-              prefix: "<value>",
               timeWindow: "10s",
               aggregations: [
                 {
@@ -5048,19 +4591,10 @@ async function run() {
               groupbys: [
                 "proc",
               ],
-              flushEventLimit: 4997.28,
-              flushMemLimit: "<value>",
               cumulative: false,
               shouldTreatDotsAsLiterals: true,
-              add: [
-                {
-                  name: "<value>",
-                  value: "<value>",
-                },
-              ],
               flushOnInputClose: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5106,15 +4640,11 @@ async function run() {
           {
             filter: "true",
             id: "aggregation",
-            description: "snowplow brr onto ripe object outfit extremely gee wrongly",
-            disabled: true,
-            final: false,
             conf: {
               passthrough: false,
               preserveGroupBys: false,
               sufficientStatsOnly: false,
               metricsMode: false,
-              prefix: "<value>",
               timeWindow: "10s",
               aggregations: [
                 "sum(bytes).where(action==\"REJECT\").as(TotalBytes)",
@@ -5122,20 +4652,10 @@ async function run() {
               groupbys: [
                 "srcaddr",
               ],
-              flushEventLimit: 5885.07,
-              flushMemLimit: "<value>",
               cumulative: false,
-              searchAggMode: "<value>",
-              add: [
-                {
-                  name: "<value>",
-                  value: "<value>",
-                },
-              ],
               shouldTreatDotsAsLiterals: false,
               flushOnInputClose: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5182,15 +4702,11 @@ async function run() {
           {
             filter: "true",
             id: "aggregation",
-            description: "snowplow brr onto ripe object outfit extremely gee wrongly",
-            disabled: true,
-            final: false,
             conf: {
               passthrough: false,
               preserveGroupBys: false,
               sufficientStatsOnly: false,
               metricsMode: false,
-              prefix: "<value>",
               timeWindow: "10s",
               aggregations: [
                 "sum(bytes).where(action==\"REJECT\").as(TotalBytes)",
@@ -5198,20 +4714,10 @@ async function run() {
               groupbys: [
                 "srcaddr",
               ],
-              flushEventLimit: 5885.07,
-              flushMemLimit: "<value>",
               cumulative: false,
-              searchAggMode: "<value>",
-              add: [
-                {
-                  name: "<value>",
-                  value: "<value>",
-                },
-              ],
               shouldTreatDotsAsLiterals: false,
               flushOnInputClose: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5257,9 +4763,6 @@ async function run() {
           {
             filter: "true",
             id: "auto_timestamp",
-            description: "around captain moralise now yum parsnip inasmuch pleased sleepily",
-            disabled: true,
-            final: true,
             conf: {
               srcField: "_raw",
               dstField: "_time",
@@ -5269,7 +4772,6 @@ async function run() {
               maxLen: 150,
               defaultTime: "now",
               latestDateAllowed: "+1week",
-              spacer: "<value>",
               earliestDateAllowed: "-420weeks",
               timestamps: [
                 {
@@ -5278,7 +4780,6 @@ async function run() {
                 },
               ],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5325,9 +4826,6 @@ async function run() {
           {
             filter: "true",
             id: "auto_timestamp",
-            description: "around captain moralise now yum parsnip inasmuch pleased sleepily",
-            disabled: true,
-            final: true,
             conf: {
               srcField: "_raw",
               dstField: "_time",
@@ -5337,7 +4835,6 @@ async function run() {
               maxLen: 150,
               defaultTime: "now",
               latestDateAllowed: "+1week",
-              spacer: "<value>",
               earliestDateAllowed: "-420weeks",
               timestamps: [
                 {
@@ -5346,7 +4843,6 @@ async function run() {
                 },
               ],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5392,9 +4888,6 @@ async function run() {
           {
             filter: "true",
             id: "cef",
-            description: "elegantly solemnly dash um gadzooks apt transom barring",
-            disabled: true,
-            final: true,
             conf: {
               outputField: "_raw",
               header: [
@@ -5427,7 +4920,6 @@ async function run() {
                 },
               ],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5474,9 +4966,6 @@ async function run() {
           {
             filter: "true",
             id: "cef",
-            description: "elegantly solemnly dash um gadzooks apt transom barring",
-            disabled: true,
-            final: true,
             conf: {
               outputField: "_raw",
               header: [
@@ -5509,7 +4998,6 @@ async function run() {
                 },
               ],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5555,13 +5043,9 @@ async function run() {
           {
             filter: "true",
             id: "chain",
-            description: "outside ack doing highlight outside round impractical steep alongside gorgeous",
-            disabled: false,
-            final: true,
             conf: {
               processor: "prometheus_metrics",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5608,13 +5092,9 @@ async function run() {
           {
             filter: "true",
             id: "chain",
-            description: "outside ack doing highlight outside round impractical steep alongside gorgeous",
-            disabled: false,
-            final: true,
             conf: {
               processor: "prometheus_metrics",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5660,9 +5140,6 @@ async function run() {
           {
             filter: "true",
             id: "clone",
-            description: "pepper successfully husky duh ack",
-            disabled: false,
-            final: true,
             conf: {
               clones: [
                 {
@@ -5673,7 +5150,6 @@ async function run() {
                 },
               ],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5720,9 +5196,6 @@ async function run() {
           {
             filter: "true",
             id: "clone",
-            description: "pepper successfully husky duh ack",
-            disabled: false,
-            final: true,
             conf: {
               clones: [
                 {
@@ -5733,7 +5206,6 @@ async function run() {
                 },
               ],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5779,13 +5251,9 @@ async function run() {
           {
             filter: "true",
             id: "comment",
-            description: "gigantic ick yahoo admonish",
-            disabled: true,
-            final: false,
             conf: {
               comment: "This function processes security events and enriches them with DNS lookups",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5832,13 +5300,9 @@ async function run() {
           {
             filter: "true",
             id: "comment",
-            description: "gigantic ick yahoo admonish",
-            disabled: true,
-            final: false,
             conf: {
               comment: "This function processes security events and enriches them with DNS lookups",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5884,9 +5348,6 @@ async function run() {
           {
             filter: "true",
             id: "dns_lookup",
-            description: "penalise above mockingly questionable",
-            disabled: true,
-            final: true,
             conf: {
               dnsLookupFields: [
                 {
@@ -5901,22 +5362,12 @@ async function run() {
                   outFieldName: "src_hostname",
                 },
               ],
-              dnsServers: [
-                "<value 1>",
-                "<value 2>",
-              ],
               cacheTTL: 30,
               maxCacheSize: 5000,
               useResolvConf: false,
               lookupFallback: false,
-              domainOverrides: [
-                "<value 1>",
-                "<value 2>",
-                "<value 3>",
-              ],
               lookupFailLogLevel: "error",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -5963,9 +5414,6 @@ async function run() {
           {
             filter: "true",
             id: "dns_lookup",
-            description: "penalise above mockingly questionable",
-            disabled: true,
-            final: true,
             conf: {
               dnsLookupFields: [
                 {
@@ -5980,22 +5428,12 @@ async function run() {
                   outFieldName: "src_hostname",
                 },
               ],
-              dnsServers: [
-                "<value 1>",
-                "<value 2>",
-              ],
               cacheTTL: 30,
               maxCacheSize: 5000,
               useResolvConf: false,
               lookupFallback: false,
-              domainOverrides: [
-                "<value 1>",
-                "<value 2>",
-                "<value 3>",
-              ],
               lookupFailLogLevel: "error",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6041,11 +5479,7 @@ async function run() {
           {
             filter: "_raw.search(/success/i)>=0",
             id: "drop",
-            description: "vengeful rout worth quickly in anti amongst cop-out",
-            disabled: true,
-            final: false,
             conf: {},
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6092,11 +5526,7 @@ async function run() {
           {
             filter: "_raw.search(/success/i)>=0",
             id: "drop",
-            description: "vengeful rout worth quickly in anti amongst cop-out",
-            disabled: true,
-            final: false,
             conf: {},
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6142,9 +5572,6 @@ async function run() {
           {
             filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) && (__criblMetrics[0].dims.includes(\"proc\"))",
             id: "drop_dimensions",
-            description: "amongst slather yippee resource which yippee weary crumble",
-            disabled: true,
-            final: false,
             conf: {
               timeWindow: "10s",
               dropDimensions: [
@@ -6154,7 +5581,6 @@ async function run() {
               ],
               flushOnInputClose: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6201,9 +5627,6 @@ async function run() {
           {
             filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) && (__criblMetrics[0].dims.includes(\"proc\"))",
             id: "drop_dimensions",
-            description: "amongst slather yippee resource which yippee weary crumble",
-            disabled: true,
-            final: false,
             conf: {
               timeWindow: "10s",
               dropDimensions: [
@@ -6213,7 +5636,6 @@ async function run() {
               ],
               flushOnInputClose: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6259,9 +5681,6 @@ async function run() {
           {
             filter: "true",
             id: "dynamic_sampling",
-            description: "physically wilted scornful gosh lest smart oof damaged inside",
-            disabled: false,
-            final: true,
             conf: {
               mode: "sqrt",
               keyExpr: "`${domain}:${httpCode}`",
@@ -6269,7 +5688,6 @@ async function run() {
               minEvents: 3,
               maxSampleRate: 3,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6316,9 +5734,6 @@ async function run() {
           {
             filter: "true",
             id: "dynamic_sampling",
-            description: "physically wilted scornful gosh lest smart oof damaged inside",
-            disabled: false,
-            final: true,
             conf: {
               mode: "sqrt",
               keyExpr: "`${domain}:${httpCode}`",
@@ -6326,7 +5741,6 @@ async function run() {
               minEvents: 3,
               maxSampleRate: 3,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6453,20 +5867,15 @@ async function run() {
           {
             filter: "true",
             id: "eval",
-            description: "misread as noted clamp",
-            disabled: true,
-            final: true,
             conf: {
               add: [
                 {
                   name: "action",
                   value: "login == 'error' ? 'blocked' : action",
-                  disabled: true,
                 },
                 {
                   name: "myTags",
                   value: "login == 'error' ? [...myTags, 'error'] : myTags",
-                  disabled: false,
                 },
               ],
               keep: [
@@ -6479,7 +5888,6 @@ async function run() {
                 "identification",
               ],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6526,20 +5934,15 @@ async function run() {
           {
             filter: "true",
             id: "eval",
-            description: "misread as noted clamp",
-            disabled: true,
-            final: true,
             conf: {
               add: [
                 {
                   name: "action",
                   value: "login == 'error' ? 'blocked' : action",
-                  disabled: true,
                 },
                 {
                   name: "myTags",
                   value: "login == 'error' ? [...myTags, 'error'] : myTags",
-                  disabled: false,
                 },
               ],
               keep: [
@@ -6552,7 +5955,6 @@ async function run() {
                 "identification",
               ],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6598,14 +6000,10 @@ async function run() {
           {
             filter: "true",
             id: "event_breaker",
-            description: "and voluminous dramatize incidentally but wasabi anenst brook unlike",
-            disabled: true,
-            final: true,
             conf: {
               existingOrNew: "new",
               shouldMarkCriblBreaker: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6652,14 +6050,10 @@ async function run() {
           {
             filter: "true",
             id: "event_breaker",
-            description: "and voluminous dramatize incidentally but wasabi anenst brook unlike",
-            disabled: true,
-            final: true,
             conf: {
               existingOrNew: "new",
               shouldMarkCriblBreaker: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6705,16 +6099,12 @@ async function run() {
           {
             filter: "true",
             id: "flatten",
-            description: "expostulate fragrant why whose whereas if unless whoever reconsideration",
-            disabled: false,
-            final: true,
             conf: {
               fields: [],
               prefix: "",
               depth: 5,
               delimiter: "_",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6761,16 +6151,12 @@ async function run() {
           {
             filter: "true",
             id: "flatten",
-            description: "expostulate fragrant why whose whereas if unless whoever reconsideration",
-            disabled: false,
-            final: true,
             conf: {
               fields: [],
               prefix: "",
               depth: 5,
               delimiter: "_",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6816,15 +6202,11 @@ async function run() {
           {
             filter: "true",
             id: "foldkeys",
-            description: "deceivingly amongst stunning anenst",
-            disabled: true,
-            final: true,
             conf: {
               deleteOriginal: true,
               separator: "_",
               selectionRegExp: "^data",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6871,15 +6253,11 @@ async function run() {
           {
             filter: "true",
             id: "foldkeys",
-            description: "deceivingly amongst stunning anenst",
-            disabled: true,
-            final: true,
             conf: {
               deleteOriginal: true,
               separator: "_",
               selectionRegExp: "^data",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6925,9 +6303,6 @@ async function run() {
           {
             filter: "true",
             id: "geoip",
-            description: "busy anti geez savour jellyfish along oh",
-            disabled: true,
-            final: false,
             conf: {
               file: "GeoLite2-City.mmdb",
               inField: "ip",
@@ -6938,9 +6313,7 @@ async function run() {
                   extraOutField: "src_geoip",
                 },
               ],
-              outFieldMappings: {},
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -6987,9 +6360,6 @@ async function run() {
           {
             filter: "true",
             id: "geoip",
-            description: "busy anti geez savour jellyfish along oh",
-            disabled: true,
-            final: false,
             conf: {
               file: "GeoLite2-City.mmdb",
               inField: "ip",
@@ -7000,9 +6370,7 @@ async function run() {
                   extraOutField: "src_geoip",
                 },
               ],
-              outFieldMappings: {},
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7048,15 +6416,11 @@ async function run() {
           {
             filter: "true",
             id: "grok",
-            description: "notwithstanding the yowza harp however shrill scrape",
-            disabled: true,
-            final: false,
             conf: {
               pattern: "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}",
               patternList: [],
               source: "_raw",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7103,15 +6467,11 @@ async function run() {
           {
             filter: "true",
             id: "grok",
-            description: "notwithstanding the yowza harp however shrill scrape",
-            disabled: true,
-            final: false,
             conf: {
               pattern: "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}",
               patternList: [],
               source: "_raw",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7157,9 +6517,6 @@ async function run() {
           {
             filter: "true",
             id: "sensitive_data_scanner",
-            description: "readily snappy yuck absent ad phew unlike sand harvest instead",
-            disabled: false,
-            final: true,
             conf: {
               rules: [
                 {
@@ -7179,9 +6536,7 @@ async function run() {
                 },
               ],
               includeDetectedRules: true,
-              backgroundDetection: false,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7228,9 +6583,6 @@ async function run() {
           {
             filter: "true",
             id: "sensitive_data_scanner",
-            description: "readily snappy yuck absent ad phew unlike sand harvest instead",
-            disabled: false,
-            final: true,
             conf: {
               rules: [
                 {
@@ -7250,9 +6602,7 @@ async function run() {
                 },
               ],
               includeDetectedRules: true,
-              backgroundDetection: false,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7298,14 +6648,10 @@ async function run() {
           {
             filter: "true",
             id: "json_unroll",
-            description: "upward curiously deafening famously likewise whenever than",
-            disabled: true,
-            final: false,
             conf: {
               path: "allCars",
               name: "cars",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7352,14 +6698,10 @@ async function run() {
           {
             filter: "true",
             id: "json_unroll",
-            description: "upward curiously deafening famously likewise whenever than",
-            disabled: true,
-            final: false,
             conf: {
               path: "allCars",
               name: "cars",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7405,14 +6747,10 @@ async function run() {
           {
             filter: "true",
             id: "lookup",
-            description: "chainstay though overcooked expostulate midst worldly within",
-            disabled: true,
-            final: false,
             conf: {
               file: "ip_locations.csv",
               dbLookup: false,
               matchMode: "exact",
-              matchType: "<value>",
               reloadPeriodSec: -1,
               inFields: [
                 {
@@ -7430,7 +6768,6 @@ async function run() {
               addToEvent: false,
               ignoreCase: false,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7477,14 +6814,10 @@ async function run() {
           {
             filter: "true",
             id: "lookup",
-            description: "chainstay though overcooked expostulate midst worldly within",
-            disabled: true,
-            final: false,
             conf: {
               file: "ip_locations.csv",
               dbLookup: false,
               matchMode: "exact",
-              matchType: "<value>",
               reloadPeriodSec: -1,
               inFields: [
                 {
@@ -7502,7 +6835,6 @@ async function run() {
               addToEvent: false,
               ignoreCase: false,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7548,9 +6880,6 @@ async function run() {
           {
             filter: "true",
             id: "mask",
-            description: "afore good remark switch on harvest downshift once but",
-            disabled: true,
-            final: true,
             conf: {
               rules: [
                 {
@@ -7563,14 +6892,7 @@ async function run() {
                 "_raw",
               ],
               depth: 5,
-              flags: [
-                {
-                  name: "<value>",
-                  value: "<value>",
-                },
-              ],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7617,9 +6939,6 @@ async function run() {
           {
             filter: "true",
             id: "mask",
-            description: "afore good remark switch on harvest downshift once but",
-            disabled: true,
-            final: true,
             conf: {
               rules: [
                 {
@@ -7632,14 +6951,7 @@ async function run() {
                 "_raw",
               ],
               depth: 5,
-              flags: [
-                {
-                  name: "<value>",
-                  value: "<value>",
-                },
-              ],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7685,16 +6997,12 @@ async function run() {
           {
             filter: "true",
             id: "numerify",
-            description: "oof brr spork quit versus excepting dwell delight slipper likewise",
-            disabled: true,
-            final: false,
             conf: {
               depth: 5,
               ignoreFields: [],
               filterExpr: "",
               format: "none",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7741,16 +7049,12 @@ async function run() {
           {
             filter: "true",
             id: "numerify",
-            description: "oof brr spork quit versus excepting dwell delight slipper likewise",
-            disabled: true,
-            final: false,
             conf: {
               depth: 5,
               ignoreFields: [],
               filterExpr: "",
               format: "none",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7796,14 +7100,10 @@ async function run() {
           {
             filter: "__inputId=='open_telemetry:open_telemetry'",
             id: "otlp_logs",
-            description: "frenetically mortise eek boohoo downright fly basket whoever",
-            disabled: false,
-            final: false,
             conf: {
               dropNonLogEvents: false,
               batchOTLPLogs: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7850,14 +7150,10 @@ async function run() {
           {
             filter: "__inputId=='open_telemetry:open_telemetry'",
             id: "otlp_logs",
-            description: "frenetically mortise eek boohoo downright fly basket whoever",
-            disabled: false,
-            final: false,
             conf: {
               dropNonLogEvents: false,
               batchOTLPLogs: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7903,9 +7199,6 @@ async function run() {
           {
             filter: "__inputId=='prometheus_rw:prom_rw_in'",
             id: "otlp_metrics",
-            description: "fortunate happily knight coincide anenst",
-            disabled: true,
-            final: false,
             conf: {
               resourceAttributePrefixes: [
                 "service",
@@ -7920,7 +7213,6 @@ async function run() {
               otlpVersion: "0.10.0",
               batchOTLPMetrics: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -7967,9 +7259,6 @@ async function run() {
           {
             filter: "__inputId=='prometheus_rw:prom_rw_in'",
             id: "otlp_metrics",
-            description: "fortunate happily knight coincide anenst",
-            disabled: true,
-            final: false,
             conf: {
               resourceAttributePrefixes: [
                 "service",
@@ -7984,7 +7273,6 @@ async function run() {
               otlpVersion: "0.10.0",
               batchOTLPMetrics: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8030,15 +7318,11 @@ async function run() {
           {
             filter: "__inputId=='open_telemetry:open_telemetry'",
             id: "otlp_traces",
-            description: "wobbly meaningfully necklace dependable jet aboard",
-            disabled: false,
-            final: false,
             conf: {
               dropNonTraceEvents: false,
               otlpVersion: "0.10.0",
               batchOTLPTraces: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8085,15 +7369,11 @@ async function run() {
           {
             filter: "__inputId=='open_telemetry:open_telemetry'",
             id: "otlp_traces",
-            description: "wobbly meaningfully necklace dependable jet aboard",
-            disabled: false,
-            final: false,
             conf: {
               dropNonTraceEvents: false,
               otlpVersion: "0.10.0",
               batchOTLPTraces: true,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8139,21 +7419,12 @@ async function run() {
           {
             filter: "true",
             id: "serde",
-            description: "although by gadzooks agile gift inferior pish",
-            disabled: false,
-            final: true,
             conf: {
               mode: "extract",
               type: "kvp",
-              delimChar: "<value>",
-              quoteChar: "<value>",
-              escapeChar: "<value>",
-              nullValue: "<value>",
               srcField: "_raw",
-              dstField: "<value>",
               cleanFields: false,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8200,21 +7471,12 @@ async function run() {
           {
             filter: "true",
             id: "serde",
-            description: "although by gadzooks agile gift inferior pish",
-            disabled: false,
-            final: true,
             conf: {
               mode: "extract",
               type: "kvp",
-              delimChar: "<value>",
-              quoteChar: "<value>",
-              escapeChar: "<value>",
-              nullValue: "<value>",
               srcField: "_raw",
-              dstField: "<value>",
               cleanFields: false,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8260,9 +7522,6 @@ async function run() {
           {
             filter: "true",
             id: "publish_metrics",
-            description: "plan what phooey guide",
-            disabled: true,
-            final: false,
             conf: {
               fields: [
                 {
@@ -8285,7 +7544,6 @@ async function run() {
               removeMetrics: [],
               removeDimensions: [],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8332,9 +7590,6 @@ async function run() {
           {
             filter: "true",
             id: "publish_metrics",
-            description: "plan what phooey guide",
-            disabled: true,
-            final: false,
             conf: {
               fields: [
                 {
@@ -8357,7 +7612,6 @@ async function run() {
               removeMetrics: [],
               removeDimensions: [],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8403,9 +7657,6 @@ async function run() {
           {
             filter: "true",
             id: "redis",
-            description: "young along per candid wetly gently upliftingly wearily",
-            disabled: true,
-            final: true,
             conf: {
               commands: [
                 {
@@ -8418,9 +7669,7 @@ async function run() {
               deploymentType: "standalone",
               authType: "none",
               maxBlockSecs: 60,
-              enableClientSideCaching: false,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8467,9 +7716,6 @@ async function run() {
           {
             filter: "true",
             id: "redis",
-            description: "young along per candid wetly gently upliftingly wearily",
-            disabled: true,
-            final: true,
             conf: {
               commands: [
                 {
@@ -8482,9 +7728,7 @@ async function run() {
               deploymentType: "standalone",
               authType: "none",
               maxBlockSecs: 60,
-              enableClientSideCaching: false,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8530,22 +7774,12 @@ async function run() {
           {
             filter: "true",
             id: "regex_extract",
-            description: "anti onto incidentally thankfully draw drat pulverize custom while sticky",
-            disabled: false,
-            final: true,
             conf: {
               regex: "/metric1=(?<metric1>\\d+)/",
-              regexList: [
-                {
-                  regex: "<value>",
-                },
-              ],
               source: "_raw",
               iterations: 100,
-              fieldNameExpression: "<value>",
               overwrite: false,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8592,22 +7826,12 @@ async function run() {
           {
             filter: "true",
             id: "regex_extract",
-            description: "anti onto incidentally thankfully draw drat pulverize custom while sticky",
-            disabled: false,
-            final: true,
             conf: {
               regex: "/metric1=(?<metric1>\\d+)/",
-              regexList: [
-                {
-                  regex: "<value>",
-                },
-              ],
               source: "_raw",
               iterations: 100,
-              fieldNameExpression: "<value>",
               overwrite: false,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8653,19 +7877,10 @@ async function run() {
           {
             filter: "true",
             id: "regex_filter",
-            description: "dreamily generously a yahoo until ah enthusiastically unexpectedly fixed explode",
-            disabled: false,
-            final: true,
             conf: {
               regex: "/Opera/",
-              regexList: [
-                {
-                  regex: "<value>",
-                },
-              ],
               field: "_raw",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8712,19 +7927,10 @@ async function run() {
           {
             filter: "true",
             id: "regex_filter",
-            description: "dreamily generously a yahoo until ah enthusiastically unexpectedly fixed explode",
-            disabled: false,
-            final: true,
             conf: {
               regex: "/Opera/",
-              regexList: [
-                {
-                  regex: "<value>",
-                },
-              ],
               field: "_raw",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8770,9 +7976,6 @@ async function run() {
           {
             filter: "true",
             id: "rename",
-            description: "across yahoo including direct absent if ravel despite cap owlishly",
-            disabled: false,
-            final: true,
             conf: {
               baseFields: [],
               rename: [
@@ -8784,7 +7987,6 @@ async function run() {
               renameExpr: "name.startsWith('out') ? name.toUpperCase() : name",
               wildcardDepth: 5,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8831,9 +8033,6 @@ async function run() {
           {
             filter: "true",
             id: "rename",
-            description: "across yahoo including direct absent if ravel despite cap owlishly",
-            disabled: false,
-            final: true,
             conf: {
               baseFields: [],
               rename: [
@@ -8845,7 +8044,6 @@ async function run() {
               renameExpr: "name.startsWith('out') ? name.toUpperCase() : name",
               wildcardDepth: 5,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8891,9 +8089,6 @@ async function run() {
           {
             filter: "true",
             id: "rollup_metrics",
-            description: "woot bourgeoisie hot harvest inasmuch definite out psst traditionalism lively",
-            disabled: false,
-            final: true,
             conf: {
               dimensions: [
                 "*",
@@ -8901,7 +8096,6 @@ async function run() {
               timeWindow: "30s",
               gaugeRollup: "last",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -8948,9 +8142,6 @@ async function run() {
           {
             filter: "true",
             id: "rollup_metrics",
-            description: "woot bourgeoisie hot harvest inasmuch definite out psst traditionalism lively",
-            disabled: false,
-            final: true,
             conf: {
               dimensions: [
                 "*",
@@ -8958,7 +8149,6 @@ async function run() {
               timeWindow: "30s",
               gaugeRollup: "last",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9004,20 +8194,10 @@ async function run() {
           {
             filter: "true",
             id: "snmp_trap_serialize",
-            description: "ack scaly ingratiate when finally troubled coordinated",
-            disabled: true,
-            final: false,
             conf: {
               strict: true,
               dropFailedEvents: true,
-              v3User: {
-                name: "<value>",
-                authProtocol: "sha384",
-                authKey: "<value>",
-                privProtocol: "<value>",
-              },
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9064,20 +8244,10 @@ async function run() {
           {
             filter: "true",
             id: "snmp_trap_serialize",
-            description: "ack scaly ingratiate when finally troubled coordinated",
-            disabled: true,
-            final: false,
             conf: {
               strict: true,
               dropFailedEvents: true,
-              v3User: {
-                name: "<value>",
-                authProtocol: "sha384",
-                authKey: "<value>",
-                privProtocol: "<value>",
-              },
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9123,9 +8293,6 @@ async function run() {
           {
             filter: "true",
             id: "sampling",
-            description: "atop up ironclad",
-            disabled: false,
-            final: true,
             conf: {
               rules: [
                 {
@@ -9134,7 +8301,6 @@ async function run() {
                 },
               ],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9181,9 +8347,6 @@ async function run() {
           {
             filter: "true",
             id: "sampling",
-            description: "atop up ironclad",
-            disabled: false,
-            final: true,
             conf: {
               rules: [
                 {
@@ -9192,7 +8355,6 @@ async function run() {
                 },
               ],
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9238,15 +8400,8 @@ async function run() {
           {
             filter: "true",
             id: "serialize",
-            description: "maroon white indeed obstruct deafening chubby openly",
-            disabled: true,
-            final: false,
             conf: {
               type: "json",
-              delimChar: "<value>",
-              quoteChar: "<value>",
-              escapeChar: "<value>",
-              nullValue: "<value>",
               fields: [
                 "city",
                 "state",
@@ -9254,7 +8409,6 @@ async function run() {
               srcField: "",
               dstField: "_raw",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9301,15 +8455,8 @@ async function run() {
           {
             filter: "true",
             id: "serialize",
-            description: "maroon white indeed obstruct deafening chubby openly",
-            disabled: true,
-            final: false,
             conf: {
               type: "json",
-              delimChar: "<value>",
-              quoteChar: "<value>",
-              escapeChar: "<value>",
-              nullValue: "<value>",
               fields: [
                 "city",
                 "state",
@@ -9317,7 +8464,6 @@ async function run() {
               srcField: "",
               dstField: "_raw",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9363,9 +8509,6 @@ async function run() {
           {
             filter: "true",
             id: "suppress",
-            description: "per blushing growing",
-            disabled: false,
-            final: true,
             conf: {
               keyExpr: "`${ip}:${port}`",
               allow: 1,
@@ -9375,7 +8518,6 @@ async function run() {
               cacheIdleTimeoutPeriods: 2,
               numEventsIdleTimeoutTrigger: 10000,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9422,9 +8564,6 @@ async function run() {
           {
             filter: "true",
             id: "suppress",
-            description: "per blushing growing",
-            disabled: false,
-            final: true,
             conf: {
               keyExpr: "`${ip}:${port}`",
               allow: 1,
@@ -9434,7 +8573,6 @@ async function run() {
               cacheIdleTimeoutPeriods: 2,
               numEventsIdleTimeoutTrigger: 10000,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9480,9 +8618,6 @@ async function run() {
           {
             filter: "true",
             id: "tee",
-            description: "torn out than",
-            disabled: true,
-            final: true,
             conf: {
               command: "tee",
               args: [
@@ -9493,7 +8628,6 @@ async function run() {
 
               },
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9540,9 +8674,6 @@ async function run() {
           {
             filter: "true",
             id: "tee",
-            description: "torn out than",
-            disabled: true,
-            final: true,
             conf: {
               command: "tee",
               args: [
@@ -9553,7 +8684,6 @@ async function run() {
   
               },
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9599,14 +8729,10 @@ async function run() {
           {
             filter: "true",
             id: "unroll",
-            description: "youthfully blah whoa regarding anti loyally hm peppery measly",
-            disabled: false,
-            final: true,
             conf: {
               srcExpr: "_raw.split(/\\n/)",
               dstField: "_raw",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9653,14 +8779,10 @@ async function run() {
           {
             filter: "true",
             id: "unroll",
-            description: "youthfully blah whoa regarding anti loyally hm peppery measly",
-            disabled: false,
-            final: true,
             conf: {
               srcExpr: "_raw.split(/\\n/)",
               dstField: "_raw",
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9706,16 +8828,12 @@ async function run() {
           {
             filter: "true",
             id: "xml_unroll",
-            description: "gee than next forearm kissingly cluttered meh despite",
-            disabled: true,
-            final: true,
             conf: {
               unroll: "^Parent\\.Child$",
               inherit: "^Parent\\.(myID|branchLocation)$",
               unrollIdxField: "unroll_idx",
               pretty: false,
             },
-            groupId: "<id>",
           },
         ],
         groups: {
@@ -9762,16 +8880,12 @@ async function run() {
           {
             filter: "true",
             id: "xml_unroll",
-            description: "gee than next forearm kissingly cluttered meh despite",
-            disabled: true,
-            final: true,
             conf: {
               unroll: "^Parent\\.Child$",
               inherit: "^Parent\\.(myID|branchLocation)$",
               unrollIdxField: "unroll_idx",
               pretty: false,
             },
-            groupId: "<id>",
           },
         ],
         groups: {

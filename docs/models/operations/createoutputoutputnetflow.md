@@ -8,28 +8,12 @@ import { CreateOutputOutputNetflow } from "cribl-control-plane/models/operations
 let value: CreateOutputOutputNetflow = {
   id: "<id>",
   type: "netflow",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
   hosts: [
     {
-      host: "confused-teriyaki.net",
-      port: 5561.7,
-      __template_host: "<value>",
-      __template_port: "<value>",
+      host: "creative-plumber.com",
+      port: 9037.53,
     },
   ],
-  dnsResolvePeriodSec: 8795.11,
-  enableIpSpoofing: false,
-  description: "emotional subtract yahoo uneven astride hole squid",
-  maxRecordSize: 7838.26,
 };
 ```
 

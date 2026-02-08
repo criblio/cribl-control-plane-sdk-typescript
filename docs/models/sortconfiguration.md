@@ -6,11 +6,7 @@
 import { SortConfiguration } from "cribl-control-plane/models";
 
 let value: SortConfiguration = {
-  sortId: "<id>",
   comparisonExpression: "<value>",
-  topN: 5225.01,
-  maxEvents: 8293.38,
-  suppressPreviews: false,
 };
 ```
 

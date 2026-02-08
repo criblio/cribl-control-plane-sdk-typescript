@@ -5,11 +5,7 @@
 ```typescript
 import { RestAuthenticationGoogleOauthScheduling } from "cribl-control-plane/models";
 
-let value: RestAuthenticationGoogleOauthScheduling = {
-  stateTracking: {
-    enabled: false,
-  },
-};
+let value: RestAuthenticationGoogleOauthScheduling = {};
 ```
 
 ## Fields

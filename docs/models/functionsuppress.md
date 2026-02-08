@@ -7,21 +7,17 @@ import { FunctionSuppress } from "cribl-control-plane/models";
 
 let value: FunctionSuppress = {
   __filename: "example.file",
-  asyncTimeout: 8009.67,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: false,
   id: "suppress",
-  loadTime: 4311.27,
-  modTime: 5605.99,
+  loadTime: 8009.67,
+  modTime: 4533.03,
   name: "<value>",
-  sync: false,
-  uischema: {},
-  version: "<value>",
-  schema: {
+  uischema: {
     "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
+  version: "<value>",
 };
 ```
 

@@ -5,15 +5,7 @@
 ```typescript
 import { CreateInputNetworkSystemMetrics } from "cribl-control-plane/models/operations";
 
-let value: CreateInputNetworkSystemMetrics = {
-  mode: "disabled",
-  detail: true,
-  protocols: true,
-  devices: [
-    "<value 1>",
-  ],
-  perInterface: false,
-};
+let value: CreateInputNetworkSystemMetrics = {};
 ```
 
 ## Fields

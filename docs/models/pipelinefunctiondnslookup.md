@@ -6,39 +6,8 @@
 import { PipelineFunctionDnsLookup } from "cribl-control-plane/models";
 
 let value: PipelineFunctionDnsLookup = {
-  filter: "<value>",
   id: "dns_lookup",
-  description: "below euphonium antagonize haversack",
-  disabled: false,
-  final: true,
-  conf: {
-    dnsLookupFields: [
-      {
-        inFieldName: "<value>",
-        resourceRecordType: "A",
-        outFieldName: "<value>",
-      },
-    ],
-    reverseLookupFields: [
-      {
-        inFieldName: "<value>",
-        outFieldName: "<value>",
-      },
-    ],
-    dnsServers: [
-      "<value 1>",
-    ],
-    cacheTTL: 1409.72,
-    maxCacheSize: 8252.84,
-    useResolvConf: true,
-    lookupFallback: false,
-    domainOverrides: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    lookupFailLogLevel: "debug",
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

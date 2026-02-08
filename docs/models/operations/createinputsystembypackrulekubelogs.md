@@ -7,7 +7,6 @@ import { CreateInputSystemByPackRuleKubeLogs } from "cribl-control-plane/models/
 
 let value: CreateInputSystemByPackRuleKubeLogs = {
   filter: "<value>",
-  description: "boo ruddy provided part authorized ouch responsible cinch",
 };
 ```
 

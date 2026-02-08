@@ -8,9 +8,6 @@ Error information for the persistent queue, if applicable.
 import { ErrorTypeStatusPq } from "cribl-control-plane/models";
 
 let value: ErrorTypeStatusPq = {
-  details: {
-    "key": "<value>",
-  },
   message: "<value>",
 };
 ```

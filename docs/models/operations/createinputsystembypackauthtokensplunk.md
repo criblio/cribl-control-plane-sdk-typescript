@@ -7,8 +7,6 @@ import { CreateInputSystemByPackAuthTokenSplunk } from "cribl-control-plane/mode
 
 let value: CreateInputSystemByPackAuthTokenSplunk = {
   token: "<value>",
-  description:
-    "huzzah video whenever woot provided although honored christen toward onto",
 };
 ```
 

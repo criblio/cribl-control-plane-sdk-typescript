@@ -9,17 +9,8 @@
 const value:
   models.HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttp = {
     discoverMethod: "post",
-    discoverRequestParams: "<value>",
     discoverType: "list",
     discoverUrl: "https://golden-creature.org",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    discoverDataField: "<value>",
   };
 ```
 
@@ -30,7 +21,6 @@ const value:
   models.HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJson = {
     discoverType: "json",
     manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
   };
 ```
 

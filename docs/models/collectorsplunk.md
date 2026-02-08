@@ -13,40 +13,9 @@ let value: CollectorSplunk = {
     authentication: "none",
     searchHead: "<value>",
     search: "<value>",
-    earliest: "<value>",
-    latest: "<value>",
     endpoint: "<value>",
     outputMode: "csv",
-    collectRequestParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    collectRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    timeout: 8513.39,
-    useRoundRobinDns: false,
-    disableTimeFilter: false,
-    rejectUnauthorized: false,
-    handleEscapedChars: false,
-    retryRules: {
-      type: "backoff",
-      interval: "<value>",
-      limit: "<value>",
-      multiplier: "<value>",
-      codes: "<value>",
-      enableHeader: "<value>",
-      retryConnectTimeout: "<value>",
-      retryConnectReset: "<value>",
-    },
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 

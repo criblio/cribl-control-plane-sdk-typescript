@@ -10,9 +10,6 @@ let value: CaptureParams = {
   filter: "<value>",
   level: 0,
   maxEvents: 767293,
-  stepDuration: 735528,
-  workerId: "<id>",
-  workerThreshold: 59479,
 };
 ```
 

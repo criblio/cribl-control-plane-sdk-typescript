@@ -7,25 +7,13 @@ import { FunctionAggregation } from "cribl-control-plane/models";
 
 let value: FunctionAggregation = {
   __filename: "example.file",
-  asyncTimeout: 7917.59,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "aggregation",
-  loadTime: 7102.72,
-  modTime: 5703.38,
+  loadTime: 7917.59,
+  modTime: 5165.51,
   name: "<value>",
-  sync: false,
-  uischema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

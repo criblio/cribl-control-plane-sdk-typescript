@@ -7,8 +7,6 @@ import { CreateInputSystemByPackPodFilter } from "cribl-control-plane/models/ope
 
 let value: CreateInputSystemByPackPodFilter = {
   filter: "<value>",
-  description:
-    "disconnection meh while coin repeat necklace gosh warped notwithstanding",
 };
 ```
 

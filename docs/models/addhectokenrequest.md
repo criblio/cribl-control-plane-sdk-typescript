@@ -6,18 +6,6 @@
 import { AddHecTokenRequest } from "cribl-control-plane/models";
 
 let value: AddHecTokenRequest = {
-  allowedIndexesAtToken: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  description: "velvety astonishing uh-huh rally along swanling a",
-  enabled: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
   token: "<value>",
 };
 ```

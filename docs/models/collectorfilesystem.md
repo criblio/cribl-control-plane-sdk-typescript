@@ -10,19 +10,8 @@ import { CollectorFilesystem } from "cribl-control-plane/models";
 let value: CollectorFilesystem = {
   type: "filesystem",
   conf: {
-    outputName: "<value>",
-    path: "/private",
-    extractors: [
-      {
-        key: "<key>",
-        expression: "<value>",
-      },
-    ],
-    recurse: false,
-    maxBatchSize: 8097.94,
+    path: "/Library",
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 

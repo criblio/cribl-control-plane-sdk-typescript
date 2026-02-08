@@ -9,19 +9,6 @@ import { CreateOutputAuthentication } from "cribl-control-plane/models/operation
 
 let value: CreateOutputAuthentication = {
   disabled: false,
-  mechanism: "plain",
-  username: "Benton14",
-  textSecret: "<value>",
-  clientSecretAuthType: "certificate",
-  clientTextSecret: "<value>",
-  certificateName: "<value>",
-  certPath: "<value>",
-  privKeyPath: "<value>",
-  passphrase: "<value>",
-  oauthEndpoint: "https://login.microsoftonline.com",
-  clientId: "<id>",
-  tenantId: "<id>",
-  scope: "<value>",
 };
 ```
 

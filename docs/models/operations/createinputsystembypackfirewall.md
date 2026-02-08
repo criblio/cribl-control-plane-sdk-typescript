@@ -7,9 +7,7 @@ Creates events for Firewall rules entries
 ```typescript
 import { CreateInputSystemByPackFirewall } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackFirewall = {
-  enable: true,
-};
+let value: CreateInputSystemByPackFirewall = {};
 ```
 
 ## Fields

@@ -8,8 +8,6 @@ import { CreateOutputSystemByPackHostSnmp } from "cribl-control-plane/models/ope
 let value: CreateOutputSystemByPackHostSnmp = {
   host: "sick-mentor.info",
   port: 1267.72,
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 

@@ -102,41 +102,13 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.system.settings.cribl.update({
     api: {
-      baseUrl: "https://both-draw.com/",
-      disableApiCache: true,
       disabled: false,
-      headers: {
-
-      },
       host: "meaty-spring.biz",
-      idleSessionTTL: 89.27,
-      listenOnPort: true,
-      loginRateLimit: "<value>",
       port: 2424.38,
-      protocol: "<value>",
-      scripts: true,
-      sensitiveFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      ssl: {
-        caPath: "<value>",
-        certPath: "<value>",
-        disabled: true,
-        passphrase: "<value>",
-        privKeyPath: "<value>",
-      },
-      ssoRateLimit: "<value>",
-      workerRemoteAccess: true,
     },
     backups: {
       backupPersistence: "<value>",
       backupsDirectory: "<value>",
-    },
-    customLogo: {
-      enabled: false,
-      logoDescription: "<value>",
-      logoImage: "<value>",
     },
     pii: {
       enablePiiDetection: false,
@@ -155,17 +127,6 @@ async function run() {
     sni: {
       disableSNIRouting: false,
     },
-    sockets: {
-      directory: "/usr/ports",
-    },
-    support: {
-      featureFlagOverrides: [
-        {
-          disabled: true,
-          flagId: "<id>",
-        },
-      ],
-    },
     system: {
       intercom: false,
       upgrade: "api",
@@ -183,27 +144,11 @@ async function run() {
       retryCount: 4414.66,
       retryDelay: 4374.4,
     },
-    upgradeSettings: {
-      automaticUpgradeCheckPeriod: "<value>",
-      disableAutomaticUpgrade: false,
-      enableLegacyEdgeUpgrade: false,
-      packageUrls: [
-        {
-          packageHashUrl: "https://thrifty-teammate.net/",
-          packageUrl: "https://skeletal-dwell.info/",
-        },
-      ],
-      upgradeSource: "<value>",
-    },
+    upgradeSettings: {},
     workers: {
       count: 2124.14,
-      enableHeapSnapshots: true,
-      loadThrottlePerc: 2538.71,
       memory: 20.53,
       minimum: 6157.83,
-      startupMaxConns: 4731.29,
-      startupThrottleTimeout: 1613.48,
-      v8SingleThread: true,
     },
   });
 
@@ -233,41 +178,13 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await systemSettingsCriblUpdate(criblControlPlane, {
     api: {
-      baseUrl: "https://both-draw.com/",
-      disableApiCache: true,
       disabled: false,
-      headers: {
-  
-      },
       host: "meaty-spring.biz",
-      idleSessionTTL: 89.27,
-      listenOnPort: true,
-      loginRateLimit: "<value>",
       port: 2424.38,
-      protocol: "<value>",
-      scripts: true,
-      sensitiveFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      ssl: {
-        caPath: "<value>",
-        certPath: "<value>",
-        disabled: true,
-        passphrase: "<value>",
-        privKeyPath: "<value>",
-      },
-      ssoRateLimit: "<value>",
-      workerRemoteAccess: true,
     },
     backups: {
       backupPersistence: "<value>",
       backupsDirectory: "<value>",
-    },
-    customLogo: {
-      enabled: false,
-      logoDescription: "<value>",
-      logoImage: "<value>",
     },
     pii: {
       enablePiiDetection: false,
@@ -286,17 +203,6 @@ async function run() {
     sni: {
       disableSNIRouting: false,
     },
-    sockets: {
-      directory: "/usr/ports",
-    },
-    support: {
-      featureFlagOverrides: [
-        {
-          disabled: true,
-          flagId: "<id>",
-        },
-      ],
-    },
     system: {
       intercom: false,
       upgrade: "api",
@@ -314,27 +220,11 @@ async function run() {
       retryCount: 4414.66,
       retryDelay: 4374.4,
     },
-    upgradeSettings: {
-      automaticUpgradeCheckPeriod: "<value>",
-      disableAutomaticUpgrade: false,
-      enableLegacyEdgeUpgrade: false,
-      packageUrls: [
-        {
-          packageHashUrl: "https://thrifty-teammate.net/",
-          packageUrl: "https://skeletal-dwell.info/",
-        },
-      ],
-      upgradeSource: "<value>",
-    },
+    upgradeSettings: {},
     workers: {
       count: 2124.14,
-      enableHeapSnapshots: true,
-      loadThrottlePerc: 2538.71,
       memory: 20.53,
       minimum: 6157.83,
-      startupMaxConns: 4731.29,
-      startupThrottleTimeout: 1613.48,
-      v8SingleThread: true,
     },
   });
   if (res.ok) {

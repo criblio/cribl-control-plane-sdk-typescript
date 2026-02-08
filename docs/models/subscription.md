@@ -7,29 +7,12 @@ import { Subscription } from "cribl-control-plane/models";
 
 let value: Subscription = {
   subscriptionName: "<value>",
-  version: "<value>",
   contentFormat: "Raw",
   heartbeatInterval: 4763.41,
   batchTimeout: 6361.8,
-  readExistingEvents: true,
-  sendBookmarks: true,
-  compress: false,
-  targets: [],
-  locale: "el",
-  querySelector: "xml",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
+  targets: [
+    "<value 1>",
   ],
-  queries: [
-    {
-      path: "/usr/libexec",
-      queryExpression: "<value>",
-    },
-  ],
-  xmlQuery: "<value>",
 };
 ```
 
