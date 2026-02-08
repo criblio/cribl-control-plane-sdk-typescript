@@ -12,7 +12,6 @@ import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { PacksDestinationsPq } from "./packsdestinationspq.js";
-import { PacksDestinationsStatuses } from "./packsdestinationsstatuses.js";
 import { PacksSamples } from "./packssamples.js";
 
 export class PacksDestinations extends ClientSDK {
@@ -24,11 +23,6 @@ export class PacksDestinations extends ClientSDK {
   private _samples?: PacksSamples;
   get samples(): PacksSamples {
     return (this._samples ??= new PacksSamples(this._options));
-  }
-
-  private _statuses?: PacksDestinationsStatuses;
-  get statuses(): PacksDestinationsStatuses {
-    return (this._statuses ??= new PacksDestinationsStatuses(this._options));
   }
 
   /**
