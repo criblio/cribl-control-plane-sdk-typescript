@@ -8,7 +8,7 @@ import { HBCriblInfo } from "cribl-control-plane/models";
 let value: HBCriblInfo = {
   config: {
     featuresRev: "<value>",
-    hbPeriodSeconds: 6830.62,
+    hbPeriodSeconds: 4320.82,
     logStreamEnv: "<value>",
     policyRev: "<value>",
     version: "<value>",
@@ -30,8 +30,8 @@ let value: HBCriblInfo = {
     "key2": {},
   },
   master: {
-    host: "serene-corporation.biz",
-    port: 3710.27,
+    host: "diligent-festival.info",
+    port: 3411.24,
     servername: "<value>",
     tls: true,
   },
