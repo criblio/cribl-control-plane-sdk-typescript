@@ -16,9 +16,714 @@ Actions related to Collectors
 
 Create a new Collector.
 
-### Example Usage
+### Example Usage: CollectorExamplesAzureBlob
 
-<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" -->
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesAzureBlob" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "yowza than voluntarily phooey meanwhile",
+      type: "collection",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      executor: {
+        type: "<value>",
+        storeTaskResults: true,
+        conf: {},
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "yowza than voluntarily phooey meanwhile",
+      type: "collection",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      executor: {
+        type: "<value>",
+        storeTaskResults: true,
+        conf: {},
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesCriblLake
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesCriblLake" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "during disconnection where although airman",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: true,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      resumeOnBoot: true,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+      ],
+      savedQueryId: "<id>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "during disconnection where although airman",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: true,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      resumeOnBoot: true,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+      ],
+      savedQueryId: "<id>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesDatabase
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesDatabase" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "yowza than voluntarily phooey meanwhile",
+      type: "collection",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      executor: {
+        type: "<value>",
+        storeTaskResults: true,
+        conf: {},
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "yowza than voluntarily phooey meanwhile",
+      type: "collection",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      executor: {
+        type: "<value>",
+        storeTaskResults: true,
+        conf: {},
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesFilesystem
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesFilesystem" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "during disconnection where although airman",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: true,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      resumeOnBoot: true,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+      ],
+      savedQueryId: "<id>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "during disconnection where although airman",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: true,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      resumeOnBoot: true,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+      ],
+      savedQueryId: "<id>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesGoogleCloudStorage
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesGoogleCloudStorage" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "during disconnection where although airman",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: true,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      resumeOnBoot: true,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+      ],
+      savedQueryId: "<id>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "during disconnection where although airman",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: true,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      resumeOnBoot: true,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+      ],
+      savedQueryId: "<id>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesRest
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesRest" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -226,6 +931,599 @@ async function run() {
         ],
         pipeline: "<value>",
         output: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesS3
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "pomelo outside offensively ew",
+      type: "executor",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      resumeOnBoot: true,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: true,
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+          queryValidationEnabled: true,
+          defaultBreakers: "Cribl",
+          __scheduling: {
+            stateTracking: {
+              enabled: false,
+            },
+          },
+        },
+        destructive: true,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        staleChannelFlushMs: 9538.43,
+        sendToRoutes: true,
+        preprocess: {
+          disabled: true,
+          command: "<value>",
+          args: [
+            "<value 1>",
+            "<value 2>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "pomelo outside offensively ew",
+      type: "executor",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      resumeOnBoot: true,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: true,
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+          queryValidationEnabled: true,
+          defaultBreakers: "Cribl",
+          __scheduling: {
+            stateTracking: {
+              enabled: false,
+            },
+          },
+        },
+        destructive: true,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        staleChannelFlushMs: 9538.43,
+        sendToRoutes: true,
+        preprocess: {
+          disabled: true,
+          command: "<value>",
+          args: [
+            "<value 1>",
+            "<value 2>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesScript
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesScript" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "pomelo outside offensively ew",
+      type: "executor",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      resumeOnBoot: true,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: true,
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+          queryValidationEnabled: true,
+          defaultBreakers: "Cribl",
+          __scheduling: {
+            stateTracking: {
+              enabled: false,
+            },
+          },
+        },
+        destructive: true,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        staleChannelFlushMs: 9538.43,
+        sendToRoutes: true,
+        preprocess: {
+          disabled: true,
+          command: "<value>",
+          args: [
+            "<value 1>",
+            "<value 2>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "pomelo outside offensively ew",
+      type: "executor",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      resumeOnBoot: true,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: true,
+      collector: {
+        type: "database",
+        conf: {
+          connectionId: "<id>",
+          query: "<value>",
+          queryValidationEnabled: true,
+          defaultBreakers: "Cribl",
+          __scheduling: {
+            stateTracking: {
+              enabled: false,
+            },
+          },
+        },
+        destructive: true,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
+        staleChannelFlushMs: 9538.43,
+        sendToRoutes: true,
+        preprocess: {
+          disabled: true,
+          command: "<value>",
+          args: [
+            "<value 1>",
+            "<value 2>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesSplunk
+
+<!-- UsageSnippet language="typescript" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorExamplesSplunk" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.create({
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "yowza than voluntarily phooey meanwhile",
+      type: "collection",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      executor: {
+        type: "<value>",
+        storeTaskResults: true,
+        conf: {},
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsCreate } from "cribl-control-plane/funcs/collectorsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsCreate(criblControlPlane, {
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "yowza than voluntarily phooey meanwhile",
+      type: "collection",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: true,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 3006.78,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: true,
+          maxTaskReschedule: 1211.14,
+          logLevel: "debug",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 4847.66,
+          latest: 3337.75,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      executor: {
+        type: "<value>",
+        storeTaskResults: true,
+        conf: {},
       },
     },
   });
@@ -514,9 +1812,932 @@ run();
 
 Update the specified Collector.<br><br>Provide a complete representation of the Collector that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Collector.<br><br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Collector might not function as expected.
 
-### Example Usage
+### Example Usage: CollectorExamplesAzureBlob
 
-<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesAzureBlob" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "blaring spectate dark notwithstanding sparse obnoxiously editor",
+      type: "executor",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: true,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      savedQueryId: "<id>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "blaring spectate dark notwithstanding sparse obnoxiously editor",
+      type: "executor",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: true,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      savedQueryId: "<id>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesCriblLake
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesCriblLake" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "blaring spectate dark notwithstanding sparse obnoxiously editor",
+      type: "executor",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: true,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      savedQueryId: "<id>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "blaring spectate dark notwithstanding sparse obnoxiously editor",
+      type: "executor",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: true,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      savedQueryId: "<id>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesDatabase
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesDatabase" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "blaring spectate dark notwithstanding sparse obnoxiously editor",
+      type: "executor",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: true,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      savedQueryId: "<id>",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "blaring spectate dark notwithstanding sparse obnoxiously editor",
+      type: "executor",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: true,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      savedQueryId: "<id>",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesFilesystem
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesFilesystem" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "unabashedly notwithstanding ugh digestive",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: false,
+      collector: {
+        type: "s3",
+        conf: {
+          awsAuthenticationMethod: "auto",
+          outputName: "<value>",
+          bucket: "<value>",
+          parquetChunkSizeMB: 2532.22,
+          parquetChunkDownloadTimeout: 6271.26,
+          region: "<value>",
+          path: "/selinux",
+          partitioningScheme: "none",
+          extractors: [
+            {
+              key: "<key>",
+              expression: "<value>",
+            },
+          ],
+          endpoint: "<value>",
+          signatureVersion: "v4",
+          enableAssumeRole: true,
+          assumeRoleArn: "<value>",
+          assumeRoleExternalId: "<id>",
+          durationSeconds: 2075.63,
+          maxBatchSize: 968.91,
+          recurse: "<value>",
+          reuseConnections: true,
+          rejectUnauthorized: false,
+          verifyPermissions: true,
+          disableTimeFilter: true,
+        },
+        destructive: false,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        staleChannelFlushMs: 2918.22,
+        sendToRoutes: false,
+        preprocess: {
+          disabled: false,
+          command: "<value>",
+          args: [
+            "<value 1>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "unabashedly notwithstanding ugh digestive",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: false,
+      collector: {
+        type: "s3",
+        conf: {
+          awsAuthenticationMethod: "auto",
+          outputName: "<value>",
+          bucket: "<value>",
+          parquetChunkSizeMB: 2532.22,
+          parquetChunkDownloadTimeout: 6271.26,
+          region: "<value>",
+          path: "/selinux",
+          partitioningScheme: "none",
+          extractors: [
+            {
+              key: "<key>",
+              expression: "<value>",
+            },
+          ],
+          endpoint: "<value>",
+          signatureVersion: "v4",
+          enableAssumeRole: true,
+          assumeRoleArn: "<value>",
+          assumeRoleExternalId: "<id>",
+          durationSeconds: 2075.63,
+          maxBatchSize: 968.91,
+          recurse: "<value>",
+          reuseConnections: true,
+          rejectUnauthorized: false,
+          verifyPermissions: true,
+          disableTimeFilter: true,
+        },
+        destructive: false,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        staleChannelFlushMs: 2918.22,
+        sendToRoutes: false,
+        preprocess: {
+          disabled: false,
+          command: "<value>",
+          args: [
+            "<value 1>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesGoogleCloudStorage
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesGoogleCloudStorage" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "unabashedly notwithstanding ugh digestive",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: false,
+      collector: {
+        type: "s3",
+        conf: {
+          awsAuthenticationMethod: "auto",
+          outputName: "<value>",
+          bucket: "<value>",
+          parquetChunkSizeMB: 2532.22,
+          parquetChunkDownloadTimeout: 6271.26,
+          region: "<value>",
+          path: "/selinux",
+          partitioningScheme: "none",
+          extractors: [
+            {
+              key: "<key>",
+              expression: "<value>",
+            },
+          ],
+          endpoint: "<value>",
+          signatureVersion: "v4",
+          enableAssumeRole: true,
+          assumeRoleArn: "<value>",
+          assumeRoleExternalId: "<id>",
+          durationSeconds: 2075.63,
+          maxBatchSize: 968.91,
+          recurse: "<value>",
+          reuseConnections: true,
+          rejectUnauthorized: false,
+          verifyPermissions: true,
+          disableTimeFilter: true,
+        },
+        destructive: false,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        staleChannelFlushMs: 2918.22,
+        sendToRoutes: false,
+        preprocess: {
+          disabled: false,
+          command: "<value>",
+          args: [
+            "<value 1>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "unabashedly notwithstanding ugh digestive",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: false,
+      collector: {
+        type: "s3",
+        conf: {
+          awsAuthenticationMethod: "auto",
+          outputName: "<value>",
+          bucket: "<value>",
+          parquetChunkSizeMB: 2532.22,
+          parquetChunkDownloadTimeout: 6271.26,
+          region: "<value>",
+          path: "/selinux",
+          partitioningScheme: "none",
+          extractors: [
+            {
+              key: "<key>",
+              expression: "<value>",
+            },
+          ],
+          endpoint: "<value>",
+          signatureVersion: "v4",
+          enableAssumeRole: true,
+          assumeRoleArn: "<value>",
+          assumeRoleExternalId: "<id>",
+          durationSeconds: 2075.63,
+          maxBatchSize: 968.91,
+          recurse: "<value>",
+          reuseConnections: true,
+          rejectUnauthorized: false,
+          verifyPermissions: true,
+          disableTimeFilter: true,
+        },
+        destructive: false,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        staleChannelFlushMs: 2918.22,
+        sendToRoutes: false,
+        preprocess: {
+          disabled: false,
+          command: "<value>",
+          args: [
+            "<value 1>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesRest
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesRest" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -728,6 +2949,765 @@ async function run() {
           disableTimeFilter: true,
         },
         destructive: true,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        staleChannelFlushMs: 2918.22,
+        sendToRoutes: false,
+        preprocess: {
+          disabled: false,
+          command: "<value>",
+          args: [
+            "<value 1>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesS3
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesS3" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "unabashedly notwithstanding ugh digestive",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: false,
+      collector: {
+        type: "s3",
+        conf: {
+          awsAuthenticationMethod: "auto",
+          outputName: "<value>",
+          bucket: "<value>",
+          parquetChunkSizeMB: 2532.22,
+          parquetChunkDownloadTimeout: 6271.26,
+          region: "<value>",
+          path: "/selinux",
+          partitioningScheme: "none",
+          extractors: [
+            {
+              key: "<key>",
+              expression: "<value>",
+            },
+          ],
+          endpoint: "<value>",
+          signatureVersion: "v4",
+          enableAssumeRole: true,
+          assumeRoleArn: "<value>",
+          assumeRoleExternalId: "<id>",
+          durationSeconds: 2075.63,
+          maxBatchSize: 968.91,
+          recurse: "<value>",
+          reuseConnections: true,
+          rejectUnauthorized: false,
+          verifyPermissions: true,
+          disableTimeFilter: true,
+        },
+        destructive: true,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        staleChannelFlushMs: 2918.22,
+        sendToRoutes: false,
+        preprocess: {
+          disabled: false,
+          command: "<value>",
+          args: [
+            "<value 1>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "unabashedly notwithstanding ugh digestive",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: false,
+      collector: {
+        type: "s3",
+        conf: {
+          awsAuthenticationMethod: "auto",
+          outputName: "<value>",
+          bucket: "<value>",
+          parquetChunkSizeMB: 2532.22,
+          parquetChunkDownloadTimeout: 6271.26,
+          region: "<value>",
+          path: "/selinux",
+          partitioningScheme: "none",
+          extractors: [
+            {
+              key: "<key>",
+              expression: "<value>",
+            },
+          ],
+          endpoint: "<value>",
+          signatureVersion: "v4",
+          enableAssumeRole: true,
+          assumeRoleArn: "<value>",
+          assumeRoleExternalId: "<id>",
+          durationSeconds: 2075.63,
+          maxBatchSize: 968.91,
+          recurse: "<value>",
+          reuseConnections: true,
+          rejectUnauthorized: false,
+          verifyPermissions: true,
+          disableTimeFilter: true,
+        },
+        destructive: true,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        staleChannelFlushMs: 2918.22,
+        sendToRoutes: false,
+        preprocess: {
+          disabled: false,
+          command: "<value>",
+          args: [
+            "<value 1>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesScript
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesScript" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "unabashedly notwithstanding ugh digestive",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: false,
+      collector: {
+        type: "s3",
+        conf: {
+          awsAuthenticationMethod: "auto",
+          outputName: "<value>",
+          bucket: "<value>",
+          parquetChunkSizeMB: 2532.22,
+          parquetChunkDownloadTimeout: 6271.26,
+          region: "<value>",
+          path: "/selinux",
+          partitioningScheme: "none",
+          extractors: [
+            {
+              key: "<key>",
+              expression: "<value>",
+            },
+          ],
+          endpoint: "<value>",
+          signatureVersion: "v4",
+          enableAssumeRole: true,
+          assumeRoleArn: "<value>",
+          assumeRoleExternalId: "<id>",
+          durationSeconds: 2075.63,
+          maxBatchSize: 968.91,
+          recurse: "<value>",
+          reuseConnections: true,
+          rejectUnauthorized: false,
+          verifyPermissions: true,
+          disableTimeFilter: true,
+        },
+        destructive: false,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        staleChannelFlushMs: 2918.22,
+        sendToRoutes: false,
+        preprocess: {
+          disabled: false,
+          command: "<value>",
+          args: [
+            "<value 1>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "unabashedly notwithstanding ugh digestive",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: false,
+      collector: {
+        type: "s3",
+        conf: {
+          awsAuthenticationMethod: "auto",
+          outputName: "<value>",
+          bucket: "<value>",
+          parquetChunkSizeMB: 2532.22,
+          parquetChunkDownloadTimeout: 6271.26,
+          region: "<value>",
+          path: "/selinux",
+          partitioningScheme: "none",
+          extractors: [
+            {
+              key: "<key>",
+              expression: "<value>",
+            },
+          ],
+          endpoint: "<value>",
+          signatureVersion: "v4",
+          enableAssumeRole: true,
+          assumeRoleArn: "<value>",
+          assumeRoleExternalId: "<id>",
+          durationSeconds: 2075.63,
+          maxBatchSize: 968.91,
+          recurse: "<value>",
+          reuseConnections: true,
+          rejectUnauthorized: false,
+          verifyPermissions: true,
+          disableTimeFilter: true,
+        },
+        destructive: false,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        staleChannelFlushMs: 2918.22,
+        sendToRoutes: false,
+        preprocess: {
+          disabled: false,
+          command: "<value>",
+          args: [
+            "<value 1>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("collectorsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CollectorExamplesSplunk
+
+<!-- UsageSnippet language="typescript" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorExamplesSplunk" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.collectors.update({
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "unabashedly notwithstanding ugh digestive",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: false,
+      collector: {
+        type: "s3",
+        conf: {
+          awsAuthenticationMethod: "auto",
+          outputName: "<value>",
+          bucket: "<value>",
+          parquetChunkSizeMB: 2532.22,
+          parquetChunkDownloadTimeout: 6271.26,
+          region: "<value>",
+          path: "/selinux",
+          partitioningScheme: "none",
+          extractors: [
+            {
+              key: "<key>",
+              expression: "<value>",
+            },
+          ],
+          endpoint: "<value>",
+          signatureVersion: "v4",
+          enableAssumeRole: true,
+          assumeRoleArn: "<value>",
+          assumeRoleExternalId: "<id>",
+          durationSeconds: 2075.63,
+          maxBatchSize: 968.91,
+          recurse: "<value>",
+          reuseConnections: true,
+          rejectUnauthorized: false,
+          verifyPermissions: true,
+          disableTimeFilter: true,
+        },
+        destructive: false,
+        encoding: "<value>",
+      },
+      input: {
+        type: "collection",
+        breakerRulesets: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        staleChannelFlushMs: 2918.22,
+        sendToRoutes: false,
+        preprocess: {
+          disabled: false,
+          command: "<value>",
+          args: [
+            "<value 1>",
+          ],
+        },
+        throttleRatePerSec: "<value>",
+        metadata: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        pipeline: "<value>",
+        output: "<value>",
+      },
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { collectorsUpdate } from "cribl-control-plane/funcs/collectorsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await collectorsUpdate(criblControlPlane, {
+    id: "<id>",
+    criblPack: "<value>",
+    savedJob: {
+      id: "<id>",
+      description: "unabashedly notwithstanding ugh digestive",
+      type: "scheduledSearch",
+      ttl: "<value>",
+      ignoreGroupJobsLimit: false,
+      removeFields: [
+        "<value 1>",
+      ],
+      resumeOnBoot: false,
+      environment: "<value>",
+      schedule: {
+        enabled: true,
+        skippable: false,
+        resumeMissed: false,
+        cronSchedule: "<value>",
+        maxConcurrentRuns: 1498.35,
+        run: {
+          type: "collection",
+          rescheduleDroppedTasks: false,
+          maxTaskReschedule: 9677.47,
+          logLevel: "error",
+          jobTimeout: "<value>",
+          mode: "<value>",
+          timeRangeType: "<value>",
+          earliest: 8882.78,
+          latest: 6778.74,
+          timestampTimezone: "<value>",
+          timeWarning: {},
+          expression: "<value>",
+          minTaskSize: "<value>",
+          maxTaskSize: "<value>",
+        },
+      },
+      streamtags: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      workerAffinity: false,
+      collector: {
+        type: "s3",
+        conf: {
+          awsAuthenticationMethod: "auto",
+          outputName: "<value>",
+          bucket: "<value>",
+          parquetChunkSizeMB: 2532.22,
+          parquetChunkDownloadTimeout: 6271.26,
+          region: "<value>",
+          path: "/selinux",
+          partitioningScheme: "none",
+          extractors: [
+            {
+              key: "<key>",
+              expression: "<value>",
+            },
+          ],
+          endpoint: "<value>",
+          signatureVersion: "v4",
+          enableAssumeRole: true,
+          assumeRoleArn: "<value>",
+          assumeRoleExternalId: "<id>",
+          durationSeconds: 2075.63,
+          maxBatchSize: 968.91,
+          recurse: "<value>",
+          reuseConnections: true,
+          rejectUnauthorized: false,
+          verifyPermissions: true,
+          disableTimeFilter: true,
+        },
+        destructive: false,
         encoding: "<value>",
       },
       input: {
