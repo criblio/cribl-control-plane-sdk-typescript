@@ -5,8 +5,8 @@
 import { ClientSDK } from "../lib/sdks.js";
 import { Branches } from "./branches.js";
 import { Commits } from "./commits.js";
+import { Statuses } from "./statuses.js";
 import { VersionsConfigs } from "./versionsconfigs.js";
-import { VersionsStatuses } from "./versionsstatuses.js";
 
 export class Versions extends ClientSDK {
   private _branches?: Branches;
@@ -24,8 +24,8 @@ export class Versions extends ClientSDK {
     return (this._configs ??= new VersionsConfigs(this._options));
   }
 
-  private _statuses?: VersionsStatuses;
-  get statuses(): VersionsStatuses {
-    return (this._statuses ??= new VersionsStatuses(this._options));
+  private _statuses?: Statuses;
+  get statuses(): Statuses {
+    return (this._statuses ??= new Statuses(this._options));
   }
 }

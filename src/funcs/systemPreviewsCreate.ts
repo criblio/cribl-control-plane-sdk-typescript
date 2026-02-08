@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeJSON } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -22,23 +22,22 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
-import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get the status of a Destination
+ * Send sample events through a Pipeline and review results
  *
  * @remarks
- * Get the status and optional metrics for the specified Destination.
+ * Send sample events through the specified Pipeline.The response contains an array of objects, each showing the transformations,additions, and removals for an event after it passes through the pipeline.Useful for testing Pipeline logic with sample data before deploying changes.
  */
-export function destinationsStatusesGet(
+export function systemPreviewsCreate(
   client: CriblControlPlaneCore,
-  request: operations.GetOutputStatusByIdRequest,
+  request: models.PreviewDataParams,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedOutputStatus,
+    models.PreviewResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -59,12 +58,12 @@ export function destinationsStatusesGet(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetOutputStatusByIdRequest,
+  request: models.PreviewDataParams,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      models.CountedOutputStatus,
+      models.PreviewResponse,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -80,31 +79,19 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      operations.GetOutputStatusByIdRequest$outboundSchema.parse(value),
+    (value) => models.PreviewDataParams$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = null;
+  const body = encodeJSON("body", payload, { explode: true });
 
-  const pathParams = {
-    id: encodeSimple("id", payload.id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-
-  const path = pathToFunc("/system/status/outputs/{id}")(pathParams);
-
-  const query = encodeFormQuery({
-    "metrics": payload.metrics,
-    "type": payload.type,
-  });
+  const path = pathToFunc("/preview")();
 
   const headers = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -114,7 +101,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getOutputStatusById",
+    operationID: "createPreview",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -138,11 +125,10 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "POST",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -168,7 +154,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedOutputStatus,
+    models.PreviewResponse,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -179,7 +165,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedOutputStatus$inboundSchema),
+    M.json(200, models.PreviewResponse$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),
