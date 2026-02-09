@@ -406,10 +406,6 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [create](docs/sdks/captures/README.md#create) - Capture live incoming data
 
-### [System.Previews](docs/sdks/previews/README.md)
-
-* [create](docs/sdks/previews/README.md#create) - Send sample events through a Pipeline and review results
-
 ### [System.Settings](docs/sdks/settings/README.md)
 
 * [restart](docs/sdks/settings/README.md#restart) - Restart the Cribl server
@@ -558,7 +554,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesPqGet`](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source
 - [`sourcesUpdate`](docs/sdks/sources/README.md#update) - Update a Source
 - [`systemCapturesCreate`](docs/sdks/captures/README.md#create) - Capture live incoming data
-- [`systemPreviewsCreate`](docs/sdks/previews/README.md#create) - Send sample events through a Pipeline and review results
 - [`systemSettingsCriblList`](docs/sdks/cribl/README.md#list) - Get Cribl system settings
 - [`systemSettingsCriblUpdate`](docs/sdks/cribl/README.md#update) - Update Cribl system settings
 - [`systemSettingsRestart`](docs/sdks/settings/README.md#restart) - Restart the Cribl server
