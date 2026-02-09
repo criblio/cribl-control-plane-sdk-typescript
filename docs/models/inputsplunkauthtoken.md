@@ -7,8 +7,6 @@ import { InputSplunkAuthToken } from "cribl-control-plane/models";
 
 let value: InputSplunkAuthToken = {
   token: "<value>",
-  description:
-    "even dental wonderfully tragic rue precious excepting yippee phooey",
 };
 ```
 

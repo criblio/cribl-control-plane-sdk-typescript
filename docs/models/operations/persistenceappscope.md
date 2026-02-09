@@ -5,14 +5,7 @@
 ```typescript
 import { PersistenceAppscope } from "cribl-control-plane/models/operations";
 
-let value: PersistenceAppscope = {
-  enable: true,
-  timeWindow: "<value>",
-  maxDataSize: "<value>",
-  maxDataTime: "<value>",
-  compress: "none",
-  destPath: "<value>",
-};
+let value: PersistenceAppscope = {};
 ```
 
 ## Fields

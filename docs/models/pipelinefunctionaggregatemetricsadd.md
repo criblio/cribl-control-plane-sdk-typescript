@@ -6,7 +6,6 @@
 import { PipelineFunctionAggregateMetricsAdd } from "cribl-control-plane/models";
 
 let value: PipelineFunctionAggregateMetricsAdd = {
-  name: "<value>",
   value: "<value>",
 };
 ```

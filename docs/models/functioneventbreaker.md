@@ -7,21 +7,16 @@ import { FunctionEventBreaker } from "cribl-control-plane/models";
 
 let value: FunctionEventBreaker = {
   __filename: "example.file",
-  asyncTimeout: 7188.7,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: false,
   id: "event_breaker",
-  loadTime: 9290.78,
-  modTime: 8428.64,
+  loadTime: 7188.7,
+  modTime: 9387.52,
   name: "<value>",
-  sync: true,
-  uischema: {},
-  version: "<value>",
-  schema: {
+  uischema: {
     "key": "<value>",
+    "key1": "<value>",
   },
+  version: "<value>",
 };
 ```
 

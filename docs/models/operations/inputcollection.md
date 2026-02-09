@@ -8,50 +8,6 @@ import { InputCollection } from "cribl-control-plane/models/operations";
 let value: InputCollection = {
   id: "<id>",
   type: "collection",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 5680.54,
-  preprocess: {
-    disabled: true,
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  throttleRatePerSec: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  output: "<value>",
 };
 ```
 

@@ -8,19 +8,7 @@ import { UpdateInputHecTokenByIdAndTokenRequest } from "cribl-control-plane/mode
 let value: UpdateInputHecTokenByIdAndTokenRequest = {
   id: "<id>",
   token: "<value>",
-  updateHecTokenRequest: {
-    allowedIndexesAtToken: [
-      "<value 1>",
-    ],
-    description: "pleasure mild about utilization oval exalted so",
-    enabled: true,
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
+  updateHecTokenRequest: {},
 };
 ```
 

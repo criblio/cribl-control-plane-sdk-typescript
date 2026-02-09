@@ -7,13 +7,6 @@ import { ItemsTypeAuthTokensExt } from "cribl-control-plane/models";
 
 let value: ItemsTypeAuthTokensExt = {
   token: "<value>",
-  description: "against zowie known astonishing yearly worriedly oh follower",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
 };
 ```
 

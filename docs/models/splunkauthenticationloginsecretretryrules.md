@@ -8,13 +8,6 @@
 ```typescript
 const value: models.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone = {
   type: "none",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  retryConnectTimeout: "<value>",
-  retryConnectReset: "<value>",
 };
 ```
 
@@ -24,13 +17,6 @@ const value: models.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeNone = {
 const value: models.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic =
   {
     type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-    multiplier: "<value>",
   };
 ```
 
@@ -40,13 +26,6 @@ const value: models.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeStatic =
 const value: models.SplunkAuthenticationLoginSecretSplunkRetryRulesTypeBackoff =
   {
     type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
   };
 ```
 

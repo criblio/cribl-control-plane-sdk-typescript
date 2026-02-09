@@ -7,23 +7,13 @@ import { FunctionMvPull } from "cribl-control-plane/models";
 
 let value: FunctionMvPull = {
   __filename: "example.file",
-  asyncTimeout: 4318.2,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "mv_pull",
-  loadTime: 5044.4,
-  modTime: 7519.04,
+  loadTime: 4318.2,
+  modTime: 8977.14,
   name: "<value>",
-  sync: false,
-  uischema: {
-    "key": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

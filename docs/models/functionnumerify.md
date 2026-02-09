@@ -7,24 +7,13 @@ import { FunctionNumerify } from "cribl-control-plane/models";
 
 let value: FunctionNumerify = {
   __filename: "example.file",
-  asyncTimeout: 1176.16,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "numerify",
-  loadTime: 3917.82,
-  modTime: 4389.83,
+  loadTime: 1176.16,
+  modTime: 716.09,
   name: "<value>",
-  sync: false,
-  uischema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

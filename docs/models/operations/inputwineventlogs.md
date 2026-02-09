@@ -8,53 +8,10 @@ import { InputWinEventLogs } from "cribl-control-plane/models/operations";
 let value: InputWinEventLogs = {
   id: "<id>",
   type: "win_event_logs",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   logNames: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
-  readMode: "oldest",
-  eventFormat: "json",
-  disableNativeModule: false,
-  interval: 4446.87,
-  batchSize: 303.57,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  maxEventBytes: 3683.2,
-  description:
-    "fill knowingly irk narrowcast reprimand hence opposite ill-fated psst including",
-  disableJsonRendering: true,
-  disableXmlRendering: false,
 };
 ```
 

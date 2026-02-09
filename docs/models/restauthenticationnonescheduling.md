@@ -5,11 +5,7 @@
 ```typescript
 import { RestAuthenticationNoneScheduling } from "cribl-control-plane/models";
 
-let value: RestAuthenticationNoneScheduling = {
-  stateTracking: {
-    enabled: true,
-  },
-};
+let value: RestAuthenticationNoneScheduling = {};
 ```
 
 ## Fields

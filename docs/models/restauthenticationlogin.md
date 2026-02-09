@@ -11,67 +11,9 @@ let value: RestAuthenticationLogin = {
   username: "Odell29",
   password: "FLYm6snDntQzyN5",
   loginBody: "<value>",
-  getAuthTokenFromHeader: true,
-  authHeaderKey: "<value>",
   authHeaderExpr: "<value>",
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {
-    discoverType: "none",
-  },
-  collectUrl: "https://frizzy-overheard.com",
-  collectMethod: "post_with_body",
-  collectVerb: "<value>",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "request_page",
-    pageField: "<value>",
-    page: 4932.66,
-    sizeField: "<value>",
-    size: 1488.52,
-    totalPageField: "<value>",
-    totalRecordField: "<value>",
-    maxPages: 9258.43,
-    zeroIndexed: true,
-  },
-  timeout: 8520.57,
-  useRoundRobinDns: true,
-  disableTimeFilter: false,
-  decodeUrl: false,
-  rejectUnauthorized: true,
-  captureHeaders: true,
-  stopOnEmptyResults: false,
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: true,
-    },
-  },
+  collectUrl: "https://empty-plain.net/",
+  collectMethod: "post",
 };
 ```
 

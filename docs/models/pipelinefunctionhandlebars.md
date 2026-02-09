@@ -6,18 +6,10 @@
 import { PipelineFunctionHandlebars } from "cribl-control-plane/models";
 
 let value: PipelineFunctionHandlebars = {
-  filter: "<value>",
   id: "handlebars",
-  description: "quirkily numeracy endow",
-  disabled: false,
-  final: true,
   conf: {
     templates: [],
-    targetField: "<value>",
-    parseJson: false,
-    removeOnNull: false,
   },
-  groupId: "<id>",
 };
 ```
 

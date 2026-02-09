@@ -28,10 +28,6 @@ async function run() {
   const result = await criblControlPlane.sources.hecTokens.create({
     id: "<id>",
     addHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
-      description: "toward precedent merry vaguely across ha fooey ingratiate jealously outlying",
       enabled: true,
       metadata: [
         {
@@ -70,10 +66,6 @@ async function run() {
   const res = await sourcesHecTokensCreate(criblControlPlane, {
     id: "<id>",
     addHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
-      description: "toward precedent merry vaguely across ha fooey ingratiate jealously outlying",
       enabled: true,
       metadata: [
         {
@@ -114,14 +106,7 @@ async function run() {
       allowedIndexesAtToken: [
         "myIndex6",
       ],
-      description: "circa aw dazzling official own amid in for gadzooks",
       enabled: true,
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
       token: "12345678901",
     },
   });
@@ -156,14 +141,7 @@ async function run() {
       allowedIndexesAtToken: [
         "myIndex6",
       ],
-      description: "circa aw dazzling official own amid in for gadzooks",
       enabled: true,
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
       token: "12345678901",
     },
   });
@@ -220,10 +198,6 @@ async function run() {
     id: "<id>",
     token: "<value>",
     updateHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
-      description: "once lively fooey who though while dampen please denitrify pish",
       enabled: true,
       metadata: [
         {
@@ -262,10 +236,6 @@ async function run() {
     id: "<id>",
     token: "<value>",
     updateHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
-      description: "once lively fooey who though while dampen please denitrify pish",
       enabled: true,
       metadata: [
         {
@@ -306,14 +276,7 @@ async function run() {
       allowedIndexesAtToken: [
         "myIndex6",
       ],
-      description: "sleet for uh-huh",
       enabled: true,
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
     },
   });
 
@@ -348,14 +311,7 @@ async function run() {
       allowedIndexesAtToken: [
         "myIndex6",
       ],
-      description: "sleet for uh-huh",
       enabled: true,
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
     },
   });
   if (res.ok) {

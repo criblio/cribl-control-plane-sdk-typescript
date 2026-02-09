@@ -7,11 +7,6 @@ import { HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone } from "crib
 
 let value: HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone = {
   type: "none",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
 };
 ```
 

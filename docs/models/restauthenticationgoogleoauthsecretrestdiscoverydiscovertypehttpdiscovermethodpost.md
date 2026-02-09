@@ -11,24 +11,8 @@ let value:
   RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
     {
       discoverMethod: "post",
-      discoverRequestParams: "<value>",
       discoverType: "list",
       discoverUrl: "https://impeccable-glider.name",
-      discoverVerb: "<value>",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: true,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: false,
     };
 ```
 

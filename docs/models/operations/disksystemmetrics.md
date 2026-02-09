@@ -5,22 +5,7 @@
 ```typescript
 import { DiskSystemMetrics } from "cribl-control-plane/models/operations";
 
-let value: DiskSystemMetrics = {
-  mode: "disabled",
-  detail: true,
-  inodes: true,
-  devices: [
-    "<value 1>",
-  ],
-  mountpoints: [
-    "<value 1>",
-  ],
-  fstypes: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  perDevice: true,
-};
+let value: DiskSystemMetrics = {};
 ```
 
 ## Fields

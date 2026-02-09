@@ -6,43 +6,7 @@
 import { RunnableJobScheduledSearch } from "cribl-control-plane/models";
 
 let value: RunnableJobScheduledSearch = {
-  id: "<id>",
-  description: "rust trouser amid easily only",
-  type: "scheduledSearch",
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  removeFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  resumeOnBoot: true,
-  environment: "<value>",
-  schedule: {
-    enabled: true,
-    skippable: true,
-    resumeMissed: true,
-    cronSchedule: "<value>",
-    maxConcurrentRuns: 1167.02,
-    run: {
-      type: "collection",
-      rescheduleDroppedTasks: false,
-      maxTaskReschedule: 613.65,
-      logLevel: "info",
-      jobTimeout: "<value>",
-      mode: "<value>",
-      timeRangeType: "<value>",
-      earliest: 5558.09,
-      latest: 8290.6,
-      timestampTimezone: "<value>",
-      timeWarning: {},
-      expression: "<value>",
-      minTaskSize: "<value>",
-      maxTaskSize: "<value>",
-    },
-  },
-  streamtags: [
-    "<value 1>",
-  ],
+  type: "collection",
   savedQueryId: "<id>",
 };
 ```

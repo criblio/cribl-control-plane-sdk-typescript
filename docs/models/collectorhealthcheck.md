@@ -15,50 +15,10 @@ let value: CollectorHealthCheck = {
     username: "Isaac_Schiller",
     password: "0RYmS35HdTLMgXY",
     loginBody: "<value>",
-    tokenRespAttribute: "<value>",
     authHeaderExpr: "<value>",
-    authRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    discovery: {
-      discoverType: "list",
-      itemList: [
-        "<value 1>",
-      ],
-    },
-    collectUrl: "https://hungry-tomb.com",
-    collectMethod: "get",
-    collectRequestParams: "<value>",
-    collectBody: "<value>",
-    collectRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    authenticateCollect: false,
-    timeout: 9325.47,
-    rejectUnauthorized: true,
-    defaultBreakers: "Cribl",
-    safeHeaders: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    retryRules: {
-      type: "static",
-      interval: "<value>",
-      limit: "<value>",
-      codes: "<value>",
-      enableHeader: "<value>",
-      multiplier: "<value>",
-    },
+    collectUrl: "https://fantastic-sanity.info",
+    collectMethod: "post_with_body",
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 

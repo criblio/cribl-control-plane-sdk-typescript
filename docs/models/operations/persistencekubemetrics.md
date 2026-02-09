@@ -5,14 +5,7 @@
 ```typescript
 import { PersistenceKubeMetrics } from "cribl-control-plane/models/operations";
 
-let value: PersistenceKubeMetrics = {
-  enable: true,
-  timeWindow: "<value>",
-  maxDataSize: "<value>",
-  maxDataTime: "<value>",
-  compress: "none",
-  destPath: "<value>",
-};
+let value: PersistenceKubeMetrics = {};
 ```
 
 ## Fields

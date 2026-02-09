@@ -5,12 +5,7 @@
 ```typescript
 import { CountedNumber } from "cribl-control-plane/models";
 
-let value: CountedNumber = {
-  count: 133315,
-  items: [
-    7774.81,
-  ],
-};
+let value: CountedNumber = {};
 ```
 
 ## Fields

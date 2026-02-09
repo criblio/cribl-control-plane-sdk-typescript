@@ -6,14 +6,7 @@
 import { JoinConfiguration } from "cribl-control-plane/models";
 
 let value: JoinConfiguration = {
-  kind: "<value>",
-  hints: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
   fieldConditions: [],
-  searchJobId: "<id>",
-  stageId: "<id>",
 };
 ```
 

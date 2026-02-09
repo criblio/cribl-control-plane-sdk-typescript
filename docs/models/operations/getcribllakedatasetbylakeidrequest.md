@@ -7,12 +7,6 @@ import { GetCriblLakeDatasetByLakeIdRequest } from "cribl-control-plane/models/o
 
 let value: GetCriblLakeDatasetByLakeIdRequest = {
   lakeId: "<id>",
-  storageLocationId: "<id>",
-  format: "<value>",
-  excludeDDSS: false,
-  excludeDeleted: true,
-  excludeInternal: true,
-  excludeBYOS: false,
 };
 ```
 

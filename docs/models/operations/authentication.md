@@ -9,19 +9,6 @@ import { Authentication } from "cribl-control-plane/models/operations";
 
 let value: Authentication = {
   disabled: true,
-  mechanism: "oauthbearer",
-  username: "Wilburn60",
-  textSecret: "<value>",
-  clientSecretAuthType: "certificate",
-  clientTextSecret: "<value>",
-  certificateName: "<value>",
-  certPath: "<value>",
-  privKeyPath: "<value>",
-  passphrase: "<value>",
-  oauthEndpoint: "https://login.partner.microsoftonline.cn",
-  clientId: "<id>",
-  tenantId: "<id>",
-  scope: "<value>",
 };
 ```
 

@@ -7,13 +7,6 @@ import { SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff } from "crib
 
 let value: SplunkAuthenticationBasicSecretSplunkRetryRulesTypeBackoff = {
   type: "backoff",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  retryConnectTimeout: "<value>",
-  retryConnectReset: "<value>",
 };
 ```
 

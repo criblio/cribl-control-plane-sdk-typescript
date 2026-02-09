@@ -8,56 +8,8 @@ import { InputModelDrivenTelemetry } from "cribl-control-plane/models/operations
 let value: InputModelDrivenTelemetry = {
   id: "<id>",
   type: "model_driven_telemetry",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "impressive-patroller.org",
-  port: 3171.72,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  maxActiveCxn: 7750.59,
-  shutdownTimeoutMs: 7039.55,
-  description: "insert connect metabolise flight",
+  host: "mixed-ad.org",
+  port: 9095.17,
 };
 ```
 

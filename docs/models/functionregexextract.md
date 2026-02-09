@@ -7,23 +7,15 @@ import { FunctionRegexExtract } from "cribl-control-plane/models";
 
 let value: FunctionRegexExtract = {
   __filename: "example.file",
-  asyncTimeout: 4835.31,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "regex_extract",
-  loadTime: 3987.19,
-  modTime: 124.29,
+  loadTime: 4835.31,
+  modTime: 9053.96,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

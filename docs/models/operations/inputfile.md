@@ -8,66 +8,6 @@ import { InputFile } from "cribl-control-plane/models/operations";
 let value: InputFile = {
   id: "<id>",
   type: "file",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  mode: "auto",
-  interval: 2930.4,
-  filenames: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  filterArchivedFiles: false,
-  tailOnly: true,
-  idleTimeout: 1865.04,
-  minAgeDur: "<value>",
-  maxAgeDur: "<value>",
-  checkFileModTime: false,
-  forceText: true,
-  hashLen: 2536.06,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  staleChannelFlushMs: 938.78,
-  description:
-    "pear linear outside absentmindedly mostly truthfully sanity brr immediately commonly",
-  path: "/var/yp",
-  depth: 2604.05,
-  suppressMissingPathErrors: true,
-  deleteFiles: true,
-  saltHash: true,
-  includeUnidentifiableBinary: true,
 };
 ```
 

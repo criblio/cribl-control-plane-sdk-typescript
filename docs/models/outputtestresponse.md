@@ -6,14 +6,8 @@
 import { OutputTestResponse } from "cribl-control-plane/models";
 
 let value: OutputTestResponse = {
-  details: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
-  error: "<value>",
   outputId: "<id>",
-  success: true,
-  successDetail: "<value>",
+  success: false,
 };
 ```
 

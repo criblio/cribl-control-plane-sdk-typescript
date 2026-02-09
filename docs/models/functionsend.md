@@ -7,24 +7,15 @@ import { FunctionSend } from "cribl-control-plane/models";
 
 let value: FunctionSend = {
   __filename: "example.file",
-  asyncTimeout: 6106.71,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "send",
-  loadTime: 171.47,
-  modTime: 5706.19,
+  loadTime: 6106.71,
+  modTime: 9854.41,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

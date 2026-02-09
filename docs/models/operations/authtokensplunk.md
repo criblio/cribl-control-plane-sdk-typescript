@@ -7,7 +7,6 @@ import { AuthTokenSplunk } from "cribl-control-plane/models/operations";
 
 let value: AuthTokenSplunk = {
   token: "<value>",
-  description: "suitcase that toward midst faint",
 };
 ```
 

@@ -6,15 +6,10 @@
 import { PipelineFunctionChain } from "cribl-control-plane/models";
 
 let value: PipelineFunctionChain = {
-  filter: "<value>",
   id: "chain",
-  description: "apud save specific worth reassuringly density edge grim",
-  disabled: false,
-  final: false,
   conf: {
     processor: "<value>",
   },
-  groupId: "<id>",
 };
 ```
 

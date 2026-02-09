@@ -12,21 +12,6 @@ let value:
       discoverBody: "<value>",
       discoverType: "list",
       discoverUrl: "https://babyish-toaster.biz",
-      discoverVerb: "<value>",
-      discoverRequestParams: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: false,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: true,
     };
 ```
 

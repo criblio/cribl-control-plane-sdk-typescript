@@ -7,9 +7,7 @@ Creates events based on entries collected from the host’s network routes
 ```typescript
 import { Routes } from "cribl-control-plane/models/operations";
 
-let value: Routes = {
-  enable: true,
-};
+let value: Routes = {};
 ```
 
 ## Fields

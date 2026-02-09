@@ -6,69 +6,8 @@
 import { OutputWavefront } from "cribl-control-plane/models";
 
 let value: OutputWavefront = {
-  id: "<id>",
   type: "wavefront",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  authType: "manual",
-  domain: "unconscious-label.name",
-  concurrency: 7728,
-  maxPayloadSizeKB: 3874.38,
-  maxPayloadEvents: 4794.99,
-  compress: true,
-  rejectUnauthorized: true,
-  timeoutSec: 1663.36,
-  flushPeriodSec: 5980.95,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: false,
-  failedRequestLoggingMode: "payload",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "block",
-  description: "that neatly frail unblinking wrongly amid what",
-  token: "<value>",
-  textSecret: "<value>",
-  pqStrictOrdering: true,
-  pqRatePerSec: 3853.24,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 4593.27,
-  pqMaxBackpressureSec: 8040.72,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "block",
-  pqControls: {},
+  domain: "polite-scratch.info",
 };
 ```
 

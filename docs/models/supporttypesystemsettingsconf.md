@@ -5,14 +5,7 @@
 ```typescript
 import { SupportTypeSystemSettingsConf } from "cribl-control-plane/models";
 
-let value: SupportTypeSystemSettingsConf = {
-  featureFlagOverrides: [
-    {
-      disabled: false,
-      flagId: "<id>",
-    },
-  ],
-};
+let value: SupportTypeSystemSettingsConf = {};
 ```
 
 ## Fields

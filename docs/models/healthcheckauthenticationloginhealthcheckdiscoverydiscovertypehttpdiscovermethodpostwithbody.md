@@ -11,17 +11,8 @@ let value:
   HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
     {
       discoverMethod: "post_with_body",
-      discoverBody: "<value>",
       discoverType: "http",
       discoverUrl: "https://tragic-certification.name",
-      discoverRequestParams: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

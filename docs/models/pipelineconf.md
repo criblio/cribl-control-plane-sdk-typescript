@@ -5,45 +5,7 @@
 ```typescript
 import { PipelineConf } from "cribl-control-plane/models";
 
-let value: PipelineConf = {
-  asyncFuncTimeout: 543977,
-  output: "<value>",
-  description: "draft however spew speedily fly marten total spellcheck",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  functions: [
-    {
-      filter: "<value>",
-      id: "send",
-      description:
-        "sundae mythology incidentally huzzah over anenst whenever mechanic what",
-      disabled: true,
-      final: false,
-      conf: {
-        url: "https://worthy-sauerkraut.info/",
-        group: "<value>",
-        workspace: "<value>",
-        sendUrlTemplate: "<value>",
-        searchId: "<id>",
-        tee: true,
-        flushMs: 1088.86,
-        suppressPreviews: false,
-        mode: "sender",
-      },
-      groupId: "<id>",
-    },
-  ],
-  groups: {
-    "key": {
-      name: "<value>",
-      description: "far-flung like instead zowie pertain concrete shovel",
-      disabled: true,
-    },
-  },
-};
+let value: PipelineConf = {};
 ```
 
 ## Fields
