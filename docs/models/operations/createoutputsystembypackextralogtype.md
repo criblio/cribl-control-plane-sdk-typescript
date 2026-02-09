@@ -7,7 +7,6 @@ import { CreateOutputSystemByPackExtraLogType } from "cribl-control-plane/models
 
 let value: CreateOutputSystemByPackExtraLogType = {
   logType: "<value>",
-  description: "pfft shakily abaft baptise provided",
 };
 ```
 

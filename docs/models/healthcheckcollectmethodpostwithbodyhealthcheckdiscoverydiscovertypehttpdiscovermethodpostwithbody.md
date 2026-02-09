@@ -11,17 +11,8 @@ let value:
   HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
     {
       discoverMethod: "post_with_body",
-      discoverBody: "<value>",
       discoverType: "list",
       discoverUrl: "https://linear-birth.info/",
-      discoverRequestParams: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

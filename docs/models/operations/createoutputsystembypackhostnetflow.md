@@ -8,8 +8,6 @@ import { CreateOutputSystemByPackHostNetflow } from "cribl-control-plane/models/
 let value: CreateOutputSystemByPackHostNetflow = {
   host: "nimble-siege.biz",
   port: 9120.01,
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 

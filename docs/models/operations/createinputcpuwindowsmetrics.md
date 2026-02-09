@@ -5,12 +5,7 @@
 ```typescript
 import { CreateInputCpuWindowsMetrics } from "cribl-control-plane/models/operations";
 
-let value: CreateInputCpuWindowsMetrics = {
-  mode: "all",
-  perCpu: false,
-  detail: true,
-  time: false,
-};
+let value: CreateInputCpuWindowsMetrics = {};
 ```
 
 ## Fields

@@ -8,16 +8,6 @@ import { CreateOutputOutputDevnull } from "cribl-control-plane/models/operations
 let value: CreateOutputOutputDevnull = {
   id: "<id>",
   type: "devnull",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
 };
 ```
 

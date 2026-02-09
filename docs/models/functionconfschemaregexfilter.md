@@ -5,15 +5,7 @@
 ```typescript
 import { FunctionConfSchemaRegexFilter } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaRegexFilter = {
-  regex: "<value>",
-  regexList: [
-    {
-      regex: "<value>",
-    },
-  ],
-  field: "<value>",
-};
+let value: FunctionConfSchemaRegexFilter = {};
 ```
 
 ## Fields

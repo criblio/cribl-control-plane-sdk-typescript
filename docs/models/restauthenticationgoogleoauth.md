@@ -12,59 +12,8 @@ let value: RestAuthenticationGoogleOauth = {
   ],
   serviceAccountCredentials: "<value>",
   subject: "<value>",
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://measly-humor.info/",
-  collectMethod: "post_with_body",
-  collectVerb: "<value>",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "response_body",
-    attribute: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    maxPages: 3827.37,
-    lastPageExpr: "<value>",
-  },
-  timeout: 8962.3,
-  useRoundRobinDns: false,
-  disableTimeFilter: false,
-  decodeUrl: false,
-  rejectUnauthorized: false,
-  captureHeaders: false,
-  stopOnEmptyResults: false,
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: false,
-    },
-  },
+  collectUrl: "https://live-labourer.info/",
+  collectMethod: "post",
 };
 ```
 

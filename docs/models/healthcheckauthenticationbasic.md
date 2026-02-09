@@ -9,38 +9,8 @@ let value: HealthCheckAuthenticationBasic = {
   authentication: "basic",
   username: "Lyric.Grant",
   password: "j8oqJdqwGmAtefF",
-  discovery: {
-    discoverType: "list",
-    itemList: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  collectUrl: "https://silver-plain.com",
+  collectUrl: "https://regal-tooth.net",
   collectMethod: "post_with_body",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: false,
-  timeout: 1066.62,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
 };
 ```
 

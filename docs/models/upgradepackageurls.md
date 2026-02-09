@@ -6,8 +6,7 @@
 import { UpgradePackageUrls } from "cribl-control-plane/models";
 
 let value: UpgradePackageUrls = {
-  packageHashUrl: "https://total-redesign.org/",
-  packageUrl: "https://warmhearted-league.name",
+  packageUrl: "https://total-redesign.org/",
 };
 ```
 

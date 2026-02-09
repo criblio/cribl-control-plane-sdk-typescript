@@ -5,14 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackPersistenceAppscope } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackPersistenceAppscope = {
-  enable: false,
-  timeWindow: "<value>",
-  maxDataSize: "<value>",
-  maxDataTime: "<value>",
-  compress: "gzip",
-  destPath: "<value>",
-};
+let value: CreateInputSystemByPackPersistenceAppscope = {};
 ```
 
 ## Fields

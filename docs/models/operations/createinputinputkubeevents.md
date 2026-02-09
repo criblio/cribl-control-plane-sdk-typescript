@@ -8,45 +8,6 @@ import { CreateInputInputKubeEvents } from "cribl-control-plane/models/operation
 let value: CreateInputInputKubeEvents = {
   id: "<id>",
   type: "kube_events",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  rules: [
-    {
-      filter: "<value>",
-      description: "perspire positively eek these bruised glaring than",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "however svelte unlike gah slide unblinking",
 };
 ```
 

@@ -6,25 +6,10 @@
 import { PipelineFunctionTee } from "cribl-control-plane/models";
 
 let value: PipelineFunctionTee = {
-  filter: "<value>",
   id: "tee",
-  description: "considering until advanced er multicolored scenario ew ocelot",
-  disabled: false,
-  final: true,
   conf: {
     command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    restartOnExit: true,
-    env: {
-      "key": "<value>",
-      "key1": "<value>",
-    },
   },
-  groupId: "<id>",
 };
 ```
 

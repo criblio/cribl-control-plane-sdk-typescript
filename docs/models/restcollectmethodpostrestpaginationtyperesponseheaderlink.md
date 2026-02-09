@@ -8,7 +8,6 @@ import { RestCollectMethodPostRestPaginationTypeResponseHeaderLink } from "cribl
 let value: RestCollectMethodPostRestPaginationTypeResponseHeaderLink = {
   type: "response_header_link",
   nextRelationAttribute: "<value>",
-  curRelationAttribute: "<value>",
   maxPages: 5687.87,
 };
 ```

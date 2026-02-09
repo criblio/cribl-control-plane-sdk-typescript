@@ -7,13 +7,6 @@ import { SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff } from "cribl-cont
 
 let value: SplunkAuthenticationTokenSplunkRetryRulesTypeBackoff = {
   type: "backoff",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  retryConnectTimeout: "<value>",
-  retryConnectReset: "<value>",
 };
 ```
 

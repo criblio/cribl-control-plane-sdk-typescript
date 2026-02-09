@@ -6,21 +6,7 @@
 import { CreateInputSystemByPackAuthTokenSplunkHec } from "cribl-control-plane/models/operations";
 
 let value: CreateInputSystemByPackAuthTokenSplunkHec = {
-  authType: "manual",
-  tokenSecret: "<value>",
   token: "<value>",
-  enabled: true,
-  description: "negative deliberately lucky supposing deeply for as which ugh",
-  allowedIndexesAtToken: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
 };
 ```
 

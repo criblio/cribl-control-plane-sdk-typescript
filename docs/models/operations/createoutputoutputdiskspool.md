@@ -8,22 +8,6 @@ import { CreateOutputOutputDiskSpool } from "cribl-control-plane/models/operatio
 let value: CreateOutputOutputDiskSpool = {
   id: "<id>",
   type: "disk_spool",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  timeWindow: "<value>",
-  maxDataSize: "<value>",
-  maxDataTime: "<value>",
-  compress: "gzip",
-  partitionExpr: "<value>",
-  description: "fun yet amount",
 };
 ```
 

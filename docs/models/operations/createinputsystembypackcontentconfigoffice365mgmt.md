@@ -5,13 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackContentConfigOffice365Mgmt } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackContentConfigOffice365Mgmt = {
-  contentType: "<value>",
-  description: "yowza animated musty famously owlishly scare",
-  interval: 7002.87,
-  logLevel: "info",
-  enabled: true,
-};
+let value: CreateInputSystemByPackContentConfigOffice365Mgmt = {};
 ```
 
 ## Fields

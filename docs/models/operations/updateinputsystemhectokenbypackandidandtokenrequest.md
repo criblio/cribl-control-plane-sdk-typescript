@@ -9,19 +9,7 @@ let value: UpdateInputSystemHecTokenByPackAndIdAndTokenRequest = {
   id: "<id>",
   token: "<value>",
   pack: "<value>",
-  updateHecTokenRequest: {
-    allowedIndexesAtToken: [
-      "<value 1>",
-    ],
-    description: "pleasure mild about utilization oval exalted so",
-    enabled: true,
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
+  updateHecTokenRequest: {},
 };
 ```
 

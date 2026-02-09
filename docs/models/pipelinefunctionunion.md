@@ -6,19 +6,11 @@
 import { PipelineFunctionUnion } from "cribl-control-plane/models";
 
 let value: PipelineFunctionUnion = {
-  filter: "<value>",
   id: "union",
-  description: "farmer tuba vague",
-  disabled: true,
-  final: false,
   conf: {
     searchJobId: "<id>",
-    stageIds: [
-      "<value 1>",
-      "<value 2>",
-    ],
+    stageIds: [],
   },
-  groupId: "<id>",
 };
 ```
 

@@ -8,13 +8,6 @@ import { DatabaseCollectorConf } from "cribl-control-plane/models";
 let value: DatabaseCollectorConf = {
   connectionId: "<id>",
   query: "<value>",
-  queryValidationEnabled: true,
-  defaultBreakers: "Cribl",
-  __scheduling: {
-    stateTracking: {
-      enabled: true,
-    },
-  },
 };
 ```
 

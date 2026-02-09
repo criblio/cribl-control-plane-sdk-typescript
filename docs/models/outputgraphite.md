@@ -6,43 +6,10 @@
 import { OutputGraphite } from "cribl-control-plane/models";
 
 let value: OutputGraphite = {
-  id: "<id>",
   type: "graphite",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  protocol: "udp",
-  host: "royal-fireplace.net",
-  port: 9312.25,
-  mtu: 228.32,
-  flushPeriodSec: 3605.3,
-  dnsResolvePeriodSec: 6440.02,
-  description:
-    "delicious brochure certainly unscramble upright yahoo bowler for within proliferate",
-  throttleRatePerSec: "<value>",
-  connectionTimeout: 7690.09,
-  writeTimeout: 7121.39,
-  onBackpressure: "drop",
-  pqStrictOrdering: true,
-  pqRatePerSec: 4767.35,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 656.65,
-  pqMaxBackpressureSec: 2645.12,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
+  protocol: "tcp",
+  host: "tempting-drug.net",
+  port: 3348.62,
 };
 ```
 

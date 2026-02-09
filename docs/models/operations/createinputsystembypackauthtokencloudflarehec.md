@@ -5,24 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackAuthTokenCloudflareHec } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackAuthTokenCloudflareHec = {
-  authType: "secret",
-  tokenSecret: "<value>",
-  token: "<value>",
-  enabled: true,
-  description:
-    "amid ugh verve uh-huh helpfully hmph worst aboard diligently prickly",
-  allowedIndexesAtToken: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
+let value: CreateInputSystemByPackAuthTokenCloudflareHec = {};
 ```
 
 ## Fields

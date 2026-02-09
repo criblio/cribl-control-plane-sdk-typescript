@@ -5,42 +5,7 @@
 ```typescript
 import { ConfInput } from "cribl-control-plane/models";
 
-let value: ConfInput = {
-  asyncFuncTimeout: 626210,
-  output: "<value>",
-  description:
-    "evenly on polite yieldingly exaggerate incandescence arrogantly yearningly",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  functions: [
-    {
-      filter: "<value>",
-      id: "sort",
-      description:
-        "wildly huzzah tasty plus yahoo ick agreement before subdued",
-      disabled: false,
-      final: true,
-      conf: {
-        sortId: "<id>",
-        comparisonExpression: "<value>",
-        topN: 3645.17,
-        maxEvents: 9120.6,
-        suppressPreviews: true,
-      },
-      groupId: "<id>",
-    },
-  ],
-  groups: {
-    "key": {
-      name: "<value>",
-      description: "far-flung like instead zowie pertain concrete shovel",
-      disabled: true,
-    },
-  },
-};
+let value: ConfInput = {};
 ```
 
 ## Fields

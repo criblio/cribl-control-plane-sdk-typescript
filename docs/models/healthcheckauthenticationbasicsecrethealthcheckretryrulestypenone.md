@@ -7,11 +7,6 @@ import { HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone } fro
 
 let value: HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone = {
   type: "none",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
 };
 ```
 

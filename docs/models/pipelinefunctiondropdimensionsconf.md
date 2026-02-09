@@ -8,7 +8,6 @@ import { PipelineFunctionDropDimensionsConf } from "cribl-control-plane/models";
 let value: PipelineFunctionDropDimensionsConf = {
   timeWindow: "<value>",
   dropDimensions: [],
-  flushOnInputClose: true,
 };
 ```
 

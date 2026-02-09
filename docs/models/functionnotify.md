@@ -7,25 +7,16 @@ import { FunctionNotify } from "cribl-control-plane/models";
 
 let value: FunctionNotify = {
   __filename: "example.file",
-  asyncTimeout: 1105.87,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: false,
   id: "notify",
-  loadTime: 547.8,
-  modTime: 2195.7,
+  loadTime: 1105.87,
+  modTime: 4462.92,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
+    "key1": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
-  },
 };
 ```
 

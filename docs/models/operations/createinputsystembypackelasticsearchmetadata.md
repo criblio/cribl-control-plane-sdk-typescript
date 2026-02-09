@@ -5,10 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackElasticsearchMetadata } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackElasticsearchMetadata = {
-  enabled: true,
-  defaultDataset: "<value>",
-};
+let value: CreateInputSystemByPackElasticsearchMetadata = {};
 ```
 
 ## Fields

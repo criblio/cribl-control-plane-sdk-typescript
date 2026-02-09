@@ -5,20 +5,7 @@
 ```typescript
 import { GitTypeConfigGroup } from "cribl-control-plane/models";
 
-let value: GitTypeConfigGroup = {
-  commit: "<value>",
-  localChanges: 3244.64,
-  log: [
-    {
-      author_email: "<value>",
-      author_name: "<value>",
-      date: "2024-04-14",
-      hash: "<value>",
-      message: "<value>",
-      short: "<value>",
-    },
-  ],
-};
+let value: GitTypeConfigGroup = {};
 ```
 
 ## Fields

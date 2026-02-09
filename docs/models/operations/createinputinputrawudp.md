@@ -8,46 +8,8 @@ import { CreateInputInputRawUdp } from "cribl-control-plane/models/operations";
 let value: CreateInputInputRawUdp = {
   id: "<id>",
   type: "raw_udp",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "adolescent-density.info",
-  port: 8358.67,
-  maxBufferSize: 5817.05,
-  ipWhitelistRegex: "<value>",
-  singleMsgUdpPackets: false,
-  ingestRawBytes: false,
-  udpSocketRxBufSize: 2227.48,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "onto override deeply eke",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "repentant-wheel.org",
+  port: 500.5,
 };
 ```
 

@@ -7,25 +7,13 @@ import { FunctionWindow } from "cribl-control-plane/models";
 
 let value: FunctionWindow = {
   __filename: "example.file",
-  asyncTimeout: 4593.24,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "window",
-  loadTime: 4433.83,
-  modTime: 7908.96,
+  loadTime: 4593.24,
+  modTime: 4210.72,
   name: "<value>",
-  sync: true,
-  uischema: {
-    "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

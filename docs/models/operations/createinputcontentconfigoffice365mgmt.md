@@ -5,13 +5,7 @@
 ```typescript
 import { CreateInputContentConfigOffice365Mgmt } from "cribl-control-plane/models/operations";
 
-let value: CreateInputContentConfigOffice365Mgmt = {
-  contentType: "<value>",
-  description: "freely upward although monocle exactly after frankly",
-  interval: 3999.66,
-  logLevel: "error",
-  enabled: true,
-};
+let value: CreateInputContentConfigOffice365Mgmt = {};
 ```
 
 ## Fields

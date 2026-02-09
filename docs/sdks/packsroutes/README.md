@@ -113,43 +113,15 @@ async function run() {
     id: "<id>",
     pack: "<value>",
     routes: {
-      comments: [
-        {
-          comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
-          groupId: "<id>",
-          id: "<id>",
-          index: 4999.72,
-        },
-      ],
-      groups: {
-        "key": {
-          description: "ridge impassioned amount happily",
-          index: 8485.39,
-          name: "<value>",
-        },
-      },
       id: "default",
       routes: [
         {
-          clones: [
-            {
-              "key": "<value>",
-              "key1": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Route access logs to main pipeline",
-          disabled: true,
-          enableOutputExpression: false,
           filter: "source == \"access.log\"",
           final: true,
-          groupId: "<id>",
           id: "default",
           name: "my-route",
-          output: "<value>",
-          outputExpression: "<value>",
           pipeline: "main",
-          targetContext: "group",
         },
       ],
     },
@@ -183,43 +155,15 @@ async function run() {
     id: "<id>",
     pack: "<value>",
     routes: {
-      comments: [
-        {
-          comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
-          groupId: "<id>",
-          id: "<id>",
-          index: 4999.72,
-        },
-      ],
-      groups: {
-        "key": {
-          description: "ridge impassioned amount happily",
-          index: 8485.39,
-          name: "<value>",
-        },
-      },
       id: "default",
       routes: [
         {
-          clones: [
-            {
-              "key": "<value>",
-              "key1": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Route access logs to main pipeline",
-          disabled: true,
-          enableOutputExpression: false,
           filter: "source == \"access.log\"",
           final: true,
-          groupId: "<id>",
           id: "default",
           name: "my-route",
-          output: "<value>",
-          outputExpression: "<value>",
           pipeline: "main",
-          targetContext: "group",
         },
       ],
     },
@@ -252,113 +196,43 @@ async function run() {
     id: "<id>",
     pack: "<value>",
     routes: {
-      comments: [
-        {
-          comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
-          groupId: "<id>",
-          id: "<id>",
-          index: 2877.94,
-        },
-      ],
-      groups: {
-        "key": {
-          description: "ridge impassioned amount happily",
-          index: 7418.21,
-          name: "<value>",
-        },
-      },
       id: "default",
       routes: [
         {
-          clones: [
-            {
-              "key": "<value>",
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-            },
-            {
-              "key": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Route speedtest logs",
-          disabled: true,
-          enableOutputExpression: false,
           filter: "source == \"speedtest.log\"",
           final: false,
-          groupId: "<id>",
           id: "route-speedtest",
           name: "speedtest",
           output: "default",
-          outputExpression: "<value>",
           pipeline: "main",
-          targetContext: "pack",
         },
         {
-          clones: [
-            {
-
-            },
-          ],
-          context: "<value>",
           description: "Route mtr logs",
-          disabled: false,
-          enableOutputExpression: false,
           filter: "source == \"mtr.log\"",
           final: false,
-          groupId: "<id>",
           id: "route-mtr",
           name: "mtr",
           output: "default",
-          outputExpression: "<value>",
           pipeline: "passthru",
-          targetContext: "group",
         },
         {
-          clones: [
-            {
-
-            },
-          ],
-          context: "<value>",
           description: "Route statsd metrics",
-          disabled: true,
-          enableOutputExpression: false,
           filter: "source == \"statsd.log\"",
           final: false,
-          groupId: "<id>",
           id: "route-statsd",
           name: "statsd",
           output: "devnull",
-          outputExpression: "<value>",
           pipeline: "prometheus_metrics",
-          targetContext: "group",
         },
         {
-          clones: [
-            {
-
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Catch-all Route for all other events",
-          disabled: false,
-          enableOutputExpression: false,
           filter: "true",
           final: true,
-          groupId: "<id>",
           id: "route-default",
           name: "default",
           output: "default",
-          outputExpression: "<value>",
           pipeline: "main",
-          targetContext: "group",
         },
       ],
     },
@@ -392,113 +266,43 @@ async function run() {
     id: "<id>",
     pack: "<value>",
     routes: {
-      comments: [
-        {
-          comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
-          groupId: "<id>",
-          id: "<id>",
-          index: 2877.94,
-        },
-      ],
-      groups: {
-        "key": {
-          description: "ridge impassioned amount happily",
-          index: 7418.21,
-          name: "<value>",
-        },
-      },
       id: "default",
       routes: [
         {
-          clones: [
-            {
-              "key": "<value>",
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-            },
-            {
-              "key": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Route speedtest logs",
-          disabled: true,
-          enableOutputExpression: false,
           filter: "source == \"speedtest.log\"",
           final: false,
-          groupId: "<id>",
           id: "route-speedtest",
           name: "speedtest",
           output: "default",
-          outputExpression: "<value>",
           pipeline: "main",
-          targetContext: "pack",
         },
         {
-          clones: [
-            {
-  
-            },
-          ],
-          context: "<value>",
           description: "Route mtr logs",
-          disabled: false,
-          enableOutputExpression: false,
           filter: "source == \"mtr.log\"",
           final: false,
-          groupId: "<id>",
           id: "route-mtr",
           name: "mtr",
           output: "default",
-          outputExpression: "<value>",
           pipeline: "passthru",
-          targetContext: "group",
         },
         {
-          clones: [
-            {
-  
-            },
-          ],
-          context: "<value>",
           description: "Route statsd metrics",
-          disabled: true,
-          enableOutputExpression: false,
           filter: "source == \"statsd.log\"",
           final: false,
-          groupId: "<id>",
           id: "route-statsd",
           name: "statsd",
           output: "devnull",
-          outputExpression: "<value>",
           pipeline: "prometheus_metrics",
-          targetContext: "group",
         },
         {
-          clones: [
-            {
-  
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Catch-all Route for all other events",
-          disabled: false,
-          enableOutputExpression: false,
           filter: "true",
           final: true,
-          groupId: "<id>",
           id: "route-default",
           name: "default",
           output: "default",
-          outputExpression: "<value>",
           pipeline: "main",
-          targetContext: "group",
         },
       ],
     },
@@ -531,44 +335,17 @@ async function run() {
     id: "<id>",
     pack: "<value>",
     routes: {
-      comments: [
-        {
-          comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
-          groupId: "<id>",
-          id: "<id>",
-          index: 7514.98,
-        },
-      ],
-      groups: {
-        "key": {
-          description: "ridge impassioned amount happily",
-          index: 3321.41,
-          name: "<value>",
-        },
-      },
       id: "default",
       routes: [
         {
-          clones: [
-            {
-              "key": "<value>",
-              "key1": "<value>",
-              "key2": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Route with dynamic Destination based on environment",
-          disabled: true,
           enableOutputExpression: true,
           filter: "source == \"dynamic.log\"",
           final: true,
-          groupId: "<id>",
           id: "route-dynamic",
           name: "dynamic-output",
-          output: "<value>",
           outputExpression: "`myDest_${C.logStreamEnv}`",
           pipeline: "main",
-          targetContext: "group",
         },
       ],
     },
@@ -602,44 +379,17 @@ async function run() {
     id: "<id>",
     pack: "<value>",
     routes: {
-      comments: [
-        {
-          comment: "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
-          groupId: "<id>",
-          id: "<id>",
-          index: 7514.98,
-        },
-      ],
-      groups: {
-        "key": {
-          description: "ridge impassioned amount happily",
-          index: 3321.41,
-          name: "<value>",
-        },
-      },
       id: "default",
       routes: [
         {
-          clones: [
-            {
-              "key": "<value>",
-              "key1": "<value>",
-              "key2": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Route with dynamic Destination based on environment",
-          disabled: true,
           enableOutputExpression: true,
           filter: "source == \"dynamic.log\"",
           final: true,
-          groupId: "<id>",
           id: "route-dynamic",
           name: "dynamic-output",
-          output: "<value>",
           outputExpression: "`myDest_${C.logStreamEnv}`",
           pipeline: "main",
-          targetContext: "group",
         },
       ],
     },
@@ -778,57 +528,22 @@ async function run() {
     pack: "<value>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-          },
-          {
-            "key": "<value>",
-            "key1": "<value>",
-            "key2": "<value>",
-          },
-          {
-            "key": "<value>",
-            "key1": "<value>",
-            "key2": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route audit logs",
-        disabled: false,
-        enableOutputExpression: false,
         filter: "source == \"audit.log\"",
         final: false,
-        groupId: "<id>",
         id: "route-audit",
         name: "audit",
         output: "default",
-        outputExpression: "<value>",
         pipeline: "main",
-        targetContext: "group",
       },
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-            "key2": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route security logs",
-        disabled: false,
-        enableOutputExpression: false,
         filter: "source == \"security.log\"",
         final: false,
-        groupId: "<id>",
         id: "route-security",
         name: "security",
         output: "devnull",
-        outputExpression: "<value>",
         pipeline: "passthru",
-        targetContext: "pack",
       },
     ],
   });
@@ -862,57 +577,22 @@ async function run() {
     pack: "<value>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-          },
-          {
-            "key": "<value>",
-            "key1": "<value>",
-            "key2": "<value>",
-          },
-          {
-            "key": "<value>",
-            "key1": "<value>",
-            "key2": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route audit logs",
-        disabled: false,
-        enableOutputExpression: false,
         filter: "source == \"audit.log\"",
         final: false,
-        groupId: "<id>",
         id: "route-audit",
         name: "audit",
         output: "default",
-        outputExpression: "<value>",
         pipeline: "main",
-        targetContext: "group",
       },
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-            "key2": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route security logs",
-        disabled: false,
-        enableOutputExpression: false,
         filter: "source == \"security.log\"",
         final: false,
-        groupId: "<id>",
         id: "route-security",
         name: "security",
         output: "devnull",
-        outputExpression: "<value>",
         pipeline: "passthru",
-        targetContext: "pack",
       },
     ],
   });
@@ -945,29 +625,14 @@ async function run() {
     pack: "<value>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-          },
-          {
-            "key": "<value>",
-            "key1": "<value>",
-            "key2": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route with dynamic Destination based on environment",
-        disabled: true,
         enableOutputExpression: true,
         filter: "source == \"dynamic.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-dynamic-append",
         name: "dynamic-append",
-        output: "<value>",
         outputExpression: "`myDest_${C.logStreamEnv}`",
         pipeline: "main",
-        targetContext: "pack",
       },
     ],
   });
@@ -1001,29 +666,14 @@ async function run() {
     pack: "<value>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-          },
-          {
-            "key": "<value>",
-            "key1": "<value>",
-            "key2": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route with dynamic Destination based on environment",
-        disabled: true,
         enableOutputExpression: true,
         filter: "source == \"dynamic.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-dynamic-append",
         name: "dynamic-append",
-        output: "<value>",
         outputExpression: "`myDest_${C.logStreamEnv}`",
         pipeline: "main",
-        targetContext: "pack",
       },
     ],
   });
@@ -1056,27 +706,12 @@ async function run() {
     pack: "<value>",
     requestBody: [
       {
-        clones: [
-          {
-
-          },
-          {
-            "key": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route new logs to main pipeline",
-        disabled: false,
-        enableOutputExpression: true,
         filter: "source == \"new.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-new",
         name: "new-route",
-        output: "<value>",
-        outputExpression: "<value>",
         pipeline: "main",
-        targetContext: "pack",
       },
     ],
   });
@@ -1110,27 +745,12 @@ async function run() {
     pack: "<value>",
     requestBody: [
       {
-        clones: [
-          {
-  
-          },
-          {
-            "key": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route new logs to main pipeline",
-        disabled: false,
-        enableOutputExpression: true,
         filter: "source == \"new.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-new",
         name: "new-route",
-        output: "<value>",
-        outputExpression: "<value>",
         pipeline: "main",
-        targetContext: "pack",
       },
     ],
   });

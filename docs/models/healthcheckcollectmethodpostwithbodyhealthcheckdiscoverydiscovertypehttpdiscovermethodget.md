@@ -11,17 +11,8 @@ let value:
   HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet =
     {
       discoverMethod: "get",
-      discoverRequestParams: "<value>",
       discoverType: "none",
       discoverUrl: "https://nifty-story.net/",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

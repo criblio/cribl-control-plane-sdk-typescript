@@ -7,18 +7,9 @@ import { DatabaseConnectionConfig } from "cribl-control-plane/models";
 
 let value: DatabaseConnectionConfig = {
   authType: "<value>",
-  configObj: "<value>",
-  connectionString: "<value>",
-  connectionTimeout: 9814.17,
-  credsSecrets: "<value>",
   databaseType: "sqlserver",
-  description:
-    "cutover juvenile elevation graffiti deceivingly impassioned knowledgeable gadzooks tabulate",
+  description: "however tight quirkily geez yahoo second specific horst meh",
   id: "<id>",
-  password: "lLxCNPoLQ49plJI",
-  requestTimeout: 1099.25,
-  tags: "<value>",
-  user: "Consuelo.Fritsch",
 };
 ```
 

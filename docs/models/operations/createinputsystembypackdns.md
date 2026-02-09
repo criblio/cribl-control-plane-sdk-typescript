@@ -7,9 +7,7 @@ Creates events for DNS resolvers and search entries
 ```typescript
 import { CreateInputSystemByPackDNS } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackDNS = {
-  enable: false,
-};
+let value: CreateInputSystemByPackDNS = {};
 ```
 
 ## Fields

@@ -8,63 +8,6 @@ import { CreateInputSystemByPackInputFile } from "cribl-control-plane/models/ope
 let value: CreateInputSystemByPackInputFile = {
   id: "<id>",
   type: "file",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  mode: "manual",
-  interval: 6657.22,
-  filenames: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  filterArchivedFiles: true,
-  tailOnly: false,
-  idleTimeout: 2923.34,
-  minAgeDur: "<value>",
-  maxAgeDur: "<value>",
-  checkFileModTime: true,
-  forceText: true,
-  hashLen: 8689.38,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 6357.04,
-  description: "hungry search zowie mild bonnet slip",
-  path: "/lost+found",
-  depth: 194.54,
-  suppressMissingPathErrors: false,
-  deleteFiles: false,
-  saltHash: false,
-  includeUnidentifiableBinary: false,
 };
 ```
 

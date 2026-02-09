@@ -8,76 +8,8 @@ import { CreateInputInputSplunk } from "cribl-control-plane/models/operations";
 let value: CreateInputInputSplunk = {
   id: "<id>",
   type: "splunk",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "prestigious-issue.net",
-  port: 6281.3,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  ipWhitelistRegex: "<value>",
-  maxActiveCxn: 3581.09,
-  socketIdleTimeout: 826.1,
-  socketEndingMaxWait: 7663.3,
-  socketMaxLifespan: 6658.64,
-  enableProxyHeader: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 8028.37,
-  authTokens: [
-    {
-      token: "<value>",
-      description: "jagged about famously softly since against unique",
-    },
-  ],
-  maxS2Sversion: "v3",
-  description: "who lawmaker why indeed boldly",
-  useFwdTimezone: true,
-  dropControlFields: true,
-  extractMetrics: false,
-  compress: "auto",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "clear-exasperation.name",
+  port: 3779.03,
 };
 ```
 

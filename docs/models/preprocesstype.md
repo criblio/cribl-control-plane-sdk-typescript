@@ -7,11 +7,6 @@ import { PreprocessType } from "cribl-control-plane/models";
 
 let value: PreprocessType = {
   disabled: false,
-  command: "<value>",
-  args: [
-    "<value 1>",
-    "<value 2>",
-  ],
 };
 ```
 

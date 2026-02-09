@@ -6,69 +6,8 @@
 import { OutputSumoLogic } from "cribl-control-plane/models";
 
 let value: OutputSumoLogic = {
-  id: "<id>",
   type: "sumo_logic",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  url: "https://discrete-cod.net",
-  customSource: "<value>",
-  customCategory: "<value>",
-  format: "json",
-  concurrency: 7298.15,
-  maxPayloadSizeKB: 8659.35,
-  maxPayloadEvents: 8128.12,
-  compress: false,
-  rejectUnauthorized: false,
-  timeoutSec: 9121.65,
-  flushPeriodSec: 7268.54,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: false,
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "queue",
-  totalMemoryLimitKB: 8475.57,
-  description: "powerfully menacing mealy zowie sharply",
-  pqStrictOrdering: true,
-  pqRatePerSec: 688.94,
-  pqMode: "error",
-  pqMaxBufferSize: 4663.01,
-  pqMaxBackpressureSec: 2812.65,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
-  __template_url: "https://educated-doubter.net/",
+  url: "https://dazzling-swing.biz/",
 };
 ```
 

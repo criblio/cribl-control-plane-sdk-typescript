@@ -7,7 +7,6 @@ import { CreateInputSystemByPackProxyModeDatadogAgent } from "cribl-control-plan
 
 let value: CreateInputSystemByPackProxyModeDatadogAgent = {
   enabled: true,
-  rejectUnauthorized: false,
 };
 ```
 

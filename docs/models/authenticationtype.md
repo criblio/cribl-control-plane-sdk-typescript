@@ -9,31 +9,6 @@ import { AuthenticationType } from "cribl-control-plane/models";
 
 let value: AuthenticationType = {
   disabled: true,
-  username: "Nina_Kerluke31",
-  password: "ljk8icrJwlokeiN",
-  authType: "manual",
-  credentialsSecret: "<value>",
-  mechanism: "kerberos",
-  keytabLocation: "<value>",
-  principal: "<value>",
-  brokerServiceClass: "<value>",
-  oauthEnabled: false,
-  tokenUrl: "https://far-lawmaker.biz",
-  clientId: "<id>",
-  oauthSecretType: "<value>",
-  clientTextSecret: "<value>",
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  saslExtensions: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
 };
 ```
 

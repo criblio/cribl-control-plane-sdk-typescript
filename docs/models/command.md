@@ -6,10 +6,8 @@
 import { Command } from "cribl-control-plane/models";
 
 let value: Command = {
-  outField: "<value>",
   command: "<value>",
   keyExpr: "<value>",
-  argsExpr: "<value>",
 };
 ```
 

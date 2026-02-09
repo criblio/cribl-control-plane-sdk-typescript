@@ -8,51 +8,8 @@ import { CreateInputInputNetflow } from "cribl-control-plane/models/operations";
 let value: CreateInputInputNetflow = {
   id: "<id>",
   type: "netflow",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "likely-lay.net",
-  port: 7606.62,
-  enablePassThrough: true,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  udpSocketRxBufSize: 5041.1,
-  templateCacheMinutes: 1481.93,
-  v5Enabled: true,
-  v9Enabled: false,
-  ipfixEnabled: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "excess forsaken tragic consequently",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "creative-smoke.name",
+  port: 9451.77,
 };
 ```
 

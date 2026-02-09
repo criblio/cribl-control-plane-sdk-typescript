@@ -5,41 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackCollectors } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackCollectors = {
-  hostsfile: {
-    enable: true,
-  },
-  interfaces: {
-    enable: true,
-  },
-  disk: {
-    enable: false,
-  },
-  metadata: {
-    enable: false,
-  },
-  routes: {
-    enable: true,
-  },
-  dns: {
-    enable: true,
-  },
-  user: {
-    enable: true,
-  },
-  firewall: {
-    enable: false,
-  },
-  services: {
-    enable: true,
-  },
-  ports: {
-    enable: false,
-  },
-  loginUsers: {
-    enable: true,
-  },
-};
+let value: CreateInputSystemByPackCollectors = {};
 ```
 
 ## Fields

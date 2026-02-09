@@ -7,11 +7,6 @@ import { HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic } from "c
 
 let value: HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic = {
   type: "static",
-  interval: "<value>",
-  limit: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  multiplier: "<value>",
 };
 ```
 

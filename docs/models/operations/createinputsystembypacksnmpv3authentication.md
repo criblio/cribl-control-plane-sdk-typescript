@@ -9,16 +9,6 @@ import { CreateInputSystemByPackSNMPv3Authentication } from "cribl-control-plane
 
 let value: CreateInputSystemByPackSNMPv3Authentication = {
   v3AuthEnabled: false,
-  allowUnmatchedTrap: true,
-  v3Users: [
-    {
-      name: "<value>",
-      authProtocol: "md5",
-      authKey: "<value>",
-      privProtocol: "none",
-      privKey: "<value>",
-    },
-  ],
 };
 ```
 

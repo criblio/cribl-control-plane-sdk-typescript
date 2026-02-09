@@ -6,15 +6,8 @@
 import { PipelineFunctionLimit } from "cribl-control-plane/models";
 
 let value: PipelineFunctionLimit = {
-  filter: "<value>",
   id: "limit",
-  description: "very judicious deliberately cleaner gosh near bracelet except",
-  disabled: true,
-  final: false,
-  conf: {
-    limit: 269883,
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

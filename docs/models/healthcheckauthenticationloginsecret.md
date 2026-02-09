@@ -10,44 +10,9 @@ let value: HealthCheckAuthenticationLoginSecret = {
   loginUrl: "https://husky-granny.name/",
   credentialsSecret: "<value>",
   loginBody: "<value>",
-  tokenRespAttribute: "<value>",
   authHeaderExpr: "<value>",
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {
-    discoverType: "none",
-  },
-  collectUrl: "https://rural-lady.net/",
-  collectMethod: "get",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: true,
-  timeout: 7385.66,
-  rejectUnauthorized: false,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
+  collectUrl: "https://beloved-premier.name",
+  collectMethod: "post_with_body",
 };
 ```
 

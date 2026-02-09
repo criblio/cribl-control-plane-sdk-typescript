@@ -8,21 +8,12 @@ import { CreateOutputSystemByPackOutputNetflow } from "cribl-control-plane/model
 let value: CreateOutputSystemByPackOutputNetflow = {
   id: "<id>",
   type: "netflow",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
+  hosts: [
+    {
+      host: "husky-contractor.name",
+      port: 9041.9,
+    },
   ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  hosts: [],
-  dnsResolvePeriodSec: 6192.91,
-  enableIpSpoofing: false,
-  description: "nearly yum microblog ick",
-  maxRecordSize: 5270.2,
 };
 ```
 

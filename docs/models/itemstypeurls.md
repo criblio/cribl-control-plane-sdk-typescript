@@ -7,8 +7,6 @@ import { ItemsTypeUrls } from "cribl-control-plane/models";
 
 let value: ItemsTypeUrls = {
   url: "https://complicated-embarrassment.info/",
-  weight: 5242.11,
-  __template_url: "https://untimely-meatloaf.net/",
 };
 ```
 

@@ -112,42 +112,15 @@ async function run() {
   const result = await criblControlPlane.routes.update({
     id: "<id>",
     routes: {
-      comments: [
-        {
-          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
-          groupId: "<id>",
-          id: "<id>",
-          index: 3844.57,
-        },
-      ],
-      groups: {
-        "key": {
-          description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
-          index: 8899.36,
-          name: "<value>",
-        },
-      },
       id: "default",
       routes: [
         {
-          clones: [
-            {
-              "key": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Route access logs to main pipeline",
-          disabled: true,
-          enableOutputExpression: false,
           filter: "source == \"access.log\"",
           final: true,
-          groupId: "<id>",
           id: "default",
           name: "my-route",
-          output: "<value>",
-          outputExpression: "<value>",
           pipeline: "main",
-          targetContext: "group",
         },
       ],
     },
@@ -180,42 +153,15 @@ async function run() {
   const res = await routesUpdate(criblControlPlane, {
     id: "<id>",
     routes: {
-      comments: [
-        {
-          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
-          groupId: "<id>",
-          id: "<id>",
-          index: 3844.57,
-        },
-      ],
-      groups: {
-        "key": {
-          description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
-          index: 8899.36,
-          name: "<value>",
-        },
-      },
       id: "default",
       routes: [
         {
-          clones: [
-            {
-              "key": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Route access logs to main pipeline",
-          disabled: true,
-          enableOutputExpression: false,
           filter: "source == \"access.log\"",
           final: true,
-          groupId: "<id>",
           id: "default",
           name: "my-route",
-          output: "<value>",
-          outputExpression: "<value>",
           pipeline: "main",
-          targetContext: "group",
         },
       ],
     },
@@ -247,134 +193,43 @@ async function run() {
   const result = await criblControlPlane.routes.update({
     id: "<id>",
     routes: {
-      comments: [
-        {
-          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
-          groupId: "<id>",
-          id: "<id>",
-          index: 1800.08,
-        },
-      ],
-      groups: {
-        "key": {
-          description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
-          index: 557.98,
-          name: "<value>",
-        },
-      },
       id: "default",
       routes: [
         {
-          clones: [
-            {
-              "key": "<value>",
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-              "key2": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Route speedtest logs",
-          disabled: false,
-          enableOutputExpression: false,
           filter: "source == \"speedtest.log\"",
           final: false,
-          groupId: "<id>",
           id: "route-speedtest",
           name: "speedtest",
           output: "default",
-          outputExpression: "<value>",
           pipeline: "main",
-          targetContext: "pack",
         },
         {
-          clones: [
-            {
-              "key": "<value>",
-              "key1": "<value>",
-              "key2": "<value>",
-            },
-            {
-              "key": "<value>",
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-              "key2": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Route mtr logs",
-          disabled: false,
-          enableOutputExpression: false,
           filter: "source == \"mtr.log\"",
           final: false,
-          groupId: "<id>",
           id: "route-mtr",
           name: "mtr",
           output: "default",
-          outputExpression: "<value>",
           pipeline: "passthru",
-          targetContext: "group",
         },
         {
-          clones: [
-            {
-              "key": "<value>",
-              "key1": "<value>",
-              "key2": "<value>",
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-            },
-            {
-
-            },
-          ],
-          context: "<value>",
           description: "Route statsd metrics",
-          disabled: true,
-          enableOutputExpression: false,
           filter: "source == \"statsd.log\"",
           final: false,
-          groupId: "<id>",
           id: "route-statsd",
           name: "statsd",
           output: "devnull",
-          outputExpression: "<value>",
           pipeline: "prometheus_metrics",
-          targetContext: "group",
         },
         {
-          clones: [
-            {
-
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Catch-all Route for all other events",
-          disabled: true,
-          enableOutputExpression: false,
           filter: "true",
           final: true,
-          groupId: "<id>",
           id: "route-default",
           name: "default",
           output: "default",
-          outputExpression: "<value>",
           pipeline: "main",
-          targetContext: "pack",
         },
       ],
     },
@@ -407,134 +262,43 @@ async function run() {
   const res = await routesUpdate(criblControlPlane, {
     id: "<id>",
     routes: {
-      comments: [
-        {
-          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
-          groupId: "<id>",
-          id: "<id>",
-          index: 1800.08,
-        },
-      ],
-      groups: {
-        "key": {
-          description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
-          index: 557.98,
-          name: "<value>",
-        },
-      },
       id: "default",
       routes: [
         {
-          clones: [
-            {
-              "key": "<value>",
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-              "key2": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Route speedtest logs",
-          disabled: false,
-          enableOutputExpression: false,
           filter: "source == \"speedtest.log\"",
           final: false,
-          groupId: "<id>",
           id: "route-speedtest",
           name: "speedtest",
           output: "default",
-          outputExpression: "<value>",
           pipeline: "main",
-          targetContext: "pack",
         },
         {
-          clones: [
-            {
-              "key": "<value>",
-              "key1": "<value>",
-              "key2": "<value>",
-            },
-            {
-              "key": "<value>",
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-              "key2": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Route mtr logs",
-          disabled: false,
-          enableOutputExpression: false,
           filter: "source == \"mtr.log\"",
           final: false,
-          groupId: "<id>",
           id: "route-mtr",
           name: "mtr",
           output: "default",
-          outputExpression: "<value>",
           pipeline: "passthru",
-          targetContext: "group",
         },
         {
-          clones: [
-            {
-              "key": "<value>",
-              "key1": "<value>",
-              "key2": "<value>",
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-            },
-            {
-  
-            },
-          ],
-          context: "<value>",
           description: "Route statsd metrics",
-          disabled: true,
-          enableOutputExpression: false,
           filter: "source == \"statsd.log\"",
           final: false,
-          groupId: "<id>",
           id: "route-statsd",
           name: "statsd",
           output: "devnull",
-          outputExpression: "<value>",
           pipeline: "prometheus_metrics",
-          targetContext: "group",
         },
         {
-          clones: [
-            {
-  
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-            },
-          ],
-          context: "<value>",
           description: "Catch-all Route for all other events",
-          disabled: true,
-          enableOutputExpression: false,
           filter: "true",
           final: true,
-          groupId: "<id>",
           id: "route-default",
           name: "default",
           output: "default",
-          outputExpression: "<value>",
           pipeline: "main",
-          targetContext: "pack",
         },
       ],
     },
@@ -566,50 +330,17 @@ async function run() {
   const result = await criblControlPlane.routes.update({
     id: "<id>",
     routes: {
-      comments: [
-        {
-          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
-          groupId: "<id>",
-          id: "<id>",
-          index: 2035.39,
-        },
-      ],
-      groups: {
-        "key": {
-          description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
-          index: 3962.06,
-          name: "<value>",
-        },
-      },
       id: "default",
       routes: [
         {
-          clones: [
-            {
-
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-              "key2": "<value>",
-            },
-            {
-
-            },
-          ],
-          context: "<value>",
           description: "Route with dynamic Destination based on environment",
-          disabled: true,
           enableOutputExpression: true,
           filter: "source == \"dynamic.log\"",
           final: true,
-          groupId: "<id>",
           id: "route-dynamic",
           name: "dynamic-output",
-          output: "<value>",
           outputExpression: "`myDest_${C.logStreamEnv}`",
           pipeline: "main",
-          targetContext: "pack",
         },
       ],
     },
@@ -642,50 +373,17 @@ async function run() {
   const res = await routesUpdate(criblControlPlane, {
     id: "<id>",
     routes: {
-      comments: [
-        {
-          comment: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
-          groupId: "<id>",
-          id: "<id>",
-          index: 2035.39,
-        },
-      ],
-      groups: {
-        "key": {
-          description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
-          index: 3962.06,
-          name: "<value>",
-        },
-      },
       id: "default",
       routes: [
         {
-          clones: [
-            {
-  
-            },
-            {
-              "key": "<value>",
-              "key1": "<value>",
-              "key2": "<value>",
-            },
-            {
-  
-            },
-          ],
-          context: "<value>",
           description: "Route with dynamic Destination based on environment",
-          disabled: true,
           enableOutputExpression: true,
           filter: "source == \"dynamic.log\"",
           final: true,
-          groupId: "<id>",
           id: "route-dynamic",
           name: "dynamic-output",
-          output: "<value>",
           outputExpression: "`myDest_${C.logStreamEnv}`",
           pipeline: "main",
-          targetContext: "pack",
         },
       ],
     },
@@ -818,51 +516,22 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route audit logs",
-        disabled: false,
-        enableOutputExpression: false,
         filter: "source == \"audit.log\"",
         final: false,
-        groupId: "<id>",
         id: "route-audit",
         name: "audit",
         output: "default",
-        outputExpression: "<value>",
         pipeline: "main",
-        targetContext: "group",
       },
       {
-        clones: [
-          {
-
-          },
-          {
-
-          },
-          {
-
-          },
-        ],
-        context: "<value>",
         description: "Route security logs",
-        disabled: true,
-        enableOutputExpression: false,
         filter: "source == \"security.log\"",
         final: false,
-        groupId: "<id>",
         id: "route-security",
         name: "security",
         output: "devnull",
-        outputExpression: "<value>",
         pipeline: "passthru",
-        targetContext: "group",
       },
     ],
   });
@@ -895,51 +564,22 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route audit logs",
-        disabled: false,
-        enableOutputExpression: false,
         filter: "source == \"audit.log\"",
         final: false,
-        groupId: "<id>",
         id: "route-audit",
         name: "audit",
         output: "default",
-        outputExpression: "<value>",
         pipeline: "main",
-        targetContext: "group",
       },
       {
-        clones: [
-          {
-  
-          },
-          {
-  
-          },
-          {
-  
-          },
-        ],
-        context: "<value>",
         description: "Route security logs",
-        disabled: true,
-        enableOutputExpression: false,
         filter: "source == \"security.log\"",
         final: false,
-        groupId: "<id>",
         id: "route-security",
         name: "security",
         output: "devnull",
-        outputExpression: "<value>",
         pipeline: "passthru",
-        targetContext: "group",
       },
     ],
   });
@@ -971,25 +611,14 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route with dynamic Destination based on environment",
-        disabled: false,
         enableOutputExpression: true,
         filter: "source == \"dynamic.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-dynamic-append",
         name: "dynamic-append",
-        output: "<value>",
         outputExpression: "`myDest_${C.logStreamEnv}`",
         pipeline: "main",
-        targetContext: "group",
       },
     ],
   });
@@ -1022,25 +651,14 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route with dynamic Destination based on environment",
-        disabled: false,
         enableOutputExpression: true,
         filter: "source == \"dynamic.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-dynamic-append",
         name: "dynamic-append",
-        output: "<value>",
         outputExpression: "`myDest_${C.logStreamEnv}`",
         pipeline: "main",
-        targetContext: "group",
       },
     ],
   });
@@ -1072,27 +690,12 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-          },
-          {
-
-          },
-        ],
-        context: "<value>",
         description: "Route new logs to main pipeline",
-        disabled: true,
-        enableOutputExpression: true,
         filter: "source == \"new.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-new",
         name: "new-route",
-        output: "<value>",
-        outputExpression: "<value>",
         pipeline: "main",
-        targetContext: "group",
       },
     ],
   });
@@ -1125,27 +728,12 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-          },
-          {
-  
-          },
-        ],
-        context: "<value>",
         description: "Route new logs to main pipeline",
-        disabled: true,
-        enableOutputExpression: true,
         filter: "source == \"new.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-new",
         name: "new-route",
-        output: "<value>",
-        outputExpression: "<value>",
         pipeline: "main",
-        targetContext: "group",
       },
     ],
   });

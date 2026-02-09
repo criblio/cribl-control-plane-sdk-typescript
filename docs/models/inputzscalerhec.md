@@ -6,101 +6,10 @@
 import { InputZscalerHec } from "cribl-control-plane/models";
 
 let value: InputZscalerHec = {
-  id: "<id>",
   type: "zscaler_hec",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "second-hand-starboard.name",
-  port: 3809.87,
-  authTokens: [
-    {
-      authType: "manual",
-      tokenSecret: "<value>",
-      token: "<value>",
-      enabled: false,
-      description: "vacantly attraction officially concerned",
-      allowedIndexesAtToken: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 8385.05,
-  maxRequestsPerSocket: 698418,
-  enableProxyHeader: true,
-  captureHeaders: false,
-  activityLogSampleRate: 571.68,
-  requestTimeout: 7213.3,
-  socketTimeout: 3089.96,
-  keepAliveTimeout: 8345.51,
-  enableHealthCheck: "<value>",
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
+  host: "lined-sonnet.net",
+  port: 1183.03,
   hecAPI: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedIndexes: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  hecAcks: true,
-  accessControlAllowOrigin: [
-    "<value 1>",
-  ],
-  accessControlAllowHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  emitTokenMetrics: true,
-  description: "nice fax solidly fog brr doubtfully gee apud incline now",
-  __template_host: "<value>",
-  __template_port: "<value>",
-  __template_hecAPI: "<value>",
 };
 ```
 

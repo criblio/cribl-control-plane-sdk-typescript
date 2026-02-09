@@ -7,9 +7,7 @@ Creates events based on entries collected from the hosts file
 ```typescript
 import { CreateInputSystemByPackHostsFile } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackHostsFile = {
-  enable: true,
-};
+let value: CreateInputSystemByPackHostsFile = {};
 ```
 
 ## Fields

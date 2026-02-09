@@ -6,55 +6,7 @@
 import { InputKubeMetrics } from "cribl-control-plane/models";
 
 let value: InputKubeMetrics = {
-  id: "<id>",
   type: "kube_metrics",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  interval: 5840.12,
-  rules: [
-    {
-      filter: "<value>",
-      description: "perspire positively eek these bruised glaring than",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {
-    enable: false,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "none",
-    destPath: "<value>",
-  },
-  description: "ha incidentally after when than yuck reschedule dual",
 };
 ```
 

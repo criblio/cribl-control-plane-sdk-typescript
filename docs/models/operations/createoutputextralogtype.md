@@ -7,7 +7,6 @@ import { CreateOutputExtraLogType } from "cribl-control-plane/models/operations"
 
 let value: CreateOutputExtraLogType = {
   logType: "<value>",
-  description: "throughout liquid tennis of",
 };
 ```
 

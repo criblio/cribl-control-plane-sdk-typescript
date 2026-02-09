@@ -609,9 +609,6 @@ async function run() {
     filter: "sourcetype===\"pan:traffic\"",
     level: 0,
     maxEvents: 100,
-    stepDuration: 571732,
-    workerId: "<id>",
-    workerThreshold: 609412,
   });
 
   for await (const event of result) {

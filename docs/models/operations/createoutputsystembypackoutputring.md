@@ -8,24 +8,6 @@ import { CreateOutputSystemByPackOutputRing } from "cribl-control-plane/models/o
 let value: CreateOutputSystemByPackOutputRing = {
   id: "<id>",
   type: "ring",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  format: "json",
-  partitionExpr: "<value>",
-  maxDataSize: "<value>",
-  maxDataTime: "<value>",
-  compress: "gzip",
-  destPath: "<value>",
-  onBackpressure: "drop",
-  description: "hmph countess mmm scarily down indeed positively",
 };
 ```
 

@@ -7,8 +7,6 @@ import { CreateOutputSystemByPackUrlElastic } from "cribl-control-plane/models/o
 
 let value: CreateOutputSystemByPackUrlElastic = {
   url: "https://deficient-subsidy.name/",
-  weight: 4675.43,
-  __template_url: "https://scornful-diagram.info/",
 };
 ```
 

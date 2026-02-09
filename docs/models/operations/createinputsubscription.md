@@ -7,29 +7,14 @@ import { CreateInputSubscription } from "cribl-control-plane/models/operations";
 
 let value: CreateInputSubscription = {
   subscriptionName: "<value>",
-  version: "<value>",
   contentFormat: "Raw",
   heartbeatInterval: 1284.88,
   batchTimeout: 334.62,
-  readExistingEvents: false,
-  sendBookmarks: true,
-  compress: true,
-  targets: [],
-  locale: "ru",
-  querySelector: "simple",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
+  targets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
-  queries: [
-    {
-      path: "/etc/mail",
-      queryExpression: "<value>",
-    },
-  ],
-  xmlQuery: "<value>",
 };
 ```
 

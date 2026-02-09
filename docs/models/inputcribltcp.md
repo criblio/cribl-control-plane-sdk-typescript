@@ -6,69 +6,9 @@
 import { InputCriblTcp } from "cribl-control-plane/models";
 
 let value: InputCriblTcp = {
-  id: "<id>",
   type: "cribl_tcp",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "aching-bell.com",
-  port: 7144.69,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveCxn: 4421.42,
-  socketIdleTimeout: 481.62,
-  socketEndingMaxWait: 5081.68,
-  socketMaxLifespan: 669.3,
-  enableProxyHeader: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  enableLoadBalancing: false,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      enabled: true,
-      description: "technician flimsy and ha",
-    },
-  ],
-  description: "embarrassment happily overspend by antique",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "wrathful-import.com",
+  port: 2820.59,
 };
 ```
 

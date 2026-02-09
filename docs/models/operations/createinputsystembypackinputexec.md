@@ -8,49 +8,7 @@ import { CreateInputSystemByPackInputExec } from "cribl-control-plane/models/ope
 let value: CreateInputSystemByPackInputExec = {
   id: "<id>",
   type: "exec",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   command: "<value>",
-  retries: 7435.72,
-  scheduleType: "interval",
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  staleChannelFlushMs: 8557.22,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "or regarding mmm makeover tinderbox failing psst ouch sheathe",
-  interval: 5919.33,
-  cronSchedule: "<value>",
 };
 ```
 

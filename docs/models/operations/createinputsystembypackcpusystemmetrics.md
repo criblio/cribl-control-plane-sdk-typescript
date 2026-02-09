@@ -5,12 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackCpuSystemMetrics } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackCpuSystemMetrics = {
-  mode: "basic",
-  perCpu: false,
-  detail: false,
-  time: false,
-};
+let value: CreateInputSystemByPackCpuSystemMetrics = {};
 ```
 
 ## Fields

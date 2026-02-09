@@ -11,17 +11,8 @@ let value:
   HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost =
     {
       discoverMethod: "post",
-      discoverRequestParams: "<value>",
       discoverType: "none",
       discoverUrl: "https://elegant-tribe.com/",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

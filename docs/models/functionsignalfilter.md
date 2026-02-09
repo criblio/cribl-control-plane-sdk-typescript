@@ -7,21 +7,15 @@ import { FunctionSignalFilter } from "cribl-control-plane/models";
 
 let value: FunctionSignalFilter = {
   __filename: "example.file",
-  asyncTimeout: 6904.9,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "signal_filter",
-  loadTime: 6530.09,
-  modTime: 966.75,
+  loadTime: 6904.9,
+  modTime: 3916.71,
   name: "<value>",
-  sync: true,
-  uischema: {},
-  version: "<value>",
-  schema: {
+  uischema: {
     "key": "<value>",
   },
+  version: "<value>",
 };
 ```
 

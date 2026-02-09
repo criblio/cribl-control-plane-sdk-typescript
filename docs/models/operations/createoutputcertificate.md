@@ -5,9 +5,7 @@
 ```typescript
 import { CreateOutputCertificate } from "cribl-control-plane/models/operations";
 
-let value: CreateOutputCertificate = {
-  certificateName: "<value>",
-};
+let value: CreateOutputCertificate = {};
 ```
 
 ## Fields

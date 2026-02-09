@@ -7,8 +7,6 @@ import { CreateOutputSystemByPackUrlSplunkHec } from "cribl-control-plane/models
 
 let value: CreateOutputSystemByPackUrlSplunkHec = {
   url: "https://authentic-airman.biz/",
-  weight: 3084.86,
-  __template_url: "https://babyish-shore.info",
 };
 ```
 

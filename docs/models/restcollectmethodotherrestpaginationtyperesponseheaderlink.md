@@ -8,7 +8,6 @@ import { RestCollectMethodOtherRestPaginationTypeResponseHeaderLink } from "crib
 let value: RestCollectMethodOtherRestPaginationTypeResponseHeaderLink = {
   type: "response_header_link",
   nextRelationAttribute: "<value>",
-  curRelationAttribute: "<value>",
   maxPages: 9219.57,
 };
 ```

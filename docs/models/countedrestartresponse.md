@@ -5,16 +5,7 @@
 ```typescript
 import { CountedRestartResponse } from "cribl-control-plane/models";
 
-let value: CountedRestartResponse = {
-  count: 414718,
-  items: [
-    {
-      id: "<id>",
-      message: "<value>",
-      status: "Error",
-    },
-  ],
-};
+let value: CountedRestartResponse = {};
 ```
 
 ## Fields

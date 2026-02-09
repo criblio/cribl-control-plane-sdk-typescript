@@ -6,16 +6,10 @@
 import { PipelineFunctionEventBreaker } from "cribl-control-plane/models";
 
 let value: PipelineFunctionEventBreaker = {
-  filter: "<value>",
   id: "event_breaker",
-  description: "boohoo finally slide frizzy",
-  disabled: true,
-  final: false,
   conf: {
-    existingOrNew: "new",
-    shouldMarkCriblBreaker: false,
+    existingOrNew: "existing",
   },
-  groupId: "<id>",
 };
 ```
 

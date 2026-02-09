@@ -8,55 +8,8 @@ import { CreateInputSystemByPackInputGooglePubsub } from "cribl-control-plane/mo
 let value: CreateInputSystemByPackInputGooglePubsub = {
   id: "<id>",
   type: "google_pubsub",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   topicName: "<value>",
   subscriptionName: "<value>",
-  monitorSubscription: true,
-  createTopic: true,
-  createSubscription: true,
-  region: "<value>",
-  googleAuthMethod: "auto",
-  serviceAccountCredentials: "<value>",
-  secret: "<value>",
-  maxBacklog: 9769.81,
-  concurrency: 3406.19,
-  requestTimeout: 2630.21,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "stack hence than",
-  orderedDelivery: false,
-  __template_topicName: "<value>",
-  __template_subscriptionName: "<value>",
-  __template_region: "<value>",
 };
 ```
 

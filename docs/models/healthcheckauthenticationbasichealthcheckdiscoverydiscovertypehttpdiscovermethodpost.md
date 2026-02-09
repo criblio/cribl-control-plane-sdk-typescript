@@ -11,17 +11,8 @@ let value:
   HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost =
     {
       discoverMethod: "post",
-      discoverRequestParams: "<value>",
       discoverType: "list",
       discoverUrl: "https://esteemed-chainstay.com/",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

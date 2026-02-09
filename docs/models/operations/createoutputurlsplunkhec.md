@@ -7,8 +7,6 @@ import { CreateOutputUrlSplunkHec } from "cribl-control-plane/models/operations"
 
 let value: CreateOutputUrlSplunkHec = {
   url: "https://qualified-minority.info",
-  weight: 4477.79,
-  __template_url: "https://extroverted-sanity.biz/",
 };
 ```
 

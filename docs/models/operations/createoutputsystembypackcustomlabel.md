@@ -8,7 +8,6 @@ import { CreateOutputSystemByPackCustomLabel } from "cribl-control-plane/models/
 let value: CreateOutputSystemByPackCustomLabel = {
   key: "<key>",
   value: "<value>",
-  rbacEnabled: false,
 };
 ```
 

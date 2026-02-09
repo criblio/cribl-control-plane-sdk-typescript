@@ -7,26 +7,6 @@ import { CreateInputSystemByPackAuthTokensExt } from "cribl-control-plane/models
 
 let value: CreateInputSystemByPackAuthTokensExt = {
   token: "<value>",
-  description: "hence foolish merrily mask",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  splunkHecMetadata: {
-    enabled: false,
-    defaultDataset: "<value>",
-    allowedIndexesAtToken: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  elasticsearchMetadata: {
-    enabled: false,
-    defaultDataset: "<value>",
-  },
 };
 ```
 

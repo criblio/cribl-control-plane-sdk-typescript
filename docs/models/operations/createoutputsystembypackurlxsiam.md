@@ -7,7 +7,6 @@ import { CreateOutputSystemByPackUrlXsiam } from "cribl-control-plane/models/ope
 
 let value: CreateOutputSystemByPackUrlXsiam = {
   url: "https://sociable-vicinity.name/",
-  weight: 868.54,
 };
 ```
 

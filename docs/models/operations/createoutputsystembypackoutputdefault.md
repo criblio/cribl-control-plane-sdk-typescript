@@ -8,16 +8,7 @@ import { CreateOutputSystemByPackOutputDefault } from "cribl-control-plane/model
 let value: CreateOutputSystemByPackOutputDefault = {
   id: "<id>",
   type: "default",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  defaultId: "<id>",
+  defaultId: null,
 };
 ```
 

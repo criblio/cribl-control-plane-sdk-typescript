@@ -7,23 +7,13 @@ import { FunctionJsonUnroll } from "cribl-control-plane/models";
 
 let value: FunctionJsonUnroll = {
   __filename: "example.file",
-  asyncTimeout: 6785.72,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "json_unroll",
-  loadTime: 936.94,
-  modTime: 292.6,
+  loadTime: 6785.72,
+  modTime: 5398.78,
   name: "<value>",
-  sync: true,
   uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
-  },
 };
 ```
 

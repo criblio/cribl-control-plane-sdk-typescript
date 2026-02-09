@@ -29,10 +29,6 @@ async function run() {
     id: "<id>",
     pack: "<value>",
     addHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
-      description: "SUV velvety without",
       enabled: true,
       metadata: [
         {
@@ -72,10 +68,6 @@ async function run() {
     id: "<id>",
     pack: "<value>",
     addHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
-      description: "SUV velvety without",
       enabled: true,
       metadata: [
         {
@@ -117,14 +109,7 @@ async function run() {
       allowedIndexesAtToken: [
         "myIndex6",
       ],
-      description: "extremely till outside healthily sensitize even gosh royal",
       enabled: true,
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
       token: "12345678901",
     },
   });
@@ -160,14 +145,7 @@ async function run() {
       allowedIndexesAtToken: [
         "myIndex6",
       ],
-      description: "extremely till outside healthily sensitize even gosh royal",
       enabled: true,
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
       token: "12345678901",
     },
   });
@@ -225,12 +203,6 @@ async function run() {
     token: "<value>",
     pack: "<value>",
     updateHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      description: "straw critical famously dream after delightfully",
       enabled: true,
       metadata: [
         {
@@ -270,12 +242,6 @@ async function run() {
     token: "<value>",
     pack: "<value>",
     updateHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      description: "straw critical famously dream after delightfully",
       enabled: true,
       metadata: [
         {
@@ -317,14 +283,7 @@ async function run() {
       allowedIndexesAtToken: [
         "myIndex6",
       ],
-      description: "geez capitalise curiously enfold jubilantly",
       enabled: true,
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
     },
   });
 
@@ -360,14 +319,7 @@ async function run() {
       allowedIndexesAtToken: [
         "myIndex6",
       ],
-      description: "geez capitalise curiously enfold jubilantly",
       enabled: true,
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
     },
   });
   if (res.ok) {
