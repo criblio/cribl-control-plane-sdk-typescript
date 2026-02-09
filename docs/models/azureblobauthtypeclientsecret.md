@@ -11,23 +11,7 @@ let value: AzureBlobAuthTypeClientSecret = {
   tenantId: "<id>",
   clientId: "<id>",
   clientTextSecret: "<value>",
-  endpointSuffix: "<value>",
-  azureCloud: "<value>",
-  outputName: "<value>",
   containerName: "<value>",
-  path: "/private",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  recurse: true,
-  includeMetadata: false,
-  includeTags: true,
-  maxBatchSize: 7129.12,
-  parquetChunkSizeMB: 924.83,
-  parquetChunkDownloadTimeout: 3879.64,
 };
 ```
 

@@ -6,17 +6,12 @@
 import { PipelineFunctionNotifications } from "cribl-control-plane/models";
 
 let value: PipelineFunctionNotifications = {
-  filter: "<value>",
   id: "notifications",
-  description: "warming rewarding from drat hovercraft marvelous brr before",
-  disabled: true,
-  final: true,
   conf: {
     id: "<id>",
     field: "<value>",
     deduplicate: false,
   },
-  groupId: "<id>",
 };
 ```
 

@@ -8,64 +8,7 @@ import { CreateOutputSystemByPackOutputSignalfx } from "cribl-control-plane/mode
 let value: CreateOutputSystemByPackOutputSignalfx = {
   id: "<id>",
   type: "signalfx",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  authType: "manual",
   realm: "<value>",
-  concurrency: 2746.55,
-  maxPayloadSizeKB: 9609.57,
-  maxPayloadEvents: 881.67,
-  compress: false,
-  rejectUnauthorized: false,
-  timeoutSec: 940.6,
-  flushPeriodSec: 663.34,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: false,
-  failedRequestLoggingMode: "none",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "block",
-  description: "statue less heavenly",
-  token: "<value>",
-  textSecret: "<value>",
-  pqStrictOrdering: false,
-  pqRatePerSec: 4093.3,
-  pqMode: "error",
-  pqMaxBufferSize: 4263.29,
-  pqMaxBackpressureSec: 9265.62,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 

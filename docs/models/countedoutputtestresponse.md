@@ -5,21 +5,7 @@
 ```typescript
 import { CountedOutputTestResponse } from "cribl-control-plane/models";
 
-let value: CountedOutputTestResponse = {
-  count: 420429,
-  items: [
-    {
-      details: {
-        "key": "<value>",
-        "key1": "<value>",
-      },
-      error: "<value>",
-      outputId: "<id>",
-      success: false,
-      successDetail: "<value>",
-    },
-  ],
-};
+let value: CountedOutputTestResponse = {};
 ```
 
 ## Fields

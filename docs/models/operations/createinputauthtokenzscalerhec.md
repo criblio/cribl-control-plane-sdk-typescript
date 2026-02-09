@@ -6,21 +6,7 @@
 import { CreateInputAuthTokenZscalerHec } from "cribl-control-plane/models/operations";
 
 let value: CreateInputAuthTokenZscalerHec = {
-  authType: "secret",
-  tokenSecret: "<value>",
   token: "<value>",
-  enabled: false,
-  description: "well sleepily gosh truthfully squid ew pfft perp however whoa",
-  allowedIndexesAtToken: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
 };
 ```
 

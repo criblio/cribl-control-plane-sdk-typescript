@@ -8,7 +8,6 @@ import { RestAuthenticationHmacRestPaginationTypeResponseHeaderLink } from "crib
 let value: RestAuthenticationHmacRestPaginationTypeResponseHeaderLink = {
   type: "response_header_link",
   nextRelationAttribute: "<value>",
-  curRelationAttribute: "<value>",
   maxPages: 2170.94,
 };
 ```

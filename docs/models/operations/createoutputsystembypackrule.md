@@ -8,8 +8,6 @@ import { CreateOutputSystemByPackRule } from "cribl-control-plane/models/operati
 let value: CreateOutputSystemByPackRule = {
   filter: "<value>",
   output: "<value>",
-  description: "lazily halt aha underneath madly mild boohoo",
-  final: true,
 };
 ```
 

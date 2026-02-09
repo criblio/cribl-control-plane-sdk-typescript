@@ -6,19 +6,7 @@
 import { OutputDefault } from "cribl-control-plane/models";
 
 let value: OutputDefault = {
-  id: "<id>",
   type: "default",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
   defaultId: "<id>",
 };
 ```

@@ -8,68 +8,7 @@ import { CreateOutputOutputSignalfx } from "cribl-control-plane/models/operation
 let value: CreateOutputOutputSignalfx = {
   id: "<id>",
   type: "signalfx",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  authType: "secret",
   realm: "<value>",
-  concurrency: 7332.66,
-  maxPayloadSizeKB: 7615.39,
-  maxPayloadEvents: 9379.25,
-  compress: false,
-  rejectUnauthorized: false,
-  timeoutSec: 9695.71,
-  flushPeriodSec: 9808.81,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "queue",
-  description: "but for tempting grimy",
-  token: "<value>",
-  textSecret: "<value>",
-  pqStrictOrdering: true,
-  pqRatePerSec: 287.37,
-  pqMode: "error",
-  pqMaxBufferSize: 9621.75,
-  pqMaxBackpressureSec: 6014.89,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 

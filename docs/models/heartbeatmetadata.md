@@ -5,68 +5,7 @@
 ```typescript
 import { HeartbeatMetadata } from "cribl-control-plane/models";
 
-let value: HeartbeatMetadata = {
-  aws: {
-    enabled: true,
-    instanceId: "<id>",
-    region: "<value>",
-    tags: {
-      "key": "<value>",
-      "key1": "<value>",
-      "key2": "<value>",
-    },
-    type: "<value>",
-    zone: "<value>",
-  },
-  azure: {
-    enabled: true,
-    hostname: "jittery-someplace.com",
-    instanceId: "<id>",
-    name: "<value>",
-    region: "<value>",
-    resourceGroup: "<value>",
-    subscriptionId: "<id>",
-    tags: {
-      "key": "<value>",
-      "key1": "<value>",
-      "key2": "<value>",
-    },
-    type: "<value>",
-    vmId: "<id>",
-    zone: "<value>",
-  },
-  hostOs: {
-    addresses: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    enabled: true,
-    id: "<id>",
-    version: "<value>",
-  },
-  kube: {
-    enabled: false,
-    namespace: "<value>",
-    node: "<value>",
-    owner: {
-      kind: "<value>",
-      name: "<value>",
-    },
-    pod: "<value>",
-    source: "<value>",
-  },
-  os: {
-    addresses: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    enabled: false,
-    id: "<id>",
-    version: "<value>",
-  },
-};
+let value: HeartbeatMetadata = {};
 ```
 
 ## Fields

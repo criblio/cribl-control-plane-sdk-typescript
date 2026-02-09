@@ -6,23 +6,10 @@
 import { PipelineFunctionSend } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSend = {
-  filter: "<value>",
   id: "send",
-  description: "self-assured chow rudely vol reorient whoever",
-  disabled: false,
-  final: true,
   conf: {
-    url: "https://worthy-sauerkraut.info/",
-    group: "<value>",
-    workspace: "<value>",
-    sendUrlTemplate: "<value>",
     searchId: "<id>",
-    tee: true,
-    flushMs: 1088.86,
-    suppressPreviews: false,
-    mode: "sender",
   },
-  groupId: "<id>",
 };
 ```
 

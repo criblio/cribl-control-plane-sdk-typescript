@@ -7,8 +7,6 @@ import { OutputSplunkHecUrl } from "cribl-control-plane/models";
 
 let value: OutputSplunkHecUrl = {
   url: "https://common-kielbasa.org",
-  weight: 2235.4,
-  __template_url: "https://free-seal.name/",
 };
 ```
 

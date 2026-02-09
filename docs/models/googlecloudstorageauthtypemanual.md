@@ -8,21 +8,7 @@ import { GoogleCloudStorageAuthTypeManual } from "cribl-control-plane/models";
 let value: GoogleCloudStorageAuthTypeManual = {
   authType: "manual",
   serviceAccountCredentials: "<value>",
-  outputName: "<value>",
   bucket: "<value>",
-  path: "/usr/include",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  endpoint: "<value>",
-  disableTimeFilter: true,
-  recurse: true,
-  maxBatchSize: 9246.86,
-  parquetChunkSizeMB: 6359.7,
-  parquetChunkDownloadTimeout: 7241.64,
 };
 ```
 

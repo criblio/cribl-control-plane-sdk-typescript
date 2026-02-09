@@ -8,80 +8,8 @@ import { CreateInputSystemByPackInputSplunk } from "cribl-control-plane/models/o
 let value: CreateInputSystemByPackInputSplunk = {
   id: "<id>",
   type: "splunk",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "gruesome-orchid.name",
-  port: 1717.41,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  ipWhitelistRegex: "<value>",
-  maxActiveCxn: 4468.91,
-  socketIdleTimeout: 1108.3,
-  socketEndingMaxWait: 113.39,
-  socketMaxLifespan: 3900.99,
-  enableProxyHeader: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 6363.92,
-  authTokens: [
-    {
-      token: "<value>",
-      description:
-        "aw pension nightlife conjecture greedily deflect feline mainstream",
-    },
-  ],
-  maxS2Sversion: "v4",
-  description:
-    "around capitalize however extremely knuckle miscalculate truly plain",
-  useFwdTimezone: false,
-  dropControlFields: true,
-  extractMetrics: false,
-  compress: "disabled",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "clueless-blight.net",
+  port: 7481.32,
 };
 ```
 

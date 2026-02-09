@@ -6,18 +6,12 @@
 import { PipelineFunctionPack } from "cribl-control-plane/models";
 
 let value: PipelineFunctionPack = {
-  filter: "<value>",
   id: "pack",
-  description: "gee accredit knottily mortally where recovery",
-  disabled: true,
-  final: false,
   conf: {
     unpackedFields: [
       "<value 1>",
     ],
-    target: "<value>",
   },
-  groupId: "<id>",
 };
 ```
 

@@ -6,81 +6,10 @@
 import { InputOffice365Mgmt } from "cribl-control-plane/models";
 
 let value: InputOffice365Mgmt = {
-  id: "<id>",
   type: "office365_mgmt",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  planType: "gcc_high",
+  planType: "gcc",
   tenantId: "<id>",
   appId: "<id>",
-  timeout: 6368.3,
-  keepAliveTime: 1421.9,
-  jobTimeout: "<value>",
-  maxMissedKeepAlives: 1799.63,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  publisherIdentifier: "<value>",
-  contentConfig: [
-    {
-      contentType: "<value>",
-      description: "illusion ice-cream if puny towards",
-      interval: 8290.81,
-      logLevel: "error",
-      enabled: false,
-    },
-  ],
-  ingestionLag: 9152.34,
-  retryRules: {
-    type: "<value>",
-    interval: 6390.37,
-    limit: 2107.49,
-    multiplier: 2764.09,
-    codes: [
-      1648,
-      6941.51,
-      1223.37,
-    ],
-    enableHeader: true,
-    retryConnectTimeout: true,
-    retryConnectReset: true,
-  },
-  authType: "secret",
-  description:
-    "yowza amnesty yahoo wicked anenst far grouchy birdcage ha seemingly",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-  __template_tenantId: "<id>",
-  __template_appId: "<id>",
-  __template_publisherIdentifier: "<value>",
-  __template_clientSecret: "<value>",
 };
 ```
 

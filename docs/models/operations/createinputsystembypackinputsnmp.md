@@ -8,61 +8,8 @@ import { CreateInputSystemByPackInputSnmp } from "cribl-control-plane/models/ope
 let value: CreateInputSystemByPackInputSnmp = {
   id: "<id>",
   type: "snmp",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "cuddly-sandbar.net",
-  port: 75.13,
-  snmpV3Auth: {
-    v3AuthEnabled: true,
-    allowUnmatchedTrap: false,
-    v3Users: [
-      {
-        name: "<value>",
-        authProtocol: "md5",
-        authKey: "<value>",
-        privProtocol: "none",
-        privKey: "<value>",
-      },
-    ],
-  },
-  maxBufferSize: 9226.89,
-  ipWhitelistRegex: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 575.68,
-  varbindsWithTypes: true,
-  bestEffortParsing: false,
-  description: "without out lobotomise disapprove quinoa warm",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "official-guide.info",
+  port: 9751.55,
 };
 ```
 

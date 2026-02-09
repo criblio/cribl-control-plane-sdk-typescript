@@ -6,96 +6,9 @@
 import { InputPrometheus } from "cribl-control-plane/models";
 
 let value: InputPrometheus = {
-  id: "<id>",
   type: "prometheus",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  dimensionList: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  discoveryType: "ec2",
-  interval: 2386.57,
+  interval: 8895.72,
   logLevel: "info",
-  rejectUnauthorized: true,
-  timeout: 9689.51,
-  keepAliveTime: 2125.09,
-  jobTimeout: "<value>",
-  maxMissedKeepAlives: 8778.22,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authType: "secret",
-  description: "what closely mob gently or ack sudden legal good",
-  targetList: [
-    "<value 1>",
-  ],
-  recordType: "AAAA",
-  scrapePort: 6229.35,
-  nameList: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  scrapeProtocol: "http",
-  scrapePath: "<value>",
-  awsAuthenticationMethod: "<value>",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  usePublicIp: true,
-  searchFilter: [
-    {
-      Name: "<value>",
-      Values: [
-        "<value 1>",
-      ],
-    },
-  ],
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v2",
-  reuseConnections: true,
-  enableAssumeRole: false,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 2790.27,
-  username: "Xander5",
-  password: "th_udqpW8UBrZko",
-  credentialsSecret: "<value>",
-  __template_logLevel: "<value>",
-  __template_awsApiKey: "<value>",
-  __template_awsSecretKey: "<value>",
-  __template_region: "<value>",
-  __template_assumeRoleArn: "<value>",
-  __template_assumeRoleExternalId: "<id>",
 };
 ```
 

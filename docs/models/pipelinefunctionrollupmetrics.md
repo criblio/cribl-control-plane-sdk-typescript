@@ -6,19 +6,8 @@
 import { PipelineFunctionRollupMetrics } from "cribl-control-plane/models";
 
 let value: PipelineFunctionRollupMetrics = {
-  filter: "<value>",
   id: "rollup_metrics",
-  description: "secrecy by whoa reapply",
-  disabled: false,
-  final: false,
-  conf: {
-    dimensions: [
-      "<value 1>",
-    ],
-    timeWindow: "<value>",
-    gaugeRollup: "max",
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

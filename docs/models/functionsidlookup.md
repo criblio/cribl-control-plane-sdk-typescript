@@ -7,26 +7,16 @@ import { FunctionSidlookup } from "cribl-control-plane/models";
 
 let value: FunctionSidlookup = {
   __filename: "example.file",
-  asyncTimeout: 8789.17,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: false,
   id: "sidlookup",
-  loadTime: 2006.3,
-  modTime: 5999.5,
+  loadTime: 8789.17,
+  modTime: 2280.82,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
     "key1": "<value>",
-    "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

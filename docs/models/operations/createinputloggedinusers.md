@@ -7,9 +7,7 @@ Creates events from list of logged-in users
 ```typescript
 import { CreateInputLoggedInUsers } from "cribl-control-plane/models/operations";
 
-let value: CreateInputLoggedInUsers = {
-  enable: false,
-};
+let value: CreateInputLoggedInUsers = {};
 ```
 
 ## Fields

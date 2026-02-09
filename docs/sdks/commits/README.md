@@ -31,11 +31,6 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.versions.commits.create({
-    effective: false,
-    files: [
-      "<value 1>",
-    ],
-    group: "<value>",
     message: "<value>",
   });
 
@@ -64,11 +59,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await versionsCommitsCreate(criblControlPlane, {
-    effective: false,
-    files: [
-      "<value 1>",
-    ],
-    group: "<value>",
     message: "<value>",
   });
   if (res.ok) {
@@ -361,8 +351,6 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.versions.commits.revert({
     commit: "<value>",
-    force: false,
-    message: "<value>",
   });
 
   console.log(result);
@@ -391,8 +379,6 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await versionsCommitsRevert(criblControlPlane, {
     commit: "<value>",
-    force: false,
-    message: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;

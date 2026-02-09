@@ -5,14 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackPersistenceKubeMetrics } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackPersistenceKubeMetrics = {
-  enable: true,
-  timeWindow: "<value>",
-  maxDataSize: "<value>",
-  maxDataTime: "<value>",
-  compress: "gzip",
-  destPath: "<value>",
-};
+let value: CreateInputSystemByPackPersistenceKubeMetrics = {};
 ```
 
 ## Fields

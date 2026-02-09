@@ -7,19 +7,10 @@ import { CreateInputContentConfigWiz } from "cribl-control-plane/models/operatio
 
 let value: CreateInputContentConfigWiz = {
   contentType: "<value>",
-  contentDescription: "<value>",
-  enabled: true,
-  stateTracking: false,
-  stateUpdateExpression: "<value>",
-  stateMergeExpression: "<value>",
-  manageState: {},
   contentQuery: "<value>",
   cronSchedule: "<value>",
   earliest: "<value>",
   latest: "<value>",
-  jobTimeout: "<value>",
-  logLevel: "info",
-  maxPages: 4535.19,
 };
 ```
 

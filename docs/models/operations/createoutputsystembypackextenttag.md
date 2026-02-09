@@ -6,7 +6,6 @@
 import { CreateOutputSystemByPackExtentTag } from "cribl-control-plane/models/operations";
 
 let value: CreateOutputSystemByPackExtentTag = {
-  prefix: "dropBy",
   value: "<value>",
 };
 ```

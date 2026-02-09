@@ -5,11 +5,7 @@
 ```typescript
 import { CreateOutputSystemByPackAuthToken } from "cribl-control-plane/models/operations";
 
-let value: CreateOutputSystemByPackAuthToken = {
-  authType: "secret",
-  authToken: "<value>",
-  textSecret: "<value>",
-};
+let value: CreateOutputSystemByPackAuthToken = {};
 ```
 
 ## Fields

@@ -6,10 +6,7 @@
 import { PackUpgradeRequest } from "cribl-control-plane/models";
 
 let value: PackUpgradeRequest = {
-  allowCustomFunctions: false,
-  minor: "<value>",
   source: "<value>",
-  spec: "<value>",
 };
 ```
 

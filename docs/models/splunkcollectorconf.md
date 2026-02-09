@@ -10,37 +10,8 @@ const value: models.SplunkAuthenticationNone = {
   authentication: "none",
   searchHead: "<value>",
   search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
   endpoint: "<value>",
   outputMode: "json",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  timeout: 5419.69,
-  useRoundRobinDns: false,
-  disableTimeFilter: false,
-  rejectUnauthorized: false,
-  handleEscapedChars: false,
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
 };
 ```
 
@@ -53,37 +24,8 @@ const value: models.SplunkAuthenticationBasic = {
   password: "Hwqh2mRqngRWb8D",
   searchHead: "<value>",
   search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
   endpoint: "<value>",
   outputMode: "json",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  timeout: 7103.1,
-  useRoundRobinDns: true,
-  disableTimeFilter: false,
-  rejectUnauthorized: false,
-  handleEscapedChars: true,
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
 };
 ```
 
@@ -95,37 +37,8 @@ const value: models.SplunkAuthenticationBasicSecret = {
   credentialsSecret: "<value>",
   searchHead: "<value>",
   search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
   endpoint: "<value>",
   outputMode: "csv",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  timeout: 723.75,
-  useRoundRobinDns: true,
-  disableTimeFilter: false,
-  rejectUnauthorized: true,
-  handleEscapedChars: false,
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
 };
 ```
 
@@ -137,37 +50,8 @@ const value: models.SplunkAuthenticationToken = {
   token: "<value>",
   searchHead: "<value>",
   search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
   endpoint: "<value>",
   outputMode: "json",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  timeout: 2075.62,
-  useRoundRobinDns: true,
-  disableTimeFilter: false,
-  rejectUnauthorized: true,
-  handleEscapedChars: false,
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
 };
 ```
 
@@ -179,37 +63,8 @@ const value: models.SplunkAuthenticationTokenSecret = {
   tokenSecret: "<value>",
   searchHead: "<value>",
   search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
   endpoint: "<value>",
   outputMode: "csv",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  timeout: 2514.26,
-  useRoundRobinDns: false,
-  disableTimeFilter: true,
-  rejectUnauthorized: true,
-  handleEscapedChars: false,
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
 };
 ```
 

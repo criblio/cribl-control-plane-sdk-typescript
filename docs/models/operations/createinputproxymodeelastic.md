@@ -7,17 +7,6 @@ import { CreateInputProxyModeElastic } from "cribl-control-plane/models/operatio
 
 let value: CreateInputProxyModeElastic = {
   enabled: true,
-  authType: "manual",
-  username: "Efrain70",
-  password: "dTCKnmttQkLEtfY",
-  credentialsSecret: "<value>",
-  url: "https://secret-individual.net",
-  rejectUnauthorized: true,
-  removeHeaders: [
-    "<value 1>",
-  ],
-  timeoutSec: 973.39,
-  __template_url: "https://straight-fireplace.info/",
 };
 ```
 

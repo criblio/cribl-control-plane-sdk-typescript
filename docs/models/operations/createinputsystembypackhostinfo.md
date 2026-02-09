@@ -7,9 +7,7 @@ Creates events based on the host system’s current state
 ```typescript
 import { CreateInputSystemByPackHostInfo } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackHostInfo = {
-  enable: true,
-};
+let value: CreateInputSystemByPackHostInfo = {};
 ```
 
 ## Fields

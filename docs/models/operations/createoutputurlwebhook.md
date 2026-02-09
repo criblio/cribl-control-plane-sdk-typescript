@@ -7,8 +7,6 @@ import { CreateOutputUrlWebhook } from "cribl-control-plane/models/operations";
 
 let value: CreateOutputUrlWebhook = {
   url: "https://secondary-draft.name",
-  weight: 1363.38,
-  __template_url: "https://sick-alb.biz",
 };
 ```
 

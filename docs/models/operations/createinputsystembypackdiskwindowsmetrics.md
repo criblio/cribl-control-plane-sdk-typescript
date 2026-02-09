@@ -5,15 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackDiskWindowsMetrics } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackDiskWindowsMetrics = {
-  mode: "disabled",
-  perVolume: true,
-  detail: false,
-  volumes: [
-    "<value 1>",
-    "<value 2>",
-  ],
-};
+let value: CreateInputSystemByPackDiskWindowsMetrics = {};
 ```
 
 ## Fields

@@ -7,17 +7,6 @@ import { CreateInputSystemByPackProxyModeElastic } from "cribl-control-plane/mod
 
 let value: CreateInputSystemByPackProxyModeElastic = {
   enabled: false,
-  authType: "secret",
-  username: "Alisa81",
-  password: "OreMNek3W22iRev",
-  credentialsSecret: "<value>",
-  url: "https://noxious-receptor.net/",
-  rejectUnauthorized: false,
-  removeHeaders: [
-    "<value 1>",
-  ],
-  timeoutSec: 8488.21,
-  __template_url: "https://tepid-scaffold.name",
 };
 ```
 

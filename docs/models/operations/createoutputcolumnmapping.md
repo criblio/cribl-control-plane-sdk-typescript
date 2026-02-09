@@ -7,7 +7,6 @@ import { CreateOutputColumnMapping } from "cribl-control-plane/models/operations
 
 let value: CreateOutputColumnMapping = {
   columnName: "<value>",
-  columnType: "<value>",
   columnValueExpression: "<value>",
 };
 ```

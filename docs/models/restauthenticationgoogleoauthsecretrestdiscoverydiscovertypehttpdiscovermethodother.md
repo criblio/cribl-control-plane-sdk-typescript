@@ -12,23 +12,8 @@ let value:
     {
       discoverMethod: "other",
       discoverVerb: "<value>",
-      discoverBody: "<value>",
-      discoverRequestParams: "<value>",
       discoverType: "list",
       discoverUrl: "https://unwieldy-distinction.biz",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: false,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: true,
     };
 ```
 

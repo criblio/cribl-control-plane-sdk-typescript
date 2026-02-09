@@ -6,10 +6,7 @@
 import { CreateInputTarget } from "cribl-control-plane/models/operations";
 
 let value: CreateInputTarget = {
-  protocol: "https",
-  host: "tasty-affect.name",
-  port: 7397.37,
-  path: "/opt/share",
+  host: "supportive-spear.com",
 };
 ```
 

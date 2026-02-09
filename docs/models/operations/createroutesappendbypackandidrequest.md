@@ -8,7 +8,14 @@ import { CreateRoutesAppendByPackAndIdRequest } from "cribl-control-plane/models
 let value: CreateRoutesAppendByPackAndIdRequest = {
   id: "<id>",
   pack: "<value>",
-  requestBody: [],
+  requestBody: [
+    {
+      final: false,
+      id: "<id>",
+      name: "<value>",
+      pipeline: "<value>",
+    },
+  ],
 };
 ```
 

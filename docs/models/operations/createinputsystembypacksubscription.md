@@ -7,29 +7,10 @@ import { CreateInputSystemByPackSubscription } from "cribl-control-plane/models/
 
 let value: CreateInputSystemByPackSubscription = {
   subscriptionName: "<value>",
-  version: "<value>",
   contentFormat: "RenderedText",
   heartbeatInterval: 6772.41,
   batchTimeout: 4226.57,
-  readExistingEvents: true,
-  sendBookmarks: true,
-  compress: true,
   targets: [],
-  locale: "ar",
-  querySelector: "simple",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  queries: [
-    {
-      path: "/home",
-      queryExpression: "<value>",
-    },
-  ],
-  xmlQuery: "<value>",
 };
 ```
 

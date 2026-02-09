@@ -8,79 +8,9 @@ import { CreateInputSystemByPackInputOffice365Mgmt } from "cribl-control-plane/m
 let value: CreateInputSystemByPackInputOffice365Mgmt = {
   id: "<id>",
   type: "office365_mgmt",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  planType: "gcc_high",
+  planType: "dod",
   tenantId: "<id>",
   appId: "<id>",
-  timeout: 2714.93,
-  keepAliveTime: 3340.46,
-  jobTimeout: "<value>",
-  maxMissedKeepAlives: 7958.52,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  publisherIdentifier: "<value>",
-  contentConfig: [
-    {
-      contentType: "<value>",
-      description:
-        "drat on bouncy reconstitute blah personalise fooey joyfully exempt because",
-      interval: 5228.16,
-      logLevel: "info",
-      enabled: true,
-    },
-  ],
-  ingestionLag: 5834.6,
-  retryRules: {
-    type: "<value>",
-    interval: 6390.37,
-    limit: 2107.49,
-    multiplier: 2764.09,
-    codes: [
-      1648,
-      6941.51,
-      1223.37,
-    ],
-    enableHeader: true,
-    retryConnectTimeout: true,
-    retryConnectReset: true,
-  },
-  authType: "secret",
-  description: "among clavicle per fooey scrabble summary ordinary provided",
-  clientSecret: "<value>",
-  textSecret: "<value>",
-  __template_tenantId: "<id>",
-  __template_appId: "<id>",
-  __template_publisherIdentifier: "<value>",
-  __template_clientSecret: "<value>",
 };
 ```
 

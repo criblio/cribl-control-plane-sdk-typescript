@@ -8,44 +8,12 @@ import { CreateInputSystemByPackInputDatagen } from "cribl-control-plane/models/
 let value: CreateInputSystemByPackInputDatagen = {
   id: "<id>",
   type: "datagen",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   samples: [
     {
       sample: "<value>",
-      eventsPerSec: 9169.31,
+      eventsPerSec: 4731.51,
     },
   ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "by boohoo brochure giggle decode treble microchip",
 };
 ```
 

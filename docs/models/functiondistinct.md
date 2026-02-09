@@ -7,22 +7,13 @@ import { FunctionDistinct } from "cribl-control-plane/models";
 
 let value: FunctionDistinct = {
   __filename: "example.file",
-  asyncTimeout: 8471.89,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "distinct",
-  loadTime: 1222.59,
-  modTime: 6674.53,
+  loadTime: 8471.89,
+  modTime: 8320.11,
   name: "<value>",
-  sync: true,
   uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

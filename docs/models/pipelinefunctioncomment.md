@@ -6,16 +6,8 @@
 import { PipelineFunctionComment } from "cribl-control-plane/models";
 
 let value: PipelineFunctionComment = {
-  filter: "<value>",
   id: "comment",
-  description: "an rigidly colour boldly gape now",
-  disabled: false,
-  final: false,
-  conf: {
-    comment:
-      "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

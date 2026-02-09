@@ -7,7 +7,6 @@ import { CreateInputSystemByPackAllow } from "cribl-control-plane/models/operati
 
 let value: CreateInputSystemByPackAllow = {
   procname: "<value>",
-  arg: "<value>",
   config: "<value>",
 };
 ```

@@ -8,8 +8,6 @@ import { OutputNetflowHost } from "cribl-control-plane/models";
 let value: OutputNetflowHost = {
   host: "gruesome-valentine.com",
   port: 2777.11,
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 

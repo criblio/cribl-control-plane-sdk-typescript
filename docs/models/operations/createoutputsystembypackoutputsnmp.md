@@ -8,19 +8,7 @@ import { CreateOutputSystemByPackOutputSnmp } from "cribl-control-plane/models/o
 let value: CreateOutputSystemByPackOutputSnmp = {
   id: "<id>",
   type: "snmp",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
   hosts: [],
-  dnsResolvePeriodSec: 9069.08,
-  description: "than under as outlandish noxious apparatus diligent scarily",
 };
 ```
 

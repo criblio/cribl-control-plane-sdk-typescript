@@ -13,55 +13,8 @@ let value: RestAuthenticationGoogleOauthSecret = {
   ],
   textSecret: "<value>",
   subject: "<value>",
-  discovery: {
-    discoverType: "list",
-    itemList: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  collectUrl: "https://fluffy-bug.com/",
+  collectUrl: "https://tall-cruelty.biz",
   collectMethod: "get",
-  collectVerb: "<value>",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "none",
-  },
-  timeout: 5022.57,
-  useRoundRobinDns: false,
-  disableTimeFilter: true,
-  decodeUrl: true,
-  rejectUnauthorized: false,
-  captureHeaders: false,
-  stopOnEmptyResults: true,
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: false,
-    },
-  },
 };
 ```
 

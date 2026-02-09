@@ -9,11 +9,9 @@ let value: RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestOffset =
   {
     type: "request_offset",
     offsetField: "<value>",
-    offset: 3299.64,
     limitField: "<value>",
-    limit: 1677.11,
-    totalRecordField: "<value>",
-    maxPages: 4405.08,
+    limit: 3299.64,
+    maxPages: 1677.11,
     zeroIndexed: true,
   };
 ```

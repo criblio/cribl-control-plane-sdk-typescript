@@ -5,14 +5,7 @@
 ```typescript
 import { CreateInputSystemByPackPrometheusAuth2 } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackPrometheusAuth2 = {
-  authType: "textSecret",
-  username: "Enos.Bergstrom",
-  password: "t_vimwUIhDVZHnd",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-};
+let value: CreateInputSystemByPackPrometheusAuth2 = {};
 ```
 
 ## Fields

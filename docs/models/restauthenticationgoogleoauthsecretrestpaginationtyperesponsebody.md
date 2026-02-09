@@ -13,7 +13,6 @@ let value: RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseBody = {
     "<value 3>",
   ],
   maxPages: 3021.47,
-  lastPageExpr: "<value>",
 };
 ```
 

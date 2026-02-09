@@ -7,7 +7,6 @@ import { CreateInputInputJournalFilesRule } from "cribl-control-plane/models/ope
 
 let value: CreateInputInputJournalFilesRule = {
   filter: "<value>",
-  description: "while eek malfunction especially",
 };
 ```
 

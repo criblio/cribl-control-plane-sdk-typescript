@@ -9,24 +9,8 @@
 const value: models.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttp =
   {
     discoverMethod: "post",
-    discoverRequestParams: "<value>",
     discoverType: "http",
     discoverUrl: "https://defensive-scale.org/",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: false,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: false,
   };
 ```
 
@@ -37,7 +21,6 @@ const value: models.RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJson =
   {
     discoverType: "json",
     manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
   };
 ```
 

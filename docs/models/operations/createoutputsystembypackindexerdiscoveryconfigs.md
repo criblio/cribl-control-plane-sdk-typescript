@@ -11,17 +11,6 @@ let value: CreateOutputSystemByPackIndexerDiscoveryConfigs = {
   site: "<value>",
   masterUri: "https://sinful-caption.org/",
   refreshIntervalSec: 9982.33,
-  rejectUnauthorized: true,
-  authTokens: [
-    {
-      authType: "manual",
-      authToken: "<value>",
-      textSecret: "<value>",
-    },
-  ],
-  authType: "manual",
-  authToken: "<value>",
-  textSecret: "<value>",
 };
 ```
 

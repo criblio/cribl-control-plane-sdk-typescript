@@ -8,24 +8,8 @@ import { RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet }
 let value:
   RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet = {
     discoverMethod: "get",
-    discoverRequestParams: "<value>",
     discoverType: "http",
     discoverUrl: "https://well-lit-tune-up.info/",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: false,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: false,
   };
 ```
 

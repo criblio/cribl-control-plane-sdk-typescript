@@ -7,8 +7,6 @@ import { ExecutorTypeRunnableJobExecutor } from "cribl-control-plane/models";
 
 let value: ExecutorTypeRunnableJobExecutor = {
   type: "<value>",
-  storeTaskResults: true,
-  conf: {},
 };
 ```
 

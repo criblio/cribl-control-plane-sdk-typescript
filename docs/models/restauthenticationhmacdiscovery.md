@@ -9,23 +9,8 @@
 const value: models.RestAuthenticationHmacRestDiscoveryDiscoverTypeHttp = {
   discoverMethod: "other",
   discoverVerb: "<value>",
-  discoverBody: "<value>",
-  discoverRequestParams: "<value>",
   discoverType: "none",
   discoverUrl: "https://tangible-acquaintance.net",
-  discoverRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "<value>",
-  },
-  discoverDataField: "<value>",
-  enableStrictDiscoverParsing: true,
-  discoverResponseFormat: "<value>",
-  enableDiscoverCode: false,
 };
 ```
 
@@ -35,7 +20,6 @@ const value: models.RestAuthenticationHmacRestDiscoveryDiscoverTypeHttp = {
 const value: models.RestAuthenticationHmacRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

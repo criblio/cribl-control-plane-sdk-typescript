@@ -7,25 +7,16 @@ import { FunctionSerialize } from "cribl-control-plane/models";
 
 let value: FunctionSerialize = {
   __filename: "example.file",
-  asyncTimeout: 7303.27,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: false,
   id: "serialize",
-  loadTime: 4550.45,
-  modTime: 7814.2,
+  loadTime: 7303.27,
+  modTime: 20.66,
   name: "<value>",
-  sync: true,
   uischema: {
     "key": "<value>",
     "key1": "<value>",
-    "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

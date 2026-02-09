@@ -7,9 +7,7 @@ Creates events for local users and groups
 ```typescript
 import { CreateInputSystemByPackUsersAndGroups } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackUsersAndGroups = {
-  enable: false,
-};
+let value: CreateInputSystemByPackUsersAndGroups = {};
 ```
 
 ## Fields

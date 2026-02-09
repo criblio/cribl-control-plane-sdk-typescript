@@ -7,8 +7,6 @@ import { CreateOutputSystemByPackUrlWebhook } from "cribl-control-plane/models/o
 
 let value: CreateOutputSystemByPackUrlWebhook = {
   url: "https://wealthy-strategy.com/",
-  weight: 3092.89,
-  __template_url: "https://posh-subexpression.biz",
 };
 ```
 

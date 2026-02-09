@@ -5,11 +5,7 @@
 ```typescript
 import { GetSavedJobRequest } from "cribl-control-plane/models/operations";
 
-let value: GetSavedJobRequest = {
-  collectorType: "<value>",
-  criblPack: "<value>",
-  groupId: "<id>",
-};
+let value: GetSavedJobRequest = {};
 ```
 
 ## Fields

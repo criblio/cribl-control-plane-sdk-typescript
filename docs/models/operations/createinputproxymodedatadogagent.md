@@ -7,7 +7,6 @@ import { CreateInputProxyModeDatadogAgent } from "cribl-control-plane/models/ope
 
 let value: CreateInputProxyModeDatadogAgent = {
   enabled: true,
-  rejectUnauthorized: true,
 };
 ```
 

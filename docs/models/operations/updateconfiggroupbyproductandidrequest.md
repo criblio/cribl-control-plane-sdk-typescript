@@ -9,56 +9,8 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
   product: "stream",
   id: "<id>",
   configGroup: {
-    cloud: {
-      provider: "azure",
-      region: "<value>",
-    },
-    configVersion: "<value>",
-    deployingWorkerCount: 8420.35,
-    description: "monster off valiantly lest offset highly fatal",
     estimatedIngestRate: 4096,
-    git: {
-      commit: "<value>",
-      localChanges: 3203.95,
-      log: [
-        {
-          author_email: "<value>",
-          author_name: "<value>",
-          date: "2024-04-14",
-          hash: "<value>",
-          message: "<value>",
-          short: "<value>",
-        },
-      ],
-    },
     id: "<id>",
-    incompatibleWorkerCount: 5516.93,
-    inherits: "<value>",
-    lookupDeployments: [
-      {
-        context: "<value>",
-        lookups: [
-          {
-            deployedVersion: "<value>",
-            file: "<value>",
-            version: "<value>",
-          },
-        ],
-      },
-    ],
-    maxWorkerAge: "<value>",
-    name: "<value>",
-    onPrem: true,
-    provisioned: false,
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    tags: "<value>",
-    type: "outpost",
-    upgradeVersion: "<value>",
-    workerCount: 5461.18,
-    workerRemoteAccess: true,
   },
 };
 ```

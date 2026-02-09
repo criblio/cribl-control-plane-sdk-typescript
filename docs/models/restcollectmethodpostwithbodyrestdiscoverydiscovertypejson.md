@@ -8,7 +8,6 @@ import { RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson } from "crib
 let value: RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

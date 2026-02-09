@@ -5,10 +5,7 @@
 ```typescript
 import { CreateInputMemoryWindowsMetrics } from "cribl-control-plane/models/operations";
 
-let value: CreateInputMemoryWindowsMetrics = {
-  mode: "custom",
-  detail: true,
-};
+let value: CreateInputMemoryWindowsMetrics = {};
 ```
 
 ## Fields

@@ -8,24 +8,8 @@
 ```typescript
 const value: models.RestAuthenticationBasicRestDiscoveryDiscoverTypeHttp = {
   discoverMethod: "post",
-  discoverRequestParams: "<value>",
   discoverType: "json",
   discoverUrl: "https://colorful-willow.com",
-  discoverVerb: "<value>",
-  discoverBody: "<value>",
-  discoverRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "<value>",
-  },
-  discoverDataField: "<value>",
-  enableStrictDiscoverParsing: false,
-  discoverResponseFormat: "<value>",
-  enableDiscoverCode: false,
 };
 ```
 
@@ -35,7 +19,6 @@ const value: models.RestAuthenticationBasicRestDiscoveryDiscoverTypeHttp = {
 const value: models.RestAuthenticationBasicRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

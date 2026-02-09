@@ -10,17 +10,8 @@ const value:
   models.HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttp =
     {
       discoverMethod: "post",
-      discoverRequestParams: "<value>",
       discoverType: "json",
       discoverUrl: "https://extroverted-extent.org/",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 
@@ -32,7 +23,6 @@ const value:
     {
       discoverType: "json",
       manualDiscoverResult: "<value>",
-      discoverDataField: "<value>",
     };
 ```
 

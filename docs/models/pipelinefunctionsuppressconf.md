@@ -9,10 +9,6 @@ let value: PipelineFunctionSuppressConf = {
   keyExpr: "<value>",
   allow: 7285.75,
   suppressPeriodSec: 5960.93,
-  dropEventsMode: false,
-  maxCacheSize: 4878.49,
-  cacheIdleTimeoutPeriods: 5300.84,
-  numEventsIdleTimeoutTrigger: 30.02,
 };
 ```
 

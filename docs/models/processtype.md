@@ -5,15 +5,7 @@
 ```typescript
 import { ProcessType } from "cribl-control-plane/models";
 
-let value: ProcessType = {
-  sets: [
-    {
-      name: "<value>",
-      filter: "<value>",
-      includeChildren: true,
-    },
-  ],
-};
+let value: ProcessType = {};
 ```
 
 ## Fields

@@ -8,22 +8,6 @@ import { CreateOutputOutputRing } from "cribl-control-plane/models/operations";
 let value: CreateOutputOutputRing = {
   id: "<id>",
   type: "ring",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  format: "raw",
-  partitionExpr: "<value>",
-  maxDataSize: "<value>",
-  maxDataTime: "<value>",
-  compress: "gzip",
-  destPath: "<value>",
-  onBackpressure: "block",
-  description: "along truthfully caption",
 };
 ```
 

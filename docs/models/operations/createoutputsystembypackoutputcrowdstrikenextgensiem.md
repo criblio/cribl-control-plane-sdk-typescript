@@ -8,67 +8,8 @@ import { CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem } from "cribl-cont
 let value: CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem = {
   id: "<id>",
   type: "crowdstrike_next_gen_siem",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  url: "https://radiant-story.net",
-  concurrency: 1986.58,
-  maxPayloadSizeKB: 3966.44,
-  maxPayloadEvents: 9631.59,
-  compress: false,
-  rejectUnauthorized: false,
-  timeoutSec: 9434.24,
-  flushPeriodSec: 7241.2,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "none",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
+  url: "https://cautious-rust.name/",
   format: "raw",
-  authType: "manual",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "drop",
-  description: "resource unlike although",
-  token: "<value>",
-  textSecret: "<value>",
-  pqStrictOrdering: true,
-  pqRatePerSec: 9291.98,
-  pqMode: "always",
-  pqMaxBufferSize: 3411.03,
-  pqMaxBackpressureSec: 9135.18,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
-  __template_url: "https://esteemed-newsprint.net",
 };
 ```
 

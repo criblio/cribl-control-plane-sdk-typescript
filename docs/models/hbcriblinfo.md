@@ -6,40 +6,14 @@
 import { HBCriblInfo } from "cribl-control-plane/models";
 
 let value: HBCriblInfo = {
-  config: {
-    featuresRev: "<value>",
-    hbPeriodSeconds: 4320.82,
-    logStreamEnv: "<value>",
-    policyRev: "<value>",
-    version: "<value>",
-  },
-  deploymentId: "<id>",
-  disableSNIRouting: false,
-  distMode: "outpost",
-  edgeNodes: 4521.05,
+  config: {},
+  distMode: "managed-edge",
   group: "<value>",
   guid: "<id>",
-  installType: "<value>",
-  lookupVersions: {
-    "key": {},
-    "key1": {
-      "key": "<value>",
-      "key1": "<value>",
-      "key2": "<value>",
-    },
-    "key2": {},
-  },
-  master: {
-    host: "diligent-festival.info",
-    port: 3411.24,
-    servername: "<value>",
-    tls: true,
-  },
-  pid: 5860.59,
-  socksEnabled: true,
-  startTime: 7775.72,
-  tags: [],
-  version: "<value>",
+  startTime: 7981.9,
+  tags: [
+    "<value 1>",
+  ],
 };
 ```
 

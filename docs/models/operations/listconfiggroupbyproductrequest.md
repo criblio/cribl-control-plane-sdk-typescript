@@ -7,7 +7,6 @@ import { ListConfigGroupByProductRequest } from "cribl-control-plane/models/oper
 
 let value: ListConfigGroupByProductRequest = {
   product: "edge",
-  fields: "<value>",
 };
 ```
 

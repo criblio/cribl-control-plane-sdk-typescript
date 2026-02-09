@@ -5,14 +5,7 @@
 ```typescript
 import { CountedSystemRestartResponse } from "cribl-control-plane/models";
 
-let value: CountedSystemRestartResponse = {
-  count: 228648,
-  items: [
-    {
-      restart: true,
-    },
-  ],
-};
+let value: CountedSystemRestartResponse = {};
 ```
 
 ## Fields

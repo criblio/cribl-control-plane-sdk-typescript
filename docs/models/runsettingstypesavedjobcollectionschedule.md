@@ -6,20 +6,7 @@
 import { RunSettingsTypeSavedJobCollectionSchedule } from "cribl-control-plane/models";
 
 let value: RunSettingsTypeSavedJobCollectionSchedule = {
-  type: "collection",
-  rescheduleDroppedTasks: false,
-  maxTaskReschedule: 1021.06,
-  logLevel: "info",
-  jobTimeout: "<value>",
   mode: "<value>",
-  timeRangeType: "<value>",
-  earliest: 3927.08,
-  latest: 5189.14,
-  timestampTimezone: "<value>",
-  timeWarning: {},
-  expression: "<value>",
-  minTaskSize: "<value>",
-  maxTaskSize: "<value>",
 };
 ```
 

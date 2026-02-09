@@ -8,76 +8,8 @@ import { CreateInputSystemByPackInputTcp } from "cribl-control-plane/models/oper
 let value: CreateInputSystemByPackInputTcp = {
   id: "<id>",
   type: "tcp",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "rewarding-help.biz",
-  port: 7991.62,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  ipWhitelistRegex: "<value>",
-  maxActiveCxn: 1647.09,
-  socketIdleTimeout: 7943.58,
-  socketEndingMaxWait: 1046.7,
-  socketMaxLifespan: 405.54,
-  enableProxyHeader: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 8808.2,
-  enableHeader: false,
-  preprocess: {
-    disabled: false,
-    command: "<value>",
-    args: [
-      "<value 1>",
-    ],
-  },
-  description: "breakable ambitious frizzy per",
-  authToken: "<value>",
-  authType: "manual",
-  textSecret: "<value>",
-  __template_host: "<value>",
-  __template_port: "<value>",
+  host: "ugly-championship.info",
+  port: 2480.1,
 };
 ```
 

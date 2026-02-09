@@ -7,7 +7,6 @@ import { InField } from "cribl-control-plane/models";
 
 let value: InField = {
   eventField: "<value>",
-  lookupField: "<value>",
 };
 ```
 

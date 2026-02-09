@@ -6,25 +6,7 @@
 import { RunnableJobCollectionRun } from "cribl-control-plane/models";
 
 let value: RunnableJobCollectionRun = {
-  rescheduleDroppedTasks: false,
-  maxTaskReschedule: 8556.38,
-  logLevel: "error",
-  jobTimeout: "<value>",
   mode: "run",
-  timeRangeType: "relative",
-  earliest: 6544.54,
-  latest: 4321.21,
-  timestampTimezone: "<value>",
-  timeWarning: {},
-  expression: "<value>",
-  minTaskSize: "<value>",
-  maxTaskSize: "<value>",
-  discoverToRoutes: false,
-  capture: {
-    duration: 7810.09,
-    maxEvents: 3852.63,
-    level: 0,
-  },
 };
 ```
 

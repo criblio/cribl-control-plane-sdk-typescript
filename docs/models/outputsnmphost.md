@@ -8,8 +8,6 @@ import { OutputSnmpHost } from "cribl-control-plane/models";
 let value: OutputSnmpHost = {
   host: "granular-transom.net",
   port: 8500.97,
-  __template_host: "<value>",
-  __template_port: "<value>",
 };
 ```
 
