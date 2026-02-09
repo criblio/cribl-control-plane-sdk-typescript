@@ -6,7 +6,7 @@ sources:
         sourceBlobDigest: sha256:359b1e1ef36b7ce8c11b3ab1598b540116f785ed02dd14e13d260ca50ff26405
         tags:
             - latest
-            - speakeasy-sdk-regen-dev-1770597430
+            - speakeasy-sdk-regen-dev-1770603688
             - 4.17.0-alpha.1770505444443-cc3dc92c
 targets:
     cribl-control-plane:
@@ -15,7 +15,7 @@ targets:
         sourceRevisionDigest: sha256:da976a0cd874627022450165183dc7395821191edb7e459a08646fd0b0ca7b4f
         sourceBlobDigest: sha256:359b1e1ef36b7ce8c11b3ab1598b540116f785ed02dd14e13d260ca50ff26405
         codeSamplesNamespace: cribl-api-reference-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:e6948f0dc96d91cf3daf485742211d63b4f6c39866f1172db591776e50c5c5dd
+        codeSamplesRevisionDigest: sha256:1ae6eefe55ea7fe7d7acd38017d6568c6dc33fe7f20a93bcec83ee9a49989291
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: 1.708.2
