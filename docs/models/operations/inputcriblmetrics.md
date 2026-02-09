@@ -8,41 +8,6 @@ import { InputCriblmetrics } from "cribl-control-plane/models/operations";
 let value: InputCriblmetrics = {
   id: "<id>",
   type: "criblmetrics",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  prefix: "<value>",
-  fullFidelity: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "slowly yahoo fax jam-packed excluding",
 };
 ```
 

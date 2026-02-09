@@ -9,8 +9,6 @@ let value: PipelineFunctionMvPullConf = {
   arrayPath: "<value>",
   relativeKeyPath: "<value>",
   relativeValuePath: "<value>",
-  targetBagPath: "<value>",
-  deleteOriginal: false,
 };
 ```
 

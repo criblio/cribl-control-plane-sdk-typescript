@@ -5,41 +5,7 @@
 ```typescript
 import { Collectors } from "cribl-control-plane/models/operations";
 
-let value: Collectors = {
-  hostsfile: {
-    enable: true,
-  },
-  interfaces: {
-    enable: true,
-  },
-  disk: {
-    enable: true,
-  },
-  metadata: {
-    enable: true,
-  },
-  routes: {
-    enable: false,
-  },
-  dns: {
-    enable: true,
-  },
-  user: {
-    enable: false,
-  },
-  firewall: {
-    enable: false,
-  },
-  services: {
-    enable: false,
-  },
-  ports: {
-    enable: true,
-  },
-  loginUsers: {
-    enable: true,
-  },
-};
+let value: Collectors = {};
 ```
 
 ## Fields

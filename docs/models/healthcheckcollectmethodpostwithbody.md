@@ -7,46 +7,8 @@ import { HealthCheckCollectMethodPostWithBody } from "cribl-control-plane/models
 
 let value: HealthCheckCollectMethodPostWithBody = {
   collectMethod: "post",
-  collectBody: "<value>",
-  discovery: {
-    discoverMethod: "post",
-    discoverRequestParams: "<value>",
-    discoverType: "http",
-    discoverUrl: "https://fussy-underneath.com/",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://probable-version.info/",
-  collectRequestParams: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: true,
-  authentication: "login",
-  timeout: 486.61,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
+  collectUrl: "https://male-cannon.com/",
+  authentication: "basicSecret",
 };
 ```
 

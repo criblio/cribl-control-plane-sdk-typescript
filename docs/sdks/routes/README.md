@@ -192,26 +192,10 @@ async function run() {
         {
           id: "default",
           name: "my-route",
-          disabled: true,
           filter: "source == \"access.log\"",
           pipeline: "main",
-          enableOutputExpression: false,
-          output: "<value>",
-          outputExpression: "<value>",
           description: "Route access logs to main pipeline",
           final: true,
-        },
-      ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "drat yet spectacles ha",
-          disabled: false,
-        },
-      },
-      comments: [
-        {
-          comment: "The Football Is Good For Training And Recreational Purposes",
         },
       ],
     },
@@ -249,26 +233,10 @@ async function run() {
         {
           id: "default",
           name: "my-route",
-          disabled: true,
           filter: "source == \"access.log\"",
           pipeline: "main",
-          enableOutputExpression: false,
-          output: "<value>",
-          outputExpression: "<value>",
           description: "Route access logs to main pipeline",
           final: true,
-        },
-      ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "drat yet spectacles ha",
-          disabled: false,
-        },
-      },
-      comments: [
-        {
-          comment: "The Football Is Good For Training And Recreational Purposes",
         },
       ],
     },
@@ -305,62 +273,38 @@ async function run() {
         {
           id: "route-speedtest",
           name: "speedtest",
-          disabled: false,
           filter: "source == \"speedtest.log\"",
           pipeline: "main",
-          enableOutputExpression: true,
           output: "default",
-          outputExpression: "<value>",
           description: "Route speedtest logs",
           final: false,
         },
         {
           id: "route-mtr",
           name: "mtr",
-          disabled: false,
           filter: "source == \"mtr.log\"",
           pipeline: "passthru",
-          enableOutputExpression: true,
           output: "default",
-          outputExpression: "<value>",
           description: "Route mtr logs",
           final: false,
         },
         {
           id: "route-statsd",
           name: "statsd",
-          disabled: false,
           filter: "source == \"statsd.log\"",
           pipeline: "prometheus_metrics",
-          enableOutputExpression: false,
           output: "devnull",
-          outputExpression: "<value>",
           description: "Route statsd metrics",
           final: false,
         },
         {
           id: "route-default",
           name: "default",
-          disabled: false,
           filter: "true",
           pipeline: "main",
-          enableOutputExpression: false,
           output: "default",
-          outputExpression: "<value>",
           description: "Catch-all Route for all other events",
           final: true,
-        },
-      ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "drat yet spectacles ha",
-          disabled: false,
-        },
-      },
-      comments: [
-        {
-          comment: "The Football Is Good For Training And Recreational Purposes",
         },
       ],
     },
@@ -398,62 +342,38 @@ async function run() {
         {
           id: "route-speedtest",
           name: "speedtest",
-          disabled: false,
           filter: "source == \"speedtest.log\"",
           pipeline: "main",
-          enableOutputExpression: true,
           output: "default",
-          outputExpression: "<value>",
           description: "Route speedtest logs",
           final: false,
         },
         {
           id: "route-mtr",
           name: "mtr",
-          disabled: false,
           filter: "source == \"mtr.log\"",
           pipeline: "passthru",
-          enableOutputExpression: true,
           output: "default",
-          outputExpression: "<value>",
           description: "Route mtr logs",
           final: false,
         },
         {
           id: "route-statsd",
           name: "statsd",
-          disabled: false,
           filter: "source == \"statsd.log\"",
           pipeline: "prometheus_metrics",
-          enableOutputExpression: false,
           output: "devnull",
-          outputExpression: "<value>",
           description: "Route statsd metrics",
           final: false,
         },
         {
           id: "route-default",
           name: "default",
-          disabled: false,
           filter: "true",
           pipeline: "main",
-          enableOutputExpression: false,
           output: "default",
-          outputExpression: "<value>",
           description: "Catch-all Route for all other events",
           final: true,
-        },
-      ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "drat yet spectacles ha",
-          disabled: false,
-        },
-      },
-      comments: [
-        {
-          comment: "The Football Is Good For Training And Recreational Purposes",
         },
       ],
     },
@@ -490,26 +410,12 @@ async function run() {
         {
           id: "route-dynamic",
           name: "dynamic-output",
-          disabled: true,
           filter: "source == \"dynamic.log\"",
           pipeline: "main",
           enableOutputExpression: true,
-          output: "<value>",
           outputExpression: "`myDest_${C.logStreamEnv}`",
           description: "Route with dynamic Destination based on environment",
           final: true,
-        },
-      ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "drat yet spectacles ha",
-          disabled: false,
-        },
-      },
-      comments: [
-        {
-          comment: "The Football Is Good For Training And Recreational Purposes",
         },
       ],
     },
@@ -547,26 +453,12 @@ async function run() {
         {
           id: "route-dynamic",
           name: "dynamic-output",
-          disabled: true,
           filter: "source == \"dynamic.log\"",
           pipeline: "main",
           enableOutputExpression: true,
-          output: "<value>",
           outputExpression: "`myDest_${C.logStreamEnv}`",
           description: "Route with dynamic Destination based on environment",
           final: true,
-        },
-      ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "drat yet spectacles ha",
-          disabled: false,
-        },
-      },
-      comments: [
-        {
-          comment: "The Football Is Good For Training And Recreational Purposes",
         },
       ],
     },
@@ -624,48 +516,21 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route audit logs",
-        disabled: false,
-        enableOutputExpression: false,
         filter: "source == \"audit.log\"",
         final: false,
-        groupId: "<id>",
         id: "route-audit",
         name: "audit",
         output: "default",
-        outputExpression: "<value>",
         pipeline: "main",
       },
       {
-        clones: [
-          {
-
-          },
-          {
-
-          },
-          {
-
-          },
-        ],
-        context: "<value>",
         description: "Route security logs",
-        disabled: true,
-        enableOutputExpression: false,
         filter: "source == \"security.log\"",
         final: false,
-        groupId: "<id>",
         id: "route-security",
         name: "security",
         output: "devnull",
-        outputExpression: "<value>",
         pipeline: "passthru",
       },
     ],
@@ -699,48 +564,21 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route audit logs",
-        disabled: false,
-        enableOutputExpression: false,
         filter: "source == \"audit.log\"",
         final: false,
-        groupId: "<id>",
         id: "route-audit",
         name: "audit",
         output: "default",
-        outputExpression: "<value>",
         pipeline: "main",
       },
       {
-        clones: [
-          {
-  
-          },
-          {
-  
-          },
-          {
-  
-          },
-        ],
-        context: "<value>",
         description: "Route security logs",
-        disabled: true,
-        enableOutputExpression: false,
         filter: "source == \"security.log\"",
         final: false,
-        groupId: "<id>",
         id: "route-security",
         name: "security",
         output: "devnull",
-        outputExpression: "<value>",
         pipeline: "passthru",
       },
     ],
@@ -773,22 +611,12 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route with dynamic Destination based on environment",
-        disabled: false,
         enableOutputExpression: true,
         filter: "source == \"dynamic.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-dynamic-append",
         name: "dynamic-append",
-        output: "<value>",
         outputExpression: "`myDest_${C.logStreamEnv}`",
         pipeline: "main",
       },
@@ -823,22 +651,12 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-            "key1": "<value>",
-          },
-        ],
-        context: "<value>",
         description: "Route with dynamic Destination based on environment",
-        disabled: false,
         enableOutputExpression: true,
         filter: "source == \"dynamic.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-dynamic-append",
         name: "dynamic-append",
-        output: "<value>",
         outputExpression: "`myDest_${C.logStreamEnv}`",
         pipeline: "main",
       },
@@ -872,25 +690,11 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-          },
-          {
-
-          },
-        ],
-        context: "<value>",
         description: "Route new logs to main pipeline",
-        disabled: true,
-        enableOutputExpression: true,
         filter: "source == \"new.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-new",
         name: "new-route",
-        output: "<value>",
-        outputExpression: "<value>",
         pipeline: "main",
       },
     ],
@@ -924,25 +728,11 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-          },
-          {
-  
-          },
-        ],
-        context: "<value>",
         description: "Route new logs to main pipeline",
-        disabled: true,
-        enableOutputExpression: true,
         filter: "source == \"new.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-new",
         name: "new-route",
-        output: "<value>",
-        outputExpression: "<value>",
         pipeline: "main",
       },
     ],

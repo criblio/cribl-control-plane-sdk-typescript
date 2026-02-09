@@ -8,67 +8,8 @@ import { OutputCrowdstrikeNextGenSiem } from "cribl-control-plane/models/operati
 let value: OutputCrowdstrikeNextGenSiem = {
   id: "<id>",
   type: "crowdstrike_next_gen_siem",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  url: "https://whispered-smog.biz",
-  concurrency: 1900.65,
-  maxPayloadSizeKB: 2049.86,
-  maxPayloadEvents: 1066.26,
-  compress: false,
-  rejectUnauthorized: true,
-  timeoutSec: 4822.14,
-  flushPeriodSec: 7154.99,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "none",
-  safeHeaders: [
-    "<value 1>",
-  ],
+  url: "https://prickly-promise.org/",
   format: "raw",
-  authType: "secret",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "queue",
-  description: "likable toward pfft",
-  token: "<value>",
-  textSecret: "<value>",
-  pqStrictOrdering: true,
-  pqRatePerSec: 7319.46,
-  pqMode: "always",
-  pqMaxBufferSize: 7809.39,
-  pqMaxBackpressureSec: 4465.69,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 

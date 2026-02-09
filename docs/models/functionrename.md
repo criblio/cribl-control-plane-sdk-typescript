@@ -7,21 +7,17 @@ import { FunctionRename } from "cribl-control-plane/models";
 
 let value: FunctionRename = {
   __filename: "example.file",
-  asyncTimeout: 2336.89,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: false,
   id: "rename",
-  loadTime: 1884.28,
-  modTime: 991.32,
+  loadTime: 2336.89,
+  modTime: 861.02,
   name: "<value>",
-  sync: false,
-  uischema: {},
-  version: "<value>",
-  schema: {
+  uischema: {
     "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
+  version: "<value>",
 };
 ```
 

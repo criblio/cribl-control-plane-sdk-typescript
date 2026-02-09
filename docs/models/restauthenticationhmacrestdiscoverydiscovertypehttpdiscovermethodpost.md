@@ -8,24 +8,8 @@ import { RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPost }
 let value:
   RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPost = {
     discoverMethod: "post",
-    discoverRequestParams: "<value>",
     discoverType: "list",
     discoverUrl: "https://firsthand-creature.org/",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: false,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: true,
   };
 ```
 

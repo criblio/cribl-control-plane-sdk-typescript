@@ -8,54 +8,8 @@ import { InputJournalFiles } from "cribl-control-plane/models/operations";
 let value: InputJournalFiles = {
   id: "<id>",
   type: "journal_files",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  path: "/opt/sbin",
-  interval: 3645.26,
-  journals: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  rules: [
-    {
-      filter: "<value>",
-      description: "worthless smog outside by handle into massage nor meh",
-    },
-  ],
-  currentBoot: false,
-  maxAgeDur: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "upwardly summer uncommon minus",
+  path: "/usr/local/bin",
+  journals: [],
 };
 ```
 

@@ -11,17 +11,8 @@ let value:
   HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet =
     {
       discoverMethod: "get",
-      discoverRequestParams: "<value>",
       discoverType: "json",
       discoverUrl: "https://descriptive-puppet.name",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

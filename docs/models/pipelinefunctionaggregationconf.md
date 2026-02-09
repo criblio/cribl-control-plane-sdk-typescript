@@ -6,32 +6,8 @@
 import { PipelineFunctionAggregationConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionAggregationConf = {
-  passthrough: true,
-  preserveGroupBys: false,
-  sufficientStatsOnly: false,
-  metricsMode: false,
-  prefix: "<value>",
   timeWindow: "<value>",
-  aggregations: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  groupbys: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  flushEventLimit: 8895.11,
-  flushMemLimit: "<value>",
-  cumulative: true,
-  searchAggMode: "<value>",
-  add: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  shouldTreatDotsAsLiterals: true,
-  flushOnInputClose: false,
+  aggregations: [],
 };
 ```
 

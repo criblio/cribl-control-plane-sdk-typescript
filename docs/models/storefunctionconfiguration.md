@@ -7,15 +7,6 @@ import { StoreFunctionConfiguration } from "cribl-control-plane/models";
 
 let value: StoreFunctionConfiguration = {
   type: "<value>",
-  destination: "<value>",
-  description: "subdued petal wicked",
-  fieldMapping: {},
-  separator: "<value>",
-  overwrite: true,
-  compress: "<value>",
-  tee: true,
-  maxEvents: 5140.35,
-  suppressPreviews: true,
 };
 ```
 

@@ -8,24 +8,8 @@ import { RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet } 
 let value:
   RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet = {
     discoverMethod: "get",
-    discoverRequestParams: "<value>",
     discoverType: "json",
     discoverUrl: "https://bony-substitution.biz/",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: true,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: true,
   };
 ```
 

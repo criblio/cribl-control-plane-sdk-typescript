@@ -8,65 +8,8 @@ import { InputCriblTcp } from "cribl-control-plane/models/operations";
 let value: InputCriblTcp = {
   id: "<id>",
   type: "cribl_tcp",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "partial-status.org",
-  port: 8551.78,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveCxn: 8321.6,
-  socketIdleTimeout: 8630.72,
-  socketEndingMaxWait: 895.97,
-  socketMaxLifespan: 4455.26,
-  enableProxyHeader: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  enableLoadBalancing: true,
-  authTokens: [
-    {
-      tokenSecret: "<value>",
-      enabled: true,
-      description: "technician flimsy and ha",
-    },
-  ],
-  description: "ouch warmly encode probable regularly boyfriend almost across",
+  host: "any-napkin.name",
+  port: 2399.43,
 };
 ```
 

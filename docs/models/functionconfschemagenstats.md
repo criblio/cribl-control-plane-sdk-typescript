@@ -5,11 +5,7 @@
 ```typescript
 import { FunctionConfSchemaGenStats } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaGenStats = {
-  fields: [
-    "<value 1>",
-  ],
-};
+let value: FunctionConfSchemaGenStats = {};
 ```
 
 ## Fields

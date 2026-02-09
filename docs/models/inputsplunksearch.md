@@ -6,110 +6,12 @@
 import { InputSplunkSearch } from "cribl-control-plane/models";
 
 let value: InputSplunkSearch = {
-  id: "<id>",
   type: "splunk_search",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   searchHead: "<value>",
   search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
   cronSchedule: "<value>",
   endpoint: "<value>",
-  outputMode: "csv",
-  endpointParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  endpointHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  logLevel: "info",
-  requestTimeout: 7648.22,
-  useRoundRobinDns: true,
-  rejectUnauthorized: true,
-  encoding: "<value>",
-  keepAliveTime: 2683.02,
-  jobTimeout: "<value>",
-  maxMissedKeepAlives: 171.14,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    type: "<value>",
-    interval: 376.03,
-    limit: 6996.29,
-    multiplier: 5006.8,
-    codes: [
-      2139.95,
-      9559.24,
-      6726.47,
-    ],
-    enableHeader: false,
-    retryConnectTimeout: true,
-    retryConnectReset: false,
-  },
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 3804.15,
-  authType: "oauth",
-  description: "past cassava however tenderly considerate suitcase",
-  username: "Twila_Homenick",
-  password: "WHMIdyB7lUGpeaN",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://mealy-pile.info",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 2444.65,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
+  outputMode: "json",
 };
 ```
 

@@ -8,9 +8,6 @@ import { OutputRouterRule } from "cribl-control-plane/models";
 let value: OutputRouterRule = {
   filter: "<value>",
   output: "<value>",
-  description:
-    "mortise weatherize per scenario instead shrill flight mathematics",
-  final: false,
 };
 ```
 

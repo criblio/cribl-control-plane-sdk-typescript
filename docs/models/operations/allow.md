@@ -7,7 +7,6 @@ import { Allow } from "cribl-control-plane/models/operations";
 
 let value: Allow = {
   procname: "<value>",
-  arg: "<value>",
   config: "<value>",
 };
 ```

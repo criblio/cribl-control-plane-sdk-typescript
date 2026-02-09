@@ -5,32 +5,7 @@
 ```typescript
 import { TypeCollectionWithBreakerRulesetsConstraint } from "cribl-control-plane/models";
 
-let value: TypeCollectionWithBreakerRulesetsConstraint = {
-  type: "collection",
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 3385.32,
-  sendToRoutes: true,
-  preprocess: {
-    disabled: true,
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  throttleRatePerSec: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pipeline: "<value>",
-  output: "<value>",
-};
+let value: TypeCollectionWithBreakerRulesetsConstraint = {};
 ```
 
 ## Fields

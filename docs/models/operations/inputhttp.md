@@ -8,82 +8,8 @@ import { InputHttp } from "cribl-control-plane/models/operations";
 let value: InputHttp = {
   id: "<id>",
   type: "http",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "excellent-pearl.name",
-  port: 4829.29,
-  authTokens: [
-    "<value 1>",
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 3531.58,
-  maxRequestsPerSocket: 401797,
-  enableProxyHeader: true,
-  captureHeaders: false,
-  activityLogSampleRate: 7981.88,
-  requestTimeout: 5786.11,
-  socketTimeout: 1731.04,
-  keepAliveTimeout: 1298.25,
-  enableHealthCheck: true,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  criblAPI: "<value>",
-  elasticAPI: "<value>",
-  splunkHecAPI: "<value>",
-  splunkHecAcks: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "instead worth trek drain eek below",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description: "preregister oddly atomize why",
+  host: "arid-costume.info",
+  port: 1068.38,
 };
 ```
 

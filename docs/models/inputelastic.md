@@ -6,96 +6,10 @@
 import { InputElastic } from "cribl-control-plane/models";
 
 let value: InputElastic = {
-  id: "<id>",
   type: "elastic",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "coordinated-season.biz",
-  port: 6214.35,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 2842.65,
-  maxRequestsPerSocket: 976255,
-  enableProxyHeader: true,
-  captureHeaders: true,
-  activityLogSampleRate: 4682.34,
-  requestTimeout: 5252.11,
-  socketTimeout: 7948.46,
-  keepAliveTimeout: 7018.17,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
+  host: "instructive-sonnet.org",
+  port: 1950.48,
   elasticAPI: "<value>",
-  authType: "credentialsSecret",
-  apiVersion: "custom",
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  proxyMode: {
-    enabled: false,
-    authType: "manual",
-    username: "Omer.Wilderman0",
-    password: "0M0cd_ogL9HtpZN",
-    credentialsSecret: "<value>",
-    url: "https://graceful-experience.info",
-    rejectUnauthorized: false,
-    removeHeaders: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    timeoutSec: 2929.22,
-  },
-  description:
-    "fly how incidentally fast furthermore repeatedly calmly starboard er waft",
-  username: "Emerson.Mertz",
-  password: "MrCR_bg74dlzuxm",
-  credentialsSecret: "<value>",
-  authTokens: [
-    "<value 1>",
-  ],
-  customAPIVersion: "<value>",
 };
 ```
 

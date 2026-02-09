@@ -6,79 +6,7 @@
 import { OutputDataset } from "cribl-control-plane/models";
 
 let value: OutputDataset = {
-  id: "<id>",
   type: "dataset",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  messageField: "<value>",
-  excludeFields: [
-    "<value 1>",
-  ],
-  serverHostField: "<value>",
-  timestampField: "<value>",
-  defaultSeverity: "info",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  site: "custom",
-  concurrency: 9905.59,
-  maxPayloadSizeKB: 9072.18,
-  maxPayloadEvents: 8574.41,
-  compress: false,
-  rejectUnauthorized: true,
-  timeoutSec: 7999.21,
-  flushPeriodSec: 5684.75,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  onBackpressure: "block",
-  authType: "secret",
-  totalMemoryLimitKB: 1955.31,
-  description: "oddly softly tremendously amazing",
-  customUrl: "https://minor-freckle.org",
-  pqStrictOrdering: false,
-  pqRatePerSec: 1066.91,
-  pqMode: "error",
-  pqMaxBufferSize: 1858.03,
-  pqMaxBackpressureSec: 9911.69,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
-  apiKey: "<value>",
-  textSecret: "<value>",
 };
 ```
 

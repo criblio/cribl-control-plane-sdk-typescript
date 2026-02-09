@@ -11,17 +11,8 @@ let value:
   HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
     {
       discoverMethod: "post_with_body",
-      discoverBody: "<value>",
       discoverType: "none",
       discoverUrl: "https://pastel-technologist.com/",
-      discoverRequestParams: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

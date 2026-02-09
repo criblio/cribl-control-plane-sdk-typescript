@@ -6,16 +6,7 @@
 import { FilesystemCollectorConf } from "cribl-control-plane/models";
 
 let value: FilesystemCollectorConf = {
-  outputName: "<value>",
   path: "/sbin",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  recurse: true,
-  maxBatchSize: 9647.63,
 };
 ```
 

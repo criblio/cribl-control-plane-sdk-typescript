@@ -7,21 +7,15 @@ import { FunctionLimit } from "cribl-control-plane/models";
 
 let value: FunctionLimit = {
   __filename: "example.file",
-  asyncTimeout: 7993.11,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "limit",
-  loadTime: 7176.7,
-  modTime: 8633.66,
+  loadTime: 7993.11,
+  modTime: 247.31,
   name: "<value>",
-  sync: true,
-  uischema: {},
-  version: "<value>",
-  schema: {
+  uischema: {
     "key": "<value>",
   },
+  version: "<value>",
 };
 ```
 

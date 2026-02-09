@@ -9,23 +9,8 @@
 const value: models.RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp = {
   discoverMethod: "other",
   discoverVerb: "<value>",
-  discoverBody: "<value>",
-  discoverRequestParams: "<value>",
   discoverType: "none",
   discoverUrl: "https://amused-swing.biz",
-  discoverRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "<value>",
-  },
-  discoverDataField: "<value>",
-  enableStrictDiscoverParsing: false,
-  discoverResponseFormat: "<value>",
-  enableDiscoverCode: true,
 };
 ```
 
@@ -35,7 +20,6 @@ const value: models.RestCollectMethodOtherRestDiscoveryDiscoverTypeHttp = {
 const value: models.RestCollectMethodOtherRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

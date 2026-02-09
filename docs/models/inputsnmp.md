@@ -6,60 +6,9 @@
 import { InputSnmp } from "cribl-control-plane/models";
 
 let value: InputSnmp = {
-  id: "<id>",
   type: "snmp",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "simple-cheese.info",
-  port: 1363.98,
-  snmpV3Auth: {
-    v3AuthEnabled: true,
-    allowUnmatchedTrap: true,
-    v3Users: [
-      {
-        name: "<value>",
-        authProtocol: "md5",
-        authKey: "<value>",
-        privProtocol: "des",
-        privKey: "<value>",
-      },
-    ],
-  },
-  maxBufferSize: 5243.71,
-  ipWhitelistRegex: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 5271.05,
-  varbindsWithTypes: false,
-  bestEffortParsing: false,
-  description: "possible merrily along below geez horse",
+  host: "zesty-gray.org",
+  port: 3485.4,
 };
 ```
 

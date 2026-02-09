@@ -6,91 +6,11 @@
 import { OutputServiceNow } from "cribl-control-plane/models";
 
 let value: OutputServiceNow = {
-  id: "<id>",
   type: "service_now",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
   endpoint: "<value>",
   tokenSecret: "<value>",
-  authTokenName: "<value>",
   otlpVersion: "1.3.1",
-  maxPayloadSizeKB: 9668.49,
-  protocol: "grpc",
-  compress: "deflate",
-  httpCompress: "none",
-  httpTracesEndpointOverride: "<value>",
-  httpMetricsEndpointOverride: "<value>",
-  httpLogsEndpointOverride: "<value>",
-  metadata: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
-  concurrency: 4235.39,
-  timeoutSec: 772.12,
-  flushPeriodSec: 5417.54,
-  failedRequestLoggingMode: "none",
-  connectionTimeout: 6088.29,
-  keepAliveTime: 1008.72,
-  keepAlive: false,
-  onBackpressure: "queue",
-  description: "joshingly wiggly boiling until shudder adjourn",
-  rejectUnauthorized: true,
-  useRoundRobinDns: true,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  safeHeaders: [
-    "<value 1>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  tls: {
-    disabled: false,
-    rejectUnauthorized: false,
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1",
-  },
-  pqStrictOrdering: false,
-  pqRatePerSec: 3707.38,
-  pqMode: "error",
-  pqMaxBufferSize: 4407.27,
-  pqMaxBackpressureSec: 4610.02,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "block",
-  pqControls: {},
+  protocol: "http",
 };
 ```
 

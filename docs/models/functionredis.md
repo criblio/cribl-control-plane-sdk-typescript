@@ -7,25 +7,15 @@ import { FunctionRedis } from "cribl-control-plane/models";
 
 let value: FunctionRedis = {
   __filename: "example.file",
-  asyncTimeout: 2267.56,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "redis",
-  loadTime: 1926.38,
-  modTime: 768.23,
+  loadTime: 2267.56,
+  modTime: 2330.02,
   name: "<value>",
-  sync: true,
   uischema: {
     "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

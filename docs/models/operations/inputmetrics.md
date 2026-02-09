@@ -8,60 +8,7 @@ import { InputMetrics } from "cribl-control-plane/models/operations";
 let value: InputMetrics = {
   id: "<id>",
   type: "metrics",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "untried-issue.org",
-  udpPort: 5392.88,
-  tcpPort: 1494.72,
-  maxBufferSize: 3461.98,
-  ipWhitelistRegex: "<value>",
-  enableProxyHeader: true,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 9826.8,
-  description:
-    "free antelope dependent mushy bandwidth internal adaptation gosh",
+  host: "clueless-heating.com",
 };
 ```
 

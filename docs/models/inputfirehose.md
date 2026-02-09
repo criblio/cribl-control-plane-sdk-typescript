@@ -6,71 +6,9 @@
 import { InputFirehose } from "cribl-control-plane/models";
 
 let value: InputFirehose = {
-  id: "<id>",
   type: "firehose",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "timely-bathrobe.com",
-  port: 2198.14,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 6680.86,
-  maxRequestsPerSocket: 572688,
-  enableProxyHeader: false,
-  captureHeaders: false,
-  activityLogSampleRate: 1752.7,
-  requestTimeout: 8819.28,
-  socketTimeout: 9917.89,
-  keepAliveTimeout: 5197.13,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description:
-    "meh grizzled righteously clonk against sternly oh whoever duh finally",
+  host: "big-reservation.info",
+  port: 6191.54,
 };
 ```
 

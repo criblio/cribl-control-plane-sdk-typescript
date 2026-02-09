@@ -6,9 +6,7 @@
 import { CertOptions } from "cribl-control-plane/models";
 
 let value: CertOptions = {
-  certificateName: "<value>",
   privKeyPath: "<value>",
-  passphrase: "<value>",
   certPath: "<value>",
 };
 ```

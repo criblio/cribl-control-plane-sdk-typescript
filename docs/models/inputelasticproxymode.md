@@ -7,17 +7,6 @@ import { InputElasticProxyMode } from "cribl-control-plane/models";
 
 let value: InputElasticProxyMode = {
   enabled: true,
-  authType: "secret",
-  username: "Sidney26",
-  password: "XZNh3Ay_8XKD4F0",
-  credentialsSecret: "<value>",
-  url: "https://chilly-pigsty.org/",
-  rejectUnauthorized: true,
-  removeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  timeoutSec: 4162.03,
 };
 ```
 

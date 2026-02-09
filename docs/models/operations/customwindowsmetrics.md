@@ -5,41 +5,7 @@
 ```typescript
 import { CustomWindowsMetrics } from "cribl-control-plane/models/operations";
 
-let value: CustomWindowsMetrics = {
-  system: {
-    mode: "custom",
-    detail: true,
-  },
-  cpu: {
-    mode: "custom",
-    perCpu: false,
-    detail: true,
-    time: true,
-  },
-  memory: {
-    mode: "custom",
-    detail: false,
-  },
-  network: {
-    mode: "custom",
-    detail: false,
-    protocols: false,
-    devices: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    perInterface: true,
-  },
-  disk: {
-    mode: "custom",
-    perVolume: true,
-    detail: true,
-    volumes: [
-      "<value 1>",
-    ],
-  },
-};
+let value: CustomWindowsMetrics = {};
 ```
 
 ## Fields

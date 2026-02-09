@@ -9,23 +9,8 @@ let value:
   RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther = {
     discoverMethod: "other",
     discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestParams: "<value>",
     discoverType: "none",
     discoverUrl: "https://grave-incandescence.biz/",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: false,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: false,
   };
 ```
 

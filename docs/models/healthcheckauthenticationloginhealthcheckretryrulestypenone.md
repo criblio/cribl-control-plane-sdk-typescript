@@ -7,11 +7,6 @@ import { HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone } from "cri
 
 let value: HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone = {
   type: "none",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
 };
 ```
 

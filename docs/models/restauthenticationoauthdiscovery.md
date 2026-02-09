@@ -11,21 +11,6 @@ const value: models.RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp = {
   discoverBody: "<value>",
   discoverType: "http",
   discoverUrl: "https://wordy-deck.net",
-  discoverVerb: "<value>",
-  discoverRequestParams: "<value>",
-  discoverRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "<value>",
-  },
-  discoverDataField: "<value>",
-  enableStrictDiscoverParsing: false,
-  discoverResponseFormat: "<value>",
-  enableDiscoverCode: false,
 };
 ```
 
@@ -35,7 +20,6 @@ const value: models.RestAuthenticationOauthRestDiscoveryDiscoverTypeHttp = {
 const value: models.RestAuthenticationOauthRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

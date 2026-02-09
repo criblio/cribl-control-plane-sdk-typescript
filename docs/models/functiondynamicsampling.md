@@ -7,25 +7,15 @@ import { FunctionDynamicSampling } from "cribl-control-plane/models";
 
 let value: FunctionDynamicSampling = {
   __filename: "example.file",
-  asyncTimeout: 2144.07,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "dynamic_sampling",
-  loadTime: 6490.45,
-  modTime: 1373.57,
+  loadTime: 2144.07,
+  modTime: 5208.81,
   name: "<value>",
-  sync: true,
   uischema: {
     "key": "<value>",
-    "key1": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

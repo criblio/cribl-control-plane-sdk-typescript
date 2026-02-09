@@ -8,12 +8,10 @@ import { RestAuthenticationNoneRestPaginationTypeRequestOffset } from "cribl-con
 let value: RestAuthenticationNoneRestPaginationTypeRequestOffset = {
   type: "request_offset",
   offsetField: "<value>",
-  offset: 9495.4,
   limitField: "<value>",
-  limit: 930.55,
-  totalRecordField: "<value>",
-  maxPages: 1270.42,
-  zeroIndexed: false,
+  limit: 9495.4,
+  maxPages: 930.55,
+  zeroIndexed: true,
 };
 ```
 

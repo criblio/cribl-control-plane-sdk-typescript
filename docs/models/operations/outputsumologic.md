@@ -8,66 +8,7 @@ import { OutputSumoLogic } from "cribl-control-plane/models/operations";
 let value: OutputSumoLogic = {
   id: "<id>",
   type: "sumo_logic",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  url: "https://obedient-hutch.info/",
-  customSource: "<value>",
-  customCategory: "<value>",
-  format: "json",
-  concurrency: 5053.29,
-  maxPayloadSizeKB: 9976.28,
-  maxPayloadEvents: 2041.58,
-  compress: true,
-  rejectUnauthorized: false,
-  timeoutSec: 9728.35,
-  flushPeriodSec: 9472.14,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "none",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "block",
-  totalMemoryLimitKB: 792.03,
-  description: "meander through entice godparent geez coagulate uncover",
-  pqStrictOrdering: false,
-  pqRatePerSec: 603.96,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 7781.86,
-  pqMaxBackpressureSec: 9201.74,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "block",
-  pqControls: {},
+  url: "https://expensive-disconnection.name/",
 };
 ```
 
