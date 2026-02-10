@@ -7,7 +7,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
-export class Statuses extends ClientSDK {
+export class VersionsStatuses extends ClientSDK {
   /**
    * Get the status of the current working tree
    *
