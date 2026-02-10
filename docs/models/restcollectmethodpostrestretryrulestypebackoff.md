@@ -1,23 +1,25 @@
 # RestCollectMethodPostRestRetryRulesTypeBackoff
 
-
-## Supported Types
-
-### `models.RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse`
+## Example Usage
 
 ```typescript
-const value:
-  models.RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderFalse = {
-    type: "<value>",
-  };
+import { RestCollectMethodPostRestRetryRulesTypeBackoff } from "cribl-control-plane/models";
+
+let value: RestCollectMethodPostRestRetryRulesTypeBackoff = {
+  type: "backoff",
+};
 ```
 
-### `models.RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue`
+## Fields
 
-```typescript
-const value:
-  models.RestCollectMethodPostRestRetryRulesTypeBackoffEnableHeaderTrue = {
-    type: "<value>",
-  };
-```
-
+| Field                                             | Type                                              | Required                                          | Description                                       |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| `type`                                            | *"backoff"*                                       | :heavy_check_mark:                                | The algorithm to use when performing HTTP retries |
+| `interval`                                        | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `limit`                                           | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `multiplier`                                      | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `maxIntervalMs`                                   | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `codes`                                           | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `enableHeader`                                    | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `retryConnectTimeout`                             | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `retryConnectReset`                               | *any*                                             | :heavy_minus_sign:                                | N/A                                               |

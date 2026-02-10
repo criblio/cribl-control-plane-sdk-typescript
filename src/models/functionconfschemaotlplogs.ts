@@ -6,171 +6,40 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type OTLPLogsBatchOTLPLogsTrue = {
+export type FunctionConfSchemaOtlpLogs = {
+  dropNonLogEvents?: boolean | undefined;
   /**
    * Batch OTLP log records by shared top-level `resource` attributes
    */
   batchOTLPLogs?: boolean | undefined;
-  /**
-   * Number of log records after which a batch will be sent, regardless of the timeout
-   */
-  sendBatchSize?: number | undefined;
-  /**
-   * Time duration after which a batch will be sent, regardless of size
-   */
-  timeout?: number | undefined;
-  /**
-   * Maximum batch size. Enter 0 for no maximum.
-   */
-  sendBatchMaxSize?: number | undefined;
-  /**
-   * When set, this processor will create one batcher instance per distinct combination of values in the metadata
-   */
-  metadataKeys?: Array<any> | undefined;
-  /**
-   * Limit the number of unique combinations of metadata key values that will be processed over the lifetime of the process. After the limit is reached, events with new metadata key value combinations will be dropped.
-   */
-  metadataCardinalityLimit?: number | undefined;
-  dropNonLogEvents?: boolean | undefined;
 };
-
-export type OTLPLogsBatchOTLPLogsFalse = {
-  /**
-   * Batch OTLP log records by shared top-level `resource` attributes
-   */
-  batchOTLPLogs?: boolean | undefined;
-  dropNonLogEvents?: boolean | undefined;
-};
-
-export type FunctionConfSchemaOtlpLogs =
-  | OTLPLogsBatchOTLPLogsFalse
-  | OTLPLogsBatchOTLPLogsTrue;
-
-/** @internal */
-export const OTLPLogsBatchOTLPLogsTrue$inboundSchema: z.ZodType<
-  OTLPLogsBatchOTLPLogsTrue,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  batchOTLPLogs: types.optional(types.boolean()),
-  sendBatchSize: types.optional(types.number()),
-  timeout: types.optional(types.number()),
-  sendBatchMaxSize: types.optional(types.number()),
-  metadataKeys: types.optional(z.array(z.any())),
-  metadataCardinalityLimit: types.optional(types.number()),
-  dropNonLogEvents: types.optional(types.boolean()),
-});
-/** @internal */
-export type OTLPLogsBatchOTLPLogsTrue$Outbound = {
-  batchOTLPLogs?: boolean | undefined;
-  sendBatchSize?: number | undefined;
-  timeout?: number | undefined;
-  sendBatchMaxSize?: number | undefined;
-  metadataKeys?: Array<any> | undefined;
-  metadataCardinalityLimit?: number | undefined;
-  dropNonLogEvents?: boolean | undefined;
-};
-
-/** @internal */
-export const OTLPLogsBatchOTLPLogsTrue$outboundSchema: z.ZodType<
-  OTLPLogsBatchOTLPLogsTrue$Outbound,
-  z.ZodTypeDef,
-  OTLPLogsBatchOTLPLogsTrue
-> = z.object({
-  batchOTLPLogs: z.boolean().optional(),
-  sendBatchSize: z.number().optional(),
-  timeout: z.number().optional(),
-  sendBatchMaxSize: z.number().optional(),
-  metadataKeys: z.array(z.any()).optional(),
-  metadataCardinalityLimit: z.number().optional(),
-  dropNonLogEvents: z.boolean().optional(),
-});
-
-export function otlpLogsBatchOTLPLogsTrueToJSON(
-  otlpLogsBatchOTLPLogsTrue: OTLPLogsBatchOTLPLogsTrue,
-): string {
-  return JSON.stringify(
-    OTLPLogsBatchOTLPLogsTrue$outboundSchema.parse(otlpLogsBatchOTLPLogsTrue),
-  );
-}
-export function otlpLogsBatchOTLPLogsTrueFromJSON(
-  jsonString: string,
-): SafeParseResult<OTLPLogsBatchOTLPLogsTrue, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OTLPLogsBatchOTLPLogsTrue$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OTLPLogsBatchOTLPLogsTrue' from JSON`,
-  );
-}
-
-/** @internal */
-export const OTLPLogsBatchOTLPLogsFalse$inboundSchema: z.ZodType<
-  OTLPLogsBatchOTLPLogsFalse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  batchOTLPLogs: types.optional(types.boolean()),
-  dropNonLogEvents: types.optional(types.boolean()),
-});
-/** @internal */
-export type OTLPLogsBatchOTLPLogsFalse$Outbound = {
-  batchOTLPLogs?: boolean | undefined;
-  dropNonLogEvents?: boolean | undefined;
-};
-
-/** @internal */
-export const OTLPLogsBatchOTLPLogsFalse$outboundSchema: z.ZodType<
-  OTLPLogsBatchOTLPLogsFalse$Outbound,
-  z.ZodTypeDef,
-  OTLPLogsBatchOTLPLogsFalse
-> = z.object({
-  batchOTLPLogs: z.boolean().optional(),
-  dropNonLogEvents: z.boolean().optional(),
-});
-
-export function otlpLogsBatchOTLPLogsFalseToJSON(
-  otlpLogsBatchOTLPLogsFalse: OTLPLogsBatchOTLPLogsFalse,
-): string {
-  return JSON.stringify(
-    OTLPLogsBatchOTLPLogsFalse$outboundSchema.parse(otlpLogsBatchOTLPLogsFalse),
-  );
-}
-export function otlpLogsBatchOTLPLogsFalseFromJSON(
-  jsonString: string,
-): SafeParseResult<OTLPLogsBatchOTLPLogsFalse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OTLPLogsBatchOTLPLogsFalse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OTLPLogsBatchOTLPLogsFalse' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionConfSchemaOtlpLogs$inboundSchema: z.ZodType<
   FunctionConfSchemaOtlpLogs,
   z.ZodTypeDef,
   unknown
-> = smartUnion([
-  z.lazy(() => OTLPLogsBatchOTLPLogsFalse$inboundSchema),
-  z.lazy(() => OTLPLogsBatchOTLPLogsTrue$inboundSchema),
-]);
+> = z.object({
+  dropNonLogEvents: types.optional(types.boolean()),
+  batchOTLPLogs: types.optional(types.boolean()),
+});
 /** @internal */
-export type FunctionConfSchemaOtlpLogs$Outbound =
-  | OTLPLogsBatchOTLPLogsFalse$Outbound
-  | OTLPLogsBatchOTLPLogsTrue$Outbound;
+export type FunctionConfSchemaOtlpLogs$Outbound = {
+  dropNonLogEvents?: boolean | undefined;
+  batchOTLPLogs?: boolean | undefined;
+};
 
 /** @internal */
 export const FunctionConfSchemaOtlpLogs$outboundSchema: z.ZodType<
   FunctionConfSchemaOtlpLogs$Outbound,
   z.ZodTypeDef,
   FunctionConfSchemaOtlpLogs
-> = smartUnion([
-  z.lazy(() => OTLPLogsBatchOTLPLogsFalse$outboundSchema),
-  z.lazy(() => OTLPLogsBatchOTLPLogsTrue$outboundSchema),
-]);
+> = z.object({
+  dropNonLogEvents: z.boolean().optional(),
+  batchOTLPLogs: z.boolean().optional(),
+});
 
 export function functionConfSchemaOtlpLogsToJSON(
   functionConfSchemaOtlpLogs: FunctionConfSchemaOtlpLogs,

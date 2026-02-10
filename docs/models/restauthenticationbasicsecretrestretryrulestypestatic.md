@@ -1,25 +1,25 @@
 # RestAuthenticationBasicSecretRestRetryRulesTypeStatic
 
-
-## Supported Types
-
-### `models.RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse`
+## Example Usage
 
 ```typescript
-const value:
-  models.RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse =
-    {
-      type: "<value>",
-    };
+import { RestAuthenticationBasicSecretRestRetryRulesTypeStatic } from "cribl-control-plane/models";
+
+let value: RestAuthenticationBasicSecretRestRetryRulesTypeStatic = {
+  type: "static",
+};
 ```
 
-### `models.RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue`
+## Fields
 
-```typescript
-const value:
-  models.RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue =
-    {
-      type: "<value>",
-    };
-```
-
+| Field                                             | Type                                              | Required                                          | Description                                       |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| `type`                                            | *"static"*                                        | :heavy_check_mark:                                | The algorithm to use when performing HTTP retries |
+| `interval`                                        | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `limit`                                           | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `codes`                                           | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `enableHeader`                                    | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `retryConnectTimeout`                             | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `retryConnectReset`                               | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `multiplier`                                      | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+| `maxIntervalMs`                                   | *any*                                             | :heavy_minus_sign:                                | N/A                                               |

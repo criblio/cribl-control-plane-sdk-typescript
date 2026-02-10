@@ -1,61 +1,26 @@
 # PipelineFunctionSerdeConf
 
-
-## Supported Types
-
-### `models.SerdeTypeKvp`
+## Example Usage
 
 ```typescript
-const value: models.SerdeTypeKvp = {
-  type: "kvp",
-  mode: "reserialize",
-};
-```
+import { PipelineFunctionSerdeConf } from "cribl-control-plane/models";
 
-### `models.SerdeTypeDelim`
-
-```typescript
-const value: models.SerdeTypeDelim = {
-  type: "delim",
-  mode: "reserialize",
-};
-```
-
-### `models.SerdeTypeCsv`
-
-```typescript
-const value: models.SerdeTypeCsv = {
-  type: "csv",
-  mode: "reserialize",
-};
-```
-
-### `models.SerdeTypeJson`
-
-```typescript
-const value: models.SerdeTypeJson = {
-  type: "json",
-  mode: "reserialize",
-};
-```
-
-### `models.SerdeTypeRegex`
-
-```typescript
-const value: models.SerdeTypeRegex = {
-  type: "regex",
-  regex: "<value>",
+let value: PipelineFunctionSerdeConf = {
   mode: "extract",
-};
-```
-
-### `models.SerdeTypeGrok`
-
-```typescript
-const value: models.SerdeTypeGrok = {
   type: "grok",
-  pattern: "<value>",
-  mode: "extract",
 };
 ```
 
+## Fields
+
+| Field                                                                                       | Type                                                                                        | Required                                                                                    | Description                                                                                 |
+| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `mode`                                                                                      | [models.OperationMode](../models/operationmode.md)                                          | :heavy_check_mark:                                                                          | Extract creates new fields. Reserialize extracts and filters fields, and then reserializes. |
+| `type`                                                                                      | [models.TypeOptions](../models/typeoptions.md)                                              | :heavy_check_mark:                                                                          | Parser or formatter type to use                                                             |
+| `delimChar`                                                                                 | *any*                                                                                       | :heavy_minus_sign:                                                                          | N/A                                                                                         |
+| `quoteChar`                                                                                 | *any*                                                                                       | :heavy_minus_sign:                                                                          | N/A                                                                                         |
+| `escapeChar`                                                                                | *any*                                                                                       | :heavy_minus_sign:                                                                          | N/A                                                                                         |
+| `nullValue`                                                                                 | *any*                                                                                       | :heavy_minus_sign:                                                                          | N/A                                                                                         |
+| `srcField`                                                                                  | *string*                                                                                    | :heavy_minus_sign:                                                                          | Field containing text to be parsed                                                          |
+| `dstField`                                                                                  | *string*                                                                                    | :heavy_minus_sign:                                                                          | Name of the field to add fields to. Extract mode only.                                      |
+| `cleanFields`                                                                               | *any*                                                                                       | :heavy_minus_sign:                                                                          | N/A                                                                                         |

@@ -1,17 +1,18 @@
 # FunctionConfSchemaOtlpMetrics
 
-
-## Supported Types
-
-### `models.OTLPMetricsBatchOTLPMetricsFalse`
+## Example Usage
 
 ```typescript
-const value: models.OTLPMetricsBatchOTLPMetricsFalse = {};
+import { FunctionConfSchemaOtlpMetrics } from "cribl-control-plane/models";
+
+let value: FunctionConfSchemaOtlpMetrics = {};
 ```
 
-### `models.OTLPMetricsBatchOTLPMetricsTrue`
+## Fields
 
-```typescript
-const value: models.OTLPMetricsBatchOTLPMetricsTrue = {};
-```
-
+| Field                                                                                                                                                                                                  | Type                                                                                                                                                                                                   | Required                                                                                                                                                                                               | Description                                                                                                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `resourceAttributePrefixes`                                                                                                                                                                            | *string*[]                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                     | The prefixes of top-level attributes to add as resource attributes. Each attribute must match the regex pattern `^[a-zA-Z0-9_\.]+$`. Use Eval to copy nested attributes to the top level for matching. |
+| `dropNonMetricEvents`                                                                                                                                                                                  | *boolean*                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                     | N/A                                                                                                                                                                                                    |
+| `otlpVersion`                                                                                                                                                                                          | [models.OtlpVersionOptions](../models/otlpversionoptions.md)                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                     | N/A                                                                                                                                                                                                    |
+| `batchOTLPMetrics`                                                                                                                                                                                     | *boolean*                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                     | Batch OTLP metrics by shared top-level `resource` attributes                                                                                                                                           |

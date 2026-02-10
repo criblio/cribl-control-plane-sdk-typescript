@@ -1,22 +1,25 @@
 # PipelineFunctionLookupConf
 
-
-## Supported Types
-
-### `models.LookupDbLookupTrue`
+## Example Usage
 
 ```typescript
-const value: models.LookupDbLookupTrue = {
+import { PipelineFunctionLookupConf } from "cribl-control-plane/models";
+
+let value: PipelineFunctionLookupConf = {
   file: "<value>",
 };
 ```
 
-### `models.LookupDbLookupFalse`
+## Fields
 
-```typescript
-const value: models.LookupDbLookupFalse = {
-  matchMode: "exact",
-  file: "<value>",
-};
-```
-
+| Field                                                                                                                                        | Type                                                                                                                                         | Required                                                                                                                                     | Description                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `file`                                                                                                                                       | *string*                                                                                                                                     | :heavy_check_mark:                                                                                                                           | Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv                                                      |
+| `dbLookup`                                                                                                                                   | *boolean*                                                                                                                                    | :heavy_minus_sign:                                                                                                                           | Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups. |
+| `matchMode`                                                                                                                                  | *any*                                                                                                                                        | :heavy_minus_sign:                                                                                                                           | N/A                                                                                                                                          |
+| `matchType`                                                                                                                                  | *any*                                                                                                                                        | :heavy_minus_sign:                                                                                                                           | N/A                                                                                                                                          |
+| `reloadPeriodSec`                                                                                                                            | *any*                                                                                                                                        | :heavy_minus_sign:                                                                                                                           | N/A                                                                                                                                          |
+| `inFields`                                                                                                                                   | [models.InField](../models/infield.md)[]                                                                                                     | :heavy_minus_sign:                                                                                                                           | Fields that should be used to key into the lookup table                                                                                      |
+| `outFields`                                                                                                                                  | [models.OutField](../models/outfield.md)[]                                                                                                   | :heavy_minus_sign:                                                                                                                           | Fields to add to events after matching lookup. Defaults to all if not specified.                                                             |
+| `addToEvent`                                                                                                                                 | *boolean*                                                                                                                                    | :heavy_minus_sign:                                                                                                                           | Add the looked-up values to _raw, as key=value pairs                                                                                         |
+| `ignoreCase`                                                                                                                                 | *any*                                                                                                                                        | :heavy_minus_sign:                                                                                                                           | N/A                                                                                                                                          |

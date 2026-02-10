@@ -4,17 +4,57 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
-import { discriminatedUnion } from "../types/discriminatedUnion.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type SerializeTypeCsv = {
+/**
+ * Data output format
+ */
+export const PipelineFunctionSerializeType = {
+  /**
+   * CSV
+   */
+  Csv: "csv",
+  /**
+   * Extended Log File Format
+   */
+  Elff: "elff",
+  /**
+   * Common Log Format
+   */
+  Clf: "clf",
+  /**
+   * Key=Value Pairs
+   */
+  Kvp: "kvp",
+  /**
+   * JSON Object
+   */
+  Json: "json",
+  /**
+   * Delimited values
+   */
+  Delim: "delim",
+} as const;
+/**
+ * Data output format
+ */
+export type PipelineFunctionSerializeType = OpenEnum<
+  typeof PipelineFunctionSerializeType
+>;
+
+export type PipelineFunctionSerializeConf = {
   /**
    * Data output format
    */
-  type: "csv";
+  type: PipelineFunctionSerializeType;
+  delimChar?: any | undefined;
+  quoteChar?: any | undefined;
+  escapeChar?: any | undefined;
+  nullValue?: any | undefined;
   /**
    * Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
    */
@@ -28,78 +68,6 @@ export type SerializeTypeCsv = {
    */
   dstField?: string | undefined;
 };
-
-export type SerializeTypeDelim = {
-  /**
-   * Data output format
-   */
-  type: "delim";
-  /**
-   * Delimiter character to use to split values. If left blank, will default to ','.
-   */
-  delimChar?: string | undefined;
-  /**
-   * Character used to quote literal values. If left blank, will default to '"'.
-   */
-  quoteChar?: string | undefined;
-  /**
-   * Escape character used to escape delimiter or quote character. If left blank, will default to the Quote char.
-   */
-  escapeChar?: string | undefined;
-  /**
-   * Field value representing the null value. Null fields will be omitted.
-   */
-  nullValue?: string | undefined;
-  /**
-   * Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
-   */
-  fields?: Array<string> | undefined;
-  /**
-   * Field containing object to serialize. Leave blank to serialize top-level event fields.
-   */
-  srcField?: string | undefined;
-  /**
-   * Field to serialize data to
-   */
-  dstField?: string | undefined;
-};
-
-export type SerializeTypeKvp = {
-  /**
-   * Data output format
-   */
-  type: "kvp";
-  /**
-   * Clean field names by replacing non-[a-zA-Z0-9] characters with _
-   */
-  cleanFields?: boolean | undefined;
-  /**
-   * Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
-   */
-  fields?: Array<string> | undefined;
-  /**
-   * Delimiter used to separate key=value pairs. Defaults to a single space character. Should not have common characters with key-value delimiter.
-   */
-  pairDelimiter?: string | undefined;
-  /**
-   * Delimiter used to separate key and value in pair. Defaults to a '='. Should not have common characters with pair delimiter.
-   */
-  keyValueDelimiter?: string | undefined;
-  /**
-   * Field containing object to serialize. Leave blank to serialize top-level event fields.
-   */
-  srcField?: string | undefined;
-  /**
-   * Field to serialize data to
-   */
-  dstField?: string | undefined;
-};
-
-export type PipelineFunctionSerializeConf =
-  | SerializeTypeKvp
-  | SerializeTypeDelim
-  | SerializeTypeCsv
-  | discriminatedUnionTypes.Unknown<"type">;
 
 export type PipelineFunctionSerialize = {
   /**
@@ -122,11 +90,7 @@ export type PipelineFunctionSerialize = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf:
-    | SerializeTypeKvp
-    | SerializeTypeDelim
-    | SerializeTypeCsv
-    | discriminatedUnionTypes.Unknown<"type">;
+  conf: PipelineFunctionSerializeConf;
   /**
    * Group ID
    */
@@ -134,196 +98,60 @@ export type PipelineFunctionSerialize = {
 };
 
 /** @internal */
-export const SerializeTypeCsv$inboundSchema: z.ZodType<
-  SerializeTypeCsv,
+export const PipelineFunctionSerializeType$inboundSchema: z.ZodType<
+  PipelineFunctionSerializeType,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: types.literal("csv"),
-  fields: types.optional(z.array(types.string())),
-  srcField: types.optional(types.string()),
-  dstField: types.optional(types.string()),
-});
+> = openEnums.inboundSchema(PipelineFunctionSerializeType);
 /** @internal */
-export type SerializeTypeCsv$Outbound = {
-  type: "csv";
-  fields?: Array<string> | undefined;
-  srcField?: string | undefined;
-  dstField?: string | undefined;
-};
-
-/** @internal */
-export const SerializeTypeCsv$outboundSchema: z.ZodType<
-  SerializeTypeCsv$Outbound,
+export const PipelineFunctionSerializeType$outboundSchema: z.ZodType<
+  string,
   z.ZodTypeDef,
-  SerializeTypeCsv
-> = z.object({
-  type: z.literal("csv"),
-  fields: z.array(z.string()).optional(),
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
-});
-
-export function serializeTypeCsvToJSON(
-  serializeTypeCsv: SerializeTypeCsv,
-): string {
-  return JSON.stringify(
-    SerializeTypeCsv$outboundSchema.parse(serializeTypeCsv),
-  );
-}
-export function serializeTypeCsvFromJSON(
-  jsonString: string,
-): SafeParseResult<SerializeTypeCsv, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SerializeTypeCsv$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SerializeTypeCsv' from JSON`,
-  );
-}
-
-/** @internal */
-export const SerializeTypeDelim$inboundSchema: z.ZodType<
-  SerializeTypeDelim,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: types.literal("delim"),
-  delimChar: types.optional(types.string()),
-  quoteChar: types.optional(types.string()),
-  escapeChar: types.optional(types.string()),
-  nullValue: types.optional(types.string()),
-  fields: types.optional(z.array(types.string())),
-  srcField: types.optional(types.string()),
-  dstField: types.optional(types.string()),
-});
-/** @internal */
-export type SerializeTypeDelim$Outbound = {
-  type: "delim";
-  delimChar?: string | undefined;
-  quoteChar?: string | undefined;
-  escapeChar?: string | undefined;
-  nullValue?: string | undefined;
-  fields?: Array<string> | undefined;
-  srcField?: string | undefined;
-  dstField?: string | undefined;
-};
-
-/** @internal */
-export const SerializeTypeDelim$outboundSchema: z.ZodType<
-  SerializeTypeDelim$Outbound,
-  z.ZodTypeDef,
-  SerializeTypeDelim
-> = z.object({
-  type: z.literal("delim"),
-  delimChar: z.string().optional(),
-  quoteChar: z.string().optional(),
-  escapeChar: z.string().optional(),
-  nullValue: z.string().optional(),
-  fields: z.array(z.string()).optional(),
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
-});
-
-export function serializeTypeDelimToJSON(
-  serializeTypeDelim: SerializeTypeDelim,
-): string {
-  return JSON.stringify(
-    SerializeTypeDelim$outboundSchema.parse(serializeTypeDelim),
-  );
-}
-export function serializeTypeDelimFromJSON(
-  jsonString: string,
-): SafeParseResult<SerializeTypeDelim, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SerializeTypeDelim$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SerializeTypeDelim' from JSON`,
-  );
-}
-
-/** @internal */
-export const SerializeTypeKvp$inboundSchema: z.ZodType<
-  SerializeTypeKvp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: types.literal("kvp"),
-  cleanFields: types.optional(types.boolean()),
-  fields: types.optional(z.array(types.string())),
-  pairDelimiter: types.optional(types.string()),
-  keyValueDelimiter: types.optional(types.string()),
-  srcField: types.optional(types.string()),
-  dstField: types.optional(types.string()),
-});
-/** @internal */
-export type SerializeTypeKvp$Outbound = {
-  type: "kvp";
-  cleanFields?: boolean | undefined;
-  fields?: Array<string> | undefined;
-  pairDelimiter?: string | undefined;
-  keyValueDelimiter?: string | undefined;
-  srcField?: string | undefined;
-  dstField?: string | undefined;
-};
-
-/** @internal */
-export const SerializeTypeKvp$outboundSchema: z.ZodType<
-  SerializeTypeKvp$Outbound,
-  z.ZodTypeDef,
-  SerializeTypeKvp
-> = z.object({
-  type: z.literal("kvp"),
-  cleanFields: z.boolean().optional(),
-  fields: z.array(z.string()).optional(),
-  pairDelimiter: z.string().optional(),
-  keyValueDelimiter: z.string().optional(),
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
-});
-
-export function serializeTypeKvpToJSON(
-  serializeTypeKvp: SerializeTypeKvp,
-): string {
-  return JSON.stringify(
-    SerializeTypeKvp$outboundSchema.parse(serializeTypeKvp),
-  );
-}
-export function serializeTypeKvpFromJSON(
-  jsonString: string,
-): SafeParseResult<SerializeTypeKvp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SerializeTypeKvp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SerializeTypeKvp' from JSON`,
-  );
-}
+  PipelineFunctionSerializeType
+> = openEnums.outboundSchema(PipelineFunctionSerializeType);
 
 /** @internal */
 export const PipelineFunctionSerializeConf$inboundSchema: z.ZodType<
   PipelineFunctionSerializeConf,
   z.ZodTypeDef,
   unknown
-> = discriminatedUnion("type", {
-  kvp: z.lazy(() => SerializeTypeKvp$inboundSchema),
-  delim: z.lazy(() => SerializeTypeDelim$inboundSchema),
-  csv: z.lazy(() => SerializeTypeCsv$inboundSchema),
+> = z.object({
+  type: PipelineFunctionSerializeType$inboundSchema,
+  delimChar: types.optional(z.any()),
+  quoteChar: types.optional(z.any()),
+  escapeChar: types.optional(z.any()),
+  nullValue: types.optional(z.any()),
+  fields: types.optional(z.array(types.string())),
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
 });
 /** @internal */
-export type PipelineFunctionSerializeConf$Outbound =
-  | SerializeTypeKvp$Outbound
-  | SerializeTypeDelim$Outbound
-  | SerializeTypeCsv$Outbound;
+export type PipelineFunctionSerializeConf$Outbound = {
+  type: string;
+  delimChar?: any | undefined;
+  quoteChar?: any | undefined;
+  escapeChar?: any | undefined;
+  nullValue?: any | undefined;
+  fields?: Array<string> | undefined;
+  srcField?: string | undefined;
+  dstField?: string | undefined;
+};
 
 /** @internal */
 export const PipelineFunctionSerializeConf$outboundSchema: z.ZodType<
   PipelineFunctionSerializeConf$Outbound,
   z.ZodTypeDef,
   PipelineFunctionSerializeConf
-> = z.union([
-  z.lazy(() => SerializeTypeKvp$outboundSchema),
-  z.lazy(() => SerializeTypeDelim$outboundSchema),
-  z.lazy(() => SerializeTypeCsv$outboundSchema),
-]);
+> = z.object({
+  type: PipelineFunctionSerializeType$outboundSchema,
+  delimChar: z.any().optional(),
+  quoteChar: z.any().optional(),
+  escapeChar: z.any().optional(),
+  nullValue: z.any().optional(),
+  fields: z.array(z.string()).optional(),
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
+});
 
 export function pipelineFunctionSerializeConfToJSON(
   pipelineFunctionSerializeConf: PipelineFunctionSerializeConf,
@@ -355,11 +183,7 @@ export const PipelineFunctionSerialize$inboundSchema: z.ZodType<
   description: types.optional(types.string()),
   disabled: types.optional(types.boolean()),
   final: types.optional(types.boolean()),
-  conf: discriminatedUnion("type", {
-    kvp: z.lazy(() => SerializeTypeKvp$inboundSchema),
-    delim: z.lazy(() => SerializeTypeDelim$inboundSchema),
-    csv: z.lazy(() => SerializeTypeCsv$inboundSchema),
-  }),
+  conf: z.lazy(() => PipelineFunctionSerializeConf$inboundSchema),
   groupId: types.optional(types.string()),
 });
 /** @internal */
@@ -369,10 +193,7 @@ export type PipelineFunctionSerialize$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf:
-    | SerializeTypeKvp$Outbound
-    | SerializeTypeDelim$Outbound
-    | SerializeTypeCsv$Outbound;
+  conf: PipelineFunctionSerializeConf$Outbound;
   groupId?: string | undefined;
 };
 
@@ -387,11 +208,7 @@ export const PipelineFunctionSerialize$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.union([
-    z.lazy(() => SerializeTypeKvp$outboundSchema),
-    z.lazy(() => SerializeTypeDelim$outboundSchema),
-    z.lazy(() => SerializeTypeCsv$outboundSchema),
-  ]),
+  conf: z.lazy(() => PipelineFunctionSerializeConf$outboundSchema),
   groupId: z.string().optional(),
 });
 
