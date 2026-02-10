@@ -40,13 +40,13 @@ const value: models.RestAuthenticationBasicSecret = {
 
 ```typescript
 const value: models.RestAuthenticationLogin = {
-  authentication: "login",
-  loginUrl: "https://swift-babushka.biz",
-  username: "Odell29",
-  password: "FLYm6snDntQzyN5",
+  authentication: "loginSecret",
+  loginUrl: "https://brisk-tuba.net/",
+  username: "Jerad.Kohler",
+  password: "TVRBk1ydeV0uuBr",
   loginBody: "<value>",
   authHeaderExpr: "<value>",
-  collectUrl: "https://empty-plain.net/",
+  collectUrl: "https://left-digestive.org/",
   collectMethod: "post",
 };
 ```
@@ -55,13 +55,13 @@ const value: models.RestAuthenticationLogin = {
 
 ```typescript
 const value: models.RestAuthenticationLoginSecret = {
-  authentication: "loginSecret",
-  loginUrl: "https://zesty-e-mail.name/",
+  authentication: "basic",
+  loginUrl: "https://obvious-appliance.com/",
   credentialsSecret: "<value>",
   loginBody: "<value>",
   authHeaderExpr: "<value>",
-  collectUrl: "https://swift-vestment.name/",
-  collectMethod: "post_with_body",
+  collectUrl: "https://rich-slipper.info/",
+  collectMethod: "post",
 };
 ```
 

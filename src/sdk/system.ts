@@ -4,18 +4,12 @@
 
 import { ClientSDK } from "../lib/sdks.js";
 import { Captures } from "./captures.js";
-import { Previews } from "./previews.js";
 import { Settings } from "./settings.js";
 
 export class System extends ClientSDK {
   private _captures?: Captures;
   get captures(): Captures {
     return (this._captures ??= new Captures(this._options));
-  }
-
-  private _previews?: Previews;
-  get previews(): Previews {
-    return (this._previews ??= new Previews(this._options));
   }
 
   private _settings?: Settings;

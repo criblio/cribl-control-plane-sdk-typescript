@@ -8,12 +8,13 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
  * The output metric type
  */
-export const PipelineFunctionAggregateMetricsMetricType = {
+export const AggregateMetricsCumulativeFalseMetricType = {
   Automatic: "automatic",
   Counter: "counter",
   Distribution: "distribution",
@@ -25,22 +26,22 @@ export const PipelineFunctionAggregateMetricsMetricType = {
 /**
  * The output metric type
  */
-export type PipelineFunctionAggregateMetricsMetricType = OpenEnum<
-  typeof PipelineFunctionAggregateMetricsMetricType
+export type AggregateMetricsCumulativeFalseMetricType = OpenEnum<
+  typeof AggregateMetricsCumulativeFalseMetricType
 >;
 
-export type Aggregation = {
+export type AggregateMetricsCumulativeFalseAggregation = {
   /**
    * The output metric type
    */
-  metricType: PipelineFunctionAggregateMetricsMetricType;
+  metricType: AggregateMetricsCumulativeFalseMetricType;
   /**
    * Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
    */
   agg: string;
 };
 
-export type PipelineFunctionAggregateMetricsAdd = {
+export type AggregateMetricsCumulativeFalseAdd = {
   name?: string | undefined;
   /**
    * JavaScript expression to compute the value (can be constant)
@@ -48,7 +49,19 @@ export type PipelineFunctionAggregateMetricsAdd = {
   value: string;
 };
 
-export type PipelineFunctionAggregateMetricsConf = {
+export type AggregateMetricsCumulativeFalse = {
+  /**
+   * Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
+   */
+  cumulative?: boolean | undefined;
+  /**
+   * The tumbling window tolerance to late events. Must be a valid time string (such as 10s).
+   */
+  lagTolerance?: string | undefined;
+  /**
+   * How long to wait before flushing a bucket that has not received events. Must be a valid time string (such as 10s).
+   */
+  idleTimeLimit?: string | undefined;
   /**
    * Pass through the original events along with the aggregation events
    */
@@ -72,7 +85,7 @@ export type PipelineFunctionAggregateMetricsConf = {
   /**
    * Combination of Aggregation function and output metric type
    */
-  aggregations: Array<Aggregation>;
+  aggregations: Array<AggregateMetricsCumulativeFalseAggregation>;
   /**
    * Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
    */
@@ -86,9 +99,98 @@ export type PipelineFunctionAggregateMetricsConf = {
    */
   flushMemLimit?: string | undefined;
   /**
+   * Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
+   */
+  shouldTreatDotsAsLiterals?: boolean | undefined;
+  /**
+   * Set of key-value pairs to evaluate and add/set
+   */
+  add?: Array<AggregateMetricsCumulativeFalseAdd> | undefined;
+  /**
+   * Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
+   */
+  flushOnInputClose?: boolean | undefined;
+};
+
+/**
+ * The output metric type
+ */
+export const AggregateMetricsCumulativeTrueMetricType = {
+  Automatic: "automatic",
+  Counter: "counter",
+  Distribution: "distribution",
+  Gauge: "gauge",
+  Histogram: "histogram",
+  Summary: "summary",
+  Timer: "timer",
+} as const;
+/**
+ * The output metric type
+ */
+export type AggregateMetricsCumulativeTrueMetricType = OpenEnum<
+  typeof AggregateMetricsCumulativeTrueMetricType
+>;
+
+export type AggregateMetricsCumulativeTrueAggregation = {
+  /**
+   * The output metric type
+   */
+  metricType: AggregateMetricsCumulativeTrueMetricType;
+  /**
+   * Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
+   */
+  agg: string;
+};
+
+export type AggregateMetricsCumulativeTrueAdd = {
+  name?: string | undefined;
+  /**
+   * JavaScript expression to compute the value (can be constant)
+   */
+  value: string;
+};
+
+export type AggregateMetricsCumulativeTrue = {
+  /**
    * Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
    */
   cumulative?: boolean | undefined;
+  /**
+   * Pass through the original events along with the aggregation events
+   */
+  passthrough?: boolean | undefined;
+  /**
+   * Preserve the structure of the original aggregation event's groupby fields
+   */
+  preserveGroupBys?: boolean | undefined;
+  /**
+   * Output only statistics that are sufficient for the supplied aggregations
+   */
+  sufficientStatsOnly?: boolean | undefined;
+  /**
+   * A prefix that is prepended to all of the fields output by this Aggregations Function
+   */
+  prefix?: string | undefined;
+  /**
+   * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
+   */
+  timeWindow: string;
+  /**
+   * Combination of Aggregation function and output metric type
+   */
+  aggregations: Array<AggregateMetricsCumulativeTrueAggregation>;
+  /**
+   * Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
+   */
+  groupbys?: Array<string> | undefined;
+  /**
+   * The maximum number of events to include in any given aggregation event
+   */
+  flushEventLimit?: number | undefined;
+  /**
+   * The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
+   */
+  flushMemLimit?: string | undefined;
   /**
    * Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
    */
@@ -96,12 +198,16 @@ export type PipelineFunctionAggregateMetricsConf = {
   /**
    * Set of key-value pairs to evaluate and add/set
    */
-  add?: Array<PipelineFunctionAggregateMetricsAdd> | undefined;
+  add?: Array<AggregateMetricsCumulativeTrueAdd> | undefined;
   /**
    * Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
    */
   flushOnInputClose?: boolean | undefined;
 };
+
+export type PipelineFunctionAggregateMetricsConf =
+  | AggregateMetricsCumulativeTrue
+  | AggregateMetricsCumulativeFalse;
 
 export type PipelineFunctionAggregateMetrics = {
   /**
@@ -124,7 +230,7 @@ export type PipelineFunctionAggregateMetrics = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionAggregateMetricsConf;
+  conf: AggregateMetricsCumulativeTrue | AggregateMetricsCumulativeFalse;
   /**
    * Group ID
    */
@@ -132,55 +238,69 @@ export type PipelineFunctionAggregateMetrics = {
 };
 
 /** @internal */
-export const PipelineFunctionAggregateMetricsMetricType$inboundSchema:
-  z.ZodType<PipelineFunctionAggregateMetricsMetricType, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(PipelineFunctionAggregateMetricsMetricType);
-/** @internal */
-export const PipelineFunctionAggregateMetricsMetricType$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, PipelineFunctionAggregateMetricsMetricType> =
-    openEnums.outboundSchema(PipelineFunctionAggregateMetricsMetricType);
-
-/** @internal */
-export const Aggregation$inboundSchema: z.ZodType<
-  Aggregation,
+export const AggregateMetricsCumulativeFalseMetricType$inboundSchema: z.ZodType<
+  AggregateMetricsCumulativeFalseMetricType,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  metricType: PipelineFunctionAggregateMetricsMetricType$inboundSchema,
-  agg: types.string(),
-});
+> = openEnums.inboundSchema(AggregateMetricsCumulativeFalseMetricType);
 /** @internal */
-export type Aggregation$Outbound = {
+export const AggregateMetricsCumulativeFalseMetricType$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, AggregateMetricsCumulativeFalseMetricType> =
+    openEnums.outboundSchema(AggregateMetricsCumulativeFalseMetricType);
+
+/** @internal */
+export const AggregateMetricsCumulativeFalseAggregation$inboundSchema:
+  z.ZodType<AggregateMetricsCumulativeFalseAggregation, z.ZodTypeDef, unknown> =
+    z.object({
+      metricType: AggregateMetricsCumulativeFalseMetricType$inboundSchema,
+      agg: types.string(),
+    });
+/** @internal */
+export type AggregateMetricsCumulativeFalseAggregation$Outbound = {
   metricType: string;
   agg: string;
 };
 
 /** @internal */
-export const Aggregation$outboundSchema: z.ZodType<
-  Aggregation$Outbound,
-  z.ZodTypeDef,
-  Aggregation
-> = z.object({
-  metricType: PipelineFunctionAggregateMetricsMetricType$outboundSchema,
-  agg: z.string(),
-});
+export const AggregateMetricsCumulativeFalseAggregation$outboundSchema:
+  z.ZodType<
+    AggregateMetricsCumulativeFalseAggregation$Outbound,
+    z.ZodTypeDef,
+    AggregateMetricsCumulativeFalseAggregation
+  > = z.object({
+    metricType: AggregateMetricsCumulativeFalseMetricType$outboundSchema,
+    agg: z.string(),
+  });
 
-export function aggregationToJSON(aggregation: Aggregation): string {
-  return JSON.stringify(Aggregation$outboundSchema.parse(aggregation));
+export function aggregateMetricsCumulativeFalseAggregationToJSON(
+  aggregateMetricsCumulativeFalseAggregation:
+    AggregateMetricsCumulativeFalseAggregation,
+): string {
+  return JSON.stringify(
+    AggregateMetricsCumulativeFalseAggregation$outboundSchema.parse(
+      aggregateMetricsCumulativeFalseAggregation,
+    ),
+  );
 }
-export function aggregationFromJSON(
+export function aggregateMetricsCumulativeFalseAggregationFromJSON(
   jsonString: string,
-): SafeParseResult<Aggregation, SDKValidationError> {
+): SafeParseResult<
+  AggregateMetricsCumulativeFalseAggregation,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
-    (x) => Aggregation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Aggregation' from JSON`,
+    (x) =>
+      AggregateMetricsCumulativeFalseAggregation$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'AggregateMetricsCumulativeFalseAggregation' from JSON`,
   );
 }
 
 /** @internal */
-export const PipelineFunctionAggregateMetricsAdd$inboundSchema: z.ZodType<
-  PipelineFunctionAggregateMetricsAdd,
+export const AggregateMetricsCumulativeFalseAdd$inboundSchema: z.ZodType<
+  AggregateMetricsCumulativeFalseAdd,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -188,38 +308,321 @@ export const PipelineFunctionAggregateMetricsAdd$inboundSchema: z.ZodType<
   value: types.string(),
 });
 /** @internal */
-export type PipelineFunctionAggregateMetricsAdd$Outbound = {
+export type AggregateMetricsCumulativeFalseAdd$Outbound = {
   name?: string | undefined;
   value: string;
 };
 
 /** @internal */
-export const PipelineFunctionAggregateMetricsAdd$outboundSchema: z.ZodType<
-  PipelineFunctionAggregateMetricsAdd$Outbound,
+export const AggregateMetricsCumulativeFalseAdd$outboundSchema: z.ZodType<
+  AggregateMetricsCumulativeFalseAdd$Outbound,
   z.ZodTypeDef,
-  PipelineFunctionAggregateMetricsAdd
+  AggregateMetricsCumulativeFalseAdd
 > = z.object({
   name: z.string().optional(),
   value: z.string(),
 });
 
-export function pipelineFunctionAggregateMetricsAddToJSON(
-  pipelineFunctionAggregateMetricsAdd: PipelineFunctionAggregateMetricsAdd,
+export function aggregateMetricsCumulativeFalseAddToJSON(
+  aggregateMetricsCumulativeFalseAdd: AggregateMetricsCumulativeFalseAdd,
 ): string {
   return JSON.stringify(
-    PipelineFunctionAggregateMetricsAdd$outboundSchema.parse(
-      pipelineFunctionAggregateMetricsAdd,
+    AggregateMetricsCumulativeFalseAdd$outboundSchema.parse(
+      aggregateMetricsCumulativeFalseAdd,
     ),
   );
 }
-export function pipelineFunctionAggregateMetricsAddFromJSON(
+export function aggregateMetricsCumulativeFalseAddFromJSON(
   jsonString: string,
-): SafeParseResult<PipelineFunctionAggregateMetricsAdd, SDKValidationError> {
+): SafeParseResult<AggregateMetricsCumulativeFalseAdd, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      PipelineFunctionAggregateMetricsAdd$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineFunctionAggregateMetricsAdd' from JSON`,
+      AggregateMetricsCumulativeFalseAdd$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AggregateMetricsCumulativeFalseAdd' from JSON`,
+  );
+}
+
+/** @internal */
+export const AggregateMetricsCumulativeFalse$inboundSchema: z.ZodType<
+  AggregateMetricsCumulativeFalse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  cumulative: types.optional(types.boolean()),
+  lagTolerance: types.optional(types.string()),
+  idleTimeLimit: types.optional(types.string()),
+  passthrough: types.optional(types.boolean()),
+  preserveGroupBys: types.optional(types.boolean()),
+  sufficientStatsOnly: types.optional(types.boolean()),
+  prefix: types.optional(types.string()),
+  timeWindow: types.string(),
+  aggregations: z.array(
+    z.lazy(() => AggregateMetricsCumulativeFalseAggregation$inboundSchema),
+  ),
+  groupbys: types.optional(z.array(types.string())),
+  flushEventLimit: types.optional(types.number()),
+  flushMemLimit: types.optional(types.string()),
+  shouldTreatDotsAsLiterals: types.optional(types.boolean()),
+  add: types.optional(
+    z.array(z.lazy(() => AggregateMetricsCumulativeFalseAdd$inboundSchema)),
+  ),
+  flushOnInputClose: types.optional(types.boolean()),
+});
+/** @internal */
+export type AggregateMetricsCumulativeFalse$Outbound = {
+  cumulative?: boolean | undefined;
+  lagTolerance?: string | undefined;
+  idleTimeLimit?: string | undefined;
+  passthrough?: boolean | undefined;
+  preserveGroupBys?: boolean | undefined;
+  sufficientStatsOnly?: boolean | undefined;
+  prefix?: string | undefined;
+  timeWindow: string;
+  aggregations: Array<AggregateMetricsCumulativeFalseAggregation$Outbound>;
+  groupbys?: Array<string> | undefined;
+  flushEventLimit?: number | undefined;
+  flushMemLimit?: string | undefined;
+  shouldTreatDotsAsLiterals?: boolean | undefined;
+  add?: Array<AggregateMetricsCumulativeFalseAdd$Outbound> | undefined;
+  flushOnInputClose?: boolean | undefined;
+};
+
+/** @internal */
+export const AggregateMetricsCumulativeFalse$outboundSchema: z.ZodType<
+  AggregateMetricsCumulativeFalse$Outbound,
+  z.ZodTypeDef,
+  AggregateMetricsCumulativeFalse
+> = z.object({
+  cumulative: z.boolean().optional(),
+  lagTolerance: z.string().optional(),
+  idleTimeLimit: z.string().optional(),
+  passthrough: z.boolean().optional(),
+  preserveGroupBys: z.boolean().optional(),
+  sufficientStatsOnly: z.boolean().optional(),
+  prefix: z.string().optional(),
+  timeWindow: z.string(),
+  aggregations: z.array(
+    z.lazy(() => AggregateMetricsCumulativeFalseAggregation$outboundSchema),
+  ),
+  groupbys: z.array(z.string()).optional(),
+  flushEventLimit: z.number().optional(),
+  flushMemLimit: z.string().optional(),
+  shouldTreatDotsAsLiterals: z.boolean().optional(),
+  add: z.array(z.lazy(() => AggregateMetricsCumulativeFalseAdd$outboundSchema))
+    .optional(),
+  flushOnInputClose: z.boolean().optional(),
+});
+
+export function aggregateMetricsCumulativeFalseToJSON(
+  aggregateMetricsCumulativeFalse: AggregateMetricsCumulativeFalse,
+): string {
+  return JSON.stringify(
+    AggregateMetricsCumulativeFalse$outboundSchema.parse(
+      aggregateMetricsCumulativeFalse,
+    ),
+  );
+}
+export function aggregateMetricsCumulativeFalseFromJSON(
+  jsonString: string,
+): SafeParseResult<AggregateMetricsCumulativeFalse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AggregateMetricsCumulativeFalse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AggregateMetricsCumulativeFalse' from JSON`,
+  );
+}
+
+/** @internal */
+export const AggregateMetricsCumulativeTrueMetricType$inboundSchema: z.ZodType<
+  AggregateMetricsCumulativeTrueMetricType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(AggregateMetricsCumulativeTrueMetricType);
+/** @internal */
+export const AggregateMetricsCumulativeTrueMetricType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AggregateMetricsCumulativeTrueMetricType
+> = openEnums.outboundSchema(AggregateMetricsCumulativeTrueMetricType);
+
+/** @internal */
+export const AggregateMetricsCumulativeTrueAggregation$inboundSchema: z.ZodType<
+  AggregateMetricsCumulativeTrueAggregation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  metricType: AggregateMetricsCumulativeTrueMetricType$inboundSchema,
+  agg: types.string(),
+});
+/** @internal */
+export type AggregateMetricsCumulativeTrueAggregation$Outbound = {
+  metricType: string;
+  agg: string;
+};
+
+/** @internal */
+export const AggregateMetricsCumulativeTrueAggregation$outboundSchema:
+  z.ZodType<
+    AggregateMetricsCumulativeTrueAggregation$Outbound,
+    z.ZodTypeDef,
+    AggregateMetricsCumulativeTrueAggregation
+  > = z.object({
+    metricType: AggregateMetricsCumulativeTrueMetricType$outboundSchema,
+    agg: z.string(),
+  });
+
+export function aggregateMetricsCumulativeTrueAggregationToJSON(
+  aggregateMetricsCumulativeTrueAggregation:
+    AggregateMetricsCumulativeTrueAggregation,
+): string {
+  return JSON.stringify(
+    AggregateMetricsCumulativeTrueAggregation$outboundSchema.parse(
+      aggregateMetricsCumulativeTrueAggregation,
+    ),
+  );
+}
+export function aggregateMetricsCumulativeTrueAggregationFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  AggregateMetricsCumulativeTrueAggregation,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      AggregateMetricsCumulativeTrueAggregation$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'AggregateMetricsCumulativeTrueAggregation' from JSON`,
+  );
+}
+
+/** @internal */
+export const AggregateMetricsCumulativeTrueAdd$inboundSchema: z.ZodType<
+  AggregateMetricsCumulativeTrueAdd,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: types.optional(types.string()),
+  value: types.string(),
+});
+/** @internal */
+export type AggregateMetricsCumulativeTrueAdd$Outbound = {
+  name?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const AggregateMetricsCumulativeTrueAdd$outboundSchema: z.ZodType<
+  AggregateMetricsCumulativeTrueAdd$Outbound,
+  z.ZodTypeDef,
+  AggregateMetricsCumulativeTrueAdd
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+
+export function aggregateMetricsCumulativeTrueAddToJSON(
+  aggregateMetricsCumulativeTrueAdd: AggregateMetricsCumulativeTrueAdd,
+): string {
+  return JSON.stringify(
+    AggregateMetricsCumulativeTrueAdd$outboundSchema.parse(
+      aggregateMetricsCumulativeTrueAdd,
+    ),
+  );
+}
+export function aggregateMetricsCumulativeTrueAddFromJSON(
+  jsonString: string,
+): SafeParseResult<AggregateMetricsCumulativeTrueAdd, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AggregateMetricsCumulativeTrueAdd$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AggregateMetricsCumulativeTrueAdd' from JSON`,
+  );
+}
+
+/** @internal */
+export const AggregateMetricsCumulativeTrue$inboundSchema: z.ZodType<
+  AggregateMetricsCumulativeTrue,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  cumulative: types.optional(types.boolean()),
+  passthrough: types.optional(types.boolean()),
+  preserveGroupBys: types.optional(types.boolean()),
+  sufficientStatsOnly: types.optional(types.boolean()),
+  prefix: types.optional(types.string()),
+  timeWindow: types.string(),
+  aggregations: z.array(
+    z.lazy(() => AggregateMetricsCumulativeTrueAggregation$inboundSchema),
+  ),
+  groupbys: types.optional(z.array(types.string())),
+  flushEventLimit: types.optional(types.number()),
+  flushMemLimit: types.optional(types.string()),
+  shouldTreatDotsAsLiterals: types.optional(types.boolean()),
+  add: types.optional(
+    z.array(z.lazy(() => AggregateMetricsCumulativeTrueAdd$inboundSchema)),
+  ),
+  flushOnInputClose: types.optional(types.boolean()),
+});
+/** @internal */
+export type AggregateMetricsCumulativeTrue$Outbound = {
+  cumulative?: boolean | undefined;
+  passthrough?: boolean | undefined;
+  preserveGroupBys?: boolean | undefined;
+  sufficientStatsOnly?: boolean | undefined;
+  prefix?: string | undefined;
+  timeWindow: string;
+  aggregations: Array<AggregateMetricsCumulativeTrueAggregation$Outbound>;
+  groupbys?: Array<string> | undefined;
+  flushEventLimit?: number | undefined;
+  flushMemLimit?: string | undefined;
+  shouldTreatDotsAsLiterals?: boolean | undefined;
+  add?: Array<AggregateMetricsCumulativeTrueAdd$Outbound> | undefined;
+  flushOnInputClose?: boolean | undefined;
+};
+
+/** @internal */
+export const AggregateMetricsCumulativeTrue$outboundSchema: z.ZodType<
+  AggregateMetricsCumulativeTrue$Outbound,
+  z.ZodTypeDef,
+  AggregateMetricsCumulativeTrue
+> = z.object({
+  cumulative: z.boolean().optional(),
+  passthrough: z.boolean().optional(),
+  preserveGroupBys: z.boolean().optional(),
+  sufficientStatsOnly: z.boolean().optional(),
+  prefix: z.string().optional(),
+  timeWindow: z.string(),
+  aggregations: z.array(
+    z.lazy(() => AggregateMetricsCumulativeTrueAggregation$outboundSchema),
+  ),
+  groupbys: z.array(z.string()).optional(),
+  flushEventLimit: z.number().optional(),
+  flushMemLimit: z.string().optional(),
+  shouldTreatDotsAsLiterals: z.boolean().optional(),
+  add: z.array(z.lazy(() => AggregateMetricsCumulativeTrueAdd$outboundSchema))
+    .optional(),
+  flushOnInputClose: z.boolean().optional(),
+});
+
+export function aggregateMetricsCumulativeTrueToJSON(
+  aggregateMetricsCumulativeTrue: AggregateMetricsCumulativeTrue,
+): string {
+  return JSON.stringify(
+    AggregateMetricsCumulativeTrue$outboundSchema.parse(
+      aggregateMetricsCumulativeTrue,
+    ),
+  );
+}
+export function aggregateMetricsCumulativeTrueFromJSON(
+  jsonString: string,
+): SafeParseResult<AggregateMetricsCumulativeTrue, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AggregateMetricsCumulativeTrue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AggregateMetricsCumulativeTrue' from JSON`,
   );
 }
 
@@ -228,61 +631,24 @@ export const PipelineFunctionAggregateMetricsConf$inboundSchema: z.ZodType<
   PipelineFunctionAggregateMetricsConf,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  passthrough: types.optional(types.boolean()),
-  preserveGroupBys: types.optional(types.boolean()),
-  sufficientStatsOnly: types.optional(types.boolean()),
-  prefix: types.optional(types.string()),
-  timeWindow: types.string(),
-  aggregations: z.array(z.lazy(() => Aggregation$inboundSchema)),
-  groupbys: types.optional(z.array(types.string())),
-  flushEventLimit: types.optional(types.number()),
-  flushMemLimit: types.optional(types.string()),
-  cumulative: types.optional(types.boolean()),
-  shouldTreatDotsAsLiterals: types.optional(types.boolean()),
-  add: types.optional(
-    z.array(z.lazy(() => PipelineFunctionAggregateMetricsAdd$inboundSchema)),
-  ),
-  flushOnInputClose: types.optional(types.boolean()),
-});
+> = smartUnion([
+  z.lazy(() => AggregateMetricsCumulativeTrue$inboundSchema),
+  z.lazy(() => AggregateMetricsCumulativeFalse$inboundSchema),
+]);
 /** @internal */
-export type PipelineFunctionAggregateMetricsConf$Outbound = {
-  passthrough?: boolean | undefined;
-  preserveGroupBys?: boolean | undefined;
-  sufficientStatsOnly?: boolean | undefined;
-  prefix?: string | undefined;
-  timeWindow: string;
-  aggregations: Array<Aggregation$Outbound>;
-  groupbys?: Array<string> | undefined;
-  flushEventLimit?: number | undefined;
-  flushMemLimit?: string | undefined;
-  cumulative?: boolean | undefined;
-  shouldTreatDotsAsLiterals?: boolean | undefined;
-  add?: Array<PipelineFunctionAggregateMetricsAdd$Outbound> | undefined;
-  flushOnInputClose?: boolean | undefined;
-};
+export type PipelineFunctionAggregateMetricsConf$Outbound =
+  | AggregateMetricsCumulativeTrue$Outbound
+  | AggregateMetricsCumulativeFalse$Outbound;
 
 /** @internal */
 export const PipelineFunctionAggregateMetricsConf$outboundSchema: z.ZodType<
   PipelineFunctionAggregateMetricsConf$Outbound,
   z.ZodTypeDef,
   PipelineFunctionAggregateMetricsConf
-> = z.object({
-  passthrough: z.boolean().optional(),
-  preserveGroupBys: z.boolean().optional(),
-  sufficientStatsOnly: z.boolean().optional(),
-  prefix: z.string().optional(),
-  timeWindow: z.string(),
-  aggregations: z.array(z.lazy(() => Aggregation$outboundSchema)),
-  groupbys: z.array(z.string()).optional(),
-  flushEventLimit: z.number().optional(),
-  flushMemLimit: z.string().optional(),
-  cumulative: z.boolean().optional(),
-  shouldTreatDotsAsLiterals: z.boolean().optional(),
-  add: z.array(z.lazy(() => PipelineFunctionAggregateMetricsAdd$outboundSchema))
-    .optional(),
-  flushOnInputClose: z.boolean().optional(),
-});
+> = smartUnion([
+  z.lazy(() => AggregateMetricsCumulativeTrue$outboundSchema),
+  z.lazy(() => AggregateMetricsCumulativeFalse$outboundSchema),
+]);
 
 export function pipelineFunctionAggregateMetricsConfToJSON(
   pipelineFunctionAggregateMetricsConf: PipelineFunctionAggregateMetricsConf,
@@ -315,7 +681,10 @@ export const PipelineFunctionAggregateMetrics$inboundSchema: z.ZodType<
   description: types.optional(types.string()),
   disabled: types.optional(types.boolean()),
   final: types.optional(types.boolean()),
-  conf: z.lazy(() => PipelineFunctionAggregateMetricsConf$inboundSchema),
+  conf: smartUnion([
+    z.lazy(() => AggregateMetricsCumulativeTrue$inboundSchema),
+    z.lazy(() => AggregateMetricsCumulativeFalse$inboundSchema),
+  ]),
   groupId: types.optional(types.string()),
 });
 /** @internal */
@@ -325,7 +694,9 @@ export type PipelineFunctionAggregateMetrics$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionAggregateMetricsConf$Outbound;
+  conf:
+    | AggregateMetricsCumulativeTrue$Outbound
+    | AggregateMetricsCumulativeFalse$Outbound;
   groupId?: string | undefined;
 };
 
@@ -340,7 +711,10 @@ export const PipelineFunctionAggregateMetrics$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionAggregateMetricsConf$outboundSchema),
+  conf: smartUnion([
+    z.lazy(() => AggregateMetricsCumulativeTrue$outboundSchema),
+    z.lazy(() => AggregateMetricsCumulativeFalse$outboundSchema),
+  ]),
   groupId: z.string().optional(),
 });
 

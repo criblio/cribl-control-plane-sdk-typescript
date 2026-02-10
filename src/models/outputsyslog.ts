@@ -155,7 +155,7 @@ export type MessageFormat = OpenEnum<typeof MessageFormat>;
 /**
  * Timestamp format to use when serializing event's time field
  */
-export const TimestampFormat = {
+export const TimestampFormatEnum = {
   /**
    * Syslog
    */
@@ -168,7 +168,7 @@ export const TimestampFormat = {
 /**
  * Timestamp format to use when serializing event's time field
  */
-export type TimestampFormat = OpenEnum<typeof TimestampFormat>;
+export type TimestampFormatEnum = OpenEnum<typeof TimestampFormatEnum>;
 
 export type OutputSyslogPqControls = {};
 
@@ -217,7 +217,7 @@ export type OutputSyslog = {
   /**
    * Timestamp format to use when serializing event's time field
    */
-  timestampFormat?: TimestampFormat | undefined;
+  timestampFormat?: TimestampFormatEnum | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -392,17 +392,17 @@ export const MessageFormat$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(MessageFormat);
 
 /** @internal */
-export const TimestampFormat$inboundSchema: z.ZodType<
-  TimestampFormat,
+export const TimestampFormatEnum$inboundSchema: z.ZodType<
+  TimestampFormatEnum,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(TimestampFormat);
+> = openEnums.inboundSchema(TimestampFormatEnum);
 /** @internal */
-export const TimestampFormat$outboundSchema: z.ZodType<
+export const TimestampFormatEnum$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  TimestampFormat
-> = openEnums.outboundSchema(TimestampFormat);
+  TimestampFormatEnum
+> = openEnums.outboundSchema(TimestampFormatEnum);
 
 /** @internal */
 export const OutputSyslogPqControls$inboundSchema: z.ZodType<
@@ -454,7 +454,7 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   severity: types.optional(OutputSyslogSeverity$inboundSchema),
   appName: types.optional(types.string()),
   messageFormat: types.optional(MessageFormat$inboundSchema),
-  timestampFormat: types.optional(TimestampFormat$inboundSchema),
+  timestampFormat: types.optional(TimestampFormatEnum$inboundSchema),
   throttleRatePerSec: types.optional(types.string()),
   octetCountFraming: types.optional(types.boolean()),
   logFailedRequests: types.optional(types.boolean()),
@@ -557,7 +557,7 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   severity: OutputSyslogSeverity$outboundSchema.optional(),
   appName: z.string().optional(),
   messageFormat: MessageFormat$outboundSchema.optional(),
-  timestampFormat: TimestampFormat$outboundSchema.optional(),
+  timestampFormat: TimestampFormatEnum$outboundSchema.optional(),
   throttleRatePerSec: z.string().optional(),
   octetCountFraming: z.boolean().optional(),
   logFailedRequests: z.boolean().optional(),
