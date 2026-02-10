@@ -272,6 +272,11 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [get](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 * [create](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 
+#### [Destinations.Statuses](docs/sdks/destinationsstatuses/README.md)
+
+* [get](docs/sdks/destinationsstatuses/README.md#get) - Get the status of a Destination
+* [list](docs/sdks/destinationsstatuses/README.md#list) - List the status of all Destinations
+
 ### [Functions](docs/sdks/functions/README.md)
 
 * [get](docs/sdks/functions/README.md#get) - Get a Function
@@ -348,6 +353,11 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [get](docs/sdks/packssamples/README.md#get) - Get sample event data for a Destination within a Pack
 * [create](docs/sdks/packssamples/README.md#create) - Send sample event data to a Destination within a Pack
 
+##### [Packs.Destinations.Statuses](docs/sdks/packsdestinationsstatuses/README.md)
+
+* [get](docs/sdks/packsdestinationsstatuses/README.md#get) - Get the status of a Destination within a Pack
+* [list](docs/sdks/packsdestinationsstatuses/README.md#list) - List the status of all Destinations within a Pack
+
 #### [Packs.Pipelines](docs/sdks/packspipelines/README.md)
 
 * [create](docs/sdks/packspipelines/README.md#create) - Create a Pipeline within a Pack
@@ -381,6 +391,11 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [clear](docs/sdks/packssourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
 * [get](docs/sdks/packssourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
 
+##### [Packs.Sources.Statuses](docs/sdks/packssourcesstatuses/README.md)
+
+* [get](docs/sdks/packssourcesstatuses/README.md#get) - Get the status of a Source within a Pack
+* [list](docs/sdks/packssourcesstatuses/README.md#list) - List the status of all Sources within a Pack
+
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
 * [create](docs/sdks/pipelines/README.md#create) - Create a Pipeline
@@ -413,6 +428,11 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [clear](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source
 * [get](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source
+
+#### [Sources.Statuses](docs/sdks/sourcesstatuses/README.md)
+
+* [get](docs/sdks/sourcesstatuses/README.md#get) - Get the status of a Source
+* [list](docs/sdks/sourcesstatuses/README.md#list) - List the status of all Sources
 
 ### [System.Captures](docs/sdks/captures/README.md)
 
@@ -451,9 +471,9 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [get](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
 
-### [Versions.Statuses](docs/sdks/statuses/README.md)
+### [Versions.Statuses](docs/sdks/versionsstatuses/README.md)
 
-* [get](docs/sdks/statuses/README.md#get) - Get the status of the current working tree
+* [get](docs/sdks/versionsstatuses/README.md#get) - Get the status of the current working tree
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -491,6 +511,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`destinationsPqGet`](docs/sdks/destinationspq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
 - [`destinationsSamplesCreate`](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 - [`destinationsSamplesGet`](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
+- [`destinationsStatusesGet`](docs/sdks/destinationsstatuses/README.md#get) - Get the status of a Destination
+- [`destinationsStatusesList`](docs/sdks/destinationsstatuses/README.md#list) - List the status of all Destinations
 - [`destinationsUpdate`](docs/sdks/destinations/README.md#update) - Update a Destination
 - [`functionsGet`](docs/sdks/functions/README.md#get) - Get a Function
 - [`functionsList`](docs/sdks/functions/README.md#list) - List all Functions
@@ -523,6 +545,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`packsDestinationsPqGet`](docs/sdks/packsdestinationspq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination within a Pack
 - [`packsDestinationsSamplesCreate`](docs/sdks/packssamples/README.md#create) - Send sample event data to a Destination within a Pack
 - [`packsDestinationsSamplesGet`](docs/sdks/packssamples/README.md#get) - Get sample event data for a Destination within a Pack
+- [`packsDestinationsStatusesGet`](docs/sdks/packsdestinationsstatuses/README.md#get) - Get the status of a Destination within a Pack
+- [`packsDestinationsStatusesList`](docs/sdks/packsdestinationsstatuses/README.md#list) - List the status of all Destinations within a Pack
 - [`packsDestinationsUpdate`](docs/sdks/packsdestinations/README.md#update) - Update a Destination within a Pack
 - [`packsGet`](docs/sdks/packs/README.md#get) - Get a Pack
 - [`packsInstall`](docs/sdks/packs/README.md#install) - Install a Pack
@@ -544,6 +568,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`packsSourcesList`](docs/sdks/packssources/README.md#list) - List all Sources within a Pack
 - [`packsSourcesPqClear`](docs/sdks/packssourcespq/README.md#clear) - Clear the persistent queue for a Source within a Pack
 - [`packsSourcesPqGet`](docs/sdks/packssourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source within a Pack
+- [`packsSourcesStatusesGet`](docs/sdks/packssourcesstatuses/README.md#get) - Get the status of a Source within a Pack
+- [`packsSourcesStatusesList`](docs/sdks/packssourcesstatuses/README.md#list) - List the status of all Sources within a Pack
 - [`packsSourcesUpdate`](docs/sdks/packssources/README.md#update) - Update a Source within a Pack
 - [`packsUpdate`](docs/sdks/packs/README.md#update) - Upgrade a Pack
 - [`packsUpload`](docs/sdks/packs/README.md#upload) - Upload a Pack file
@@ -564,6 +590,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`sourcesList`](docs/sdks/sources/README.md#list) - List all Sources
 - [`sourcesPqClear`](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source
 - [`sourcesPqGet`](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source
+- [`sourcesStatusesGet`](docs/sdks/sourcesstatuses/README.md#get) - Get the status of a Source
+- [`sourcesStatusesList`](docs/sdks/sourcesstatuses/README.md#list) - List the status of all Sources
 - [`sourcesUpdate`](docs/sdks/sources/README.md#update) - Update a Source
 - [`systemCapturesCreate`](docs/sdks/captures/README.md#create) - Capture live incoming data
 - [`systemSettingsCriblList`](docs/sdks/cribl/README.md#list) - Get Cribl system settings
@@ -581,7 +609,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`versionsCommitsRevert`](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
 - [`versionsCommitsUndo`](docs/sdks/commits/README.md#undo) - Discard uncommitted (staged) changes
 - [`versionsConfigsGet`](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
-- [`versionsStatusesGet`](docs/sdks/statuses/README.md#get) - Get the status of the current working tree
+- [`versionsStatusesGet`](docs/sdks/versionsstatuses/README.md#get) - Get the status of the current working tree
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->

@@ -13,6 +13,7 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { PacksHecTokens } from "./packshectokens.js";
 import { PacksSourcesPq } from "./packssourcespq.js";
+import { PacksSourcesStatuses } from "./packssourcesstatuses.js";
 
 export class PacksSources extends ClientSDK {
   private _hecTokens?: PacksHecTokens;
@@ -23,6 +24,11 @@ export class PacksSources extends ClientSDK {
   private _pq?: PacksSourcesPq;
   get pq(): PacksSourcesPq {
     return (this._pq ??= new PacksSourcesPq(this._options));
+  }
+
+  private _statuses?: PacksSourcesStatuses;
+  get statuses(): PacksSourcesStatuses {
+    return (this._statuses ??= new PacksSourcesStatuses(this._options));
   }
 
   /**
