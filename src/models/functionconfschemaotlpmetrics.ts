@@ -6,6 +6,7 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import { smartUnion } from "../types/smartUnion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   OtlpVersionOptions,
@@ -13,49 +14,194 @@ import {
   OtlpVersionOptions$outboundSchema,
 } from "./otlpversionoptions.js";
 
-export type FunctionConfSchemaOtlpMetrics = {
+export type OTLPMetricsBatchOTLPMetricsTrue = {
+  /**
+   * Batch OTLP metrics by shared top-level `resource` attributes
+   */
+  batchOTLPMetrics?: boolean | undefined;
+  /**
+   * Number of metric data points after which a batch will be sent, regardless of the timeout
+   */
+  sendBatchSize?: number | undefined;
+  /**
+   * Time duration after which a batch will be sent, regardless of size
+   */
+  timeout?: number | undefined;
+  /**
+   * Maximum batch size. Enter 0 for no maximum.
+   */
+  sendBatchMaxSize?: number | undefined;
+  /**
+   * When set, this processor will create one batcher instance per distinct combination of values in the metadata
+   */
+  metadataKeys?: Array<any> | undefined;
+  /**
+   * Limit the number of unique combinations of metadata key values that will be processed over the lifetime of the process. After the limit is reached, events with new metadata key value combinations will be dropped.
+   */
+  metadataCardinalityLimit?: number | undefined;
   /**
    * The prefixes of top-level attributes to add as resource attributes. Each attribute must match the regex pattern `^[a-zA-Z0-9_\.]+$`. Use Eval to copy nested attributes to the top level for matching.
    */
   resourceAttributePrefixes?: Array<string> | undefined;
   dropNonMetricEvents?: boolean | undefined;
   otlpVersion?: OtlpVersionOptions | undefined;
+};
+
+export type OTLPMetricsBatchOTLPMetricsFalse = {
   /**
    * Batch OTLP metrics by shared top-level `resource` attributes
    */
   batchOTLPMetrics?: boolean | undefined;
+  /**
+   * The prefixes of top-level attributes to add as resource attributes. Each attribute must match the regex pattern `^[a-zA-Z0-9_\.]+$`. Use Eval to copy nested attributes to the top level for matching.
+   */
+  resourceAttributePrefixes?: Array<string> | undefined;
+  dropNonMetricEvents?: boolean | undefined;
+  otlpVersion?: OtlpVersionOptions | undefined;
 };
+
+export type FunctionConfSchemaOtlpMetrics =
+  | OTLPMetricsBatchOTLPMetricsFalse
+  | OTLPMetricsBatchOTLPMetricsTrue;
+
+/** @internal */
+export const OTLPMetricsBatchOTLPMetricsTrue$inboundSchema: z.ZodType<
+  OTLPMetricsBatchOTLPMetricsTrue,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  batchOTLPMetrics: types.optional(types.boolean()),
+  sendBatchSize: types.optional(types.number()),
+  timeout: types.optional(types.number()),
+  sendBatchMaxSize: types.optional(types.number()),
+  metadataKeys: types.optional(z.array(z.any())),
+  metadataCardinalityLimit: types.optional(types.number()),
+  resourceAttributePrefixes: types.optional(z.array(types.string())),
+  dropNonMetricEvents: types.optional(types.boolean()),
+  otlpVersion: types.optional(OtlpVersionOptions$inboundSchema),
+});
+/** @internal */
+export type OTLPMetricsBatchOTLPMetricsTrue$Outbound = {
+  batchOTLPMetrics?: boolean | undefined;
+  sendBatchSize?: number | undefined;
+  timeout?: number | undefined;
+  sendBatchMaxSize?: number | undefined;
+  metadataKeys?: Array<any> | undefined;
+  metadataCardinalityLimit?: number | undefined;
+  resourceAttributePrefixes?: Array<string> | undefined;
+  dropNonMetricEvents?: boolean | undefined;
+  otlpVersion?: string | undefined;
+};
+
+/** @internal */
+export const OTLPMetricsBatchOTLPMetricsTrue$outboundSchema: z.ZodType<
+  OTLPMetricsBatchOTLPMetricsTrue$Outbound,
+  z.ZodTypeDef,
+  OTLPMetricsBatchOTLPMetricsTrue
+> = z.object({
+  batchOTLPMetrics: z.boolean().optional(),
+  sendBatchSize: z.number().optional(),
+  timeout: z.number().optional(),
+  sendBatchMaxSize: z.number().optional(),
+  metadataKeys: z.array(z.any()).optional(),
+  metadataCardinalityLimit: z.number().optional(),
+  resourceAttributePrefixes: z.array(z.string()).optional(),
+  dropNonMetricEvents: z.boolean().optional(),
+  otlpVersion: OtlpVersionOptions$outboundSchema.optional(),
+});
+
+export function otlpMetricsBatchOTLPMetricsTrueToJSON(
+  otlpMetricsBatchOTLPMetricsTrue: OTLPMetricsBatchOTLPMetricsTrue,
+): string {
+  return JSON.stringify(
+    OTLPMetricsBatchOTLPMetricsTrue$outboundSchema.parse(
+      otlpMetricsBatchOTLPMetricsTrue,
+    ),
+  );
+}
+export function otlpMetricsBatchOTLPMetricsTrueFromJSON(
+  jsonString: string,
+): SafeParseResult<OTLPMetricsBatchOTLPMetricsTrue, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OTLPMetricsBatchOTLPMetricsTrue$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OTLPMetricsBatchOTLPMetricsTrue' from JSON`,
+  );
+}
+
+/** @internal */
+export const OTLPMetricsBatchOTLPMetricsFalse$inboundSchema: z.ZodType<
+  OTLPMetricsBatchOTLPMetricsFalse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  batchOTLPMetrics: types.optional(types.boolean()),
+  resourceAttributePrefixes: types.optional(z.array(types.string())),
+  dropNonMetricEvents: types.optional(types.boolean()),
+  otlpVersion: types.optional(OtlpVersionOptions$inboundSchema),
+});
+/** @internal */
+export type OTLPMetricsBatchOTLPMetricsFalse$Outbound = {
+  batchOTLPMetrics?: boolean | undefined;
+  resourceAttributePrefixes?: Array<string> | undefined;
+  dropNonMetricEvents?: boolean | undefined;
+  otlpVersion?: string | undefined;
+};
+
+/** @internal */
+export const OTLPMetricsBatchOTLPMetricsFalse$outboundSchema: z.ZodType<
+  OTLPMetricsBatchOTLPMetricsFalse$Outbound,
+  z.ZodTypeDef,
+  OTLPMetricsBatchOTLPMetricsFalse
+> = z.object({
+  batchOTLPMetrics: z.boolean().optional(),
+  resourceAttributePrefixes: z.array(z.string()).optional(),
+  dropNonMetricEvents: z.boolean().optional(),
+  otlpVersion: OtlpVersionOptions$outboundSchema.optional(),
+});
+
+export function otlpMetricsBatchOTLPMetricsFalseToJSON(
+  otlpMetricsBatchOTLPMetricsFalse: OTLPMetricsBatchOTLPMetricsFalse,
+): string {
+  return JSON.stringify(
+    OTLPMetricsBatchOTLPMetricsFalse$outboundSchema.parse(
+      otlpMetricsBatchOTLPMetricsFalse,
+    ),
+  );
+}
+export function otlpMetricsBatchOTLPMetricsFalseFromJSON(
+  jsonString: string,
+): SafeParseResult<OTLPMetricsBatchOTLPMetricsFalse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OTLPMetricsBatchOTLPMetricsFalse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OTLPMetricsBatchOTLPMetricsFalse' from JSON`,
+  );
+}
 
 /** @internal */
 export const FunctionConfSchemaOtlpMetrics$inboundSchema: z.ZodType<
   FunctionConfSchemaOtlpMetrics,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  resourceAttributePrefixes: types.optional(z.array(types.string())),
-  dropNonMetricEvents: types.optional(types.boolean()),
-  otlpVersion: types.optional(OtlpVersionOptions$inboundSchema),
-  batchOTLPMetrics: types.optional(types.boolean()),
-});
+> = smartUnion([
+  z.lazy(() => OTLPMetricsBatchOTLPMetricsFalse$inboundSchema),
+  z.lazy(() => OTLPMetricsBatchOTLPMetricsTrue$inboundSchema),
+]);
 /** @internal */
-export type FunctionConfSchemaOtlpMetrics$Outbound = {
-  resourceAttributePrefixes?: Array<string> | undefined;
-  dropNonMetricEvents?: boolean | undefined;
-  otlpVersion?: string | undefined;
-  batchOTLPMetrics?: boolean | undefined;
-};
+export type FunctionConfSchemaOtlpMetrics$Outbound =
+  | OTLPMetricsBatchOTLPMetricsFalse$Outbound
+  | OTLPMetricsBatchOTLPMetricsTrue$Outbound;
 
 /** @internal */
 export const FunctionConfSchemaOtlpMetrics$outboundSchema: z.ZodType<
   FunctionConfSchemaOtlpMetrics$Outbound,
   z.ZodTypeDef,
   FunctionConfSchemaOtlpMetrics
-> = z.object({
-  resourceAttributePrefixes: z.array(z.string()).optional(),
-  dropNonMetricEvents: z.boolean().optional(),
-  otlpVersion: OtlpVersionOptions$outboundSchema.optional(),
-  batchOTLPMetrics: z.boolean().optional(),
-});
+> = smartUnion([
+  z.lazy(() => OTLPMetricsBatchOTLPMetricsFalse$outboundSchema),
+  z.lazy(() => OTLPMetricsBatchOTLPMetricsTrue$outboundSchema),
+]);
 
 export function functionConfSchemaOtlpMetricsToJSON(
   functionConfSchemaOtlpMetrics: FunctionConfSchemaOtlpMetrics,

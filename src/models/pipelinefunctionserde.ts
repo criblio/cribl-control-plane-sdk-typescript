@@ -4,21 +4,30 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
+import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  TypeOptions,
-  TypeOptions$inboundSchema,
-  TypeOptions$outboundSchema,
-} from "./typeoptions.js";
+  ItemsTypeSerdeTypeGrokPatternList,
+  ItemsTypeSerdeTypeGrokPatternList$inboundSchema,
+  ItemsTypeSerdeTypeGrokPatternList$Outbound,
+  ItemsTypeSerdeTypeGrokPatternList$outboundSchema,
+} from "./itemstypeserdetypegrokpatternlist.js";
+import {
+  ItemsTypeSerdeTypeRegexRegexList,
+  ItemsTypeSerdeTypeRegexRegexList$inboundSchema,
+  ItemsTypeSerdeTypeRegexRegexList$Outbound,
+  ItemsTypeSerdeTypeRegexRegexList$outboundSchema,
+} from "./itemstypeserdetyperegexregexlist.js";
 
 /**
  * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
  */
-export const OperationMode = {
+export const SerdeTypeGrokOperationMode = {
   /**
    * Extract
    */
@@ -31,21 +40,24 @@ export const OperationMode = {
 /**
  * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
  */
-export type OperationMode = OpenEnum<typeof OperationMode>;
+export type SerdeTypeGrokOperationMode = OpenEnum<
+  typeof SerdeTypeGrokOperationMode
+>;
 
-export type PipelineFunctionSerdeConf = {
-  /**
-   * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-   */
-  mode: OperationMode;
+export type SerdeTypeGrok = {
   /**
    * Parser or formatter type to use
    */
-  type: TypeOptions;
-  delimChar?: any | undefined;
-  quoteChar?: any | undefined;
-  escapeChar?: any | undefined;
-  nullValue?: any | undefined;
+  type: "grok";
+  /**
+   * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
+   */
+  pattern: string;
+  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList> | undefined;
+  /**
+   * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+   */
+  mode: SerdeTypeGrokOperationMode;
   /**
    * Field containing text to be parsed
    */
@@ -54,8 +66,312 @@ export type PipelineFunctionSerdeConf = {
    * Name of the field to add fields to. Extract mode only.
    */
   dstField?: string | undefined;
-  cleanFields?: any | undefined;
 };
+
+/**
+ * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+ */
+export const SerdeTypeRegexOperationMode = {
+  /**
+   * Extract
+   */
+  Extract: "extract",
+  /**
+   * Reserialize
+   */
+  Reserialize: "reserialize",
+} as const;
+/**
+ * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+ */
+export type SerdeTypeRegexOperationMode = OpenEnum<
+  typeof SerdeTypeRegexOperationMode
+>;
+
+export type SerdeTypeRegex = {
+  /**
+   * Parser or formatter type to use
+   */
+  type: "regex";
+  /**
+   * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
+   */
+  regex: string;
+  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList> | undefined;
+  /**
+   * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
+   */
+  iterations?: number | undefined;
+  /**
+   * JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
+   */
+  fieldNameExpression?: string | undefined;
+  /**
+   * Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
+   */
+  overwrite?: boolean | undefined;
+  /**
+   * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+   */
+  mode: SerdeTypeRegexOperationMode;
+  /**
+   * Field containing text to be parsed
+   */
+  srcField?: string | undefined;
+  /**
+   * Name of the field to add fields to. Extract mode only.
+   */
+  dstField?: string | undefined;
+};
+
+/**
+ * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+ */
+export const SerdeTypeJsonOperationMode = {
+  /**
+   * Extract
+   */
+  Extract: "extract",
+  /**
+   * Reserialize
+   */
+  Reserialize: "reserialize",
+} as const;
+/**
+ * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+ */
+export type SerdeTypeJsonOperationMode = OpenEnum<
+  typeof SerdeTypeJsonOperationMode
+>;
+
+export type SerdeTypeJson = {
+  /**
+   * Parser or formatter type to use
+   */
+  type: "json";
+  /**
+   * List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+   */
+  keep?: Array<string> | undefined;
+  /**
+   * List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+   */
+  remove?: Array<string> | undefined;
+  /**
+   * Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+   */
+  fieldFilterExpr?: string | undefined;
+  /**
+   * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+   */
+  mode: SerdeTypeJsonOperationMode;
+  /**
+   * Field containing text to be parsed
+   */
+  srcField?: string | undefined;
+  /**
+   * Name of the field to add fields to. Extract mode only.
+   */
+  dstField?: string | undefined;
+};
+
+/**
+ * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+ */
+export const SerdeTypeCsvOperationMode = {
+  /**
+   * Extract
+   */
+  Extract: "extract",
+  /**
+   * Reserialize
+   */
+  Reserialize: "reserialize",
+} as const;
+/**
+ * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+ */
+export type SerdeTypeCsvOperationMode = OpenEnum<
+  typeof SerdeTypeCsvOperationMode
+>;
+
+export type SerdeTypeCsv = {
+  /**
+   * Parser or formatter type to use
+   */
+  type: "csv";
+  /**
+   * The fields to be extracted, listed in order. Will auto-generate if empty.
+   */
+  fields?: Array<string> | undefined;
+  /**
+   * List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+   */
+  keep?: Array<string> | undefined;
+  /**
+   * List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+   */
+  remove?: Array<string> | undefined;
+  /**
+   * Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+   */
+  fieldFilterExpr?: string | undefined;
+  /**
+   * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+   */
+  mode: SerdeTypeCsvOperationMode;
+  /**
+   * Field containing text to be parsed
+   */
+  srcField?: string | undefined;
+  /**
+   * Name of the field to add fields to. Extract mode only.
+   */
+  dstField?: string | undefined;
+};
+
+/**
+ * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+ */
+export const SerdeTypeDelimOperationMode = {
+  /**
+   * Extract
+   */
+  Extract: "extract",
+  /**
+   * Reserialize
+   */
+  Reserialize: "reserialize",
+} as const;
+/**
+ * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+ */
+export type SerdeTypeDelimOperationMode = OpenEnum<
+  typeof SerdeTypeDelimOperationMode
+>;
+
+export type SerdeTypeDelim = {
+  /**
+   * Parser or formatter type to use
+   */
+  type: "delim";
+  /**
+   * The fields to be extracted, listed in order. Will auto-generate if empty.
+   */
+  fields?: Array<string> | undefined;
+  /**
+   * List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+   */
+  keep?: Array<string> | undefined;
+  /**
+   * List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+   */
+  remove?: Array<string> | undefined;
+  /**
+   * Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+   */
+  fieldFilterExpr?: string | undefined;
+  /**
+   * Delimiter character to use to split values
+   */
+  delimChar?: string | undefined;
+  /**
+   * Character used to quote literal values
+   */
+  quoteChar?: string | undefined;
+  /**
+   * Escape character used to escape delimiter or quote character
+   */
+  escapeChar?: string | undefined;
+  /**
+   * Field value representing the null value. Null fields will be omitted.
+   */
+  nullValue?: string | undefined;
+  /**
+   * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+   */
+  mode: SerdeTypeDelimOperationMode;
+  /**
+   * Field containing text to be parsed
+   */
+  srcField?: string | undefined;
+  /**
+   * Name of the field to add fields to. Extract mode only.
+   */
+  dstField?: string | undefined;
+};
+
+/**
+ * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+ */
+export const SerdeTypeKvpOperationMode = {
+  /**
+   * Extract
+   */
+  Extract: "extract",
+  /**
+   * Reserialize
+   */
+  Reserialize: "reserialize",
+} as const;
+/**
+ * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+ */
+export type SerdeTypeKvpOperationMode = OpenEnum<
+  typeof SerdeTypeKvpOperationMode
+>;
+
+export type SerdeTypeKvp = {
+  /**
+   * Parser or formatter type to use
+   */
+  type: "kvp";
+  /**
+   * List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+   */
+  keep?: Array<string> | undefined;
+  /**
+   * List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+   */
+  remove?: Array<string> | undefined;
+  /**
+   * Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+   */
+  fieldFilterExpr?: string | undefined;
+  /**
+   * Clean field names by replacing non [a-zA-Z0-9] characters with _
+   */
+  cleanFields?: boolean | undefined;
+  /**
+   * A list of characters that may be present in a key name, even though they are normally separator or control characters
+   */
+  allowedKeyChars?: Array<string> | undefined;
+  /**
+   * A list of characters that may be present in a value, even though they are normally separator or control characters
+   */
+  allowedValueChars?: Array<string> | undefined;
+  /**
+   * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+   */
+  mode: SerdeTypeKvpOperationMode;
+  /**
+   * Field containing text to be parsed
+   */
+  srcField?: string | undefined;
+  /**
+   * Name of the field to add fields to. Extract mode only.
+   */
+  dstField?: string | undefined;
+};
+
+export type PipelineFunctionSerdeConf =
+  | SerdeTypeKvp
+  | SerdeTypeDelim
+  | SerdeTypeCsv
+  | SerdeTypeJson
+  | SerdeTypeRegex
+  | SerdeTypeGrok
+  | discriminatedUnionTypes.Unknown<"type">;
 
 export type PipelineFunctionSerde = {
   /**
@@ -78,7 +394,14 @@ export type PipelineFunctionSerde = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionSerdeConf;
+  conf:
+    | SerdeTypeKvp
+    | SerdeTypeDelim
+    | SerdeTypeCsv
+    | SerdeTypeJson
+    | SerdeTypeRegex
+    | SerdeTypeGrok
+    | discriminatedUnionTypes.Unknown<"type">;
   /**
    * Group ID
    */
@@ -86,63 +409,472 @@ export type PipelineFunctionSerde = {
 };
 
 /** @internal */
-export const OperationMode$inboundSchema: z.ZodType<
-  OperationMode,
+export const SerdeTypeGrokOperationMode$inboundSchema: z.ZodType<
+  SerdeTypeGrokOperationMode,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(OperationMode);
+> = openEnums.inboundSchema(SerdeTypeGrokOperationMode);
 /** @internal */
-export const OperationMode$outboundSchema: z.ZodType<
+export const SerdeTypeGrokOperationMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  OperationMode
-> = openEnums.outboundSchema(OperationMode);
+  SerdeTypeGrokOperationMode
+> = openEnums.outboundSchema(SerdeTypeGrokOperationMode);
+
+/** @internal */
+export const SerdeTypeGrok$inboundSchema: z.ZodType<
+  SerdeTypeGrok,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: types.literal("grok"),
+  pattern: types.string(),
+  patternList: types.optional(
+    z.array(ItemsTypeSerdeTypeGrokPatternList$inboundSchema),
+  ),
+  mode: SerdeTypeGrokOperationMode$inboundSchema,
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
+});
+/** @internal */
+export type SerdeTypeGrok$Outbound = {
+  type: "grok";
+  pattern: string;
+  patternList?: Array<ItemsTypeSerdeTypeGrokPatternList$Outbound> | undefined;
+  mode: string;
+  srcField?: string | undefined;
+  dstField?: string | undefined;
+};
+
+/** @internal */
+export const SerdeTypeGrok$outboundSchema: z.ZodType<
+  SerdeTypeGrok$Outbound,
+  z.ZodTypeDef,
+  SerdeTypeGrok
+> = z.object({
+  type: z.literal("grok"),
+  pattern: z.string(),
+  patternList: z.array(ItemsTypeSerdeTypeGrokPatternList$outboundSchema)
+    .optional(),
+  mode: SerdeTypeGrokOperationMode$outboundSchema,
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
+});
+
+export function serdeTypeGrokToJSON(serdeTypeGrok: SerdeTypeGrok): string {
+  return JSON.stringify(SerdeTypeGrok$outboundSchema.parse(serdeTypeGrok));
+}
+export function serdeTypeGrokFromJSON(
+  jsonString: string,
+): SafeParseResult<SerdeTypeGrok, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SerdeTypeGrok$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SerdeTypeGrok' from JSON`,
+  );
+}
+
+/** @internal */
+export const SerdeTypeRegexOperationMode$inboundSchema: z.ZodType<
+  SerdeTypeRegexOperationMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SerdeTypeRegexOperationMode);
+/** @internal */
+export const SerdeTypeRegexOperationMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SerdeTypeRegexOperationMode
+> = openEnums.outboundSchema(SerdeTypeRegexOperationMode);
+
+/** @internal */
+export const SerdeTypeRegex$inboundSchema: z.ZodType<
+  SerdeTypeRegex,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: types.literal("regex"),
+  regex: types.string(),
+  regexList: types.optional(
+    z.array(ItemsTypeSerdeTypeRegexRegexList$inboundSchema),
+  ),
+  iterations: types.optional(types.number()),
+  fieldNameExpression: types.optional(types.string()),
+  overwrite: types.optional(types.boolean()),
+  mode: SerdeTypeRegexOperationMode$inboundSchema,
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
+});
+/** @internal */
+export type SerdeTypeRegex$Outbound = {
+  type: "regex";
+  regex: string;
+  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList$Outbound> | undefined;
+  iterations?: number | undefined;
+  fieldNameExpression?: string | undefined;
+  overwrite?: boolean | undefined;
+  mode: string;
+  srcField?: string | undefined;
+  dstField?: string | undefined;
+};
+
+/** @internal */
+export const SerdeTypeRegex$outboundSchema: z.ZodType<
+  SerdeTypeRegex$Outbound,
+  z.ZodTypeDef,
+  SerdeTypeRegex
+> = z.object({
+  type: z.literal("regex"),
+  regex: z.string(),
+  regexList: z.array(ItemsTypeSerdeTypeRegexRegexList$outboundSchema)
+    .optional(),
+  iterations: z.number().optional(),
+  fieldNameExpression: z.string().optional(),
+  overwrite: z.boolean().optional(),
+  mode: SerdeTypeRegexOperationMode$outboundSchema,
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
+});
+
+export function serdeTypeRegexToJSON(serdeTypeRegex: SerdeTypeRegex): string {
+  return JSON.stringify(SerdeTypeRegex$outboundSchema.parse(serdeTypeRegex));
+}
+export function serdeTypeRegexFromJSON(
+  jsonString: string,
+): SafeParseResult<SerdeTypeRegex, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SerdeTypeRegex$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SerdeTypeRegex' from JSON`,
+  );
+}
+
+/** @internal */
+export const SerdeTypeJsonOperationMode$inboundSchema: z.ZodType<
+  SerdeTypeJsonOperationMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SerdeTypeJsonOperationMode);
+/** @internal */
+export const SerdeTypeJsonOperationMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SerdeTypeJsonOperationMode
+> = openEnums.outboundSchema(SerdeTypeJsonOperationMode);
+
+/** @internal */
+export const SerdeTypeJson$inboundSchema: z.ZodType<
+  SerdeTypeJson,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: types.literal("json"),
+  keep: types.optional(z.array(types.string())),
+  remove: types.optional(z.array(types.string())),
+  fieldFilterExpr: types.optional(types.string()),
+  mode: SerdeTypeJsonOperationMode$inboundSchema,
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
+});
+/** @internal */
+export type SerdeTypeJson$Outbound = {
+  type: "json";
+  keep?: Array<string> | undefined;
+  remove?: Array<string> | undefined;
+  fieldFilterExpr?: string | undefined;
+  mode: string;
+  srcField?: string | undefined;
+  dstField?: string | undefined;
+};
+
+/** @internal */
+export const SerdeTypeJson$outboundSchema: z.ZodType<
+  SerdeTypeJson$Outbound,
+  z.ZodTypeDef,
+  SerdeTypeJson
+> = z.object({
+  type: z.literal("json"),
+  keep: z.array(z.string()).optional(),
+  remove: z.array(z.string()).optional(),
+  fieldFilterExpr: z.string().optional(),
+  mode: SerdeTypeJsonOperationMode$outboundSchema,
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
+});
+
+export function serdeTypeJsonToJSON(serdeTypeJson: SerdeTypeJson): string {
+  return JSON.stringify(SerdeTypeJson$outboundSchema.parse(serdeTypeJson));
+}
+export function serdeTypeJsonFromJSON(
+  jsonString: string,
+): SafeParseResult<SerdeTypeJson, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SerdeTypeJson$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SerdeTypeJson' from JSON`,
+  );
+}
+
+/** @internal */
+export const SerdeTypeCsvOperationMode$inboundSchema: z.ZodType<
+  SerdeTypeCsvOperationMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SerdeTypeCsvOperationMode);
+/** @internal */
+export const SerdeTypeCsvOperationMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SerdeTypeCsvOperationMode
+> = openEnums.outboundSchema(SerdeTypeCsvOperationMode);
+
+/** @internal */
+export const SerdeTypeCsv$inboundSchema: z.ZodType<
+  SerdeTypeCsv,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: types.literal("csv"),
+  fields: types.optional(z.array(types.string())),
+  keep: types.optional(z.array(types.string())),
+  remove: types.optional(z.array(types.string())),
+  fieldFilterExpr: types.optional(types.string()),
+  mode: SerdeTypeCsvOperationMode$inboundSchema,
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
+});
+/** @internal */
+export type SerdeTypeCsv$Outbound = {
+  type: "csv";
+  fields?: Array<string> | undefined;
+  keep?: Array<string> | undefined;
+  remove?: Array<string> | undefined;
+  fieldFilterExpr?: string | undefined;
+  mode: string;
+  srcField?: string | undefined;
+  dstField?: string | undefined;
+};
+
+/** @internal */
+export const SerdeTypeCsv$outboundSchema: z.ZodType<
+  SerdeTypeCsv$Outbound,
+  z.ZodTypeDef,
+  SerdeTypeCsv
+> = z.object({
+  type: z.literal("csv"),
+  fields: z.array(z.string()).optional(),
+  keep: z.array(z.string()).optional(),
+  remove: z.array(z.string()).optional(),
+  fieldFilterExpr: z.string().optional(),
+  mode: SerdeTypeCsvOperationMode$outboundSchema,
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
+});
+
+export function serdeTypeCsvToJSON(serdeTypeCsv: SerdeTypeCsv): string {
+  return JSON.stringify(SerdeTypeCsv$outboundSchema.parse(serdeTypeCsv));
+}
+export function serdeTypeCsvFromJSON(
+  jsonString: string,
+): SafeParseResult<SerdeTypeCsv, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SerdeTypeCsv$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SerdeTypeCsv' from JSON`,
+  );
+}
+
+/** @internal */
+export const SerdeTypeDelimOperationMode$inboundSchema: z.ZodType<
+  SerdeTypeDelimOperationMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SerdeTypeDelimOperationMode);
+/** @internal */
+export const SerdeTypeDelimOperationMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SerdeTypeDelimOperationMode
+> = openEnums.outboundSchema(SerdeTypeDelimOperationMode);
+
+/** @internal */
+export const SerdeTypeDelim$inboundSchema: z.ZodType<
+  SerdeTypeDelim,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: types.literal("delim"),
+  fields: types.optional(z.array(types.string())),
+  keep: types.optional(z.array(types.string())),
+  remove: types.optional(z.array(types.string())),
+  fieldFilterExpr: types.optional(types.string()),
+  delimChar: types.optional(types.string()),
+  quoteChar: types.optional(types.string()),
+  escapeChar: types.optional(types.string()),
+  nullValue: types.optional(types.string()),
+  mode: SerdeTypeDelimOperationMode$inboundSchema,
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
+});
+/** @internal */
+export type SerdeTypeDelim$Outbound = {
+  type: "delim";
+  fields?: Array<string> | undefined;
+  keep?: Array<string> | undefined;
+  remove?: Array<string> | undefined;
+  fieldFilterExpr?: string | undefined;
+  delimChar?: string | undefined;
+  quoteChar?: string | undefined;
+  escapeChar?: string | undefined;
+  nullValue?: string | undefined;
+  mode: string;
+  srcField?: string | undefined;
+  dstField?: string | undefined;
+};
+
+/** @internal */
+export const SerdeTypeDelim$outboundSchema: z.ZodType<
+  SerdeTypeDelim$Outbound,
+  z.ZodTypeDef,
+  SerdeTypeDelim
+> = z.object({
+  type: z.literal("delim"),
+  fields: z.array(z.string()).optional(),
+  keep: z.array(z.string()).optional(),
+  remove: z.array(z.string()).optional(),
+  fieldFilterExpr: z.string().optional(),
+  delimChar: z.string().optional(),
+  quoteChar: z.string().optional(),
+  escapeChar: z.string().optional(),
+  nullValue: z.string().optional(),
+  mode: SerdeTypeDelimOperationMode$outboundSchema,
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
+});
+
+export function serdeTypeDelimToJSON(serdeTypeDelim: SerdeTypeDelim): string {
+  return JSON.stringify(SerdeTypeDelim$outboundSchema.parse(serdeTypeDelim));
+}
+export function serdeTypeDelimFromJSON(
+  jsonString: string,
+): SafeParseResult<SerdeTypeDelim, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SerdeTypeDelim$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SerdeTypeDelim' from JSON`,
+  );
+}
+
+/** @internal */
+export const SerdeTypeKvpOperationMode$inboundSchema: z.ZodType<
+  SerdeTypeKvpOperationMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(SerdeTypeKvpOperationMode);
+/** @internal */
+export const SerdeTypeKvpOperationMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  SerdeTypeKvpOperationMode
+> = openEnums.outboundSchema(SerdeTypeKvpOperationMode);
+
+/** @internal */
+export const SerdeTypeKvp$inboundSchema: z.ZodType<
+  SerdeTypeKvp,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: types.literal("kvp"),
+  keep: types.optional(z.array(types.string())),
+  remove: types.optional(z.array(types.string())),
+  fieldFilterExpr: types.optional(types.string()),
+  cleanFields: types.optional(types.boolean()),
+  allowedKeyChars: types.optional(z.array(types.string())),
+  allowedValueChars: types.optional(z.array(types.string())),
+  mode: SerdeTypeKvpOperationMode$inboundSchema,
+  srcField: types.optional(types.string()),
+  dstField: types.optional(types.string()),
+});
+/** @internal */
+export type SerdeTypeKvp$Outbound = {
+  type: "kvp";
+  keep?: Array<string> | undefined;
+  remove?: Array<string> | undefined;
+  fieldFilterExpr?: string | undefined;
+  cleanFields?: boolean | undefined;
+  allowedKeyChars?: Array<string> | undefined;
+  allowedValueChars?: Array<string> | undefined;
+  mode: string;
+  srcField?: string | undefined;
+  dstField?: string | undefined;
+};
+
+/** @internal */
+export const SerdeTypeKvp$outboundSchema: z.ZodType<
+  SerdeTypeKvp$Outbound,
+  z.ZodTypeDef,
+  SerdeTypeKvp
+> = z.object({
+  type: z.literal("kvp"),
+  keep: z.array(z.string()).optional(),
+  remove: z.array(z.string()).optional(),
+  fieldFilterExpr: z.string().optional(),
+  cleanFields: z.boolean().optional(),
+  allowedKeyChars: z.array(z.string()).optional(),
+  allowedValueChars: z.array(z.string()).optional(),
+  mode: SerdeTypeKvpOperationMode$outboundSchema,
+  srcField: z.string().optional(),
+  dstField: z.string().optional(),
+});
+
+export function serdeTypeKvpToJSON(serdeTypeKvp: SerdeTypeKvp): string {
+  return JSON.stringify(SerdeTypeKvp$outboundSchema.parse(serdeTypeKvp));
+}
+export function serdeTypeKvpFromJSON(
+  jsonString: string,
+): SafeParseResult<SerdeTypeKvp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SerdeTypeKvp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SerdeTypeKvp' from JSON`,
+  );
+}
 
 /** @internal */
 export const PipelineFunctionSerdeConf$inboundSchema: z.ZodType<
   PipelineFunctionSerdeConf,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  mode: OperationMode$inboundSchema,
-  type: TypeOptions$inboundSchema,
-  delimChar: types.optional(z.any()),
-  quoteChar: types.optional(z.any()),
-  escapeChar: types.optional(z.any()),
-  nullValue: types.optional(z.any()),
-  srcField: types.optional(types.string()),
-  dstField: types.optional(types.string()),
-  cleanFields: types.optional(z.any()),
+> = discriminatedUnion("type", {
+  kvp: z.lazy(() => SerdeTypeKvp$inboundSchema),
+  delim: z.lazy(() => SerdeTypeDelim$inboundSchema),
+  csv: z.lazy(() => SerdeTypeCsv$inboundSchema),
+  json: z.lazy(() => SerdeTypeJson$inboundSchema),
+  regex: z.lazy(() => SerdeTypeRegex$inboundSchema),
+  grok: z.lazy(() => SerdeTypeGrok$inboundSchema),
 });
 /** @internal */
-export type PipelineFunctionSerdeConf$Outbound = {
-  mode: string;
-  type: string;
-  delimChar?: any | undefined;
-  quoteChar?: any | undefined;
-  escapeChar?: any | undefined;
-  nullValue?: any | undefined;
-  srcField?: string | undefined;
-  dstField?: string | undefined;
-  cleanFields?: any | undefined;
-};
+export type PipelineFunctionSerdeConf$Outbound =
+  | SerdeTypeKvp$Outbound
+  | SerdeTypeDelim$Outbound
+  | SerdeTypeCsv$Outbound
+  | SerdeTypeJson$Outbound
+  | SerdeTypeRegex$Outbound
+  | SerdeTypeGrok$Outbound;
 
 /** @internal */
 export const PipelineFunctionSerdeConf$outboundSchema: z.ZodType<
   PipelineFunctionSerdeConf$Outbound,
   z.ZodTypeDef,
   PipelineFunctionSerdeConf
-> = z.object({
-  mode: OperationMode$outboundSchema,
-  type: TypeOptions$outboundSchema,
-  delimChar: z.any().optional(),
-  quoteChar: z.any().optional(),
-  escapeChar: z.any().optional(),
-  nullValue: z.any().optional(),
-  srcField: z.string().optional(),
-  dstField: z.string().optional(),
-  cleanFields: z.any().optional(),
-});
+> = z.union([
+  z.lazy(() => SerdeTypeKvp$outboundSchema),
+  z.lazy(() => SerdeTypeDelim$outboundSchema),
+  z.lazy(() => SerdeTypeCsv$outboundSchema),
+  z.lazy(() => SerdeTypeJson$outboundSchema),
+  z.lazy(() => SerdeTypeRegex$outboundSchema),
+  z.lazy(() => SerdeTypeGrok$outboundSchema),
+]);
 
 export function pipelineFunctionSerdeConfToJSON(
   pipelineFunctionSerdeConf: PipelineFunctionSerdeConf,
@@ -172,7 +904,14 @@ export const PipelineFunctionSerde$inboundSchema: z.ZodType<
   description: types.optional(types.string()),
   disabled: types.optional(types.boolean()),
   final: types.optional(types.boolean()),
-  conf: z.lazy(() => PipelineFunctionSerdeConf$inboundSchema),
+  conf: discriminatedUnion("type", {
+    kvp: z.lazy(() => SerdeTypeKvp$inboundSchema),
+    delim: z.lazy(() => SerdeTypeDelim$inboundSchema),
+    csv: z.lazy(() => SerdeTypeCsv$inboundSchema),
+    json: z.lazy(() => SerdeTypeJson$inboundSchema),
+    regex: z.lazy(() => SerdeTypeRegex$inboundSchema),
+    grok: z.lazy(() => SerdeTypeGrok$inboundSchema),
+  }),
   groupId: types.optional(types.string()),
 });
 /** @internal */
@@ -182,7 +921,13 @@ export type PipelineFunctionSerde$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionSerdeConf$Outbound;
+  conf:
+    | SerdeTypeKvp$Outbound
+    | SerdeTypeDelim$Outbound
+    | SerdeTypeCsv$Outbound
+    | SerdeTypeJson$Outbound
+    | SerdeTypeRegex$Outbound
+    | SerdeTypeGrok$Outbound;
   groupId?: string | undefined;
 };
 
@@ -197,7 +942,14 @@ export const PipelineFunctionSerde$outboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() => PipelineFunctionSerdeConf$outboundSchema),
+  conf: z.union([
+    z.lazy(() => SerdeTypeKvp$outboundSchema),
+    z.lazy(() => SerdeTypeDelim$outboundSchema),
+    z.lazy(() => SerdeTypeCsv$outboundSchema),
+    z.lazy(() => SerdeTypeJson$outboundSchema),
+    z.lazy(() => SerdeTypeRegex$outboundSchema),
+    z.lazy(() => SerdeTypeGrok$outboundSchema),
+  ]),
   groupId: z.string().optional(),
 });
 

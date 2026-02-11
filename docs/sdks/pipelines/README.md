@@ -42,6 +42,7 @@ async function run() {
           filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))",
           id: "aggregate_metrics",
           conf: {
+            cumulative: false,
             passthrough: false,
             preserveGroupBys: false,
             sufficientStatsOnly: false,
@@ -63,7 +64,6 @@ async function run() {
             groupbys: [
               "proc",
             ],
-            cumulative: false,
             shouldTreatDotsAsLiterals: true,
             flushOnInputClose: true,
           },
@@ -111,6 +111,7 @@ async function run() {
           filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))",
           id: "aggregate_metrics",
           conf: {
+            cumulative: false,
             passthrough: false,
             preserveGroupBys: false,
             sufficientStatsOnly: false,
@@ -132,7 +133,6 @@ async function run() {
             groupbys: [
               "proc",
             ],
-            cumulative: false,
             shouldTreatDotsAsLiterals: true,
             flushOnInputClose: true,
           },
@@ -179,6 +179,7 @@ async function run() {
           filter: "true",
           id: "aggregation",
           conf: {
+            cumulative: false,
             passthrough: false,
             preserveGroupBys: false,
             sufficientStatsOnly: false,
@@ -190,7 +191,6 @@ async function run() {
             groupbys: [
               "srcaddr",
             ],
-            cumulative: false,
             shouldTreatDotsAsLiterals: false,
             flushOnInputClose: true,
           },
@@ -238,6 +238,7 @@ async function run() {
           filter: "true",
           id: "aggregation",
           conf: {
+            cumulative: false,
             passthrough: false,
             preserveGroupBys: false,
             sufficientStatsOnly: false,
@@ -249,7 +250,6 @@ async function run() {
             groupbys: [
               "srcaddr",
             ],
-            cumulative: false,
             shouldTreatDotsAsLiterals: false,
             flushOnInputClose: true,
           },
@@ -1467,7 +1467,18 @@ async function run() {
           filter: "true",
           id: "event_breaker",
           conf: {
+            ruleType: "regex",
+            eventBreakerRegex: "/[\\n\\r]+(?!\\s)/",
             existingOrNew: "new",
+            maxEventBytes: 51200,
+            timestampAnchorRegex: "/^/",
+            timestamp: {
+              type: "auto",
+              length: 150,
+            },
+            timestampTimezone: "local",
+            timestampEarliest: "-420weeks",
+            timestampLatest: "+1week",
             shouldMarkCriblBreaker: true,
           },
         },
@@ -1514,7 +1525,18 @@ async function run() {
           filter: "true",
           id: "event_breaker",
           conf: {
+            ruleType: "regex",
+            eventBreakerRegex: "/[\\n\\r]+(?!\\s)/",
             existingOrNew: "new",
+            maxEventBytes: 51200,
+            timestampAnchorRegex: "/^/",
+            timestamp: {
+              type: "auto",
+              length: 150,
+            },
+            timestampTimezone: "local",
+            timestampEarliest: "-420weeks",
+            timestampLatest: "+1week",
             shouldMarkCriblBreaker: true,
           },
         },
@@ -2172,10 +2194,11 @@ async function run() {
           filter: "true",
           id: "lookup",
           conf: {
-            file: "ip_locations.csv",
-            dbLookup: false,
             matchMode: "exact",
+            ignoreCase: false,
+            dbLookup: false,
             reloadPeriodSec: -1,
+            file: "ip_locations.csv",
             inFields: [
               {
                 eventField: "destination_ip",
@@ -2190,7 +2213,6 @@ async function run() {
               },
             ],
             addToEvent: false,
-            ignoreCase: false,
           },
         },
       ],
@@ -2236,10 +2258,11 @@ async function run() {
           filter: "true",
           id: "lookup",
           conf: {
-            file: "ip_locations.csv",
-            dbLookup: false,
             matchMode: "exact",
+            ignoreCase: false,
+            dbLookup: false,
             reloadPeriodSec: -1,
+            file: "ip_locations.csv",
             inFields: [
               {
                 eventField: "destination_ip",
@@ -2254,7 +2277,6 @@ async function run() {
               },
             ],
             addToEvent: false,
-            ignoreCase: false,
           },
         },
       ],
@@ -2410,10 +2432,10 @@ async function run() {
           filter: "true",
           id: "numerify",
           conf: {
+            format: "none",
             depth: 5,
             ignoreFields: [],
             filterExpr: "",
-            format: "none",
           },
         },
       ],
@@ -2459,10 +2481,10 @@ async function run() {
           filter: "true",
           id: "numerify",
           conf: {
+            format: "none",
             depth: 5,
             ignoreFields: [],
             filterExpr: "",
-            format: "none",
           },
         },
       ],
@@ -2507,8 +2529,13 @@ async function run() {
           filter: "__inputId=='open_telemetry:open_telemetry'",
           id: "otlp_logs",
           conf: {
-            dropNonLogEvents: false,
             batchOTLPLogs: true,
+            sendBatchSize: 8192,
+            timeout: 200,
+            sendBatchMaxSize: 0,
+            metadataKeys: [],
+            metadataCardinalityLimit: 1000,
+            dropNonLogEvents: false,
           },
         },
       ],
@@ -2554,8 +2581,13 @@ async function run() {
           filter: "__inputId=='open_telemetry:open_telemetry'",
           id: "otlp_logs",
           conf: {
-            dropNonLogEvents: false,
             batchOTLPLogs: true,
+            sendBatchSize: 8192,
+            timeout: 200,
+            sendBatchMaxSize: 0,
+            metadataKeys: [],
+            metadataCardinalityLimit: 1000,
+            dropNonLogEvents: false,
           },
         },
       ],
@@ -2600,6 +2632,12 @@ async function run() {
           filter: "__inputId=='prometheus_rw:prom_rw_in'",
           id: "otlp_metrics",
           conf: {
+            batchOTLPMetrics: true,
+            sendBatchSize: 8192,
+            timeout: 200,
+            sendBatchMaxSize: 0,
+            metadataKeys: [],
+            metadataCardinalityLimit: 1000,
             resourceAttributePrefixes: [
               "service",
               "system",
@@ -2611,7 +2649,6 @@ async function run() {
             ],
             dropNonMetricEvents: false,
             otlpVersion: "0.10.0",
-            batchOTLPMetrics: true,
           },
         },
       ],
@@ -2657,6 +2694,12 @@ async function run() {
           filter: "__inputId=='prometheus_rw:prom_rw_in'",
           id: "otlp_metrics",
           conf: {
+            batchOTLPMetrics: true,
+            sendBatchSize: 8192,
+            timeout: 200,
+            sendBatchMaxSize: 0,
+            metadataKeys: [],
+            metadataCardinalityLimit: 1000,
             resourceAttributePrefixes: [
               "service",
               "system",
@@ -2668,7 +2711,6 @@ async function run() {
             ],
             dropNonMetricEvents: false,
             otlpVersion: "0.10.0",
-            batchOTLPMetrics: true,
           },
         },
       ],
@@ -2713,9 +2755,14 @@ async function run() {
           filter: "__inputId=='open_telemetry:open_telemetry'",
           id: "otlp_traces",
           conf: {
+            batchOTLPTraces: true,
+            sendBatchSize: 8192,
+            timeout: 200,
+            sendBatchMaxSize: 0,
+            metadataKeys: [],
+            metadataCardinalityLimit: 1000,
             dropNonTraceEvents: false,
             otlpVersion: "0.10.0",
-            batchOTLPTraces: true,
           },
         },
       ],
@@ -2761,9 +2808,14 @@ async function run() {
           filter: "__inputId=='open_telemetry:open_telemetry'",
           id: "otlp_traces",
           conf: {
+            batchOTLPTraces: true,
+            sendBatchSize: 8192,
+            timeout: 200,
+            sendBatchMaxSize: 0,
+            metadataKeys: [],
+            metadataCardinalityLimit: 1000,
             dropNonTraceEvents: false,
             otlpVersion: "0.10.0",
-            batchOTLPTraces: true,
           },
         },
       ],
@@ -2808,10 +2860,18 @@ async function run() {
           filter: "true",
           id: "serde",
           conf: {
-            mode: "extract",
             type: "kvp",
-            srcField: "_raw",
+            keep: [
+              "a",
+              "b",
+              "c",
+            ],
+            remove: [
+              "*",
+            ],
             cleanFields: false,
+            mode: "extract",
+            srcField: "_raw",
           },
         },
       ],
@@ -2857,10 +2917,18 @@ async function run() {
           filter: "true",
           id: "serde",
           conf: {
-            mode: "extract",
             type: "kvp",
-            srcField: "_raw",
+            keep: [
+              "a",
+              "b",
+              "c",
+            ],
+            remove: [
+              "*",
+            ],
             cleanFields: false,
+            mode: "extract",
+            srcField: "_raw",
           },
         },
       ],
@@ -3034,6 +3102,7 @@ async function run() {
           filter: "true",
           id: "redis",
           conf: {
+            authType: "none",
             commands: [
               {
                 outField: "cached_value",
@@ -3043,7 +3112,6 @@ async function run() {
               },
             ],
             deploymentType: "standalone",
-            authType: "none",
             maxBlockSecs: 60,
           },
         },
@@ -3090,6 +3158,7 @@ async function run() {
           filter: "true",
           id: "redis",
           conf: {
+            authType: "none",
             commands: [
               {
                 outField: "cached_value",
@@ -3099,7 +3168,6 @@ async function run() {
               },
             ],
             deploymentType: "standalone",
-            authType: "none",
             maxBlockSecs: 60,
           },
         },
@@ -3735,13 +3803,7 @@ async function run() {
           filter: "true",
           id: "serialize",
           conf: {
-            type: "json",
-            fields: [
-              "city",
-              "state",
-            ],
-            srcField: "",
-            dstField: "_raw",
+            type: "kvp",
           },
         },
       ],
@@ -3787,13 +3849,7 @@ async function run() {
           filter: "true",
           id: "serialize",
           conf: {
-            type: "json",
-            fields: [
-              "city",
-              "state",
-            ],
-            srcField: "",
-            dstField: "_raw",
+            type: "kvp",
           },
         },
       ],
@@ -4498,6 +4554,7 @@ async function run() {
             filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))",
             id: "aggregate_metrics",
             conf: {
+              cumulative: false,
               passthrough: false,
               preserveGroupBys: false,
               sufficientStatsOnly: false,
@@ -4519,7 +4576,6 @@ async function run() {
               groupbys: [
                 "proc",
               ],
-              cumulative: false,
               shouldTreatDotsAsLiterals: true,
               flushOnInputClose: true,
             },
@@ -4570,6 +4626,7 @@ async function run() {
             filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))",
             id: "aggregate_metrics",
             conf: {
+              cumulative: false,
               passthrough: false,
               preserveGroupBys: false,
               sufficientStatsOnly: false,
@@ -4591,7 +4648,6 @@ async function run() {
               groupbys: [
                 "proc",
               ],
-              cumulative: false,
               shouldTreatDotsAsLiterals: true,
               flushOnInputClose: true,
             },
@@ -4641,6 +4697,7 @@ async function run() {
             filter: "true",
             id: "aggregation",
             conf: {
+              cumulative: false,
               passthrough: false,
               preserveGroupBys: false,
               sufficientStatsOnly: false,
@@ -4652,7 +4709,6 @@ async function run() {
               groupbys: [
                 "srcaddr",
               ],
-              cumulative: false,
               shouldTreatDotsAsLiterals: false,
               flushOnInputClose: true,
             },
@@ -4703,6 +4759,7 @@ async function run() {
             filter: "true",
             id: "aggregation",
             conf: {
+              cumulative: false,
               passthrough: false,
               preserveGroupBys: false,
               sufficientStatsOnly: false,
@@ -4714,7 +4771,6 @@ async function run() {
               groupbys: [
                 "srcaddr",
               ],
-              cumulative: false,
               shouldTreatDotsAsLiterals: false,
               flushOnInputClose: true,
             },
@@ -6001,7 +6057,18 @@ async function run() {
             filter: "true",
             id: "event_breaker",
             conf: {
+              ruleType: "regex",
+              eventBreakerRegex: "/[\\n\\r]+(?!\\s)/",
               existingOrNew: "new",
+              maxEventBytes: 51200,
+              timestampAnchorRegex: "/^/",
+              timestamp: {
+                type: "auto",
+                length: 150,
+              },
+              timestampTimezone: "local",
+              timestampEarliest: "-420weeks",
+              timestampLatest: "+1week",
               shouldMarkCriblBreaker: true,
             },
           },
@@ -6051,7 +6118,18 @@ async function run() {
             filter: "true",
             id: "event_breaker",
             conf: {
+              ruleType: "regex",
+              eventBreakerRegex: "/[\\n\\r]+(?!\\s)/",
               existingOrNew: "new",
+              maxEventBytes: 51200,
+              timestampAnchorRegex: "/^/",
+              timestamp: {
+                type: "auto",
+                length: 150,
+              },
+              timestampTimezone: "local",
+              timestampEarliest: "-420weeks",
+              timestampLatest: "+1week",
               shouldMarkCriblBreaker: true,
             },
           },
@@ -6748,10 +6826,11 @@ async function run() {
             filter: "true",
             id: "lookup",
             conf: {
-              file: "ip_locations.csv",
-              dbLookup: false,
               matchMode: "exact",
+              ignoreCase: false,
+              dbLookup: false,
               reloadPeriodSec: -1,
+              file: "ip_locations.csv",
               inFields: [
                 {
                   eventField: "destination_ip",
@@ -6766,7 +6845,6 @@ async function run() {
                 },
               ],
               addToEvent: false,
-              ignoreCase: false,
             },
           },
         ],
@@ -6815,10 +6893,11 @@ async function run() {
             filter: "true",
             id: "lookup",
             conf: {
-              file: "ip_locations.csv",
-              dbLookup: false,
               matchMode: "exact",
+              ignoreCase: false,
+              dbLookup: false,
               reloadPeriodSec: -1,
+              file: "ip_locations.csv",
               inFields: [
                 {
                   eventField: "destination_ip",
@@ -6833,7 +6912,6 @@ async function run() {
                 },
               ],
               addToEvent: false,
-              ignoreCase: false,
             },
           },
         ],
@@ -6998,10 +7076,10 @@ async function run() {
             filter: "true",
             id: "numerify",
             conf: {
+              format: "none",
               depth: 5,
               ignoreFields: [],
               filterExpr: "",
-              format: "none",
             },
           },
         ],
@@ -7050,10 +7128,10 @@ async function run() {
             filter: "true",
             id: "numerify",
             conf: {
+              format: "none",
               depth: 5,
               ignoreFields: [],
               filterExpr: "",
-              format: "none",
             },
           },
         ],
@@ -7101,8 +7179,13 @@ async function run() {
             filter: "__inputId=='open_telemetry:open_telemetry'",
             id: "otlp_logs",
             conf: {
-              dropNonLogEvents: false,
               batchOTLPLogs: true,
+              sendBatchSize: 8192,
+              timeout: 200,
+              sendBatchMaxSize: 0,
+              metadataKeys: [],
+              metadataCardinalityLimit: 1000,
+              dropNonLogEvents: false,
             },
           },
         ],
@@ -7151,8 +7234,13 @@ async function run() {
             filter: "__inputId=='open_telemetry:open_telemetry'",
             id: "otlp_logs",
             conf: {
-              dropNonLogEvents: false,
               batchOTLPLogs: true,
+              sendBatchSize: 8192,
+              timeout: 200,
+              sendBatchMaxSize: 0,
+              metadataKeys: [],
+              metadataCardinalityLimit: 1000,
+              dropNonLogEvents: false,
             },
           },
         ],
@@ -7200,6 +7288,12 @@ async function run() {
             filter: "__inputId=='prometheus_rw:prom_rw_in'",
             id: "otlp_metrics",
             conf: {
+              batchOTLPMetrics: true,
+              sendBatchSize: 8192,
+              timeout: 200,
+              sendBatchMaxSize: 0,
+              metadataKeys: [],
+              metadataCardinalityLimit: 1000,
               resourceAttributePrefixes: [
                 "service",
                 "system",
@@ -7211,7 +7305,6 @@ async function run() {
               ],
               dropNonMetricEvents: false,
               otlpVersion: "0.10.0",
-              batchOTLPMetrics: true,
             },
           },
         ],
@@ -7260,6 +7353,12 @@ async function run() {
             filter: "__inputId=='prometheus_rw:prom_rw_in'",
             id: "otlp_metrics",
             conf: {
+              batchOTLPMetrics: true,
+              sendBatchSize: 8192,
+              timeout: 200,
+              sendBatchMaxSize: 0,
+              metadataKeys: [],
+              metadataCardinalityLimit: 1000,
               resourceAttributePrefixes: [
                 "service",
                 "system",
@@ -7271,7 +7370,6 @@ async function run() {
               ],
               dropNonMetricEvents: false,
               otlpVersion: "0.10.0",
-              batchOTLPMetrics: true,
             },
           },
         ],
@@ -7319,9 +7417,14 @@ async function run() {
             filter: "__inputId=='open_telemetry:open_telemetry'",
             id: "otlp_traces",
             conf: {
+              batchOTLPTraces: true,
+              sendBatchSize: 8192,
+              timeout: 200,
+              sendBatchMaxSize: 0,
+              metadataKeys: [],
+              metadataCardinalityLimit: 1000,
               dropNonTraceEvents: false,
               otlpVersion: "0.10.0",
-              batchOTLPTraces: true,
             },
           },
         ],
@@ -7370,9 +7473,14 @@ async function run() {
             filter: "__inputId=='open_telemetry:open_telemetry'",
             id: "otlp_traces",
             conf: {
+              batchOTLPTraces: true,
+              sendBatchSize: 8192,
+              timeout: 200,
+              sendBatchMaxSize: 0,
+              metadataKeys: [],
+              metadataCardinalityLimit: 1000,
               dropNonTraceEvents: false,
               otlpVersion: "0.10.0",
-              batchOTLPTraces: true,
             },
           },
         ],
@@ -7420,10 +7528,18 @@ async function run() {
             filter: "true",
             id: "serde",
             conf: {
-              mode: "extract",
               type: "kvp",
-              srcField: "_raw",
+              keep: [
+                "a",
+                "b",
+                "c",
+              ],
+              remove: [
+                "*",
+              ],
               cleanFields: false,
+              mode: "extract",
+              srcField: "_raw",
             },
           },
         ],
@@ -7472,10 +7588,18 @@ async function run() {
             filter: "true",
             id: "serde",
             conf: {
-              mode: "extract",
               type: "kvp",
-              srcField: "_raw",
+              keep: [
+                "a",
+                "b",
+                "c",
+              ],
+              remove: [
+                "*",
+              ],
               cleanFields: false,
+              mode: "extract",
+              srcField: "_raw",
             },
           },
         ],
@@ -7658,6 +7782,7 @@ async function run() {
             filter: "true",
             id: "redis",
             conf: {
+              authType: "none",
               commands: [
                 {
                   outField: "cached_value",
@@ -7667,7 +7792,6 @@ async function run() {
                 },
               ],
               deploymentType: "standalone",
-              authType: "none",
               maxBlockSecs: 60,
             },
           },
@@ -7717,6 +7841,7 @@ async function run() {
             filter: "true",
             id: "redis",
             conf: {
+              authType: "none",
               commands: [
                 {
                   outField: "cached_value",
@@ -7726,7 +7851,6 @@ async function run() {
                 },
               ],
               deploymentType: "standalone",
-              authType: "none",
               maxBlockSecs: 60,
             },
           },
@@ -8401,13 +8525,7 @@ async function run() {
             filter: "true",
             id: "serialize",
             conf: {
-              type: "json",
-              fields: [
-                "city",
-                "state",
-              ],
-              srcField: "",
-              dstField: "_raw",
+              type: "kvp",
             },
           },
         ],
@@ -8456,13 +8574,7 @@ async function run() {
             filter: "true",
             id: "serialize",
             conf: {
-              type: "json",
-              fields: [
-                "city",
-                "state",
-              ],
-              srcField: "",
-              dstField: "_raw",
+              type: "kvp",
             },
           },
         ],
