@@ -1,17 +1,16 @@
 # FunctionConfSchemaOtlpLogs
 
-
-## Supported Types
-
-### `models.OTLPLogsBatchOTLPLogsFalse`
+## Example Usage
 
 ```typescript
-const value: models.OTLPLogsBatchOTLPLogsFalse = {};
+import { FunctionConfSchemaOtlpLogs } from "cribl-control-plane/models";
+
+let value: FunctionConfSchemaOtlpLogs = {};
 ```
 
-### `models.OTLPLogsBatchOTLPLogsTrue`
+## Fields
 
-```typescript
-const value: models.OTLPLogsBatchOTLPLogsTrue = {};
-```
-
+| Field                                                            | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `dropNonLogEvents`                                               | *boolean*                                                        | :heavy_minus_sign:                                               | N/A                                                              |
+| `batchOTLPLogs`                                                  | *boolean*                                                        | :heavy_minus_sign:                                               | Batch OTLP log records by shared top-level `resource` attributes |

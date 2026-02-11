@@ -8,14 +8,7 @@ import { PipelineFunctionRedis } from "cribl-control-plane/models";
 let value: PipelineFunctionRedis = {
   id: "redis",
   conf: {
-    authType: "manual",
-    password: "ZdUzJAX0UGwLJyM",
-    commands: [
-      {
-        command: "<value>",
-        keyExpr: "<value>",
-      },
-    ],
+    commands: [],
   },
 };
 ```
@@ -29,5 +22,5 @@ let value: PipelineFunctionRedis = {
 | `description`                                                                                | *string*                                                                                     | :heavy_minus_sign:                                                                           | Simple description of this step                                                              |
 | `disabled`                                                                                   | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If true, data will not be pushed through this function                                       |
 | `final`                                                                                      | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If enabled, stops the results of this Function from being passed to the downstream Functions |
-| `conf`                                                                                       | *models.PipelineFunctionRedisConf*                                                           | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `conf`                                                                                       | [models.PipelineFunctionRedisConf](../models/pipelinefunctionredisconf.md)                   | :heavy_check_mark:                                                                           | N/A                                                                                          |
 | `groupId`                                                                                    | *string*                                                                                     | :heavy_minus_sign:                                                                           | Group ID                                                                                     |

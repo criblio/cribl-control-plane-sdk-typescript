@@ -10,7 +10,12 @@ const value: models.PipelineFunctionAggregateMetrics = {
   id: "aggregate_metrics",
   conf: {
     timeWindow: "<value>",
-    aggregations: [],
+    aggregations: [
+      {
+        metricType: "automatic",
+        agg: "<value>",
+      },
+    ],
   },
 };
 ```
@@ -25,7 +30,6 @@ const value: models.PipelineFunctionAggregation = {
     aggregations: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
   },
 };
@@ -400,9 +404,7 @@ const value: models.PipelineFunctionNotify = {
 ```typescript
 const value: models.PipelineFunctionNumerify = {
   id: "numerify",
-  conf: {
-    format: "fix",
-  },
+  conf: {},
 };
 ```
 
@@ -480,14 +482,7 @@ const value: models.PipelineFunctionPublishMetrics = {
 const value: models.PipelineFunctionRedis = {
   id: "redis",
   conf: {
-    authType: "manual",
-    password: "ZdUzJAX0UGwLJyM",
-    commands: [
-      {
-        command: "<value>",
-        keyExpr: "<value>",
-      },
-    ],
+    commands: [],
   },
 };
 ```
@@ -572,8 +567,8 @@ const value: models.PipelineFunctionSensitiveDataScanner = {
 const value: models.PipelineFunctionSerde = {
   id: "serde",
   conf: {
-    type: "delim",
     mode: "extract",
+    type: "kvp",
   },
 };
 ```
@@ -584,7 +579,7 @@ const value: models.PipelineFunctionSerde = {
 const value: models.PipelineFunctionSerialize = {
   id: "serialize",
   conf: {
-    type: "csv",
+    type: "delim",
   },
 };
 ```

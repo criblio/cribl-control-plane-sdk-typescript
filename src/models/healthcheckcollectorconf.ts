@@ -34,12 +34,6 @@ import {
   ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$Outbound,
   ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$outboundSchema,
 } from "./itemstypehealthcheckauthenticationoauthauthrequestparams.js";
-import {
-  ItemsTypeHealthCheckCollectMethodPostCollectRequestParams,
-  ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
-  ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound,
-  ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
-} from "./itemstypehealthcheckcollectmethodpostcollectrequestparams.js";
 
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone =
   {
@@ -413,6 +407,8 @@ export type HealthCheckAuthenticationOauthSecret = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationOauthSecretHealthCheckMethod;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -815,6 +811,8 @@ export type HealthCheckAuthenticationOauth = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -1214,6 +1212,8 @@ export type HealthCheckAuthenticationLoginSecret = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationLoginSecretHealthCheckMethod;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -1614,6 +1614,8 @@ export type HealthCheckAuthenticationLogin = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -1991,6 +1993,8 @@ export type HealthCheckAuthenticationBasicSecret = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationBasicSecretHealthCheckMethod;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -2369,6 +2373,8 @@ export type HealthCheckAuthenticationBasic = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -2739,6 +2745,8 @@ export type HealthCheckAuthenticationNone = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -3109,10 +3117,7 @@ export type HealthCheckCollectMethodPostWithBody = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckCollectMethodPostWithBodyHealthCheckMethod;
-  /**
-   * Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-   */
-  collectBody?: string | undefined;
+  collectBody?: any | undefined;
   discovery?:
     | (
       | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -3131,6 +3136,7 @@ export type HealthCheckCollectMethodPostWithBody = {
    * Expression to derive URL to use for the health check operation (can be a constant).
    */
   collectUrl: string;
+  collectRequestParams?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -3499,12 +3505,7 @@ export type HealthCheckCollectMethodPost = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckCollectMethodPostHealthCheckMethod;
-  /**
-   * Optional health check request parameters.
-   */
-  collectRequestParams?:
-    | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
-    | undefined;
+  collectRequestParams?: any | undefined;
   discovery?:
     | (
       | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -3523,6 +3524,7 @@ export type HealthCheckCollectMethodPost = {
    * Expression to derive URL to use for the health check operation (can be a constant).
    */
   collectUrl: string;
+  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -3583,17 +3585,6 @@ export const HealthCheckCollectMethodGetHealthCheckMethod = {
 export type HealthCheckCollectMethodGetHealthCheckMethod = OpenEnum<
   typeof HealthCheckCollectMethodGetHealthCheckMethod
 >;
-
-export type HealthCheckCollectMethodGetCollectRequestParam = {
-  /**
-   * Parameter name
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter value (can be a constant).
-   */
-  value: string;
-};
 
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone = {
   /**
@@ -3902,12 +3893,7 @@ export type HealthCheckCollectMethodGet = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckCollectMethodGetHealthCheckMethod;
-  /**
-   * Optional health check request parameters.
-   */
-  collectRequestParams?:
-    | Array<HealthCheckCollectMethodGetCollectRequestParam>
-    | undefined;
+  collectRequestParams?: any | undefined;
   discovery?:
     | (
       | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -3926,6 +3912,7 @@ export type HealthCheckCollectMethodGet = {
    * Expression to derive URL to use for the health check operation (can be a constant).
    */
   collectUrl: string;
+  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -4978,6 +4965,8 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
   collectUrl: types.string(),
   collectMethod:
     HealthCheckAuthenticationOauthSecretHealthCheckMethod$inboundSchema,
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationOauthSecretCollectRequestHeader$inboundSchema
@@ -5029,6 +5018,8 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationOauthSecretCollectRequestHeader$Outbound>
     | undefined;
@@ -5087,6 +5078,8 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
   collectUrl: z.string(),
   collectMethod:
     HealthCheckAuthenticationOauthSecretHealthCheckMethod$outboundSchema,
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationOauthSecretCollectRequestHeader$outboundSchema
@@ -6124,6 +6117,8 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
   })),
   collectUrl: types.string(),
   collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod$inboundSchema,
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationOauthCollectRequestHeader$inboundSchema
@@ -6175,6 +6170,8 @@ export type HealthCheckAuthenticationOauth$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationOauthCollectRequestHeader$Outbound>
     | undefined;
@@ -6232,6 +6229,8 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
   ]).optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod$outboundSchema,
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationOauthCollectRequestHeader$outboundSchema
@@ -7275,6 +7274,8 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
   collectUrl: types.string(),
   collectMethod:
     HealthCheckAuthenticationLoginSecretHealthCheckMethod$inboundSchema,
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationLoginSecretCollectRequestHeader$inboundSchema
@@ -7323,6 +7324,8 @@ export type HealthCheckAuthenticationLoginSecret$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationLoginSecretCollectRequestHeader$Outbound>
     | undefined;
@@ -7378,6 +7381,8 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
   collectUrl: z.string(),
   collectMethod:
     HealthCheckAuthenticationLoginSecretHealthCheckMethod$outboundSchema,
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationLoginSecretCollectRequestHeader$outboundSchema
@@ -8411,6 +8416,8 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
   })),
   collectUrl: types.string(),
   collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod$inboundSchema,
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationLoginCollectRequestHeader$inboundSchema
@@ -8460,6 +8467,8 @@ export type HealthCheckAuthenticationLogin$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationLoginCollectRequestHeader$Outbound>
     | undefined;
@@ -8515,6 +8524,8 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
   ]).optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod$outboundSchema,
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationLoginCollectRequestHeader$outboundSchema
@@ -9549,6 +9560,8 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
   collectUrl: types.string(),
   collectMethod:
     HealthCheckAuthenticationBasicSecretHealthCheckMethod$inboundSchema,
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationBasicSecretCollectRequestHeader$inboundSchema
@@ -9590,6 +9603,8 @@ export type HealthCheckAuthenticationBasicSecret$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationBasicSecretCollectRequestHeader$Outbound>
     | undefined;
@@ -9638,6 +9653,8 @@ export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
   collectUrl: z.string(),
   collectMethod:
     HealthCheckAuthenticationBasicSecretHealthCheckMethod$outboundSchema,
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationBasicSecretCollectRequestHeader$outboundSchema
@@ -10662,6 +10679,8 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
   })),
   collectUrl: types.string(),
   collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod$inboundSchema,
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationBasicCollectRequestHeader$inboundSchema
@@ -10704,6 +10723,8 @@ export type HealthCheckAuthenticationBasic$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationBasicCollectRequestHeader$Outbound>
     | undefined;
@@ -10752,6 +10773,8 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
   ]).optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod$outboundSchema,
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationBasicCollectRequestHeader$outboundSchema
@@ -11760,6 +11783,8 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
   })),
   collectUrl: types.string(),
   collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod$inboundSchema,
+  collectRequestParams: types.optional(z.any()),
+  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationNoneCollectRequestHeader$inboundSchema
@@ -11800,6 +11825,8 @@ export type HealthCheckAuthenticationNone$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationNoneCollectRequestHeader$Outbound>
     | undefined;
@@ -11846,6 +11873,8 @@ export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
   ]).optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod$outboundSchema,
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationNoneCollectRequestHeader$outboundSchema
@@ -12874,7 +12903,7 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
 > = z.object({
   collectMethod:
     HealthCheckCollectMethodPostWithBodyHealthCheckMethod$inboundSchema,
-  collectBody: types.optional(types.string()),
+  collectBody: types.optional(z.any()),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -12898,6 +12927,7 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
     ),
   })),
   collectUrl: types.string(),
+  collectRequestParams: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyCollectRequestHeader$inboundSchema
@@ -12927,7 +12957,7 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
 /** @internal */
 export type HealthCheckCollectMethodPostWithBody$Outbound = {
   collectMethod: string;
-  collectBody?: string | undefined;
+  collectBody?: any | undefined;
   discovery?:
     | (
       | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -12940,6 +12970,7 @@ export type HealthCheckCollectMethodPostWithBody$Outbound = {
     | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$Outbound
     | undefined;
   collectUrl: string;
+  collectRequestParams?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckCollectMethodPostWithBodyCollectRequestHeader$Outbound>
     | undefined;
@@ -12964,7 +12995,7 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
 > = z.object({
   collectMethod:
     HealthCheckCollectMethodPostWithBodyHealthCheckMethod$outboundSchema,
-  collectBody: z.string().optional(),
+  collectBody: z.any().optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -12988,6 +13019,7 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   collectUrl: z.string(),
+  collectRequestParams: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyCollectRequestHeader$outboundSchema
@@ -13978,11 +14010,7 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod: HealthCheckCollectMethodPostHealthCheckMethod$inboundSchema,
-  collectRequestParams: types.optional(
-    z.array(
-      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
-    ),
-  ),
+  collectRequestParams: types.optional(z.any()),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -14006,6 +14034,7 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
     ),
   })),
   collectUrl: types.string(),
+  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckCollectMethodPostCollectRequestHeader$inboundSchema
@@ -14034,9 +14063,7 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
 /** @internal */
 export type HealthCheckCollectMethodPost$Outbound = {
   collectMethod: string;
-  collectRequestParams?:
-    | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound>
-    | undefined;
+  collectRequestParams?: any | undefined;
   discovery?:
     | (
       | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -14049,6 +14076,7 @@ export type HealthCheckCollectMethodPost$Outbound = {
     | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$Outbound
     | undefined;
   collectUrl: string;
+  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckCollectMethodPostCollectRequestHeader$Outbound>
     | undefined;
@@ -14072,9 +14100,7 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
   HealthCheckCollectMethodPost
 > = z.object({
   collectMethod: HealthCheckCollectMethodPostHealthCheckMethod$outboundSchema,
-  collectRequestParams: z.array(
-    ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
-  ).optional(),
+  collectRequestParams: z.any().optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -14098,6 +14124,7 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   collectUrl: z.string(),
+  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckCollectMethodPostCollectRequestHeader$outboundSchema
@@ -14156,59 +14183,6 @@ export const HealthCheckCollectMethodGetHealthCheckMethod$outboundSchema:
     z.ZodTypeDef,
     HealthCheckCollectMethodGetHealthCheckMethod
   > = openEnums.outboundSchema(HealthCheckCollectMethodGetHealthCheckMethod);
-
-/** @internal */
-export const HealthCheckCollectMethodGetCollectRequestParam$inboundSchema:
-  z.ZodType<
-    HealthCheckCollectMethodGetCollectRequestParam,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    name: types.string(),
-    value: types.string(),
-  });
-/** @internal */
-export type HealthCheckCollectMethodGetCollectRequestParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const HealthCheckCollectMethodGetCollectRequestParam$outboundSchema:
-  z.ZodType<
-    HealthCheckCollectMethodGetCollectRequestParam$Outbound,
-    z.ZodTypeDef,
-    HealthCheckCollectMethodGetCollectRequestParam
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function healthCheckCollectMethodGetCollectRequestParamToJSON(
-  healthCheckCollectMethodGetCollectRequestParam:
-    HealthCheckCollectMethodGetCollectRequestParam,
-): string {
-  return JSON.stringify(
-    HealthCheckCollectMethodGetCollectRequestParam$outboundSchema.parse(
-      healthCheckCollectMethodGetCollectRequestParam,
-    ),
-  );
-}
-export function healthCheckCollectMethodGetCollectRequestParamFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  HealthCheckCollectMethodGetCollectRequestParam,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      HealthCheckCollectMethodGetCollectRequestParam$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'HealthCheckCollectMethodGetCollectRequestParam' from JSON`,
-  );
-}
 
 /** @internal */
 export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$inboundSchema:
@@ -15140,11 +15114,7 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod: HealthCheckCollectMethodGetHealthCheckMethod$inboundSchema,
-  collectRequestParams: types.optional(
-    z.array(z.lazy(() =>
-      HealthCheckCollectMethodGetCollectRequestParam$inboundSchema
-    )),
-  ),
+  collectRequestParams: types.optional(z.any()),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -15168,6 +15138,7 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
     ),
   })),
   collectUrl: types.string(),
+  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckCollectMethodGetCollectRequestHeader$inboundSchema
@@ -15196,9 +15167,7 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
 /** @internal */
 export type HealthCheckCollectMethodGet$Outbound = {
   collectMethod: string;
-  collectRequestParams?:
-    | Array<HealthCheckCollectMethodGetCollectRequestParam$Outbound>
-    | undefined;
+  collectRequestParams?: any | undefined;
   discovery?:
     | (
       | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -15211,6 +15180,7 @@ export type HealthCheckCollectMethodGet$Outbound = {
     | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$Outbound
     | undefined;
   collectUrl: string;
+  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckCollectMethodGetCollectRequestHeader$Outbound>
     | undefined;
@@ -15234,9 +15204,7 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
   HealthCheckCollectMethodGet
 > = z.object({
   collectMethod: HealthCheckCollectMethodGetHealthCheckMethod$outboundSchema,
-  collectRequestParams: z.array(
-    z.lazy(() => HealthCheckCollectMethodGetCollectRequestParam$outboundSchema),
-  ).optional(),
+  collectRequestParams: z.any().optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -15260,6 +15228,7 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   collectUrl: z.string(),
+  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckCollectMethodGetCollectRequestHeader$outboundSchema

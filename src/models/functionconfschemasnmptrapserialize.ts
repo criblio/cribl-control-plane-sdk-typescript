@@ -13,14 +13,12 @@ import {
 } from "./authenticationprotocoloptionsv3user.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type SnmpTrapSerializeV3UserAuthProtocolNone = {
-  authProtocol?: AuthenticationProtocolOptionsV3User | undefined;
+export type FunctionConfSchemaSnmpTrapSerializeV3User = {
   name?: string | undefined;
+  authProtocol?: AuthenticationProtocolOptionsV3User | undefined;
   authKey?: any | undefined;
   privProtocol?: string | undefined;
 };
-
-export type V3User = SnmpTrapSerializeV3UserAuthProtocolNone;
 
 export type FunctionConfSchemaSnmpTrapSerialize = {
   /**
@@ -31,91 +29,66 @@ export type FunctionConfSchemaSnmpTrapSerialize = {
    * When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination
    */
   dropFailedEvents?: boolean | undefined;
-  v3User?: SnmpTrapSerializeV3UserAuthProtocolNone | undefined;
+  v3User?: FunctionConfSchemaSnmpTrapSerializeV3User | undefined;
 };
 
 /** @internal */
-export const SnmpTrapSerializeV3UserAuthProtocolNone$inboundSchema: z.ZodType<
-  SnmpTrapSerializeV3UserAuthProtocolNone,
+export const FunctionConfSchemaSnmpTrapSerializeV3User$inboundSchema: z.ZodType<
+  FunctionConfSchemaSnmpTrapSerializeV3User,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  name: types.optional(types.string()),
   authProtocol: types.optional(
     AuthenticationProtocolOptionsV3User$inboundSchema,
   ),
-  name: types.optional(types.string()),
   authKey: types.optional(z.any()),
   privProtocol: types.optional(types.string()),
 });
 /** @internal */
-export type SnmpTrapSerializeV3UserAuthProtocolNone$Outbound = {
-  authProtocol?: string | undefined;
+export type FunctionConfSchemaSnmpTrapSerializeV3User$Outbound = {
   name?: string | undefined;
+  authProtocol?: string | undefined;
   authKey?: any | undefined;
   privProtocol?: string | undefined;
 };
 
 /** @internal */
-export const SnmpTrapSerializeV3UserAuthProtocolNone$outboundSchema: z.ZodType<
-  SnmpTrapSerializeV3UserAuthProtocolNone$Outbound,
-  z.ZodTypeDef,
-  SnmpTrapSerializeV3UserAuthProtocolNone
-> = z.object({
-  authProtocol: AuthenticationProtocolOptionsV3User$outboundSchema.optional(),
-  name: z.string().optional(),
-  authKey: z.any().optional(),
-  privProtocol: z.string().optional(),
-});
+export const FunctionConfSchemaSnmpTrapSerializeV3User$outboundSchema:
+  z.ZodType<
+    FunctionConfSchemaSnmpTrapSerializeV3User$Outbound,
+    z.ZodTypeDef,
+    FunctionConfSchemaSnmpTrapSerializeV3User
+  > = z.object({
+    name: z.string().optional(),
+    authProtocol: AuthenticationProtocolOptionsV3User$outboundSchema.optional(),
+    authKey: z.any().optional(),
+    privProtocol: z.string().optional(),
+  });
 
-export function snmpTrapSerializeV3UserAuthProtocolNoneToJSON(
-  snmpTrapSerializeV3UserAuthProtocolNone:
-    SnmpTrapSerializeV3UserAuthProtocolNone,
+export function functionConfSchemaSnmpTrapSerializeV3UserToJSON(
+  functionConfSchemaSnmpTrapSerializeV3User:
+    FunctionConfSchemaSnmpTrapSerializeV3User,
 ): string {
   return JSON.stringify(
-    SnmpTrapSerializeV3UserAuthProtocolNone$outboundSchema.parse(
-      snmpTrapSerializeV3UserAuthProtocolNone,
+    FunctionConfSchemaSnmpTrapSerializeV3User$outboundSchema.parse(
+      functionConfSchemaSnmpTrapSerializeV3User,
     ),
   );
 }
-export function snmpTrapSerializeV3UserAuthProtocolNoneFromJSON(
+export function functionConfSchemaSnmpTrapSerializeV3UserFromJSON(
   jsonString: string,
 ): SafeParseResult<
-  SnmpTrapSerializeV3UserAuthProtocolNone,
+  FunctionConfSchemaSnmpTrapSerializeV3User,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      SnmpTrapSerializeV3UserAuthProtocolNone$inboundSchema.parse(
+      FunctionConfSchemaSnmpTrapSerializeV3User$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'SnmpTrapSerializeV3UserAuthProtocolNone' from JSON`,
-  );
-}
-
-/** @internal */
-export const V3User$inboundSchema: z.ZodType<V3User, z.ZodTypeDef, unknown> = z
-  .lazy(() => SnmpTrapSerializeV3UserAuthProtocolNone$inboundSchema);
-/** @internal */
-export type V3User$Outbound = SnmpTrapSerializeV3UserAuthProtocolNone$Outbound;
-
-/** @internal */
-export const V3User$outboundSchema: z.ZodType<
-  V3User$Outbound,
-  z.ZodTypeDef,
-  V3User
-> = z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNone$outboundSchema);
-
-export function v3UserToJSON(v3User: V3User): string {
-  return JSON.stringify(V3User$outboundSchema.parse(v3User));
-}
-export function v3UserFromJSON(
-  jsonString: string,
-): SafeParseResult<V3User, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => V3User$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3User' from JSON`,
+    `Failed to parse 'FunctionConfSchemaSnmpTrapSerializeV3User' from JSON`,
   );
 }
 
@@ -128,14 +101,14 @@ export const FunctionConfSchemaSnmpTrapSerialize$inboundSchema: z.ZodType<
   strict: types.optional(types.boolean()),
   dropFailedEvents: types.optional(types.boolean()),
   v3User: types.optional(
-    z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNone$inboundSchema),
+    z.lazy(() => FunctionConfSchemaSnmpTrapSerializeV3User$inboundSchema),
   ),
 });
 /** @internal */
 export type FunctionConfSchemaSnmpTrapSerialize$Outbound = {
   strict?: boolean | undefined;
   dropFailedEvents?: boolean | undefined;
-  v3User?: SnmpTrapSerializeV3UserAuthProtocolNone$Outbound | undefined;
+  v3User?: FunctionConfSchemaSnmpTrapSerializeV3User$Outbound | undefined;
 };
 
 /** @internal */
@@ -146,7 +119,7 @@ export const FunctionConfSchemaSnmpTrapSerialize$outboundSchema: z.ZodType<
 > = z.object({
   strict: z.boolean().optional(),
   dropFailedEvents: z.boolean().optional(),
-  v3User: z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNone$outboundSchema)
+  v3User: z.lazy(() => FunctionConfSchemaSnmpTrapSerializeV3User$outboundSchema)
     .optional(),
 });
 

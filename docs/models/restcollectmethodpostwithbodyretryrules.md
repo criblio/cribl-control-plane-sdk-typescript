@@ -15,7 +15,7 @@ const value: models.RestCollectMethodPostWithBodyRestRetryRulesTypeNone = {
 
 ```typescript
 const value: models.RestCollectMethodPostWithBodyRestRetryRulesTypeStatic = {
-  type: "<value>",
+  type: "static",
 };
 ```
 
@@ -23,7 +23,7 @@ const value: models.RestCollectMethodPostWithBodyRestRetryRulesTypeStatic = {
 
 ```typescript
 const value: models.RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff = {
-  type: "<value>",
+  type: "backoff",
 };
 ```
 

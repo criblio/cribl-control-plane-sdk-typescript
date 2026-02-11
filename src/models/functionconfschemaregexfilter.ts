@@ -8,7 +8,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type RegexList = {
+export type FunctionConfSchemaRegexFilterRegexList = {
   /**
    * Regex to test against
    */
@@ -20,7 +20,7 @@ export type FunctionConfSchemaRegexFilter = {
    * Regex to test against
    */
   regex?: string | undefined;
-  regexList?: Array<RegexList> | undefined;
+  regexList?: Array<FunctionConfSchemaRegexFilterRegexList> | undefined;
   /**
    * Name of the field to apply the regex on (defaults to _raw)
    */
@@ -28,37 +28,45 @@ export type FunctionConfSchemaRegexFilter = {
 };
 
 /** @internal */
-export const RegexList$inboundSchema: z.ZodType<
-  RegexList,
+export const FunctionConfSchemaRegexFilterRegexList$inboundSchema: z.ZodType<
+  FunctionConfSchemaRegexFilterRegexList,
   z.ZodTypeDef,
   unknown
 > = z.object({
   regex: types.string(),
 });
 /** @internal */
-export type RegexList$Outbound = {
+export type FunctionConfSchemaRegexFilterRegexList$Outbound = {
   regex: string;
 };
 
 /** @internal */
-export const RegexList$outboundSchema: z.ZodType<
-  RegexList$Outbound,
+export const FunctionConfSchemaRegexFilterRegexList$outboundSchema: z.ZodType<
+  FunctionConfSchemaRegexFilterRegexList$Outbound,
   z.ZodTypeDef,
-  RegexList
+  FunctionConfSchemaRegexFilterRegexList
 > = z.object({
   regex: z.string(),
 });
 
-export function regexListToJSON(regexList: RegexList): string {
-  return JSON.stringify(RegexList$outboundSchema.parse(regexList));
+export function functionConfSchemaRegexFilterRegexListToJSON(
+  functionConfSchemaRegexFilterRegexList:
+    FunctionConfSchemaRegexFilterRegexList,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaRegexFilterRegexList$outboundSchema.parse(
+      functionConfSchemaRegexFilterRegexList,
+    ),
+  );
 }
-export function regexListFromJSON(
+export function functionConfSchemaRegexFilterRegexListFromJSON(
   jsonString: string,
-): SafeParseResult<RegexList, SDKValidationError> {
+): SafeParseResult<FunctionConfSchemaRegexFilterRegexList, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => RegexList$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RegexList' from JSON`,
+    (x) =>
+      FunctionConfSchemaRegexFilterRegexList$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FunctionConfSchemaRegexFilterRegexList' from JSON`,
   );
 }
 
@@ -69,13 +77,17 @@ export const FunctionConfSchemaRegexFilter$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   regex: types.optional(types.string()),
-  regexList: types.optional(z.array(z.lazy(() => RegexList$inboundSchema))),
+  regexList: types.optional(
+    z.array(z.lazy(() => FunctionConfSchemaRegexFilterRegexList$inboundSchema)),
+  ),
   field: types.optional(types.string()),
 });
 /** @internal */
 export type FunctionConfSchemaRegexFilter$Outbound = {
   regex?: string | undefined;
-  regexList?: Array<RegexList$Outbound> | undefined;
+  regexList?:
+    | Array<FunctionConfSchemaRegexFilterRegexList$Outbound>
+    | undefined;
   field?: string | undefined;
 };
 
@@ -86,7 +98,9 @@ export const FunctionConfSchemaRegexFilter$outboundSchema: z.ZodType<
   FunctionConfSchemaRegexFilter
 > = z.object({
   regex: z.string().optional(),
-  regexList: z.array(z.lazy(() => RegexList$outboundSchema)).optional(),
+  regexList: z.array(
+    z.lazy(() => FunctionConfSchemaRegexFilterRegexList$outboundSchema),
+  ).optional(),
   field: z.string().optional(),
 });
 

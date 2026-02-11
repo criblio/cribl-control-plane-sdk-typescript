@@ -7,19 +7,20 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeSerdeTypeRegexRegexList,
-  ItemsTypeSerdeTypeRegexRegexList$inboundSchema,
-  ItemsTypeSerdeTypeRegexRegexList$Outbound,
-  ItemsTypeSerdeTypeRegexRegexList$outboundSchema,
-} from "./itemstypeserdetyperegexregexlist.js";
+
+export type PipelineFunctionRegexExtractRegexList = {
+  /**
+   * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
+   */
+  regex: string;
+};
 
 export type PipelineFunctionRegexExtractConf = {
   /**
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
   regex: string;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList> | undefined;
+  regexList?: Array<PipelineFunctionRegexExtractRegexList> | undefined;
   /**
    * Field on which to perform regex field extraction
    */
@@ -67,6 +68,48 @@ export type PipelineFunctionRegexExtract = {
 };
 
 /** @internal */
+export const PipelineFunctionRegexExtractRegexList$inboundSchema: z.ZodType<
+  PipelineFunctionRegexExtractRegexList,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  regex: types.string(),
+});
+/** @internal */
+export type PipelineFunctionRegexExtractRegexList$Outbound = {
+  regex: string;
+};
+
+/** @internal */
+export const PipelineFunctionRegexExtractRegexList$outboundSchema: z.ZodType<
+  PipelineFunctionRegexExtractRegexList$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionRegexExtractRegexList
+> = z.object({
+  regex: z.string(),
+});
+
+export function pipelineFunctionRegexExtractRegexListToJSON(
+  pipelineFunctionRegexExtractRegexList: PipelineFunctionRegexExtractRegexList,
+): string {
+  return JSON.stringify(
+    PipelineFunctionRegexExtractRegexList$outboundSchema.parse(
+      pipelineFunctionRegexExtractRegexList,
+    ),
+  );
+}
+export function pipelineFunctionRegexExtractRegexListFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionRegexExtractRegexList, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      PipelineFunctionRegexExtractRegexList$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionRegexExtractRegexList' from JSON`,
+  );
+}
+
+/** @internal */
 export const PipelineFunctionRegexExtractConf$inboundSchema: z.ZodType<
   PipelineFunctionRegexExtractConf,
   z.ZodTypeDef,
@@ -74,7 +117,7 @@ export const PipelineFunctionRegexExtractConf$inboundSchema: z.ZodType<
 > = z.object({
   regex: types.string(),
   regexList: types.optional(
-    z.array(ItemsTypeSerdeTypeRegexRegexList$inboundSchema),
+    z.array(z.lazy(() => PipelineFunctionRegexExtractRegexList$inboundSchema)),
   ),
   source: types.optional(types.string()),
   iterations: types.optional(types.number()),
@@ -84,7 +127,7 @@ export const PipelineFunctionRegexExtractConf$inboundSchema: z.ZodType<
 /** @internal */
 export type PipelineFunctionRegexExtractConf$Outbound = {
   regex: string;
-  regexList?: Array<ItemsTypeSerdeTypeRegexRegexList$Outbound> | undefined;
+  regexList?: Array<PipelineFunctionRegexExtractRegexList$Outbound> | undefined;
   source?: string | undefined;
   iterations?: number | undefined;
   fieldNameExpression?: string | undefined;
@@ -98,8 +141,9 @@ export const PipelineFunctionRegexExtractConf$outboundSchema: z.ZodType<
   PipelineFunctionRegexExtractConf
 > = z.object({
   regex: z.string(),
-  regexList: z.array(ItemsTypeSerdeTypeRegexRegexList$outboundSchema)
-    .optional(),
+  regexList: z.array(
+    z.lazy(() => PipelineFunctionRegexExtractRegexList$outboundSchema),
+  ).optional(),
   source: z.string().optional(),
   iterations: z.number().optional(),
   fieldNameExpression: z.string().optional(),
