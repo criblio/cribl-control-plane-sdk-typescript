@@ -119,7 +119,6 @@ export type S3AwsAuthenticationMethodSecret = {
    * Maximum number of metadata objects to batch before recording as results
    */
   maxBatchSize?: number | undefined;
-  recurse?: any | undefined;
   /**
    * Reuse connections between requests to improve performance
    */
@@ -244,7 +243,6 @@ export type S3AwsAuthenticationMethodManual = {
    * Maximum number of metadata objects to batch before recording as results
    */
   maxBatchSize?: number | undefined;
-  recurse?: any | undefined;
   /**
    * Reuse connections between requests to improve performance
    */
@@ -361,7 +359,6 @@ export type S3AwsAuthenticationMethodAuto = {
    * Maximum number of metadata objects to batch before recording as results
    */
   maxBatchSize?: number | undefined;
-  recurse?: any | undefined;
   /**
    * Reuse connections between requests to improve performance
    */
@@ -416,7 +413,10 @@ export type S3PartitioningSchemeNone = {
    * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
    */
   partitioningScheme?: S3PartitioningSchemeNonePartitioningScheme | undefined;
-  recurse?: any | undefined;
+  /**
+   * Traverse and include files from subdirectories. Leave this option enabled to ensure that all nested directories are searched and their contents collected.
+   */
+  recurse?: boolean | undefined;
   /**
    * Name of the predefined Destination that will be used to auto-populate Collector settings
    */
@@ -591,7 +591,6 @@ export type S3PartitioningSchemeDdss = {
    * Maximum number of metadata objects to batch before recording as results
    */
   maxBatchSize?: number | undefined;
-  recurse?: any | undefined;
   /**
    * Reuse connections between requests to improve performance
    */
@@ -717,7 +716,6 @@ export const S3AwsAuthenticationMethodSecret$inboundSchema: z.ZodType<
   assumeRoleExternalId: types.optional(types.string()),
   durationSeconds: types.optional(types.number()),
   maxBatchSize: types.optional(types.number()),
-  recurse: types.optional(z.any()),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
@@ -744,7 +742,6 @@ export type S3AwsAuthenticationMethodSecret$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   maxBatchSize?: number | undefined;
-  recurse?: any | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
@@ -778,7 +775,6 @@ export const S3AwsAuthenticationMethodSecret$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   maxBatchSize: z.number().optional(),
-  recurse: z.any().optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
@@ -906,7 +902,6 @@ export const S3AwsAuthenticationMethodManual$inboundSchema: z.ZodType<
   assumeRoleExternalId: types.optional(types.string()),
   durationSeconds: types.optional(types.number()),
   maxBatchSize: types.optional(types.number()),
-  recurse: types.optional(z.any()),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
@@ -934,7 +929,6 @@ export type S3AwsAuthenticationMethodManual$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   maxBatchSize?: number | undefined;
-  recurse?: any | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
@@ -969,7 +963,6 @@ export const S3AwsAuthenticationMethodManual$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   maxBatchSize: z.number().optional(),
-  recurse: z.any().optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
@@ -1084,7 +1077,6 @@ export const S3AwsAuthenticationMethodAuto$inboundSchema: z.ZodType<
   assumeRoleExternalId: types.optional(types.string()),
   durationSeconds: types.optional(types.number()),
   maxBatchSize: types.optional(types.number()),
-  recurse: types.optional(z.any()),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
@@ -1110,7 +1102,6 @@ export type S3AwsAuthenticationMethodAuto$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   maxBatchSize?: number | undefined;
-  recurse?: any | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
@@ -1143,7 +1134,6 @@ export const S3AwsAuthenticationMethodAuto$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   maxBatchSize: z.number().optional(),
-  recurse: z.any().optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
@@ -1231,7 +1221,7 @@ export const S3PartitioningSchemeNone$inboundSchema: z.ZodType<
   partitioningScheme: types.optional(
     S3PartitioningSchemeNonePartitioningScheme$inboundSchema,
   ),
-  recurse: types.optional(z.any()),
+  recurse: types.optional(types.boolean()),
   outputName: types.optional(types.string()),
   bucket: types.string(),
   parquetChunkSizeMB: types.optional(types.number()),
@@ -1259,7 +1249,7 @@ export const S3PartitioningSchemeNone$inboundSchema: z.ZodType<
 /** @internal */
 export type S3PartitioningSchemeNone$Outbound = {
   partitioningScheme?: string | undefined;
-  recurse?: any | undefined;
+  recurse?: boolean | undefined;
   outputName?: string | undefined;
   bucket: string;
   parquetChunkSizeMB?: number | undefined;
@@ -1289,7 +1279,7 @@ export const S3PartitioningSchemeNone$outboundSchema: z.ZodType<
 > = z.object({
   partitioningScheme: S3PartitioningSchemeNonePartitioningScheme$outboundSchema
     .optional(),
-  recurse: z.any().optional(),
+  recurse: z.boolean().optional(),
   outputName: z.string().optional(),
   bucket: z.string(),
   parquetChunkSizeMB: z.number().optional(),
@@ -1412,7 +1402,6 @@ export const S3PartitioningSchemeDdss$inboundSchema: z.ZodType<
   assumeRoleExternalId: types.optional(types.string()),
   durationSeconds: types.optional(types.number()),
   maxBatchSize: types.optional(types.number()),
-  recurse: types.optional(z.any()),
   reuseConnections: types.optional(types.boolean()),
   rejectUnauthorized: types.optional(types.boolean()),
   verifyPermissions: types.optional(types.boolean()),
@@ -1436,7 +1425,6 @@ export type S3PartitioningSchemeDdss$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   maxBatchSize?: number | undefined;
-  recurse?: any | undefined;
   reuseConnections?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   verifyPermissions?: boolean | undefined;
@@ -1469,7 +1457,6 @@ export const S3PartitioningSchemeDdss$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   maxBatchSize: z.number().optional(),
-  recurse: z.any().optional(),
   reuseConnections: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
   verifyPermissions: z.boolean().optional(),
