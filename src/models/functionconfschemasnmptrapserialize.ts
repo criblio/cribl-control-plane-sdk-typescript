@@ -4,23 +4,74 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
+import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import {
-  AuthenticationProtocolOptionsV3User,
-  AuthenticationProtocolOptionsV3User$inboundSchema,
-  AuthenticationProtocolOptionsV3User$outboundSchema,
-} from "./authenticationprotocoloptionsv3user.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone = {
+  privProtocol?: string | undefined;
+  privKey: string;
+  authProtocol?: string | undefined;
+  authKey?: any | undefined;
+  name: string;
+};
+
+export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone = {
+  privProtocol: "none";
+  authProtocol?: string | undefined;
+  authKey?: any | undefined;
+  name: string;
+};
+
+export type SnmpTrapSerializeV3UserAuthProtocolNotNone =
+  | SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone & {
+    privProtocol: "des";
+  })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone & {
+    privProtocol: "aes";
+  })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone & {
+    privProtocol: "aes256b";
+  })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone & {
+    privProtocol: "aes256r";
+  })
+  | discriminatedUnionTypes.Unknown<"privProtocol">;
+
 export type SnmpTrapSerializeV3UserAuthProtocolNone = {
-  authProtocol?: AuthenticationProtocolOptionsV3User | undefined;
+  authProtocol: "none";
   name?: string | undefined;
   authKey?: any | undefined;
   privProtocol?: string | undefined;
 };
 
-export type V3User = SnmpTrapSerializeV3UserAuthProtocolNone;
+export type V3User =
+  | SnmpTrapSerializeV3UserAuthProtocolNone
+  | (
+    | SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone & {
+      privProtocol: "des";
+    })
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone & {
+      privProtocol: "aes";
+    })
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone & {
+      privProtocol: "aes256b";
+    })
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone & {
+      privProtocol: "aes256r";
+    })
+    | discriminatedUnionTypes.Unknown<"privProtocol"> & { authProtocol: "md5" }
+  )
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNone & { authProtocol: "sha" })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNone & { authProtocol: "sha224" })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNone & { authProtocol: "sha256" })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNone & { authProtocol: "sha384" })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNone & { authProtocol: "sha512" })
+  | discriminatedUnionTypes.Unknown<"authProtocol">;
 
 export type FunctionConfSchemaSnmpTrapSerialize = {
   /**
@@ -31,8 +82,239 @@ export type FunctionConfSchemaSnmpTrapSerialize = {
    * When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination
    */
   dropFailedEvents?: boolean | undefined;
-  v3User?: SnmpTrapSerializeV3UserAuthProtocolNone | undefined;
+  v3User?:
+    | SnmpTrapSerializeV3UserAuthProtocolNone
+    | (
+      | SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone
+      | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone & {
+        privProtocol: "des";
+      })
+      | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone & {
+        privProtocol: "aes";
+      })
+      | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone & {
+        privProtocol: "aes256b";
+      })
+      | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone & {
+        privProtocol: "aes256r";
+      })
+      | discriminatedUnionTypes.Unknown<"privProtocol"> & {
+        authProtocol: "md5";
+      }
+    )
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNone & { authProtocol: "sha" })
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNone & { authProtocol: "sha224" })
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNone & { authProtocol: "sha256" })
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNone & { authProtocol: "sha384" })
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNone & { authProtocol: "sha512" })
+    | discriminatedUnionTypes.Unknown<"authProtocol">
+    | undefined;
 };
+
+/** @internal */
+export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema:
+  z.ZodType<
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    privProtocol: types.optional(types.string()),
+    privKey: types.string(),
+    authProtocol: types.optional(types.string()),
+    authKey: types.optional(z.any()),
+    name: types.string(),
+  });
+/** @internal */
+export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound =
+  {
+    privProtocol?: string | undefined;
+    privKey: string;
+    authProtocol?: string | undefined;
+    authKey?: any | undefined;
+    name: string;
+  };
+
+/** @internal */
+export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema:
+  z.ZodType<
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound,
+    z.ZodTypeDef,
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone
+  > = z.object({
+    privProtocol: z.string().optional(),
+    privKey: z.string(),
+    authProtocol: z.string().optional(),
+    authKey: z.any().optional(),
+    name: z.string(),
+  });
+
+export function snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneToJSON(
+  snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone:
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone,
+): string {
+  return JSON.stringify(
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+      .parse(snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone),
+  );
+}
+export function snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone' from JSON`,
+  );
+}
+
+/** @internal */
+export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$inboundSchema:
+  z.ZodType<
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    privProtocol: types.literal("none"),
+    authProtocol: types.optional(types.string()),
+    authKey: types.optional(z.any()),
+    name: types.string(),
+  });
+/** @internal */
+export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$Outbound =
+  {
+    privProtocol: "none";
+    authProtocol?: string | undefined;
+    authKey?: any | undefined;
+    name: string;
+  };
+
+/** @internal */
+export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$outboundSchema:
+  z.ZodType<
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$Outbound,
+    z.ZodTypeDef,
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone
+  > = z.object({
+    privProtocol: z.literal("none"),
+    authProtocol: z.string().optional(),
+    authKey: z.any().optional(),
+    name: z.string(),
+  });
+
+export function snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneToJSON(
+  snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone:
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone,
+): string {
+  return JSON.stringify(
+    SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$outboundSchema
+      .parse(snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone),
+  );
+}
+export function snmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone' from JSON`,
+  );
+}
+
+/** @internal */
+export const SnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema:
+  z.ZodType<SnmpTrapSerializeV3UserAuthProtocolNotNone, z.ZodTypeDef, unknown> =
+    discriminatedUnion("privProtocol", {
+      none: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$inboundSchema
+      ),
+      des: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+      ).and(z.object({ privProtocol: z.literal("des") })),
+      aes: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+      ).and(z.object({ privProtocol: z.literal("aes") })),
+      aes256b: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+      ).and(z.object({ privProtocol: z.literal("aes256b") })),
+      aes256r: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+      ).and(z.object({ privProtocol: z.literal("aes256r") })),
+    });
+/** @internal */
+export type SnmpTrapSerializeV3UserAuthProtocolNotNone$Outbound =
+  | SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$Outbound
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound & {
+    privProtocol: "des";
+  })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound & {
+    privProtocol: "aes";
+  })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound & {
+    privProtocol: "aes256b";
+  })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound & {
+    privProtocol: "aes256r";
+  });
+
+/** @internal */
+export const SnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema:
+  z.ZodType<
+    SnmpTrapSerializeV3UserAuthProtocolNotNone$Outbound,
+    z.ZodTypeDef,
+    SnmpTrapSerializeV3UserAuthProtocolNotNone
+  > = z.union([
+    z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$outboundSchema
+    ),
+    z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+    ).and(z.object({ privProtocol: z.literal("des") })),
+    z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+    ).and(z.object({ privProtocol: z.literal("aes") })),
+    z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+    ).and(z.object({ privProtocol: z.literal("aes256b") })),
+    z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+    ).and(z.object({ privProtocol: z.literal("aes256r") })),
+  ]);
+
+export function snmpTrapSerializeV3UserAuthProtocolNotNoneToJSON(
+  snmpTrapSerializeV3UserAuthProtocolNotNone:
+    SnmpTrapSerializeV3UserAuthProtocolNotNone,
+): string {
+  return JSON.stringify(
+    SnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema.parse(
+      snmpTrapSerializeV3UserAuthProtocolNotNone,
+    ),
+  );
+}
+export function snmpTrapSerializeV3UserAuthProtocolNotNoneFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  SnmpTrapSerializeV3UserAuthProtocolNotNone,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'SnmpTrapSerializeV3UserAuthProtocolNotNone' from JSON`,
+  );
+}
 
 /** @internal */
 export const SnmpTrapSerializeV3UserAuthProtocolNone$inboundSchema: z.ZodType<
@@ -40,16 +322,14 @@ export const SnmpTrapSerializeV3UserAuthProtocolNone$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authProtocol: types.optional(
-    AuthenticationProtocolOptionsV3User$inboundSchema,
-  ),
+  authProtocol: types.literal("none"),
   name: types.optional(types.string()),
   authKey: types.optional(z.any()),
   privProtocol: types.optional(types.string()),
 });
 /** @internal */
 export type SnmpTrapSerializeV3UserAuthProtocolNone$Outbound = {
-  authProtocol?: string | undefined;
+  authProtocol: "none";
   name?: string | undefined;
   authKey?: any | undefined;
   privProtocol?: string | undefined;
@@ -61,7 +341,7 @@ export const SnmpTrapSerializeV3UserAuthProtocolNone$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   SnmpTrapSerializeV3UserAuthProtocolNone
 > = z.object({
-  authProtocol: AuthenticationProtocolOptionsV3User$outboundSchema.optional(),
+  authProtocol: z.literal("none"),
   name: z.string().optional(),
   authKey: z.any().optional(),
   privProtocol: z.string().optional(),
@@ -94,17 +374,120 @@ export function snmpTrapSerializeV3UserAuthProtocolNoneFromJSON(
 }
 
 /** @internal */
-export const V3User$inboundSchema: z.ZodType<V3User, z.ZodTypeDef, unknown> = z
-  .lazy(() => SnmpTrapSerializeV3UserAuthProtocolNone$inboundSchema);
+export const V3User$inboundSchema: z.ZodType<V3User, z.ZodTypeDef, unknown> =
+  discriminatedUnion("authProtocol", {
+    none: z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNone$inboundSchema),
+    md5: discriminatedUnion("privProtocol", {
+      none: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$inboundSchema
+      ),
+      des: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+      ).and(z.object({ privProtocol: z.literal("des") })),
+      aes: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+      ).and(z.object({ privProtocol: z.literal("aes") })),
+      aes256b: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+      ).and(z.object({ privProtocol: z.literal("aes256b") })),
+      aes256r: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+      ).and(z.object({ privProtocol: z.literal("aes256r") })),
+    }).and(z.object({ authProtocol: z.literal("md5") })),
+    sha: z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema)
+      .and(z.object({ authProtocol: z.literal("sha") })),
+    sha224: z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema
+    ).and(z.object({ authProtocol: z.literal("sha224") })),
+    sha256: z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema
+    ).and(z.object({ authProtocol: z.literal("sha256") })),
+    sha384: z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema
+    ).and(z.object({ authProtocol: z.literal("sha384") })),
+    sha512: z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema
+    ).and(z.object({ authProtocol: z.literal("sha512") })),
+  });
 /** @internal */
-export type V3User$Outbound = SnmpTrapSerializeV3UserAuthProtocolNone$Outbound;
+export type V3User$Outbound =
+  | SnmpTrapSerializeV3UserAuthProtocolNone$Outbound
+  | (
+    | SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$Outbound
+    | (
+      & SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound
+      & { privProtocol: "des" }
+    )
+    | (
+      & SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound
+      & { privProtocol: "aes" }
+    )
+    | (
+      & SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound
+      & { privProtocol: "aes256b" }
+    )
+    | (
+      & SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound
+      & { privProtocol: "aes256r" }
+    )
+      & { authProtocol: "md5" }
+  )
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNone$Outbound & {
+    authProtocol: "sha";
+  })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNone$Outbound & {
+    authProtocol: "sha224";
+  })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNone$Outbound & {
+    authProtocol: "sha256";
+  })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNone$Outbound & {
+    authProtocol: "sha384";
+  })
+  | (SnmpTrapSerializeV3UserAuthProtocolNotNone$Outbound & {
+    authProtocol: "sha512";
+  });
 
 /** @internal */
 export const V3User$outboundSchema: z.ZodType<
   V3User$Outbound,
   z.ZodTypeDef,
   V3User
-> = z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNone$outboundSchema);
+> = z.union([
+  z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNone$outboundSchema),
+  z.union([
+    z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$outboundSchema
+    ),
+    z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+    ).and(z.object({ privProtocol: z.literal("des") })),
+    z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+    ).and(z.object({ privProtocol: z.literal("aes") })),
+    z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+    ).and(z.object({ privProtocol: z.literal("aes256b") })),
+    z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+    ).and(z.object({ privProtocol: z.literal("aes256r") })),
+  ]).and(z.object({ authProtocol: z.literal("md5") })),
+  z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema).and(
+    z.object({ authProtocol: z.literal("sha") }),
+  ),
+  z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema).and(
+    z.object({ authProtocol: z.literal("sha224") }),
+  ),
+  z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema).and(
+    z.object({ authProtocol: z.literal("sha256") }),
+  ),
+  z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema).and(
+    z.object({ authProtocol: z.literal("sha384") }),
+  ),
+  z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema).and(
+    z.object({ authProtocol: z.literal("sha512") }),
+  ),
+]);
 
 export function v3UserToJSON(v3User: V3User): string {
   return JSON.stringify(V3User$outboundSchema.parse(v3User));
@@ -127,15 +510,83 @@ export const FunctionConfSchemaSnmpTrapSerialize$inboundSchema: z.ZodType<
 > = z.object({
   strict: types.optional(types.boolean()),
   dropFailedEvents: types.optional(types.boolean()),
-  v3User: types.optional(
-    z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNone$inboundSchema),
-  ),
+  v3User: types.optional(discriminatedUnion("authProtocol", {
+    none: z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNone$inboundSchema),
+    md5: discriminatedUnion("privProtocol", {
+      none: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$inboundSchema
+      ),
+      des: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+      ).and(z.object({ privProtocol: z.literal("des") })),
+      aes: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+      ).and(z.object({ privProtocol: z.literal("aes") })),
+      aes256b: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+      ).and(z.object({ privProtocol: z.literal("aes256b") })),
+      aes256r: z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inboundSchema
+      ).and(z.object({ privProtocol: z.literal("aes256r") })),
+    }).and(z.object({ authProtocol: z.literal("md5") })),
+    sha: z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema)
+      .and(z.object({ authProtocol: z.literal("sha") })),
+    sha224: z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema
+    ).and(z.object({ authProtocol: z.literal("sha224") })),
+    sha256: z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema
+    ).and(z.object({ authProtocol: z.literal("sha256") })),
+    sha384: z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema
+    ).and(z.object({ authProtocol: z.literal("sha384") })),
+    sha512: z.lazy(() =>
+      SnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema
+    ).and(z.object({ authProtocol: z.literal("sha512") })),
+  })),
 });
 /** @internal */
 export type FunctionConfSchemaSnmpTrapSerialize$Outbound = {
   strict?: boolean | undefined;
   dropFailedEvents?: boolean | undefined;
-  v3User?: SnmpTrapSerializeV3UserAuthProtocolNone$Outbound | undefined;
+  v3User?:
+    | SnmpTrapSerializeV3UserAuthProtocolNone$Outbound
+    | (
+      | SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$Outbound
+      | (
+        & SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound
+        & { privProtocol: "des" }
+      )
+      | (
+        & SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound
+        & { privProtocol: "aes" }
+      )
+      | (
+        & SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound
+        & { privProtocol: "aes256b" }
+      )
+      | (
+        & SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbound
+        & { privProtocol: "aes256r" }
+      )
+        & { authProtocol: "md5" }
+    )
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNone$Outbound & {
+      authProtocol: "sha";
+    })
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNone$Outbound & {
+      authProtocol: "sha224";
+    })
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNone$Outbound & {
+      authProtocol: "sha256";
+    })
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNone$Outbound & {
+      authProtocol: "sha384";
+    })
+    | (SnmpTrapSerializeV3UserAuthProtocolNotNone$Outbound & {
+      authProtocol: "sha512";
+    })
+    | undefined;
 };
 
 /** @internal */
@@ -146,8 +597,41 @@ export const FunctionConfSchemaSnmpTrapSerialize$outboundSchema: z.ZodType<
 > = z.object({
   strict: z.boolean().optional(),
   dropFailedEvents: z.boolean().optional(),
-  v3User: z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNone$outboundSchema)
-    .optional(),
+  v3User: z.union([
+    z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNone$outboundSchema),
+    z.union([
+      z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$outboundSchema
+      ),
+      z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+      ).and(z.object({ privProtocol: z.literal("des") })),
+      z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+      ).and(z.object({ privProtocol: z.literal("aes") })),
+      z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+      ).and(z.object({ privProtocol: z.literal("aes256b") })),
+      z.lazy(() =>
+        SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outboundSchema
+      ).and(z.object({ privProtocol: z.literal("aes256r") })),
+    ]).and(z.object({ authProtocol: z.literal("md5") })),
+    z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema).and(
+      z.object({ authProtocol: z.literal("sha") }),
+    ),
+    z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema).and(
+      z.object({ authProtocol: z.literal("sha224") }),
+    ),
+    z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema).and(
+      z.object({ authProtocol: z.literal("sha256") }),
+    ),
+    z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema).and(
+      z.object({ authProtocol: z.literal("sha384") }),
+    ),
+    z.lazy(() => SnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema).and(
+      z.object({ authProtocol: z.literal("sha512") }),
+    ),
+  ]).optional(),
 });
 
 export function functionConfSchemaSnmpTrapSerializeToJSON(
