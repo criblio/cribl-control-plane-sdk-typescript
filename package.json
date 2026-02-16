@@ -1,6 +1,6 @@
 {
   "name": "cribl-control-plane",
-  "version": "0.6.0-alpha.12",
+  "version": "0.6.0-alpha.13",
   "author": "Speakeasy",
   "type": "module",
   "tshy": {
