@@ -6,64 +6,9 @@
 import { InputKinesis } from "cribl-control-plane/models";
 
 let value: InputKinesis = {
-  id: "<id>",
   type: "kinesis",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   streamName: "<value>",
-  serviceInterval: 2595.16,
-  shardExpr: "<value>",
-  shardIteratorType: "LATEST",
-  payloadFormat: "line",
-  getRecordsLimit: 29.69,
-  getRecordsLimitTotal: 4071.84,
-  loadBalancingAlgorithm: "RoundRobin",
-  awsAuthenticationMethod: "<value>",
-  awsSecretKey: "<value>",
   region: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v4",
-  reuseConnections: true,
-  rejectUnauthorized: false,
-  enableAssumeRole: false,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 4231.27,
-  verifyKPLCheckSums: false,
-  avoidDuplicates: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "as until hm",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
 };
 ```
 

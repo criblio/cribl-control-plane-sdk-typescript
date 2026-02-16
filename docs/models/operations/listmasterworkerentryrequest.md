@@ -5,14 +5,7 @@
 ```typescript
 import { ListMasterWorkerEntryRequest } from "cribl-control-plane/models/operations";
 
-let value: ListMasterWorkerEntryRequest = {
-  filterExp: "<value>",
-  sortExp: "<value>",
-  filter: "<value>",
-  sort: "<value>",
-  limit: 197826,
-  offset: 366671,
-};
+let value: ListMasterWorkerEntryRequest = {};
 ```
 
 ## Fields

@@ -5,12 +5,7 @@
 ```typescript
 import { GetVersionShowRequest } from "cribl-control-plane/models/operations";
 
-let value: GetVersionShowRequest = {
-  commit: "<value>",
-  groupId: "<id>",
-  filename: "example.file",
-  diffLineLimit: 3408.26,
-};
+let value: GetVersionShowRequest = {};
 ```
 
 ## Fields

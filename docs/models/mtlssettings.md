@@ -6,21 +6,9 @@
 import { MTLSSettings } from "cribl-control-plane/models";
 
 let value: MTLSSettings = {
-  disabled: true,
-  rejectUnauthorized: true,
-  requestCert: true,
-  certificateName: "<value>",
   privKeyPath: "<value>",
-  passphrase: "<value>",
   certPath: "<value>",
   caPath: "<value>",
-  commonNameRegex: "<value>",
-  minVersion: "TLSv1.1",
-  maxVersion: "TLSv1.3",
-  ocspCheck: false,
-  keytab: "<value>",
-  principal: "<value>",
-  ocspCheckFailClose: true,
 };
 ```
 

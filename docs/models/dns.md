@@ -7,9 +7,7 @@ Creates events for DNS resolvers and search entries
 ```typescript
 import { Dns } from "cribl-control-plane/models";
 
-let value: Dns = {
-  enable: true,
-};
+let value: Dns = {};
 ```
 
 ## Fields

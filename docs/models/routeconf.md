@@ -6,24 +6,9 @@
 import { RouteConf } from "cribl-control-plane/models";
 
 let value: RouteConf = {
-  clones: [
-    {
-      "key": "<value>",
-      "key1": "<value>",
-    },
-    {},
-  ],
-  context: "<value>",
-  description: "sympathetically purple major swift",
-  disabled: false,
-  enableOutputExpression: false,
-  filter: "<value>",
-  final: true,
-  groupId: "<id>",
+  final: false,
   id: "<id>",
   name: "<value>",
-  output: "<value>",
-  outputExpression: "<value>",
   pipeline: "<value>",
 };
 ```

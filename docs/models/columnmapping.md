@@ -7,7 +7,6 @@ import { ColumnMapping } from "cribl-control-plane/models";
 
 let value: ColumnMapping = {
   columnName: "<value>",
-  columnType: "<value>",
   columnValueExpression: "<value>",
 };
 ```

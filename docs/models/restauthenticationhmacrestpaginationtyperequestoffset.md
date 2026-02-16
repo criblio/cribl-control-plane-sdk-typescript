@@ -8,11 +8,9 @@ import { RestAuthenticationHmacRestPaginationTypeRequestOffset } from "cribl-con
 let value: RestAuthenticationHmacRestPaginationTypeRequestOffset = {
   type: "request_offset",
   offsetField: "<value>",
-  offset: 8482.88,
   limitField: "<value>",
-  limit: 447.69,
-  totalRecordField: "<value>",
-  maxPages: 7692.14,
+  limit: 8482.88,
+  maxPages: 447.69,
   zeroIndexed: false,
 };
 ```

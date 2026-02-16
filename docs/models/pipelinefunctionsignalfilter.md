@@ -6,19 +6,8 @@
 import { PipelineFunctionSignalFilter } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSignalFilter = {
-  filter: "<value>",
   id: "signal_filter",
-  description: "notarize unlearn since lend serene dress er",
-  disabled: true,
-  final: true,
-  conf: {
-    signals: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

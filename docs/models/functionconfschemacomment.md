@@ -5,10 +5,7 @@
 ```typescript
 import { FunctionConfSchemaComment } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaComment = {
-  comment:
-    "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
-};
+let value: FunctionConfSchemaComment = {};
 ```
 
 ## Fields

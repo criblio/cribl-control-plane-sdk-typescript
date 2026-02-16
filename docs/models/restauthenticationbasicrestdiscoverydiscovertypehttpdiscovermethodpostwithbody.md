@@ -12,21 +12,6 @@ let value:
       discoverBody: "<value>",
       discoverType: "http",
       discoverUrl: "https://proud-pupil.biz/",
-      discoverVerb: "<value>",
-      discoverRequestParams: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: true,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: false,
     };
 ```
 

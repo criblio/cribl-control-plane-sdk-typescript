@@ -8,74 +8,8 @@ import { InputSplunk } from "cribl-control-plane/models/operations";
 let value: InputSplunk = {
   id: "<id>",
   type: "splunk",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "winding-hydrant.net",
-  port: 5795.44,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  ipWhitelistRegex: "<value>",
-  maxActiveCxn: 2043.55,
-  socketIdleTimeout: 7553.42,
-  socketEndingMaxWait: 196.24,
-  socketMaxLifespan: 3552.88,
-  enableProxyHeader: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 5266.6,
-  authTokens: [
-    {
-      token: "<value>",
-      description: "longingly gulp yum excluding pull pointed the travel",
-    },
-  ],
-  maxS2Sversion: "v4",
-  description: "diligently incidentally to finally playfully",
-  useFwdTimezone: true,
-  dropControlFields: false,
-  extractMetrics: false,
-  compress: "auto",
+  host: "hoarse-word.name",
+  port: 6274.96,
 };
 ```
 

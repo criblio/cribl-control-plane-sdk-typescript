@@ -8,7 +8,6 @@ import { TemplateDefinition } from "cribl-control-plane/models";
 let value: TemplateDefinition = {
   id: "<id>",
   content: "<value>",
-  description: "phooey bouncy middle fishery huzzah although materialise",
   type: "<value>",
 };
 ```

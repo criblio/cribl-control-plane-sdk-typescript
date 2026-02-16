@@ -9,24 +9,8 @@ let value:
   RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
     {
       discoverMethod: "get",
-      discoverRequestParams: "<value>",
       discoverType: "http",
       discoverUrl: "https://male-valentine.net/",
-      discoverVerb: "<value>",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: true,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: false,
     };
 ```
 

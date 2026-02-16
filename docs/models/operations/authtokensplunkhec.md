@@ -6,20 +6,7 @@
 import { AuthTokenSplunkHec } from "cribl-control-plane/models/operations";
 
 let value: AuthTokenSplunkHec = {
-  authType: "manual",
-  tokenSecret: "<value>",
   token: "<value>",
-  enabled: false,
-  description: "quixotic bell modulo",
-  allowedIndexesAtToken: [
-    "<value 1>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
 };
 ```
 

@@ -5,20 +5,7 @@
 ```typescript
 import { CountedGitLogResult } from "cribl-control-plane/models";
 
-let value: CountedGitLogResult = {
-  count: 639519,
-  items: [
-    {
-      author_email: "<value>",
-      author_name: "<value>",
-      body: "<value>",
-      date: "2024-02-28",
-      hash: "<value>",
-      message: "<value>",
-      refs: "<value>",
-    },
-  ],
-};
+let value: CountedGitLogResult = {};
 ```
 
 ## Fields

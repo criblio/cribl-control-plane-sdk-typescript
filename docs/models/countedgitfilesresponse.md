@@ -5,18 +5,7 @@
 ```typescript
 import { CountedGitFilesResponse } from "cribl-control-plane/models";
 
-let value: CountedGitFilesResponse = {
-  count: 846818,
-  items: [
-    {
-      commitMessage: {
-        "key": "<value>",
-      },
-      count: 3922.19,
-      items: [],
-    },
-  ],
-};
+let value: CountedGitFilesResponse = {};
 ```
 
 ## Fields

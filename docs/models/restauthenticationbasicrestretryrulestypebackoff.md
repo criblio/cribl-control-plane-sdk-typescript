@@ -7,14 +7,6 @@ import { RestAuthenticationBasicRestRetryRulesTypeBackoff } from "cribl-control-
 
 let value: RestAuthenticationBasicRestRetryRulesTypeBackoff = {
   type: "backoff",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  maxIntervalMs: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  retryConnectTimeout: "<value>",
-  retryConnectReset: "<value>",
 };
 ```
 

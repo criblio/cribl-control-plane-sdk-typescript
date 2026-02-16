@@ -7,8 +7,6 @@ import { CustomLogoTypeSystemSettingsConf } from "cribl-control-plane/models";
 
 let value: CustomLogoTypeSystemSettingsConf = {
   enabled: true,
-  logoDescription: "<value>",
-  logoImage: "<value>",
 };
 ```
 

@@ -9,17 +9,8 @@
 const value:
   models.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttp = {
     discoverMethod: "post_with_body",
-    discoverBody: "<value>",
     discoverType: "none",
     discoverUrl: "https://lavish-hubris.info",
-    discoverRequestParams: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    discoverDataField: "<value>",
   };
 ```
 
@@ -30,7 +21,6 @@ const value:
   models.HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJson = {
     discoverType: "json",
     manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
   };
 ```
 

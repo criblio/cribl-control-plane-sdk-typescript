@@ -8,12 +8,10 @@ import { RestCollectMethodPostRestPaginationTypeRequestOffset } from "cribl-cont
 let value: RestCollectMethodPostRestPaginationTypeRequestOffset = {
   type: "request_offset",
   offsetField: "<value>",
-  offset: 3879.42,
   limitField: "<value>",
-  limit: 3542.08,
-  totalRecordField: "<value>",
-  maxPages: 7092.84,
-  zeroIndexed: true,
+  limit: 3879.42,
+  maxPages: 3542.08,
+  zeroIndexed: false,
 };
 ```
 

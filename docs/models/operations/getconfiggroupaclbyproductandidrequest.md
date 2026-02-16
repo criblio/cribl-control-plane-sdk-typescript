@@ -8,7 +8,6 @@ import { GetConfigGroupAclByProductAndIdRequest } from "cribl-control-plane/mode
 let value: GetConfigGroupAclByProductAndIdRequest = {
   product: "outpost",
   id: "<id>",
-  type: "projects",
 };
 ```
 

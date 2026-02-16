@@ -5,15 +5,7 @@
 ```typescript
 import { FunctionConfSchemaOtlpMetrics } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaOtlpMetrics = {
-  resourceAttributePrefixes: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  dropNonMetricEvents: false,
-  otlpVersion: "0.10.0",
-  batchOTLPMetrics: true,
-};
+let value: FunctionConfSchemaOtlpMetrics = {};
 ```
 
 ## Fields

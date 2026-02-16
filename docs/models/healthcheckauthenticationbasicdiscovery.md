@@ -9,17 +9,8 @@
 const value:
   models.HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttp = {
     discoverMethod: "get",
-    discoverRequestParams: "<value>",
     discoverType: "json",
     discoverUrl: "https://snappy-hope.org",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    discoverDataField: "<value>",
   };
 ```
 
@@ -30,7 +21,6 @@ const value:
   models.HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJson = {
     discoverType: "json",
     manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
   };
 ```
 

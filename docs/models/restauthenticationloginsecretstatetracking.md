@@ -5,9 +5,7 @@
 ```typescript
 import { RestAuthenticationLoginSecretStateTracking } from "cribl-control-plane/models";
 
-let value: RestAuthenticationLoginSecretStateTracking = {
-  enabled: true,
-};
+let value: RestAuthenticationLoginSecretStateTracking = {};
 ```
 
 ## Fields

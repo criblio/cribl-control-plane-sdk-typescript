@@ -6,45 +6,8 @@
 import { InputDatagen } from "cribl-control-plane/models";
 
 let value: InputDatagen = {
-  id: "<id>",
   type: "datagen",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  samples: [
-    {
-      sample: "<value>",
-      eventsPerSec: 9494.62,
-    },
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "dearest considering gosh",
+  samples: [],
 };
 ```
 

@@ -9,7 +9,6 @@ let value:
   HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJson = {
     discoverType: "json",
     manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
   };
 ```
 

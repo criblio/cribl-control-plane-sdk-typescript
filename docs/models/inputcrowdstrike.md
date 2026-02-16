@@ -6,84 +6,8 @@
 import { InputCrowdstrike } from "cribl-control-plane/models";
 
 let value: InputCrowdstrike = {
-  id: "<id>",
   type: "crowdstrike",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   queueName: "<value>",
-  fileFilter: "<value>",
-  awsAccountId: "<id>",
-  awsAuthenticationMethod: "<value>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v4",
-  reuseConnections: false,
-  rejectUnauthorized: false,
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 9153.53,
-  maxMessages: 2238.24,
-  visibilityTimeout: 2190.92,
-  numReceivers: 3052,
-  socketTimeout: 1035.25,
-  skipOnError: false,
-  includeSqsMetadata: true,
-  enableAssumeRole: true,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 818.63,
-  enableSQSAssumeRole: true,
-  preprocess: {
-    disabled: true,
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  checkpointing: {
-    enabled: true,
-    retries: 263.57,
-  },
-  pollTimeout: 4599.59,
-  encoding: "<value>",
-  description: "obscure anxiously strictly wherever",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  tagAfterProcessing: "false",
-  processedTagKey: "<value>",
-  processedTagValue: "<value>",
 };
 ```
 

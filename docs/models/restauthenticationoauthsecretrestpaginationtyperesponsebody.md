@@ -9,7 +9,6 @@ let value: RestAuthenticationOauthSecretRestPaginationTypeResponseBody = {
   type: "response_body",
   attribute: [],
   maxPages: 2704.2,
-  lastPageExpr: "<value>",
 };
 ```
 

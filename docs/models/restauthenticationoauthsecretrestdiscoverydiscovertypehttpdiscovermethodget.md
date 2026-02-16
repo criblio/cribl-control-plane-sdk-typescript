@@ -9,24 +9,8 @@ let value:
   RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
     {
       discoverMethod: "get",
-      discoverRequestParams: "<value>",
       discoverType: "list",
       discoverUrl: "https://tall-approach.info",
-      discoverVerb: "<value>",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: false,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: true,
     };
 ```
 

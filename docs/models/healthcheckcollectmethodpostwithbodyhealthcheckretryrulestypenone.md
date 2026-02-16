@@ -7,11 +7,6 @@ import { HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone } fro
 
 let value: HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone = {
   type: "none",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
 };
 ```
 

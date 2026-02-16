@@ -5,15 +5,7 @@
 ```typescript
 import { CountedTeamAccessControlList } from "cribl-control-plane/models";
 
-let value: CountedTeamAccessControlList = {
-  count: 484825,
-  items: [
-    {
-      perms: [],
-      team: "<value>",
-    },
-  ],
-};
+let value: CountedTeamAccessControlList = {};
 ```
 
 ## Fields

@@ -8,11 +8,6 @@ import { HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic } f
 let value: HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic =
   {
     type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    multiplier: "<value>",
   };
 ```
 

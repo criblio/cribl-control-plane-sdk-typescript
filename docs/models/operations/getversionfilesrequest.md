@@ -5,10 +5,7 @@
 ```typescript
 import { GetVersionFilesRequest } from "cribl-control-plane/models/operations";
 
-let value: GetVersionFilesRequest = {
-  groupId: "<id>",
-  commit: "<value>",
-};
+let value: GetVersionFilesRequest = {};
 ```
 
 ## Fields

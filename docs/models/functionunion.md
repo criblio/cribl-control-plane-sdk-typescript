@@ -7,26 +7,15 @@ import { FunctionUnion } from "cribl-control-plane/models";
 
 let value: FunctionUnion = {
   __filename: "example.file",
-  asyncTimeout: 6855.47,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "union",
-  loadTime: 9577.82,
-  modTime: 8854.5,
+  loadTime: 6855.47,
+  modTime: 3087.74,
   name: "<value>",
-  sync: true,
   uischema: {
     "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

@@ -5,12 +5,7 @@
 ```typescript
 import { InputSystemMetricsCpu } from "cribl-control-plane/models";
 
-let value: InputSystemMetricsCpu = {
-  mode: "disabled",
-  perCpu: false,
-  detail: false,
-  time: true,
-};
+let value: InputSystemMetricsCpu = {};
 ```
 
 ## Fields

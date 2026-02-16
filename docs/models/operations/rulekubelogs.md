@@ -7,7 +7,6 @@ import { RuleKubeLogs } from "cribl-control-plane/models/operations";
 
 let value: RuleKubeLogs = {
   filter: "<value>",
-  description: "hunger yum darling winding upon sticker as bright makeover",
 };
 ```
 

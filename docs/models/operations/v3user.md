@@ -7,10 +7,6 @@ import { V3User } from "cribl-control-plane/models/operations";
 
 let value: V3User = {
   name: "<value>",
-  authProtocol: "sha512",
-  authKey: "<value>",
-  privProtocol: "none",
-  privKey: "<value>",
 };
 ```
 

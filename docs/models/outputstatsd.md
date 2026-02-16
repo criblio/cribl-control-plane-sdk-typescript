@@ -6,38 +6,10 @@
 import { OutputStatsd } from "cribl-control-plane/models";
 
 let value: OutputStatsd = {
-  id: "<id>",
   type: "statsd",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  protocol: "tcp",
-  host: "babyish-puritan.biz",
-  port: 6274.36,
-  mtu: 9885.6,
-  flushPeriodSec: 948.57,
-  dnsResolvePeriodSec: 6500.41,
-  description: "boldly regarding unnaturally",
-  throttleRatePerSec: "<value>",
-  connectionTimeout: 6886.59,
-  writeTimeout: 9527.42,
-  onBackpressure: "block",
-  pqStrictOrdering: true,
-  pqRatePerSec: 8830.57,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 1702.34,
-  pqMaxBackpressureSec: 2581.24,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "block",
-  pqControls: {},
+  protocol: "udp",
+  host: "boiling-stitcher.com",
+  port: 7232.95,
 };
 ```
 

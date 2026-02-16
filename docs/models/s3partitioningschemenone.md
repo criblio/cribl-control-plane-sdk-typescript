@@ -6,32 +6,7 @@
 import { S3PartitioningSchemeNone } from "cribl-control-plane/models";
 
 let value: S3PartitioningSchemeNone = {
-  partitioningScheme: "ddss",
-  recurse: "<value>",
-  outputName: "<value>",
   bucket: "<value>",
-  parquetChunkSizeMB: 4617.02,
-  parquetChunkDownloadTimeout: 3014.81,
-  region: "<value>",
-  path: "/usr/lib",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  awsAuthenticationMethod: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v2",
-  enableAssumeRole: true,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 761.64,
-  maxBatchSize: 2315.39,
-  reuseConnections: true,
-  rejectUnauthorized: true,
-  verifyPermissions: true,
-  disableTimeFilter: false,
 };
 ```
 

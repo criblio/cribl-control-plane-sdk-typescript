@@ -5,13 +5,7 @@
 ```typescript
 import { RetrySettingsType } from "cribl-control-plane/models";
 
-let value: RetrySettingsType = {
-  enabled: true,
-  initialBackoffMs: 5368.19,
-  backoffMultiplier: 5517.11,
-  maxBackoffMs: 1383.39,
-  jitterPercent: 3646.66,
-};
+let value: RetrySettingsType = {};
 ```
 
 ## Fields

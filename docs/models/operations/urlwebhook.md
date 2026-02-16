@@ -7,7 +7,6 @@ import { UrlWebhook } from "cribl-control-plane/models/operations";
 
 let value: UrlWebhook = {
   url: "https://hospitable-wafer.name",
-  weight: 8541.66,
 };
 ```
 

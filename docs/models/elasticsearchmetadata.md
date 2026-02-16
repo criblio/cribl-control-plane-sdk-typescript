@@ -5,10 +5,7 @@
 ```typescript
 import { ElasticsearchMetadata } from "cribl-control-plane/models";
 
-let value: ElasticsearchMetadata = {
-  enabled: true,
-  defaultDataset: "<value>",
-};
+let value: ElasticsearchMetadata = {};
 ```
 
 ## Fields

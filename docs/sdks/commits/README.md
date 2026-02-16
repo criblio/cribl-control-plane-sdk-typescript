@@ -33,11 +33,6 @@ async function run() {
   const result = await criblControlPlane.versions.commits.create({
     groupId: "<id>",
     gitCommitParams: {
-      effective: false,
-      files: [
-        "<value 1>",
-      ],
-      group: "<value>",
       message: "<value>",
     },
   });
@@ -69,11 +64,6 @@ async function run() {
   const res = await versionsCommitsCreate(criblControlPlane, {
     groupId: "<id>",
     gitCommitParams: {
-      effective: false,
-      files: [
-        "<value 1>",
-      ],
-      group: "<value>",
       message: "<value>",
     },
   });
@@ -373,8 +363,6 @@ async function run() {
     groupId: "<id>",
     gitRevertParams: {
       commit: "<value>",
-      force: false,
-      message: "<value>",
     },
   });
 
@@ -406,8 +394,6 @@ async function run() {
     groupId: "<id>",
     gitRevertParams: {
       commit: "<value>",
-      force: false,
-      message: "<value>",
     },
   });
   if (res.ok) {

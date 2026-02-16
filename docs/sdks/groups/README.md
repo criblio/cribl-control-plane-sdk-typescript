@@ -99,9 +99,9 @@ run();
 
 Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
 
-### Example Usage
+### Example Usage: CreateGroupExamplesCloneWg
 
-<!-- UsageSnippet language="typescript" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" -->
+<!-- UsageSnippet language="typescript" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesCloneWg" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -116,58 +116,13 @@ async function run() {
   const result = await criblControlPlane.groups.create({
     product: "edge",
     groupCreateRequest: {
-      cloud: {
-        provider: "aws",
-        region: "us-west-2",
-      },
-      deployingWorkerCount: 5631.58,
-      description: "ack resort boohoo",
-      estimatedIngestRate: 2048,
-      git: {
-        commit: "<value>",
-        localChanges: 2413.01,
-        log: [
-          {
-            author_email: "<value>",
-            author_name: "<value>",
-            date: "2024-04-03",
-            hash: "<value>",
-            message: "<value>",
-            short: "<value>",
-          },
-        ],
-      },
-      id: "goatCloudIanWg",
-      incompatibleWorkerCount: 7174.43,
-      inherits: "<value>",
+      description: "Worker Group cloned from goatOnPremIanWg with identical configuration",
+      id: "goatOnPremDollyWg",
       isFleet: false,
       isSearch: false,
-      lookupDeployments: [
-        {
-          context: "<value>",
-          lookups: [
-            {
-              deployedVersion: "<value>",
-              file: "<value>",
-              version: "<value>",
-            },
-          ],
-        },
-      ],
-      maxWorkerAge: "<value>",
-      name: "goatCloudIanWg",
-      onPrem: false,
-      provisioned: true,
-      sourceGroupId: "<id>",
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      tags: "<value>",
-      type: "lake_access",
-      upgradeVersion: "<value>",
-      workerCount: 4980.41,
+      name: "goatOnPremDollyWg",
+      onPrem: true,
+      sourceGroupId: "goatOnPremIanWg",
       workerRemoteAccess: true,
     },
   });
@@ -199,58 +154,242 @@ async function run() {
   const res = await groupsCreate(criblControlPlane, {
     product: "edge",
     groupCreateRequest: {
+      description: "Worker Group cloned from goatOnPremIanWg with identical configuration",
+      id: "goatOnPremDollyWg",
+      isFleet: false,
+      isSearch: false,
+      name: "goatOnPremDollyWg",
+      onPrem: true,
+      sourceGroupId: "goatOnPremIanWg",
+      workerRemoteAccess: true,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("groupsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CreateGroupExamplesCloudWg
+
+<!-- UsageSnippet language="typescript" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesCloudWg" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.groups.create({
+    product: "stream",
+    groupCreateRequest: {
       cloud: {
         provider: "aws",
         region: "us-west-2",
       },
-      deployingWorkerCount: 5631.58,
-      description: "ack resort boohoo",
       estimatedIngestRate: 2048,
-      git: {
-        commit: "<value>",
-        localChanges: 2413.01,
-        log: [
-          {
-            author_email: "<value>",
-            author_name: "<value>",
-            date: "2024-04-03",
-            hash: "<value>",
-            message: "<value>",
-            short: "<value>",
-          },
-        ],
-      },
       id: "goatCloudIanWg",
-      incompatibleWorkerCount: 7174.43,
-      inherits: "<value>",
       isFleet: false,
       isSearch: false,
-      lookupDeployments: [
-        {
-          context: "<value>",
-          lookups: [
-            {
-              deployedVersion: "<value>",
-              file: "<value>",
-              version: "<value>",
-            },
-          ],
-        },
-      ],
-      maxWorkerAge: "<value>",
       name: "goatCloudIanWg",
       onPrem: false,
       provisioned: true,
-      sourceGroupId: "<id>",
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      tags: "<value>",
-      type: "lake_access",
-      upgradeVersion: "<value>",
-      workerCount: 4980.41,
+      workerRemoteAccess: true,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { groupsCreate } from "cribl-control-plane/funcs/groupsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await groupsCreate(criblControlPlane, {
+    product: "stream",
+    groupCreateRequest: {
+      cloud: {
+        provider: "aws",
+        region: "us-west-2",
+      },
+      estimatedIngestRate: 2048,
+      id: "goatCloudIanWg",
+      isFleet: false,
+      isSearch: false,
+      name: "goatCloudIanWg",
+      onPrem: false,
+      provisioned: true,
+      workerRemoteAccess: true,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("groupsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CreateGroupExamplesEdgeFleet
+
+<!-- UsageSnippet language="typescript" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesEdgeFleet" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.groups.create({
+    product: "edge",
+    groupCreateRequest: {
+      description: "Create a new Edge Fleet",
+      id: "goatIanEdgeFleet",
+      isFleet: true,
+      isSearch: false,
+      name: "goatIanEdgeFleet",
+      onPrem: true,
+      workerRemoteAccess: true,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { groupsCreate } from "cribl-control-plane/funcs/groupsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await groupsCreate(criblControlPlane, {
+    product: "edge",
+    groupCreateRequest: {
+      description: "Create a new Edge Fleet",
+      id: "goatIanEdgeFleet",
+      isFleet: true,
+      isSearch: false,
+      name: "goatIanEdgeFleet",
+      onPrem: true,
+      workerRemoteAccess: true,
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("groupsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: CreateGroupExamplesOnPremWg
+
+<!-- UsageSnippet language="typescript" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesOnPremWg" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.groups.create({
+    product: "edge",
+    groupCreateRequest: {
+      description: "Worker group in customer-managed deployment",
+      id: "goatOnPremIanWg",
+      isFleet: false,
+      isSearch: false,
+      name: "goatOnPremIanWg",
+      onPrem: true,
+      workerRemoteAccess: true,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { groupsCreate } from "cribl-control-plane/funcs/groupsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await groupsCreate(criblControlPlane, {
+    product: "edge",
+    groupCreateRequest: {
+      description: "Worker group in customer-managed deployment",
+      id: "goatOnPremIanWg",
+      isFleet: false,
+      isSearch: false,
+      name: "goatOnPremIanWg",
+      onPrem: true,
       workerRemoteAccess: true,
     },
   });
@@ -375,7 +514,7 @@ Update the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="updateConfigGroupByProductAndId" method="patch" path="/products/{product}/groups/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateConfigGroupByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesScaleCloudWorkerGroup" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -388,55 +527,21 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.update({
-    product: "stream",
+    product: "edge",
     id: "<id>",
     configGroup: {
       cloud: {
         provider: "aws",
         region: "us-west-2",
       },
-      configVersion: "<value>",
-      deployingWorkerCount: 7786.61,
       description: "Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity",
       estimatedIngestRate: 4096,
-      git: {
-        commit: "<value>",
-        localChanges: 776.15,
-        log: [
-          {
-            author_email: "<value>",
-            author_name: "<value>",
-            date: "2024-09-29",
-            hash: "<value>",
-            message: "<value>",
-            short: "<value>",
-          },
-        ],
-      },
       id: "goatCloudIanWg",
-      incompatibleWorkerCount: 2874.65,
-      inherits: "<value>",
       isFleet: false,
       isSearch: false,
-      lookupDeployments: [
-        {
-          context: "<value>",
-          lookups: [],
-        },
-      ],
-      maxWorkerAge: "<value>",
       name: "goatCloudIanWg",
       onPrem: false,
       provisioned: true,
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      tags: "<value>",
-      type: "lake_access",
-      upgradeVersion: "<value>",
-      workerCount: 835.08,
       workerRemoteAccess: true,
     },
   });
@@ -466,55 +571,21 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsUpdate(criblControlPlane, {
-    product: "stream",
+    product: "edge",
     id: "<id>",
     configGroup: {
       cloud: {
         provider: "aws",
         region: "us-west-2",
       },
-      configVersion: "<value>",
-      deployingWorkerCount: 7786.61,
       description: "Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity",
       estimatedIngestRate: 4096,
-      git: {
-        commit: "<value>",
-        localChanges: 776.15,
-        log: [
-          {
-            author_email: "<value>",
-            author_name: "<value>",
-            date: "2024-09-29",
-            hash: "<value>",
-            message: "<value>",
-            short: "<value>",
-          },
-        ],
-      },
       id: "goatCloudIanWg",
-      incompatibleWorkerCount: 2874.65,
-      inherits: "<value>",
       isFleet: false,
       isSearch: false,
-      lookupDeployments: [
-        {
-          context: "<value>",
-          lookups: [],
-        },
-      ],
-      maxWorkerAge: "<value>",
       name: "goatCloudIanWg",
       onPrem: false,
       provisioned: true,
-      streamtags: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      tags: "<value>",
-      type: "lake_access",
-      upgradeVersion: "<value>",
-      workerCount: 835.08,
       workerRemoteAccess: true,
     },
   });
@@ -653,12 +724,6 @@ async function run() {
     product: "stream",
     id: "<id>",
     deployRequest: {
-      lookups: [
-        {
-          context: "<value>",
-          lookups: [],
-        },
-      ],
       version: "<value>",
     },
   });
@@ -691,12 +756,6 @@ async function run() {
     product: "stream",
     id: "<id>",
     deployRequest: {
-      lookups: [
-        {
-          context: "<value>",
-          lookups: [],
-        },
-      ],
       version: "<value>",
     },
   });

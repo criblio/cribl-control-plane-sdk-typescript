@@ -8,24 +8,8 @@ import { RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPost 
 let value:
   RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodPost = {
     discoverMethod: "post",
-    discoverRequestParams: "<value>",
     discoverType: "json",
     discoverUrl: "https://juvenile-tribe.org/",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: false,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: true,
   };
 ```
 

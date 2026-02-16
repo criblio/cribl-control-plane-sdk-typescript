@@ -8,24 +8,8 @@ import { RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost } 
 let value:
   RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost = {
     discoverMethod: "post",
-    discoverRequestParams: "<value>",
     discoverType: "none",
     discoverUrl: "https://ornery-hammock.org",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: false,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: true,
   };
 ```
 

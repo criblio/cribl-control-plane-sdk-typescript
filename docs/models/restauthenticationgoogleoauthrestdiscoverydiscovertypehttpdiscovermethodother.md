@@ -10,23 +10,8 @@ let value:
     {
       discoverMethod: "other",
       discoverVerb: "<value>",
-      discoverBody: "<value>",
-      discoverRequestParams: "<value>",
       discoverType: "none",
       discoverUrl: "https://quintessential-rule.info",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: true,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: false,
     };
 ```
 

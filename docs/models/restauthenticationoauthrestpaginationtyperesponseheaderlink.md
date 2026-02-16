@@ -8,7 +8,6 @@ import { RestAuthenticationOauthRestPaginationTypeResponseHeaderLink } from "cri
 let value: RestAuthenticationOauthRestPaginationTypeResponseHeaderLink = {
   type: "response_header_link",
   nextRelationAttribute: "<value>",
-  curRelationAttribute: "<value>",
   maxPages: 3953.39,
 };
 ```

@@ -7,11 +7,6 @@ import { HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff } from "cri
 
 let value: HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff = {
   type: "backoff",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
 };
 ```
 

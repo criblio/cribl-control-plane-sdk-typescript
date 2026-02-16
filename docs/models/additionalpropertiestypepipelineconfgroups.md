@@ -7,9 +7,6 @@ import { AdditionalPropertiesTypePipelineConfGroups } from "cribl-control-plane/
 
 let value: AdditionalPropertiesTypePipelineConfGroups = {
   name: "<value>",
-  description:
-    "excluding how yesterday outrun kookily swim gosh trench starboard",
-  disabled: true,
 };
 ```
 

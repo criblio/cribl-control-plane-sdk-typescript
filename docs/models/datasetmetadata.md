@@ -12,12 +12,6 @@ let value: DatasetMetadata = {
     "<value 1>",
     "<value 2>",
   ],
-  latestRunInfo: {
-    earliestScannedTime: 2718.64,
-    finishedAt: 7126.23,
-    latestScannedTime: 160.67,
-    objectCount: 7729.98,
-  },
   scanMode: "detailed",
 };
 ```

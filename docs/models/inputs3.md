@@ -6,88 +6,8 @@
 import { InputS3 } from "cribl-control-plane/models";
 
 let value: InputS3 = {
-  id: "<id>",
   type: "s3",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   queueName: "<value>",
-  fileFilter: "<value>",
-  awsAccountId: "<id>",
-  awsAuthenticationMethod: "<value>",
-  awsSecretKey: "<value>",
-  region: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v2",
-  reuseConnections: true,
-  rejectUnauthorized: true,
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 3671.24,
-  maxMessages: 2874.19,
-  visibilityTimeout: 3288.89,
-  numReceivers: 4404.3,
-  socketTimeout: 1993.11,
-  skipOnError: false,
-  includeSqsMetadata: false,
-  enableAssumeRole: false,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 3111.12,
-  enableSQSAssumeRole: true,
-  preprocess: {
-    disabled: true,
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  parquetChunkSizeMB: 4656.25,
-  parquetChunkDownloadTimeout: 359,
-  checkpointing: {
-    enabled: true,
-    retries: 263.57,
-  },
-  pollTimeout: 9177.75,
-  encoding: "<value>",
-  tagAfterProcessing: true,
-  description:
-    "instructive middle foolish whitewash simple airbus tomorrow minus",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  processedTagKey: "<value>",
-  processedTagValue: "<value>",
 };
 ```
 

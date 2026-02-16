@@ -7,8 +7,6 @@ import { OutField } from "cribl-control-plane/models";
 
 let value: OutField = {
   lookupField: "<value>",
-  eventField: "<value>",
-  defaultValue: "<value>",
 };
 ```
 

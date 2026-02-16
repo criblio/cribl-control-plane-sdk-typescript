@@ -6,15 +6,7 @@
 import { CreateVersionCommitRequest } from "cribl-control-plane/models/operations";
 
 let value: CreateVersionCommitRequest = {
-  groupId: "<id>",
   gitCommitParams: {
-    effective: false,
-    files: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    group: "<value>",
     message: "<value>",
   },
 };

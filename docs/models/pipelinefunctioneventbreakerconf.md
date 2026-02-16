@@ -7,7 +7,6 @@ import { PipelineFunctionEventBreakerConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionEventBreakerConf = {
   existingOrNew: "new",
-  shouldMarkCriblBreaker: true,
 };
 ```
 

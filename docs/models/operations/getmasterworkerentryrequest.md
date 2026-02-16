@@ -5,9 +5,7 @@
 ```typescript
 import { GetMasterWorkerEntryRequest } from "cribl-control-plane/models/operations";
 
-let value: GetMasterWorkerEntryRequest = {
-  filterExp: "<value>",
-};
+let value: GetMasterWorkerEntryRequest = {};
 ```
 
 ## Fields

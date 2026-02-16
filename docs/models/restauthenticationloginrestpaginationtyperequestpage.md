@@ -8,12 +8,9 @@ import { RestAuthenticationLoginRestPaginationTypeRequestPage } from "cribl-cont
 let value: RestAuthenticationLoginRestPaginationTypeRequestPage = {
   type: "request_page",
   pageField: "<value>",
-  page: 3133.15,
   sizeField: "<value>",
-  size: 9351.64,
-  totalPageField: "<value>",
-  totalRecordField: "<value>",
-  maxPages: 4591.08,
+  size: 3133.15,
+  maxPages: 9351.64,
   zeroIndexed: true,
 };
 ```

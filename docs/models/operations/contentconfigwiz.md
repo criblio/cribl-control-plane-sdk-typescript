@@ -7,19 +7,10 @@ import { ContentConfigWiz } from "cribl-control-plane/models/operations";
 
 let value: ContentConfigWiz = {
   contentType: "<value>",
-  contentDescription: "<value>",
-  enabled: false,
-  stateTracking: false,
-  stateUpdateExpression: "<value>",
-  stateMergeExpression: "<value>",
-  manageState: {},
   contentQuery: "<value>",
   cronSchedule: "<value>",
   earliest: "<value>",
   latest: "<value>",
-  jobTimeout: "<value>",
-  logLevel: "warn",
-  maxPages: 3215.09,
 };
 ```
 

@@ -8,24 +8,8 @@ import { RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet } 
 let value:
   RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet = {
     discoverMethod: "get",
-    discoverRequestParams: "<value>",
     discoverType: "list",
     discoverUrl: "https://stingy-hyphenation.net",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: true,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: true,
   };
 ```
 

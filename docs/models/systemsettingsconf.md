@@ -7,65 +7,27 @@ import { SystemSettingsConf } from "cribl-control-plane/models";
 
 let value: SystemSettingsConf = {
   api: {
-    baseUrl: "https://dreary-pendant.name/",
-    disableApiCache: false,
     disabled: false,
-    headers: {
-      "key": "<value>",
-    },
-    host: "clumsy-onset.biz",
-    idleSessionTTL: 6135.82,
-    listenOnPort: false,
-    loginRateLimit: "<value>",
-    port: 6369.14,
-    protocol: "<value>",
-    scripts: true,
-    sensitiveFields: [
-      "<value 1>",
-    ],
-    ssl: {
-      caPath: "<value>",
-      certPath: "<value>",
-      disabled: false,
-      passphrase: "<value>",
-      privKeyPath: "<value>",
-    },
-    ssoRateLimit: "<value>",
-    workerRemoteAccess: true,
+    host: "urban-handle.org",
+    port: 4080.76,
   },
   backups: {},
-  customLogo: {
-    enabled: true,
-    logoDescription: "<value>",
-    logoImage: "<value>",
+  pii: {
+    enablePiiDetection: false,
   },
-  pii: {},
   proxy: {
-    useEnvVars: true,
+    useEnvVars: false,
   },
   rollback: {
     rollbackEnabled: true,
-    rollbackRetries: 3163.15,
-    rollbackTimeout: 6964.89,
   },
   shutdown: {
-    drainTimeout: 8496.74,
+    drainTimeout: 8257.32,
   },
   sni: {},
-  sockets: {
-    directory: "/usr/libdata",
-  },
-  support: {
-    featureFlagOverrides: [
-      {
-        disabled: false,
-        flagId: "<id>",
-      },
-    ],
-  },
   system: {
     intercom: true,
-    upgrade: "api",
+    upgrade: "false",
   },
   tls: {
     defaultCipherList: "<value>",
@@ -75,27 +37,11 @@ let value: SystemSettingsConf = {
     rejectUnauthorized: true,
   },
   upgradeGroupSettings: {},
-  upgradeSettings: {
-    automaticUpgradeCheckPeriod: "<value>",
-    disableAutomaticUpgrade: false,
-    enableLegacyEdgeUpgrade: false,
-    packageUrls: [
-      {
-        packageHashUrl: "https://best-import.com/",
-        packageUrl: "https://appropriate-responsibility.net/",
-      },
-    ],
-    upgradeSource: "<value>",
-  },
+  upgradeSettings: {},
   workers: {
-    count: 1817.1,
-    enableHeapSnapshots: false,
-    loadThrottlePerc: 4246.78,
-    memory: 4433.58,
-    minimum: 2178.79,
-    startupMaxConns: 3611.13,
-    startupThrottleTimeout: 2818.79,
-    v8SingleThread: true,
+    count: 8060.34,
+    memory: 307.32,
+    minimum: 4954.24,
   },
 };
 ```

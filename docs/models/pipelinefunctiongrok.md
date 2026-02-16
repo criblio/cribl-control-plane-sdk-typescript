@@ -6,21 +6,10 @@
 import { PipelineFunctionGrok } from "cribl-control-plane/models";
 
 let value: PipelineFunctionGrok = {
-  filter: "<value>",
   id: "grok",
-  description: "unethically motionless knottily boastfully gym",
-  disabled: false,
-  final: false,
   conf: {
     pattern: "<value>",
-    patternList: [
-      {
-        pattern: "<value>",
-      },
-    ],
-    source: "<value>",
   },
-  groupId: "<id>",
 };
 ```
 

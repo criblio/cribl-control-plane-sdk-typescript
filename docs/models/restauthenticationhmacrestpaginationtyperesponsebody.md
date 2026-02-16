@@ -12,7 +12,6 @@ let value: RestAuthenticationHmacRestPaginationTypeResponseBody = {
     "<value 2>",
   ],
   maxPages: 8653.61,
-  lastPageExpr: "<value>",
 };
 ```
 

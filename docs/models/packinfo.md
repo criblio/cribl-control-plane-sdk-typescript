@@ -6,46 +6,8 @@
 import { PackInfo } from "cribl-control-plane/models";
 
 let value: PackInfo = {
-  author: "<value>",
-  dependencies: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
-  description: "doubtfully inasmuch flustered pish unless against pfft circa",
-  displayName: "Roberto17",
-  exports: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
   id: "<id>",
-  inputs: 9550.09,
-  isDisabled: true,
-  minLogStreamVersion: "<value>",
-  outputs: 2044.25,
-  settings: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
   source: "<value>",
-  spec: "<value>",
-  tags: {
-    dataType: [
-      "decimal",
-    ],
-    domain: [
-      "big-ostrich.net",
-    ],
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    technology: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  version: "<value>",
 };
 ```
 

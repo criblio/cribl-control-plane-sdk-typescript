@@ -5,21 +5,7 @@
 ```typescript
 import { FunctionConfSchemaCef } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaCef = {
-  outputField: "<value>",
-  header: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  extension: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
+let value: FunctionConfSchemaCef = {};
 ```
 
 ## Fields

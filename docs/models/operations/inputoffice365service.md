@@ -8,75 +8,8 @@ import { InputOffice365Service } from "cribl-control-plane/models/operations";
 let value: InputOffice365Service = {
   id: "<id>",
   type: "office365_service",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  planType: "dod",
   tenantId: "<id>",
   appId: "<id>",
-  timeout: 4191.41,
-  keepAliveTime: 3815.37,
-  jobTimeout: "<value>",
-  maxMissedKeepAlives: 5709.83,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  contentConfig: [
-    {
-      contentType: "<value>",
-      description:
-        "plus conjecture unrealistic than kielbasa important whoa yuck if confusion",
-      interval: 1014.03,
-      logLevel: "info",
-      enabled: false,
-    },
-  ],
-  retryRules: {
-    type: "<value>",
-    interval: 6390.37,
-    limit: 2107.49,
-    multiplier: 2764.09,
-    codes: [
-      1648,
-      6941.51,
-      1223.37,
-    ],
-    enableHeader: true,
-    retryConnectTimeout: true,
-    retryConnectReset: true,
-  },
-  authType: "manual",
-  description: "yippee fail stiffen duh",
-  clientSecret: "<value>",
-  textSecret: "<value>",
 };
 ```
 

@@ -6,22 +6,7 @@
 import { AuthTokenZscalerHec } from "cribl-control-plane/models/operations";
 
 let value: AuthTokenZscalerHec = {
-  authType: "manual",
-  tokenSecret: "<value>",
   token: "<value>",
-  enabled: true,
-  description: "afore pish colour cleaner ha mindless rectangular whoa",
-  allowedIndexesAtToken: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
 };
 ```
 

@@ -17,26 +17,8 @@ let value: CollectorAzureBlob = {
     certificate: {
       certificateName: "<value>",
     },
-    azureCloud: "<value>",
-    endpointSuffix: "<value>",
-    outputName: "<value>",
     containerName: "<value>",
-    path: "/Applications",
-    extractors: [
-      {
-        key: "<key>",
-        expression: "<value>",
-      },
-    ],
-    recurse: false,
-    includeMetadata: false,
-    includeTags: false,
-    maxBatchSize: 2877.09,
-    parquetChunkSizeMB: 3385.81,
-    parquetChunkDownloadTimeout: 2527.71,
   },
-  destructive: false,
-  encoding: "<value>",
 };
 ```
 

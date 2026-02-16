@@ -9,10 +9,6 @@ let value: AwsTypeHeartbeatMetadata = {
   enabled: false,
   instanceId: "<id>",
   region: "<value>",
-  tags: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
   type: "<value>",
   zone: "<value>",
 };

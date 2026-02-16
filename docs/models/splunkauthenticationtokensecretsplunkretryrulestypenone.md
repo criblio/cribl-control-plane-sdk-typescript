@@ -7,13 +7,6 @@ import { SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone } from "cribl-c
 
 let value: SplunkAuthenticationTokenSecretSplunkRetryRulesTypeNone = {
   type: "none",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  retryConnectTimeout: "<value>",
-  retryConnectReset: "<value>",
 };
 ```
 

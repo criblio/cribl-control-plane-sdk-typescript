@@ -6,48 +6,9 @@
 import { InputRawUdp } from "cribl-control-plane/models";
 
 let value: InputRawUdp = {
-  id: "<id>",
   type: "raw_udp",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "judicious-pliers.info",
-  port: 546.34,
-  maxBufferSize: 4993.2,
-  ipWhitelistRegex: "<value>",
-  singleMsgUdpPackets: true,
-  ingestRawBytes: true,
-  udpSocketRxBufSize: 2807.29,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "motivate frank showy instead darn without aw beyond cop-out",
+  host: "next-hovel.net",
+  port: 8140.6,
 };
 ```
 

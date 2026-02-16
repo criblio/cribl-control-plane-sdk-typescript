@@ -8,36 +8,8 @@ import { HealthCheckAuthenticationBasicSecret } from "cribl-control-plane/models
 let value: HealthCheckAuthenticationBasicSecret = {
   authentication: "basicSecret",
   credentialsSecret: "<value>",
-  discovery: {
-    discoverType: "none",
-  },
-  collectUrl: "https://legal-chiffonier.info/",
+  collectUrl: "https://fussy-season.biz/",
   collectMethod: "post_with_body",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: true,
-  timeout: 9116.25,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  retryRules: {
-    type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    multiplier: "<value>",
-  },
 };
 ```
 
