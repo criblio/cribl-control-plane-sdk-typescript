@@ -5,11 +5,7 @@
 ```typescript
 import { DatabaseCollectorConfScheduling } from "cribl-control-plane/models";
 
-let value: DatabaseCollectorConfScheduling = {
-  stateTracking: {
-    enabled: true,
-  },
-};
+let value: DatabaseCollectorConfScheduling = {};
 ```
 
 ## Fields

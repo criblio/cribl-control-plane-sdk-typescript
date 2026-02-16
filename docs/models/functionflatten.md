@@ -7,27 +7,17 @@ import { FunctionFlatten } from "cribl-control-plane/models";
 
 let value: FunctionFlatten = {
   __filename: "example.file",
-  asyncTimeout: 4624.4,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: false,
   id: "flatten",
-  loadTime: 5805.1,
-  modTime: 750.5,
+  loadTime: 4624.4,
+  modTime: 9451.38,
   name: "<value>",
-  sync: true,
   uischema: {
     "key": "<value>",
     "key1": "<value>",
     "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
-  },
 };
 ```
 

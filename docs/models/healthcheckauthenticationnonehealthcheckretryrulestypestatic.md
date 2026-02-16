@@ -7,11 +7,6 @@ import { HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic } from "cr
 
 let value: HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic = {
   type: "static",
-  interval: "<value>",
-  limit: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  multiplier: "<value>",
 };
 ```
 

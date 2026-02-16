@@ -6,42 +6,8 @@
 import { OutputGooglePubsub } from "cribl-control-plane/models";
 
 let value: OutputGooglePubsub = {
-  id: "<id>",
   type: "google_pubsub",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
   topicName: "<value>",
-  createTopic: false,
-  orderedDelivery: false,
-  region: "<value>",
-  googleAuthMethod: "auto",
-  serviceAccountCredentials: "<value>",
-  secret: "<value>",
-  batchSize: 2707.65,
-  batchTimeout: 7129.19,
-  maxQueueSize: 9085.06,
-  maxRecordSizeKB: 6170.11,
-  flushPeriod: 4324.52,
-  maxInProgress: 249.75,
-  onBackpressure: "queue",
-  description: "stormy considering hippodrome hmph ha",
-  pqStrictOrdering: true,
-  pqRatePerSec: 4604.01,
-  pqMode: "error",
-  pqMaxBufferSize: 4653.53,
-  pqMaxBackpressureSec: 9069.05,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "block",
-  pqControls: {},
 };
 ```
 

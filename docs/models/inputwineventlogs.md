@@ -6,53 +6,12 @@
 import { InputWinEventLogs } from "cribl-control-plane/models";
 
 let value: InputWinEventLogs = {
-  id: "<id>",
   type: "win_event_logs",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
+  logNames: [
     "<value 1>",
     "<value 2>",
     "<value 3>",
   ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  logNames: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  readMode: "newest",
-  eventFormat: "xml",
-  disableNativeModule: false,
-  interval: 6463.86,
-  batchSize: 5296.2,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  maxEventBytes: 3079,
-  description: "finished evil consign fooey nor yowza finally round",
-  disableJsonRendering: true,
-  disableXmlRendering: true,
 };
 ```
 

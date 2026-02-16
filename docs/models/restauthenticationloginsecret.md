@@ -10,65 +10,9 @@ let value: RestAuthenticationLoginSecret = {
   loginUrl: "https://zesty-e-mail.name/",
   credentialsSecret: "<value>",
   loginBody: "<value>",
-  getAuthTokenFromHeader: true,
-  authHeaderKey: "<value>",
   authHeaderExpr: "<value>",
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {
-    discoverType: "none",
-  },
-  collectUrl: "https://ornate-priesthood.biz",
+  collectUrl: "https://swift-vestment.name/",
   collectMethod: "post_with_body",
-  collectVerb: "<value>",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "response_body",
-    attribute: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    maxPages: 9864.56,
-    lastPageExpr: "<value>",
-  },
-  timeout: 7673.72,
-  useRoundRobinDns: true,
-  disableTimeFilter: true,
-  decodeUrl: true,
-  rejectUnauthorized: false,
-  captureHeaders: false,
-  stopOnEmptyResults: false,
-  safeHeaders: [
-    "<value 1>",
-  ],
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: false,
-    },
-  },
 };
 ```
 

@@ -9,24 +9,8 @@ let value:
   RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
     {
       discoverMethod: "post",
-      discoverRequestParams: "<value>",
       discoverType: "list",
       discoverUrl: "https://animated-hammock.com",
-      discoverVerb: "<value>",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: true,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: false,
     };
 ```
 

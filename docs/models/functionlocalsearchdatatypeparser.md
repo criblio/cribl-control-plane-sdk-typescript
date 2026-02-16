@@ -7,25 +7,13 @@ import { FunctionLocalSearchDatatypeParser } from "cribl-control-plane/models";
 
 let value: FunctionLocalSearchDatatypeParser = {
   __filename: "example.file",
-  asyncTimeout: 9827.97,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "local_search_datatype_parser",
-  loadTime: 2337.59,
-  modTime: 7250.32,
+  loadTime: 9827.97,
+  modTime: 697.16,
   name: "<value>",
-  sync: false,
-  uischema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

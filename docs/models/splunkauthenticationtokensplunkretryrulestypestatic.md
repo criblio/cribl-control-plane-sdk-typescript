@@ -7,13 +7,6 @@ import { SplunkAuthenticationTokenSplunkRetryRulesTypeStatic } from "cribl-contr
 
 let value: SplunkAuthenticationTokenSplunkRetryRulesTypeStatic = {
   type: "static",
-  interval: "<value>",
-  limit: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  retryConnectTimeout: "<value>",
-  retryConnectReset: "<value>",
-  multiplier: "<value>",
 };
 ```
 

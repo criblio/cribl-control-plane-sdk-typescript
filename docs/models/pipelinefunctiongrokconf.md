@@ -7,12 +7,6 @@ import { PipelineFunctionGrokConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionGrokConf = {
   pattern: "<value>",
-  patternList: [
-    {
-      pattern: "<value>",
-    },
-  ],
-  source: "<value>",
 };
 ```
 

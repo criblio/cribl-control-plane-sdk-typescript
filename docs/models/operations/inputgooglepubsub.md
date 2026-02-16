@@ -8,52 +8,8 @@ import { InputGooglePubsub } from "cribl-control-plane/models/operations";
 let value: InputGooglePubsub = {
   id: "<id>",
   type: "google_pubsub",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   topicName: "<value>",
   subscriptionName: "<value>",
-  monitorSubscription: false,
-  createTopic: false,
-  createSubscription: false,
-  region: "<value>",
-  googleAuthMethod: "secret",
-  serviceAccountCredentials: "<value>",
-  secret: "<value>",
-  maxBacklog: 6970.64,
-  concurrency: 8341.33,
-  requestTimeout: 8554.64,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "past creator or given slowly glossy nutritious volunteer but",
-  orderedDelivery: true,
 };
 ```
 

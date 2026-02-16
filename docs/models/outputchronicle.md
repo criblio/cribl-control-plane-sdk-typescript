@@ -6,84 +6,11 @@
 import { OutputChronicle } from "cribl-control-plane/models";
 
 let value: OutputChronicle = {
-  id: "<id>",
   type: "chronicle",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  apiVersion: "<value>",
-  authenticationMethod: "serviceAccount",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
   region: "<value>",
-  concurrency: 1431.94,
-  maxPayloadSizeKB: 3002.04,
-  maxPayloadEvents: 2390.43,
-  compress: false,
-  rejectUnauthorized: false,
-  timeoutSec: 1217.75,
-  flushPeriodSec: 7979.3,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  failedRequestLoggingMode: "none",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  useRoundRobinDns: true,
-  onBackpressure: "drop",
-  totalMemoryLimitKB: 8564.64,
-  ingestionMethod: "<value>",
-  namespace: "<value>",
   logType: "<value>",
-  logTextField: "<value>",
   gcpProjectId: "<id>",
   gcpInstance: "<value>",
-  customLabels: [
-    {
-      key: "<key>",
-      value: "<value>",
-      rbacEnabled: true,
-    },
-  ],
-  description: "ah heating redesign usable for oof swathe expense meh thigh",
-  serviceAccountCredentials: "<value>",
-  serviceAccountCredentialsSecret: "<value>",
-  pqStrictOrdering: false,
-  pqRatePerSec: 9925.69,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 7755.05,
-  pqMaxBackpressureSec: 2000.53,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "block",
-  pqControls: {},
 };
 ```
 

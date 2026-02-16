@@ -8,57 +8,8 @@ import { RestAuthenticationBasicSecret } from "cribl-control-plane/models";
 let value: RestAuthenticationBasicSecret = {
   authentication: "basicSecret",
   credentialsSecret: "<value>",
-  discovery: {
-    discoverType: "list",
-    itemList: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  collectUrl: "https://needy-disclosure.org",
-  collectMethod: "other",
-  collectVerb: "<value>",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "response_header",
-    attribute: [
-      "<value 1>",
-    ],
-    maxPages: 7221.57,
-  },
-  timeout: 1508.43,
-  useRoundRobinDns: true,
-  disableTimeFilter: true,
-  decodeUrl: true,
-  rejectUnauthorized: true,
-  captureHeaders: true,
-  stopOnEmptyResults: false,
-  safeHeaders: [
-    "<value 1>",
-  ],
-  retryRules: {
-    type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: true,
-    },
-  },
+  collectUrl: "https://precious-metal.name",
+  collectMethod: "post",
 };
 ```
 

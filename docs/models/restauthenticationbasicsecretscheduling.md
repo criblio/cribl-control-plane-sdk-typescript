@@ -5,11 +5,7 @@
 ```typescript
 import { RestAuthenticationBasicSecretScheduling } from "cribl-control-plane/models";
 
-let value: RestAuthenticationBasicSecretScheduling = {
-  stateTracking: {
-    enabled: true,
-  },
-};
+let value: RestAuthenticationBasicSecretScheduling = {};
 ```
 
 ## Fields

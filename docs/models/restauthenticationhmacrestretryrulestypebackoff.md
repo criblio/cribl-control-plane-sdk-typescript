@@ -7,14 +7,6 @@ import { RestAuthenticationHmacRestRetryRulesTypeBackoff } from "cribl-control-p
 
 let value: RestAuthenticationHmacRestRetryRulesTypeBackoff = {
   type: "backoff",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  maxIntervalMs: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  retryConnectTimeout: "<value>",
-  retryConnectReset: "<value>",
 };
 ```
 

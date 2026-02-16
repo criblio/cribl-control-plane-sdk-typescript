@@ -5,10 +5,7 @@
 ```typescript
 import { ItemsTypeConnectionsOptional } from "cribl-control-plane/models";
 
-let value: ItemsTypeConnectionsOptional = {
-  pipeline: "<value>",
-  output: "<value>",
-};
+let value: ItemsTypeConnectionsOptional = {};
 ```
 
 ## Fields

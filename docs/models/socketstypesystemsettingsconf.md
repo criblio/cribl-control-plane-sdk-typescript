@@ -5,9 +5,7 @@
 ```typescript
 import { SocketsTypeSystemSettingsConf } from "cribl-control-plane/models";
 
-let value: SocketsTypeSystemSettingsConf = {
-  directory: "/var/tmp",
-};
+let value: SocketsTypeSystemSettingsConf = {};
 ```
 
 ## Fields

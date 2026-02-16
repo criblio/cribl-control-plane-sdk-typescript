@@ -11,17 +11,8 @@ let value:
   HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet =
     {
       discoverMethod: "get",
-      discoverRequestParams: "<value>",
       discoverType: "list",
       discoverUrl: "https://flashy-unique.org",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

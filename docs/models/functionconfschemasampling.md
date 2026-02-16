@@ -5,14 +5,7 @@
 ```typescript
 import { FunctionConfSchemaSampling } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaSampling = {
-  rules: [
-    {
-      filter: "<value>",
-      rate: 749891,
-    },
-  ],
-};
+let value: FunctionConfSchemaSampling = {};
 ```
 
 ## Fields

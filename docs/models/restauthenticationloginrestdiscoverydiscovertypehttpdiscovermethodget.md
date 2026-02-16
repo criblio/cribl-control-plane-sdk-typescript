@@ -8,24 +8,8 @@ import { RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGet }
 let value:
   RestAuthenticationLoginRestDiscoveryDiscoverTypeHttpDiscoverMethodGet = {
     discoverMethod: "get",
-    discoverRequestParams: "<value>",
     discoverType: "json",
     discoverUrl: "https://queasy-vibration.biz/",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: true,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: false,
   };
 ```
 

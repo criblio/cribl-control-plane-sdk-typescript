@@ -8,24 +8,8 @@ import { RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost }
 let value:
   RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost = {
     discoverMethod: "post",
-    discoverRequestParams: "<value>",
     discoverType: "http",
     discoverUrl: "https://strict-caption.net/",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: true,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: false,
   };
 ```
 

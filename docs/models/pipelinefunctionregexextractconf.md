@@ -7,15 +7,6 @@ import { PipelineFunctionRegexExtractConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionRegexExtractConf = {
   regex: "<value>",
-  regexList: [
-    {
-      regex: "<value>",
-    },
-  ],
-  source: "<value>",
-  iterations: 5628.57,
-  fieldNameExpression: "<value>",
-  overwrite: true,
 };
 ```
 

@@ -5,15 +5,7 @@
 ```typescript
 import { CountedGitShowResult } from "cribl-control-plane/models";
 
-let value: CountedGitShowResult = {
-  count: 107088,
-  items: [
-    {
-      commitMessage: "<value>",
-      diffJson: [],
-    },
-  ],
-};
+let value: CountedGitShowResult = {};
 ```
 
 ## Fields

@@ -8,56 +8,8 @@ import { RestAuthenticationHmac } from "cribl-control-plane/models";
 let value: RestAuthenticationHmac = {
   authentication: "hmac",
   hmacFunctionId: "<id>",
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://puny-unibody.biz/",
+  collectUrl: "https://giving-partridge.org/",
   collectMethod: "get",
-  collectVerb: "<value>",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "response_header_link",
-    nextRelationAttribute: "<value>",
-    curRelationAttribute: "<value>",
-    maxPages: 6092.87,
-  },
-  timeout: 6806.28,
-  useRoundRobinDns: false,
-  disableTimeFilter: true,
-  decodeUrl: true,
-  rejectUnauthorized: true,
-  captureHeaders: false,
-  stopOnEmptyResults: true,
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  retryRules: {
-    type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: true,
-    },
-  },
 };
 ```
 

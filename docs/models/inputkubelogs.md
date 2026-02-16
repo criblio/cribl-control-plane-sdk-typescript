@@ -6,62 +6,7 @@
 import { InputKubeLogs } from "cribl-control-plane/models";
 
 let value: InputKubeLogs = {
-  id: "<id>",
   type: "kube_logs",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  interval: 971.18,
-  rules: [
-    {
-      filter: "<value>",
-      description: "graduate now fiddle ouch carefully wherever where",
-    },
-  ],
-  timestamps: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {
-    enable: false,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "gzip",
-  },
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 9531.45,
-  enableLoadBalancing: true,
-  description: "but over wafer following ugh strait dimly yuck crumble hastily",
 };
 ```
 

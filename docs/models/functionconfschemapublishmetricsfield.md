@@ -7,7 +7,6 @@ import { FunctionConfSchemaPublishMetricsField } from "cribl-control-plane/model
 
 let value: FunctionConfSchemaPublishMetricsField = {
   inFieldName: "<value>",
-  outFieldExpr: "<value>",
   metricType: "timer",
 };
 ```

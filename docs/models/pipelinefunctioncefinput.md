@@ -6,27 +6,8 @@
 import { PipelineFunctionCefInput } from "cribl-control-plane/models";
 
 let value: PipelineFunctionCefInput = {
-  filter: "<value>",
   id: "cef",
-  description:
-    "bend teriyaki gracefully aside concerning miserably waist queasily",
-  disabled: false,
-  final: false,
-  conf: {
-    outputField: "<value>",
-    header: [
-      {
-        value: "<value>",
-      },
-    ],
-    extension: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

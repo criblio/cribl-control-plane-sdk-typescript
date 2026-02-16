@@ -6,73 +6,8 @@
 import { OutputAzureLogs } from "cribl-control-plane/models";
 
 let value: OutputAzureLogs = {
-  id: "<id>",
   type: "azure_logs",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
   logType: "<value>",
-  resourceId: "<id>",
-  concurrency: 7684.99,
-  maxPayloadSizeKB: 6885.22,
-  maxPayloadEvents: 6704.51,
-  compress: true,
-  rejectUnauthorized: true,
-  timeoutSec: 3540.18,
-  flushPeriodSec: 5311.29,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  apiUrl: "https://medium-kinase.name/",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "drop",
-  authType: "secret",
-  description: "aha gallery monthly jot individual",
-  pqStrictOrdering: false,
-  pqRatePerSec: 3216.16,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 1270.81,
-  pqMaxBackpressureSec: 3929.97,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "block",
-  pqControls: {},
-  workspaceId: "<id>",
-  workspaceKey: "<value>",
-  keypairSecret: "<value>",
 };
 ```
 

@@ -7,24 +7,13 @@ import { FunctionTee } from "cribl-control-plane/models";
 
 let value: FunctionTee = {
   __filename: "example.file",
-  asyncTimeout: 5834.77,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "tee",
-  loadTime: 7605.35,
-  modTime: 4994.36,
+  loadTime: 5834.77,
+  modTime: 2373.44,
   name: "<value>",
-  sync: true,
-  uischema: {
-    "key": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

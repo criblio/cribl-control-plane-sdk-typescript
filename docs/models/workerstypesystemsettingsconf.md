@@ -7,13 +7,8 @@ import { WorkersTypeSystemSettingsConf } from "cribl-control-plane/models";
 
 let value: WorkersTypeSystemSettingsConf = {
   count: 7178.32,
-  enableHeapSnapshots: false,
-  loadThrottlePerc: 9602.87,
-  memory: 2549.68,
-  minimum: 9505.77,
-  startupMaxConns: 1312.3,
-  startupThrottleTimeout: 3586.19,
-  v8SingleThread: false,
+  memory: 6551.28,
+  minimum: 9602.87,
 };
 ```
 

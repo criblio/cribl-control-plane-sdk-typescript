@@ -9,22 +9,6 @@ import { AuthenticationType1 } from "cribl-control-plane/models";
 
 let value: AuthenticationType1 = {
   disabled: true,
-  authType: "secret",
-  password: "fkMkpqtdwAbONy9",
-  textSecret: "<value>",
-  mechanism: "oauthbearer",
-  username: "Marge.Kris",
-  clientSecretAuthType: "certificate",
-  clientSecret: "<value>",
-  clientTextSecret: "<value>",
-  certificateName: "<value>",
-  certPath: "<value>",
-  privKeyPath: "<value>",
-  passphrase: "<value>",
-  oauthEndpoint: "https://login.microsoftonline.us",
-  clientId: "<id>",
-  tenantId: "<id>",
-  scope: "<value>",
 };
 ```
 

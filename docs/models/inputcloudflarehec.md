@@ -6,104 +6,10 @@
 import { InputCloudflareHec } from "cribl-control-plane/models";
 
 let value: InputCloudflareHec = {
-  id: "<id>",
   type: "cloudflare_hec",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "disloyal-challenge.name",
-  port: 9753.01,
-  authTokens: [
-    {
-      authType: "manual",
-      tokenSecret: "<value>",
-      token: "<value>",
-      enabled: false,
-      description: "pro pish equate cumbersome unwritten while unless right",
-      allowedIndexesAtToken: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 4987.89,
-  maxRequestsPerSocket: 655252,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 6374.67,
-  requestTimeout: 2259.74,
-  socketTimeout: 8058.3,
-  keepAliveTimeout: 7840.92,
-  enableHealthCheck: "<value>",
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
+  host: "grizzled-receptor.com",
+  port: 5918.65,
   hecAPI: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedIndexes: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 9558.71,
-  accessControlAllowOrigin: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  accessControlAllowHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  emitTokenMetrics: true,
-  description: "loose puzzled well but",
 };
 ```
 

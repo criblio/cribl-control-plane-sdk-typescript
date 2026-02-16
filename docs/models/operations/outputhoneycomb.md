@@ -8,65 +8,7 @@ import { OutputHoneycomb } from "cribl-control-plane/models/operations";
 let value: OutputHoneycomb = {
   id: "<id>",
   type: "honeycomb",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
   dataset: "<value>",
-  concurrency: 3204.69,
-  maxPayloadSizeKB: 3746.61,
-  maxPayloadEvents: 9486.26,
-  compress: false,
-  rejectUnauthorized: false,
-  timeoutSec: 1902.8,
-  flushPeriodSec: 9868.48,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "block",
-  authType: "secret",
-  description: "compassionate swift following truthfully",
-  pqStrictOrdering: false,
-  pqRatePerSec: 2190.59,
-  pqMode: "error",
-  pqMaxBufferSize: 1865.7,
-  pqMaxBackpressureSec: 8896.4,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
-  team: "<value>",
-  textSecret: "<value>",
 };
 ```
 

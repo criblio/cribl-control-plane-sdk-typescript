@@ -7,7 +7,6 @@ import { PodFilter } from "cribl-control-plane/models";
 
 let value: PodFilter = {
   filter: "<value>",
-  description: "meh that oof lest mainstream times anti reboot packaging",
 };
 ```
 

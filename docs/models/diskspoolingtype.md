@@ -5,13 +5,7 @@
 ```typescript
 import { DiskSpoolingType } from "cribl-control-plane/models";
 
-let value: DiskSpoolingType = {
-  enable: true,
-  timeWindow: "<value>",
-  maxDataSize: "<value>",
-  maxDataTime: "<value>",
-  compress: "none",
-};
+let value: DiskSpoolingType = {};
 ```
 
 ## Fields

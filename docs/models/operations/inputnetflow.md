@@ -8,47 +8,8 @@ import { InputNetflow } from "cribl-control-plane/models/operations";
 let value: InputNetflow = {
   id: "<id>",
   type: "netflow",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "zealous-fund.org",
-  port: 3209.42,
-  enablePassThrough: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  udpSocketRxBufSize: 8327.74,
-  templateCacheMinutes: 7161.42,
-  v5Enabled: false,
-  v9Enabled: true,
-  ipfixEnabled: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "schlep however question step entice yowza past whoever",
+  host: "supportive-request.net",
+  port: 1221.63,
 };
 ```
 

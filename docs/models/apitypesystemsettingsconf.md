@@ -6,31 +6,9 @@
 import { ApiTypeSystemSettingsConf } from "cribl-control-plane/models";
 
 let value: ApiTypeSystemSettingsConf = {
-  baseUrl: "https://near-ostrich.net/",
-  disableApiCache: true,
-  disabled: false,
-  headers: {
-    "key": "<value>",
-  },
-  host: "shallow-lift.info",
-  idleSessionTTL: 1861.66,
-  listenOnPort: false,
-  loginRateLimit: "<value>",
-  port: 7036.67,
-  protocol: "<value>",
-  scripts: false,
-  sensitiveFields: [
-    "<value 1>",
-  ],
-  ssl: {
-    caPath: "<value>",
-    certPath: "<value>",
-    disabled: false,
-    passphrase: "<value>",
-    privKeyPath: "<value>",
-  },
-  ssoRateLimit: "<value>",
-  workerRemoteAccess: true,
+  disabled: true,
+  host: "near-ostrich.net",
+  port: 218.09,
 };
 ```
 

@@ -6,80 +6,8 @@
 import { OutputLoki } from "cribl-control-plane/models";
 
 let value: OutputLoki = {
-  id: "<id>",
   type: "loki",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  url: "https://excitable-entry.org",
-  message: "<value>",
-  messageFormat: "protobuf",
-  labels: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authType: "textSecret",
-  concurrency: 9131.85,
-  maxPayloadSizeKB: 1840.1,
-  maxPayloadEvents: 6488.26,
-  rejectUnauthorized: false,
-  timeoutSec: 3841.67,
-  flushPeriodSec: 3446.66,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: false,
-  failedRequestLoggingMode: "payload",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  enableDynamicHeaders: true,
-  onBackpressure: "drop",
-  totalMemoryLimitKB: 5270.25,
-  description: "gah reel accompany as sate",
-  compress: true,
-  token: "<value>",
-  textSecret: "<value>",
-  username: "Yvonne.Greenholt",
-  password: "grNANT6B5zRjXXj",
-  credentialsSecret: "<value>",
-  pqStrictOrdering: false,
-  pqRatePerSec: 3651.78,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 9594.22,
-  pqMaxBackpressureSec: 5222.58,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "block",
-  pqControls: {},
+  url: "https://pushy-spring.biz/",
 };
 ```
 

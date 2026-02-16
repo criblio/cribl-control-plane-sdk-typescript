@@ -7,14 +7,6 @@ import { RestAuthenticationNoneRestRetryRulesTypeStatic } from "cribl-control-pl
 
 let value: RestAuthenticationNoneRestRetryRulesTypeStatic = {
   type: "static",
-  interval: "<value>",
-  limit: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  retryConnectTimeout: "<value>",
-  retryConnectReset: "<value>",
-  multiplier: "<value>",
-  maxIntervalMs: "<value>",
 };
 ```
 

@@ -7,32 +7,7 @@ import { S3AwsAuthenticationMethodSecret } from "cribl-control-plane/models";
 
 let value: S3AwsAuthenticationMethodSecret = {
   awsAuthenticationMethod: "secret",
-  awsSecret: "<value>",
-  outputName: "<value>",
   bucket: "<value>",
-  parquetChunkSizeMB: 6863.54,
-  parquetChunkDownloadTimeout: 7443,
-  region: "<value>",
-  path: "/proc",
-  partitioningScheme: "none",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  endpoint: "<value>",
-  signatureVersion: "v2",
-  enableAssumeRole: true,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 2574.95,
-  maxBatchSize: 9056.47,
-  recurse: "<value>",
-  reuseConnections: true,
-  rejectUnauthorized: true,
-  verifyPermissions: false,
-  disableTimeFilter: false,
 };
 ```
 

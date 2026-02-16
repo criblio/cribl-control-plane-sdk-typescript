@@ -6,7 +6,6 @@
 import { Header } from "cribl-control-plane/models";
 
 let value: Header = {
-  name: "<value>",
   value: "<value>",
 };
 ```

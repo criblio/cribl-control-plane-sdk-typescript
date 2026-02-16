@@ -5,14 +5,7 @@
 ```typescript
 import { FunctionConfSchemaNumerify } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaNumerify = {
-  depth: 60984,
-  ignoreFields: [
-    "<value 1>",
-  ],
-  filterExpr: "<value>",
-  format: "none",
-};
+let value: FunctionConfSchemaNumerify = {};
 ```
 
 ## Fields

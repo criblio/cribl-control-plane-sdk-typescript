@@ -14,21 +14,6 @@ let value:
       discoverBody: "<value>",
       discoverType: "http",
       discoverUrl: "https://unlawful-cappelletti.org/",
-      discoverVerb: "<value>",
-      discoverRequestParams: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: true,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: true,
     };
 ```
 

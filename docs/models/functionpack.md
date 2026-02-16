@@ -7,25 +7,15 @@ import { FunctionPack } from "cribl-control-plane/models";
 
 let value: FunctionPack = {
   __filename: "example.file",
-  asyncTimeout: 8176.6,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "pack",
-  loadTime: 2265.69,
-  modTime: 1300.66,
+  loadTime: 8176.6,
+  modTime: 2824.27,
   name: "<value>",
-  sync: true,
   uischema: {
     "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

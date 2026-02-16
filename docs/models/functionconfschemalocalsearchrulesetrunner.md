@@ -5,12 +5,7 @@
 ```typescript
 import { FunctionConfSchemaLocalSearchRulesetRunner } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaLocalSearchRulesetRunner = {
-  rulesetType: "dataset",
-  rulesetId: "<id>",
-  ruleset: {},
-  markAndIncludeDroppedEvents: false,
-};
+let value: FunctionConfSchemaLocalSearchRulesetRunner = {};
 ```
 
 ## Fields

@@ -6,23 +6,14 @@
 import { PipelineFunctionWindow } from "cribl-control-plane/models";
 
 let value: PipelineFunctionWindow = {
-  filter: "<value>",
   id: "window",
-  description:
-    "memorable beneficial shakily triumphantly sudden because volunteer",
-  disabled: true,
-  final: true,
   conf: {
-    eventWindowId: 7696.3,
+    eventWindowId: 5130.28,
     registeredFunctions: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
-    tailEventCount: 6125.83,
-    headEventCount: 3735.39,
   },
-  groupId: "<id>",
 };
 ```
 

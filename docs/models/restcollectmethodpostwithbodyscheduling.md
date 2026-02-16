@@ -5,11 +5,7 @@
 ```typescript
 import { RestCollectMethodPostWithBodyScheduling } from "cribl-control-plane/models";
 
-let value: RestCollectMethodPostWithBodyScheduling = {
-  stateTracking: {
-    enabled: true,
-  },
-};
+let value: RestCollectMethodPostWithBodyScheduling = {};
 ```
 
 ## Fields

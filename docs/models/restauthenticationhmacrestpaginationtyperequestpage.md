@@ -8,13 +8,10 @@ import { RestAuthenticationHmacRestPaginationTypeRequestPage } from "cribl-contr
 let value: RestAuthenticationHmacRestPaginationTypeRequestPage = {
   type: "request_page",
   pageField: "<value>",
-  page: 1065.23,
   sizeField: "<value>",
-  size: 2334.42,
-  totalPageField: "<value>",
-  totalRecordField: "<value>",
-  maxPages: 3750.57,
-  zeroIndexed: false,
+  size: 1065.23,
+  maxPages: 2334.42,
+  zeroIndexed: true,
 };
 ```
 

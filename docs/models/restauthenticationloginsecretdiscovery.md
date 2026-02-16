@@ -9,24 +9,8 @@
 const value: models.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHttp =
   {
     discoverMethod: "post",
-    discoverRequestParams: "<value>",
     discoverType: "none",
     discoverUrl: "https://adolescent-nephew.info/",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: true,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: true,
   };
 ```
 
@@ -37,7 +21,6 @@ const value: models.RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJson =
   {
     discoverType: "json",
     manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
   };
 ```
 

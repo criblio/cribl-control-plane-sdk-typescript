@@ -6,76 +6,9 @@
 import { InputTcp } from "cribl-control-plane/models";
 
 let value: InputTcp = {
-  id: "<id>",
   type: "tcp",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "circular-marimba.info",
-  port: 8231.88,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  ipWhitelistRegex: "<value>",
-  maxActiveCxn: 9293.87,
-  socketIdleTimeout: 7899.93,
-  socketEndingMaxWait: 4795.04,
-  socketMaxLifespan: 4783.69,
-  enableProxyHeader: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 3615.97,
-  enableHeader: false,
-  preprocess: {
-    disabled: true,
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  description: "meh pharmacopoeia yummy",
-  authToken: "<value>",
-  authType: "manual",
-  textSecret: "<value>",
+  host: "regal-comparison.info",
+  port: 2587.69,
 };
 ```
 

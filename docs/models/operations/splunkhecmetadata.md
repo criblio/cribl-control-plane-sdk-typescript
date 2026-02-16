@@ -5,15 +5,7 @@
 ```typescript
 import { SplunkHecMetadata } from "cribl-control-plane/models/operations";
 
-let value: SplunkHecMetadata = {
-  enabled: false,
-  defaultDataset: "<value>",
-  allowedIndexesAtToken: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-};
+let value: SplunkHecMetadata = {};
 ```
 
 ## Fields

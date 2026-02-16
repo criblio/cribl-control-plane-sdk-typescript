@@ -9,23 +9,8 @@ let value:
   RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther = {
     discoverMethod: "other",
     discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestParams: "<value>",
     discoverType: "none",
     discoverUrl: "https://terrible-supplier.org/",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: false,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: false,
   };
 ```
 

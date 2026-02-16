@@ -8,7 +8,6 @@ import { RestAuthenticationHmacRestDiscoveryDiscoverTypeJson } from "cribl-contr
 let value: RestAuthenticationHmacRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

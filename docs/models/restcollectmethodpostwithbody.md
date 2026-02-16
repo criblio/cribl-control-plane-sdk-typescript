@@ -8,71 +8,8 @@ import { RestCollectMethodPostWithBody } from "cribl-control-plane/models";
 let value: RestCollectMethodPostWithBody = {
   collectMethod: "other",
   collectBody: "<value>",
-  discovery: {
-    discoverMethod: "post",
-    discoverRequestParams: "<value>",
-    discoverType: "http",
-    discoverUrl: "https://likable-follower.com",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: false,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: false,
-  },
-  collectUrl: "https://graceful-quit.net",
-  collectVerb: "<value>",
-  collectRequestParams: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "response_header_link",
-    nextRelationAttribute: "<value>",
-    curRelationAttribute: "<value>",
-    maxPages: 6562.77,
-  },
+  collectUrl: "https://frail-allegation.org/",
   authentication: "loginSecret",
-  timeout: 6932.73,
-  useRoundRobinDns: false,
-  disableTimeFilter: true,
-  decodeUrl: true,
-  rejectUnauthorized: true,
-  captureHeaders: false,
-  stopOnEmptyResults: true,
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: true,
-    },
-  },
 };
 ```
 

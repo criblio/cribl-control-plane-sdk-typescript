@@ -8,24 +8,8 @@ import { RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost }
 let value:
   RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost = {
     discoverMethod: "post",
-    discoverRequestParams: "<value>",
     discoverType: "http",
     discoverUrl: "https://infatuated-hovel.org",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: false,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: false,
   };
 ```
 

@@ -7,7 +7,6 @@ import { CheckpointingType } from "cribl-control-plane/models";
 
 let value: CheckpointingType = {
   enabled: false,
-  retries: 5977.21,
 };
 ```
 

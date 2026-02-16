@@ -5,15 +5,7 @@
 ```typescript
 import { StatsDestination } from "cribl-control-plane/models/operations";
 
-let value: StatsDestination = {
-  url: "https://bony-negotiation.info/",
-  database: "<value>",
-  tableName: "<value>",
-  authType: "<value>",
-  username: "Tanner90",
-  sqlUsername: "<value>",
-  password: "XytIU75yZsvQnV8",
-};
+let value: StatsDestination = {};
 ```
 
 ## Fields

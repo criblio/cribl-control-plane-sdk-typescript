@@ -8,7 +8,6 @@ import { CustomLabel } from "cribl-control-plane/models";
 let value: CustomLabel = {
   key: "<key>",
   value: "<value>",
-  rbacEnabled: true,
 };
 ```
 

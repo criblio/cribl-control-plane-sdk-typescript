@@ -11,48 +11,9 @@ let value: HealthCheckAuthenticationLogin = {
   username: "Pink.Kris17",
   password: "Pm9peETaxfHLEYC",
   loginBody: "<value>",
-  tokenRespAttribute: "<value>",
   authHeaderExpr: "<value>",
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {
-    discoverType: "list",
-    itemList: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-  },
-  collectUrl: "https://whispered-conversation.biz",
-  collectMethod: "post",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: true,
-  timeout: 587.2,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
+  collectUrl: "https://worst-minion.org",
+  collectMethod: "get",
 };
 ```
 

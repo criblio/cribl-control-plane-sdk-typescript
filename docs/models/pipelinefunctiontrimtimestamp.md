@@ -6,15 +6,8 @@
 import { PipelineFunctionTrimTimestamp } from "cribl-control-plane/models";
 
 let value: PipelineFunctionTrimTimestamp = {
-  filter: "<value>",
   id: "trim_timestamp",
-  description: "tomorrow accidentally psst gee hmph",
-  disabled: false,
-  final: false,
-  conf: {
-    field: "<value>",
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

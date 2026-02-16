@@ -8,73 +8,8 @@ import { OutputNewrelicEvents } from "cribl-control-plane/models/operations";
 let value: OutputNewrelicEvents = {
   id: "<id>",
   type: "newrelic_events",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  region: "EU",
   accountId: "<id>",
   eventType: "<value>",
-  concurrency: 5724.32,
-  maxPayloadSizeKB: 4520.09,
-  maxPayloadEvents: 6789.89,
-  compress: false,
-  rejectUnauthorized: true,
-  timeoutSec: 7495.14,
-  flushPeriodSec: 1684.33,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: false,
-  failedRequestLoggingMode: "none",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "queue",
-  authType: "secret",
-  description:
-    "oh horn except accurate genuine flight soybean inasmuch yesterday",
-  customUrl: "https://unlucky-lotion.info",
-  pqStrictOrdering: false,
-  pqRatePerSec: 3757.46,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 8811.44,
-  pqMaxBackpressureSec: 3632.09,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
-  apiKey: "<value>",
-  textSecret: "<value>",
 };
 ```
 

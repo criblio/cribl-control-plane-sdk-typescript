@@ -9,17 +9,8 @@
 const value:
   models.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttp = {
     discoverMethod: "get",
-    discoverRequestParams: "<value>",
     discoverType: "none",
     discoverUrl: "https://foolhardy-calculus.net/",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    discoverDataField: "<value>",
   };
 ```
 
@@ -30,7 +21,6 @@ const value:
   models.HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson = {
     discoverType: "json",
     manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
   };
 ```
 

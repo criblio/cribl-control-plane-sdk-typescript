@@ -6,77 +6,9 @@
 import { InputSplunk } from "cribl-control-plane/models";
 
 let value: InputSplunk = {
-  id: "<id>",
   type: "splunk",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "stark-hierarchy.biz",
-  port: 4941.14,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  ipWhitelistRegex: "<value>",
-  maxActiveCxn: 2204.51,
-  socketIdleTimeout: 5287.93,
-  socketEndingMaxWait: 4279.79,
-  socketMaxLifespan: 2470.73,
-  enableProxyHeader: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 7385.66,
-  authTokens: [
-    {
-      token: "<value>",
-      description: "around inside although phooey pfft acidly",
-    },
-  ],
-  maxS2Sversion: "v4",
-  description: "vivaciously upbeat cricket where castanet than",
-  useFwdTimezone: false,
-  dropControlFields: false,
-  extractMetrics: false,
-  compress: "always",
+  host: "sour-finding.biz",
+  port: 9520.51,
 };
 ```
 

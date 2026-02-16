@@ -9,17 +9,6 @@ let value: UpdateConfigGroupDeployByProductAndIdRequest = {
   product: "outpost",
   id: "<id>",
   deployRequest: {
-    lookups: [
-      {
-        context: "<value>",
-        lookups: [
-          {
-            file: "<value>",
-            version: "<value>",
-          },
-        ],
-      },
-    ],
     version: "<value>",
   },
 };

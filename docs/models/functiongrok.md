@@ -7,23 +7,13 @@ import { FunctionGrok } from "cribl-control-plane/models";
 
 let value: FunctionGrok = {
   __filename: "example.file",
-  asyncTimeout: 2211.17,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "grok",
-  loadTime: 9780.21,
-  modTime: 4960.19,
+  loadTime: 2211.17,
+  modTime: 5934.68,
   name: "<value>",
-  sync: false,
-  uischema: {
-    "key": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

@@ -7,25 +7,13 @@ import { FunctionFoldkeys } from "cribl-control-plane/models";
 
 let value: FunctionFoldkeys = {
   __filename: "example.file",
-  asyncTimeout: 2686.01,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "foldkeys",
-  loadTime: 4361.43,
-  modTime: 2493.02,
+  loadTime: 2686.01,
+  modTime: 5700.1,
   name: "<value>",
-  sync: true,
-  uischema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

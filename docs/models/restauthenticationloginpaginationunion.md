@@ -21,7 +21,6 @@ const value: models.RestAuthenticationLoginRestPaginationTypeResponseBody = {
     "<value 2>",
   ],
   maxPages: 5573.43,
-  lastPageExpr: "<value>",
 };
 ```
 
@@ -44,7 +43,6 @@ const value:
   models.RestAuthenticationLoginRestPaginationTypeResponseHeaderLink = {
     type: "response_header_link",
     nextRelationAttribute: "<value>",
-    curRelationAttribute: "<value>",
     maxPages: 3825.18,
   };
 ```
@@ -55,11 +53,9 @@ const value:
 const value: models.RestAuthenticationLoginRestPaginationTypeRequestOffset = {
   type: "request_offset",
   offsetField: "<value>",
-  offset: 7797.93,
   limitField: "<value>",
-  limit: 8338.95,
-  totalRecordField: "<value>",
-  maxPages: 192.37,
+  limit: 7797.93,
+  maxPages: 8338.95,
   zeroIndexed: true,
 };
 ```
@@ -70,12 +66,9 @@ const value: models.RestAuthenticationLoginRestPaginationTypeRequestOffset = {
 const value: models.RestAuthenticationLoginRestPaginationTypeRequestPage = {
   type: "request_page",
   pageField: "<value>",
-  page: 3133.15,
   sizeField: "<value>",
-  size: 9351.64,
-  totalPageField: "<value>",
-  totalRecordField: "<value>",
-  maxPages: 4591.08,
+  size: 3133.15,
+  maxPages: 9351.64,
   zeroIndexed: true,
 };
 ```

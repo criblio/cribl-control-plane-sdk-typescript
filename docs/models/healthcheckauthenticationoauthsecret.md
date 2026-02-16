@@ -8,52 +8,11 @@ import { HealthCheckAuthenticationOauthSecret } from "cribl-control-plane/models
 let value: HealthCheckAuthenticationOauthSecret = {
   authentication: "oauthSecret",
   loginUrl: "https://artistic-zen.info",
-  tokenRespAttribute: "<value>",
   authHeaderExpr: "<value>",
   clientSecretParamName: "<value>",
   textSecret: "<value>",
-  authRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://smooth-mixture.info/",
-  collectMethod: "get",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: false,
-  timeout: 4422.82,
-  rejectUnauthorized: true,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  retryRules: {
-    type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    multiplier: "<value>",
-  },
+  collectUrl: "https://sticky-dish.com/",
+  collectMethod: "post",
 };
 ```
 

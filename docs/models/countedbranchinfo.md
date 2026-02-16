@@ -5,14 +5,7 @@
 ```typescript
 import { CountedBranchInfo } from "cribl-control-plane/models";
 
-let value: CountedBranchInfo = {
-  count: 932374,
-  items: [
-    {
-      id: "<id>",
-    },
-  ],
-};
+let value: CountedBranchInfo = {};
 ```
 
 ## Fields

@@ -7,16 +7,6 @@ import { PipelineFunctionSerializeConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSerializeConf = {
   type: "delim",
-  delimChar: "<value>",
-  quoteChar: "<value>",
-  escapeChar: "<value>",
-  nullValue: "<value>",
-  fields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  srcField: "<value>",
-  dstField: "<value>",
 };
 ```
 

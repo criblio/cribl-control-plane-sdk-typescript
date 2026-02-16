@@ -7,37 +7,8 @@ import { HealthCheckAuthenticationNone } from "cribl-control-plane/models";
 
 let value: HealthCheckAuthenticationNone = {
   authentication: "none",
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://untried-marketplace.info/",
+  collectUrl: "https://dreary-thigh.name/",
   collectMethod: "post",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authenticateCollect: false,
-  timeout: 4834.21,
-  rejectUnauthorized: false,
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
 };
 ```
 

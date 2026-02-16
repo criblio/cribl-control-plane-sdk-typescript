@@ -8,58 +8,8 @@ import { InputSnmp } from "cribl-control-plane/models/operations";
 let value: InputSnmp = {
   id: "<id>",
   type: "snmp",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "robust-reservation.org",
-  port: 6329.76,
-  snmpV3Auth: {
-    v3AuthEnabled: true,
-    allowUnmatchedTrap: false,
-    v3Users: [
-      {
-        name: "<value>",
-        authProtocol: "none",
-        authKey: "<value>",
-        privProtocol: "aes",
-        privKey: "<value>",
-      },
-    ],
-  },
-  maxBufferSize: 9645.47,
-  ipWhitelistRegex: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  udpSocketRxBufSize: 9521.08,
-  varbindsWithTypes: true,
-  bestEffortParsing: false,
-  description: "behind versus omelet",
+  host: "knotty-overcoat.com",
+  port: 3632.09,
 };
 ```
 

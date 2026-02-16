@@ -5,16 +5,7 @@
 ```typescript
 import { DiskWindowsMetrics } from "cribl-control-plane/models/operations";
 
-let value: DiskWindowsMetrics = {
-  mode: "basic",
-  perVolume: false,
-  detail: false,
-  volumes: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-};
+let value: DiskWindowsMetrics = {};
 ```
 
 ## Fields

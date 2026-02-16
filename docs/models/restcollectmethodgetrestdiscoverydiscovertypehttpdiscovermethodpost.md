@@ -8,24 +8,8 @@ import { RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost } f
 let value: RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post",
-    discoverRequestParams: "<value>",
     discoverType: "list",
     discoverUrl: "https://meager-dusk.org",
-    discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: true,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: true,
   };
 ```
 

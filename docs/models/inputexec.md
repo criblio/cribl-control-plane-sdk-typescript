@@ -6,50 +6,8 @@
 import { InputExec } from "cribl-control-plane/models";
 
 let value: InputExec = {
-  id: "<id>",
   type: "exec",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   command: "<value>",
-  retries: 8813.07,
-  scheduleType: "interval",
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 7140.36,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description:
-    "weakly moor around forenenst meanwhile reproach however aside energetically",
-  interval: 5882.92,
-  cronSchedule: "<value>",
 };
 ```
 

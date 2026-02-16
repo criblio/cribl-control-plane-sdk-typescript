@@ -8,76 +8,8 @@ import { InputTcp } from "cribl-control-plane/models/operations";
 let value: InputTcp = {
   id: "<id>",
   type: "tcp",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "cloudy-premier.net",
-  port: 9499.86,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  ipWhitelistRegex: "<value>",
-  maxActiveCxn: 5648.33,
-  socketIdleTimeout: 6675.69,
-  socketEndingMaxWait: 3998.18,
-  socketMaxLifespan: 464.91,
-  enableProxyHeader: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 7437.62,
-  enableHeader: true,
-  preprocess: {
-    disabled: true,
-    command: "<value>",
-    args: [
-      "<value 1>",
-      "<value 2>",
-    ],
-  },
-  description: "mmm than excepting",
-  authToken: "<value>",
-  authType: "secret",
-  textSecret: "<value>",
+  host: "chilly-transparency.info",
+  port: 6178.25,
 };
 ```
 

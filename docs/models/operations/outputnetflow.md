@@ -8,27 +8,12 @@ import { OutputNetflow } from "cribl-control-plane/models/operations";
 let value: OutputNetflow = {
   id: "<id>",
   type: "netflow",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
   hosts: [
     {
-      host: "wide-eyed-adult.name",
-      port: 1165.51,
+      host: "taut-provider.org",
+      port: 130.89,
     },
   ],
-  dnsResolvePeriodSec: 859.55,
-  enableIpSpoofing: false,
-  description: "yuck mediocre whoa",
-  maxRecordSize: 2354.61,
 };
 ```
 

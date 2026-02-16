@@ -10,17 +10,8 @@ const value:
   models.HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttp =
     {
       discoverMethod: "post_with_body",
-      discoverBody: "<value>",
       discoverType: "http",
       discoverUrl: "https://exhausted-palate.net",
-      discoverRequestParams: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 
@@ -32,7 +23,6 @@ const value:
     {
       discoverType: "json",
       manualDiscoverResult: "<value>",
-      discoverDataField: "<value>",
     };
 ```
 
