@@ -3,17 +3,17 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: 272412b09eb4568345e00caf91c6d0d2
   docVersion: 4.17.0-alpha.1771032350496-659e5324
-  speakeasyVersion: 1.716.0
-  generationVersion: 2.823.1
-  releaseVersion: 0.6.0-rc.22
-  configChecksum: b1c92438a05697e38e5fb574d4dd2cac
+  speakeasyVersion: 1.719.0
+  generationVersion: 2.824.1
+  releaseVersion: 0.6.0-rc.23
+  configChecksum: 3e8d41b716fac88b2f81a4eb96904eca
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 36c13e5d-61ab-4633-8673-e81187f30424
-  pristine_commit_hash: 483d080d511c195abb72d3c142a0dee72f840039
-  pristine_tree_hash: 908cf87327393f5f9c50a29a4bc8d30cfd38f84f
+  generation_id: d1f82b6c-d1bc-4b01-8a93-a96e5af57755
+  pristine_commit_hash: 164fb26b03f0d42e4cdd3b82594a7a3d4be2e593
+  pristine_tree_hash: 94d4f4b447755e9a3cd1096d4ff20caa197c2b6c
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -12513,12 +12513,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:a8f782b9db495dc268a9d04bd2a60fa993fffcd0
-    pristine_git_object: a04ae2ef74433c2baf0359b24d8dc29fffcf7cba
+    last_write_checksum: sha1:ae97d87f08a673dd06b8b07022178e2fc1ab35fd
+    pristine_git_object: 46a94f9d09e81596f8341e5b59fd9ff80828e6e0
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:10115d0912bd67ee2ef3e17b5e841f76c14d6967
-    pristine_git_object: 6b77dc2646d147e27ceebd98c7cebafee59eab78
+    last_write_checksum: sha1:f443f7e772d6c3ef420f47450bc3c19c7ba6ea12
+    pristine_git_object: c5f3aa0ddf8870efcb5c965061dc07b2bae0f26f
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -13017,8 +13017,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:79003098802d151ad51f8293b291c0aa0e72ba06
-    pristine_git_object: 21e908c9e3360ac15ec1919413a56422a7f61a2f
+    last_write_checksum: sha1:ad2de0e5935b5ade174e7b1829d43ecb8a50d597
+    pristine_git_object: b7a3e12f89e33956f19214d857d022bebeb72212
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -26542,7 +26542,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.sources.list()`:  `response.items[].union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.create()`: \n  *  `request.union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.get()`:  `response.items[].union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.sources.delete()`:  `response.items[].union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.list()`:  `response.items[].union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.create()`: \n  *  `request.requestBody.union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.get()`:  `response.items[].union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.update()`: \n  *  `request.input.union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.sources.delete()`:  `response.items[].union(snmp).snmpV3Auth.v3Users[].authProtocol` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.pipelines.create()`: \n  *  `request.pipeline.conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n  *  `response.items[].conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.pipelines.list()`:  `response.items[].conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.pipelines.delete()`:  `response.items[].conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.pipelines.get()`:  `response.items[].conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.packs.pipelines.update()`: \n  *  `request.pipeline.conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n  *  `response.items[].conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.pipelines.create()`: \n  *  `request.conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n  *  `response.items[].conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.pipelines.list()`:  `response.items[].conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.pipelines.delete()`:  `response.items[].conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.pipelines.get()`:  `response.items[].conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.pipelines.update()`: \n  *  `request.pipeline.conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n  *  `response.items[].conf.functions[].union(snmp_trap_serialize).conf.v3User` **Changed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
