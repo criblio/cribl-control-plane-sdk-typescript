@@ -3,17 +3,17 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: 3f25065342b3ed6c094d4dd601f90d49
   docVersion: 4.17.0-alpha.1770670454184-a04d2b19
-  speakeasyVersion: 1.716.0
-  generationVersion: 2.823.1
-  releaseVersion: 0.6.0-beta.30
-  configChecksum: 0e692f5589b19d70f3f684b5b813afc1
+  speakeasyVersion: 1.719.0
+  generationVersion: 2.824.1
+  releaseVersion: 0.6.0-beta.31
+  configChecksum: 0cf0bc470c733335a6063a1ba309ff0b
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: e3f96d35-971f-4338-8a51-6f5fec9e749b
-  pristine_commit_hash: 9c66318e3acec7efc5b795030ce3638db688d467
-  pristine_tree_hash: 63666ce871db20b1ed2c5abbdd164bceae82b8e8
+  generation_id: 9f58eb1f-31fd-4adc-9bc7-e33740ce63b9
+  pristine_commit_hash: 2326cac9bef0edb34af0176314389fab11f178ae
+  pristine_tree_hash: 7234ef8648107b3664687f7f98d083edbcf87abc
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -10553,12 +10553,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:b1167f30f9367a14ca4b87dbbd6561419e15dd33
-    pristine_git_object: f055a846c079696768b44772417bafa3c00acaf1
+    last_write_checksum: sha1:d7c3b16c1f04ecf078d792d21be721068eaf8272
+    pristine_git_object: a338b83e6d188145cbb64a0549975bd578235dad
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:f7ea69f2bbb54ad76301ae48fbbc21ce923dbf7e
-    pristine_git_object: 34bd883e9e9b2fcf342cc76dc63bad17c6ea57e8
+    last_write_checksum: sha1:e8ae886ae42bba8ce7d7d2c7cc8ae78d64dcaee5
+    pristine_git_object: 955c392584dff14bc315137c5b3ce45a5ac184f5
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -11057,8 +11057,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:e40e2950c4eac1077babf393254eec08712cee98
-    pristine_git_object: 6127a35a6251ac9b24da1bb51e358266352d9de8
+    last_write_checksum: sha1:ec13e99f726564c6abf978a69eddd0cd0e2254ea
+    pristine_git_object: 64f3ff43763d1fd0ca9bd6b8cbd8944913cf149a
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
