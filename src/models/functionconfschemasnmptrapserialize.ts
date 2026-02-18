@@ -14,14 +14,14 @@ export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone = {
   privProtocol?: string | undefined;
   privKey: string;
   authProtocol?: string | undefined;
-  authKey?: any | undefined;
+  authKey: string;
   name: string;
 };
 
 export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone = {
   privProtocol: "none";
   authProtocol?: string | undefined;
-  authKey?: any | undefined;
+  authKey: string;
   name: string;
 };
 
@@ -44,7 +44,6 @@ export type SnmpTrapSerializeV3UserAuthProtocolNotNone =
 export type SnmpTrapSerializeV3UserAuthProtocolNone = {
   authProtocol: "none";
   name?: string | undefined;
-  authKey?: any | undefined;
   privProtocol?: string | undefined;
 };
 
@@ -121,7 +120,7 @@ export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$inbou
     privProtocol: types.optional(types.string()),
     privKey: types.string(),
     authProtocol: types.optional(types.string()),
-    authKey: types.optional(z.any()),
+    authKey: types.string(),
     name: types.string(),
   });
 /** @internal */
@@ -130,7 +129,7 @@ export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$Outbou
     privProtocol?: string | undefined;
     privKey: string;
     authProtocol?: string | undefined;
-    authKey?: any | undefined;
+    authKey: string;
     name: string;
   };
 
@@ -144,7 +143,7 @@ export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone$outbo
     privProtocol: z.string().optional(),
     privKey: z.string(),
     authProtocol: z.string().optional(),
-    authKey: z.any().optional(),
+    authKey: z.string(),
     name: z.string(),
   });
 
@@ -181,7 +180,7 @@ export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$inboundS
   > = z.object({
     privProtocol: types.literal("none"),
     authProtocol: types.optional(types.string()),
-    authKey: types.optional(z.any()),
+    authKey: types.string(),
     name: types.string(),
   });
 /** @internal */
@@ -189,7 +188,7 @@ export type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$Outbound 
   {
     privProtocol: "none";
     authProtocol?: string | undefined;
-    authKey?: any | undefined;
+    authKey: string;
     name: string;
   };
 
@@ -202,7 +201,7 @@ export const SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone$outbound
   > = z.object({
     privProtocol: z.literal("none"),
     authProtocol: z.string().optional(),
-    authKey: z.any().optional(),
+    authKey: z.string(),
     name: z.string(),
   });
 
@@ -324,14 +323,12 @@ export const SnmpTrapSerializeV3UserAuthProtocolNone$inboundSchema: z.ZodType<
 > = z.object({
   authProtocol: types.literal("none"),
   name: types.optional(types.string()),
-  authKey: types.optional(z.any()),
   privProtocol: types.optional(types.string()),
 });
 /** @internal */
 export type SnmpTrapSerializeV3UserAuthProtocolNone$Outbound = {
   authProtocol: "none";
   name?: string | undefined;
-  authKey?: any | undefined;
   privProtocol?: string | undefined;
 };
 
@@ -343,7 +340,6 @@ export const SnmpTrapSerializeV3UserAuthProtocolNone$outboundSchema: z.ZodType<
 > = z.object({
   authProtocol: z.literal("none"),
   name: z.string().optional(),
-  authKey: z.any().optional(),
   privProtocol: z.string().optional(),
 });
 
