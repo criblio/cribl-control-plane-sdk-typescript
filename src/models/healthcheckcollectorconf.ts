@@ -34,6 +34,12 @@ import {
   ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$Outbound,
   ItemsTypeHealthCheckAuthenticationOauthAuthRequestParams$outboundSchema,
 } from "./itemstypehealthcheckauthenticationoauthauthrequestparams.js";
+import {
+  ItemsTypeHealthCheckCollectMethodPostCollectRequestParams,
+  ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+  ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound,
+  ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+} from "./itemstypehealthcheckcollectmethodpostcollectrequestparams.js";
 
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone =
   {
@@ -309,11 +315,26 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff
      * The algorithm to use when performing HTTP retries
      */
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    /**
+     * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * The maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+     */
+    multiplier?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
   };
 
 export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic =
@@ -322,11 +343,22 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic 
      * The algorithm to use when performing HTTP retries
      */
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    /**
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * The maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
   };
 
 export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone =
@@ -335,11 +367,6 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone =
      * The algorithm to use when performing HTTP retries
      */
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 export type HealthCheckAuthenticationOauthSecretRetryRules =
@@ -407,8 +434,6 @@ export type HealthCheckAuthenticationOauthSecret = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationOauthSecretHealthCheckMethod;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -715,11 +740,26 @@ export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff = {
    * The algorithm to use when performing HTTP retries
    */
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic = {
@@ -727,11 +767,22 @@ export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic = {
    * The algorithm to use when performing HTTP retries
    */
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  multiplier?: any | undefined;
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone = {
@@ -739,11 +790,6 @@ export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
 };
 
 export type HealthCheckAuthenticationOauthRetryRules =
@@ -811,8 +857,6 @@ export type HealthCheckAuthenticationOauth = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -1120,11 +1164,26 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff
      * The algorithm to use when performing HTTP retries
      */
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    /**
+     * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * The maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+     */
+    multiplier?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
   };
 
 export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic =
@@ -1133,11 +1192,22 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic 
      * The algorithm to use when performing HTTP retries
      */
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    /**
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * The maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
   };
 
 export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone =
@@ -1146,11 +1216,6 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone =
      * The algorithm to use when performing HTTP retries
      */
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 export type HealthCheckAuthenticationLoginSecretRetryRules =
@@ -1212,8 +1277,6 @@ export type HealthCheckAuthenticationLoginSecret = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationLoginSecretHealthCheckMethod;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -1520,11 +1583,26 @@ export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff = {
    * The algorithm to use when performing HTTP retries
    */
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic = {
@@ -1532,11 +1610,22 @@ export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic = {
    * The algorithm to use when performing HTTP retries
    */
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  multiplier?: any | undefined;
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone = {
@@ -1544,11 +1633,6 @@ export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
 };
 
 export type HealthCheckAuthenticationLoginRetryRules =
@@ -1614,8 +1698,6 @@ export type HealthCheckAuthenticationLogin = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -1923,11 +2005,26 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff
      * The algorithm to use when performing HTTP retries
      */
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    /**
+     * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * The maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+     */
+    multiplier?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
   };
 
 export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic =
@@ -1936,11 +2033,22 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic 
      * The algorithm to use when performing HTTP retries
      */
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    /**
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * The maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
   };
 
 export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone =
@@ -1949,11 +2057,6 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone =
      * The algorithm to use when performing HTTP retries
      */
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 export type HealthCheckAuthenticationBasicSecretRetryRules =
@@ -1993,8 +2096,6 @@ export type HealthCheckAuthenticationBasicSecret = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationBasicSecretHealthCheckMethod;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -2301,11 +2402,26 @@ export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff = {
    * The algorithm to use when performing HTTP retries
    */
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic = {
@@ -2313,11 +2429,22 @@ export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic = {
    * The algorithm to use when performing HTTP retries
    */
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  multiplier?: any | undefined;
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone = {
@@ -2325,11 +2452,6 @@ export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
 };
 
 export type HealthCheckAuthenticationBasicRetryRules =
@@ -2373,8 +2495,6 @@ export type HealthCheckAuthenticationBasic = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -2681,11 +2801,26 @@ export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff = {
    * The algorithm to use when performing HTTP retries
    */
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic = {
@@ -2693,11 +2828,22 @@ export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic = {
    * The algorithm to use when performing HTTP retries
    */
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  multiplier?: any | undefined;
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone = {
@@ -2705,11 +2851,6 @@ export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
 };
 
 export type HealthCheckAuthenticationNoneRetryRules =
@@ -2745,8 +2886,6 @@ export type HealthCheckAuthenticationNone = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -3073,11 +3212,26 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff
      * The algorithm to use when performing HTTP retries
      */
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    /**
+     * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * The maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+     */
+    multiplier?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
   };
 
 export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic =
@@ -3086,11 +3240,22 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic 
      * The algorithm to use when performing HTTP retries
      */
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    /**
+     * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+     */
+    interval?: number | undefined;
+    /**
+     * The maximum number of times to retry a failed HTTP request
+     */
+    limit?: number | undefined;
+    /**
+     * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+     */
+    codes?: Array<number> | undefined;
+    /**
+     * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+     */
+    enableHeader?: boolean | undefined;
   };
 
 export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone =
@@ -3099,11 +3264,6 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone =
      * The algorithm to use when performing HTTP retries
      */
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 export type HealthCheckCollectMethodPostWithBodyRetryRules =
@@ -3117,7 +3277,10 @@ export type HealthCheckCollectMethodPostWithBody = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckCollectMethodPostWithBodyHealthCheckMethod;
-  collectBody?: any | undefined;
+  /**
+   * Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
+   */
+  collectBody?: string | undefined;
   discovery?:
     | (
       | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -3136,7 +3299,6 @@ export type HealthCheckCollectMethodPostWithBody = {
    * Expression to derive URL to use for the health check operation (can be a constant).
    */
   collectUrl: string;
-  collectRequestParams?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -3463,11 +3625,26 @@ export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff = {
    * The algorithm to use when performing HTTP retries
    */
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic = {
@@ -3475,11 +3652,22 @@ export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic = {
    * The algorithm to use when performing HTTP retries
    */
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  multiplier?: any | undefined;
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone = {
@@ -3487,11 +3675,6 @@ export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
 };
 
 export type HealthCheckCollectMethodPostRetryRules =
@@ -3505,7 +3688,12 @@ export type HealthCheckCollectMethodPost = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckCollectMethodPostHealthCheckMethod;
-  collectRequestParams?: any | undefined;
+  /**
+   * Optional health check request parameters.
+   */
+  collectRequestParams?:
+    | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+    | undefined;
   discovery?:
     | (
       | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -3524,7 +3712,6 @@ export type HealthCheckCollectMethodPost = {
    * Expression to derive URL to use for the health check operation (can be a constant).
    */
   collectUrl: string;
-  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -3585,6 +3772,17 @@ export const HealthCheckCollectMethodGetHealthCheckMethod = {
 export type HealthCheckCollectMethodGetHealthCheckMethod = OpenEnum<
   typeof HealthCheckCollectMethodGetHealthCheckMethod
 >;
+
+export type HealthCheckCollectMethodGetCollectRequestParam = {
+  /**
+   * Parameter name
+   */
+  name: string;
+  /**
+   * JavaScript expression to compute the parameter value (can be a constant).
+   */
+  value: string;
+};
 
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone = {
   /**
@@ -3851,11 +4049,26 @@ export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff = {
    * The algorithm to use when performing HTTP retries
    */
   type: "backoff";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic = {
@@ -3863,11 +4076,22 @@ export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic = {
    * The algorithm to use when performing HTTP retries
    */
   type: "static";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-  multiplier?: any | undefined;
+  /**
+   * Time interval between retries. Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
 };
 
 export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone = {
@@ -3875,11 +4099,6 @@ export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone = {
    * The algorithm to use when performing HTTP retries
    */
   type: "none";
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
 };
 
 export type HealthCheckCollectMethodGetRetryRules =
@@ -3893,7 +4112,12 @@ export type HealthCheckCollectMethodGet = {
    * Health check HTTP method.
    */
   collectMethod: HealthCheckCollectMethodGetHealthCheckMethod;
-  collectRequestParams?: any | undefined;
+  /**
+   * Optional health check request parameters.
+   */
+  collectRequestParams?:
+    | Array<HealthCheckCollectMethodGetCollectRequestParam>
+    | undefined;
   discovery?:
     | (
       | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
@@ -3912,7 +4136,6 @@ export type HealthCheckCollectMethodGet = {
    * Expression to derive URL to use for the health check operation (can be a constant).
    */
   collectUrl: string;
-  collectBody?: any | undefined;
   /**
    * Optional health check request headers.
    */
@@ -4663,21 +4886,21 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackof
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff$Outbound =
   {
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -4688,11 +4911,11 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackof
     HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeBackoffToJSON(
@@ -4729,21 +4952,19 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic$Outbound =
   {
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -4754,11 +4975,10 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic
     HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeStaticToJSON(
@@ -4795,21 +5015,11 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$i
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 /** @internal */
@@ -4820,11 +5030,6 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone$o
     HealthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
   });
 
 export function healthCheckAuthenticationOauthSecretHealthCheckRetryRulesTypeNoneToJSON(
@@ -4965,8 +5170,6 @@ export const HealthCheckAuthenticationOauthSecret$inboundSchema: z.ZodType<
   collectUrl: types.string(),
   collectMethod:
     HealthCheckAuthenticationOauthSecretHealthCheckMethod$inboundSchema,
-  collectRequestParams: types.optional(z.any()),
-  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationOauthSecretCollectRequestHeader$inboundSchema
@@ -5018,8 +5221,6 @@ export type HealthCheckAuthenticationOauthSecret$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationOauthSecretCollectRequestHeader$Outbound>
     | undefined;
@@ -5078,8 +5279,6 @@ export const HealthCheckAuthenticationOauthSecret$outboundSchema: z.ZodType<
   collectUrl: z.string(),
   collectMethod:
     HealthCheckAuthenticationOauthSecretHealthCheckMethod$outboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationOauthSecretCollectRequestHeader$outboundSchema
@@ -5822,21 +6021,21 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$inbo
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$Outbound =
   {
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -5847,11 +6046,11 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff$outb
     HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationOauthHealthCheckRetryRulesTypeBackoffToJSON(
@@ -5886,21 +6085,19 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$inbou
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$Outbound =
   {
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -5911,11 +6108,10 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic$outbo
     HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationOauthHealthCheckRetryRulesTypeStaticToJSON(
@@ -5950,21 +6146,11 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$inbound
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 /** @internal */
@@ -5975,11 +6161,6 @@ export const HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone$outboun
     HealthCheckAuthenticationOauthHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
   });
 
 export function healthCheckAuthenticationOauthHealthCheckRetryRulesTypeNoneToJSON(
@@ -6117,8 +6298,6 @@ export const HealthCheckAuthenticationOauth$inboundSchema: z.ZodType<
   })),
   collectUrl: types.string(),
   collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod$inboundSchema,
-  collectRequestParams: types.optional(z.any()),
-  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationOauthCollectRequestHeader$inboundSchema
@@ -6170,8 +6349,6 @@ export type HealthCheckAuthenticationOauth$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationOauthCollectRequestHeader$Outbound>
     | undefined;
@@ -6229,8 +6406,6 @@ export const HealthCheckAuthenticationOauth$outboundSchema: z.ZodType<
   ]).optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckAuthenticationOauthHealthCheckMethod$outboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationOauthCollectRequestHeader$outboundSchema
@@ -6977,21 +7152,21 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackof
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff$Outbound =
   {
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -7002,11 +7177,11 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackof
     HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoffToJSON(
@@ -7043,21 +7218,19 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic$Outbound =
   {
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -7068,11 +7241,10 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic
     HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeStaticToJSON(
@@ -7109,21 +7281,11 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$i
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 /** @internal */
@@ -7134,11 +7296,6 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone$o
     HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
   });
 
 export function healthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeNoneToJSON(
@@ -7274,8 +7431,6 @@ export const HealthCheckAuthenticationLoginSecret$inboundSchema: z.ZodType<
   collectUrl: types.string(),
   collectMethod:
     HealthCheckAuthenticationLoginSecretHealthCheckMethod$inboundSchema,
-  collectRequestParams: types.optional(z.any()),
-  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationLoginSecretCollectRequestHeader$inboundSchema
@@ -7324,8 +7479,6 @@ export type HealthCheckAuthenticationLoginSecret$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationLoginSecretCollectRequestHeader$Outbound>
     | undefined;
@@ -7381,8 +7534,6 @@ export const HealthCheckAuthenticationLoginSecret$outboundSchema: z.ZodType<
   collectUrl: z.string(),
   collectMethod:
     HealthCheckAuthenticationLoginSecretHealthCheckMethod$outboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationLoginSecretCollectRequestHeader$outboundSchema
@@ -8125,21 +8276,21 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$inbo
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$Outbound =
   {
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -8150,11 +8301,11 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff$outb
     HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationLoginHealthCheckRetryRulesTypeBackoffToJSON(
@@ -8189,21 +8340,19 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$inbou
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$Outbound =
   {
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -8214,11 +8363,10 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic$outbo
     HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationLoginHealthCheckRetryRulesTypeStaticToJSON(
@@ -8253,21 +8401,11 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$inbound
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 /** @internal */
@@ -8278,11 +8416,6 @@ export const HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone$outboun
     HealthCheckAuthenticationLoginHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
   });
 
 export function healthCheckAuthenticationLoginHealthCheckRetryRulesTypeNoneToJSON(
@@ -8416,8 +8549,6 @@ export const HealthCheckAuthenticationLogin$inboundSchema: z.ZodType<
   })),
   collectUrl: types.string(),
   collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod$inboundSchema,
-  collectRequestParams: types.optional(z.any()),
-  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationLoginCollectRequestHeader$inboundSchema
@@ -8467,8 +8598,6 @@ export type HealthCheckAuthenticationLogin$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationLoginCollectRequestHeader$Outbound>
     | undefined;
@@ -8524,8 +8653,6 @@ export const HealthCheckAuthenticationLogin$outboundSchema: z.ZodType<
   ]).optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckAuthenticationLoginHealthCheckMethod$outboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationLoginCollectRequestHeader$outboundSchema
@@ -9272,21 +9399,21 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackof
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff$Outbound =
   {
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -9297,11 +9424,11 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackof
     HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeBackoffToJSON(
@@ -9338,21 +9465,19 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic$Outbound =
   {
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -9363,11 +9488,10 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic
     HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeStaticToJSON(
@@ -9404,21 +9528,11 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$i
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 /** @internal */
@@ -9429,11 +9543,6 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone$o
     HealthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
   });
 
 export function healthCheckAuthenticationBasicSecretHealthCheckRetryRulesTypeNoneToJSON(
@@ -9560,8 +9669,6 @@ export const HealthCheckAuthenticationBasicSecret$inboundSchema: z.ZodType<
   collectUrl: types.string(),
   collectMethod:
     HealthCheckAuthenticationBasicSecretHealthCheckMethod$inboundSchema,
-  collectRequestParams: types.optional(z.any()),
-  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationBasicSecretCollectRequestHeader$inboundSchema
@@ -9603,8 +9710,6 @@ export type HealthCheckAuthenticationBasicSecret$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationBasicSecretCollectRequestHeader$Outbound>
     | undefined;
@@ -9653,8 +9758,6 @@ export const HealthCheckAuthenticationBasicSecret$outboundSchema: z.ZodType<
   collectUrl: z.string(),
   collectMethod:
     HealthCheckAuthenticationBasicSecretHealthCheckMethod$outboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationBasicSecretCollectRequestHeader$outboundSchema
@@ -10397,21 +10500,21 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$inbo
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$Outbound =
   {
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -10422,11 +10525,11 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff$outb
     HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationBasicHealthCheckRetryRulesTypeBackoffToJSON(
@@ -10461,21 +10564,19 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$inbou
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$Outbound =
   {
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -10486,11 +10587,10 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic$outbo
     HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationBasicHealthCheckRetryRulesTypeStaticToJSON(
@@ -10525,21 +10625,11 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$inbound
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 /** @internal */
@@ -10550,11 +10640,6 @@ export const HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone$outboun
     HealthCheckAuthenticationBasicHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
   });
 
 export function healthCheckAuthenticationBasicHealthCheckRetryRulesTypeNoneToJSON(
@@ -10679,8 +10764,6 @@ export const HealthCheckAuthenticationBasic$inboundSchema: z.ZodType<
   })),
   collectUrl: types.string(),
   collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod$inboundSchema,
-  collectRequestParams: types.optional(z.any()),
-  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationBasicCollectRequestHeader$inboundSchema
@@ -10723,8 +10806,6 @@ export type HealthCheckAuthenticationBasic$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationBasicCollectRequestHeader$Outbound>
     | undefined;
@@ -10773,8 +10854,6 @@ export const HealthCheckAuthenticationBasic$outboundSchema: z.ZodType<
   ]).optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckAuthenticationBasicHealthCheckMethod$outboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationBasicCollectRequestHeader$outboundSchema
@@ -11503,21 +11582,21 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$inbou
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$Outbound =
   {
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -11528,11 +11607,11 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff$outbo
     HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoffToJSON(
@@ -11567,21 +11646,19 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$inboun
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$Outbound =
   {
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -11592,11 +11669,10 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic$outbou
     HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckAuthenticationNoneHealthCheckRetryRulesTypeStaticToJSON(
@@ -11631,21 +11707,11 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$inboundS
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 /** @internal */
@@ -11656,11 +11722,6 @@ export const HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone$outbound
     HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
   });
 
 export function healthCheckAuthenticationNoneHealthCheckRetryRulesTypeNoneToJSON(
@@ -11783,8 +11844,6 @@ export const HealthCheckAuthenticationNone$inboundSchema: z.ZodType<
   })),
   collectUrl: types.string(),
   collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod$inboundSchema,
-  collectRequestParams: types.optional(z.any()),
-  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckAuthenticationNoneCollectRequestHeader$inboundSchema
@@ -11825,8 +11884,6 @@ export type HealthCheckAuthenticationNone$Outbound = {
     | undefined;
   collectUrl: string;
   collectMethod: string;
-  collectRequestParams?: any | undefined;
-  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckAuthenticationNoneCollectRequestHeader$Outbound>
     | undefined;
@@ -11873,8 +11930,6 @@ export const HealthCheckAuthenticationNone$outboundSchema: z.ZodType<
   ]).optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckAuthenticationNoneHealthCheckMethod$outboundSchema,
-  collectRequestParams: z.any().optional(),
-  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckAuthenticationNoneCollectRequestHeader$outboundSchema
@@ -12640,21 +12695,21 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackof
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff$Outbound =
   {
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -12665,11 +12720,11 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackof
     HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeBackoffToJSON(
@@ -12706,21 +12761,19 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic$Outbound =
   {
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -12731,11 +12784,10 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic
     HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeStaticToJSON(
@@ -12772,21 +12824,11 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$i
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 /** @internal */
@@ -12797,11 +12839,6 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone$o
     HealthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
   });
 
 export function healthCheckCollectMethodPostWithBodyHealthCheckRetryRulesTypeNoneToJSON(
@@ -12903,7 +12940,7 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
 > = z.object({
   collectMethod:
     HealthCheckCollectMethodPostWithBodyHealthCheckMethod$inboundSchema,
-  collectBody: types.optional(z.any()),
+  collectBody: types.optional(types.string()),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -12927,7 +12964,6 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
     ),
   })),
   collectUrl: types.string(),
-  collectRequestParams: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyCollectRequestHeader$inboundSchema
@@ -12957,7 +12993,7 @@ export const HealthCheckCollectMethodPostWithBody$inboundSchema: z.ZodType<
 /** @internal */
 export type HealthCheckCollectMethodPostWithBody$Outbound = {
   collectMethod: string;
-  collectBody?: any | undefined;
+  collectBody?: string | undefined;
   discovery?:
     | (
       | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -12970,7 +13006,6 @@ export type HealthCheckCollectMethodPostWithBody$Outbound = {
     | HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone$Outbound
     | undefined;
   collectUrl: string;
-  collectRequestParams?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckCollectMethodPostWithBodyCollectRequestHeader$Outbound>
     | undefined;
@@ -12995,7 +13030,7 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
 > = z.object({
   collectMethod:
     HealthCheckCollectMethodPostWithBodyHealthCheckMethod$outboundSchema,
-  collectBody: z.any().optional(),
+  collectBody: z.string().optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -13019,7 +13054,6 @@ export const HealthCheckCollectMethodPostWithBody$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   collectUrl: z.string(),
-  collectRequestParams: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckCollectMethodPostWithBodyCollectRequestHeader$outboundSchema
@@ -13759,21 +13793,21 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$inboun
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$Outbound =
   {
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -13784,11 +13818,11 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff$outbou
     HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoffToJSON(
@@ -13823,21 +13857,19 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$inbound
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$Outbound =
   {
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -13848,11 +13880,10 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic$outboun
     HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckCollectMethodPostHealthCheckRetryRulesTypeStaticToJSON(
@@ -13887,21 +13918,11 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$inboundSc
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 /** @internal */
@@ -13912,11 +13933,6 @@ export const HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone$outboundS
     HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
   });
 
 export function healthCheckCollectMethodPostHealthCheckRetryRulesTypeNoneToJSON(
@@ -14010,7 +14026,11 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod: HealthCheckCollectMethodPostHealthCheckMethod$inboundSchema,
-  collectRequestParams: types.optional(z.any()),
+  collectRequestParams: types.optional(
+    z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+    ),
+  ),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -14034,7 +14054,6 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
     ),
   })),
   collectUrl: types.string(),
-  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckCollectMethodPostCollectRequestHeader$inboundSchema
@@ -14063,7 +14082,9 @@ export const HealthCheckCollectMethodPost$inboundSchema: z.ZodType<
 /** @internal */
 export type HealthCheckCollectMethodPost$Outbound = {
   collectMethod: string;
-  collectRequestParams?: any | undefined;
+  collectRequestParams?:
+    | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound>
+    | undefined;
   discovery?:
     | (
       | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -14076,7 +14097,6 @@ export type HealthCheckCollectMethodPost$Outbound = {
     | HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone$Outbound
     | undefined;
   collectUrl: string;
-  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckCollectMethodPostCollectRequestHeader$Outbound>
     | undefined;
@@ -14100,7 +14120,9 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
   HealthCheckCollectMethodPost
 > = z.object({
   collectMethod: HealthCheckCollectMethodPostHealthCheckMethod$outboundSchema,
-  collectRequestParams: z.any().optional(),
+  collectRequestParams: z.array(
+    ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+  ).optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -14124,7 +14146,6 @@ export const HealthCheckCollectMethodPost$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   collectUrl: z.string(),
-  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckCollectMethodPostCollectRequestHeader$outboundSchema
@@ -14183,6 +14204,59 @@ export const HealthCheckCollectMethodGetHealthCheckMethod$outboundSchema:
     z.ZodTypeDef,
     HealthCheckCollectMethodGetHealthCheckMethod
   > = openEnums.outboundSchema(HealthCheckCollectMethodGetHealthCheckMethod);
+
+/** @internal */
+export const HealthCheckCollectMethodGetCollectRequestParam$inboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetCollectRequestParam,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    name: types.string(),
+    value: types.string(),
+  });
+/** @internal */
+export type HealthCheckCollectMethodGetCollectRequestParam$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const HealthCheckCollectMethodGetCollectRequestParam$outboundSchema:
+  z.ZodType<
+    HealthCheckCollectMethodGetCollectRequestParam$Outbound,
+    z.ZodTypeDef,
+    HealthCheckCollectMethodGetCollectRequestParam
+  > = z.object({
+    name: z.string(),
+    value: z.string(),
+  });
+
+export function healthCheckCollectMethodGetCollectRequestParamToJSON(
+  healthCheckCollectMethodGetCollectRequestParam:
+    HealthCheckCollectMethodGetCollectRequestParam,
+): string {
+  return JSON.stringify(
+    HealthCheckCollectMethodGetCollectRequestParam$outboundSchema.parse(
+      healthCheckCollectMethodGetCollectRequestParam,
+    ),
+  );
+}
+export function healthCheckCollectMethodGetCollectRequestParamFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  HealthCheckCollectMethodGetCollectRequestParam,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      HealthCheckCollectMethodGetCollectRequestParam$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'HealthCheckCollectMethodGetCollectRequestParam' from JSON`,
+  );
+}
 
 /** @internal */
 export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$inboundSchema:
@@ -14864,21 +14938,21 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$inbound
     unknown
   > = z.object({
     type: types.literal("backoff"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    multiplier: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$Outbound =
   {
     type: "backoff";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    multiplier?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -14889,11 +14963,11 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff$outboun
     HealthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoff
   > = z.object({
     type: z.literal("backoff"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    multiplier: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckCollectMethodGetHealthCheckRetryRulesTypeBackoffToJSON(
@@ -14928,21 +15002,19 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$inboundS
     unknown
   > = z.object({
     type: types.literal("static"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
+    interval: types.optional(types.number()),
+    limit: types.optional(types.number()),
+    codes: types.optional(z.array(types.number())),
+    enableHeader: types.optional(types.boolean()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$Outbound =
   {
     type: "static";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
-    multiplier?: any | undefined;
+    interval?: number | undefined;
+    limit?: number | undefined;
+    codes?: Array<number> | undefined;
+    enableHeader?: boolean | undefined;
   };
 
 /** @internal */
@@ -14953,11 +15025,10 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic$outbound
     HealthCheckCollectMethodGetHealthCheckRetryRulesTypeStatic
   > = z.object({
     type: z.literal("static"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
-    multiplier: z.any().optional(),
+    interval: z.number().optional(),
+    limit: z.number().optional(),
+    codes: z.array(z.number()).optional(),
+    enableHeader: z.boolean().optional(),
   });
 
 export function healthCheckCollectMethodGetHealthCheckRetryRulesTypeStaticToJSON(
@@ -14992,21 +15063,11 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$inboundSch
     unknown
   > = z.object({
     type: types.literal("none"),
-    interval: types.optional(z.any()),
-    limit: types.optional(z.any()),
-    multiplier: types.optional(z.any()),
-    codes: types.optional(z.any()),
-    enableHeader: types.optional(z.any()),
   });
 /** @internal */
 export type HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$Outbound =
   {
     type: "none";
-    interval?: any | undefined;
-    limit?: any | undefined;
-    multiplier?: any | undefined;
-    codes?: any | undefined;
-    enableHeader?: any | undefined;
   };
 
 /** @internal */
@@ -15017,11 +15078,6 @@ export const HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone$outboundSc
     HealthCheckCollectMethodGetHealthCheckRetryRulesTypeNone
   > = z.object({
     type: z.literal("none"),
-    interval: z.any().optional(),
-    limit: z.any().optional(),
-    multiplier: z.any().optional(),
-    codes: z.any().optional(),
-    enableHeader: z.any().optional(),
   });
 
 export function healthCheckCollectMethodGetHealthCheckRetryRulesTypeNoneToJSON(
@@ -15114,7 +15170,11 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod: HealthCheckCollectMethodGetHealthCheckMethod$inboundSchema,
-  collectRequestParams: types.optional(z.any()),
+  collectRequestParams: types.optional(
+    z.array(z.lazy(() =>
+      HealthCheckCollectMethodGetCollectRequestParam$inboundSchema
+    )),
+  ),
   discovery: types.optional(discriminatedUnion("discoverType", {
     http: discriminatedUnion("discoverMethod", {
       get: z.lazy(() =>
@@ -15138,7 +15198,6 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
     ),
   })),
   collectUrl: types.string(),
-  collectBody: types.optional(z.any()),
   collectRequestHeaders: types.optional(
     z.array(z.lazy(() =>
       HealthCheckCollectMethodGetCollectRequestHeader$inboundSchema
@@ -15167,7 +15226,9 @@ export const HealthCheckCollectMethodGet$inboundSchema: z.ZodType<
 /** @internal */
 export type HealthCheckCollectMethodGet$Outbound = {
   collectMethod: string;
-  collectRequestParams?: any | undefined;
+  collectRequestParams?:
+    | Array<HealthCheckCollectMethodGetCollectRequestParam$Outbound>
+    | undefined;
   discovery?:
     | (
       | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound
@@ -15180,7 +15241,6 @@ export type HealthCheckCollectMethodGet$Outbound = {
     | HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone$Outbound
     | undefined;
   collectUrl: string;
-  collectBody?: any | undefined;
   collectRequestHeaders?:
     | Array<HealthCheckCollectMethodGetCollectRequestHeader$Outbound>
     | undefined;
@@ -15204,7 +15264,9 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
   HealthCheckCollectMethodGet
 > = z.object({
   collectMethod: HealthCheckCollectMethodGetHealthCheckMethod$outboundSchema,
-  collectRequestParams: z.any().optional(),
+  collectRequestParams: z.array(
+    z.lazy(() => HealthCheckCollectMethodGetCollectRequestParam$outboundSchema),
+  ).optional(),
   discovery: z.union([
     z.union([
       z.lazy(() =>
@@ -15228,7 +15290,6 @@ export const HealthCheckCollectMethodGet$outboundSchema: z.ZodType<
     ),
   ]).optional(),
   collectUrl: z.string(),
-  collectBody: z.any().optional(),
   collectRequestHeaders: z.array(
     z.lazy(() =>
       HealthCheckCollectMethodGetCollectRequestHeader$outboundSchema
