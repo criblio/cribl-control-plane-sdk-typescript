@@ -2555,37 +2555,13 @@ export type CreateInputInputOpenTelemetry = {
   __template_port?: string | undefined;
 };
 
-export const CreateInputPrivacyProtocol = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * DES
-   */
-  Des: "des",
-  /**
-   * AES128
-   */
-  Aes: "aes",
-  /**
-   * AES256b (Blumenthal)
-   */
-  Aes256b: "aes256b",
-  /**
-   * AES256r (Reeder)
-   */
-  Aes256r: "aes256r",
-} as const;
-export type CreateInputPrivacyProtocol = OpenEnum<
-  typeof CreateInputPrivacyProtocol
->;
-
 export type CreateInputV3User = {
   name: string;
-  authProtocol?: models.AuthenticationProtocolOptionsV3User | undefined;
+  authProtocol?: string | undefined;
   authKey?: string | undefined;
-  privProtocol?: CreateInputPrivacyProtocol | undefined;
+  privProtocol?:
+    | models.PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone
+    | undefined;
   privKey?: string | undefined;
 };
 
@@ -11127,13 +11103,6 @@ export function createInputInputOpenTelemetryToJSON(
 }
 
 /** @internal */
-export const CreateInputPrivacyProtocol$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CreateInputPrivacyProtocol
-> = openEnums.outboundSchema(CreateInputPrivacyProtocol);
-
-/** @internal */
 export type CreateInputV3User$Outbound = {
   name: string;
   authProtocol?: string | undefined;
@@ -11149,10 +11118,11 @@ export const CreateInputV3User$outboundSchema: z.ZodType<
   CreateInputV3User
 > = z.object({
   name: z.string(),
-  authProtocol: models.AuthenticationProtocolOptionsV3User$outboundSchema
-    .optional(),
+  authProtocol: z.string().optional(),
   authKey: z.string().optional(),
-  privProtocol: CreateInputPrivacyProtocol$outboundSchema.optional(),
+  privProtocol: models
+    .PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema
+    .optional(),
   privKey: z.string().optional(),
 });
 

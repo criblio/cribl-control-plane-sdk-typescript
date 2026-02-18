@@ -4,15 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import {
-  AuthenticationProtocolOptionsV3User,
-  AuthenticationProtocolOptionsV3User$inboundSchema,
-  AuthenticationProtocolOptionsV3User$outboundSchema,
-} from "./authenticationprotocoloptionsv3user.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -32,36 +25,19 @@ import {
   PqType$Outbound,
   PqType$outboundSchema,
 } from "./pqtype.js";
-
-export const PrivacyProtocol = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * DES
-   */
-  Des: "des",
-  /**
-   * AES128
-   */
-  Aes: "aes",
-  /**
-   * AES256b (Blumenthal)
-   */
-  Aes256b: "aes256b",
-  /**
-   * AES256r (Reeder)
-   */
-  Aes256r: "aes256r",
-} as const;
-export type PrivacyProtocol = OpenEnum<typeof PrivacyProtocol>;
+import {
+  PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone,
+  PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema,
+  PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema,
+} from "./privacyprotocoloptionssnmptrapserializev3userauthprotocolnotnone.js";
 
 export type InputSnmpV3User = {
   name: string;
-  authProtocol?: AuthenticationProtocolOptionsV3User | undefined;
+  authProtocol?: string | undefined;
   authKey?: string | undefined;
-  privProtocol?: PrivacyProtocol | undefined;
+  privProtocol?:
+    | PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone
+    | undefined;
   privKey?: string | undefined;
 };
 
@@ -160,30 +136,17 @@ export type InputSnmp = {
 };
 
 /** @internal */
-export const PrivacyProtocol$inboundSchema: z.ZodType<
-  PrivacyProtocol,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(PrivacyProtocol);
-/** @internal */
-export const PrivacyProtocol$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  PrivacyProtocol
-> = openEnums.outboundSchema(PrivacyProtocol);
-
-/** @internal */
 export const InputSnmpV3User$inboundSchema: z.ZodType<
   InputSnmpV3User,
   z.ZodTypeDef,
   unknown
 > = z.object({
   name: types.string(),
-  authProtocol: types.optional(
-    AuthenticationProtocolOptionsV3User$inboundSchema,
-  ),
+  authProtocol: types.optional(types.string()),
   authKey: types.optional(types.string()),
-  privProtocol: types.optional(PrivacyProtocol$inboundSchema),
+  privProtocol: types.optional(
+    PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema,
+  ),
   privKey: types.optional(types.string()),
 });
 /** @internal */
@@ -202,9 +165,11 @@ export const InputSnmpV3User$outboundSchema: z.ZodType<
   InputSnmpV3User
 > = z.object({
   name: z.string(),
-  authProtocol: AuthenticationProtocolOptionsV3User$outboundSchema.optional(),
+  authProtocol: z.string().optional(),
   authKey: z.string().optional(),
-  privProtocol: PrivacyProtocol$outboundSchema.optional(),
+  privProtocol:
+    PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema
+      .optional(),
   privKey: z.string().optional(),
 });
 

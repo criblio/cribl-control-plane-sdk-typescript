@@ -1,0 +1,25 @@
+# SerdeTypeCsv
+
+## Example Usage
+
+```typescript
+import { SerdeTypeCsv } from "cribl-control-plane/models";
+
+let value: SerdeTypeCsv = {
+  type: "csv",
+  mode: "reserialize",
+};
+```
+
+## Fields
+
+| Field                                                                                                            | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                           | *"csv"*                                                                                                          | :heavy_check_mark:                                                                                               | Parser or formatter type to use                                                                                  |
+| `fields`                                                                                                         | *string*[]                                                                                                       | :heavy_minus_sign:                                                                                               | The fields to be extracted, listed in order. Will auto-generate if empty.                                        |
+| `keep`                                                                                                           | *string*[]                                                                                                       | :heavy_minus_sign:                                                                                               | List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.                        |
+| `remove`                                                                                                         | *string*[]                                                                                                       | :heavy_minus_sign:                                                                                               | List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.              |
+| `fieldFilterExpr`                                                                                                | *string*                                                                                                         | :heavy_minus_sign:                                                                                               | Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it. |
+| `mode`                                                                                                           | [models.SerdeTypeCsvOperationMode](../models/serdetypecsvoperationmode.md)                                       | :heavy_check_mark:                                                                                               | Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.                      |
+| `srcField`                                                                                                       | *string*                                                                                                         | :heavy_minus_sign:                                                                                               | Field containing text to be parsed                                                                               |
+| `dstField`                                                                                                       | *string*                                                                                                         | :heavy_minus_sign:                                                                                               | Name of the field to add fields to. Extract mode only.                                                           |
