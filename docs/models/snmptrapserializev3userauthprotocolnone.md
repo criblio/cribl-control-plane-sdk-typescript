@@ -16,5 +16,4 @@ let value: SnmpTrapSerializeV3UserAuthProtocolNone = {
 | ------------------ | ------------------ | ------------------ | ------------------ |
 | `authProtocol`     | *"none"*           | :heavy_check_mark: | N/A                |
 | `name`             | *string*           | :heavy_minus_sign: | N/A                |
-| `authKey`          | *any*              | :heavy_minus_sign: | N/A                |
 | `privProtocol`     | *string*           | :heavy_minus_sign: | N/A                |
