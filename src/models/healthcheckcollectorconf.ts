@@ -113,7 +113,10 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      * Discover HTTP method.
      */
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request.
+     */
+    discoverBody?: string | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -123,7 +126,6 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -172,7 +174,12 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      * Discover HTTP method.
      */
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -182,7 +189,6 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -231,7 +237,12 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      * Discover HTTP method.
      */
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -241,7 +252,6 @@ export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverType
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -539,7 +549,10 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
      * Discover HTTP method.
      */
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request.
+     */
+    discoverBody?: string | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -549,7 +562,6 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -598,7 +610,12 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
      * Discover HTTP method.
      */
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -608,7 +625,6 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -657,7 +673,12 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
      * Discover HTTP method.
      */
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -667,7 +688,6 @@ export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDi
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -962,7 +982,10 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      * Discover HTTP method.
      */
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request.
+     */
+    discoverBody?: string | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -972,7 +995,6 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -1021,7 +1043,12 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      * Discover HTTP method.
      */
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -1031,7 +1058,6 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -1080,7 +1106,12 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      * Discover HTTP method.
      */
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -1090,7 +1121,6 @@ export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverType
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -1382,7 +1412,10 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
      * Discover HTTP method.
      */
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request.
+     */
+    discoverBody?: string | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -1392,7 +1425,6 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -1441,7 +1473,12 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
      * Discover HTTP method.
      */
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -1451,7 +1488,6 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -1500,7 +1536,12 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
      * Discover HTTP method.
      */
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -1510,7 +1551,6 @@ export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDi
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -1803,7 +1843,10 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      * Discover HTTP method.
      */
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request.
+     */
+    discoverBody?: string | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -1813,7 +1856,6 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -1862,7 +1904,12 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      * Discover HTTP method.
      */
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -1872,7 +1919,6 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -1921,7 +1967,12 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      * Discover HTTP method.
      */
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -1931,7 +1982,6 @@ export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverType
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -2201,7 +2251,10 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
      * Discover HTTP method.
      */
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request.
+     */
+    discoverBody?: string | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -2211,7 +2264,6 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -2260,7 +2312,12 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
      * Discover HTTP method.
      */
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -2270,7 +2327,6 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -2319,7 +2375,12 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
      * Discover HTTP method.
      */
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -2329,7 +2390,6 @@ export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDi
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -2600,7 +2660,10 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
      * Discover HTTP method.
      */
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request.
+     */
+    discoverBody?: string | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -2610,7 +2673,6 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -2659,7 +2721,12 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
      * Discover HTTP method.
      */
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -2669,7 +2736,6 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -2718,7 +2784,12 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
      * Discover HTTP method.
      */
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -2728,7 +2799,6 @@ export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDis
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -3015,7 +3085,10 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      * Discover HTTP method.
      */
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request.
+     */
+    discoverBody?: string | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -3025,7 +3098,6 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -3074,7 +3146,12 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      * Discover HTTP method.
      */
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -3084,7 +3161,6 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -3133,7 +3209,12 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      * Discover HTTP method.
      */
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -3143,7 +3224,6 @@ export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverType
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -3429,7 +3509,10 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
      * Discover HTTP method.
      */
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request.
+     */
+    discoverBody?: string | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -3439,7 +3522,6 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -3488,7 +3570,12 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
      * Discover HTTP method.
      */
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -3498,7 +3585,6 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -3547,7 +3633,12 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
      * Discover HTTP method.
      */
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -3557,7 +3648,6 @@ export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDisc
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -3853,7 +3943,10 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
      * Discover HTTP method.
      */
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request.
+     */
+    discoverBody?: string | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -3863,7 +3956,6 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -3912,7 +4004,12 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
      * Discover HTTP method.
      */
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -3922,7 +4019,6 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -3971,7 +4067,12 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
      * Discover HTTP method.
      */
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    /**
+     * Optional discover request parameters.
+     */
+    discoverRequestParams?:
+      | Array<ItemsTypeHealthCheckCollectMethodPostCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
      */
@@ -3981,7 +4082,6 @@ export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisco
      * Expression to derive URL to use for the Discover operation (can be a constant).
      */
     discoverUrl: string;
-    discoverBody?: any | undefined;
     /**
      * Optional discover request headers.
      */
@@ -4372,11 +4472,10 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.optional(types.string()),
     discoverType:
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -4388,10 +4487,9 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody?: string | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -4408,11 +4506,10 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string().optional(),
     discoverType:
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -4472,11 +4569,14 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -4488,10 +4588,13 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -4508,11 +4611,12 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -4572,11 +4676,14 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -4588,10 +4695,13 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
 export type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -4608,11 +4718,12 @@ export const HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTyp
     HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -5512,11 +5623,10 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.optional(types.string()),
     discoverType:
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -5528,10 +5638,9 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody?: string | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -5548,11 +5657,10 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string().optional(),
     discoverType:
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -5612,11 +5720,14 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -5628,10 +5739,13 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -5648,11 +5762,12 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -5712,11 +5827,14 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -5728,10 +5846,13 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
 export type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -5748,11 +5869,12 @@ export const HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpD
     HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -6638,11 +6760,10 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.optional(types.string()),
     discoverType:
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -6654,10 +6775,9 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody?: string | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -6674,11 +6794,10 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string().optional(),
     discoverType:
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -6738,11 +6857,14 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -6754,10 +6876,13 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -6774,11 +6899,12 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -6838,11 +6964,14 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -6854,10 +6983,13 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
 export type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -6874,11 +7006,12 @@ export const HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTyp
     HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -7767,11 +7900,10 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.optional(types.string()),
     discoverType:
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -7783,10 +7915,9 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody?: string | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -7803,11 +7934,10 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string().optional(),
     discoverType:
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -7867,11 +7997,14 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -7883,10 +8016,13 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -7903,11 +8039,12 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -7967,11 +8104,14 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -7983,10 +8123,13 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
 export type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -8003,11 +8146,12 @@ export const HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpD
     HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -8885,11 +9029,10 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.optional(types.string()),
     discoverType:
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -8901,10 +9044,9 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody?: string | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -8921,11 +9063,10 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string().optional(),
     discoverType:
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -8985,11 +9126,14 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -9001,10 +9145,13 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -9021,11 +9168,12 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -9085,11 +9233,14 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -9101,10 +9252,13 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
 export type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -9121,11 +9275,12 @@ export const HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTyp
     HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -9991,11 +10146,10 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.optional(types.string()),
     discoverType:
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -10007,10 +10161,9 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody?: string | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -10027,11 +10180,10 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string().optional(),
     discoverType:
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -10091,11 +10243,14 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -10107,10 +10262,13 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -10127,11 +10285,12 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -10191,11 +10350,14 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -10207,10 +10369,13 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
 export type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -10227,11 +10392,12 @@ export const HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpD
     HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -11080,11 +11246,10 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.optional(types.string()),
     discoverType:
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -11096,10 +11261,9 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody?: string | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -11116,11 +11280,10 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string().optional(),
     discoverType:
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -11180,11 +11343,14 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -11196,10 +11362,13 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -11216,11 +11385,12 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -11280,11 +11450,14 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -11296,10 +11469,13 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
 export type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -11316,11 +11492,12 @@ export const HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDi
     HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -12181,11 +12358,10 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.optional(types.string()),
     discoverType:
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -12197,10 +12373,9 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
 export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody?: string | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -12217,11 +12392,10 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string().optional(),
     discoverType:
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -12281,11 +12455,14 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -12297,10 +12474,13 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
 export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -12317,11 +12497,12 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -12381,11 +12562,14 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -12397,10 +12581,13 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
 export type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -12417,11 +12604,12 @@ export const HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTyp
     HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -13298,11 +13486,10 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.optional(types.string()),
     discoverType:
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -13314,10 +13501,9 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
 export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody?: string | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -13334,11 +13520,10 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string().optional(),
     discoverType:
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -13398,11 +13583,14 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -13414,10 +13602,13 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
 export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -13434,11 +13625,12 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -13498,11 +13690,14 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -13514,10 +13709,13 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
 export type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -13534,11 +13732,12 @@ export const HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDis
     HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -14441,11 +14640,10 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.optional(types.string()),
     discoverType:
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -14457,10 +14655,9 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody?: string | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -14477,11 +14674,10 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string().optional(),
     discoverType:
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -14541,11 +14737,14 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -14557,10 +14756,13 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -14577,11 +14779,12 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
@@ -14641,11 +14844,14 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$inboundSchema,
+      ),
+    ),
     discoverType:
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$inboundSchema,
@@ -14657,10 +14863,13 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
 export type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<
+        ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$Outbound
+      >
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<
         ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$Outbound
@@ -14677,11 +14886,12 @@ export const HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDisc
     HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeHealthCheckCollectMethodPostCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders$outboundSchema,
     ).optional(),
