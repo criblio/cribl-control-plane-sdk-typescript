@@ -1,25 +1,25 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 0d5ad34b05273618b9b7707bc6c5c834
-  docVersion: 4.17.0-alpha.1771393551164-7cc6a375
-  speakeasyVersion: 1.722.0
-  generationVersion: 2.829.1
-  releaseVersion: 0.6.0-rc.25
-  configChecksum: 457fe08a179f91cc0b49d3900eaee2f9
+  docChecksum: 86428a2e506bf8b7d75903f799346416
+  docVersion: 4.17.0-alpha.1771589747951-c3d7ab45
+  speakeasyVersion: 1.723.0
+  generationVersion: 2.835.2
+  releaseVersion: 0.6.0-rc.26
+  configChecksum: d3baa478e3261cfb2c24491bfbabc19b
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 5e961b1e-5f64-4ada-8c0e-710c54da651c
-  pristine_commit_hash: 9b386bf186011f116c81a1a75a0f6f977d926bbf
-  pristine_tree_hash: aa7f8fd11d2b07c76dc03ee2e99525b5b8a502eb
+  generation_id: eae86a1e-fffb-40aa-a88e-50db31f1cb0d
+  pristine_commit_hash: 1d485420dfdb3faa6c3d02e3ff7e29f28053516b
+  pristine_tree_hash: 5f8bfed99129e59239a43144ed16281e719a19d2
 features:
   typescript:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.3
     constsAndDefaults: 0.1.13
-    core: 3.26.28
+    core: 3.26.31
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -33,7 +33,7 @@ features:
     inputOutputModels: 2.82.1
     jsonlResponses: 0.2.1
     methodArguments: 0.1.2
-    nameOverrides: 2.81.2
+    nameOverrides: 2.81.4
     nullables: 0.1.1
     oauth2ClientCredentials: 1.1.2
     openEnums: 0.1.2
@@ -697,8 +697,8 @@ trackedFiles:
     pristine_git_object: e15e7243111ab3020632b8fd73962e0ccc325b68
   docs/models/databaseconnectionconfig.md:
     id: 5cd25395d120
-    last_write_checksum: sha1:4a87d36fe8f884cd8dd899c1926880d5599ba1c6
-    pristine_git_object: 314ccb893019c0a9854839c47320f091678c383f
+    last_write_checksum: sha1:9ed671220e037c39dad9d74a82a8ee287d2f1f73
+    pristine_git_object: 4c95ba695cf1038430ece627cf9386c9f271c886
   docs/models/databaseconnectiontype.md:
     id: 7545a6ba8134
     last_write_checksum: sha1:b45fb0c43cbee50ac4df2ce37b24c287776ca6a4
@@ -12373,8 +12373,8 @@ trackedFiles:
     pristine_git_object: f3550fa3970f551bccb5fe2e43a0c0bf4157e19d
   docs/sdks/databaseconnections/README.md:
     id: ef33daf326f1
-    last_write_checksum: sha1:74d64934030f559176c78edcb9bc15ea3af013e1
-    pristine_git_object: eed0263c5f5d76fc31df8fff954729e62fbef12b
+    last_write_checksum: sha1:6b2a89a7b596a4733a57da42dea64b4dc2c74fc6
+    pristine_git_object: d3a9bae1ff1268b98626b8e7787d9f8b8e288468
   docs/sdks/destinations/README.md:
     id: e83d288899aa
     last_write_checksum: sha1:0b17a5c5a572592fd30fa9e650b691212151c18e
@@ -12513,12 +12513,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:076e6d4986cbb09aada2d641aed2d5ea00f0fa86
-    pristine_git_object: 02b46a1fa4636d5d178a2ded117c3e3f3eaba739
+    last_write_checksum: sha1:da12fe1cdd46b185c44db8e22529b572cb949531
+    pristine_git_object: 53ecddab8420389b27271bcbfb55643a1ef58039
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:3f3e744c1fe2fb503c2575a71b36b79a0592a402
-    pristine_git_object: 5601e868ed35f3d55150f4f27b8c86e75ce8b6fe
+    last_write_checksum: sha1:b960f121bddb208c3ad6a361744a8bb37279aa4a
+    pristine_git_object: 6c6556c61db0026cda8b8e2a2a1953e1443b3062
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -13017,8 +13017,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:23fc2f5c4103f997f483b2d7a6adbf072a7dd7ea
-    pristine_git_object: 569d5f81f4b6ccec4f676ea02bfe74315edf5d2f
+    last_write_checksum: sha1:fe88652dd09e393b911ceca8596984d5b11d302f
+    pristine_git_object: a380317a0e48009dd6bf3150f97e31eb8aadc724
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -13513,8 +13513,8 @@ trackedFiles:
     pristine_git_object: 3d89553c6f1b72edee0c01c61f4f8f400e76fa5b
   src/models/databaseconnectionconfig.ts:
     id: a339e3717933
-    last_write_checksum: sha1:6f910066efbcd6b65e94d1300f5a876c95d2c48d
-    pristine_git_object: 2f0915cb784511f4eb03686e72f262d687cf506d
+    last_write_checksum: sha1:57dc550671c9346682cbe10f7a0c37939ee0ad93
+    pristine_git_object: 3e4b57cb3b93ce677d276764c07d94233ba0faf3
   src/models/databaseconnectiontype.ts:
     id: 10e3cdc223de
     last_write_checksum: sha1:0e879e032539e8913cde71aece4f1f667b3d1bac
@@ -14141,8 +14141,8 @@ trackedFiles:
     pristine_git_object: c1bbef9bdace9960ec217f63372212041f1fc367
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:2aa2e0cc71ed0c93efcccb2062b5b08acb9600ce
-    pristine_git_object: 23d575935780a2b74506b1b04070abdf4ea55140
+    last_write_checksum: sha1:39e9678b970d79e65137a0047dfa81d3bbe1f727
+    pristine_git_object: 891063b688a8022369198b7e82cc080e32578dcb
   src/models/input.ts:
     id: 3b376a2db155
     last_write_checksum: sha1:1522601e04f096712c0307ff2d5097261655d798
@@ -14667,14 +14667,22 @@ trackedFiles:
     id: 2604ae95759e
     last_write_checksum: sha1:ded26c9726b95b548001b19f142eef9d470388b8
     pristine_git_object: 300ca791b16d4be279229189a233b1de562fc818
-  src/models/operations/createoutput.ts:
-    id: b78d02594812
-    last_write_checksum: sha1:b8d8f03107e32a6a93e5042590ee1f3a3225ce37
-    pristine_git_object: b905d7a3c15898480f2d6620488a5ac5e19eaea0
-  src/models/operations/createoutputsystembypack.ts:
-    id: 2ff2e547fa8f
-    last_write_checksum: sha1:97289008cac30ebdc763e0c5720685882130f8c0
-    pristine_git_object: 020a5c9ec879aae3b4a99cb4b31517b5a3e42560
+  src/models/operations/createoutputpqcontrolsazurelogs.ts:
+    id: 1e584fab37d9
+    last_write_checksum: sha1:e7ba315e2825038e3e78da1b67f8cec2ba68776e
+    pristine_git_object: 344cf11eb1f897bde83612404e1bfb4cf585b222
+  src/models/operations/createoutputrequest.ts:
+    id: eeffa42ee774
+    last_write_checksum: sha1:54a276a6c33272edee56c05e8c636f3790902749
+    pristine_git_object: 499bfdd08726a7949d96d5c38f1c371364a6ab78
+  src/models/operations/createoutputsystembypackpqcontrolsazurelogs.ts:
+    id: 7876fa9a8885
+    last_write_checksum: sha1:12eaaccb3eabd914a7d4b03712877e82929866be
+    pristine_git_object: 0a3ca92dc24473e259acb93735fba3f776b8adc6
+  src/models/operations/createoutputsystembypackrequest.ts:
+    id: b7605d8db95d
+    last_write_checksum: sha1:904ffbc40515897dbd577a32274e8ce0fc201717
+    pristine_git_object: 6983af636ce23470b42e5d2a6641e1ea986cff85
   src/models/operations/createoutputsystemtestbypackandid.ts:
     id: 2c4afeec7bfd
     last_write_checksum: sha1:d1c725ba09e78e213d66d1701345304c9422beea
@@ -14949,8 +14957,8 @@ trackedFiles:
     pristine_git_object: 3f3f404446a819299f75ccc5f56ac8af69d39707
   src/models/operations/index.ts:
     id: 0d9ffaf774d2
-    last_write_checksum: sha1:b76010a3d47e8e7769882209a432e5ffa66df978
-    pristine_git_object: 9b1aeb39a7533007e9475eda4b6c6dd60fa6e704
+    last_write_checksum: sha1:7f2816c5b7e9f93d29a1bf88203ded7bae00bad5
+    pristine_git_object: 01fefa3fd19e88845014c38558a442458e210348
   src/models/operations/listconfiggroupbyproduct.ts:
     id: 8a7f80e31e44
     last_write_checksum: sha1:365a266174db80417a4b0240b1a5166efc246c6c
@@ -15735,10 +15743,30 @@ trackedFiles:
     id: a8f545bdf535
     last_write_checksum: sha1:af2c470ac384eb0c859b0c2848def967162b34fa
     pristine_git_object: 4414630a8b583698b8a79f4d6052804b53b9833e
+  src/models/restauthenticationgoogleoauthrestretryrulestypestaticenableheaderfalse.ts:
+    id: bbeca259440d
+    last_write_checksum: sha1:763e735a729542d78c2027303f99ecc9563a4340
+    pristine_git_object: 5e49bd893a5ea75d059eb46b3cbb3c292d3351d3
+  ? src/models/restauthenticationlogingetauthtokenfromheaderfalserestdiscoverydiscovertypehttpenablestrictdiscoverparsingfalsediscovermethod.ts
+  : id: 85bc2f984818
+    last_write_checksum: sha1:59d12ab4c73a43834d6eb9ff837c06efc89d1868
+    pristine_git_object: 880df60c74ef11a67ec37ccc9734fea94beae6d0
+  src/models/restauthenticationloginsecretgetauthtokenfromheadertruerestpaginationtyperesponsebody.ts:
+    id: 63d51fff04ab
+    last_write_checksum: sha1:3f54d1549bd495e2637c624e9d3d08859f3a7d56
+    pristine_git_object: 8ad15f771214f1ed475610e9ecb7f8a0c36d5e55
+  src/models/restauthenticationnonerestdiscoverydiscovertypehttpenablediscovercodefalsepagination.ts:
+    id: d84a641764cd
+    last_write_checksum: sha1:1203f1a95e40e0c6ec96e271d348c2a8dfc97b22
+    pristine_git_object: 745dda82b67da0d214ca0177b66b5f939b9ab8a5
+  src/models/restcollectmethodpostrestdiscoverydiscovertypehttpdiscovermethodgetdiscovertype.ts:
+    id: 6c8479823d02
+    last_write_checksum: sha1:15139506d1cc0d538110488b8125e9a7b276ecba
+    pristine_git_object: 14b84c7f022be6a9ffb1ae82362a649db8519862
   src/models/restcollectorconf.ts:
     id: 06e5d343ed37
-    last_write_checksum: sha1:9f05a4199828d93e4fbb1765a16423cdecfae5de
-    pristine_git_object: 7b8d4161fcc860ec24081d697d18770f2bf39490
+    last_write_checksum: sha1:3259d298dda49b8157951d97c9e7c3cb6328c42a
+    pristine_git_object: 4dcf8c817246694728ac7b64daecb10d9dc26d36
   src/models/retryrulestype.ts:
     id: 83722dbba8d3
     last_write_checksum: sha1:ee4cb64d0023c8788b0e8b171a7c3ce1b56d23af
@@ -20937,7 +20965,7 @@ examples:
           application/json: {}
     DatabaseConnectionExamplesMySQLWithSecret:
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "mysql", "description": "Analytics MySQL database", "id": "mysql-analytics-db", "tags": "analytics,mysql"}
+        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "mysql", "description": "Analytics MySQL database", "id": "mysql-analytics-db", "tags": "analytics,mysql", "textSecret": "mysql-analytics-connection"}
       responses:
         "200":
           application/json: {}
@@ -20953,7 +20981,7 @@ examples:
           application/json: {}
     DatabaseConnectionExamplesPostgreSQLWithSecret:
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 10000, "databaseType": "postgres", "description": "Logs PostgreSQL database", "id": "postgres-logs", "tags": "logs,postgres"}
+        application/json: {"authType": "secret", "connectionTimeout": 10000, "databaseType": "postgres", "description": "Logs PostgreSQL database", "id": "postgres-logs", "tags": "logs,postgres", "textSecret": "postgres-logs-connection"}
       responses:
         "200":
           application/json: {}
@@ -20969,7 +20997,7 @@ examples:
           application/json: {}
     DatabaseConnectionExamplesSQLServerWithSecret:
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "sqlserver", "description": "CRM SQL Server database", "id": "sqlserver-crm", "requestTimeout": 15000, "tags": "crm,sqlserver,sales"}
+        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "sqlserver", "description": "CRM SQL Server database", "id": "sqlserver-crm", "requestTimeout": 15000, "tags": "crm,sqlserver,sales", "textSecret": "sqlserver-crm-connection"}
       responses:
         "200":
           application/json: {}
@@ -20993,7 +21021,7 @@ examples:
           application/json: {}
     DatabaseConnectionExamplesOracleWithSecret:
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 20000, "databaseType": "oracle", "description": "Oracle data warehouse", "id": "oracle-warehouse", "password": "Warehouse_Pass789!", "tags": "warehouse,oracle,reporting", "user": "warehouse_user"}
+        application/json: {"authType": "secret", "connectionTimeout": 20000, "databaseType": "oracle", "description": "Oracle data warehouse", "id": "oracle-warehouse", "password": "Warehouse_Pass789!", "tags": "warehouse,oracle,reporting", "textSecret": "oracle-warehouse-connection", "user": "warehouse_user"}
       responses:
         "200":
           application/json: {}
@@ -21001,7 +21029,7 @@ examples:
           application/json: {}
     DatabaseConnectionExamplesOracleWithCredentialsSecrets:
       requestBody:
-        application/json: {"authType": "secrets", "connectionTimeout": 15000, "credsSecrets": "oracle-secure-credentials", "databaseType": "oracle", "description": "High-security Oracle database with credential secrets", "id": "oracle-secure-db", "tags": "secure,oracle,sensitive-data"}
+        application/json: {"authType": "secrets", "connectionTimeout": 15000, "credsSecrets": "oracle-secure-credentials", "databaseType": "oracle", "description": "High-security Oracle database with credential secrets", "id": "oracle-secure-db", "tags": "secure,oracle,sensitive-data", "textSecret": "oracle-secure-connection"}
       responses:
         "200":
           application/json: {}
@@ -21052,7 +21080,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "mysql", "description": "Analytics MySQL database", "id": "mysql-analytics-db", "tags": "analytics,mysql"}
+        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "mysql", "description": "Analytics MySQL database", "id": "mysql-analytics-db", "tags": "analytics,mysql", "textSecret": "mysql-analytics-connection"}
       responses:
         "200":
           application/json: {}
@@ -21074,7 +21102,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 10000, "databaseType": "postgres", "description": "Logs PostgreSQL database", "id": "postgres-logs", "tags": "logs,postgres"}
+        application/json: {"authType": "secret", "connectionTimeout": 10000, "databaseType": "postgres", "description": "Logs PostgreSQL database", "id": "postgres-logs", "tags": "logs,postgres", "textSecret": "postgres-logs-connection"}
       responses:
         "200":
           application/json: {}
@@ -21096,7 +21124,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "sqlserver", "description": "CRM SQL Server database", "id": "sqlserver-crm", "requestTimeout": 15000, "tags": "crm,sqlserver,sales"}
+        application/json: {"authType": "secret", "connectionTimeout": 15000, "databaseType": "sqlserver", "description": "CRM SQL Server database", "id": "sqlserver-crm", "requestTimeout": 15000, "tags": "crm,sqlserver,sales", "textSecret": "sqlserver-crm-connection"}
       responses:
         "200":
           application/json: {}
@@ -21129,7 +21157,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"authType": "secret", "connectionTimeout": 20000, "databaseType": "oracle", "description": "Oracle data warehouse", "id": "oracle-warehouse", "password": "Warehouse_Pass789!", "tags": "warehouse,oracle,reporting", "user": "warehouse_user"}
+        application/json: {"authType": "secret", "connectionTimeout": 20000, "databaseType": "oracle", "description": "Oracle data warehouse", "id": "oracle-warehouse", "password": "Warehouse_Pass789!", "tags": "warehouse,oracle,reporting", "textSecret": "oracle-warehouse-connection", "user": "warehouse_user"}
       responses:
         "200":
           application/json: {}
@@ -21140,7 +21168,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"authType": "secrets", "connectionTimeout": 15000, "credsSecrets": "oracle-secure-credentials", "databaseType": "oracle", "description": "High-security Oracle database with credential secrets", "id": "oracle-secure-db", "tags": "secure,oracle,sensitive-data"}
+        application/json: {"authType": "secrets", "connectionTimeout": 15000, "credsSecrets": "oracle-secure-credentials", "databaseType": "oracle", "description": "High-security Oracle database with credential secrets", "id": "oracle-secure-db", "tags": "secure,oracle,sensitive-data", "textSecret": "oracle-secure-connection"}
       responses:
         "200":
           application/json: {}
@@ -26542,7 +26570,7 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.packs.destinations.pq.get()`:  `response.items[].args.union(RunnableJobCollection).collector` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.destinations.pq.get()`:  `response.items[].args.union(RunnableJobCollection).collector` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.create()`: \n  *  `request.savedJob.union(SavedJobCollection).collector` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(SavedJobCollection).collector` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.list()`:  `response.items[].union(SavedJobCollection).collector` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.delete()`:  `response.items[].union(SavedJobCollection).collector` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.get()`:  `response.items[].union(SavedJobCollection).collector` **Changed** (Breaking ⚠️)\n* `criblcontrolplane.collectors.update()`: \n  *  `request.savedJob.union(SavedJobCollection).collector` **Changed** (Breaking ⚠️)\n  *  `response.items[].union(SavedJobCollection).collector` **Changed** (Breaking ⚠️)\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.databaseConnections.create()`: \n  *  `request.textSecret` **Added**\n  *  `response.items[].textSecret` **Added**\n* `criblcontrolplane.databaseConnections.delete()`:  `response.items[].textSecret` **Added**\n* `criblcontrolplane.databaseConnections.get()`:  `response.items[].textSecret` **Added**\n* `criblcontrolplane.databaseConnections.update()`: \n  *  `request.databaseConnectionConfig.textSecret` **Added**\n  *  `response.items[].textSecret` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
