@@ -31,7 +31,6 @@ export type CreateInputSystemByPackAuthTokenCloudflareHec = {
    * Select or create a stored text secret
    */
   tokenSecret?: string | undefined;
-  token?: any | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   /**
@@ -166,7 +165,6 @@ export type CreateInputSystemByPackInputCloudflareHec = {
    * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
    */
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   /**
    * Messages from matched IP addresses will be processed, unless also matched by the denylist
    */
@@ -320,7 +318,6 @@ export type CreateInputSystemByPackInputZscalerHec = {
    * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
    */
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   /**
    * Messages from matched IP addresses will be processed, unless also matched by the denylist
    */
@@ -1272,8 +1269,6 @@ export type CreateInputSystemByPackMTLSSettings = {
    * Enable OCSP check of certificate
    */
   ocspCheck?: boolean | undefined;
-  keytab?: any | undefined;
-  principal?: any | undefined;
   /**
    * If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
    */
@@ -2486,9 +2481,6 @@ export type CreateInputSystemByPackInputOpenTelemetry = {
    * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
    */
   maxRequestsPerSocket?: number | undefined;
-  enableProxyHeader?: any | undefined;
-  captureHeaders?: any | undefined;
-  activityLogSampleRate?: any | undefined;
   /**
    * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
    */
@@ -8018,7 +8010,6 @@ export type CreateInputSystemByPackInputSplunkHec = {
    * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
    */
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   /**
    * Messages from matched IP addresses will be processed, unless also matched by the denylist
    */
@@ -9144,7 +9135,6 @@ export const CreateInputSystemByPackAuthTokenAuthenticationMethod$outboundSchema
 export type CreateInputSystemByPackAuthTokenCloudflareHec$Outbound = {
   authType?: string | undefined;
   tokenSecret?: string | undefined;
-  token?: any | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
@@ -9162,7 +9152,6 @@ export const CreateInputSystemByPackAuthTokenCloudflareHec$outboundSchema:
       CreateInputSystemByPackAuthTokenAuthenticationMethod$outboundSchema
         .optional(),
     tokenSecret: z.string().optional(),
-    token: z.any().optional(),
     enabled: z.boolean().optional(),
     description: z.string().optional(),
     allowedIndexesAtToken: z.array(z.string()).optional(),
@@ -9254,7 +9243,6 @@ export type CreateInputSystemByPackInputCloudflareHec$Outbound = {
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   hecAPI: string;
@@ -9306,7 +9294,6 @@ export const CreateInputSystemByPackInputCloudflareHec$outboundSchema:
     requestTimeout: z.number().optional(),
     socketTimeout: z.number().optional(),
     keepAliveTimeout: z.number().optional(),
-    enableHealthCheck: z.any().optional(),
     ipAllowlistRegex: z.string().optional(),
     ipDenylistRegex: z.string().optional(),
     hecAPI: z.string(),
@@ -9398,7 +9385,6 @@ export type CreateInputSystemByPackInputZscalerHec$Outbound = {
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   hecAPI: string;
@@ -9445,7 +9431,6 @@ export const CreateInputSystemByPackInputZscalerHec$outboundSchema: z.ZodType<
   requestTimeout: z.number().optional(),
   socketTimeout: z.number().optional(),
   keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.any().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   hecAPI: z.string(),
@@ -10193,8 +10178,6 @@ export type CreateInputSystemByPackMTLSSettings$Outbound = {
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
   ocspCheck?: boolean | undefined;
-  keytab?: any | undefined;
-  principal?: any | undefined;
   ocspCheckFailClose?: boolean | undefined;
 };
 
@@ -10218,8 +10201,6 @@ export const CreateInputSystemByPackMTLSSettings$outboundSchema: z.ZodType<
   maxVersion: models
     .MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
   ocspCheck: z.boolean().optional(),
-  keytab: z.any().optional(),
-  principal: z.any().optional(),
   ocspCheckFailClose: z.boolean().optional(),
 });
 
@@ -11214,9 +11195,6 @@ export type CreateInputSystemByPackInputOpenTelemetry$Outbound = {
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
-  enableProxyHeader?: any | undefined;
-  captureHeaders?: any | undefined;
-  activityLogSampleRate?: any | undefined;
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
@@ -11264,9 +11242,6 @@ export const CreateInputSystemByPackInputOpenTelemetry$outboundSchema:
     tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
     maxActiveReq: z.number().optional(),
     maxRequestsPerSocket: z.number().int().optional(),
-    enableProxyHeader: z.any().optional(),
-    captureHeaders: z.any().optional(),
-    activityLogSampleRate: z.any().optional(),
     requestTimeout: z.number().optional(),
     socketTimeout: z.number().optional(),
     keepAliveTimeout: z.number().optional(),
@@ -16391,7 +16366,6 @@ export type CreateInputSystemByPackInputSplunkHec$Outbound = {
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   splunkHecAPI: string;
@@ -16443,7 +16417,6 @@ export const CreateInputSystemByPackInputSplunkHec$outboundSchema: z.ZodType<
   requestTimeout: z.number().optional(),
   socketTimeout: z.number().optional(),
   keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.any().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   splunkHecAPI: z.string(),

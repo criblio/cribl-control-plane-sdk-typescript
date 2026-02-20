@@ -68,7 +68,6 @@ export type OutputXsiamAuthenticationMethod = OpenEnum<
 >;
 
 export type OutputXsiamUrl = {
-  url?: any | undefined;
   /**
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
@@ -264,12 +263,10 @@ export const OutputXsiamUrl$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  url: types.optional(z.any()),
   weight: types.optional(types.number()),
 });
 /** @internal */
 export type OutputXsiamUrl$Outbound = {
-  url?: any | undefined;
   weight?: number | undefined;
 };
 
@@ -279,7 +276,6 @@ export const OutputXsiamUrl$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputXsiamUrl
 > = z.object({
-  url: z.any().optional(),
   weight: z.number().optional(),
 });
 

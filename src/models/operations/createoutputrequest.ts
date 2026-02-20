@@ -1993,7 +1993,6 @@ export type CreateOutputOutputWizHec = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  loadBalanced?: any | undefined;
   /**
    * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
    */
@@ -2047,7 +2046,6 @@ export type CreateOutputOutputWizHec = {
    * List of headers that are safe to log in plain text
    */
   safeHeaders?: Array<string> | undefined;
-  enableMultiMetrics?: any | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -5106,7 +5104,6 @@ export type CreateOutputOutputWizHec$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced?: any | undefined;
   nextQueue?: string | undefined;
   tcpRouting?: string | undefined;
   tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
@@ -5122,7 +5119,6 @@ export type CreateOutputOutputWizHec$Outbound = {
     | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  enableMultiMetrics?: any | undefined;
   authType?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
@@ -5165,7 +5161,6 @@ export const CreateOutputOutputWizHec$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.any().optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
   tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
@@ -5181,7 +5176,6 @@ export const CreateOutputOutputWizHec$outboundSchema: z.ZodType<
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  enableMultiMetrics: z.any().optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   responseRetrySettings: z.array(
