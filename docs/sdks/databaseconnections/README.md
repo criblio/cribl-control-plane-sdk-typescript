@@ -101,6 +101,7 @@ async function run() {
     description: "Analytics MySQL database",
     id: "mysql-analytics-db",
     tags: "analytics,mysql",
+    textSecret: "mysql-analytics-connection",
   });
 
   console.log(result);
@@ -134,6 +135,7 @@ async function run() {
     description: "Analytics MySQL database",
     id: "mysql-analytics-db",
     tags: "analytics,mysql",
+    textSecret: "mysql-analytics-connection",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -238,6 +240,7 @@ async function run() {
     description: "High-security Oracle database with credential secrets",
     id: "oracle-secure-db",
     tags: "secure,oracle,sensitive-data",
+    textSecret: "oracle-secure-connection",
   });
 
   console.log(result);
@@ -272,6 +275,7 @@ async function run() {
     description: "High-security Oracle database with credential secrets",
     id: "oracle-secure-db",
     tags: "secure,oracle,sensitive-data",
+    textSecret: "oracle-secure-connection",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -305,6 +309,7 @@ async function run() {
     id: "oracle-warehouse",
     password: "Warehouse_Pass789!",
     tags: "warehouse,oracle,reporting",
+    textSecret: "oracle-warehouse-connection",
     user: "warehouse_user",
   });
 
@@ -340,6 +345,7 @@ async function run() {
     id: "oracle-warehouse",
     password: "Warehouse_Pass789!",
     tags: "warehouse,oracle,reporting",
+    textSecret: "oracle-warehouse-connection",
     user: "warehouse_user",
   });
   if (res.ok) {
@@ -440,6 +446,7 @@ async function run() {
     description: "Logs PostgreSQL database",
     id: "postgres-logs",
     tags: "logs,postgres",
+    textSecret: "postgres-logs-connection",
   });
 
   console.log(result);
@@ -473,6 +480,7 @@ async function run() {
     description: "Logs PostgreSQL database",
     id: "postgres-logs",
     tags: "logs,postgres",
+    textSecret: "postgres-logs-connection",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -642,6 +650,7 @@ async function run() {
     id: "sqlserver-crm",
     requestTimeout: 15000,
     tags: "crm,sqlserver,sales",
+    textSecret: "sqlserver-crm-connection",
   });
 
   console.log(result);
@@ -676,6 +685,7 @@ async function run() {
     id: "sqlserver-crm",
     requestTimeout: 15000,
     tags: "crm,sqlserver,sales",
+    textSecret: "sqlserver-crm-connection",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -968,6 +978,7 @@ async function run() {
       description: "Analytics MySQL database",
       id: "mysql-analytics-db",
       tags: "analytics,mysql",
+      textSecret: "mysql-analytics-connection",
     },
   });
 
@@ -1004,6 +1015,7 @@ async function run() {
       description: "Analytics MySQL database",
       id: "mysql-analytics-db",
       tags: "analytics,mysql",
+      textSecret: "mysql-analytics-connection",
     },
   });
   if (res.ok) {
@@ -1117,6 +1129,7 @@ async function run() {
       description: "High-security Oracle database with credential secrets",
       id: "oracle-secure-db",
       tags: "secure,oracle,sensitive-data",
+      textSecret: "oracle-secure-connection",
     },
   });
 
@@ -1154,6 +1167,7 @@ async function run() {
       description: "High-security Oracle database with credential secrets",
       id: "oracle-secure-db",
       tags: "secure,oracle,sensitive-data",
+      textSecret: "oracle-secure-connection",
     },
   });
   if (res.ok) {
@@ -1190,6 +1204,7 @@ async function run() {
       id: "oracle-warehouse",
       password: "Warehouse_Pass789!",
       tags: "warehouse,oracle,reporting",
+      textSecret: "oracle-warehouse-connection",
       user: "warehouse_user",
     },
   });
@@ -1228,6 +1243,7 @@ async function run() {
       id: "oracle-warehouse",
       password: "Warehouse_Pass789!",
       tags: "warehouse,oracle,reporting",
+      textSecret: "oracle-warehouse-connection",
       user: "warehouse_user",
     },
   });
@@ -1337,6 +1353,7 @@ async function run() {
       description: "Logs PostgreSQL database",
       id: "postgres-logs",
       tags: "logs,postgres",
+      textSecret: "postgres-logs-connection",
     },
   });
 
@@ -1373,6 +1390,7 @@ async function run() {
       description: "Logs PostgreSQL database",
       id: "postgres-logs",
       tags: "logs,postgres",
+      textSecret: "postgres-logs-connection",
     },
   });
   if (res.ok) {
@@ -1557,6 +1575,7 @@ async function run() {
       id: "sqlserver-crm",
       requestTimeout: 15000,
       tags: "crm,sqlserver,sales",
+      textSecret: "sqlserver-crm-connection",
     },
   });
 
@@ -1594,6 +1613,7 @@ async function run() {
       id: "sqlserver-crm",
       requestTimeout: 15000,
       tags: "crm,sqlserver,sales",
+      textSecret: "sqlserver-crm-connection",
     },
   });
   if (res.ok) {

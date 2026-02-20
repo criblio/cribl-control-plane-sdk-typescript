@@ -78,9 +78,17 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -104,7 +112,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -134,7 +141,10 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -144,8 +154,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -160,7 +168,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -190,7 +197,9 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -200,8 +209,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -216,7 +223,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -246,7 +252,9 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -256,8 +264,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -272,7 +278,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -341,9 +346,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -358,7 +360,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -422,9 +423,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -439,7 +437,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -495,7 +492,10 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisco
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -507,9 +507,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -587,9 +584,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -600,7 +594,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisco
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -1102,9 +1095,17 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -1128,7 +1129,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -1158,7 +1158,10 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -1168,8 +1171,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -1184,7 +1185,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -1214,7 +1214,9 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -1224,8 +1226,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -1240,7 +1240,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -1270,7 +1269,9 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -1280,8 +1281,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -1296,7 +1295,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -1365,9 +1363,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -1382,7 +1377,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -1446,9 +1440,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -1463,7 +1454,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -1519,7 +1509,10 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -1531,9 +1524,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -1611,9 +1601,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -1624,7 +1611,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -2138,9 +2124,17 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -2164,7 +2158,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -2194,7 +2187,10 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -2204,8 +2200,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -2220,7 +2214,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -2250,7 +2243,9 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -2260,8 +2255,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -2276,7 +2269,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -2306,7 +2298,9 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -2316,8 +2310,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -2332,7 +2324,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -2401,9 +2392,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -2418,7 +2406,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -2482,9 +2469,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -2499,7 +2483,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -2555,7 +2538,10 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStri
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -2567,9 +2553,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStri
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -2647,9 +2630,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStri
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -2660,7 +2640,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStri
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -3173,9 +3152,17 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -3199,7 +3186,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -3229,7 +3215,10 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -3239,8 +3228,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -3255,7 +3242,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -3285,7 +3271,9 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -3295,8 +3283,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -3311,7 +3297,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -3341,7 +3326,9 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -3351,8 +3338,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -3367,7 +3352,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -3436,9 +3420,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -3453,7 +3434,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -3517,9 +3497,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -3534,7 +3511,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -3590,7 +3566,10 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStri
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -3602,9 +3581,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStri
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -3682,9 +3658,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStri
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -3695,7 +3668,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStri
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -4229,9 +4201,17 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -4255,7 +4235,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -4285,7 +4264,10 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -4295,8 +4277,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -4311,7 +4291,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -4341,7 +4320,9 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -4351,8 +4332,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -4367,7 +4346,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -4397,7 +4375,9 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -4407,8 +4387,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -4423,7 +4401,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -4492,9 +4469,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -4509,7 +4483,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -4573,9 +4546,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -4590,7 +4560,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -4646,7 +4615,10 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -4658,9 +4630,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -4738,9 +4707,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -4751,7 +4717,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDisc
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -5310,9 +5275,17 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -5336,7 +5309,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -5366,7 +5338,10 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -5376,8 +5351,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -5392,7 +5365,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -5422,7 +5394,9 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -5432,8 +5406,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -5448,7 +5420,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -5478,7 +5449,9 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -5488,8 +5461,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -5504,7 +5475,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -5573,9 +5543,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -5590,7 +5557,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -5654,9 +5620,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -5671,7 +5634,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -5727,7 +5689,10 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -5739,9 +5704,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -5819,9 +5781,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -5832,7 +5791,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -6401,9 +6359,17 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -6427,7 +6393,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -6457,7 +6422,10 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -6467,8 +6435,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -6483,7 +6449,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -6513,7 +6478,9 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -6523,8 +6490,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -6539,7 +6504,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -6569,7 +6533,9 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -6579,8 +6545,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -6595,7 +6559,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -6664,9 +6627,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -6681,7 +6641,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -6745,9 +6704,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -6762,7 +6718,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -6818,7 +6773,10 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -6830,9 +6788,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -6910,9 +6865,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -6923,7 +6875,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -7499,9 +7450,17 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -7525,7 +7484,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -7555,7 +7513,10 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -7565,8 +7526,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -7581,7 +7540,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -7611,7 +7569,9 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -7621,8 +7581,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -7637,7 +7595,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -7667,7 +7624,9 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -7677,8 +7636,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -7693,7 +7650,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -7762,9 +7718,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -7779,7 +7732,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -7843,9 +7795,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -7860,7 +7809,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -7916,7 +7864,10 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -7928,9 +7879,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -8008,9 +7956,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -8021,7 +7966,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -8584,9 +8528,17 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -8610,7 +8562,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -8640,7 +8591,10 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -8650,8 +8604,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -8666,7 +8618,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -8696,7 +8647,9 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -8706,8 +8659,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -8722,7 +8673,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -8752,7 +8702,9 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -8762,8 +8714,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -8778,7 +8728,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -8847,9 +8796,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -8864,7 +8810,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -8928,9 +8873,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -8945,7 +8887,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -9001,7 +8942,10 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -9013,9 +8957,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -9093,9 +9034,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -9106,7 +9044,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -9651,9 +9588,17 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -9677,7 +9622,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -9707,7 +9651,10 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -9717,8 +9664,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -9733,7 +9678,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -9763,7 +9707,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -9773,8 +9719,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -9789,7 +9733,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -9819,7 +9762,9 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -9829,8 +9774,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -9845,7 +9788,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -9914,9 +9856,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -9931,7 +9870,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -9995,9 +9933,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -10012,7 +9947,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -10068,7 +10002,10 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStri
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -10080,9 +10017,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStri
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -10160,9 +10094,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStri
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -10173,7 +10104,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStri
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -10678,9 +10608,17 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -10704,7 +10642,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -10734,7 +10671,10 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -10744,8 +10684,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -10760,7 +10698,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -10790,7 +10727,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -10800,8 +10739,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -10816,7 +10753,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -10846,7 +10782,9 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -10856,8 +10794,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -10872,7 +10808,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -10941,9 +10876,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -10958,7 +10890,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -11022,9 +10953,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -11039,7 +10967,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -11095,7 +11022,10 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -11107,9 +11037,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -11187,9 +11114,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -11200,7 +11124,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDisc
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -11701,9 +11624,17 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -11727,7 +11658,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -11757,7 +11687,10 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -11767,8 +11700,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -11783,7 +11714,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -11813,7 +11743,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -11823,8 +11755,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -11839,7 +11769,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -11869,7 +11798,9 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -11879,8 +11810,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -11895,7 +11824,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -11964,9 +11892,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -11981,7 +11906,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -12045,9 +11969,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -12062,7 +11983,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -12118,7 +12038,10 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisco
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -12130,9 +12053,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -12210,9 +12130,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverUrl: string;
     discoverMethod:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -12223,7 +12140,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisco
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -12743,9 +12659,17 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -12769,7 +12693,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -12799,7 +12722,10 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -12809,8 +12735,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -12825,7 +12749,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -12855,7 +12778,9 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -12865,8 +12790,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -12881,7 +12804,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -12911,7 +12833,9 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -12921,8 +12845,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -12937,7 +12859,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -13006,9 +12927,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -13023,7 +12941,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -13087,9 +13004,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -13104,7 +13018,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -13160,7 +13073,10 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisco
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -13172,9 +13088,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -13252,9 +13165,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -13265,7 +13175,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisco
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -13796,9 +13705,17 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -13822,7 +13739,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -13852,7 +13768,10 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -13862,8 +13781,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -13878,7 +13795,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -13908,7 +13824,9 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -13918,8 +13836,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -13934,7 +13850,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -13964,7 +13879,9 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -13974,8 +13891,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -13990,7 +13905,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -14059,9 +13973,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -14076,7 +13987,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -14140,9 +14050,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -14157,7 +14064,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDisc
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -14213,7 +14119,10 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStri
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -14225,9 +14134,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStri
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -14305,9 +14211,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStri
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -14318,7 +14221,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStri
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -14845,9 +14747,17 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -14871,7 +14781,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -14901,7 +14810,10 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -14911,8 +14823,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -14927,7 +14837,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -14957,7 +14866,9 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -14967,8 +14878,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -14983,7 +14892,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -15013,7 +14921,9 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetP
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -15023,8 +14933,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet 
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -15039,7 +14947,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet 
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -15108,9 +15015,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -15125,7 +15029,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -15189,9 +15092,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -15206,7 +15106,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -15262,7 +15161,10 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -15274,9 +15176,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -15354,9 +15253,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -15367,7 +15263,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -15890,9 +15785,17 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    /**
+     * Custom HTTP method to use for the Discover operation
+     */
+    discoverVerb: string;
+    /**
+     * Template for body to send with the discover request
+     */
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -15916,7 +15819,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -15946,7 +15848,10 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostW
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    /**
+     * Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+     */
+    discoverBody: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -15956,8 +15861,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostW
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -15972,7 +15875,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostW
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -16002,7 +15904,9 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostP
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -16012,8 +15916,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost 
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -16028,7 +15930,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost 
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -16058,7 +15959,9 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetPa
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
+      | undefined;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -16068,8 +15971,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
      * URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
      */
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -16084,7 +15985,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -16153,9 +16053,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeT
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -16170,7 +16067,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeT
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -16234,9 +16130,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeF
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -16251,7 +16144,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeF
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /**
@@ -16307,7 +16199,10 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscove
      * Explicitly set the discover response format. When disabled, best effort parsing is used.
      */
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    /**
+     * If 'Strict discover response parsing' parsing is enabled, provide the response format
+     */
+    discoverResponseFormat: string;
     /**
      * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
      */
@@ -16319,9 +16214,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscove
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -16399,9 +16291,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscove
     discoverUrl: string;
     discoverMethod:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams>
       | undefined;
@@ -16412,7 +16301,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscove
      * Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
      */
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -17114,9 +17002,11 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -17130,16 +17020,17 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -17150,7 +17041,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -17162,9 +17052,11 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -17176,7 +17068,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -17284,12 +17175,10 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -17300,18 +17189,15 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -17320,7 +17206,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -17332,12 +17217,10 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -17346,7 +17229,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -17454,12 +17336,12 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -17470,18 +17352,17 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -17490,7 +17371,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -17502,12 +17382,12 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -17516,7 +17396,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -17624,12 +17503,12 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -17640,18 +17519,17 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -17660,7 +17538,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -17672,12 +17549,12 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -17686,7 +17563,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -17819,9 +17695,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -17832,7 +17705,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -17842,9 +17714,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -17853,7 +17722,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -17870,9 +17738,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -17881,7 +17746,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -18012,9 +17876,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -18025,7 +17886,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -18034,9 +17894,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -18045,7 +17902,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -18061,9 +17917,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -18072,7 +17925,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -18198,15 +18050,12 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -18222,13 +18071,10 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisc
 export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -18247,15 +18093,12 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -18394,9 +18237,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -18406,7 +18246,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisc
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -18416,9 +18255,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -18426,7 +18262,6 @@ export type RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisco
       | RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -18443,9 +18278,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -18453,7 +18285,6 @@ export const RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDisc
       RestAuthenticationHmacRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -20217,9 +20048,11 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -20233,16 +20066,17 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -20253,7 +20087,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -20265,9 +20098,11 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -20279,7 +20114,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -20387,12 +20221,10 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -20403,18 +20235,15 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -20423,7 +20252,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -20435,12 +20263,10 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -20449,7 +20275,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -20557,12 +20382,12 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -20573,18 +20398,17 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -20593,7 +20417,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -20605,12 +20428,12 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -20619,7 +20442,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -20727,12 +20549,12 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -20743,18 +20565,17 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -20763,7 +20584,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDisc
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -20775,12 +20595,12 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -20789,7 +20609,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpDis
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -20922,9 +20741,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -20935,7 +20751,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -20945,9 +20760,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -20956,7 +20768,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -20973,9 +20784,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -20984,7 +20792,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -21115,9 +20922,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -21128,7 +20932,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -21137,9 +20940,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -21148,7 +20948,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -21164,9 +20963,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -21175,7 +20971,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -21301,15 +21096,12 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -21325,13 +21117,10 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
 export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -21350,15 +21139,12 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
     RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -21497,9 +21283,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -21509,7 +21292,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -21519,9 +21301,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -21529,7 +21308,6 @@ export type RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnab
       | RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -21546,9 +21324,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -21556,7 +21331,6 @@ export const RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEna
       RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -23395,9 +23169,11 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -23411,16 +23187,17 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -23431,7 +23208,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -23443,9 +23219,11 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -23457,7 +23235,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -23565,12 +23342,10 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -23581,18 +23356,15 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -23601,7 +23373,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -23613,12 +23384,10 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -23627,7 +23396,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -23735,12 +23503,12 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -23751,18 +23519,17 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -23771,7 +23538,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -23783,12 +23549,12 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -23797,7 +23563,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -23905,12 +23670,12 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -23921,18 +23686,17 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -23941,7 +23705,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -23953,12 +23716,12 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -23967,7 +23730,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -24100,9 +23862,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -24113,7 +23872,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDis
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -24123,9 +23881,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -24134,7 +23889,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDisc
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -24151,9 +23905,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -24162,7 +23913,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDis
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -24293,9 +24043,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -24306,7 +24053,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDis
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -24315,9 +24061,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -24326,7 +24069,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDisc
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -24342,9 +24084,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -24353,7 +24092,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDis
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -24479,15 +24217,12 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStr
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -24503,13 +24238,10 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStr
 export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -24528,15 +24260,12 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStr
     RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -24675,9 +24404,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStr
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -24687,7 +24413,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStr
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -24697,9 +24422,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStri
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -24707,7 +24429,6 @@ export type RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStri
       | RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -24724,9 +24445,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStr
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -24734,7 +24452,6 @@ export const RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStr
       RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -26544,9 +26261,11 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -26560,16 +26279,17 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -26580,7 +26300,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -26592,9 +26311,11 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -26606,7 +26327,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -26714,12 +26434,10 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -26730,18 +26448,15 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -26750,7 +26465,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -26762,12 +26476,10 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -26776,7 +26488,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -26884,12 +26595,12 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -26900,18 +26611,17 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -26920,7 +26630,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -26932,12 +26641,12 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -26946,7 +26655,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -27054,12 +26762,12 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -27070,18 +26778,17 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -27090,7 +26797,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -27102,12 +26808,12 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -27116,7 +26822,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -27249,9 +26954,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -27262,7 +26964,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDis
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -27272,9 +26973,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -27283,7 +26981,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDisc
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -27300,9 +26997,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -27311,7 +27005,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDis
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -27442,9 +27135,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -27455,7 +27145,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDis
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -27464,9 +27153,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -27475,7 +27161,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDisc
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -27491,9 +27176,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -27502,7 +27184,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDis
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -27628,15 +27309,12 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStr
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -27652,13 +27330,10 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStr
 export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -27677,15 +27352,12 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStr
     RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -27824,9 +27496,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStr
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -27836,7 +27505,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStr
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -27846,9 +27514,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStri
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -27856,7 +27521,6 @@ export type RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStri
       | RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -27873,9 +27537,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStr
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -27883,7 +27544,6 @@ export const RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStr
       RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -29723,9 +29383,11 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -29739,16 +29401,17 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -29759,7 +29422,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -29771,9 +29433,11 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -29785,7 +29449,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -29893,12 +29556,10 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -29909,18 +29570,15 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -29929,7 +29587,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -29941,12 +29598,10 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -29955,7 +29610,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -30063,12 +29717,12 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -30079,18 +29733,17 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -30099,7 +29752,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -30111,12 +29763,12 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -30125,7 +29777,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -30233,12 +29884,12 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -30249,18 +29900,17 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -30269,7 +29919,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -30281,12 +29930,12 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -30295,7 +29944,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -30428,9 +30076,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -30441,7 +30086,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -30451,9 +30095,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -30462,7 +30103,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -30479,9 +30119,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -30490,7 +30127,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -30621,9 +30257,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -30634,7 +30267,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -30643,9 +30275,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -30654,7 +30283,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -30670,9 +30298,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -30681,7 +30306,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -30807,15 +30431,12 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDis
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -30831,13 +30452,10 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDis
 export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -30856,15 +30474,12 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDis
     RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -31003,9 +30618,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDis
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -31015,7 +30627,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDis
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -31025,9 +30636,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -31035,7 +30643,6 @@ export type RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDisc
       | RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -31052,9 +30659,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDis
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -31062,7 +30666,6 @@ export const RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDis
       RestAuthenticationOauthRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -32883,9 +32486,11 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -32899,16 +32504,17 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -32919,7 +32525,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -32931,9 +32536,11 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -32945,7 +32552,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -33053,12 +32659,10 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -33069,18 +32673,15 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -33089,7 +32690,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -33101,12 +32701,10 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -33115,7 +32713,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -33223,12 +32820,12 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -33239,18 +32836,17 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -33259,7 +32855,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -33271,12 +32866,12 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -33285,7 +32880,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -33393,12 +32987,12 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -33409,18 +33003,17 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -33429,7 +33022,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -33441,12 +33033,12 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -33455,7 +33047,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -33588,9 +33179,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -33601,7 +33189,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -33611,9 +33198,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -33622,7 +33206,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -33639,9 +33222,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -33650,7 +33230,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -33781,9 +33360,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -33794,7 +33370,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -33803,9 +33378,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -33814,7 +33386,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -33830,9 +33401,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -33841,7 +33409,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -33967,15 +33534,12 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -33991,13 +33555,10 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -34016,15 +33577,12 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -34163,9 +33721,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -34175,7 +33730,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -34185,9 +33739,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -34195,7 +33746,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscovery
       | RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -34212,9 +33762,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -34222,7 +33769,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscover
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -36127,9 +35673,11 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -36143,16 +35691,17 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -36163,7 +35712,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -36175,9 +35723,11 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -36189,7 +35739,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -36297,12 +35846,10 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -36313,18 +35860,15 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -36333,7 +35877,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -36345,12 +35888,10 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -36359,7 +35900,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -36467,12 +36007,12 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -36483,18 +36023,17 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -36503,7 +36042,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -36515,12 +36053,12 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -36529,7 +36067,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -36637,12 +36174,12 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -36653,18 +36190,17 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -36673,7 +36209,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -36685,12 +36220,12 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -36699,7 +36234,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -36832,9 +36366,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -36845,7 +36376,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -36855,9 +36385,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -36866,7 +36393,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -36883,9 +36409,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -36894,7 +36417,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -37025,9 +36547,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -37038,7 +36557,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -37047,9 +36565,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -37058,7 +36573,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -37074,9 +36588,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -37085,7 +36596,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -37211,15 +36721,12 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -37235,13 +36742,10 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
 export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -37260,15 +36764,12 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -37407,9 +36908,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -37419,7 +36917,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -37429,9 +36926,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -37439,7 +36933,6 @@ export type RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscover
       | RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -37456,9 +36949,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -37466,7 +36956,6 @@ export const RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscove
       RestAuthenticationLoginSecretGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -39430,9 +38919,11 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -39446,16 +38937,17 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -39466,7 +38958,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -39478,9 +38969,11 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -39492,7 +38985,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -39600,12 +39092,10 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -39616,18 +39106,15 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -39636,7 +39123,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -39648,12 +39134,10 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -39662,7 +39146,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -39770,12 +39253,12 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -39786,18 +39269,17 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -39806,7 +39288,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -39818,12 +39299,12 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -39832,7 +39313,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -39940,12 +39420,12 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -39956,18 +39436,17 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -39976,7 +39455,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -39988,12 +39466,12 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -40002,7 +39480,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -40135,9 +39612,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -40148,7 +39622,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -40158,9 +39631,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -40169,7 +39639,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -40186,9 +39655,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -40197,7 +39663,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -40328,9 +39793,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -40341,7 +39803,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -40350,9 +39811,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -40361,7 +39819,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -40377,9 +39834,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -40388,7 +39842,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -40514,15 +39967,12 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -40538,13 +39988,10 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
 export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -40563,15 +40010,12 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -40710,9 +40154,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -40722,7 +40163,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -40732,9 +40172,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -40742,7 +40179,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscov
       | RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -40759,9 +40195,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -40769,7 +40202,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDisco
       RestAuthenticationLoginGetAuthTokenFromHeaderTrueRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -42675,9 +42107,11 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -42691,16 +42125,17 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -42711,7 +42146,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -42723,9 +42157,11 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -42737,7 +42173,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -42845,12 +42280,10 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -42861,18 +42294,15 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -42881,7 +42311,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -42893,12 +42322,10 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -42907,7 +42334,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -43015,12 +42441,12 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -43031,18 +42457,17 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -43051,7 +42476,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -43063,12 +42487,12 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -43077,7 +42501,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -43185,12 +42608,12 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -43201,18 +42624,17 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -43221,7 +42643,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -43233,12 +42654,12 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -43247,7 +42668,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -43380,9 +42800,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -43393,7 +42810,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -43403,9 +42819,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -43414,7 +42827,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -43431,9 +42843,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -43442,7 +42851,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -43573,9 +42981,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -43586,7 +42991,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -43595,9 +42999,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -43606,7 +43007,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -43622,9 +43022,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -43633,7 +43030,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -43759,15 +43155,12 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -43783,13 +43176,10 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
 export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -43808,15 +43198,12 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -43955,9 +43342,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -43967,7 +43351,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -43977,9 +43360,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -43987,7 +43367,6 @@ export type RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisco
       | RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -44004,9 +43383,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -44014,7 +43390,6 @@ export const RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDisc
       RestAuthenticationLoginGetAuthTokenFromHeaderFalseRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -45945,9 +45320,11 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -45961,16 +45338,17 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -45981,7 +45359,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -45993,9 +45370,11 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -46007,7 +45386,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -46115,12 +45493,10 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -46131,18 +45507,15 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -46151,7 +45524,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -46163,12 +45535,10 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -46177,7 +45547,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -46285,12 +45654,12 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -46301,18 +45670,17 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -46321,7 +45689,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -46333,12 +45700,12 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -46347,7 +45714,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -46455,12 +45821,12 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -46471,18 +45837,17 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -46491,7 +45856,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -46503,12 +45867,12 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -46517,7 +45881,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -46650,9 +46013,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -46663,7 +46023,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDis
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -46673,9 +46032,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -46684,7 +46040,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDisc
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -46701,9 +46056,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -46712,7 +46064,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDis
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -46843,9 +46194,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -46856,7 +46204,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDis
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -46865,9 +46212,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -46876,7 +46220,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDisc
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -46892,9 +46235,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -46903,7 +46243,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDis
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -47029,15 +46368,12 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStr
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -47053,13 +46389,10 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStr
 export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -47078,15 +46411,12 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStr
     RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -47225,9 +46555,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStr
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -47237,7 +46564,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStr
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -47247,9 +46573,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStri
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -47257,7 +46580,6 @@ export type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStri
       | RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -47274,9 +46596,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStr
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -47284,7 +46603,6 @@ export const RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStr
       RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -49091,9 +48409,11 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -49107,16 +48427,17 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -49127,7 +48448,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -49139,9 +48459,11 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -49153,7 +48475,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodO
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -49261,12 +48582,10 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -49277,18 +48596,15 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -49297,7 +48613,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -49309,12 +48624,10 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -49323,7 +48636,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -49431,12 +48743,12 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -49447,18 +48759,17 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -49467,7 +48778,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -49479,12 +48789,12 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -49493,7 +48803,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodP
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -49601,12 +48910,12 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -49617,18 +48926,17 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -49637,7 +48945,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -49649,12 +48956,12 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -49663,7 +48970,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpDiscoverMethodG
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -49796,9 +49102,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -49809,7 +49112,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -49819,9 +49121,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -49830,7 +49129,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -49847,9 +49145,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -49858,7 +49153,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -49989,9 +49283,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -50002,7 +49293,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -50011,9 +49301,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -50022,7 +49309,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -50038,9 +49324,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -50049,7 +49332,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverC
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -50175,15 +49457,12 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDis
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -50199,13 +49478,10 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDis
 export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -50224,15 +49500,12 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDis
     RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -50371,9 +49644,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDis
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -50383,7 +49653,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDis
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -50393,9 +49662,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -50403,7 +49669,6 @@ export type RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDisc
       | RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -50420,9 +49685,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDis
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -50430,7 +49692,6 @@ export const RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDis
       RestAuthenticationBasicRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -52199,9 +51460,11 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -52215,16 +51478,17 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -52235,7 +51499,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -52247,9 +51510,11 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -52261,7 +51526,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -52369,12 +51633,10 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -52385,18 +51647,15 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -52405,7 +51664,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -52417,12 +51675,10 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -52431,7 +51687,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -52539,12 +51794,12 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -52555,18 +51810,17 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -52575,7 +51829,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -52587,12 +51840,12 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -52601,7 +51854,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -52709,12 +51961,12 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -52725,18 +51977,17 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -52745,7 +51996,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -52757,12 +52007,12 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -52771,7 +52021,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -52904,9 +52153,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -52917,7 +52163,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -52927,9 +52172,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -52938,7 +52180,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -52955,9 +52196,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -52966,7 +52204,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -53097,9 +52334,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -53110,7 +52344,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -53119,9 +52352,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -53130,7 +52360,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -53146,9 +52375,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -53157,7 +52383,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -53283,15 +52508,12 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -53307,13 +52529,10 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisc
 export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -53332,15 +52551,12 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -53479,9 +52695,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     discoverUrl: types.string(),
     discoverMethod:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -53491,7 +52704,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisc
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -53501,9 +52713,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -53511,7 +52720,6 @@ export type RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisco
       | RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -53528,9 +52736,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     discoverUrl: z.string(),
     discoverMethod:
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -53538,7 +52743,6 @@ export const RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDisc
       RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -55315,9 +54519,11 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -55331,16 +54537,17 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -55351,7 +54558,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -55363,9 +54569,11 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -55377,7 +54585,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodOt
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -55485,12 +54692,10 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -55501,18 +54706,15 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -55521,7 +54723,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -55533,12 +54734,10 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -55547,7 +54746,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -55655,12 +54853,12 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -55671,18 +54869,17 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -55691,7 +54888,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -55703,12 +54899,12 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -55717,7 +54913,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPo
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -55825,12 +55020,12 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -55841,18 +55036,17 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -55861,7 +55055,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -55873,12 +55066,12 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -55887,7 +55080,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGe
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -56020,9 +55212,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -56033,7 +55222,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -56043,9 +55231,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -56054,7 +55239,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -56071,9 +55255,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -56082,7 +55263,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -56213,9 +55393,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -56226,7 +55403,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -56235,9 +55411,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -56246,7 +55419,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -56262,9 +55434,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -56273,7 +55442,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCo
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -56399,15 +55567,12 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -56423,13 +55588,10 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisc
 export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -56448,15 +55610,12 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -56595,9 +55754,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -56607,7 +55763,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisc
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -56617,9 +55772,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -56627,7 +55779,6 @@ export type RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisco
       | RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -56644,9 +55795,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisc
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -56654,7 +55802,6 @@ export const RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDisc
       RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -58439,9 +57586,11 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -58455,16 +57604,17 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -58475,7 +57625,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -58487,9 +57636,11 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -58501,7 +57652,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -58609,12 +57759,10 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -58625,18 +57773,15 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -58645,7 +57790,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -58657,12 +57801,10 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -58671,7 +57813,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -58779,12 +57920,12 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -58795,18 +57936,17 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -58815,7 +57955,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -58827,12 +57966,12 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -58841,7 +57980,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -58949,12 +58087,12 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -58965,18 +58103,17 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -58985,7 +58122,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -58997,12 +58133,12 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -59011,7 +58147,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpDiscoverM
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -59144,9 +58279,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -59157,7 +58289,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDis
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -59167,9 +58298,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -59178,7 +58306,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDisc
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -59195,9 +58322,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -59206,7 +58330,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDis
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -59337,9 +58460,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -59350,7 +58470,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDis
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -59359,9 +58478,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDisc
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -59370,7 +58486,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDisc
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -59386,9 +58501,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDis
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -59397,7 +58509,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDis
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -59523,15 +58634,12 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStr
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -59547,13 +58655,10 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStr
 export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -59572,15 +58677,12 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStr
     RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -59719,9 +58821,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStr
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -59731,7 +58830,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStr
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -59741,9 +58839,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStri
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -59751,7 +58846,6 @@ export type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStri
       | RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -59768,9 +58862,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStr
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -59778,7 +58869,6 @@ export const RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStr
       RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -61601,9 +60691,11 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -61617,16 +60709,17 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -61637,7 +60730,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -61649,9 +60741,11 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -61663,7 +60757,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodOth
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -61771,12 +60864,10 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -61787,18 +60878,15 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -61807,7 +60895,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -61819,12 +60906,10 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -61833,7 +60918,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -61941,12 +61025,12 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -61957,18 +61041,17 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -61977,7 +61060,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -61989,12 +61071,12 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -62003,7 +61085,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodPos
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -62111,12 +61192,12 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -62127,18 +61208,17 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -62147,7 +61227,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -62159,12 +61238,12 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -62173,7 +61252,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -62306,9 +61384,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -62319,7 +61394,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -62329,9 +61403,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -62340,7 +61411,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -62357,9 +61427,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -62368,7 +61435,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -62499,9 +61565,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -62512,7 +61575,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -62521,9 +61583,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -62532,7 +61591,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -62548,9 +61606,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -62559,7 +61614,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCod
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -62685,15 +61739,12 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -62709,13 +61760,10 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
 export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -62734,15 +61782,12 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -62881,9 +61926,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -62893,7 +61935,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -62903,9 +61944,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -62913,7 +61951,6 @@ export type RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
       | RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -62930,9 +61967,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -62940,7 +61974,6 @@ export const RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDisco
       RestCollectMethodPostRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -64723,9 +63756,11 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
     unknown
   > = z.object({
     discoverMethod: types.literal("other"),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
+    discoverVerb: types.string(),
+    discoverBody: types.optional(types.string()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$inboundSchema,
     discoverUrl: types.string(),
@@ -64739,16 +63774,17 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther$Outbound =
   {
     discoverMethod: "other";
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
-    discoverRequestParams?: any | undefined;
+    discoverVerb: string;
+    discoverBody?: string | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
     discoverRequestHeaders?:
@@ -64759,7 +63795,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -64771,9 +63806,11 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOther
   > = z.object({
     discoverMethod: z.literal("other"),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
+    discoverVerb: z.string(),
+    discoverBody: z.string().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOtherDiscoverType$outboundSchema,
     discoverUrl: z.string(),
@@ -64785,7 +63822,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodOthe
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -64893,12 +63929,10 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     unknown
   > = z.object({
     discoverMethod: types.literal("post_with_body"),
-    discoverBody: types.optional(z.any()),
+    discoverBody: types.string(),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -64909,18 +63943,15 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody$Outbound =
   {
     discoverMethod: "post_with_body";
-    discoverBody?: any | undefined;
+    discoverBody: string;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -64929,7 +63960,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostW
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -64941,12 +63971,10 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody
   > = z.object({
     discoverMethod: z.literal("post_with_body"),
-    discoverBody: z.any().optional(),
+    discoverBody: z.string(),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBodyDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -64955,7 +63983,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -65063,12 +64090,12 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     unknown
   > = z.object({
     discoverMethod: types.literal("post"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -65079,18 +64106,17 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$Outbound =
   {
     discoverMethod: "post";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -65099,7 +64125,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost$
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -65111,12 +64136,12 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
   > = z.object({
     discoverMethod: z.literal("post"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPostDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -65125,7 +64150,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodPost
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -65233,12 +64257,12 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$
     unknown
   > = z.object({
     discoverMethod: types.literal("get"),
-    discoverRequestParams: types.optional(z.any()),
+    discoverRequestParams: types.optional(
+      z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
+    ),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$inboundSchema,
     discoverUrl: types.string(),
-    discoverVerb: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -65249,18 +64273,17 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$Outbound =
   {
     discoverMethod: "get";
-    discoverRequestParams?: any | undefined;
+    discoverRequestParams?:
+      | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
+      | undefined;
     discoverType: string;
     discoverUrl: string;
-    discoverVerb?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -65269,7 +64292,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$O
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -65281,12 +64303,12 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet
   > = z.object({
     discoverMethod: z.literal("get"),
-    discoverRequestParams: z.any().optional(),
+    discoverRequestParams: z.array(
+      ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
+    ).optional(),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGetDiscoverType$outboundSchema,
     discoverUrl: z.string(),
-    discoverVerb: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -65295,7 +64317,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpDiscoverMethodGet$
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
@@ -65428,9 +64449,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -65441,7 +64459,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrue$Outbound =
@@ -65451,9 +64468,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeT
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -65462,7 +64476,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeT
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -65479,9 +64492,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -65490,7 +64500,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeTrueToJSON(
@@ -65621,9 +64630,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -65634,7 +64640,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     ),
     discoverDataField: types.optional(types.string()),
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
   });
 /** @internal */
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalse$Outbound =
@@ -65643,9 +64648,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeF
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -65654,7 +64656,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeF
       | undefined;
     discoverDataField?: string | undefined;
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
   };
 
 /** @internal */
@@ -65670,9 +64671,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -65681,7 +64679,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCode
     ).optional(),
     discoverDataField: z.string().optional(),
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
   });
 
 export function restCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableDiscoverCodeFalseToJSON(
@@ -65807,15 +64804,12 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
     unknown
   > = z.object({
     enableStrictDiscoverParsing: types.optional(types.boolean()),
-    discoverResponseFormat: types.optional(z.any()),
+    discoverResponseFormat: types.string(),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$inboundSchema,
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -65831,13 +64825,10 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
 export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue$Outbound =
   {
     enableStrictDiscoverParsing?: boolean | undefined;
-    discoverResponseFormat?: any | undefined;
+    discoverResponseFormat: string;
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -65856,15 +64847,12 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
     RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrue
   > = z.object({
     enableStrictDiscoverParsing: z.boolean().optional(),
-    discoverResponseFormat: z.any().optional(),
+    discoverResponseFormat: z.string(),
     discoverType:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverType$outboundSchema,
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingTrueDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -66003,9 +64991,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
     discoverUrl: types.string(),
     discoverMethod:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$inboundSchema,
-    discoverVerb: types.optional(z.any()),
-    discoverRequestParams: types.optional(z.any()),
-    discoverBody: types.optional(z.any()),
     discoverRequestHeaders: types.optional(
       z.array(ItemsTypeRestCollectMethodGetCollectRequestParams$inboundSchema),
     ),
@@ -66015,7 +65000,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
       ),
     ),
     discoverDataField: types.optional(types.string()),
-    discoverResponseFormat: types.optional(z.any()),
     enableDiscoverCode: types.optional(types.boolean()),
   });
 /** @internal */
@@ -66025,9 +65009,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscove
     discoverType: string;
     discoverUrl: string;
     discoverMethod: string;
-    discoverVerb?: any | undefined;
-    discoverRequestParams?: any | undefined;
-    discoverBody?: any | undefined;
     discoverRequestHeaders?:
       | Array<ItemsTypeRestCollectMethodGetCollectRequestParams$Outbound>
       | undefined;
@@ -66035,7 +65016,6 @@ export type RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscove
       | RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$Outbound
       | undefined;
     discoverDataField?: string | undefined;
-    discoverResponseFormat?: any | undefined;
     enableDiscoverCode?: boolean | undefined;
   };
 
@@ -66052,9 +65032,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
     discoverUrl: z.string(),
     discoverMethod:
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalseDiscoverMethod$outboundSchema,
-    discoverVerb: z.any().optional(),
-    discoverRequestParams: z.any().optional(),
-    discoverBody: z.any().optional(),
     discoverRequestHeaders: z.array(
       ItemsTypeRestCollectMethodGetCollectRequestParams$outboundSchema,
     ).optional(),
@@ -66062,7 +65039,6 @@ export const RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscov
       RestCollectMethodGetRestDiscoveryDiscoverTypeHttpEnableStrictDiscoverParsingFalsePagination$outboundSchema
     ).optional(),
     discoverDataField: z.string().optional(),
-    discoverResponseFormat: z.any().optional(),
     enableDiscoverCode: z.boolean().optional(),
   });
 
