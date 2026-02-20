@@ -25,6 +25,7 @@ export type DatabaseConnectionConfig = {
   password?: string | undefined;
   requestTimeout?: number | undefined;
   tags?: string | undefined;
+  textSecret?: string | undefined;
   user?: string | undefined;
 };
 
@@ -45,6 +46,7 @@ export const DatabaseConnectionConfig$inboundSchema: z.ZodType<
   password: types.optional(types.string()),
   requestTimeout: types.optional(types.number()),
   tags: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
   user: types.optional(types.string()),
 });
 /** @internal */
@@ -60,6 +62,7 @@ export type DatabaseConnectionConfig$Outbound = {
   password?: string | undefined;
   requestTimeout?: number | undefined;
   tags?: string | undefined;
+  textSecret?: string | undefined;
   user?: string | undefined;
 };
 
@@ -80,6 +83,7 @@ export const DatabaseConnectionConfig$outboundSchema: z.ZodType<
   password: z.string().optional(),
   requestTimeout: z.number().optional(),
   tags: z.string().optional(),
+  textSecret: z.string().optional(),
   user: z.string().optional(),
 });
 
