@@ -148,7 +148,6 @@ export type InputSplunkHec = {
    * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
    */
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   /**
    * Messages from matched IP addresses will be processed, unless also matched by the denylist
    */
@@ -321,7 +320,6 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
   keepAliveTimeout: types.optional(types.number()),
-  enableHealthCheck: types.optional(z.any()),
   ipAllowlistRegex: types.optional(types.string()),
   ipDenylistRegex: types.optional(types.string()),
   splunkHecAPI: types.string(),
@@ -365,7 +363,6 @@ export type InputSplunkHec$Outbound = {
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   splunkHecAPI: string;
@@ -415,7 +412,6 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   requestTimeout: z.number().optional(),
   socketTimeout: z.number().optional(),
   keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.any().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   splunkHecAPI: z.string(),

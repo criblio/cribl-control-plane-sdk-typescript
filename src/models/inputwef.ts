@@ -101,8 +101,6 @@ export type MTLSSettings = {
    * Enable OCSP check of certificate
    */
   ocspCheck?: boolean | undefined;
-  keytab?: any | undefined;
-  principal?: any | undefined;
   /**
    * If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
    */
@@ -343,8 +341,6 @@ export const MTLSSettings$inboundSchema: z.ZodType<
     MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
   ),
   ocspCheck: types.optional(types.boolean()),
-  keytab: types.optional(z.any()),
-  principal: types.optional(z.any()),
   ocspCheckFailClose: types.optional(types.boolean()),
 });
 /** @internal */
@@ -361,8 +357,6 @@ export type MTLSSettings$Outbound = {
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
   ocspCheck?: boolean | undefined;
-  keytab?: any | undefined;
-  principal?: any | undefined;
   ocspCheckFailClose?: boolean | undefined;
 };
 
@@ -386,8 +380,6 @@ export const MTLSSettings$outboundSchema: z.ZodType<
   maxVersion: MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
     .optional(),
   ocspCheck: z.boolean().optional(),
-  keytab: z.any().optional(),
-  principal: z.any().optional(),
   ocspCheckFailClose: z.boolean().optional(),
 });
 

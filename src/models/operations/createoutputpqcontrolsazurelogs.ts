@@ -68,7 +68,6 @@ export type CreateOutputOutputCloudflareR2 = {
    * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
    */
   awsSecretKey?: string | undefined;
-  region?: any | undefined;
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
    */
@@ -85,7 +84,6 @@ export type CreateOutputOutputCloudflareR2 = {
    * Signature version to use for signing MinIO requests
    */
   signatureVersion?: models.SignatureVersionOptions5 | undefined;
-  objectACL?: any | undefined;
   /**
    * Storage class to select for uploaded objects
    */
@@ -1619,7 +1617,6 @@ export type CreateOutputAuthenticationMethodXsiam = OpenEnum<
 >;
 
 export type CreateOutputUrlXsiam = {
-  url?: any | undefined;
   /**
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
@@ -9857,12 +9854,10 @@ export type CreateOutputOutputCloudflareR2$Outbound = {
   bucket: string;
   awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
-  region?: any | undefined;
   stagePath: string;
   addIdToStagePath?: boolean | undefined;
   destPath?: string | undefined;
   signatureVersion?: string | undefined;
-  objectACL?: any | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
   reuseConnections?: boolean | undefined;
@@ -9927,12 +9922,10 @@ export const CreateOutputOutputCloudflareR2$outboundSchema: z.ZodType<
   awsAuthenticationMethod:
     CreateOutputAuthenticationMethodCloudflareR2$outboundSchema.optional(),
   awsSecretKey: z.string().optional(),
-  region: z.any().optional(),
   stagePath: z.string(),
   addIdToStagePath: z.boolean().optional(),
   destPath: z.string().optional(),
   signatureVersion: models.SignatureVersionOptions5$outboundSchema.optional(),
-  objectACL: z.any().optional(),
   storageClass: models.StorageClassOptions2$outboundSchema.optional(),
   serverSideEncryption: models.ServerSideEncryptionOptions$outboundSchema
     .optional(),
@@ -11064,7 +11057,6 @@ export const CreateOutputAuthenticationMethodXsiam$outboundSchema: z.ZodType<
 
 /** @internal */
 export type CreateOutputUrlXsiam$Outbound = {
-  url?: any | undefined;
   weight?: number | undefined;
 };
 
@@ -11074,7 +11066,6 @@ export const CreateOutputUrlXsiam$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateOutputUrlXsiam
 > = z.object({
-  url: z.any().optional(),
   weight: z.number().optional(),
 });
 

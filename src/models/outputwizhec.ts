@@ -86,7 +86,6 @@ export type OutputWizHec = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  loadBalanced?: any | undefined;
   /**
    * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
    */
@@ -140,7 +139,6 @@ export type OutputWizHec = {
    * List of headers that are safe to log in plain text
    */
   safeHeaders?: Array<string> | undefined;
-  enableMultiMetrics?: any | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -280,7 +278,6 @@ export const OutputWizHec$inboundSchema: z.ZodType<
   systemFields: types.optional(z.array(types.string())),
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
-  loadBalanced: types.optional(z.any()),
   nextQueue: types.optional(types.string()),
   tcpRouting: types.optional(types.string()),
   tls: types.optional(TlsSettingsClientSideType1$inboundSchema),
@@ -298,7 +295,6 @@ export const OutputWizHec$inboundSchema: z.ZodType<
     FailedRequestLoggingModeOptions$inboundSchema,
   ),
   safeHeaders: types.optional(z.array(types.string())),
-  enableMultiMetrics: types.optional(z.any()),
   authType: types.optional(
     AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
   ),
@@ -340,7 +336,6 @@ export type OutputWizHec$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced?: any | undefined;
   nextQueue?: string | undefined;
   tcpRouting?: string | undefined;
   tls?: TlsSettingsClientSideType1$Outbound | undefined;
@@ -354,7 +349,6 @@ export type OutputWizHec$Outbound = {
   extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  enableMultiMetrics?: any | undefined;
   authType?: string | undefined;
   responseRetrySettings?:
     | Array<ItemsTypeResponseRetrySettings$Outbound>
@@ -397,7 +391,6 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.any().optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
   tls: TlsSettingsClientSideType1$outboundSchema.optional(),
@@ -413,7 +406,6 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .optional(),
   safeHeaders: z.array(z.string()).optional(),
-  enableMultiMetrics: z.any().optional(),
   authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
