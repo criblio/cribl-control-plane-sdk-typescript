@@ -9,11 +9,6 @@ let value: EventstatsConfiguration = {
   aggregations: [
     "<value 1>",
   ],
-  groupBys: [
-    "<value 1>",
-  ],
-  maxEvents: 5681.09,
-  flushOnInputClose: false,
 };
 ```
 

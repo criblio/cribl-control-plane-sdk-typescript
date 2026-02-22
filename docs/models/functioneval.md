@@ -7,21 +7,15 @@ import { FunctionEval } from "cribl-control-plane/models";
 
 let value: FunctionEval = {
   __filename: "example.file",
-  asyncTimeout: 5706.24,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "eval",
-  loadTime: 7444.44,
-  modTime: 1602.52,
+  loadTime: 5706.24,
+  modTime: 5087.4,
   name: "<value>",
-  sync: false,
-  uischema: {},
-  version: "<value>",
-  schema: {
+  uischema: {
     "key": "<value>",
   },
+  version: "<value>",
 };
 ```
 

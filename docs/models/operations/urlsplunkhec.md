@@ -7,7 +7,6 @@ import { UrlSplunkHec } from "cribl-control-plane/models/operations";
 
 let value: UrlSplunkHec = {
   url: "https://stunning-retention.net",
-  weight: 6446.55,
 };
 ```
 

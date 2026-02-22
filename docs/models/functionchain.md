@@ -7,25 +7,15 @@ import { FunctionChain } from "cribl-control-plane/models";
 
 let value: FunctionChain = {
   __filename: "example.file",
-  asyncTimeout: 7137.72,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "chain",
-  loadTime: 5516.27,
-  modTime: 8422.73,
+  loadTime: 7137.72,
+  modTime: 7341.94,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
-  },
 };
 ```
 

@@ -5,13 +5,7 @@
 ```typescript
 import { ContentConfigOffice365Service } from "cribl-control-plane/models/operations";
 
-let value: ContentConfigOffice365Service = {
-  contentType: "<value>",
-  description: "far disbar enchanting stint",
-  interval: 4257.52,
-  logLevel: "error",
-  enabled: true,
-};
+let value: ContentConfigOffice365Service = {};
 ```
 
 ## Fields

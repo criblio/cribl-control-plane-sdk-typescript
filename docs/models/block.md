@@ -16,7 +16,6 @@ let value: Block = {
   ],
   newStartLine: 1288.5,
   oldStartLine: 3290.46,
-  oldStartLine2: 2532.35,
 };
 ```
 

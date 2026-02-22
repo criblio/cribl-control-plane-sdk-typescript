@@ -8,68 +8,7 @@ import { OutputSignalfx } from "cribl-control-plane/models/operations";
 let value: OutputSignalfx = {
   id: "<id>",
   type: "signalfx",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  authType: "manual",
   realm: "<value>",
-  concurrency: 6539.74,
-  maxPayloadSizeKB: 9071.62,
-  maxPayloadEvents: 6807.05,
-  compress: true,
-  rejectUnauthorized: false,
-  timeoutSec: 4806.54,
-  flushPeriodSec: 7501.89,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "payload",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "drop",
-  description: "furthermore concerning phew for including pricey commonly geez",
-  token: "<value>",
-  textSecret: "<value>",
-  pqStrictOrdering: true,
-  pqRatePerSec: 4985.23,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 9428.28,
-  pqMaxBackpressureSec: 5519.56,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "block",
-  pqControls: {},
 };
 ```
 

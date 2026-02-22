@@ -7,14 +7,6 @@ import { RestAuthenticationHmacRestRetryRulesTypeNone } from "cribl-control-plan
 
 let value: RestAuthenticationHmacRestRetryRulesTypeNone = {
   type: "none",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  maxIntervalMs: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
-  retryConnectTimeout: "<value>",
-  retryConnectReset: "<value>",
 };
 ```
 

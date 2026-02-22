@@ -7,25 +7,6 @@ import { PipelineFunctionLookupConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionLookupConf = {
   file: "<value>",
-  dbLookup: true,
-  matchMode: "<value>",
-  matchType: "<value>",
-  reloadPeriodSec: "<value>",
-  inFields: [
-    {
-      eventField: "<value>",
-      lookupField: "<value>",
-    },
-  ],
-  outFields: [
-    {
-      lookupField: "<value>",
-      eventField: "<value>",
-      defaultValue: "<value>",
-    },
-  ],
-  addToEvent: true,
-  ignoreCase: "<value>",
 };
 ```
 

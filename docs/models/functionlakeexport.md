@@ -7,22 +7,15 @@ import { FunctionLakeExport } from "cribl-control-plane/models";
 
 let value: FunctionLakeExport = {
   __filename: "example.file",
-  asyncTimeout: 1375.34,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "lake_export",
-  loadTime: 9866.68,
-  modTime: 2804.33,
+  loadTime: 1375.34,
+  modTime: 3131.91,
   name: "<value>",
-  sync: true,
-  uischema: {},
-  version: "<value>",
-  schema: {
+  uischema: {
     "key": "<value>",
-    "key1": "<value>",
   },
+  version: "<value>",
 };
 ```
 

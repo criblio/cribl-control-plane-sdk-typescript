@@ -5,15 +5,7 @@
 ```typescript
 import { NetworkWindowsMetrics } from "cribl-control-plane/models/operations";
 
-let value: NetworkWindowsMetrics = {
-  mode: "basic",
-  detail: false,
-  protocols: true,
-  devices: [
-    "<value 1>",
-  ],
-  perInterface: true,
-};
+let value: NetworkWindowsMetrics = {};
 ```
 
 ## Fields

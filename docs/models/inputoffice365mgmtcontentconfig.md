@@ -5,13 +5,7 @@
 ```typescript
 import { InputOffice365MgmtContentConfig } from "cribl-control-plane/models";
 
-let value: InputOffice365MgmtContentConfig = {
-  contentType: "<value>",
-  description: "intend fussy phew upon",
-  interval: 3563.35,
-  logLevel: "debug",
-  enabled: false,
-};
+let value: InputOffice365MgmtContentConfig = {};
 ```
 
 ## Fields

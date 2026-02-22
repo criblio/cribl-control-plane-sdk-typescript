@@ -8,85 +8,8 @@ import { OutputElasticCloud } from "cribl-control-plane/models/operations";
 let value: OutputElasticCloud = {
   id: "<id>",
   type: "elastic_cloud",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  url: "https://palatable-season.biz/",
+  url: "https://sweet-analogy.name",
   index: "<value>",
-  concurrency: 1238.65,
-  maxPayloadSizeKB: 615.44,
-  maxPayloadEvents: 6695.34,
-  compress: true,
-  rejectUnauthorized: true,
-  timeoutSec: 5286.36,
-  flushPeriodSec: 1941.62,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  extraParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  auth: {
-    disabled: false,
-    username: "Mckayla_Brown",
-    password: "zmUAKCdYqdY6aTZ",
-    authType: "secret",
-    credentialsSecret: "<value>",
-    manualAPIKey: "<value>",
-    textSecret: "<value>",
-  },
-  elasticPipeline: "<value>",
-  includeDocId: false,
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "block",
-  description:
-    "over supposing mmm consequently above boohoo pry amidst nautical yuck",
-  pqStrictOrdering: true,
-  pqRatePerSec: 2719.4,
-  pqMode: "error",
-  pqMaxBufferSize: 4192.47,
-  pqMaxBackpressureSec: 5517.55,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 

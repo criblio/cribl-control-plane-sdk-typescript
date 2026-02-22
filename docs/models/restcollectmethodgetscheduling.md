@@ -5,11 +5,7 @@
 ```typescript
 import { RestCollectMethodGetScheduling } from "cribl-control-plane/models";
 
-let value: RestCollectMethodGetScheduling = {
-  stateTracking: {
-    enabled: false,
-  },
-};
+let value: RestCollectMethodGetScheduling = {};
 ```
 
 ## Fields

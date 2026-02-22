@@ -5,9 +5,7 @@
 ```typescript
 import { GetSummaryRequest } from "cribl-control-plane/models/operations";
 
-let value: GetSummaryRequest = {
-  mode: "worker",
-};
+let value: GetSummaryRequest = {};
 ```
 
 ## Fields

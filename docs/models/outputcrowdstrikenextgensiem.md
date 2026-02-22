@@ -6,69 +6,9 @@
 import { OutputCrowdstrikeNextGenSiem } from "cribl-control-plane/models";
 
 let value: OutputCrowdstrikeNextGenSiem = {
-  id: "<id>",
   type: "crowdstrike_next_gen_siem",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  url: "https://gorgeous-knickers.biz/",
-  concurrency: 9668.12,
-  maxPayloadSizeKB: 3585.6,
-  maxPayloadEvents: 5080.38,
-  compress: false,
-  rejectUnauthorized: false,
-  timeoutSec: 7369.43,
-  flushPeriodSec: 6689.64,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: false,
-  failedRequestLoggingMode: "payload",
-  safeHeaders: [
-    "<value 1>",
-  ],
+  url: "https://shabby-hornet.biz/",
   format: "raw",
-  authType: "manual",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "drop",
-  description: "triumphantly ack garrote grubby given lawmaker indeed",
-  token: "<value>",
-  textSecret: "<value>",
-  pqStrictOrdering: true,
-  pqRatePerSec: 5633.02,
-  pqMode: "error",
-  pqMaxBufferSize: 7254.13,
-  pqMaxBackpressureSec: 4879.69,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "block",
-  pqControls: {},
 };
 ```
 

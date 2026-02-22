@@ -7,53 +7,8 @@ import { RestCollectMethodGet } from "cribl-control-plane/models";
 
 let value: RestCollectMethodGet = {
   collectMethod: "post",
-  collectRequestParams: "<value>",
-  discovery: {
-    discoverType: "none",
-  },
-  collectUrl: "https://uncomfortable-napkin.net",
-  collectVerb: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "response_header_link",
-    nextRelationAttribute: "<value>",
-    curRelationAttribute: "<value>",
-    maxPages: 8754.14,
-  },
-  authentication: "none",
-  timeout: 220.4,
-  useRoundRobinDns: false,
-  disableTimeFilter: false,
-  decodeUrl: true,
-  rejectUnauthorized: true,
-  captureHeaders: true,
-  stopOnEmptyResults: true,
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: false,
-    },
-  },
+  collectUrl: "https://phony-siege.com/",
+  authentication: "login",
 };
 ```
 

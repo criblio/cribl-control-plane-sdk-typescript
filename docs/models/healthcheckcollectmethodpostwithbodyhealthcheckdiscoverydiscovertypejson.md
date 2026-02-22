@@ -9,7 +9,6 @@ let value:
   HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJson = {
     discoverType: "json",
     manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
   };
 ```
 

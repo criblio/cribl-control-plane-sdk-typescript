@@ -6,13 +6,8 @@
 import { PipelineFunctionLocalSearchDatatypeParser } from "cribl-control-plane/models";
 
 let value: PipelineFunctionLocalSearchDatatypeParser = {
-  filter: "<value>",
   id: "local_search_datatype_parser",
-  description: "ligate ick each fowl boss hopelessly yuck",
-  disabled: false,
-  final: true,
   conf: {},
-  groupId: "<id>",
 };
 ```
 

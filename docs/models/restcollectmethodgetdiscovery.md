@@ -11,21 +11,6 @@ const value: models.RestCollectMethodGetRestDiscoveryDiscoverTypeHttp = {
   discoverBody: "<value>",
   discoverType: "http",
   discoverUrl: "https://agreeable-t-shirt.biz/",
-  discoverVerb: "<value>",
-  discoverRequestParams: "<value>",
-  discoverRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "<value>",
-  },
-  discoverDataField: "<value>",
-  enableStrictDiscoverParsing: false,
-  discoverResponseFormat: "<value>",
-  enableDiscoverCode: true,
 };
 ```
 
@@ -35,7 +20,6 @@ const value: models.RestCollectMethodGetRestDiscoveryDiscoverTypeHttp = {
 const value: models.RestCollectMethodGetRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

@@ -7,11 +7,6 @@ import { PreprocessTypeSavedJobCollectionInput } from "cribl-control-plane/model
 
 let value: PreprocessTypeSavedJobCollectionInput = {
   disabled: true,
-  command: "<value>",
-  args: [
-    "<value 1>",
-    "<value 2>",
-  ],
 };
 ```
 

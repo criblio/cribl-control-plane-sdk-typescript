@@ -8,44 +8,8 @@ import { InputRawUdp } from "cribl-control-plane/models/operations";
 let value: InputRawUdp = {
   id: "<id>",
   type: "raw_udp",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "neighboring-overheard.biz",
-  port: 6658.22,
-  maxBufferSize: 6427.1,
-  ipWhitelistRegex: "<value>",
-  singleMsgUdpPackets: true,
-  ingestRawBytes: false,
-  udpSocketRxBufSize: 6926.76,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "wearily around so",
+  host: "untidy-insolence.org",
+  port: 3097.17,
 };
 ```
 

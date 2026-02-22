@@ -9,23 +9,8 @@ let value:
   RestAuthenticationNoneRestDiscoveryDiscoverTypeHttpDiscoverMethodOther = {
     discoverMethod: "other",
     discoverVerb: "<value>",
-    discoverBody: "<value>",
-    discoverRequestParams: "<value>",
     discoverType: "list",
     discoverUrl: "https://golden-whale.com",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: true,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: true,
   };
 ```
 

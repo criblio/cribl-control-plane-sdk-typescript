@@ -9,17 +9,8 @@
 const value:
   models.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHttp = {
     discoverMethod: "post_with_body",
-    discoverBody: "<value>",
     discoverType: "list",
     discoverUrl: "https://inferior-pecan.org",
-    discoverRequestParams: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    discoverDataField: "<value>",
   };
 ```
 
@@ -30,7 +21,6 @@ const value:
   models.HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson = {
     discoverType: "json",
     manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
   };
 ```
 

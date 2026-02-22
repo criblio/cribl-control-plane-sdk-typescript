@@ -5,12 +5,7 @@
 ```typescript
 import { CpuWindowsMetrics } from "cribl-control-plane/models/operations";
 
-let value: CpuWindowsMetrics = {
-  mode: "all",
-  perCpu: true,
-  detail: true,
-  time: false,
-};
+let value: CpuWindowsMetrics = {};
 ```
 
 ## Fields

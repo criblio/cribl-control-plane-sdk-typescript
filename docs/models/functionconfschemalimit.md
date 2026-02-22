@@ -5,9 +5,7 @@
 ```typescript
 import { FunctionConfSchemaLimit } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaLimit = {
-  limit: 334895,
-};
+let value: FunctionConfSchemaLimit = {};
 ```
 
 ## Fields

@@ -6,39 +6,15 @@
 import { PipelineFunctionSensitiveDataScanner } from "cribl-control-plane/models";
 
 let value: PipelineFunctionSensitiveDataScanner = {
-  filter: "<value>",
   id: "sensitive_data_scanner",
-  description:
-    "mmm unwieldy honestly fraudster treasure cautious round however",
-  disabled: false,
-  final: true,
   conf: {
     rules: [
       {
         rulesetId: "<id>",
         replaceExpr: "<value>",
-        disabled: false,
       },
     ],
-    fields: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    excludeFields: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    flags: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    includeDetectedRules: false,
-    backgroundDetection: false,
   },
-  groupId: "<id>",
 };
 ```
 

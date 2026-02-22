@@ -7,7 +7,6 @@ import { ExtraLogType } from "cribl-control-plane/models/operations";
 
 let value: ExtraLogType = {
   logType: "<value>",
-  description: "settler where ugh when broadly fashion like damp and abnegate",
 };
 ```
 

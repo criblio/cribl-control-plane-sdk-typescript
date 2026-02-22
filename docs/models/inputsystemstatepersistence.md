@@ -5,14 +5,7 @@
 ```typescript
 import { InputSystemStatePersistence } from "cribl-control-plane/models";
 
-let value: InputSystemStatePersistence = {
-  enable: false,
-  timeWindow: "<value>",
-  maxDataSize: "<value>",
-  maxDataTime: "<value>",
-  compress: "none",
-  destPath: "<value>",
-};
+let value: InputSystemStatePersistence = {};
 ```
 
 ## Fields

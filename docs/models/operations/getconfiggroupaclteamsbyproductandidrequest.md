@@ -8,7 +8,6 @@ import { GetConfigGroupAclTeamsByProductAndIdRequest } from "cribl-control-plane
 let value: GetConfigGroupAclTeamsByProductAndIdRequest = {
   product: "stream",
   id: "<id>",
-  type: "dashboards",
 };
 ```
 

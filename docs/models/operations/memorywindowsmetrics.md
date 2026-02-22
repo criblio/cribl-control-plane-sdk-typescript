@@ -5,10 +5,7 @@
 ```typescript
 import { MemoryWindowsMetrics } from "cribl-control-plane/models/operations";
 
-let value: MemoryWindowsMetrics = {
-  mode: "custom",
-  detail: false,
-};
+let value: MemoryWindowsMetrics = {};
 ```
 
 ## Fields

@@ -8,17 +8,12 @@ import { OutputRouter } from "cribl-control-plane/models/operations";
 let value: OutputRouter = {
   id: "<id>",
   type: "router",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
+  rules: [
+    {
+      filter: "<value>",
+      output: "<value>",
+    },
   ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  rules: [],
-  description: "fortunately incline gadzooks",
 };
 ```
 

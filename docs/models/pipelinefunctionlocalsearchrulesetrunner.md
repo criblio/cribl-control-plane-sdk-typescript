@@ -6,18 +6,8 @@
 import { PipelineFunctionLocalSearchRulesetRunner } from "cribl-control-plane/models";
 
 let value: PipelineFunctionLocalSearchRulesetRunner = {
-  filter: "<value>",
   id: "local_search_ruleset_runner",
-  description: "from airmail down",
-  disabled: true,
-  final: true,
-  conf: {
-    rulesetType: "dataset",
-    rulesetId: "<id>",
-    ruleset: {},
-    markAndIncludeDroppedEvents: true,
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 

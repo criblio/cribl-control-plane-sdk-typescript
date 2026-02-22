@@ -8,62 +8,7 @@ import { InputAzureBlob } from "cribl-control-plane/models/operations";
 let value: InputAzureBlob = {
   id: "<id>",
   type: "azure_blob",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   queueName: "<value>",
-  fileFilter: "<value>",
-  visibilityTimeout: 668.73,
-  numReceivers: 8084.51,
-  maxMessages: 6142.34,
-  servicePeriodSecs: 1655.47,
-  skipOnError: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 7468.6,
-  parquetChunkSizeMB: 4637.82,
-  parquetChunkDownloadTimeout: 9629.28,
-  authType: "manual",
-  description: "disapprove cinch dowse until unusual interior rout helpfully",
-  connectionString: "<value>",
-  textSecret: "<value>",
-  storageAccountName: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  azureCloud: "<value>",
-  endpointSuffix: "<value>",
-  clientTextSecret: "<value>",
-  certificate: {
-    certificateName: "<value>",
-  },
 };
 ```
 

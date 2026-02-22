@@ -6,97 +6,9 @@
 import { InputCriblLakeHttp } from "cribl-control-plane/models";
 
 let value: InputCriblLakeHttp = {
-  id: "<id>",
   type: "cribl_lake_http",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "evil-possession.biz",
-  port: 6193.35,
-  authTokens: [
-    "<value 1>",
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 1430.96,
-  maxRequestsPerSocket: 79286,
-  enableProxyHeader: true,
-  captureHeaders: false,
-  activityLogSampleRate: 1022.19,
-  requestTimeout: 4284.7,
-  socketTimeout: 5461.22,
-  keepAliveTimeout: 2557.07,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  criblAPI: "<value>",
-  elasticAPI: "<value>",
-  splunkHecAPI: "<value>",
-  splunkHecAcks: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "angrily yearningly ferociously vet trusting yum catch",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      splunkHecMetadata: {
-        enabled: true,
-        defaultDataset: "<value>",
-        allowedIndexesAtToken: [
-          "<value 1>",
-        ],
-      },
-      elasticsearchMetadata: {
-        enabled: true,
-        defaultDataset: "<value>",
-      },
-    },
-  ],
-  description: "cute adult obediently consequently westernise",
+  host: "grimy-hundred.com",
+  port: 7454.32,
 };
 ```
 

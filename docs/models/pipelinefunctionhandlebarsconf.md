@@ -7,9 +7,6 @@ import { PipelineFunctionHandlebarsConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionHandlebarsConf = {
   templates: [],
-  targetField: "<value>",
-  parseJson: false,
-  removeOnNull: true,
 };
 ```
 

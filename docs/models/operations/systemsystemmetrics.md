@@ -5,10 +5,7 @@
 ```typescript
 import { SystemSystemMetrics } from "cribl-control-plane/models/operations";
 
-let value: SystemSystemMetrics = {
-  mode: "disabled",
-  processes: false,
-};
+let value: SystemSystemMetrics = {};
 ```
 
 ## Fields

@@ -7,23 +7,13 @@ import { FunctionSensitiveDataScanner } from "cribl-control-plane/models";
 
 let value: FunctionSensitiveDataScanner = {
   __filename: "example.file",
-  asyncTimeout: 3199.53,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "sensitive_data_scanner",
-  loadTime: 6113.55,
-  modTime: 8518.62,
+  loadTime: 3199.53,
+  modTime: 6358.49,
   name: "<value>",
-  sync: true,
-  uischema: {
-    "key": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 
