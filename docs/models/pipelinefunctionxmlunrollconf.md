@@ -7,9 +7,6 @@ import { PipelineFunctionXmlUnrollConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionXmlUnrollConf = {
   unroll: "<value>",
-  inherit: "<value>",
-  unrollIdxField: "<value>",
-  pretty: true,
 };
 ```
 

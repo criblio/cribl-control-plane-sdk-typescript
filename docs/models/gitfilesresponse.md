@@ -6,11 +6,7 @@
 import { GitFilesResponse } from "cribl-control-plane/models";
 
 let value: GitFilesResponse = {
-  commitMessage: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
-  count: 3433.89,
+  count: 4560.07,
   items: [],
 };
 ```

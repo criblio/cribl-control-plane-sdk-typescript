@@ -170,9 +170,9 @@ run();
 
 Update a Route in the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body. This endpoint does not support partial updates. Cribl removes any omitted Routes and fields when updating.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
 
-### Example Usage
+### Example Usage: RoutesUpdateExamplesBasicRoute
 
-<!-- UsageSnippet language="typescript" operationID="updateRoutesById" method="patch" path="/routes/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="RoutesUpdateExamplesBasicRoute" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -192,26 +192,10 @@ async function run() {
         {
           id: "default",
           name: "my-route",
-          disabled: true,
           filter: "source == \"access.log\"",
           pipeline: "main",
-          enableOutputExpression: false,
-          output: "<value>",
-          outputExpression: "<value>",
           description: "Route access logs to main pipeline",
           final: true,
-        },
-      ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "drat yet spectacles ha",
-          disabled: false,
-        },
-      },
-      comments: [
-        {
-          comment: "The Football Is Good For Training And Recreational Purposes",
         },
       ],
     },
@@ -249,26 +233,232 @@ async function run() {
         {
           id: "default",
           name: "my-route",
-          disabled: true,
           filter: "source == \"access.log\"",
           pipeline: "main",
-          enableOutputExpression: false,
-          output: "<value>",
-          outputExpression: "<value>",
           description: "Route access logs to main pipeline",
           final: true,
         },
       ],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "drat yet spectacles ha",
-          disabled: false,
-        },
-      },
-      comments: [
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("routesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: RoutesUpdateExamplesMultipleRoutes
+
+<!-- UsageSnippet language="typescript" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="RoutesUpdateExamplesMultipleRoutes" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.routes.update({
+    id: "<id>",
+    routes: {
+      id: "default",
+      routes: [
         {
-          comment: "The Football Is Good For Training And Recreational Purposes",
+          id: "route-speedtest",
+          name: "speedtest",
+          filter: "source == \"speedtest.log\"",
+          pipeline: "main",
+          output: "default",
+          description: "Route speedtest logs",
+          final: false,
+        },
+        {
+          id: "route-mtr",
+          name: "mtr",
+          filter: "source == \"mtr.log\"",
+          pipeline: "passthru",
+          output: "default",
+          description: "Route mtr logs",
+          final: false,
+        },
+        {
+          id: "route-statsd",
+          name: "statsd",
+          filter: "source == \"statsd.log\"",
+          pipeline: "prometheus_metrics",
+          output: "devnull",
+          description: "Route statsd metrics",
+          final: false,
+        },
+        {
+          id: "route-default",
+          name: "default",
+          filter: "true",
+          pipeline: "main",
+          output: "default",
+          description: "Catch-all Route for all other events",
+          final: true,
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { routesUpdate } from "cribl-control-plane/funcs/routesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await routesUpdate(criblControlPlane, {
+    id: "<id>",
+    routes: {
+      id: "default",
+      routes: [
+        {
+          id: "route-speedtest",
+          name: "speedtest",
+          filter: "source == \"speedtest.log\"",
+          pipeline: "main",
+          output: "default",
+          description: "Route speedtest logs",
+          final: false,
+        },
+        {
+          id: "route-mtr",
+          name: "mtr",
+          filter: "source == \"mtr.log\"",
+          pipeline: "passthru",
+          output: "default",
+          description: "Route mtr logs",
+          final: false,
+        },
+        {
+          id: "route-statsd",
+          name: "statsd",
+          filter: "source == \"statsd.log\"",
+          pipeline: "prometheus_metrics",
+          output: "devnull",
+          description: "Route statsd metrics",
+          final: false,
+        },
+        {
+          id: "route-default",
+          name: "default",
+          filter: "true",
+          pipeline: "main",
+          output: "default",
+          description: "Catch-all Route for all other events",
+          final: true,
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("routesUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: RoutesUpdateExamplesRouteWithOutputExpression
+
+<!-- UsageSnippet language="typescript" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="RoutesUpdateExamplesRouteWithOutputExpression" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.routes.update({
+    id: "<id>",
+    routes: {
+      id: "default",
+      routes: [
+        {
+          id: "route-dynamic",
+          name: "dynamic-output",
+          filter: "source == \"dynamic.log\"",
+          pipeline: "main",
+          enableOutputExpression: true,
+          outputExpression: "`myDest_${C.logStreamEnv}`",
+          description: "Route with dynamic Destination based on environment",
+          final: true,
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { routesUpdate } from "cribl-control-plane/funcs/routesUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await routesUpdate(criblControlPlane, {
+    id: "<id>",
+    routes: {
+      id: "default",
+      routes: [
+        {
+          id: "route-dynamic",
+          name: "dynamic-output",
+          filter: "source == \"dynamic.log\"",
+          pipeline: "main",
+          enableOutputExpression: true,
+          outputExpression: "`myDest_${C.logStreamEnv}`",
+          description: "Route with dynamic Destination based on environment",
+          final: true,
         },
       ],
     },
@@ -308,9 +498,9 @@ run();
 
 Add a Route to the end of the specified Routing table.
 
-### Example Usage
+### Example Usage: RoutesAppendExamplesMultipleRoutes
 
-<!-- UsageSnippet language="typescript" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" -->
+<!-- UsageSnippet language="typescript" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="RoutesAppendExamplesMultipleRoutes" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -326,25 +516,108 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-          },
-          {
+        description: "Route audit logs",
+        filter: "source == \"audit.log\"",
+        final: false,
+        id: "route-audit",
+        name: "audit",
+        output: "default",
+        pipeline: "main",
+      },
+      {
+        description: "Route security logs",
+        filter: "source == \"security.log\"",
+        final: false,
+        id: "route-security",
+        name: "security",
+        output: "devnull",
+        pipeline: "passthru",
+      },
+    ],
+  });
 
-          },
-        ],
-        context: "<value>",
-        description: "Route new logs to main pipeline",
-        disabled: true,
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { routesAppend } from "cribl-control-plane/funcs/routesAppend.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await routesAppend(criblControlPlane, {
+    id: "<id>",
+    requestBody: [
+      {
+        description: "Route audit logs",
+        filter: "source == \"audit.log\"",
+        final: false,
+        id: "route-audit",
+        name: "audit",
+        output: "default",
+        pipeline: "main",
+      },
+      {
+        description: "Route security logs",
+        filter: "source == \"security.log\"",
+        final: false,
+        id: "route-security",
+        name: "security",
+        output: "devnull",
+        pipeline: "passthru",
+      },
+    ],
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("routesAppend failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: RoutesAppendExamplesRouteWithOutputExpression
+
+<!-- UsageSnippet language="typescript" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="RoutesAppendExamplesRouteWithOutputExpression" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.routes.append({
+    id: "<id>",
+    requestBody: [
+      {
+        description: "Route with dynamic Destination based on environment",
         enableOutputExpression: true,
-        filter: "source == \"new.log\"",
+        filter: "source == \"dynamic.log\"",
         final: true,
-        groupId: "<id>",
-        id: "route-new",
-        name: "new-route",
-        output: "<value>",
-        outputExpression: "<value>",
+        id: "route-dynamic-append",
+        name: "dynamic-append",
+        outputExpression: "`myDest_${C.logStreamEnv}`",
         pipeline: "main",
       },
     ],
@@ -378,25 +651,88 @@ async function run() {
     id: "<id>",
     requestBody: [
       {
-        clones: [
-          {
-            "key": "<value>",
-          },
-          {
-  
-          },
-        ],
-        context: "<value>",
-        description: "Route new logs to main pipeline",
-        disabled: true,
+        description: "Route with dynamic Destination based on environment",
         enableOutputExpression: true,
+        filter: "source == \"dynamic.log\"",
+        final: true,
+        id: "route-dynamic-append",
+        name: "dynamic-append",
+        outputExpression: "`myDest_${C.logStreamEnv}`",
+        pipeline: "main",
+      },
+    ],
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("routesAppend failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: RoutesAppendExamplesSingleRoute
+
+<!-- UsageSnippet language="typescript" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="RoutesAppendExamplesSingleRoute" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.routes.append({
+    id: "<id>",
+    requestBody: [
+      {
+        description: "Route new logs to main pipeline",
         filter: "source == \"new.log\"",
         final: true,
-        groupId: "<id>",
         id: "route-new",
         name: "new-route",
-        output: "<value>",
-        outputExpression: "<value>",
+        pipeline: "main",
+      },
+    ],
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { routesAppend } from "cribl-control-plane/funcs/routesAppend.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await routesAppend(criblControlPlane, {
+    id: "<id>",
+    requestBody: [
+      {
+        description: "Route new logs to main pipeline",
+        filter: "source == \"new.log\"",
+        final: true,
+        id: "route-new",
+        name: "new-route",
         pipeline: "main",
       },
     ],

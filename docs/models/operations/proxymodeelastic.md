@@ -7,18 +7,6 @@ import { ProxyModeElastic } from "cribl-control-plane/models/operations";
 
 let value: ProxyModeElastic = {
   enabled: false,
-  authType: "secret",
-  username: "Stanton_Sanford",
-  password: "v7eRqbf6P1gZgXu",
-  credentialsSecret: "<value>",
-  url: "https://lustrous-maintainer.info/",
-  rejectUnauthorized: true,
-  removeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  timeoutSec: 8798.8,
 };
 ```
 

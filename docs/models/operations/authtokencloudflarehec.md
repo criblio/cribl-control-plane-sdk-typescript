@@ -5,24 +5,7 @@
 ```typescript
 import { AuthTokenCloudflareHec } from "cribl-control-plane/models/operations";
 
-let value: AuthTokenCloudflareHec = {
-  authType: "manual",
-  tokenSecret: "<value>",
-  token: "<value>",
-  enabled: true,
-  description: "glisten ack who fidget before",
-  allowedIndexesAtToken: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
+let value: AuthTokenCloudflareHec = {};
 ```
 
 ## Fields

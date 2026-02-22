@@ -18,26 +18,8 @@ const value: models.CollectorAzureBlob = {
     certificate: {
       certificateName: "<value>",
     },
-    azureCloud: "<value>",
-    endpointSuffix: "<value>",
-    outputName: "<value>",
     containerName: "<value>",
-    path: "/Applications",
-    extractors: [
-      {
-        key: "<key>",
-        expression: "<value>",
-      },
-    ],
-    recurse: false,
-    includeMetadata: false,
-    includeTags: false,
-    maxBatchSize: 2877.09,
-    parquetChunkSizeMB: 3385.81,
-    parquetChunkDownloadTimeout: 2527.71,
   },
-  destructive: false,
-  encoding: "<value>",
 };
 ```
 
@@ -49,8 +31,6 @@ const value: models.CollectorCriblLake = {
   conf: {
     dataset: "<value>",
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 
@@ -62,16 +42,7 @@ const value: models.CollectorDatabase = {
   conf: {
     connectionId: "<id>",
     query: "<value>",
-    queryValidationEnabled: true,
-    defaultBreakers: "Cribl",
-    __scheduling: {
-      stateTracking: {
-        enabled: true,
-      },
-    },
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 
@@ -81,19 +52,8 @@ const value: models.CollectorDatabase = {
 const value: models.CollectorFilesystem = {
   type: "filesystem",
   conf: {
-    outputName: "<value>",
     path: "/Library",
-    extractors: [
-      {
-        key: "<key>",
-        expression: "<value>",
-      },
-    ],
-    recurse: false,
-    maxBatchSize: 4087.23,
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 
@@ -105,24 +65,8 @@ const value: models.CollectorGoogleCloudStorage = {
   conf: {
     authType: "secret",
     textSecret: "<value>",
-    outputName: "<value>",
     bucket: "<value>",
-    path: "/private/tmp",
-    extractors: [
-      {
-        key: "<key>",
-        expression: "<value>",
-      },
-    ],
-    endpoint: "<value>",
-    disableTimeFilter: true,
-    recurse: false,
-    maxBatchSize: 60.67,
-    parquetChunkSizeMB: 2920.25,
-    parquetChunkDownloadTimeout: 430.44,
   },
-  destructive: false,
-  encoding: "<value>",
 };
 ```
 
@@ -137,50 +81,10 @@ const value: models.CollectorHealthCheck = {
     username: "Isaac_Schiller",
     password: "0RYmS35HdTLMgXY",
     loginBody: "<value>",
-    tokenRespAttribute: "<value>",
     authHeaderExpr: "<value>",
-    authRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    discovery: {
-      discoverType: "list",
-      itemList: [
-        "<value 1>",
-      ],
-    },
-    collectUrl: "https://hungry-tomb.com",
-    collectMethod: "get",
-    collectRequestParams: "<value>",
-    collectBody: "<value>",
-    collectRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    authenticateCollect: false,
-    timeout: 9325.47,
-    rejectUnauthorized: true,
-    defaultBreakers: "Cribl",
-    safeHeaders: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
-    ],
-    retryRules: {
-      type: "static",
-      interval: "<value>",
-      limit: "<value>",
-      codes: "<value>",
-      enableHeader: "<value>",
-      multiplier: "<value>",
-    },
+    collectUrl: "https://fantastic-sanity.info",
+    collectMethod: "post_with_body",
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 
@@ -192,78 +96,9 @@ const value: models.CollectorRest = {
   conf: {
     authentication: "hmac",
     hmacFunctionId: "<id>",
-    discovery: {
-      discoverMethod: "post_with_body",
-      discoverBody: "<value>",
-      discoverType: "http",
-      discoverUrl: "https://sweet-giant.info/",
-      discoverVerb: "<value>",
-      discoverRequestParams: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: true,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: true,
-    },
-    collectUrl: "https://true-cow.name",
-    collectMethod: "post",
-    collectVerb: "<value>",
-    collectRequestParams: "<value>",
-    collectBody: "<value>",
-    collectRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "request_offset",
-      offsetField: "<value>",
-      offset: 2713.22,
-      limitField: "<value>",
-      limit: 8073.59,
-      totalRecordField: "<value>",
-      maxPages: 8005.17,
-      zeroIndexed: true,
-    },
-    timeout: 5200.78,
-    useRoundRobinDns: true,
-    disableTimeFilter: false,
-    decodeUrl: true,
-    rejectUnauthorized: true,
-    captureHeaders: false,
-    stopOnEmptyResults: true,
-    safeHeaders: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    retryRules: {
-      type: "static",
-      interval: "<value>",
-      limit: "<value>",
-      codes: "<value>",
-      enableHeader: "<value>",
-      retryConnectTimeout: "<value>",
-      retryConnectReset: "<value>",
-      multiplier: "<value>",
-      maxIntervalMs: "<value>",
-    },
-    __scheduling: {
-      stateTracking: {
-        enabled: true,
-      },
-    },
+    collectUrl: "https://simplistic-cardboard.biz/",
+    collectMethod: "other",
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 
@@ -274,34 +109,8 @@ const value: models.CollectorS3 = {
   type: "s3",
   conf: {
     awsAuthenticationMethod: "auto",
-    outputName: "<value>",
     bucket: "<value>",
-    parquetChunkSizeMB: 219.36,
-    parquetChunkDownloadTimeout: 4909.83,
-    region: "<value>",
-    path: "/private/var",
-    partitioningScheme: "none",
-    extractors: [
-      {
-        key: "<key>",
-        expression: "<value>",
-      },
-    ],
-    endpoint: "<value>",
-    signatureVersion: "v4",
-    enableAssumeRole: true,
-    assumeRoleArn: "<value>",
-    assumeRoleExternalId: "<id>",
-    durationSeconds: 2339.05,
-    maxBatchSize: 5719.01,
-    recurse: "<value>",
-    reuseConnections: false,
-    rejectUnauthorized: true,
-    verifyPermissions: false,
-    disableTimeFilter: true,
   },
-  destructive: false,
-  encoding: "<value>",
 };
 ```
 
@@ -313,16 +122,7 @@ const value: models.CollectorScript = {
   conf: {
     discoverScript: "<value>",
     collectScript: "<value>",
-    shell: "<value>",
-    envVars: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 
@@ -337,40 +137,9 @@ const value: models.CollectorSplunk = {
     password: "a6l5mrPhEvtGkTu",
     searchHead: "<value>",
     search: "<value>",
-    earliest: "<value>",
-    latest: "<value>",
     endpoint: "<value>",
     outputMode: "json",
-    collectRequestParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    collectRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    timeout: 2992.03,
-    useRoundRobinDns: true,
-    disableTimeFilter: true,
-    rejectUnauthorized: true,
-    handleEscapedChars: false,
-    retryRules: {
-      type: "static",
-      interval: "<value>",
-      limit: "<value>",
-      codes: "<value>",
-      enableHeader: "<value>",
-      retryConnectTimeout: "<value>",
-      retryConnectReset: "<value>",
-      multiplier: "<value>",
-    },
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 

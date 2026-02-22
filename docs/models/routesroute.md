@@ -6,16 +6,8 @@
 import { RoutesRoute } from "cribl-control-plane/models";
 
 let value: RoutesRoute = {
-  id: "<id>",
   name: "<value>",
-  disabled: true,
-  filter: "<value>",
   pipeline: "<value>",
-  enableOutputExpression: true,
-  output: "<value>",
-  outputExpression: "<value>",
-  description: "heroine er mobilize appropriate function shoulder",
-  final: true,
 };
 ```
 

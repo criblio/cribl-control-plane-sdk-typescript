@@ -7,24 +7,15 @@ import { FunctionRollupMetrics } from "cribl-control-plane/models";
 
 let value: FunctionRollupMetrics = {
   __filename: "example.file",
-  asyncTimeout: 9783.75,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "rollup_metrics",
-  loadTime: 9614.97,
-  modTime: 5303.67,
+  loadTime: 9783.75,
+  modTime: 2577.13,
   name: "<value>",
-  sync: true,
   uischema: {
     "key": "<value>",
-    "key1": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

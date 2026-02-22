@@ -6,90 +6,10 @@
 import { InputPrometheusRw } from "cribl-control-plane/models";
 
 let value: InputPrometheusRw = {
-  id: "<id>",
   type: "prometheus_rw",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "subdued-meal.org",
-  port: 93.83,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 5425.93,
-  maxRequestsPerSocket: 255953,
-  enableProxyHeader: true,
-  captureHeaders: false,
-  activityLogSampleRate: 450.97,
-  requestTimeout: 2707.33,
-  socketTimeout: 8690.29,
-  keepAliveTimeout: 889.37,
-  enableHealthCheck: true,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
+  host: "all-platter.biz",
+  port: 2300.12,
   prometheusAPI: "<value>",
-  authType: "credentialsSecret",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "arcade soybean onto yahoo hydrolyze gee rapid why hm as",
-  username: "Tanya.Mayer13",
-  password: "VVh2TYDsD8VsEpa",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://radiant-hydrolyse.name",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 7170.49,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
 };
 ```
 

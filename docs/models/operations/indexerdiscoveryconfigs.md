@@ -11,17 +11,6 @@ let value: IndexerDiscoveryConfigs = {
   site: "<value>",
   masterUri: "https://sorrowful-hawk.info/",
   refreshIntervalSec: 2841.62,
-  rejectUnauthorized: false,
-  authTokens: [
-    {
-      authType: "manual",
-      authToken: "<value>",
-      textSecret: "<value>",
-    },
-  ],
-  authType: "secret",
-  authToken: "<value>",
-  textSecret: "<value>",
 };
 ```
 

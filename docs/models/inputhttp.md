@@ -6,84 +6,9 @@
 import { InputHttp } from "cribl-control-plane/models";
 
 let value: InputHttp = {
-  id: "<id>",
   type: "http",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "early-linseed.net",
-  port: 4568.44,
-  authTokens: [
-    "<value 1>",
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 2500.22,
-  maxRequestsPerSocket: 729246,
-  enableProxyHeader: true,
-  captureHeaders: false,
-  activityLogSampleRate: 7856.7,
-  requestTimeout: 934.67,
-  socketTimeout: 1804.56,
-  keepAliveTimeout: 9664.45,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  criblAPI: "<value>",
-  elasticAPI: "<value>",
-  splunkHecAPI: "<value>",
-  splunkHecAcks: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "instead worth trek drain eek below",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description: "despite if after hunt immediately so arcade",
+  host: "oily-cook.net",
+  port: 3082.66,
 };
 ```
 

@@ -6,24 +6,18 @@
 import { PipelineFunctionPivot } from "cribl-control-plane/models";
 
 let value: PipelineFunctionPivot = {
-  filter: "<value>",
   id: "pivot",
-  description:
-    "thankfully unimpressively secondary that insert sturdy phew loftily",
-  disabled: false,
-  final: false,
   conf: {
     labelField: "<value>",
     dataFields: [
       "<value 1>",
+      "<value 2>",
     ],
     qualifierFields: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
   },
-  groupId: "<id>",
 };
 ```
 

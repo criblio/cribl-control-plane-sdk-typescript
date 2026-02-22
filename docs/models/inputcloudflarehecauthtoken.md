@@ -5,24 +5,7 @@
 ```typescript
 import { InputCloudflareHecAuthToken } from "cribl-control-plane/models";
 
-let value: InputCloudflareHecAuthToken = {
-  authType: "secret",
-  tokenSecret: "<value>",
-  token: "<value>",
-  enabled: true,
-  description: "malfunction well adjourn ouch and space stigmatize willfully",
-  allowedIndexesAtToken: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
+let value: InputCloudflareHecAuthToken = {};
 ```
 
 ## Fields

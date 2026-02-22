@@ -7,8 +7,6 @@ import { ItemsTypeAuthTokens1 } from "cribl-control-plane/models";
 
 let value: ItemsTypeAuthTokens1 = {
   tokenSecret: "<value>",
-  enabled: false,
-  description: "unlike continually behind joy pfft even",
 };
 ```
 

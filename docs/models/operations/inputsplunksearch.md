@@ -8,112 +8,11 @@ import { InputSplunkSearch } from "cribl-control-plane/models/operations";
 let value: InputSplunkSearch = {
   id: "<id>",
   type: "splunk_search",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   searchHead: "<value>",
   search: "<value>",
-  earliest: "<value>",
-  latest: "<value>",
   cronSchedule: "<value>",
   endpoint: "<value>",
-  outputMode: "json",
-  endpointParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  endpointHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  logLevel: "error",
-  requestTimeout: 215.19,
-  useRoundRobinDns: false,
-  rejectUnauthorized: false,
-  encoding: "<value>",
-  keepAliveTime: 1841.77,
-  jobTimeout: "<value>",
-  maxMissedKeepAlives: 6631.27,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    type: "<value>",
-    interval: 376.03,
-    limit: 6996.29,
-    multiplier: 5006.8,
-    codes: [
-      2139.95,
-      9559.24,
-      6726.47,
-    ],
-    enableHeader: false,
-    retryConnectTimeout: true,
-    retryConnectReset: false,
-  },
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  staleChannelFlushMs: 2782.5,
-  authType: "basic",
-  description: "birth or apud fooey numeric singing whereas nautical",
-  username: "Vida1",
-  password: "9JWrbdohpQJfHCn",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://self-reliant-chasuble.info",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 6490.55,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
+  outputMode: "csv",
 };
 ```
 

@@ -12,21 +12,6 @@ const value: models.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeHttp =
     discoverBody: "<value>",
     discoverType: "http",
     discoverUrl: "https://official-meatloaf.name/",
-    discoverVerb: "<value>",
-    discoverRequestParams: "<value>",
-    discoverRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "<value>",
-    },
-    discoverDataField: "<value>",
-    enableStrictDiscoverParsing: false,
-    discoverResponseFormat: "<value>",
-    enableDiscoverCode: true,
   };
 ```
 
@@ -37,7 +22,6 @@ const value: models.RestAuthenticationGoogleOauthRestDiscoveryDiscoverTypeJson =
   {
     discoverType: "json",
     manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
   };
 ```
 

@@ -9,11 +9,6 @@
 const value: models.HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone =
   {
     type: "none",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
   };
 ```
 
@@ -23,11 +18,6 @@ const value: models.HealthCheckCollectMethodPostHealthCheckRetryRulesTypeNone =
 const value:
   models.HealthCheckCollectMethodPostHealthCheckRetryRulesTypeStatic = {
     type: "static",
-    interval: "<value>",
-    limit: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    multiplier: "<value>",
   };
 ```
 
@@ -37,11 +27,6 @@ const value:
 const value:
   models.HealthCheckCollectMethodPostHealthCheckRetryRulesTypeBackoff = {
     type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
   };
 ```
 

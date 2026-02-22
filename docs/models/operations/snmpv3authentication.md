@@ -9,16 +9,6 @@ import { SNMPv3Authentication } from "cribl-control-plane/models/operations";
 
 let value: SNMPv3Authentication = {
   v3AuthEnabled: false,
-  allowUnmatchedTrap: true,
-  v3Users: [
-    {
-      name: "<value>",
-      authProtocol: "none",
-      authKey: "<value>",
-      privProtocol: "aes",
-      privKey: "<value>",
-    },
-  ],
 };
 ```
 

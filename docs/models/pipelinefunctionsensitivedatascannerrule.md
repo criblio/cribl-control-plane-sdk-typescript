@@ -8,7 +8,6 @@ import { PipelineFunctionSensitiveDataScannerRule } from "cribl-control-plane/mo
 let value: PipelineFunctionSensitiveDataScannerRule = {
   rulesetId: "<id>",
   replaceExpr: "<value>",
-  disabled: true,
 };
 ```
 

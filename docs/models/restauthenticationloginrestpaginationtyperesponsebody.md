@@ -12,7 +12,6 @@ let value: RestAuthenticationLoginRestPaginationTypeResponseBody = {
     "<value 2>",
   ],
   maxPages: 5573.43,
-  lastPageExpr: "<value>",
 };
 ```
 

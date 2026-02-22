@@ -9,7 +9,6 @@ let value:
   RestAuthenticationGoogleOauthSecretRestPaginationTypeResponseHeaderLink = {
     type: "response_header_link",
     nextRelationAttribute: "<value>",
-    curRelationAttribute: "<value>",
     maxPages: 8706.47,
   };
 ```

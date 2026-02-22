@@ -6,14 +6,7 @@
 import { GitFile } from "cribl-control-plane/models";
 
 let value: GitFile = {
-  children: [
-    {
-      name: "<value>",
-      state: "Oregon",
-    },
-  ],
   name: "<value>",
-  state: "Nevada",
 };
 ```
 

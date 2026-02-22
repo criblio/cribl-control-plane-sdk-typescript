@@ -9,27 +9,9 @@ let value: CreateRoutesAppendByIdRequest = {
   id: "<id>",
   requestBody: [
     {
-      clones: [
-        {
-          "key": "<value>",
-          "key1": "<value>",
-        },
-        {
-          "key": "<value>",
-        },
-        {},
-      ],
-      context: "<value>",
-      description: "gigantic healthily deeply rightfully",
-      disabled: false,
-      enableOutputExpression: true,
-      filter: "<value>",
-      final: true,
-      groupId: "<id>",
+      final: false,
       id: "<id>",
       name: "<value>",
-      output: "<value>",
-      outputExpression: "<value>",
       pipeline: "<value>",
     },
   ],

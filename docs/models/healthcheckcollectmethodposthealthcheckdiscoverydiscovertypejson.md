@@ -8,7 +8,6 @@ import { HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson } from
 let value: HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

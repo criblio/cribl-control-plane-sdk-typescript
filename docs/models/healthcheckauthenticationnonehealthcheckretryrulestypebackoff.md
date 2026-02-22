@@ -7,11 +7,6 @@ import { HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff } from "c
 
 let value: HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeBackoff = {
   type: "backoff",
-  interval: "<value>",
-  limit: "<value>",
-  multiplier: "<value>",
-  codes: "<value>",
-  enableHeader: "<value>",
 };
 ```
 

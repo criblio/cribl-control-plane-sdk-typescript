@@ -8,10 +8,7 @@ import { UpdatePacksByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdatePacksByIdRequest = {
   id: "<id>",
   packUpgradeRequest: {
-    allowCustomFunctions: false,
-    minor: "<value>",
     source: "<value>",
-    spec: "<value>",
   },
 };
 ```

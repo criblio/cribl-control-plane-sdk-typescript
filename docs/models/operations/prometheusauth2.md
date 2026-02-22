@@ -5,32 +5,7 @@
 ```typescript
 import { PrometheusAuth2 } from "cribl-control-plane/models/operations";
 
-let value: PrometheusAuth2 = {
-  authType: "none",
-  username: "Winnifred40",
-  password: "4kMkaOP1PkUU0a5",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://obedient-testing.name/",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 441.74,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-};
+let value: PrometheusAuth2 = {};
 ```
 
 ## Fields

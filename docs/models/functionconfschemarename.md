@@ -5,21 +5,7 @@
 ```typescript
 import { FunctionConfSchemaRename } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaRename = {
-  baseFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  rename: [
-    {
-      currentName: "<value>",
-      newName: "<value>",
-    },
-  ],
-  renameExpr: "<value>",
-  wildcardDepth: 26011,
-};
+let value: FunctionConfSchemaRename = {};
 ```
 
 ## Fields

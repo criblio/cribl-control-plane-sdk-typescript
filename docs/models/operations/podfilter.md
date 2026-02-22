@@ -7,7 +7,6 @@ import { PodFilter } from "cribl-control-plane/models/operations";
 
 let value: PodFilter = {
   filter: "<value>",
-  description: "um which tune cease formamide whose aha general",
 };
 ```
 

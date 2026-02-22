@@ -8,7 +8,6 @@ import { HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson } fro
 let value: HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

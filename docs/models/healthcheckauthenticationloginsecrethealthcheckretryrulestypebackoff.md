@@ -8,11 +8,6 @@ import { HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff } 
 let value:
   HealthCheckAuthenticationLoginSecretHealthCheckRetryRulesTypeBackoff = {
     type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
   };
 ```
 

@@ -5,25 +5,7 @@
 ```typescript
 import { CountedObject } from "cribl-control-plane/models";
 
-let value: CountedObject = {
-  count: 692898,
-  items: [
-    {
-      "key": "<value>",
-      "key1": "<value>",
-      "key2": "<value>",
-    },
-    {
-      "key": "<value>",
-      "key1": "<value>",
-    },
-    {
-      "key": "<value>",
-      "key1": "<value>",
-      "key2": "<value>",
-    },
-  ],
-};
+let value: CountedObject = {};
 ```
 
 ## Fields

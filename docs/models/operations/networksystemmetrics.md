@@ -5,15 +5,7 @@
 ```typescript
 import { NetworkSystemMetrics } from "cribl-control-plane/models/operations";
 
-let value: NetworkSystemMetrics = {
-  mode: "disabled",
-  detail: true,
-  protocols: false,
-  devices: [
-    "<value 1>",
-  ],
-  perInterface: true,
-};
+let value: NetworkSystemMetrics = {};
 ```
 
 ## Fields

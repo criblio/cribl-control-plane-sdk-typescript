@@ -11,17 +11,8 @@ let value:
   HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHttpDiscoverMethodPostWithBody =
     {
       discoverMethod: "post_with_body",
-      discoverBody: "<value>",
       discoverType: "http",
       discoverUrl: "https://forceful-vol.net",
-      discoverRequestParams: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      discoverDataField: "<value>",
     };
 ```
 

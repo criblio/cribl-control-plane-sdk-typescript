@@ -8,12 +8,9 @@ import { RestCollectMethodGetRestPaginationTypeRequestPage } from "cribl-control
 let value: RestCollectMethodGetRestPaginationTypeRequestPage = {
   type: "request_page",
   pageField: "<value>",
-  page: 5057.76,
   sizeField: "<value>",
-  size: 9029.71,
-  totalPageField: "<value>",
-  totalRecordField: "<value>",
-  maxPages: 2240.38,
+  size: 5057.76,
+  maxPages: 9029.71,
   zeroIndexed: true,
 };
 ```

@@ -8,7 +8,6 @@ import { ItemsTypeProcessSets } from "cribl-control-plane/models";
 let value: ItemsTypeProcessSets = {
   name: "<value>",
   filter: "<value>",
-  includeChildren: false,
 };
 ```
 

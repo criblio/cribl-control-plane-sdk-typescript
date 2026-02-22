@@ -7,33 +7,7 @@ import { S3AwsAuthenticationMethodManual } from "cribl-control-plane/models";
 
 let value: S3AwsAuthenticationMethodManual = {
   awsAuthenticationMethod: "manual",
-  awsApiKey: "<value>",
-  awsSecretKey: "<value>",
-  outputName: "<value>",
   bucket: "<value>",
-  parquetChunkSizeMB: 6093.88,
-  parquetChunkDownloadTimeout: 6177.24,
-  region: "<value>",
-  path: "/var/mail",
-  partitioningScheme: "ddss",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  endpoint: "<value>",
-  signatureVersion: "v4",
-  enableAssumeRole: true,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 1583.72,
-  maxBatchSize: 1694.29,
-  recurse: "<value>",
-  reuseConnections: true,
-  rejectUnauthorized: false,
-  verifyPermissions: false,
-  disableTimeFilter: true,
 };
 ```
 

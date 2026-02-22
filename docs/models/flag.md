@@ -6,7 +6,6 @@
 import { Flag } from "cribl-control-plane/models";
 
 let value: Flag = {
-  name: "<value>",
   value: "<value>",
 };
 ```

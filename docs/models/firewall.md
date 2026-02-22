@@ -7,9 +7,7 @@ Creates events for Firewall rules entries
 ```typescript
 import { Firewall } from "cribl-control-plane/models";
 
-let value: Firewall = {
-  enable: false,
-};
+let value: Firewall = {};
 ```
 
 ## Fields

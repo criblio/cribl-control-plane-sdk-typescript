@@ -7,26 +7,15 @@ import { FunctionHandlebars } from "cribl-control-plane/models";
 
 let value: FunctionHandlebars = {
   __filename: "example.file",
-  asyncTimeout: 2987.9,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "handlebars",
-  loadTime: 4175.73,
-  modTime: 7036.04,
+  loadTime: 2987.9,
+  modTime: 8899.79,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 
