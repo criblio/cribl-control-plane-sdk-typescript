@@ -128,9 +128,6 @@ export type InputOpenTelemetry = {
    * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
    */
   maxRequestsPerSocket?: number | undefined;
-  enableProxyHeader?: any | undefined;
-  captureHeaders?: any | undefined;
-  activityLogSampleRate?: any | undefined;
   /**
    * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
    */
@@ -261,9 +258,6 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   tls: types.optional(TlsSettingsServerSideType$inboundSchema),
   maxActiveReq: types.optional(types.number()),
   maxRequestsPerSocket: types.optional(types.number()),
-  enableProxyHeader: types.optional(z.any()),
-  captureHeaders: types.optional(z.any()),
-  activityLogSampleRate: types.optional(z.any()),
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
   keepAliveTimeout: types.optional(types.number()),
@@ -304,9 +298,6 @@ export type InputOpenTelemetry$Outbound = {
   tls?: TlsSettingsServerSideType$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
-  enableProxyHeader?: any | undefined;
-  captureHeaders?: any | undefined;
-  activityLogSampleRate?: any | undefined;
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
@@ -352,9 +343,6 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
   maxActiveReq: z.number().optional(),
   maxRequestsPerSocket: z.number().int().optional(),
-  enableProxyHeader: z.any().optional(),
-  captureHeaders: z.any().optional(),
-  activityLogSampleRate: z.any().optional(),
   requestTimeout: z.number().optional(),
   socketTimeout: z.number().optional(),
   keepAliveTimeout: z.number().optional(),
