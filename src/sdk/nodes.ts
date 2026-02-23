@@ -10,6 +10,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 import { Summaries } from "./summaries.js";
 
 export class Nodes extends ClientSDK {
@@ -61,8 +62,13 @@ export class Nodes extends ClientSDK {
   async list(
     request: operations.GetProductsWorkersByProductRequest,
     options?: RequestOptions,
-  ): Promise<models.CountedMasterWorkerEntry> {
-    return unwrapAsync(nodesList(
+  ): Promise<
+    PageIterator<
+      operations.GetProductsWorkersByProductResponse,
+      { offset: number }
+    >
+  > {
+    return unwrapResultIterator(nodesList(
       this,
       request,
       options,
