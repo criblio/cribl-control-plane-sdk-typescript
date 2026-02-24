@@ -3,8 +3,13 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FunctionConfSchemaCefInput,
+  FunctionConfSchemaCefInput$inboundSchema,
   FunctionConfSchemaCefInput$Outbound,
   FunctionConfSchemaCefInput$outboundSchema,
 } from "./functionconfschemacef.js";
@@ -38,6 +43,20 @@ export type PipelineFunctionCefInput = {
 };
 
 /** @internal */
+export const PipelineFunctionCefInput$inboundSchema: z.ZodType<
+  PipelineFunctionCefInput,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  filter: types.optional(types.string()),
+  id: types.literal("cef"),
+  description: types.optional(types.string()),
+  disabled: types.optional(types.boolean()),
+  final: types.optional(types.boolean()),
+  conf: FunctionConfSchemaCefInput$inboundSchema,
+  groupId: types.optional(types.string()),
+});
+/** @internal */
 export type PipelineFunctionCefInput$Outbound = {
   filter?: string | undefined;
   id: "cef";
@@ -68,5 +87,14 @@ export function pipelineFunctionCefInputToJSON(
 ): string {
   return JSON.stringify(
     PipelineFunctionCefInput$outboundSchema.parse(pipelineFunctionCefInput),
+  );
+}
+export function pipelineFunctionCefInputFromJSON(
+  jsonString: string,
+): SafeParseResult<PipelineFunctionCefInput, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PipelineFunctionCefInput$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineFunctionCefInput' from JSON`,
   );
 }

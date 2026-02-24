@@ -3,11 +3,22 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputTestRequest = {
   events: Array<{ [k: string]: any }>;
 };
 
+/** @internal */
+export const OutputTestRequest$inboundSchema: z.ZodType<
+  OutputTestRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  events: z.array(z.record(z.any())),
+});
 /** @internal */
 export type OutputTestRequest$Outbound = {
   events: Array<{ [k: string]: any }>;
@@ -27,5 +38,14 @@ export function outputTestRequestToJSON(
 ): string {
   return JSON.stringify(
     OutputTestRequest$outboundSchema.parse(outputTestRequest),
+  );
+}
+export function outputTestRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputTestRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputTestRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputTestRequest' from JSON`,
   );
 }

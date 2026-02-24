@@ -6,104 +6,22 @@
 import { InputWef } from "cribl-control-plane/models";
 
 let value: InputWef = {
-  id: "<id>",
   type: "wef",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "stiff-baseboard.biz",
-  port: 1432.95,
-  authMethod: "kerberos",
-  tls: {
-    disabled: true,
-    rejectUnauthorized: true,
-    requestCert: false,
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1",
-    ocspCheck: true,
-    keytab: "<value>",
-    principal: "<value>",
-    ocspCheckFailClose: true,
-  },
-  maxActiveReq: 433.31,
-  maxRequestsPerSocket: 881300,
-  enableProxyHeader: false,
-  captureHeaders: false,
-  keepAliveTimeout: 3234.04,
-  enableHealthCheck: false,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  socketTimeout: 6412.18,
-  caFingerprint: "<value>",
-  keytab: "<value>",
-  principal: "<value>",
-  allowMachineIdMismatch: false,
+  host: "bad-pearl.net",
+  port: 8695.05,
   subscriptions: [
     {
       subscriptionName: "<value>",
-      version: "<value>",
-      contentFormat: "RenderedText",
-      heartbeatInterval: 2153.04,
-      batchTimeout: 5580.43,
-      readExistingEvents: true,
-      sendBookmarks: false,
-      compress: false,
-      targets: [],
-      locale: "nl",
-      querySelector: "xml",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
+      contentFormat: "Raw",
+      heartbeatInterval: 2988.37,
+      batchTimeout: 1432.95,
+      targets: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
       ],
-      queries: [
-        {
-          path: "/usr/libexec",
-          queryExpression: "<value>",
-        },
-      ],
-      xmlQuery: "<value>",
     },
   ],
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description:
-    "pivot slight coincide when neatly obediently upbeat evenly blind saturate",
-  logFingerprintMismatch: false,
 };
 ```
 
@@ -139,6 +57,8 @@ let value: InputWef = {
 | `principal`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>                                                                                                                                                    |
 | `allowMachineIdMismatch`                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Allow events to be ingested even if their MachineID does not match the client certificate CN                                                                                                                                                 |
 | `subscriptions`                                                                                                                                                                                                                              | [models.Subscription](../models/subscription.md)[]                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                           | Subscriptions to events on forwarding endpoints                                                                                                                                                                                              |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `logFingerprintMismatch`                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.                                                      |
+| `templateHost`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.                                                        |
+| `templatePort`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.                                                        |

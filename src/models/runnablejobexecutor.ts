@@ -8,20 +8,26 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  ExecutorTypeSavedJobExecutor,
-  ExecutorTypeSavedJobExecutor$inboundSchema,
-} from "./executortypesavedjobexecutor.js";
+  ExecutorTypeRunnableJobExecutor,
+  ExecutorTypeRunnableJobExecutor$inboundSchema,
+  ExecutorTypeRunnableJobExecutor$Outbound,
+  ExecutorTypeRunnableJobExecutor$outboundSchema,
+} from "./executortyperunnablejobexecutor.js";
 import {
-  JobTypeOptionsSavedJobCollection,
-  JobTypeOptionsSavedJobCollection$inboundSchema,
-} from "./jobtypeoptionssavedjobcollection.js";
+  JobTypeOptionsRunnableJobCollection,
+  JobTypeOptionsRunnableJobCollection$inboundSchema,
+  JobTypeOptionsRunnableJobCollection$outboundSchema,
+} from "./jobtypeoptionsrunnablejobcollection.js";
 import {
-  LogLevelOptionsSavedJobCollectionScheduleRun,
-  LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema,
-} from "./logleveloptionssavedjobcollectionschedulerun.js";
+  LogLevelOptionsRunnableJobCollectionScheduleRun,
+  LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
+  LogLevelOptionsRunnableJobCollectionScheduleRun$outboundSchema,
+} from "./logleveloptionsrunnablejobcollectionschedulerun.js";
 import {
   ScheduleTypeRunnableJobCollection,
   ScheduleTypeRunnableJobCollection$inboundSchema,
+  ScheduleTypeRunnableJobCollection$Outbound,
+  ScheduleTypeRunnableJobCollection$outboundSchema,
 } from "./scheduletyperunnablejobcollection.js";
 
 export type RunnableJobExecutorRun = {
@@ -36,7 +42,7 @@ export type RunnableJobExecutorRun = {
   /**
    * Level at which to set task logging
    */
-  logLevel?: LogLevelOptionsSavedJobCollectionScheduleRun | undefined;
+  logLevel?: LogLevelOptionsRunnableJobCollectionScheduleRun | undefined;
   /**
    * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
@@ -49,7 +55,7 @@ export type RunnableJobExecutor = {
    */
   id?: string | undefined;
   description?: string | undefined;
-  type?: JobTypeOptionsSavedJobCollection | undefined;
+  type?: JobTypeOptionsRunnableJobCollection | undefined;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
@@ -78,7 +84,7 @@ export type RunnableJobExecutor = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  executor: ExecutorTypeSavedJobExecutor;
+  executor: ExecutorTypeRunnableJobExecutor;
   run: RunnableJobExecutorRun;
 };
 
@@ -91,11 +97,38 @@ export const RunnableJobExecutorRun$inboundSchema: z.ZodType<
   rescheduleDroppedTasks: types.optional(types.boolean()),
   maxTaskReschedule: types.optional(types.number()),
   logLevel: types.optional(
-    LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema,
+    LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
   ),
   jobTimeout: types.optional(types.string()),
 });
+/** @internal */
+export type RunnableJobExecutorRun$Outbound = {
+  rescheduleDroppedTasks?: boolean | undefined;
+  maxTaskReschedule?: number | undefined;
+  logLevel?: string | undefined;
+  jobTimeout?: string | undefined;
+};
 
+/** @internal */
+export const RunnableJobExecutorRun$outboundSchema: z.ZodType<
+  RunnableJobExecutorRun$Outbound,
+  z.ZodTypeDef,
+  RunnableJobExecutorRun
+> = z.object({
+  rescheduleDroppedTasks: z.boolean().optional(),
+  maxTaskReschedule: z.number().optional(),
+  logLevel: LogLevelOptionsRunnableJobCollectionScheduleRun$outboundSchema
+    .optional(),
+  jobTimeout: z.string().optional(),
+});
+
+export function runnableJobExecutorRunToJSON(
+  runnableJobExecutorRun: RunnableJobExecutorRun,
+): string {
+  return JSON.stringify(
+    RunnableJobExecutorRun$outboundSchema.parse(runnableJobExecutorRun),
+  );
+}
 export function runnableJobExecutorRunFromJSON(
   jsonString: string,
 ): SafeParseResult<RunnableJobExecutorRun, SDKValidationError> {
@@ -114,7 +147,7 @@ export const RunnableJobExecutor$inboundSchema: z.ZodType<
 > = z.object({
   id: types.optional(types.string()),
   description: types.optional(types.string()),
-  type: types.optional(JobTypeOptionsSavedJobCollection$inboundSchema),
+  type: types.optional(JobTypeOptionsRunnableJobCollection$inboundSchema),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
   removeFields: types.optional(z.array(types.string())),
@@ -122,10 +155,52 @@ export const RunnableJobExecutor$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   schedule: types.optional(ScheduleTypeRunnableJobCollection$inboundSchema),
   streamtags: types.optional(z.array(types.string())),
-  executor: ExecutorTypeSavedJobExecutor$inboundSchema,
+  executor: ExecutorTypeRunnableJobExecutor$inboundSchema,
   run: z.lazy(() => RunnableJobExecutorRun$inboundSchema),
 });
+/** @internal */
+export type RunnableJobExecutor$Outbound = {
+  id?: string | undefined;
+  description?: string | undefined;
+  type?: string | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  removeFields?: Array<string> | undefined;
+  resumeOnBoot?: boolean | undefined;
+  environment?: string | undefined;
+  schedule?: ScheduleTypeRunnableJobCollection$Outbound | undefined;
+  streamtags?: Array<string> | undefined;
+  executor: ExecutorTypeRunnableJobExecutor$Outbound;
+  run: RunnableJobExecutorRun$Outbound;
+};
 
+/** @internal */
+export const RunnableJobExecutor$outboundSchema: z.ZodType<
+  RunnableJobExecutor$Outbound,
+  z.ZodTypeDef,
+  RunnableJobExecutor
+> = z.object({
+  id: z.string().optional(),
+  description: z.string().optional(),
+  type: JobTypeOptionsRunnableJobCollection$outboundSchema.optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  removeFields: z.array(z.string()).optional(),
+  resumeOnBoot: z.boolean().optional(),
+  environment: z.string().optional(),
+  schedule: ScheduleTypeRunnableJobCollection$outboundSchema.optional(),
+  streamtags: z.array(z.string()).optional(),
+  executor: ExecutorTypeRunnableJobExecutor$outboundSchema,
+  run: z.lazy(() => RunnableJobExecutorRun$outboundSchema),
+});
+
+export function runnableJobExecutorToJSON(
+  runnableJobExecutor: RunnableJobExecutor,
+): string {
+  return JSON.stringify(
+    RunnableJobExecutor$outboundSchema.parse(runnableJobExecutor),
+  );
+}
 export function runnableJobExecutorFromJSON(
   jsonString: string,
 ): SafeParseResult<RunnableJobExecutor, SDKValidationError> {

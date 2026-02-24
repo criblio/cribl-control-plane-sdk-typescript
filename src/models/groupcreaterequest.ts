@@ -3,27 +3,36 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   ConfigGroupCloud,
+  ConfigGroupCloud$inboundSchema,
   ConfigGroupCloud$Outbound,
   ConfigGroupCloud$outboundSchema,
 } from "./configgroupcloud.js";
 import {
   ConfigGroupLookups,
+  ConfigGroupLookups$inboundSchema,
   ConfigGroupLookups$Outbound,
   ConfigGroupLookups$outboundSchema,
 } from "./configgrouplookups.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   EstimatedIngestRateOptionsConfigGroup,
+  EstimatedIngestRateOptionsConfigGroup$inboundSchema,
   EstimatedIngestRateOptionsConfigGroup$outboundSchema,
 } from "./estimatedingestrateoptionsconfiggroup.js";
 import {
   GitTypeConfigGroup,
+  GitTypeConfigGroup$inboundSchema,
   GitTypeConfigGroup$Outbound,
   GitTypeConfigGroup$outboundSchema,
 } from "./gittypeconfiggroup.js";
 import {
   TypeOptionsConfigGroup,
+  TypeOptionsConfigGroup$inboundSchema,
   TypeOptionsConfigGroup$outboundSchema,
 } from "./typeoptionsconfiggroup.js";
 
@@ -32,14 +41,24 @@ export type GroupCreateRequest = {
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
   /**
-   * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
+   * Estimated ingest rate for Cloud Groups, in GB/sec.
    */
   estimatedIngestRate?: EstimatedIngestRateOptionsConfigGroup | undefined;
   git?: GitTypeConfigGroup | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
   inherits?: string | undefined;
+  /**
+   * Indicates whether this is an Edge Fleet. This flag is deprecated — use to identify Edge Fleets.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
   isFleet?: boolean | undefined;
+  /**
+   * Indicates whether this is an internal Search Group. This flag is deprecated — use to identify Search Groups.
+   *
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
   isSearch?: boolean | undefined;
   lookupDeployments?: Array<ConfigGroupLookups> | undefined;
   maxWorkerAge?: string | undefined;
@@ -55,6 +74,37 @@ export type GroupCreateRequest = {
   workerRemoteAccess?: boolean | undefined;
 };
 
+/** @internal */
+export const GroupCreateRequest$inboundSchema: z.ZodType<
+  GroupCreateRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  cloud: types.optional(ConfigGroupCloud$inboundSchema),
+  deployingWorkerCount: types.optional(types.number()),
+  description: types.optional(types.string()),
+  estimatedIngestRate: types.optional(
+    EstimatedIngestRateOptionsConfigGroup$inboundSchema,
+  ),
+  git: types.optional(GitTypeConfigGroup$inboundSchema),
+  id: types.string(),
+  incompatibleWorkerCount: types.optional(types.number()),
+  inherits: types.optional(types.string()),
+  isFleet: types.optional(types.boolean()),
+  isSearch: types.optional(types.boolean()),
+  lookupDeployments: types.optional(z.array(ConfigGroupLookups$inboundSchema)),
+  maxWorkerAge: types.optional(types.string()),
+  name: types.optional(types.string()),
+  onPrem: types.optional(types.boolean()),
+  provisioned: types.optional(types.boolean()),
+  sourceGroupId: types.optional(types.string()),
+  streamtags: types.optional(z.array(types.string())),
+  tags: types.optional(types.string()),
+  type: types.optional(TypeOptionsConfigGroup$inboundSchema),
+  upgradeVersion: types.optional(types.string()),
+  workerCount: types.optional(types.number()),
+  workerRemoteAccess: types.optional(types.boolean()),
+});
 /** @internal */
 export type GroupCreateRequest$Outbound = {
   cloud?: ConfigGroupCloud$Outbound | undefined;
@@ -117,5 +167,14 @@ export function groupCreateRequestToJSON(
 ): string {
   return JSON.stringify(
     GroupCreateRequest$outboundSchema.parse(groupCreateRequest),
+  );
+}
+export function groupCreateRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GroupCreateRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GroupCreateRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GroupCreateRequest' from JSON`,
   );
 }

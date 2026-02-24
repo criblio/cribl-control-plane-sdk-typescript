@@ -3,12 +3,12 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetVersionFilesRequest = {
-  /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to get file names and status for.
-   */
-  groupId?: string | undefined;
   /**
    * The Git commit hash to use as the starting point for the request.
    */
@@ -16,8 +16,15 @@ export type GetVersionFilesRequest = {
 };
 
 /** @internal */
+export const GetVersionFilesRequest$inboundSchema: z.ZodType<
+  GetVersionFilesRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  commit: types.optional(types.string()),
+});
+/** @internal */
 export type GetVersionFilesRequest$Outbound = {
-  groupId?: string | undefined;
   commit?: string | undefined;
 };
 
@@ -27,7 +34,6 @@ export const GetVersionFilesRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetVersionFilesRequest
 > = z.object({
-  groupId: z.string().optional(),
   commit: z.string().optional(),
 });
 
@@ -36,5 +42,14 @@ export function getVersionFilesRequestToJSON(
 ): string {
   return JSON.stringify(
     GetVersionFilesRequest$outboundSchema.parse(getVersionFilesRequest),
+  );
+}
+export function getVersionFilesRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetVersionFilesRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetVersionFilesRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetVersionFilesRequest' from JSON`,
   );
 }

@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetConfigGroupByProductAndIdRequest = {
@@ -20,6 +24,16 @@ export type GetConfigGroupByProductAndIdRequest = {
   fields?: string | undefined;
 };
 
+/** @internal */
+export const GetConfigGroupByProductAndIdRequest$inboundSchema: z.ZodType<
+  GetConfigGroupByProductAndIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  product: models.ProductsCore$inboundSchema,
+  id: types.string(),
+  fields: types.optional(types.string()),
+});
 /** @internal */
 export type GetConfigGroupByProductAndIdRequest$Outbound = {
   product: string;
@@ -45,5 +59,15 @@ export function getConfigGroupByProductAndIdRequestToJSON(
     GetConfigGroupByProductAndIdRequest$outboundSchema.parse(
       getConfigGroupByProductAndIdRequest,
     ),
+  );
+}
+export function getConfigGroupByProductAndIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetConfigGroupByProductAndIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetConfigGroupByProductAndIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetConfigGroupByProductAndIdRequest' from JSON`,
   );
 }

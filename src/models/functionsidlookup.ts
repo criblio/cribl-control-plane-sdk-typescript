@@ -46,7 +46,53 @@ export const FunctionSidlookup$inboundSchema: z.ZodType<
   version: types.string(),
   schema: types.optional(z.record(z.any())),
 });
+/** @internal */
+export type FunctionSidlookup$Outbound = {
+  __filename: string;
+  asyncTimeout?: number | undefined;
+  cribl_version?: string | undefined;
+  disabled?: boolean | undefined;
+  group: string;
+  handleSignals?: boolean | undefined;
+  id: "sidlookup";
+  loadTime: number;
+  modTime: number;
+  name: string;
+  sync?: boolean | undefined;
+  uischema: { [k: string]: any };
+  version: string;
+  schema?: { [k: string]: any } | undefined;
+};
 
+/** @internal */
+export const FunctionSidlookup$outboundSchema: z.ZodType<
+  FunctionSidlookup$Outbound,
+  z.ZodTypeDef,
+  FunctionSidlookup
+> = z.object({
+  __filename: z.string(),
+  asyncTimeout: z.number().optional(),
+  cribl_version: z.string().optional(),
+  disabled: z.boolean().optional(),
+  group: z.string(),
+  handleSignals: z.boolean().optional(),
+  id: z.literal("sidlookup"),
+  loadTime: z.number(),
+  modTime: z.number(),
+  name: z.string(),
+  sync: z.boolean().optional(),
+  uischema: z.record(z.any()),
+  version: z.string(),
+  schema: z.record(z.any()).optional(),
+});
+
+export function functionSidlookupToJSON(
+  functionSidlookup: FunctionSidlookup,
+): string {
+  return JSON.stringify(
+    FunctionSidlookup$outboundSchema.parse(functionSidlookup),
+  );
+}
 export function functionSidlookupFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionSidlookup, SDKValidationError> {

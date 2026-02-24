@@ -22,7 +22,29 @@ export const PackUninstallInfo$inboundSchema: z.ZodType<
   id: types.string(),
   source: types.string(),
 });
+/** @internal */
+export type PackUninstallInfo$Outbound = {
+  id: string;
+  source: string;
+};
 
+/** @internal */
+export const PackUninstallInfo$outboundSchema: z.ZodType<
+  PackUninstallInfo$Outbound,
+  z.ZodTypeDef,
+  PackUninstallInfo
+> = z.object({
+  id: z.string(),
+  source: z.string(),
+});
+
+export function packUninstallInfoToJSON(
+  packUninstallInfo: PackUninstallInfo,
+): string {
+  return JSON.stringify(
+    PackUninstallInfo$outboundSchema.parse(packUninstallInfo),
+  );
+}
 export function packUninstallInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<PackUninstallInfo, SDKValidationError> {

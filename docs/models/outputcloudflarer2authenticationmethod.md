@@ -15,5 +15,5 @@ let value: OutputCloudflareR2AuthenticationMethod = "auto";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"auto" | "secret" | "manual" | Unrecognized<string>
+"auto" | "secret" | Unrecognized<string>
 ```

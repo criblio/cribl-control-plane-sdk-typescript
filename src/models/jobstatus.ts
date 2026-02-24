@@ -41,6 +41,9 @@ export type JobStatus = {
 /** @internal */
 export const State$inboundSchema: z.ZodType<State, z.ZodTypeDef, unknown> =
   openEnums.inboundSchemaInt(State);
+/** @internal */
+export const State$outboundSchema: z.ZodType<number, z.ZodTypeDef, State> =
+  openEnums.outboundSchemaInt(State);
 
 /** @internal */
 export const JobStatus$inboundSchema: z.ZodType<
@@ -51,7 +54,25 @@ export const JobStatus$inboundSchema: z.ZodType<
   reason: types.optional(z.record(z.any())),
   state: State$inboundSchema,
 });
+/** @internal */
+export type JobStatus$Outbound = {
+  reason?: { [k: string]: any } | undefined;
+  state: number;
+};
 
+/** @internal */
+export const JobStatus$outboundSchema: z.ZodType<
+  JobStatus$Outbound,
+  z.ZodTypeDef,
+  JobStatus
+> = z.object({
+  reason: z.record(z.any()).optional(),
+  state: State$outboundSchema,
+});
+
+export function jobStatusToJSON(jobStatus: JobStatus): string {
+  return JSON.stringify(JobStatus$outboundSchema.parse(jobStatus));
+}
 export function jobStatusFromJSON(
   jsonString: string,
 ): SafeParseResult<JobStatus, SDKValidationError> {

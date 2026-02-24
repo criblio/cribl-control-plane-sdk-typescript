@@ -8,7 +8,6 @@ import { RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeJson } from
 let value: RestAuthenticationGoogleOauthSecretRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

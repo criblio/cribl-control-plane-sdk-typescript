@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateRoutesByIdRequest = {
@@ -17,6 +21,19 @@ export type UpdateRoutesByIdRequest = {
   routes: models.Routes;
 };
 
+/** @internal */
+export const UpdateRoutesByIdRequest$inboundSchema: z.ZodType<
+  UpdateRoutesByIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  Routes: models.Routes$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Routes": "routes",
+  });
+});
 /** @internal */
 export type UpdateRoutesByIdRequest$Outbound = {
   id: string;
@@ -42,5 +59,14 @@ export function updateRoutesByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateRoutesByIdRequest$outboundSchema.parse(updateRoutesByIdRequest),
+  );
+}
+export function updateRoutesByIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateRoutesByIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateRoutesByIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateRoutesByIdRequest' from JSON`,
   );
 }

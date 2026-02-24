@@ -19,7 +19,27 @@ export const AdditionalPropertiesTypeJobInfoStats$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = smartUnion([types.number(), z.record(types.number())]);
+/** @internal */
+export type AdditionalPropertiesTypeJobInfoStats$Outbound = number | {
+  [k: string]: number;
+};
 
+/** @internal */
+export const AdditionalPropertiesTypeJobInfoStats$outboundSchema: z.ZodType<
+  AdditionalPropertiesTypeJobInfoStats$Outbound,
+  z.ZodTypeDef,
+  AdditionalPropertiesTypeJobInfoStats
+> = smartUnion([z.number(), z.record(z.number())]);
+
+export function additionalPropertiesTypeJobInfoStatsToJSON(
+  additionalPropertiesTypeJobInfoStats: AdditionalPropertiesTypeJobInfoStats,
+): string {
+  return JSON.stringify(
+    AdditionalPropertiesTypeJobInfoStats$outboundSchema.parse(
+      additionalPropertiesTypeJobInfoStats,
+    ),
+  );
+}
 export function additionalPropertiesTypeJobInfoStatsFromJSON(
   jsonString: string,
 ): SafeParseResult<AdditionalPropertiesTypeJobInfoStats, SDKValidationError> {

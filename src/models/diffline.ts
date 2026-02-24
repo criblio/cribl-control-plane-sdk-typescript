@@ -10,14 +10,20 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   DiffLineContext,
   DiffLineContext$inboundSchema,
+  DiffLineContext$Outbound,
+  DiffLineContext$outboundSchema,
 } from "./difflinecontext.js";
 import {
   DiffLineDelete,
   DiffLineDelete$inboundSchema,
+  DiffLineDelete$Outbound,
+  DiffLineDelete$outboundSchema,
 } from "./difflinedelete.js";
 import {
   DiffLineInsert,
   DiffLineInsert$inboundSchema,
+  DiffLineInsert$Outbound,
+  DiffLineInsert$outboundSchema,
 } from "./difflineinsert.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -37,7 +43,26 @@ export const DiffLine$inboundSchema: z.ZodType<
   insert: DiffLineInsert$inboundSchema,
   context: DiffLineContext$inboundSchema,
 });
+/** @internal */
+export type DiffLine$Outbound =
+  | DiffLineDelete$Outbound
+  | DiffLineInsert$Outbound
+  | DiffLineContext$Outbound;
 
+/** @internal */
+export const DiffLine$outboundSchema: z.ZodType<
+  DiffLine$Outbound,
+  z.ZodTypeDef,
+  DiffLine
+> = z.union([
+  DiffLineDelete$outboundSchema,
+  DiffLineInsert$outboundSchema,
+  DiffLineContext$outboundSchema,
+]);
+
+export function diffLineToJSON(diffLine: DiffLine): string {
+  return JSON.stringify(DiffLine$outboundSchema.parse(diffLine));
+}
 export function diffLineFromJSON(
   jsonString: string,
 ): SafeParseResult<DiffLine, SDKValidationError> {

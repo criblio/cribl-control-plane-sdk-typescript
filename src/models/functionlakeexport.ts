@@ -46,7 +46,53 @@ export const FunctionLakeExport$inboundSchema: z.ZodType<
   version: types.string(),
   schema: types.optional(z.record(z.any())),
 });
+/** @internal */
+export type FunctionLakeExport$Outbound = {
+  __filename: string;
+  asyncTimeout?: number | undefined;
+  cribl_version?: string | undefined;
+  disabled?: boolean | undefined;
+  group: string;
+  handleSignals?: boolean | undefined;
+  id: "lake_export";
+  loadTime: number;
+  modTime: number;
+  name: string;
+  sync?: boolean | undefined;
+  uischema: { [k: string]: any };
+  version: string;
+  schema?: { [k: string]: any } | undefined;
+};
 
+/** @internal */
+export const FunctionLakeExport$outboundSchema: z.ZodType<
+  FunctionLakeExport$Outbound,
+  z.ZodTypeDef,
+  FunctionLakeExport
+> = z.object({
+  __filename: z.string(),
+  asyncTimeout: z.number().optional(),
+  cribl_version: z.string().optional(),
+  disabled: z.boolean().optional(),
+  group: z.string(),
+  handleSignals: z.boolean().optional(),
+  id: z.literal("lake_export"),
+  loadTime: z.number(),
+  modTime: z.number(),
+  name: z.string(),
+  sync: z.boolean().optional(),
+  uischema: z.record(z.any()),
+  version: z.string(),
+  schema: z.record(z.any()).optional(),
+});
+
+export function functionLakeExportToJSON(
+  functionLakeExport: FunctionLakeExport,
+): string {
+  return JSON.stringify(
+    FunctionLakeExport$outboundSchema.parse(functionLakeExport),
+  );
+}
 export function functionLakeExportFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionLakeExport, SDKValidationError> {

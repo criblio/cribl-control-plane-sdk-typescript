@@ -28,7 +28,35 @@ export const OutputTestResponse$inboundSchema: z.ZodType<
   success: types.boolean(),
   successDetail: types.optional(types.string()),
 });
+/** @internal */
+export type OutputTestResponse$Outbound = {
+  details?: { [k: string]: any } | undefined;
+  error?: string | undefined;
+  outputId: string;
+  success: boolean;
+  successDetail?: string | undefined;
+};
 
+/** @internal */
+export const OutputTestResponse$outboundSchema: z.ZodType<
+  OutputTestResponse$Outbound,
+  z.ZodTypeDef,
+  OutputTestResponse
+> = z.object({
+  details: z.record(z.any()).optional(),
+  error: z.string().optional(),
+  outputId: z.string(),
+  success: z.boolean(),
+  successDetail: z.string().optional(),
+});
+
+export function outputTestResponseToJSON(
+  outputTestResponse: OutputTestResponse,
+): string {
+  return JSON.stringify(
+    OutputTestResponse$outboundSchema.parse(outputTestResponse),
+  );
+}
 export function outputTestResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputTestResponse, SDKValidationError> {

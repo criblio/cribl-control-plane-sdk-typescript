@@ -5,27 +5,7 @@
 ```typescript
 import { FunctionConfSchemaPublishMetrics } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaPublishMetrics = {
-  fields: [
-    {
-      inFieldName: "<value>",
-      outFieldExpr: "<value>",
-      metricType: "counter",
-    },
-  ],
-  overwrite: true,
-  dimensions: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  removeMetrics: [
-    "<value 1>",
-  ],
-  removeDimensions: [
-    "<value 1>",
-    "<value 2>",
-  ],
-};
+let value: FunctionConfSchemaPublishMetrics = {};
 ```
 
 ## Fields

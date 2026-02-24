@@ -5,15 +5,7 @@
 ```typescript
 import { FunctionConfSchemaSidlookup } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaSidlookup = {
-  fields: [
-    {
-      name: "<value>",
-      expr: "<value>",
-      disabled: false,
-    },
-  ],
-};
+let value: FunctionConfSchemaSidlookup = {};
 ```
 
 ## Fields

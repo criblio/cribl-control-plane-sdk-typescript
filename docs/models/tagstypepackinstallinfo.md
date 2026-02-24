@@ -5,25 +5,7 @@
 ```typescript
 import { TagsTypePackInstallInfo } from "cribl-control-plane/models";
 
-let value: TagsTypePackInstallInfo = {
-  dataType: [
-    "binary",
-    "tinyint",
-  ],
-  domain: [
-    "faint-marathon.com",
-    "well-off-kiss.com",
-    "avaricious-tackle.info",
-  ],
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  technology: [
-    "<value 1>",
-    "<value 2>",
-  ],
-};
+let value: TagsTypePackInstallInfo = {};
 ```
 
 ## Fields

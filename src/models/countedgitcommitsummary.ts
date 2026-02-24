@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   GitCommitSummary,
   GitCommitSummary$inboundSchema,
+  GitCommitSummary$Outbound,
+  GitCommitSummary$outboundSchema,
 } from "./gitcommitsummary.js";
 
 export type CountedGitCommitSummary = {
@@ -29,7 +31,29 @@ export const CountedGitCommitSummary$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(GitCommitSummary$inboundSchema)),
 });
+/** @internal */
+export type CountedGitCommitSummary$Outbound = {
+  count?: number | undefined;
+  items?: Array<GitCommitSummary$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedGitCommitSummary$outboundSchema: z.ZodType<
+  CountedGitCommitSummary$Outbound,
+  z.ZodTypeDef,
+  CountedGitCommitSummary
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(GitCommitSummary$outboundSchema).optional(),
+});
+
+export function countedGitCommitSummaryToJSON(
+  countedGitCommitSummary: CountedGitCommitSummary,
+): string {
+  return JSON.stringify(
+    CountedGitCommitSummary$outboundSchema.parse(countedGitCommitSummary),
+  );
+}
 export function countedGitCommitSummaryFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedGitCommitSummary, SDKValidationError> {

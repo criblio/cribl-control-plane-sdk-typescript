@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdatePacksRequest = {
   /**
@@ -13,6 +17,24 @@ export type UpdatePacksRequest = {
   requestBody: ReadableStream<Uint8Array> | Blob | ArrayBuffer | Uint8Array;
 };
 
+/** @internal */
+export const UpdatePacksRequest$inboundSchema: z.ZodType<
+  UpdatePacksRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  filename: types.string(),
+  RequestBody: z.union([
+    z.instanceof(ReadableStream<Uint8Array>),
+    z.instanceof(Blob),
+    z.instanceof(ArrayBuffer),
+    z.instanceof(Uint8Array),
+  ]),
+}).transform((v) => {
+  return remap$(v, {
+    "RequestBody": "requestBody",
+  });
+});
 /** @internal */
 export type UpdatePacksRequest$Outbound = {
   filename: string;
@@ -43,5 +65,14 @@ export function updatePacksRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdatePacksRequest$outboundSchema.parse(updatePacksRequest),
+  );
+}
+export function updatePacksRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdatePacksRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdatePacksRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdatePacksRequest' from JSON`,
   );
 }

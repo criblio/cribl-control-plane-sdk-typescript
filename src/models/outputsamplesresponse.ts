@@ -19,7 +19,27 @@ export const OutputSamplesResponse$inboundSchema: z.ZodType<
 > = z.object({
   events: z.array(z.record(z.any())),
 });
+/** @internal */
+export type OutputSamplesResponse$Outbound = {
+  events: Array<{ [k: string]: any }>;
+};
 
+/** @internal */
+export const OutputSamplesResponse$outboundSchema: z.ZodType<
+  OutputSamplesResponse$Outbound,
+  z.ZodTypeDef,
+  OutputSamplesResponse
+> = z.object({
+  events: z.array(z.record(z.any())),
+});
+
+export function outputSamplesResponseToJSON(
+  outputSamplesResponse: OutputSamplesResponse,
+): string {
+  return JSON.stringify(
+    OutputSamplesResponse$outboundSchema.parse(outputSamplesResponse),
+  );
+}
 export function outputSamplesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSamplesResponse, SDKValidationError> {

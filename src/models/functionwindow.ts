@@ -46,7 +46,49 @@ export const FunctionWindow$inboundSchema: z.ZodType<
   version: types.string(),
   schema: types.optional(z.record(z.any())),
 });
+/** @internal */
+export type FunctionWindow$Outbound = {
+  __filename: string;
+  asyncTimeout?: number | undefined;
+  cribl_version?: string | undefined;
+  disabled?: boolean | undefined;
+  group: string;
+  handleSignals?: boolean | undefined;
+  id: "window";
+  loadTime: number;
+  modTime: number;
+  name: string;
+  sync?: boolean | undefined;
+  uischema: { [k: string]: any };
+  version: string;
+  schema?: { [k: string]: any } | undefined;
+};
 
+/** @internal */
+export const FunctionWindow$outboundSchema: z.ZodType<
+  FunctionWindow$Outbound,
+  z.ZodTypeDef,
+  FunctionWindow
+> = z.object({
+  __filename: z.string(),
+  asyncTimeout: z.number().optional(),
+  cribl_version: z.string().optional(),
+  disabled: z.boolean().optional(),
+  group: z.string(),
+  handleSignals: z.boolean().optional(),
+  id: z.literal("window"),
+  loadTime: z.number(),
+  modTime: z.number(),
+  name: z.string(),
+  sync: z.boolean().optional(),
+  uischema: z.record(z.any()),
+  version: z.string(),
+  schema: z.record(z.any()).optional(),
+});
+
+export function functionWindowToJSON(functionWindow: FunctionWindow): string {
+  return JSON.stringify(FunctionWindow$outboundSchema.parse(functionWindow));
+}
 export function functionWindowFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionWindow, SDKValidationError> {

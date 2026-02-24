@@ -6,66 +6,7 @@
 import { InputFile } from "cribl-control-plane/models";
 
 let value: InputFile = {
-  id: "<id>",
   type: "file",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  mode: "manual",
-  interval: 353.99,
-  filenames: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  filterArchivedFiles: true,
-  tailOnly: false,
-  idleTimeout: 795.27,
-  minAgeDur: "<value>",
-  maxAgeDur: "<value>",
-  checkFileModTime: true,
-  forceText: true,
-  hashLen: 3508.88,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 1033.1,
-  description:
-    "helpless bah raw out fully miscalculate wisecrack frightfully meatloaf",
-  path: "/usr/ports",
-  depth: 8613.44,
-  suppressMissingPathErrors: false,
-  deleteFiles: false,
-  saltHash: true,
-  includeUnidentifiableBinary: true,
 };
 ```
 
@@ -94,7 +35,7 @@ let value: InputFile = {
 | `checkFileModTime`                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Skip files with modification times earlier than the maximum age duration                                                                                                                                                                     |
 | `forceText`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Forces files containing binary data to be streamed as text                                                                                                                                                                                   |
 | `hashLen`                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Length of file header bytes to use in hash for unique file identification                                                                                                                                                                    |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
 | `breakerRulesets`                                                                                                                                                                                                                            | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | A list of event-breaking rulesets that will be applied, in order, to the input data stream                                                                                                                                                   |
 | `staleChannelFlushMs`                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines                                                                            |
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

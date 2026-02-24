@@ -7,7 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Output, Output$inboundSchema } from "./output.js";
+import {
+  Output,
+  Output$inboundSchema,
+  Output$Outbound,
+  Output$outboundSchema,
+} from "./output.js";
 
 export type CountedOutput = {
   /**
@@ -26,7 +31,25 @@ export const CountedOutput$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(Output$inboundSchema)),
 });
+/** @internal */
+export type CountedOutput$Outbound = {
+  count?: number | undefined;
+  items?: Array<Output$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedOutput$outboundSchema: z.ZodType<
+  CountedOutput$Outbound,
+  z.ZodTypeDef,
+  CountedOutput
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(Output$outboundSchema).optional(),
+});
+
+export function countedOutputToJSON(countedOutput: CountedOutput): string {
+  return JSON.stringify(CountedOutput$outboundSchema.parse(countedOutput));
+}
 export function countedOutputFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedOutput, SDKValidationError> {

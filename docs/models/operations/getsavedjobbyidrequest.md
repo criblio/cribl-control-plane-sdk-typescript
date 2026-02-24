@@ -7,7 +7,6 @@ import { GetSavedJobByIdRequest } from "cribl-control-plane/models/operations";
 
 let value: GetSavedJobByIdRequest = {
   id: "<id>",
-  criblPack: "<value>",
 };
 ```
 

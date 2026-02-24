@@ -10,18 +10,22 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   NodeActiveUpgradeStatus,
   NodeActiveUpgradeStatus$inboundSchema,
+  NodeActiveUpgradeStatus$outboundSchema,
 } from "./nodeactiveupgradestatus.js";
 import {
   NodeFailedUpgradeStatus,
   NodeFailedUpgradeStatus$inboundSchema,
+  NodeFailedUpgradeStatus$outboundSchema,
 } from "./nodefailedupgradestatus.js";
 import {
   NodeSkippedUpgradeStatus,
   NodeSkippedUpgradeStatus$inboundSchema,
+  NodeSkippedUpgradeStatus$outboundSchema,
 } from "./nodeskippedupgradestatus.js";
 import {
   NodeUpgradeState,
   NodeUpgradeState$inboundSchema,
+  NodeUpgradeState$outboundSchema,
 } from "./nodeupgradestate.js";
 
 export type NodeUpgradeStatus = {
@@ -44,7 +48,35 @@ export const NodeUpgradeStatus$inboundSchema: z.ZodType<
   state: NodeUpgradeState$inboundSchema,
   timestamp: types.number(),
 });
+/** @internal */
+export type NodeUpgradeStatus$Outbound = {
+  active?: number | undefined;
+  failed?: number | undefined;
+  skipped?: number | undefined;
+  state: number;
+  timestamp: number;
+};
 
+/** @internal */
+export const NodeUpgradeStatus$outboundSchema: z.ZodType<
+  NodeUpgradeStatus$Outbound,
+  z.ZodTypeDef,
+  NodeUpgradeStatus
+> = z.object({
+  active: NodeActiveUpgradeStatus$outboundSchema.optional(),
+  failed: NodeFailedUpgradeStatus$outboundSchema.optional(),
+  skipped: NodeSkippedUpgradeStatus$outboundSchema.optional(),
+  state: NodeUpgradeState$outboundSchema,
+  timestamp: z.number(),
+});
+
+export function nodeUpgradeStatusToJSON(
+  nodeUpgradeStatus: NodeUpgradeStatus,
+): string {
+  return JSON.stringify(
+    NodeUpgradeStatus$outboundSchema.parse(nodeUpgradeStatus),
+  );
+}
 export function nodeUpgradeStatusFromJSON(
   jsonString: string,
 ): SafeParseResult<NodeUpgradeStatus, SDKValidationError> {

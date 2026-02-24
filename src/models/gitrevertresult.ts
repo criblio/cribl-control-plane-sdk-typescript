@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FilesTypeGitCommitSummary,
   FilesTypeGitCommitSummary$inboundSchema,
+  FilesTypeGitCommitSummary$Outbound,
+  FilesTypeGitCommitSummary$outboundSchema,
 } from "./filestypegitcommitsummary.js";
 
 export type Audit = {
@@ -30,7 +32,27 @@ export const Audit$inboundSchema: z.ZodType<Audit, z.ZodTypeDef, unknown> = z
     group: types.optional(types.string()),
     id: types.string(),
   });
+/** @internal */
+export type Audit$Outbound = {
+  files?: FilesTypeGitCommitSummary$Outbound | undefined;
+  group?: string | undefined;
+  id: string;
+};
 
+/** @internal */
+export const Audit$outboundSchema: z.ZodType<
+  Audit$Outbound,
+  z.ZodTypeDef,
+  Audit
+> = z.object({
+  files: FilesTypeGitCommitSummary$outboundSchema.optional(),
+  group: z.string().optional(),
+  id: z.string(),
+});
+
+export function auditToJSON(audit: Audit): string {
+  return JSON.stringify(Audit$outboundSchema.parse(audit));
+}
 export function auditFromJSON(
   jsonString: string,
 ): SafeParseResult<Audit, SDKValidationError> {
@@ -50,7 +72,27 @@ export const GitRevertResult$inboundSchema: z.ZodType<
   audit: z.lazy(() => Audit$inboundSchema),
   reverted: types.boolean(),
 });
+/** @internal */
+export type GitRevertResult$Outbound = {
+  audit: Audit$Outbound;
+  reverted: boolean;
+};
 
+/** @internal */
+export const GitRevertResult$outboundSchema: z.ZodType<
+  GitRevertResult$Outbound,
+  z.ZodTypeDef,
+  GitRevertResult
+> = z.object({
+  audit: z.lazy(() => Audit$outboundSchema),
+  reverted: z.boolean(),
+});
+
+export function gitRevertResultToJSON(
+  gitRevertResult: GitRevertResult,
+): string {
+  return JSON.stringify(GitRevertResult$outboundSchema.parse(gitRevertResult));
+}
 export function gitRevertResultFromJSON(
   jsonString: string,
 ): SafeParseResult<GitRevertResult, SDKValidationError> {

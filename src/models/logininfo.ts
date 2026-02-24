@@ -3,12 +3,25 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type LoginInfo = {
   password: string;
   username: string;
 };
 
+/** @internal */
+export const LoginInfo$inboundSchema: z.ZodType<
+  LoginInfo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  password: types.string(),
+  username: types.string(),
+});
 /** @internal */
 export type LoginInfo$Outbound = {
   password: string;
@@ -27,4 +40,13 @@ export const LoginInfo$outboundSchema: z.ZodType<
 
 export function loginInfoToJSON(loginInfo: LoginInfo): string {
   return JSON.stringify(LoginInfo$outboundSchema.parse(loginInfo));
+}
+export function loginInfoFromJSON(
+  jsonString: string,
+): SafeParseResult<LoginInfo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LoginInfo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LoginInfo' from JSON`,
+  );
 }

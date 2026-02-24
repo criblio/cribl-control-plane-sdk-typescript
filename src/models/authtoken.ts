@@ -22,7 +22,25 @@ export const AuthToken$inboundSchema: z.ZodType<
   forcePasswordChange: types.boolean(),
   token: types.string(),
 });
+/** @internal */
+export type AuthToken$Outbound = {
+  forcePasswordChange: boolean;
+  token: string;
+};
 
+/** @internal */
+export const AuthToken$outboundSchema: z.ZodType<
+  AuthToken$Outbound,
+  z.ZodTypeDef,
+  AuthToken
+> = z.object({
+  forcePasswordChange: z.boolean(),
+  token: z.string(),
+});
+
+export function authTokenToJSON(authToken: AuthToken): string {
+  return JSON.stringify(AuthToken$outboundSchema.parse(authToken));
+}
 export function authTokenFromJSON(
   jsonString: string,
 ): SafeParseResult<AuthToken, SDKValidationError> {

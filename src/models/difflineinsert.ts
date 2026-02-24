@@ -24,7 +24,27 @@ export const DiffLineInsert$inboundSchema: z.ZodType<
   newNumber: types.number(),
   content: types.string(),
 });
+/** @internal */
+export type DiffLineInsert$Outbound = {
+  type: "insert";
+  newNumber: number;
+  content: string;
+};
 
+/** @internal */
+export const DiffLineInsert$outboundSchema: z.ZodType<
+  DiffLineInsert$Outbound,
+  z.ZodTypeDef,
+  DiffLineInsert
+> = z.object({
+  type: z.literal("insert"),
+  newNumber: z.number(),
+  content: z.string(),
+});
+
+export function diffLineInsertToJSON(diffLineInsert: DiffLineInsert): string {
+  return JSON.stringify(DiffLineInsert$outboundSchema.parse(diffLineInsert));
+}
 export function diffLineInsertFromJSON(
   jsonString: string,
 ): SafeParseResult<DiffLineInsert, SDKValidationError> {

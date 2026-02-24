@@ -40,7 +40,27 @@ export const FileT$inboundSchema: z.ZodType<FileT, z.ZodTypeDef, unknown> = z
     path: types.string(),
     working_dir: types.string(),
   });
+/** @internal */
+export type FileT$Outbound = {
+  index: string;
+  path: string;
+  working_dir: string;
+};
 
+/** @internal */
+export const FileT$outboundSchema: z.ZodType<
+  FileT$Outbound,
+  z.ZodTypeDef,
+  FileT
+> = z.object({
+  index: z.string(),
+  path: z.string(),
+  working_dir: z.string(),
+});
+
+export function fileToJSON(fileT: FileT): string {
+  return JSON.stringify(FileT$outboundSchema.parse(fileT));
+}
 export function fileFromJSON(
   jsonString: string,
 ): SafeParseResult<FileT, SDKValidationError> {
@@ -57,7 +77,25 @@ export const Renamed$inboundSchema: z.ZodType<Renamed, z.ZodTypeDef, unknown> =
     from: types.string(),
     to: types.string(),
   });
+/** @internal */
+export type Renamed$Outbound = {
+  from: string;
+  to: string;
+};
 
+/** @internal */
+export const Renamed$outboundSchema: z.ZodType<
+  Renamed$Outbound,
+  z.ZodTypeDef,
+  Renamed
+> = z.object({
+  from: z.string(),
+  to: z.string(),
+});
+
+export function renamedToJSON(renamed: Renamed): string {
+  return JSON.stringify(Renamed$outboundSchema.parse(renamed));
+}
 export function renamedFromJSON(
   jsonString: string,
 ): SafeParseResult<Renamed, SDKValidationError> {
@@ -86,7 +124,45 @@ export const GitStatusResult$inboundSchema: z.ZodType<
   renamed: z.array(z.lazy(() => Renamed$inboundSchema)),
   staged: z.array(types.string()),
 });
+/** @internal */
+export type GitStatusResult$Outbound = {
+  ahead: number;
+  behind: number;
+  conflicted: Array<string>;
+  created: Array<string>;
+  current: string;
+  deleted: Array<string>;
+  files: Array<FileT$Outbound>;
+  modified: Array<string>;
+  not_added: Array<string>;
+  renamed: Array<Renamed$Outbound>;
+  staged: Array<string>;
+};
 
+/** @internal */
+export const GitStatusResult$outboundSchema: z.ZodType<
+  GitStatusResult$Outbound,
+  z.ZodTypeDef,
+  GitStatusResult
+> = z.object({
+  ahead: z.number(),
+  behind: z.number(),
+  conflicted: z.array(z.string()),
+  created: z.array(z.string()),
+  current: z.string(),
+  deleted: z.array(z.string()),
+  files: z.array(z.lazy(() => FileT$outboundSchema)),
+  modified: z.array(z.string()),
+  not_added: z.array(z.string()),
+  renamed: z.array(z.lazy(() => Renamed$outboundSchema)),
+  staged: z.array(z.string()),
+});
+
+export function gitStatusResultToJSON(
+  gitStatusResult: GitStatusResult,
+): string {
+  return JSON.stringify(GitStatusResult$outboundSchema.parse(gitStatusResult));
+}
 export function gitStatusResultFromJSON(
   jsonString: string,
 ): SafeParseResult<GitStatusResult, SDKValidationError> {

@@ -230,6 +230,14 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputGrafanaCloudPqControls2 | undefined;
+  /**
+   * Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
+   */
+  __template_lokiUrl?: string | undefined;
+  /**
+   * Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
+   */
+  __template_prometheusUrl?: string | undefined;
 };
 
 export const OutputGrafanaCloudType1 = {
@@ -392,6 +400,14 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputGrafanaCloudPqControls1 | undefined;
+  /**
+   * Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
+   */
+  __template_lokiUrl?: string | undefined;
+  /**
+   * Binds 'prometheusUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusUrl' at runtime.
+   */
+  __template_prometheusUrl?: string | undefined;
 };
 
 export type OutputGrafanaCloud =
@@ -497,6 +513,8 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputGrafanaCloudPqControls2$inboundSchema),
   ),
+  __template_lokiUrl: types.optional(types.string()),
+  __template_prometheusUrl: types.optional(types.string()),
 });
 /** @internal */
 export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
@@ -543,6 +561,8 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputGrafanaCloudPqControls2$Outbound | undefined;
+  __template_lokiUrl?: string | undefined;
+  __template_prometheusUrl?: string | undefined;
 };
 
 /** @internal */
@@ -596,6 +616,8 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls2$outboundSchema)
     .optional(),
+  __template_lokiUrl: z.string().optional(),
+  __template_prometheusUrl: z.string().optional(),
 });
 
 export function outputGrafanaCloudGrafanaCloud2ToJSON(
@@ -716,6 +738,8 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputGrafanaCloudPqControls1$inboundSchema),
   ),
+  __template_lokiUrl: types.optional(types.string()),
+  __template_prometheusUrl: types.optional(types.string()),
 });
 /** @internal */
 export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
@@ -762,6 +786,8 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputGrafanaCloudPqControls1$Outbound | undefined;
+  __template_lokiUrl?: string | undefined;
+  __template_prometheusUrl?: string | undefined;
 };
 
 /** @internal */
@@ -815,6 +841,8 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputGrafanaCloudPqControls1$outboundSchema)
     .optional(),
+  __template_lokiUrl: z.string().optional(),
+  __template_prometheusUrl: z.string().optional(),
 });
 
 export function outputGrafanaCloudGrafanaCloud1ToJSON(

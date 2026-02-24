@@ -6,66 +6,8 @@
 import { OutputFilesystem } from "cribl-control-plane/models";
 
 let value: OutputFilesystem = {
-  id: "<id>",
   type: "filesystem",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
   destPath: "<value>",
-  stagePath: "<value>",
-  addIdToStagePath: false,
-  removeEmptyDirs: false,
-  partitionExpr: "<value>",
-  format: "json",
-  baseFileName: "<value>",
-  fileNameSuffix: "<value>",
-  maxFileSizeMB: 6438.28,
-  maxFileOpenTimeSec: 7036.75,
-  maxFileIdleTimeSec: 74.35,
-  maxOpenFiles: 952.33,
-  headerLine: "<value>",
-  writeHighWaterMark: 5859.14,
-  onBackpressure: "drop",
-  deadletterEnabled: true,
-  onDiskFullBackpressure: "drop",
-  forceCloseOnShutdown: true,
-  retrySettings: {
-    enabled: false,
-    initialBackoffMs: 192.63,
-    backoffMultiplier: 5447.21,
-    maxBackoffMs: 1266.88,
-    jitterPercent: 3342.59,
-  },
-  description: "maintainer frenetically darling sit boo brr tensely unless",
-  compress: "none",
-  compressionLevel: "best_speed",
-  automaticSchema: false,
-  parquetSchema: "<value>",
-  parquetVersion: "PARQUET_1_0",
-  parquetDataPageVersion: "DATA_PAGE_V2",
-  parquetRowGroupLength: 9408.98,
-  parquetPageSize: "<value>",
-  shouldLogInvalidRows: true,
-  keyValueMetadata: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
-  enableStatistics: true,
-  enableWritePageIndex: false,
-  enablePageChecksum: false,
-  emptyDirCleanupSec: 3385.11,
-  directoryBatchSize: 9254.15,
-  deadletterPath: "<value>",
-  maxRetryNum: 728.34,
 };
 ```
 
@@ -116,3 +58,4 @@ let value: OutputFilesystem = {
 | `directoryBatchSize`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.                                                                                                          |
 | `deadletterPath`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Storage location for files that fail to reach their final destination after maximum retries are exceeded                                                                                                                                                             |
 | `maxRetryNum`                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | The maximum number of times a file will attempt to move to its final destination before being dead-lettered                                                                                                                                                          |
+| `templateFormat`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.                                                                            |

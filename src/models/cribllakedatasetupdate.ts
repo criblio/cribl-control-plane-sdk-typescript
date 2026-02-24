@@ -3,22 +3,30 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   CacheConnection,
+  CacheConnection$inboundSchema,
   CacheConnection$Outbound,
   CacheConnection$outboundSchema,
 } from "./cacheconnection.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  FormatOptionsCriblLakeDataset,
-  FormatOptionsCriblLakeDataset$outboundSchema,
-} from "./formatoptionscribllakedataset.js";
+  FormatOptions,
+  FormatOptions$inboundSchema,
+  FormatOptions$outboundSchema,
+} from "./formatoptions.js";
 import {
   LakeDatasetMetrics,
+  LakeDatasetMetrics$inboundSchema,
   LakeDatasetMetrics$Outbound,
   LakeDatasetMetrics$outboundSchema,
 } from "./lakedatasetmetrics.js";
 import {
   LakeDatasetSearchConfig,
+  LakeDatasetSearchConfig$inboundSchema,
   LakeDatasetSearchConfig$Outbound,
   LakeDatasetSearchConfig$outboundSchema,
 } from "./lakedatasetsearchconfig.js";
@@ -29,7 +37,7 @@ export type CriblLakeDatasetUpdate = {
   cacheConnection?: CacheConnection | undefined;
   deletionStartedAt?: number | undefined;
   description?: string | undefined;
-  format?: FormatOptionsCriblLakeDataset | undefined;
+  format?: FormatOptions | undefined;
   httpDAUsed?: boolean | undefined;
   id?: string | undefined;
   metrics?: LakeDatasetMetrics | undefined;
@@ -39,6 +47,26 @@ export type CriblLakeDatasetUpdate = {
   viewName?: string | undefined;
 };
 
+/** @internal */
+export const CriblLakeDatasetUpdate$inboundSchema: z.ZodType<
+  CriblLakeDatasetUpdate,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  acceleratedFields: types.optional(z.array(types.string())),
+  bucketName: types.optional(types.string()),
+  cacheConnection: types.optional(CacheConnection$inboundSchema),
+  deletionStartedAt: types.optional(types.number()),
+  description: types.optional(types.string()),
+  format: types.optional(FormatOptions$inboundSchema),
+  httpDAUsed: types.optional(types.boolean()),
+  id: types.optional(types.string()),
+  metrics: types.optional(LakeDatasetMetrics$inboundSchema),
+  retentionPeriodInDays: types.optional(types.number()),
+  searchConfig: types.optional(LakeDatasetSearchConfig$inboundSchema),
+  storageLocationId: types.optional(types.string()),
+  viewName: types.optional(types.string()),
+});
 /** @internal */
 export type CriblLakeDatasetUpdate$Outbound = {
   acceleratedFields?: Array<string> | undefined;
@@ -67,7 +95,7 @@ export const CriblLakeDatasetUpdate$outboundSchema: z.ZodType<
   cacheConnection: CacheConnection$outboundSchema.optional(),
   deletionStartedAt: z.number().optional(),
   description: z.string().optional(),
-  format: FormatOptionsCriblLakeDataset$outboundSchema.optional(),
+  format: FormatOptions$outboundSchema.optional(),
   httpDAUsed: z.boolean().optional(),
   id: z.string().optional(),
   metrics: LakeDatasetMetrics$outboundSchema.optional(),
@@ -82,5 +110,14 @@ export function criblLakeDatasetUpdateToJSON(
 ): string {
   return JSON.stringify(
     CriblLakeDatasetUpdate$outboundSchema.parse(criblLakeDatasetUpdate),
+  );
+}
+export function criblLakeDatasetUpdateFromJSON(
+  jsonString: string,
+): SafeParseResult<CriblLakeDatasetUpdate, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CriblLakeDatasetUpdate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CriblLakeDatasetUpdate' from JSON`,
   );
 }

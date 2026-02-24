@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   OwnerTypeHeartbeatMetadataKube,
   OwnerTypeHeartbeatMetadataKube$inboundSchema,
+  OwnerTypeHeartbeatMetadataKube$Outbound,
+  OwnerTypeHeartbeatMetadataKube$outboundSchema,
 } from "./ownertypeheartbeatmetadatakube.js";
 
 export type KubeTypeHeartbeatMetadata = {
@@ -34,7 +36,37 @@ export const KubeTypeHeartbeatMetadata$inboundSchema: z.ZodType<
   pod: types.string(),
   source: types.string(),
 });
+/** @internal */
+export type KubeTypeHeartbeatMetadata$Outbound = {
+  enabled: boolean;
+  namespace: string;
+  node: string;
+  owner?: OwnerTypeHeartbeatMetadataKube$Outbound | undefined;
+  pod: string;
+  source: string;
+};
 
+/** @internal */
+export const KubeTypeHeartbeatMetadata$outboundSchema: z.ZodType<
+  KubeTypeHeartbeatMetadata$Outbound,
+  z.ZodTypeDef,
+  KubeTypeHeartbeatMetadata
+> = z.object({
+  enabled: z.boolean(),
+  namespace: z.string(),
+  node: z.string(),
+  owner: OwnerTypeHeartbeatMetadataKube$outboundSchema.optional(),
+  pod: z.string(),
+  source: z.string(),
+});
+
+export function kubeTypeHeartbeatMetadataToJSON(
+  kubeTypeHeartbeatMetadata: KubeTypeHeartbeatMetadata,
+): string {
+  return JSON.stringify(
+    KubeTypeHeartbeatMetadata$outboundSchema.parse(kubeTypeHeartbeatMetadata),
+  );
+}
 export function kubeTypeHeartbeatMetadataFromJSON(
   jsonString: string,
 ): SafeParseResult<KubeTypeHeartbeatMetadata, SDKValidationError> {

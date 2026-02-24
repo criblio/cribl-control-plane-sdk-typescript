@@ -5,28 +5,7 @@
 ```typescript
 import { CountedRoutes } from "cribl-control-plane/models";
 
-let value: CountedRoutes = {
-  count: 540829,
-  items: [
-    {
-      id: "<id>",
-      routes: [],
-      groups: {
-        "key": {
-          name: "<value>",
-          description: "far-flung like instead zowie pertain concrete shovel",
-          disabled: true,
-        },
-      },
-      comments: [
-        {
-          comment:
-            "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
-        },
-      ],
-    },
-  ],
-};
+let value: CountedRoutes = {};
 ```
 
 ## Fields

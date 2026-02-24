@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateSavedJobByIdRequest = {
@@ -21,6 +25,20 @@ export type UpdateSavedJobByIdRequest = {
   savedJob: models.SavedJob;
 };
 
+/** @internal */
+export const UpdateSavedJobByIdRequest$inboundSchema: z.ZodType<
+  UpdateSavedJobByIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  criblPack: types.optional(types.string()),
+  SavedJob: models.SavedJob$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "SavedJob": "savedJob",
+  });
+});
 /** @internal */
 export type UpdateSavedJobByIdRequest$Outbound = {
   id: string;
@@ -48,5 +66,14 @@ export function updateSavedJobByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateSavedJobByIdRequest$outboundSchema.parse(updateSavedJobByIdRequest),
+  );
+}
+export function updateSavedJobByIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateSavedJobByIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateSavedJobByIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateSavedJobByIdRequest' from JSON`,
   );
 }

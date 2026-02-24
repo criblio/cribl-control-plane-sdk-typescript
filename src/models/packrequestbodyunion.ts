@@ -3,9 +3,14 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TagsTypePackInstallInfo,
+  TagsTypePackInstallInfo$inboundSchema,
   TagsTypePackInstallInfo$Outbound,
   TagsTypePackInstallInfo$outboundSchema,
 } from "./tagstypepackinstallinfo.js";
@@ -47,6 +52,24 @@ export type PackRequestBody1 = {
 export type PackRequestBodyUnion = PackRequestBody1 | PackRequestBody2;
 
 /** @internal */
+export const PackRequestBody2$inboundSchema: z.ZodType<
+  PackRequestBody2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.optional(types.string()),
+  spec: types.optional(types.string()),
+  version: types.optional(types.string()),
+  minLogStreamVersion: types.optional(types.string()),
+  displayName: types.optional(types.string()),
+  author: types.optional(types.string()),
+  description: types.optional(types.string()),
+  source: types.string(),
+  tags: types.optional(TagsTypePackInstallInfo$inboundSchema),
+  allowCustomFunctions: types.optional(types.boolean()),
+  force: types.optional(types.boolean()),
+});
+/** @internal */
 export type PackRequestBody2$Outbound = {
   id?: string | undefined;
   spec?: string | undefined;
@@ -87,7 +110,34 @@ export function packRequestBody2ToJSON(
     PackRequestBody2$outboundSchema.parse(packRequestBody2),
   );
 }
+export function packRequestBody2FromJSON(
+  jsonString: string,
+): SafeParseResult<PackRequestBody2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PackRequestBody2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PackRequestBody2' from JSON`,
+  );
+}
 
+/** @internal */
+export const PackRequestBody1$inboundSchema: z.ZodType<
+  PackRequestBody1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  spec: types.optional(types.string()),
+  version: types.optional(types.string()),
+  minLogStreamVersion: types.optional(types.string()),
+  displayName: types.optional(types.string()),
+  author: types.optional(types.string()),
+  description: types.optional(types.string()),
+  source: types.optional(types.string()),
+  tags: types.optional(TagsTypePackInstallInfo$inboundSchema),
+  allowCustomFunctions: types.optional(types.boolean()),
+  force: types.optional(types.boolean()),
+});
 /** @internal */
 export type PackRequestBody1$Outbound = {
   id: string;
@@ -129,7 +179,25 @@ export function packRequestBody1ToJSON(
     PackRequestBody1$outboundSchema.parse(packRequestBody1),
   );
 }
+export function packRequestBody1FromJSON(
+  jsonString: string,
+): SafeParseResult<PackRequestBody1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PackRequestBody1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PackRequestBody1' from JSON`,
+  );
+}
 
+/** @internal */
+export const PackRequestBodyUnion$inboundSchema: z.ZodType<
+  PackRequestBodyUnion,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  z.lazy(() => PackRequestBody1$inboundSchema),
+  z.lazy(() => PackRequestBody2$inboundSchema),
+]);
 /** @internal */
 export type PackRequestBodyUnion$Outbound =
   | PackRequestBody1$Outbound
@@ -150,5 +218,14 @@ export function packRequestBodyUnionToJSON(
 ): string {
   return JSON.stringify(
     PackRequestBodyUnion$outboundSchema.parse(packRequestBodyUnion),
+  );
+}
+export function packRequestBodyUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<PackRequestBodyUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PackRequestBodyUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PackRequestBodyUnion' from JSON`,
   );
 }

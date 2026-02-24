@@ -251,6 +251,10 @@ export type OutputDatabricks = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -314,6 +318,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   directoryBatchSize: types.optional(types.number()),
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
+  __template_format: types.optional(types.string()),
 });
 /** @internal */
 export type OutputDatabricks$Outbound = {
@@ -368,6 +373,7 @@ export type OutputDatabricks$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -428,6 +434,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_format: z.string().optional(),
 });
 
 export function outputDatabricksToJSON(

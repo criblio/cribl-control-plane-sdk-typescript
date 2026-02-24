@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetFunctionsByIdRequest = {
   /**
@@ -11,6 +15,14 @@ export type GetFunctionsByIdRequest = {
   id: string;
 };
 
+/** @internal */
+export const GetFunctionsByIdRequest$inboundSchema: z.ZodType<
+  GetFunctionsByIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+});
 /** @internal */
 export type GetFunctionsByIdRequest$Outbound = {
   id: string;
@@ -30,5 +42,14 @@ export function getFunctionsByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     GetFunctionsByIdRequest$outboundSchema.parse(getFunctionsByIdRequest),
+  );
+}
+export function getFunctionsByIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetFunctionsByIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetFunctionsByIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetFunctionsByIdRequest' from JSON`,
   );
 }

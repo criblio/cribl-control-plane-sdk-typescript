@@ -8,7 +8,6 @@ import { RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink } fro
 let value: RestAuthenticationOauthSecretRestPaginationTypeResponseHeaderLink = {
   type: "response_header_link",
   nextRelationAttribute: "<value>",
-  curRelationAttribute: "<value>",
   maxPages: 740.15,
 };
 ```

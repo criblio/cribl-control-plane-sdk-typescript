@@ -5,15 +5,7 @@
 ```typescript
 import { InputWindowsMetricsNetwork } from "cribl-control-plane/models";
 
-let value: InputWindowsMetricsNetwork = {
-  mode: "disabled",
-  detail: true,
-  protocols: false,
-  devices: [
-    "<value 1>",
-  ],
-  perInterface: true,
-};
+let value: InputWindowsMetricsNetwork = {};
 ```
 
 ## Fields

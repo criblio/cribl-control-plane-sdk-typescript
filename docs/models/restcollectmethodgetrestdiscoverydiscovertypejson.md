@@ -8,7 +8,6 @@ import { RestCollectMethodGetRestDiscoveryDiscoverTypeJson } from "cribl-control
 let value: RestCollectMethodGetRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

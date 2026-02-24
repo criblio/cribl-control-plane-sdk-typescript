@@ -7,26 +7,17 @@ import { FunctionEventstats } from "cribl-control-plane/models";
 
 let value: FunctionEventstats = {
   __filename: "example.file",
-  asyncTimeout: 8029.93,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: false,
   id: "eventstats",
-  loadTime: 8121.28,
-  modTime: 7536.93,
+  loadTime: 8029.93,
+  modTime: 9598.67,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
     "key1": "<value>",
     "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
 };
 ```
 

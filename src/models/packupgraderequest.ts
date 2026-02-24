@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PackUpgradeRequest = {
   allowCustomFunctions?: boolean | undefined;
@@ -11,6 +15,17 @@ export type PackUpgradeRequest = {
   spec?: string | undefined;
 };
 
+/** @internal */
+export const PackUpgradeRequest$inboundSchema: z.ZodType<
+  PackUpgradeRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  allowCustomFunctions: types.optional(types.boolean()),
+  minor: types.optional(types.string()),
+  source: types.string(),
+  spec: types.optional(types.string()),
+});
 /** @internal */
 export type PackUpgradeRequest$Outbound = {
   allowCustomFunctions?: boolean | undefined;
@@ -36,5 +51,14 @@ export function packUpgradeRequestToJSON(
 ): string {
   return JSON.stringify(
     PackUpgradeRequest$outboundSchema.parse(packUpgradeRequest),
+  );
+}
+export function packUpgradeRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<PackUpgradeRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PackUpgradeRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PackUpgradeRequest' from JSON`,
   );
 }

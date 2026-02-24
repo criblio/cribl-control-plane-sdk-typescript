@@ -3,38 +3,37 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
 import * as openEnums from "../../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
 import { smartUnion } from "../../types/smartUnion.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 /**
  * Select Secret to use a text secret to authenticate
  */
-export const AuthTokenAuthenticationMethod = {
+export const CreateInputAuthTokenAuthenticationMethod = {
   Secret: "secret",
-  Manual: "manual",
 } as const;
 /**
  * Select Secret to use a text secret to authenticate
  */
-export type AuthTokenAuthenticationMethod = OpenEnum<
-  typeof AuthTokenAuthenticationMethod
+export type CreateInputAuthTokenAuthenticationMethod = OpenEnum<
+  typeof CreateInputAuthTokenAuthenticationMethod
 >;
 
-export type AuthTokenCloudflareHec = {
+export type CreateInputAuthTokenCloudflareHec = {
   /**
    * Select Secret to use a text secret to authenticate
    */
-  authType?: AuthTokenAuthenticationMethod | undefined;
+  authType?: CreateInputAuthTokenAuthenticationMethod | undefined;
   /**
    * Select or create a stored text secret
    */
   tokenSecret?: string | undefined;
-  /**
-   * Shared secret to be provided by any client (Authorization: <token>)
-   */
-  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   /**
@@ -44,10 +43,55 @@ export type AuthTokenCloudflareHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
 };
 
-export type InputCloudflareHec = {
+export type CreateInputTLSSettingsServerSide = {
+  /**
+   * Enable or disable TLS. Defaults to enabled for Cloudflare sources.
+   */
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl private key when TLS is enabled.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl certificate when TLS is enabled.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?:
+    | models.MinimumTlsVersionOptionsKafkaSchemaRegistryTls
+    | undefined;
+  maxVersion?:
+    | models.MaximumTlsVersionOptionsKafkaSchemaRegistryTls
+    | undefined;
+};
+
+export type CreateInputInputCloudflareHec = {
   /**
    * Unique ID for this input
    */
@@ -90,8 +134,8 @@ export type InputCloudflareHec = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokens?: Array<AuthTokenCloudflareHec> | undefined;
-  tls?: models.TlsSettingsServerSideType | undefined;
+  authTokens?: Array<CreateInputAuthTokenCloudflareHec> | undefined;
+  tls?: CreateInputTLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -124,7 +168,6 @@ export type InputCloudflareHec = {
    * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
    */
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   /**
    * Messages from matched IP addresses will be processed, unless also matched by the denylist
    */
@@ -140,7 +183,7 @@ export type InputCloudflareHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -166,9 +209,17 @@ export type InputCloudflareHec = {
    */
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type AuthTokenZscalerHec = {
+export type CreateInputAuthTokenZscalerHec = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -190,10 +241,10 @@ export type AuthTokenZscalerHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
 };
 
-export type InputZscalerHec = {
+export type CreateInputInputZscalerHec = {
   /**
    * Unique ID for this input
    */
@@ -236,7 +287,7 @@ export type InputZscalerHec = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokens?: Array<AuthTokenZscalerHec> | undefined;
+  authTokens?: Array<CreateInputAuthTokenZscalerHec> | undefined;
   tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -270,7 +321,6 @@ export type InputZscalerHec = {
    * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
    */
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   /**
    * Messages from matched IP addresses will be processed, unless also matched by the denylist
    */
@@ -286,7 +336,7 @@ export type InputZscalerHec = {
   /**
    * Fields to add to every event. May be overridden by fields added at the token or request level.
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -308,9 +358,21 @@ export type InputZscalerHec = {
    */
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
+   */
+  __template_hecAPI?: string | undefined;
 };
 
-export type InputSecurityLake = {
+export type CreateInputInputSecurityLake = {
   /**
    * Unique ID for this input
    */
@@ -431,11 +493,11 @@ export type InputSecurityLake = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -468,9 +530,37 @@ export type InputSecurityLake = {
    * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
   processedTagValue?: string | undefined;
+  /**
+   * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
+   */
+  __template_queueName?: string | undefined;
+  /**
+   * Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
+   */
+  __template_awsAccountId?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
 };
 
-export type InputNetflow = {
+export type CreateInputInputNetflow = {
   /**
    * Unique ID for this input
    */
@@ -545,11 +635,19 @@ export type InputNetflow = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type InputWizWebhook = {
+export type CreateInputInputWizWebhook = {
   /**
    * Unique ID for this input
    */
@@ -649,7 +747,7 @@ export type InputWizWebhook = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List of URI paths accepted by this input. Wildcards are supported (such as /api/v* /hook). Defaults to allow all.
    */
@@ -663,14 +761,22 @@ export type InputWizWebhook = {
    */
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type ManageState = {};
+export type CreateInputManageState = {};
 
 /**
  * Collector runtime log level
  */
-export const ContentConfigLogLevel = {
+export const CreateInputContentConfigLogLevel = {
   Error: "error",
   Warn: "warn",
   Info: "info",
@@ -680,9 +786,11 @@ export const ContentConfigLogLevel = {
 /**
  * Collector runtime log level
  */
-export type ContentConfigLogLevel = OpenEnum<typeof ContentConfigLogLevel>;
+export type CreateInputContentConfigLogLevel = OpenEnum<
+  typeof CreateInputContentConfigLogLevel
+>;
 
-export type ContentConfigWiz = {
+export type CreateInputContentConfigWiz = {
   /**
    * The name of the Wiz query
    */
@@ -701,7 +809,7 @@ export type ContentConfigWiz = {
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
-  manageState?: ManageState | undefined;
+  manageState?: CreateInputManageState | undefined;
   /**
    * Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
    */
@@ -725,14 +833,14 @@ export type ContentConfigWiz = {
   /**
    * Collector runtime log level
    */
-  logLevel?: ContentConfigLogLevel | undefined;
+  logLevel?: CreateInputContentConfigLogLevel | undefined;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
    */
   maxPages?: number | undefined;
 };
 
-export type InputWiz = {
+export type CreateInputInputWiz = {
   /**
    * Unique ID for this input
    */
@@ -780,7 +888,7 @@ export type InputWiz = {
    * The client ID of the Wiz application
    */
   clientId: string;
-  contentConfig: Array<ContentConfigWiz>;
+  contentConfig: Array<CreateInputContentConfigWiz>;
   /**
    * HTTP request inactivity timeout. Use 0 to disable.
    */
@@ -804,7 +912,7 @@ export type InputWiz = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   retryRules?: models.RetryRulesType | undefined;
   /**
    * Enter client secret directly, or select a stored secret
@@ -819,9 +927,21 @@ export type InputWiz = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'authUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authUrl' at runtime.
+   */
+  __template_authUrl?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
 };
 
-export type InputJournalFilesRule = {
+export type CreateInputInputJournalFilesRule = {
   /**
    * JavaScript expression applied to Journal objects. Return 'true' to include it.
    */
@@ -832,7 +952,7 @@ export type InputJournalFilesRule = {
   description?: string | undefined;
 };
 
-export type InputJournalFiles = {
+export type CreateInputInputJournalFiles = {
   /**
    * Unique ID for this input
    */
@@ -879,7 +999,7 @@ export type InputJournalFiles = {
   /**
    * Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
    */
-  rules?: Array<InputJournalFilesRule> | undefined;
+  rules?: Array<CreateInputInputJournalFilesRule> | undefined;
   /**
    * Skip log messages that are not part of the current boot session.
    */
@@ -891,11 +1011,11 @@ export type InputJournalFiles = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
-export type InputRawUdp = {
+export type CreateInputInputRawUdp = {
   /**
    * Unique ID for this input
    */
@@ -958,14 +1078,22 @@ export type InputRawUdp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 /**
  * Read all stored and future event logs, or only future events
  */
-export const ReadMode = {
+export const CreateInputReadMode = {
   /**
    * Entire log
    */
@@ -978,12 +1106,12 @@ export const ReadMode = {
 /**
  * Read all stored and future event logs, or only future events
  */
-export type ReadMode = OpenEnum<typeof ReadMode>;
+export type CreateInputReadMode = OpenEnum<typeof CreateInputReadMode>;
 
 /**
  * Format of individual events
  */
-export const EventFormat = {
+export const CreateInputEventFormat = {
   /**
    * JSON
    */
@@ -996,9 +1124,9 @@ export const EventFormat = {
 /**
  * Format of individual events
  */
-export type EventFormat = OpenEnum<typeof EventFormat>;
+export type CreateInputEventFormat = OpenEnum<typeof CreateInputEventFormat>;
 
-export type InputWinEventLogs = {
+export type CreateInputInputWinEventLogs = {
   /**
    * Unique ID for this input
    */
@@ -1037,11 +1165,11 @@ export type InputWinEventLogs = {
   /**
    * Read all stored and future event logs, or only future events
    */
-  readMode?: ReadMode | undefined;
+  readMode?: CreateInputReadMode | undefined;
   /**
    * Format of individual events
    */
-  eventFormat?: EventFormat | undefined;
+  eventFormat?: CreateInputEventFormat | undefined;
   /**
    * Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
    */
@@ -1057,7 +1185,7 @@ export type InputWinEventLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * The maximum number of bytes in an event before it is flushed to the pipelines
    */
@@ -1076,7 +1204,7 @@ export type InputWinEventLogs = {
 /**
  * How to authenticate incoming client connections
  */
-export const AuthMethodAuthenticationMethod = {
+export const CreateInputAuthMethodAuthenticationMethod = {
   /**
    * Client certificate
    */
@@ -1089,11 +1217,11 @@ export const AuthMethodAuthenticationMethod = {
 /**
  * How to authenticate incoming client connections
  */
-export type AuthMethodAuthenticationMethod = OpenEnum<
-  typeof AuthMethodAuthenticationMethod
+export type CreateInputAuthMethodAuthenticationMethod = OpenEnum<
+  typeof CreateInputAuthMethodAuthenticationMethod
 >;
 
-export type MTLSSettings = {
+export type CreateInputMTLSSettings = {
   /**
    * Enable TLS
    */
@@ -1140,8 +1268,6 @@ export type MTLSSettings = {
    * Enable OCSP check of certificate
    */
   ocspCheck?: boolean | undefined;
-  keytab?: any | undefined;
-  principal?: any | undefined;
   /**
    * If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
    */
@@ -1160,13 +1286,15 @@ export const CreateInputFormat = {
  */
 export type CreateInputFormat = OpenEnum<typeof CreateInputFormat>;
 
-export const QueryBuilderMode = {
+export const CreateInputQueryBuilderMode = {
   Simple: "simple",
   Xml: "xml",
 } as const;
-export type QueryBuilderMode = OpenEnum<typeof QueryBuilderMode>;
+export type CreateInputQueryBuilderMode = OpenEnum<
+  typeof CreateInputQueryBuilderMode
+>;
 
-export type Query = {
+export type CreateInputQuery = {
   /**
    * The Path attribute from the relevant XML Select element
    */
@@ -1177,7 +1305,7 @@ export type Query = {
   queryExpression: string;
 };
 
-export type Subscription = {
+export type CreateInputSubscription = {
   subscriptionName: string;
   /**
    * Version UUID for this subscription. If any subscription parameters are modified, this value will change.
@@ -1215,19 +1343,19 @@ export type Subscription = {
    * The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
    */
   locale?: string | undefined;
-  querySelector?: QueryBuilderMode | undefined;
+  querySelector?: CreateInputQueryBuilderMode | undefined;
   /**
    * Fields to add to events ingested under this subscription
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  queries?: Array<Query> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  queries?: Array<CreateInputQuery> | undefined;
   /**
    * The XPath query to use for selecting events
    */
   xmlQuery?: string | undefined;
 };
 
-export type InputWef = {
+export type CreateInputInputWef = {
   /**
    * Unique ID for this input
    */
@@ -1270,8 +1398,8 @@ export type InputWef = {
   /**
    * How to authenticate incoming client connections
    */
-  authMethod?: AuthMethodAuthenticationMethod | undefined;
-  tls?: MTLSSettings | undefined;
+  authMethod?: CreateInputAuthMethodAuthenticationMethod | undefined;
+  tls?: CreateInputMTLSSettings | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -1327,19 +1455,27 @@ export type InputWef = {
   /**
    * Subscriptions to events on forwarding endpoints
    */
-  subscriptions: Array<Subscription>;
+  subscriptions: Array<CreateInputSubscription>;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
    */
   logFingerprintMismatch?: boolean | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type Allow = {
+export type CreateInputAllow = {
   /**
    * Specify the name of a process or family of processes.
    */
@@ -1354,18 +1490,18 @@ export type Allow = {
   config: string;
 };
 
-export type FilterAppscope = {
+export type CreateInputFilterAppscope = {
   /**
    * Specify processes that AppScope should be loaded into, and the config to use.
    */
-  allow?: Array<Allow> | undefined;
+  allow?: Array<CreateInputAllow> | undefined;
   /**
    * To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
    */
   transportURL?: string | undefined;
 };
 
-export type PersistenceAppscope = {
+export type CreateInputPersistenceAppscope = {
   /**
    * Spool events and metrics on disk for Cribl Edge and Search
    */
@@ -1389,7 +1525,7 @@ export type PersistenceAppscope = {
   destPath?: string | undefined;
 };
 
-export type InputAppscope = {
+export type CreateInputInputAppscope = {
   /**
    * Unique ID for this input
    */
@@ -1448,7 +1584,7 @@ export type InputAppscope = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -1461,8 +1597,8 @@ export type InputAppscope = {
    * Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
    */
   enableUnixPath?: boolean | undefined;
-  filter?: FilterAppscope | undefined;
-  persistence?: PersistenceAppscope | undefined;
+  filter?: CreateInputFilterAppscope | undefined;
+  persistence?: CreateInputPersistenceAppscope | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -1493,9 +1629,17 @@ export type InputAppscope = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type InputTcp = {
+export type CreateInputInputTcp = {
   /**
    * Unique ID for this input
    */
@@ -1563,7 +1707,7 @@ export type InputTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -1576,7 +1720,7 @@ export type InputTcp = {
    * Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
    */
   enableHeader?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   description?: string | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
@@ -1590,12 +1734,20 @@ export type InputTcp = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 /**
  * Choose how to discover files to monitor
  */
-export const InputFileMode = {
+export const CreateInputInputFileMode = {
   /**
    * Manual
    */
@@ -1608,9 +1760,11 @@ export const InputFileMode = {
 /**
  * Choose how to discover files to monitor
  */
-export type InputFileMode = OpenEnum<typeof InputFileMode>;
+export type CreateInputInputFileMode = OpenEnum<
+  typeof CreateInputInputFileMode
+>;
 
-export type InputFile = {
+export type CreateInputInputFile = {
   /**
    * Unique ID for this input
    */
@@ -1645,7 +1799,7 @@ export type InputFile = {
   /**
    * Choose how to discover files to monitor
    */
-  mode?: InputFileMode | undefined;
+  mode?: CreateInputInputFileMode | undefined;
   /**
    * Time, in seconds, between scanning for files
    */
@@ -1689,7 +1843,7 @@ export type InputFile = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -1722,17 +1876,19 @@ export type InputFile = {
   includeUnidentifiableBinary?: boolean | undefined;
 };
 
-export const InputSyslogType2 = {
+export const CreateInputInputSyslogType2 = {
   Syslog: "syslog",
 } as const;
-export type InputSyslogType2 = ClosedEnum<typeof InputSyslogType2>;
+export type CreateInputInputSyslogType2 = ClosedEnum<
+  typeof CreateInputInputSyslogType2
+>;
 
-export type InputSyslogSyslog2 = {
+export type CreateInputInputSyslogSyslog2 = {
   /**
    * Unique ID for this input
    */
   id: string;
-  type: InputSyslogType2;
+  type: CreateInputInputSyslogType2;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1831,7 +1987,7 @@ export type InputSyslogSyslog2 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -1845,19 +2001,33 @@ export type InputSyslogSyslog2 = {
    * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
    */
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+   */
+  __template_udpPort?: string | undefined;
+  /**
+   * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+   */
+  __template_tcpPort?: string | undefined;
 };
 
-export const InputSyslogType1 = {
+export const CreateInputInputSyslogType1 = {
   Syslog: "syslog",
 } as const;
-export type InputSyslogType1 = ClosedEnum<typeof InputSyslogType1>;
+export type CreateInputInputSyslogType1 = ClosedEnum<
+  typeof CreateInputInputSyslogType1
+>;
 
-export type InputSyslogSyslog1 = {
+export type CreateInputInputSyslogSyslog1 = {
   /**
    * Unique ID for this input
    */
   id: string;
-  type: InputSyslogType1;
+  type: CreateInputInputSyslogType1;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -1956,7 +2126,7 @@ export type InputSyslogSyslog1 = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -1970,9 +2140,23 @@ export type InputSyslogSyslog1 = {
    * When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
    */
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+   */
+  __template_udpPort?: string | undefined;
+  /**
+   * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+   */
+  __template_tcpPort?: string | undefined;
 };
 
-export type InputSyslog = InputSyslogSyslog1 | InputSyslogSyslog2;
+export type CreateInputInputSyslogUnion =
+  | CreateInputInputSyslogSyslog1
+  | CreateInputInputSyslogSyslog2;
 
 /**
  * The queue type used (or created)
@@ -1992,7 +2176,7 @@ export const CreateInputQueueType = {
  */
 export type CreateInputQueueType = OpenEnum<typeof CreateInputQueueType>;
 
-export type InputSqs = {
+export type CreateInputInputSqs = {
   /**
    * Unique ID for this input
    */
@@ -2092,7 +2276,7 @@ export type InputSqs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -2107,9 +2291,37 @@ export type InputSqs = {
    * How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
    */
   numReceivers?: number | undefined;
+  /**
+   * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
+   */
+  __template_queueName?: string | undefined;
+  /**
+   * Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
+   */
+  __template_awsAccountId?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
 };
 
-export type InputModelDrivenTelemetry = {
+export type CreateInputInputModelDrivenTelemetry = {
   /**
    * Unique ID for this input
    */
@@ -2153,7 +2365,7 @@ export type InputModelDrivenTelemetry = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -2163,6 +2375,14 @@ export type InputModelDrivenTelemetry = {
    */
   shutdownTimeoutMs?: number | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 /**
@@ -2201,7 +2421,7 @@ export const CreateInputOTLPVersion = {
  */
 export type CreateInputOTLPVersion = OpenEnum<typeof CreateInputOTLPVersion>;
 
-export type InputOpenTelemetry = {
+export type CreateInputInputOpenTelemetry = {
   /**
    * Unique ID for this input
    */
@@ -2250,9 +2470,6 @@ export type InputOpenTelemetry = {
    * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
    */
   maxRequestsPerSocket?: number | undefined;
-  enableProxyHeader?: any | undefined;
-  captureHeaders?: any | undefined;
-  activityLogSampleRate?: any | undefined;
   /**
    * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
    */
@@ -2300,7 +2517,7 @@ export type InputOpenTelemetry = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -2321,79 +2538,33 @@ export type InputOpenTelemetry = {
    */
   textSecret?: string | undefined;
   /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
-  /**
    * Enable to extract each incoming log record to a separate event
    */
   extractLogs?: boolean | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export const PrivacyProtocol = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * DES
-   */
-  Des: "des",
-  /**
-   * AES128
-   */
-  Aes: "aes",
-  /**
-   * AES256b (Blumenthal)
-   */
-  Aes256b: "aes256b",
-  /**
-   * AES256r (Reeder)
-   */
-  Aes256r: "aes256r",
-} as const;
-export type PrivacyProtocol = OpenEnum<typeof PrivacyProtocol>;
-
-export type V3User = {
+export type CreateInputV3User = {
   name: string;
-  authProtocol?: models.AuthenticationProtocolOptionsV3User | undefined;
+  authProtocol?: string | undefined;
   authKey?: string | undefined;
-  privProtocol?: PrivacyProtocol | undefined;
+  privProtocol?:
+    | models.PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone
+    | undefined;
   privKey?: string | undefined;
 };
 
 /**
  * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
  */
-export type SNMPv3Authentication = {
+export type CreateInputSNMPv3Authentication = {
   v3AuthEnabled: boolean;
   /**
    * Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
@@ -2402,10 +2573,10 @@ export type SNMPv3Authentication = {
   /**
    * User credentials for receiving v3 traps
    */
-  v3Users?: Array<V3User> | undefined;
+  v3Users?: Array<CreateInputV3User> | undefined;
 };
 
-export type InputSnmp = {
+export type CreateInputInputSnmp = {
   /**
    * Unique ID for this input
    */
@@ -2448,7 +2619,7 @@ export type InputSnmp = {
   /**
    * Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
    */
-  snmpV3Auth?: SNMPv3Authentication | undefined;
+  snmpV3Auth?: CreateInputSNMPv3Authentication | undefined;
   /**
    * Maximum number of events to buffer when downstream is blocking.
    */
@@ -2460,7 +2631,7 @@ export type InputSnmp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -2474,9 +2645,17 @@ export type InputSnmp = {
    */
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type InputS3Inventory = {
+export type CreateInputInputS3Inventory = {
   /**
    * Unique ID for this input
    */
@@ -2597,11 +2776,11 @@ export type InputS3Inventory = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -2642,9 +2821,37 @@ export type InputS3Inventory = {
    * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
   processedTagValue?: string | undefined;
+  /**
+   * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
+   */
+  __template_queueName?: string | undefined;
+  /**
+   * Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
+   */
+  __template_awsAccountId?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
 };
 
-export type InputS3 = {
+export type CreateInputInputS3 = {
   /**
    * Unique ID for this input
    */
@@ -2765,11 +2972,11 @@ export type InputS3 = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -2805,9 +3012,37 @@ export type InputS3 = {
    * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
   processedTagValue?: string | undefined;
+  /**
+   * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
+   */
+  __template_queueName?: string | undefined;
+  /**
+   * Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
+   */
+  __template_awsAccountId?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
 };
 
-export type InputMetrics = {
+export type CreateInputInputMetrics = {
   /**
    * Unique ID for this input
    */
@@ -2867,15 +3102,27 @@ export type InputMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+   */
+  __template_udpPort?: string | undefined;
+  /**
+   * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+   */
+  __template_tcpPort?: string | undefined;
 };
 
-export type InputCriblmetrics = {
+export type CreateInputInputCriblmetrics = {
   /**
    * Unique ID for this input
    */
@@ -2918,14 +3165,14 @@ export type InputCriblmetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
 /**
  * Location at which to start reading a shard for the first time
  */
-export const ShardIteratorStart = {
+export const CreateInputShardIteratorStart = {
   /**
    * Earliest record
    */
@@ -2938,12 +3185,14 @@ export const ShardIteratorStart = {
 /**
  * Location at which to start reading a shard for the first time
  */
-export type ShardIteratorStart = OpenEnum<typeof ShardIteratorStart>;
+export type CreateInputShardIteratorStart = OpenEnum<
+  typeof CreateInputShardIteratorStart
+>;
 
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export const RecordDataFormat = {
+export const CreateInputRecordDataFormat = {
   /**
    * Cribl
    */
@@ -2964,12 +3213,14 @@ export const RecordDataFormat = {
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export type RecordDataFormat = OpenEnum<typeof RecordDataFormat>;
+export type CreateInputRecordDataFormat = OpenEnum<
+  typeof CreateInputRecordDataFormat
+>;
 
 /**
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export const ShardLoadBalancing = {
+export const CreateInputShardLoadBalancing = {
   /**
    * Consistent Hashing
    */
@@ -2982,9 +3233,11 @@ export const ShardLoadBalancing = {
 /**
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export type ShardLoadBalancing = OpenEnum<typeof ShardLoadBalancing>;
+export type CreateInputShardLoadBalancing = OpenEnum<
+  typeof CreateInputShardLoadBalancing
+>;
 
-export type InputKinesis = {
+export type CreateInputInputKinesis = {
   /**
    * Unique ID for this input
    */
@@ -3031,11 +3284,11 @@ export type InputKinesis = {
   /**
    * Location at which to start reading a shard for the first time
    */
-  shardIteratorType?: ShardIteratorStart | undefined;
+  shardIteratorType?: CreateInputShardIteratorStart | undefined;
   /**
    * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
    */
-  payloadFormat?: RecordDataFormat | undefined;
+  payloadFormat?: CreateInputRecordDataFormat | undefined;
   /**
    * Maximum number of records per getRecords call
    */
@@ -3047,7 +3300,7 @@ export type InputKinesis = {
   /**
    * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
    */
-  loadBalancingAlgorithm?: ShardLoadBalancing | undefined;
+  loadBalancingAlgorithm?: CreateInputShardLoadBalancing | undefined;
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
@@ -3100,16 +3353,40 @@ export type InputKinesis = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
+  /**
+   * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
+   */
+  __template_streamName?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
 };
 
-export type InputHttpRaw = {
+export type CreateInputInputHttpRaw = {
   /**
    * Unique ID for this input
    */
@@ -3209,7 +3486,7 @@ export type InputHttpRaw = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List of URI paths accepted by this input, wildcards are supported, e.g /api/v* /hook. Defaults to allow all.
    */
@@ -3223,9 +3500,17 @@ export type InputHttpRaw = {
    */
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type Sample = {
+export type CreateInputSample = {
   sample: string;
   /**
    * Maximum number of events to generate per second per Worker Node. Defaults to 10.
@@ -3233,7 +3518,7 @@ export type Sample = {
   eventsPerSec: number;
 };
 
-export type InputDatagen = {
+export type CreateInputInputDatagen = {
   /**
    * Unique ID for this input
    */
@@ -3265,15 +3550,15 @@ export type InputDatagen = {
    */
   connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
   pq?: models.PqType | undefined;
-  samples: Array<Sample>;
+  samples: Array<CreateInputSample>;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
-export type ProxyModeDatadogAgent = {
+export type CreateInputProxyModeDatadogAgent = {
   /**
    * Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
    */
@@ -3284,7 +3569,7 @@ export type ProxyModeDatadogAgent = {
   rejectUnauthorized?: boolean | undefined;
 };
 
-export type InputDatadogAgent = {
+export type CreateInputInputDatadogAgent = {
   /**
    * Unique ID for this input
    */
@@ -3376,12 +3661,20 @@ export type InputDatadogAgent = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  proxyMode?: ProxyModeDatadogAgent | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  proxyMode?: CreateInputProxyModeDatadogAgent | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type InputCrowdstrike = {
+export type CreateInputInputCrowdstrike = {
   /**
    * Unique ID for this input
    */
@@ -3502,11 +3795,11 @@ export type InputCrowdstrike = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   checkpointing?: models.CheckpointingType | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
@@ -3531,12 +3824,40 @@ export type InputCrowdstrike = {
    * The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
   processedTagValue?: string | undefined;
+  /**
+   * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
+   */
+  __template_queueName?: string | undefined;
+  /**
+   * Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
+   */
+  __template_awsAccountId?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
 };
 
 /**
  * Select the level of details for system metrics
  */
-export const SystemModeWindowsMetrics = {
+export const CreateInputSystemModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -3557,15 +3878,15 @@ export const SystemModeWindowsMetrics = {
 /**
  * Select the level of details for system metrics
  */
-export type SystemModeWindowsMetrics = OpenEnum<
-  typeof SystemModeWindowsMetrics
+export type CreateInputSystemModeWindowsMetrics = OpenEnum<
+  typeof CreateInputSystemModeWindowsMetrics
 >;
 
-export type SystemWindowsMetrics = {
+export type CreateInputSystemWindowsMetrics = {
   /**
    * Select the level of details for system metrics
    */
-  mode?: SystemModeWindowsMetrics | undefined;
+  mode?: CreateInputSystemModeWindowsMetrics | undefined;
   /**
    * Generate metrics for all system information
    */
@@ -3575,7 +3896,7 @@ export type SystemWindowsMetrics = {
 /**
  * Select the level of details for CPU metrics
  */
-export const CpuModeWindowsMetrics = {
+export const CreateInputCpuModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -3596,13 +3917,15 @@ export const CpuModeWindowsMetrics = {
 /**
  * Select the level of details for CPU metrics
  */
-export type CpuModeWindowsMetrics = OpenEnum<typeof CpuModeWindowsMetrics>;
+export type CreateInputCpuModeWindowsMetrics = OpenEnum<
+  typeof CreateInputCpuModeWindowsMetrics
+>;
 
-export type CpuWindowsMetrics = {
+export type CreateInputCpuWindowsMetrics = {
   /**
    * Select the level of details for CPU metrics
    */
-  mode?: CpuModeWindowsMetrics | undefined;
+  mode?: CreateInputCpuModeWindowsMetrics | undefined;
   /**
    * Generate metrics for each CPU
    */
@@ -3620,7 +3943,7 @@ export type CpuWindowsMetrics = {
 /**
  * Select the level of details for memory metrics
  */
-export const MemoryModeWindowsMetrics = {
+export const CreateInputMemoryModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -3641,15 +3964,15 @@ export const MemoryModeWindowsMetrics = {
 /**
  * Select the level of details for memory metrics
  */
-export type MemoryModeWindowsMetrics = OpenEnum<
-  typeof MemoryModeWindowsMetrics
+export type CreateInputMemoryModeWindowsMetrics = OpenEnum<
+  typeof CreateInputMemoryModeWindowsMetrics
 >;
 
-export type MemoryWindowsMetrics = {
+export type CreateInputMemoryWindowsMetrics = {
   /**
    * Select the level of details for memory metrics
    */
-  mode?: MemoryModeWindowsMetrics | undefined;
+  mode?: CreateInputMemoryModeWindowsMetrics | undefined;
   /**
    * Generate metrics for all memory states
    */
@@ -3659,7 +3982,7 @@ export type MemoryWindowsMetrics = {
 /**
  * Select the level of details for network metrics
  */
-export const NetworkModeWindowsMetrics = {
+export const CreateInputNetworkModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -3680,15 +4003,15 @@ export const NetworkModeWindowsMetrics = {
 /**
  * Select the level of details for network metrics
  */
-export type NetworkModeWindowsMetrics = OpenEnum<
-  typeof NetworkModeWindowsMetrics
+export type CreateInputNetworkModeWindowsMetrics = OpenEnum<
+  typeof CreateInputNetworkModeWindowsMetrics
 >;
 
-export type NetworkWindowsMetrics = {
+export type CreateInputNetworkWindowsMetrics = {
   /**
    * Select the level of details for network metrics
    */
-  mode?: NetworkModeWindowsMetrics | undefined;
+  mode?: CreateInputNetworkModeWindowsMetrics | undefined;
   /**
    * Generate full network metrics
    */
@@ -3710,7 +4033,7 @@ export type NetworkWindowsMetrics = {
 /**
  * Select the level of details for disk metrics
  */
-export const DiskModeWindowsMetrics = {
+export const CreateInputDiskModeWindowsMetrics = {
   /**
    * Basic
    */
@@ -3731,13 +4054,15 @@ export const DiskModeWindowsMetrics = {
 /**
  * Select the level of details for disk metrics
  */
-export type DiskModeWindowsMetrics = OpenEnum<typeof DiskModeWindowsMetrics>;
+export type CreateInputDiskModeWindowsMetrics = OpenEnum<
+  typeof CreateInputDiskModeWindowsMetrics
+>;
 
-export type DiskWindowsMetrics = {
+export type CreateInputDiskWindowsMetrics = {
   /**
    * Select the level of details for disk metrics
    */
-  mode?: DiskModeWindowsMetrics | undefined;
+  mode?: CreateInputDiskModeWindowsMetrics | undefined;
   /**
    * Generate separate metrics for each volume
    */
@@ -3752,23 +4077,23 @@ export type DiskWindowsMetrics = {
   volumes?: Array<string> | undefined;
 };
 
-export type CustomWindowsMetrics = {
-  system?: SystemWindowsMetrics | undefined;
-  cpu?: CpuWindowsMetrics | undefined;
-  memory?: MemoryWindowsMetrics | undefined;
-  network?: NetworkWindowsMetrics | undefined;
-  disk?: DiskWindowsMetrics | undefined;
+export type CreateInputCustomWindowsMetrics = {
+  system?: CreateInputSystemWindowsMetrics | undefined;
+  cpu?: CreateInputCpuWindowsMetrics | undefined;
+  memory?: CreateInputMemoryWindowsMetrics | undefined;
+  network?: CreateInputNetworkWindowsMetrics | undefined;
+  disk?: CreateInputDiskWindowsMetrics | undefined;
 };
 
-export type HostWindowsMetrics = {
+export type CreateInputHostWindowsMetrics = {
   /**
    * Select level of detail for host metrics
    */
   mode?: models.ModeOptionsHost | undefined;
-  custom?: CustomWindowsMetrics | undefined;
+  custom?: CreateInputCustomWindowsMetrics | undefined;
 };
 
-export type PersistenceWindowsMetrics = {
+export type CreateInputPersistenceWindowsMetrics = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
    */
@@ -3792,7 +4117,7 @@ export type PersistenceWindowsMetrics = {
   destPath?: string | undefined;
 };
 
-export type InputWindowsMetrics = {
+export type CreateInputInputWindowsMetrics = {
   /**
    * Unique ID for this input
    */
@@ -3828,13 +4153,13 @@ export type InputWindowsMetrics = {
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
    */
   interval?: number | undefined;
-  host?: HostWindowsMetrics | undefined;
+  host?: CreateInputHostWindowsMetrics | undefined;
   process?: models.ProcessType | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  persistence?: PersistenceWindowsMetrics | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  persistence?: CreateInputPersistenceWindowsMetrics | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
    */
@@ -3842,7 +4167,7 @@ export type InputWindowsMetrics = {
   description?: string | undefined;
 };
 
-export type InputKubeEvents = {
+export type CreateInputInputKubeEvents = {
   /**
    * Unique ID for this input
    */
@@ -3881,11 +4206,11 @@ export type InputKubeEvents = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
-export type RuleKubeLogs = {
+export type CreateInputRuleKubeLogs = {
   /**
    * JavaScript expression applied to Pod objects. Return 'true' to include it.
    */
@@ -3896,7 +4221,7 @@ export type RuleKubeLogs = {
   description?: string | undefined;
 };
 
-export type InputKubeLogs = {
+export type CreateInputInputKubeLogs = {
   /**
    * Unique ID for this input
    */
@@ -3935,7 +4260,7 @@ export type InputKubeLogs = {
   /**
    * Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
    */
-  rules?: Array<RuleKubeLogs> | undefined;
+  rules?: Array<CreateInputRuleKubeLogs> | undefined;
   /**
    * For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
    */
@@ -3943,7 +4268,7 @@ export type InputKubeLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   persistence?: models.DiskSpoolingType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -3960,7 +4285,7 @@ export type InputKubeLogs = {
   description?: string | undefined;
 };
 
-export type PersistenceKubeMetrics = {
+export type CreateInputPersistenceKubeMetrics = {
   /**
    * Spool metrics on disk for Cribl Search
    */
@@ -3984,7 +4309,7 @@ export type PersistenceKubeMetrics = {
   destPath?: string | undefined;
 };
 
-export type InputKubeMetrics = {
+export type CreateInputInputKubeMetrics = {
   /**
    * Unique ID for this input
    */
@@ -4027,136 +4352,136 @@ export type InputKubeMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  persistence?: PersistenceKubeMetrics | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  persistence?: CreateInputPersistenceKubeMetrics | undefined;
   description?: string | undefined;
 };
 
 /**
  * Creates events based on entries collected from the hosts file
  */
-export type HostsFile = {
+export type CreateInputHostsFile = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for each of the host’s network interfaces
  */
-export type Interfaces = {
+export type CreateInputInterfaces = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for physical disks, partitions, and file systems
  */
-export type DisksAndFileSystems = {
+export type CreateInputDisksAndFileSystems = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events based on the host system’s current state
  */
-export type HostInfo = {
+export type CreateInputHostInfo = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events based on entries collected from the host’s network routes
  */
-export type Routes = {
+export type CreateInputRoutes = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for DNS resolvers and search entries
  */
-export type Dns = {
+export type CreateInputDNS = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for local users and groups
  */
-export type UsersAndGroups = {
+export type CreateInputUsersAndGroups = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for Firewall rules entries
  */
-export type Firewall = {
+export type CreateInputFirewall = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events from the list of services
  */
-export type Services = {
+export type CreateInputServices = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events from list of listening ports
  */
-export type ListeningPorts = {
+export type CreateInputListeningPorts = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events from list of logged-in users
  */
-export type LoggedInUsers = {
+export type CreateInputLoggedInUsers = {
   enable?: boolean | undefined;
 };
 
-export type Collectors = {
+export type CreateInputCollectors = {
   /**
    * Creates events based on entries collected from the hosts file
    */
-  hostsfile?: HostsFile | undefined;
+  hostsfile?: CreateInputHostsFile | undefined;
   /**
    * Creates events for each of the host’s network interfaces
    */
-  interfaces?: Interfaces | undefined;
+  interfaces?: CreateInputInterfaces | undefined;
   /**
    * Creates events for physical disks, partitions, and file systems
    */
-  disk?: DisksAndFileSystems | undefined;
+  disk?: CreateInputDisksAndFileSystems | undefined;
   /**
    * Creates events based on the host system’s current state
    */
-  metadata?: HostInfo | undefined;
+  metadata?: CreateInputHostInfo | undefined;
   /**
    * Creates events based on entries collected from the host’s network routes
    */
-  routes?: Routes | undefined;
+  routes?: CreateInputRoutes | undefined;
   /**
    * Creates events for DNS resolvers and search entries
    */
-  dns?: Dns | undefined;
+  dns?: CreateInputDNS | undefined;
   /**
    * Creates events for local users and groups
    */
-  user?: UsersAndGroups | undefined;
+  user?: CreateInputUsersAndGroups | undefined;
   /**
    * Creates events for Firewall rules entries
    */
-  firewall?: Firewall | undefined;
+  firewall?: CreateInputFirewall | undefined;
   /**
    * Creates events from the list of services
    */
-  services?: Services | undefined;
+  services?: CreateInputServices | undefined;
   /**
    * Creates events from list of listening ports
    */
-  ports?: ListeningPorts | undefined;
+  ports?: CreateInputListeningPorts | undefined;
   /**
    * Creates events from list of logged-in users
    */
-  loginUsers?: LoggedInUsers | undefined;
+  loginUsers?: CreateInputLoggedInUsers | undefined;
 };
 
-export type PersistenceSystemState = {
+export type CreateInputPersistenceSystemState = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
    */
@@ -4180,7 +4505,7 @@ export type PersistenceSystemState = {
   destPath?: string | undefined;
 };
 
-export type InputSystemState = {
+export type CreateInputInputSystemState = {
   /**
    * Unique ID for this input
    */
@@ -4219,9 +4544,9 @@ export type InputSystemState = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  collectors?: Collectors | undefined;
-  persistence?: PersistenceSystemState | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  collectors?: CreateInputCollectors | undefined;
+  persistence?: CreateInputPersistenceSystemState | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
    */
@@ -4236,7 +4561,7 @@ export type InputSystemState = {
 /**
  * Select the level of detail for system metrics
  */
-export const SystemModeSystemMetrics = {
+export const CreateInputSystemModeSystemMetrics = {
   /**
    * Basic
    */
@@ -4257,13 +4582,15 @@ export const SystemModeSystemMetrics = {
 /**
  * Select the level of detail for system metrics
  */
-export type SystemModeSystemMetrics = OpenEnum<typeof SystemModeSystemMetrics>;
+export type CreateInputSystemModeSystemMetrics = OpenEnum<
+  typeof CreateInputSystemModeSystemMetrics
+>;
 
-export type SystemSystemMetrics = {
+export type CreateInputSystemSystemMetrics = {
   /**
    * Select the level of detail for system metrics
    */
-  mode?: SystemModeSystemMetrics | undefined;
+  mode?: CreateInputSystemModeSystemMetrics | undefined;
   /**
    * Generate metrics for the numbers of processes in various states
    */
@@ -4273,7 +4600,7 @@ export type SystemSystemMetrics = {
 /**
  * Select the level of detail for CPU metrics
  */
-export const CpuModeSystemMetrics = {
+export const CreateInputCpuModeSystemMetrics = {
   /**
    * Basic
    */
@@ -4294,13 +4621,15 @@ export const CpuModeSystemMetrics = {
 /**
  * Select the level of detail for CPU metrics
  */
-export type CpuModeSystemMetrics = OpenEnum<typeof CpuModeSystemMetrics>;
+export type CreateInputCpuModeSystemMetrics = OpenEnum<
+  typeof CreateInputCpuModeSystemMetrics
+>;
 
-export type CpuSystemMetrics = {
+export type CreateInputCpuSystemMetrics = {
   /**
    * Select the level of detail for CPU metrics
    */
-  mode?: CpuModeSystemMetrics | undefined;
+  mode?: CreateInputCpuModeSystemMetrics | undefined;
   /**
    * Generate metrics for each CPU
    */
@@ -4318,7 +4647,7 @@ export type CpuSystemMetrics = {
 /**
  * Select the level of detail for memory metrics
  */
-export const MemoryModeSystemMetrics = {
+export const CreateInputMemoryModeSystemMetrics = {
   /**
    * Basic
    */
@@ -4339,13 +4668,15 @@ export const MemoryModeSystemMetrics = {
 /**
  * Select the level of detail for memory metrics
  */
-export type MemoryModeSystemMetrics = OpenEnum<typeof MemoryModeSystemMetrics>;
+export type CreateInputMemoryModeSystemMetrics = OpenEnum<
+  typeof CreateInputMemoryModeSystemMetrics
+>;
 
-export type MemorySystemMetrics = {
+export type CreateInputMemorySystemMetrics = {
   /**
    * Select the level of detail for memory metrics
    */
-  mode?: MemoryModeSystemMetrics | undefined;
+  mode?: CreateInputMemoryModeSystemMetrics | undefined;
   /**
    * Generate metrics for all memory states
    */
@@ -4355,7 +4686,7 @@ export type MemorySystemMetrics = {
 /**
  * Select the level of detail for network metrics
  */
-export const NetworkModeSystemMetrics = {
+export const CreateInputNetworkModeSystemMetrics = {
   /**
    * Basic
    */
@@ -4376,15 +4707,15 @@ export const NetworkModeSystemMetrics = {
 /**
  * Select the level of detail for network metrics
  */
-export type NetworkModeSystemMetrics = OpenEnum<
-  typeof NetworkModeSystemMetrics
+export type CreateInputNetworkModeSystemMetrics = OpenEnum<
+  typeof CreateInputNetworkModeSystemMetrics
 >;
 
-export type NetworkSystemMetrics = {
+export type CreateInputNetworkSystemMetrics = {
   /**
    * Select the level of detail for network metrics
    */
-  mode?: NetworkModeSystemMetrics | undefined;
+  mode?: CreateInputNetworkModeSystemMetrics | undefined;
   /**
    * Generate full network metrics
    */
@@ -4406,7 +4737,7 @@ export type NetworkSystemMetrics = {
 /**
  * Select the level of detail for disk metrics
  */
-export const DiskModeSystemMetrics = {
+export const CreateInputDiskModeSystemMetrics = {
   /**
    * Basic
    */
@@ -4427,13 +4758,15 @@ export const DiskModeSystemMetrics = {
 /**
  * Select the level of detail for disk metrics
  */
-export type DiskModeSystemMetrics = OpenEnum<typeof DiskModeSystemMetrics>;
+export type CreateInputDiskModeSystemMetrics = OpenEnum<
+  typeof CreateInputDiskModeSystemMetrics
+>;
 
-export type DiskSystemMetrics = {
+export type CreateInputDiskSystemMetrics = {
   /**
    * Select the level of detail for disk metrics
    */
-  mode?: DiskModeSystemMetrics | undefined;
+  mode?: CreateInputDiskModeSystemMetrics | undefined;
   /**
    * Generate full disk metrics
    */
@@ -4460,26 +4793,26 @@ export type DiskSystemMetrics = {
   perDevice?: boolean | undefined;
 };
 
-export type CustomSystemMetrics = {
-  system?: SystemSystemMetrics | undefined;
-  cpu?: CpuSystemMetrics | undefined;
-  memory?: MemorySystemMetrics | undefined;
-  network?: NetworkSystemMetrics | undefined;
-  disk?: DiskSystemMetrics | undefined;
+export type CreateInputCustomSystemMetrics = {
+  system?: CreateInputSystemSystemMetrics | undefined;
+  cpu?: CreateInputCpuSystemMetrics | undefined;
+  memory?: CreateInputMemorySystemMetrics | undefined;
+  network?: CreateInputNetworkSystemMetrics | undefined;
+  disk?: CreateInputDiskSystemMetrics | undefined;
 };
 
-export type HostSystemMetrics = {
+export type CreateInputHostSystemMetrics = {
   /**
    * Select level of detail for host metrics
    */
   mode?: models.ModeOptionsHost | undefined;
-  custom?: CustomSystemMetrics | undefined;
+  custom?: CreateInputCustomSystemMetrics | undefined;
 };
 
 /**
  * Select the level of detail for container metrics
  */
-export const ContainerMode = {
+export const CreateInputContainerMode = {
   /**
    * Basic
    */
@@ -4500,17 +4833,19 @@ export const ContainerMode = {
 /**
  * Select the level of detail for container metrics
  */
-export type ContainerMode = OpenEnum<typeof ContainerMode>;
+export type CreateInputContainerMode = OpenEnum<
+  typeof CreateInputContainerMode
+>;
 
-export type ContainerFilter = {
+export type CreateInputContainerFilter = {
   expr: string;
 };
 
-export type Container = {
+export type CreateInputContainer = {
   /**
    * Select the level of detail for container metrics
    */
-  mode?: ContainerMode | undefined;
+  mode?: CreateInputContainerMode | undefined;
   /**
    * Full paths for Docker's UNIX-domain socket
    */
@@ -4522,7 +4857,7 @@ export type Container = {
   /**
    * Containers matching any of these will be included. All are included if no filters are added.
    */
-  filters?: Array<ContainerFilter> | undefined;
+  filters?: Array<CreateInputContainerFilter> | undefined;
   /**
    * Include stopped and paused containers
    */
@@ -4537,7 +4872,7 @@ export type Container = {
   detail?: boolean | undefined;
 };
 
-export type PersistenceSystemMetrics = {
+export type CreateInputPersistenceSystemMetrics = {
   /**
    * Spool metrics to disk for Cribl Edge and Search
    */
@@ -4561,7 +4896,7 @@ export type PersistenceSystemMetrics = {
   destPath?: string | undefined;
 };
 
-export type InputSystemMetrics = {
+export type CreateInputInputSystemMetrics = {
   /**
    * Unique ID for this input
    */
@@ -4597,18 +4932,18 @@ export type InputSystemMetrics = {
    * Time, in seconds, between consecutive metric collections. Default is 10 seconds.
    */
   interval?: number | undefined;
-  host?: HostSystemMetrics | undefined;
+  host?: CreateInputHostSystemMetrics | undefined;
   process?: models.ProcessType | undefined;
-  container?: Container | undefined;
+  container?: CreateInputContainer | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  persistence?: PersistenceSystemMetrics | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  persistence?: CreateInputPersistenceSystemMetrics | undefined;
   description?: string | undefined;
 };
 
-export type InputTcpjson = {
+export type CreateInputInputTcpjson = {
   /**
    * Unique ID for this input
    */
@@ -4676,7 +5011,7 @@ export type InputTcpjson = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -4694,31 +5029,39 @@ export type InputTcpjson = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type SplunkHecMetadata = {
+export type CreateInputSplunkHecMetadata = {
   enabled?: boolean | undefined;
   defaultDataset?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
 };
 
-export type ElasticsearchMetadata = {
+export type CreateInputElasticsearchMetadata = {
   enabled?: boolean | undefined;
   defaultDataset?: string | undefined;
 };
 
-export type AuthTokensExt = {
+export type CreateInputAuthTokensExt = {
   token: string;
   description?: string | undefined;
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  splunkHecMetadata?: SplunkHecMetadata | undefined;
-  elasticsearchMetadata?: ElasticsearchMetadata | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  splunkHecMetadata?: CreateInputSplunkHecMetadata | undefined;
+  elasticsearchMetadata?: CreateInputElasticsearchMetadata | undefined;
 };
 
-export type InputCriblLakeHttp = {
+export type CreateInputInputCriblLakeHttp = {
   /**
    * Unique ID for this input
    */
@@ -4823,12 +5166,24 @@ export type InputCriblLakeHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  authTokensExt?: Array<AuthTokensExt> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  authTokensExt?: Array<CreateInputAuthTokensExt> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+   */
+  __template_splunkHecAPI?: string | undefined;
 };
 
-export type InputCriblHttp = {
+export type CreateInputInputCriblHttp = {
   /**
    * Unique ID for this input
    */
@@ -4920,11 +5275,19 @@ export type InputCriblHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type InputCriblTcp = {
+export type CreateInputInputCriblTcp = {
   /**
    * Unique ID for this input
    */
@@ -4988,7 +5351,7 @@ export type InputCriblTcp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -4998,9 +5361,17 @@ export type InputCriblTcp = {
    */
   authTokens?: Array<models.ItemsTypeAuthTokens> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type InputCribl = {
+export type CreateInputInputCribl = {
   /**
    * Unique ID for this input
    */
@@ -5036,11 +5407,11 @@ export type InputCribl = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
-export type InputGooglePubsub = {
+export type CreateInputInputGooglePubsub = {
   /**
    * Unique ID for this input
    */
@@ -5123,15 +5494,27 @@ export type InputGooglePubsub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
    */
   orderedDelivery?: boolean | undefined;
+  /**
+   * Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
+   */
+  __template_topicName?: string | undefined;
+  /**
+   * Binds 'subscriptionName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subscriptionName' at runtime.
+   */
+  __template_subscriptionName?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
 };
 
-export type InputFirehose = {
+export type CreateInputInputFirehose = {
   /**
    * Unique ID for this input
    */
@@ -5223,23 +5606,31 @@ export type InputFirehose = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 /**
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
-export const ScheduleType = {
+export const CreateInputScheduleType = {
   Interval: "interval",
   CronSchedule: "cronSchedule",
 } as const;
 /**
  * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
  */
-export type ScheduleType = OpenEnum<typeof ScheduleType>;
+export type CreateInputScheduleType = OpenEnum<typeof CreateInputScheduleType>;
 
-export type InputExec = {
+export type CreateInputInputExec = {
   /**
    * Unique ID for this input
    */
@@ -5276,13 +5667,17 @@ export type InputExec = {
    */
   command: string;
   /**
+   * Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
+   */
+  script?: string | undefined;
+  /**
    * Maximum number of retry attempts in the event that the command fails
    */
   retries?: number | undefined;
   /**
    * Select a schedule type; either an interval (in seconds) or a cron-style schedule.
    */
-  scheduleType?: ScheduleType | undefined;
+  scheduleType?: CreateInputScheduleType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -5294,7 +5689,7 @@ export type InputExec = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   /**
    * Interval between command executions in seconds.
@@ -5306,7 +5701,7 @@ export type InputExec = {
   cronSchedule?: string | undefined;
 };
 
-export type InputEventhub = {
+export type CreateInputInputEventhub = {
   /**
    * Unique ID for this input
    */
@@ -5443,14 +5838,14 @@ export type InputEventhub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
 /**
  * Select authentication method.
  */
-export const AuthenticationMethodOffice365MsgTrace = {
+export const CreateInputAuthenticationMethodOffice365MsgTrace = {
   Manual: "manual",
   Secret: "secret",
   Oauth: "oauth",
@@ -5460,14 +5855,14 @@ export const AuthenticationMethodOffice365MsgTrace = {
 /**
  * Select authentication method.
  */
-export type AuthenticationMethodOffice365MsgTrace = OpenEnum<
-  typeof AuthenticationMethodOffice365MsgTrace
+export type CreateInputAuthenticationMethodOffice365MsgTrace = OpenEnum<
+  typeof CreateInputAuthenticationMethodOffice365MsgTrace
 >;
 
 /**
  * Log Level (verbosity) for collection runtime behavior.
  */
-export const LogLevelOffice365MsgTrace = {
+export const CreateInputLogLevelOffice365MsgTrace = {
   Error: "error",
   Warn: "warn",
   Info: "info",
@@ -5477,11 +5872,11 @@ export const LogLevelOffice365MsgTrace = {
 /**
  * Log Level (verbosity) for collection runtime behavior.
  */
-export type LogLevelOffice365MsgTrace = OpenEnum<
-  typeof LogLevelOffice365MsgTrace
+export type CreateInputLogLevelOffice365MsgTrace = OpenEnum<
+  typeof CreateInputLogLevelOffice365MsgTrace
 >;
 
-export type CertOptions = {
+export type CreateInputCertOptions = {
   /**
    * The name of the predefined certificate.
    */
@@ -5500,7 +5895,7 @@ export type CertOptions = {
   certPath: string;
 };
 
-export type InputOffice365MsgTrace = {
+export type CreateInputInputOffice365MsgTrace = {
   /**
    * Unique ID for this input
    */
@@ -5559,7 +5954,7 @@ export type InputOffice365MsgTrace = {
   /**
    * Select authentication method.
    */
-  authType?: AuthenticationMethodOffice365MsgTrace | undefined;
+  authType?: CreateInputAuthenticationMethodOffice365MsgTrace | undefined;
   /**
    * Reschedule tasks that failed with non-fatal errors
    */
@@ -5571,7 +5966,7 @@ export type InputOffice365MsgTrace = {
   /**
    * Log Level (verbosity) for collection runtime behavior.
    */
-  logLevel?: LogLevelOffice365MsgTrace | undefined;
+  logLevel?: CreateInputLogLevelOffice365MsgTrace | undefined;
   /**
    * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
    */
@@ -5595,7 +5990,7 @@ export type InputOffice365MsgTrace = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   retryRules?: models.RetryRulesType1 | undefined;
   description?: string | undefined;
   /**
@@ -5634,10 +6029,26 @@ export type InputOffice365MsgTrace = {
    * Select or create a secret that references your client_secret to pass in the OAuth request parameter.
    */
   textSecret?: string | undefined;
-  certOptions?: CertOptions | undefined;
+  certOptions?: CreateInputCertOptions | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
+   */
+  __template_resource?: string | undefined;
 };
 
-export type ContentConfigOffice365Service = {
+export type CreateInputContentConfigOffice365Service = {
   /**
    * Office 365 Services API Content Type
    */
@@ -5654,7 +6065,7 @@ export type ContentConfigOffice365Service = {
   enabled?: boolean | undefined;
 };
 
-export type InputOffice365Service = {
+export type CreateInputInputOffice365Service = {
   /**
    * Unique ID for this input
    */
@@ -5725,11 +6136,11 @@ export type InputOffice365Service = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
-  contentConfig?: Array<ContentConfigOffice365Service> | undefined;
+  contentConfig?: Array<CreateInputContentConfigOffice365Service> | undefined;
   retryRules?: models.RetryRulesType1 | undefined;
   /**
    * Enter client secret directly, or select a stored secret
@@ -5744,9 +6155,21 @@ export type InputOffice365Service = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
+   */
+  __template_appId?: string | undefined;
+  /**
+   * Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
+   */
+  __template_clientSecret?: string | undefined;
 };
 
-export type ContentConfigOffice365Mgmt = {
+export type CreateInputContentConfigOffice365Mgmt = {
   /**
    * Office 365 Management Activity API Content Type
    */
@@ -5763,7 +6186,7 @@ export type ContentConfigOffice365Mgmt = {
   enabled?: boolean | undefined;
 };
 
-export type InputOffice365Mgmt = {
+export type CreateInputInputOffice365Mgmt = {
   /**
    * Unique ID for this input
    */
@@ -5834,7 +6257,7 @@ export type InputOffice365Mgmt = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
    */
@@ -5842,7 +6265,7 @@ export type InputOffice365Mgmt = {
   /**
    * Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
    */
-  contentConfig?: Array<ContentConfigOffice365Mgmt> | undefined;
+  contentConfig?: Array<CreateInputContentConfigOffice365Mgmt> | undefined;
   /**
    * Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.
    */
@@ -5861,12 +6284,28 @@ export type InputOffice365Mgmt = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
+   */
+  __template_appId?: string | undefined;
+  /**
+   * Binds 'publisherIdentifier' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'publisherIdentifier' at runtime.
+   */
+  __template_publisherIdentifier?: string | undefined;
+  /**
+   * Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
+   */
+  __template_clientSecret?: string | undefined;
 };
 
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
  */
-export const DiscoveryTypeEdgePrometheus = {
+export const CreateInputDiscoveryTypeEdgePrometheus = {
   /**
    * Static
    */
@@ -5891,14 +6330,14 @@ export const DiscoveryTypeEdgePrometheus = {
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
  */
-export type DiscoveryTypeEdgePrometheus = OpenEnum<
-  typeof DiscoveryTypeEdgePrometheus
+export type CreateInputDiscoveryTypeEdgePrometheus = OpenEnum<
+  typeof CreateInputDiscoveryTypeEdgePrometheus
 >;
 
 /**
  * Enter credentials directly, or select a stored secret
  */
-export const AuthenticationMethodEdgePrometheus = {
+export const CreateInputAuthenticationMethodEdgePrometheus = {
   Manual: "manual",
   Secret: "secret",
   Kubernetes: "kubernetes",
@@ -5906,11 +6345,11 @@ export const AuthenticationMethodEdgePrometheus = {
 /**
  * Enter credentials directly, or select a stored secret
  */
-export type AuthenticationMethodEdgePrometheus = OpenEnum<
-  typeof AuthenticationMethodEdgePrometheus
+export type CreateInputAuthenticationMethodEdgePrometheus = OpenEnum<
+  typeof CreateInputAuthenticationMethodEdgePrometheus
 >;
 
-export type Target = {
+export type CreateInputTarget = {
   /**
    * Protocol to use when collecting metrics
    */
@@ -5929,7 +6368,7 @@ export type Target = {
   path?: string | undefined;
 };
 
-export type PodFilter = {
+export type CreateInputPodFilter = {
   /**
    * JavaScript expression applied to pods objects. Return 'true' to include it.
    */
@@ -5940,7 +6379,7 @@ export type PodFilter = {
   description?: string | undefined;
 };
 
-export type InputEdgePrometheus = {
+export type CreateInputInputEdgePrometheus = {
   /**
    * Unique ID for this input
    */
@@ -5979,7 +6418,7 @@ export type InputEdgePrometheus = {
   /**
    * Target discovery mechanism. Use static to manually enter a list of targets.
    */
-  discoveryType: DiscoveryTypeEdgePrometheus;
+  discoveryType: CreateInputDiscoveryTypeEdgePrometheus;
   /**
    * How often in seconds to scrape targets for metrics.
    */
@@ -5992,13 +6431,13 @@ export type InputEdgePrometheus = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
-  authType?: AuthenticationMethodEdgePrometheus | undefined;
+  authType?: CreateInputAuthenticationMethodEdgePrometheus | undefined;
   description?: string | undefined;
-  targets?: Array<Target> | undefined;
+  targets?: Array<CreateInputTarget> | undefined;
   /**
    * DNS record type to resolve
    */
@@ -6092,7 +6531,7 @@ export type InputEdgePrometheus = {
    *   Pods are searched if no rules are given or of all the rules'
    *   expressions evaluate to true.
    */
-  podFilter?: Array<PodFilter> | undefined;
+  podFilter?: Array<CreateInputPodFilter> | undefined;
   /**
    * Username for Prometheus Basic authentication
    */
@@ -6105,12 +6544,32 @@ export type InputEdgePrometheus = {
    * Select or create a secret that references your credentials
    */
   credentialsSecret?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
  */
-export const DiscoveryTypePrometheus = {
+export const CreateInputDiscoveryTypePrometheus = {
   /**
    * Static
    */
@@ -6127,12 +6586,14 @@ export const DiscoveryTypePrometheus = {
 /**
  * Target discovery mechanism. Use static to manually enter a list of targets.
  */
-export type DiscoveryTypePrometheus = OpenEnum<typeof DiscoveryTypePrometheus>;
+export type CreateInputDiscoveryTypePrometheus = OpenEnum<
+  typeof CreateInputDiscoveryTypePrometheus
+>;
 
 /**
  * Collector runtime log level
  */
-export const LogLevelPrometheus = {
+export const CreateInputLogLevelPrometheus = {
   Error: "error",
   Warn: "warn",
   Info: "info",
@@ -6141,21 +6602,25 @@ export const LogLevelPrometheus = {
 /**
  * Collector runtime log level
  */
-export type LogLevelPrometheus = OpenEnum<typeof LogLevelPrometheus>;
+export type CreateInputLogLevelPrometheus = OpenEnum<
+  typeof CreateInputLogLevelPrometheus
+>;
 
 /**
  * Protocol to use when collecting metrics
  */
-export const MetricsProtocol = {
+export const CreateInputMetricsProtocol = {
   Http: "http",
   Https: "https",
 } as const;
 /**
  * Protocol to use when collecting metrics
  */
-export type MetricsProtocol = OpenEnum<typeof MetricsProtocol>;
+export type CreateInputMetricsProtocol = OpenEnum<
+  typeof CreateInputMetricsProtocol
+>;
 
-export type InputPrometheus = {
+export type CreateInputInputPrometheus = {
   /**
    * Unique ID for this input
    */
@@ -6194,7 +6659,7 @@ export type InputPrometheus = {
   /**
    * Target discovery mechanism. Use static to manually enter a list of targets.
    */
-  discoveryType?: DiscoveryTypePrometheus | undefined;
+  discoveryType?: CreateInputDiscoveryTypePrometheus | undefined;
   /**
    * How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
    */
@@ -6202,7 +6667,7 @@ export type InputPrometheus = {
   /**
    * Collector runtime log level
    */
-  logLevel: LogLevelPrometheus;
+  logLevel: CreateInputLogLevelPrometheus;
   /**
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
@@ -6234,7 +6699,7 @@ export type InputPrometheus = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Enter credentials directly, or select a stored secret
    */
@@ -6259,7 +6724,7 @@ export type InputPrometheus = {
   /**
    * Protocol to use when collecting metrics
    */
-  scrapeProtocol?: MetricsProtocol | undefined;
+  scrapeProtocol?: CreateInputMetricsProtocol | undefined;
   /**
    * Path to use when collecting metrics from discovered targets
    */
@@ -6326,9 +6791,33 @@ export type InputPrometheus = {
    * Select or create a secret that references your credentials
    */
   credentialsSecret?: string | undefined;
+  /**
+   * Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
+   */
+  __template_logLevel?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
-export type InputPrometheusRw = {
+export type CreateInputInputPrometheusRw = {
   /**
    * Unique ID for this input
    */
@@ -6424,7 +6913,7 @@ export type InputPrometheusRw = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -6441,40 +6930,20 @@ export type InputPrometheusRw = {
    */
   textSecret?: string | undefined;
   /**
-   * URL for OAuth
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
-  loginUrl?: string | undefined;
+  __template_host?: string | undefined;
   /**
-   * Secret parameter name to pass in request body
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
-  secretParamName?: string | undefined;
+  __template_port?: string | undefined;
   /**
-   * Secret parameter value to pass in request body
+   * Binds 'prometheusAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'prometheusAPI' at runtime.
    */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  __template_prometheusAPI?: string | undefined;
 };
 
-export type InputLoki = {
+export type CreateInputInputLoki = {
   /**
    * Unique ID for this input
    */
@@ -6570,7 +7039,7 @@ export type InputLoki = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -6587,45 +7056,23 @@ export type InputLoki = {
    */
   textSecret?: string | undefined;
   /**
-   * URL for OAuth
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
    */
-  loginUrl?: string | undefined;
+  __template_host?: string | undefined;
   /**
-   * Secret parameter name to pass in request body
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
    */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  __template_port?: string | undefined;
 };
 
-export const InputGrafanaType2 = {
+export const CreateInputInputGrafanaType2 = {
   Grafana: "grafana",
 } as const;
-export type InputGrafanaType2 = ClosedEnum<typeof InputGrafanaType2>;
+export type CreateInputInputGrafanaType2 = ClosedEnum<
+  typeof CreateInputInputGrafanaType2
+>;
 
-export type PrometheusAuth2 = {
+export type CreateInputPrometheusAuth2 = {
   /**
    * Remote Write authentication type
    */
@@ -6644,41 +7091,9 @@ export type PrometheusAuth2 = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
 };
 
-export type LokiAuth2 = {
+export type CreateInputLokiAuth2 = {
   /**
    * Loki logs authentication type
    */
@@ -6697,46 +7112,14 @@ export type LokiAuth2 = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
 };
 
-export type InputGrafanaGrafana2 = {
+export type CreateInputInputGrafanaGrafana2 = {
   /**
    * Unique ID for this input
    */
   id: string;
-  type: InputGrafanaType2;
+  type: CreateInputInputGrafanaType2;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -6824,21 +7207,31 @@ export type InputGrafanaGrafana2 = {
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
    */
   lokiAPI: string;
-  prometheusAuth?: PrometheusAuth2 | undefined;
-  lokiAuth?: LokiAuth2 | undefined;
+  prometheusAuth?: CreateInputPrometheusAuth2 | undefined;
+  lokiAuth?: CreateInputLokiAuth2 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export const InputGrafanaType1 = {
+export const CreateInputInputGrafanaType1 = {
   Grafana: "grafana",
 } as const;
-export type InputGrafanaType1 = ClosedEnum<typeof InputGrafanaType1>;
+export type CreateInputInputGrafanaType1 = ClosedEnum<
+  typeof CreateInputInputGrafanaType1
+>;
 
-export type PrometheusAuth1 = {
+export type CreateInputPrometheusAuth1 = {
   /**
    * Remote Write authentication type
    */
@@ -6857,41 +7250,9 @@ export type PrometheusAuth1 = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
 };
 
-export type LokiAuth1 = {
+export type CreateInputLokiAuth1 = {
   /**
    * Loki logs authentication type
    */
@@ -6910,46 +7271,14 @@ export type LokiAuth1 = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
 };
 
-export type InputGrafanaGrafana1 = {
+export type CreateInputInputGrafanaGrafana1 = {
   /**
    * Unique ID for this input
    */
   id: string;
-  type: InputGrafanaType1;
+  type: CreateInputInputGrafanaType1;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -7037,18 +7366,28 @@ export type InputGrafanaGrafana1 = {
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
    */
   lokiAPI?: string | undefined;
-  prometheusAuth?: PrometheusAuth1 | undefined;
-  lokiAuth?: LokiAuth1 | undefined;
+  prometheusAuth?: CreateInputPrometheusAuth1 | undefined;
+  lokiAuth?: CreateInputLokiAuth1 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type InputGrafana = InputGrafanaGrafana1 | InputGrafanaGrafana2;
+export type CreateInputInputGrafanaUnion =
+  | CreateInputInputGrafanaGrafana1
+  | CreateInputInputGrafanaGrafana2;
 
-export type InputConfluentCloud = {
+export type CreateInputInputConfluentCloud = {
   /**
    * Unique ID for this input
    */
@@ -7184,11 +7523,11 @@ export type InputConfluentCloud = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
-export const AuthenticationTypeElastic = {
+export const CreateInputAuthenticationTypeElastic = {
   /**
    * None
    */
@@ -7206,8 +7545,8 @@ export const AuthenticationTypeElastic = {
    */
   AuthTokens: "authTokens",
 } as const;
-export type AuthenticationTypeElastic = OpenEnum<
-  typeof AuthenticationTypeElastic
+export type CreateInputAuthenticationTypeElastic = OpenEnum<
+  typeof CreateInputAuthenticationTypeElastic
 >;
 
 /**
@@ -7235,7 +7574,7 @@ export type CreateInputAPIVersion = OpenEnum<typeof CreateInputAPIVersion>;
 /**
  * Enter credentials directly, or select a stored secret
  */
-export const ProxyModeAuthenticationMethod = {
+export const CreateInputProxyModeAuthenticationMethod = {
   None: "none",
   Manual: "manual",
   Secret: "secret",
@@ -7243,11 +7582,11 @@ export const ProxyModeAuthenticationMethod = {
 /**
  * Enter credentials directly, or select a stored secret
  */
-export type ProxyModeAuthenticationMethod = OpenEnum<
-  typeof ProxyModeAuthenticationMethod
+export type CreateInputProxyModeAuthenticationMethod = OpenEnum<
+  typeof CreateInputProxyModeAuthenticationMethod
 >;
 
-export type ProxyModeElastic = {
+export type CreateInputProxyModeElastic = {
   /**
    * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
    */
@@ -7255,7 +7594,7 @@ export type ProxyModeElastic = {
   /**
    * Enter credentials directly, or select a stored secret
    */
-  authType?: ProxyModeAuthenticationMethod | undefined;
+  authType?: CreateInputProxyModeAuthenticationMethod | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -7278,9 +7617,13 @@ export type ProxyModeElastic = {
    * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
    */
   timeoutSec?: number | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
-export type InputElastic = {
+export type CreateInputInputElastic = {
   /**
    * Unique ID for this input
    */
@@ -7369,7 +7712,7 @@ export type InputElastic = {
    * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
    */
   elasticAPI: string;
-  authType?: AuthenticationTypeElastic | undefined;
+  authType?: CreateInputAuthenticationTypeElastic | undefined;
   /**
    * The API version to use for communicating with the server
    */
@@ -7381,8 +7724,8 @@ export type InputElastic = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
-  proxyMode?: ProxyModeElastic | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  proxyMode?: CreateInputProxyModeElastic | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -7398,9 +7741,17 @@ export type InputElastic = {
    * Custom version information to respond to requests
    */
   customAPIVersion?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type InputAzureBlob = {
+export type CreateInputInputAzureBlob = {
   /**
    * Unique ID for this input
    */
@@ -7463,7 +7814,7 @@ export type InputAzureBlob = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -7515,9 +7866,25 @@ export type InputAzureBlob = {
    */
   clientTextSecret?: string | undefined;
   certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
+   */
+  __template_queueName?: string | undefined;
+  /**
+   * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
+   */
+  __template_connectionString?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
 };
 
-export type AuthTokenSplunkHec = {
+export type CreateInputAuthTokenSplunkHec = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -7542,10 +7909,10 @@ export type AuthTokenSplunkHec = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
 };
 
-export type InputSplunkHec = {
+export type CreateInputInputSplunkHec = {
   /**
    * Unique ID for this input
    */
@@ -7588,7 +7955,7 @@ export type InputSplunkHec = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokens?: Array<AuthTokenSplunkHec> | undefined;
+  authTokens?: Array<CreateInputAuthTokenSplunkHec> | undefined;
   tls?: models.TlsSettingsServerSideType | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
@@ -7622,7 +7989,6 @@ export type InputSplunkHec = {
    * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
    */
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   /**
    * Messages from matched IP addresses will be processed, unless also matched by the denylist
    */
@@ -7638,7 +8004,7 @@ export type InputSplunkHec = {
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -7680,9 +8046,21 @@ export type InputSplunkHec = {
    */
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+   */
+  __template_splunkHecAPI?: string | undefined;
 };
 
-export type EndpointParam = {
+export type CreateInputEndpointParam = {
   name: string;
   /**
    * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
@@ -7690,7 +8068,7 @@ export type EndpointParam = {
   value: string;
 };
 
-export type EndpointHeader = {
+export type CreateInputEndpointHeader = {
   name: string;
   /**
    * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
@@ -7701,7 +8079,7 @@ export type EndpointHeader = {
 /**
  * Collector runtime log level (verbosity)
  */
-export const LogLevelSplunkSearch = {
+export const CreateInputLogLevelSplunkSearch = {
   Error: "error",
   Warn: "warn",
   Info: "info",
@@ -7710,27 +8088,43 @@ export const LogLevelSplunkSearch = {
 /**
  * Collector runtime log level (verbosity)
  */
-export type LogLevelSplunkSearch = OpenEnum<typeof LogLevelSplunkSearch>;
+export type CreateInputLogLevelSplunkSearch = OpenEnum<
+  typeof CreateInputLogLevelSplunkSearch
+>;
 
 /**
  * Splunk Search authentication type
  */
-export const AuthenticationTypeSplunkSearch = {
+export const CreateInputAuthenticationTypeSplunkSearch = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
   Token: "token",
+  /**
+   * Token (text secret)
+   */
   TextSecret: "textSecret",
-  Oauth: "oauth",
 } as const;
 /**
  * Splunk Search authentication type
  */
-export type AuthenticationTypeSplunkSearch = OpenEnum<
-  typeof AuthenticationTypeSplunkSearch
+export type CreateInputAuthenticationTypeSplunkSearch = OpenEnum<
+  typeof CreateInputAuthenticationTypeSplunkSearch
 >;
 
-export type InputSplunkSearch = {
+export type CreateInputInputSplunkSearch = {
   /**
    * Unique ID for this input
    */
@@ -7793,15 +8187,15 @@ export type InputSplunkSearch = {
   /**
    * Optional request parameters to send to the endpoint
    */
-  endpointParams?: Array<EndpointParam> | undefined;
+  endpointParams?: Array<CreateInputEndpointParam> | undefined;
   /**
    * Optional request headers to send to the endpoint
    */
-  endpointHeaders?: Array<EndpointHeader> | undefined;
+  endpointHeaders?: Array<CreateInputEndpointHeader> | undefined;
   /**
    * Collector runtime log level (verbosity)
    */
-  logLevel?: LogLevelSplunkSearch | undefined;
+  logLevel?: CreateInputLogLevelSplunkSearch | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 for no timeout.
    */
@@ -7841,7 +8235,7 @@ export type InputSplunkSearch = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   retryRules?: models.RetryRulesType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -7854,7 +8248,7 @@ export type InputSplunkSearch = {
   /**
    * Splunk Search authentication type
    */
-  authType?: AuthenticationTypeSplunkSearch | undefined;
+  authType?: CreateInputAuthenticationTypeSplunkSearch | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -7870,41 +8264,9 @@ export type InputSplunkSearch = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  /**
-   * URL for OAuth
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Secret parameter name to pass in request body
-   */
-  secretParamName?: string | undefined;
-  /**
-   * Secret parameter value to pass in request body
-   */
-  secret?: string | undefined;
-  /**
-   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-   */
-  tokenAttributeName?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * How often the OAuth token should be refreshed.
-   */
-  tokenTimeoutSecs?: number | undefined;
-  /**
-   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
-  /**
-   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-   */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
 };
 
-export type AuthTokenSplunk = {
+export type CreateInputAuthTokenSplunk = {
   /**
    * Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
    */
@@ -7915,7 +8277,7 @@ export type AuthTokenSplunk = {
 /**
  * The highest S2S protocol version to advertise during handshake
  */
-export const MaxS2SVersion = {
+export const CreateInputMaxS2SVersion = {
   /**
    * v3
    */
@@ -7928,7 +8290,9 @@ export const MaxS2SVersion = {
 /**
  * The highest S2S protocol version to advertise during handshake
  */
-export type MaxS2SVersion = OpenEnum<typeof MaxS2SVersion>;
+export type CreateInputMaxS2SVersion = OpenEnum<
+  typeof CreateInputMaxS2SVersion
+>;
 
 /**
  * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
@@ -7952,7 +8316,7 @@ export const CreateInputCompression = {
  */
 export type CreateInputCompression = OpenEnum<typeof CreateInputCompression>;
 
-export type InputSplunk = {
+export type CreateInputInputSplunk = {
   /**
    * Unique ID for this input
    */
@@ -8020,7 +8384,7 @@ export type InputSplunk = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -8032,11 +8396,11 @@ export type InputSplunk = {
   /**
    * Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
    */
-  authTokens?: Array<AuthTokenSplunk> | undefined;
+  authTokens?: Array<CreateInputAuthTokenSplunk> | undefined;
   /**
    * The highest S2S protocol version to advertise during handshake
    */
-  maxS2Sversion?: MaxS2SVersion | undefined;
+  maxS2Sversion?: CreateInputMaxS2SVersion | undefined;
   description?: string | undefined;
   /**
    * Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
@@ -8054,9 +8418,17 @@ export type InputSplunk = {
    * Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
    */
   compress?: CreateInputCompression | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type InputHttp = {
+export type CreateInputInputHttp = {
   /**
    * Unique ID for this input
    */
@@ -8161,15 +8533,27 @@ export type InputHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt> | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+   */
+  __template_splunkHecAPI?: string | undefined;
 };
 
-export type InputMsk = {
+export type CreateInputInputMsk = {
   /**
    * Unique ID for this input
    */
@@ -8245,7 +8629,7 @@ export type InputMsk = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType
     | undefined;
@@ -8349,9 +8733,29 @@ export type InputMsk = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
 };
 
-export type InputKafka = {
+export type CreateInputInputKafka = {
   /**
    * Unique ID for this input
    */
@@ -8487,11 +8891,11 @@ export type InputKafka = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
-export type InputCollection = {
+export type CreateInputInputCollection = {
   /**
    * Unique ID for this input
    */
@@ -8531,7 +8935,7 @@ export type InputCollection = {
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
-  preprocess?: models.PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: models.PreprocessType | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -8539,7 +8943,7 @@ export type InputCollection = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<models.ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
   /**
    * Destination to send results to
    */
@@ -8550,111 +8954,271 @@ export type InputCollection = {
  * Input object
  */
 export type CreateInputRequest =
-  | InputCollection
-  | InputKafka
-  | InputMsk
-  | InputHttp
-  | InputSplunk
-  | InputSplunkSearch
-  | InputSplunkHec
-  | InputAzureBlob
-  | InputElastic
-  | InputConfluentCloud
-  | (InputGrafanaGrafana1 | InputGrafanaGrafana2 & { type: "grafana" })
-  | InputLoki
-  | InputPrometheusRw
-  | InputPrometheus
-  | InputEdgePrometheus
-  | InputOffice365Mgmt
-  | InputOffice365Service
-  | InputOffice365MsgTrace
-  | InputEventhub
-  | InputExec
-  | InputFirehose
-  | InputGooglePubsub
-  | InputCribl
-  | InputCriblTcp
-  | InputCriblHttp
-  | InputCriblLakeHttp
-  | InputTcpjson
-  | InputSystemMetrics
-  | InputSystemState
-  | InputKubeMetrics
-  | InputKubeLogs
-  | InputKubeEvents
-  | InputWindowsMetrics
-  | InputCrowdstrike
-  | InputDatadogAgent
-  | InputDatagen
-  | InputHttpRaw
-  | InputKinesis
-  | InputCriblmetrics
-  | InputMetrics
-  | InputS3
-  | InputS3Inventory
-  | InputSnmp
-  | InputOpenTelemetry
-  | InputModelDrivenTelemetry
-  | InputSqs
-  | (InputSyslogSyslog1 | InputSyslogSyslog2 & { type: "syslog" })
-  | InputFile
-  | InputTcp
-  | InputAppscope
-  | InputWef
-  | InputWinEventLogs
-  | InputRawUdp
-  | InputJournalFiles
-  | InputWiz
-  | InputWizWebhook
-  | InputNetflow
-  | InputSecurityLake
-  | InputZscalerHec
-  | InputCloudflareHec;
+  | CreateInputInputCollection
+  | CreateInputInputKafka
+  | CreateInputInputMsk
+  | CreateInputInputHttp
+  | CreateInputInputSplunk
+  | CreateInputInputSplunkSearch
+  | CreateInputInputSplunkHec
+  | CreateInputInputAzureBlob
+  | CreateInputInputElastic
+  | CreateInputInputConfluentCloud
+  | (
+    | CreateInputInputGrafanaGrafana1
+    | CreateInputInputGrafanaGrafana2 & { type: "grafana" }
+  )
+  | CreateInputInputLoki
+  | CreateInputInputPrometheusRw
+  | CreateInputInputPrometheus
+  | CreateInputInputEdgePrometheus
+  | CreateInputInputOffice365Mgmt
+  | CreateInputInputOffice365Service
+  | CreateInputInputOffice365MsgTrace
+  | CreateInputInputEventhub
+  | CreateInputInputExec
+  | CreateInputInputFirehose
+  | CreateInputInputGooglePubsub
+  | CreateInputInputCribl
+  | CreateInputInputCriblTcp
+  | CreateInputInputCriblHttp
+  | CreateInputInputCriblLakeHttp
+  | CreateInputInputTcpjson
+  | CreateInputInputSystemMetrics
+  | CreateInputInputSystemState
+  | CreateInputInputKubeMetrics
+  | CreateInputInputKubeLogs
+  | CreateInputInputKubeEvents
+  | CreateInputInputWindowsMetrics
+  | CreateInputInputCrowdstrike
+  | CreateInputInputDatadogAgent
+  | CreateInputInputDatagen
+  | CreateInputInputHttpRaw
+  | CreateInputInputKinesis
+  | CreateInputInputCriblmetrics
+  | CreateInputInputMetrics
+  | CreateInputInputS3
+  | CreateInputInputS3Inventory
+  | CreateInputInputSnmp
+  | CreateInputInputOpenTelemetry
+  | CreateInputInputModelDrivenTelemetry
+  | CreateInputInputSqs
+  | (
+    | CreateInputInputSyslogSyslog1
+    | CreateInputInputSyslogSyslog2 & { type: "syslog" }
+  )
+  | CreateInputInputFile
+  | CreateInputInputTcp
+  | CreateInputInputAppscope
+  | CreateInputInputWef
+  | CreateInputInputWinEventLogs
+  | CreateInputInputRawUdp
+  | CreateInputInputJournalFiles
+  | CreateInputInputWiz
+  | CreateInputInputWizWebhook
+  | CreateInputInputNetflow
+  | CreateInputInputSecurityLake
+  | CreateInputInputZscalerHec
+  | CreateInputInputCloudflareHec;
 
 /** @internal */
-export const AuthTokenAuthenticationMethod$outboundSchema: z.ZodType<
+export const CreateInputAuthTokenAuthenticationMethod$inboundSchema: z.ZodType<
+  CreateInputAuthTokenAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputAuthTokenAuthenticationMethod);
+/** @internal */
+export const CreateInputAuthTokenAuthenticationMethod$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  AuthTokenAuthenticationMethod
-> = openEnums.outboundSchema(AuthTokenAuthenticationMethod);
+  CreateInputAuthTokenAuthenticationMethod
+> = openEnums.outboundSchema(CreateInputAuthTokenAuthenticationMethod);
 
 /** @internal */
-export type AuthTokenCloudflareHec$Outbound = {
+export const CreateInputAuthTokenCloudflareHec$inboundSchema: z.ZodType<
+  CreateInputAuthTokenCloudflareHec,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: types.optional(
+    CreateInputAuthTokenAuthenticationMethod$inboundSchema,
+  ),
+  tokenSecret: types.optional(types.string()),
+  enabled: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  allowedIndexesAtToken: types.optional(z.array(types.string())),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+});
+/** @internal */
+export type CreateInputAuthTokenCloudflareHec$Outbound = {
   authType?: string | undefined;
   tokenSecret?: string | undefined;
-  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
 };
 
 /** @internal */
-export const AuthTokenCloudflareHec$outboundSchema: z.ZodType<
-  AuthTokenCloudflareHec$Outbound,
+export const CreateInputAuthTokenCloudflareHec$outboundSchema: z.ZodType<
+  CreateInputAuthTokenCloudflareHec$Outbound,
   z.ZodTypeDef,
-  AuthTokenCloudflareHec
+  CreateInputAuthTokenCloudflareHec
 > = z.object({
-  authType: AuthTokenAuthenticationMethod$outboundSchema.optional(),
+  authType: CreateInputAuthTokenAuthenticationMethod$outboundSchema.optional(),
   tokenSecret: z.string().optional(),
-  token: z.string().optional(),
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
 });
 
-export function authTokenCloudflareHecToJSON(
-  authTokenCloudflareHec: AuthTokenCloudflareHec,
+export function createInputAuthTokenCloudflareHecToJSON(
+  createInputAuthTokenCloudflareHec: CreateInputAuthTokenCloudflareHec,
 ): string {
   return JSON.stringify(
-    AuthTokenCloudflareHec$outboundSchema.parse(authTokenCloudflareHec),
+    CreateInputAuthTokenCloudflareHec$outboundSchema.parse(
+      createInputAuthTokenCloudflareHec,
+    ),
+  );
+}
+export function createInputAuthTokenCloudflareHecFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputAuthTokenCloudflareHec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputAuthTokenCloudflareHec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputAuthTokenCloudflareHec' from JSON`,
   );
 }
 
 /** @internal */
-export type InputCloudflareHec$Outbound = {
+export const CreateInputTLSSettingsServerSide$inboundSchema: z.ZodType<
+  CreateInputTLSSettingsServerSide,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: types.optional(types.boolean()),
+  requestCert: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  commonNameRegex: types.optional(types.string()),
+  certificateName: types.optional(types.string()),
+  privKeyPath: types.optional(types.string()),
+  passphrase: types.optional(types.string()),
+  certPath: types.optional(types.string()),
+  caPath: types.optional(types.string()),
+  minVersion: types.optional(
+    models.MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  ),
+  maxVersion: types.optional(
+    models.MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  ),
+});
+/** @internal */
+export type CreateInputTLSSettingsServerSide$Outbound = {
+  disabled?: boolean | undefined;
+  requestCert?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  commonNameRegex?: string | undefined;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputTLSSettingsServerSide$outboundSchema: z.ZodType<
+  CreateInputTLSSettingsServerSide$Outbound,
+  z.ZodTypeDef,
+  CreateInputTLSSettingsServerSide
+> = z.object({
+  disabled: z.boolean().optional(),
+  requestCert: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  commonNameRegex: z.string().optional(),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: models
+    .MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+  maxVersion: models
+    .MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
+});
+
+export function createInputTLSSettingsServerSideToJSON(
+  createInputTLSSettingsServerSide: CreateInputTLSSettingsServerSide,
+): string {
+  return JSON.stringify(
+    CreateInputTLSSettingsServerSide$outboundSchema.parse(
+      createInputTLSSettingsServerSide,
+    ),
+  );
+}
+export function createInputTLSSettingsServerSideFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputTLSSettingsServerSide, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputTLSSettingsServerSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateInputInputCloudflareHec$inboundSchema: z.ZodType<
+  CreateInputInputCloudflareHec,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("cloudflare_hec"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(
+    z.array(z.lazy(() => CreateInputAuthTokenCloudflareHec$inboundSchema)),
+  ),
+  tls: types.optional(
+    z.lazy(() => CreateInputTLSSettingsServerSide$inboundSchema),
+  ),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  hecAPI: types.string(),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  allowedIndexes: types.optional(z.array(types.string())),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  accessControlAllowOrigin: types.optional(z.array(types.string())),
+  accessControlAllowHeaders: types.optional(z.array(types.string())),
+  emitTokenMetrics: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputCloudflareHec$Outbound = {
   id: string;
   type: "cloudflare_hec";
   disabled?: boolean | undefined;
@@ -8667,8 +9231,8 @@ export type InputCloudflareHec$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
-  authTokens?: Array<AuthTokenCloudflareHec$Outbound> | undefined;
-  tls?: models.TlsSettingsServerSideType$Outbound | undefined;
+  authTokens?: Array<CreateInputAuthTokenCloudflareHec$Outbound> | undefined;
+  tls?: CreateInputTLSSettingsServerSide$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
   enableProxyHeader?: boolean | undefined;
@@ -8677,11 +9241,10 @@ export type InputCloudflareHec$Outbound = {
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   hecAPI: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
@@ -8689,13 +9252,15 @@ export type InputCloudflareHec$Outbound = {
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputCloudflareHec$outboundSchema: z.ZodType<
-  InputCloudflareHec$Outbound,
+export const CreateInputInputCloudflareHec$outboundSchema: z.ZodType<
+  CreateInputInputCloudflareHec$Outbound,
   z.ZodTypeDef,
-  InputCloudflareHec
+  CreateInputInputCloudflareHec
 > = z.object({
   id: z.string(),
   type: z.literal("cloudflare_hec"),
@@ -8710,9 +9275,10 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
-  authTokens: z.array(z.lazy(() => AuthTokenCloudflareHec$outboundSchema))
-    .optional(),
-  tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
+  authTokens: z.array(
+    z.lazy(() => CreateInputAuthTokenCloudflareHec$outboundSchema),
+  ).optional(),
+  tls: z.lazy(() => CreateInputTLSSettingsServerSide$outboundSchema).optional(),
   maxActiveReq: z.number().optional(),
   maxRequestsPerSocket: z.number().int().optional(),
   enableProxyHeader: z.boolean().optional(),
@@ -8721,12 +9287,10 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   requestTimeout: z.number().optional(),
   socketTimeout: z.number().optional(),
   keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.any().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   hecAPI: z.string(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
@@ -8734,32 +9298,61 @@ export const InputCloudflareHec$outboundSchema: z.ZodType<
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputCloudflareHecToJSON(
-  inputCloudflareHec: InputCloudflareHec,
+export function createInputInputCloudflareHecToJSON(
+  createInputInputCloudflareHec: CreateInputInputCloudflareHec,
 ): string {
   return JSON.stringify(
-    InputCloudflareHec$outboundSchema.parse(inputCloudflareHec),
+    CreateInputInputCloudflareHec$outboundSchema.parse(
+      createInputInputCloudflareHec,
+    ),
+  );
+}
+export function createInputInputCloudflareHecFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputCloudflareHec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputCloudflareHec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputCloudflareHec' from JSON`,
   );
 }
 
 /** @internal */
-export type AuthTokenZscalerHec$Outbound = {
+export const CreateInputAuthTokenZscalerHec$inboundSchema: z.ZodType<
+  CreateInputAuthTokenZscalerHec,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: types.optional(
+    models.AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  ),
+  tokenSecret: types.optional(types.string()),
+  token: types.string(),
+  enabled: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  allowedIndexesAtToken: types.optional(z.array(types.string())),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+});
+/** @internal */
+export type CreateInputAuthTokenZscalerHec$Outbound = {
   authType?: string | undefined;
   tokenSecret?: string | undefined;
   token: string;
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
 };
 
 /** @internal */
-export const AuthTokenZscalerHec$outboundSchema: z.ZodType<
-  AuthTokenZscalerHec$Outbound,
+export const CreateInputAuthTokenZscalerHec$outboundSchema: z.ZodType<
+  CreateInputAuthTokenZscalerHec$Outbound,
   z.ZodTypeDef,
-  AuthTokenZscalerHec
+  CreateInputAuthTokenZscalerHec
 > = z.object({
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
@@ -8768,20 +9361,76 @@ export const AuthTokenZscalerHec$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
 });
 
-export function authTokenZscalerHecToJSON(
-  authTokenZscalerHec: AuthTokenZscalerHec,
+export function createInputAuthTokenZscalerHecToJSON(
+  createInputAuthTokenZscalerHec: CreateInputAuthTokenZscalerHec,
 ): string {
   return JSON.stringify(
-    AuthTokenZscalerHec$outboundSchema.parse(authTokenZscalerHec),
+    CreateInputAuthTokenZscalerHec$outboundSchema.parse(
+      createInputAuthTokenZscalerHec,
+    ),
+  );
+}
+export function createInputAuthTokenZscalerHecFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputAuthTokenZscalerHec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputAuthTokenZscalerHec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputAuthTokenZscalerHec' from JSON`,
   );
 }
 
 /** @internal */
-export type InputZscalerHec$Outbound = {
+export const CreateInputInputZscalerHec$inboundSchema: z.ZodType<
+  CreateInputInputZscalerHec,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("zscaler_hec"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(
+    z.array(z.lazy(() => CreateInputAuthTokenZscalerHec$inboundSchema)),
+  ),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  hecAPI: types.string(),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  allowedIndexes: types.optional(z.array(types.string())),
+  hecAcks: types.optional(types.boolean()),
+  accessControlAllowOrigin: types.optional(z.array(types.string())),
+  accessControlAllowHeaders: types.optional(z.array(types.string())),
+  emitTokenMetrics: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  __template_hecAPI: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputZscalerHec$Outbound = {
   id: string;
   type: "zscaler_hec";
   disabled?: boolean | undefined;
@@ -8794,7 +9443,7 @@ export type InputZscalerHec$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
-  authTokens?: Array<AuthTokenZscalerHec$Outbound> | undefined;
+  authTokens?: Array<CreateInputAuthTokenZscalerHec$Outbound> | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
@@ -8804,24 +9453,26 @@ export type InputZscalerHec$Outbound = {
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   hecAPI: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   hecAcks?: boolean | undefined;
   accessControlAllowOrigin?: Array<string> | undefined;
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_hecAPI?: string | undefined;
 };
 
 /** @internal */
-export const InputZscalerHec$outboundSchema: z.ZodType<
-  InputZscalerHec$Outbound,
+export const CreateInputInputZscalerHec$outboundSchema: z.ZodType<
+  CreateInputInputZscalerHec$Outbound,
   z.ZodTypeDef,
-  InputZscalerHec
+  CreateInputInputZscalerHec
 > = z.object({
   id: z.string(),
   type: z.literal("zscaler_hec"),
@@ -8836,8 +9487,9 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
-  authTokens: z.array(z.lazy(() => AuthTokenZscalerHec$outboundSchema))
-    .optional(),
+  authTokens: z.array(
+    z.lazy(() => CreateInputAuthTokenZscalerHec$outboundSchema),
+  ).optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
   maxActiveReq: z.number().optional(),
   maxRequestsPerSocket: z.number().int().optional(),
@@ -8847,28 +9499,106 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   requestTimeout: z.number().optional(),
   socketTimeout: z.number().optional(),
   keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.any().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   hecAPI: z.string(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   hecAcks: z.boolean().optional(),
   accessControlAllowOrigin: z.array(z.string()).optional(),
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_hecAPI: z.string().optional(),
 });
 
-export function inputZscalerHecToJSON(
-  inputZscalerHec: InputZscalerHec,
+export function createInputInputZscalerHecToJSON(
+  createInputInputZscalerHec: CreateInputInputZscalerHec,
 ): string {
-  return JSON.stringify(InputZscalerHec$outboundSchema.parse(inputZscalerHec));
+  return JSON.stringify(
+    CreateInputInputZscalerHec$outboundSchema.parse(createInputInputZscalerHec),
+  );
+}
+export function createInputInputZscalerHecFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputZscalerHec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputZscalerHec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputZscalerHec' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputSecurityLake$Outbound = {
+export const CreateInputInputSecurityLake$inboundSchema: z.ZodType<
+  CreateInputInputSecurityLake,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("security_lake"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  queueName: types.string(),
+  fileFilter: types.optional(types.string()),
+  awsAccountId: types.optional(types.string()),
+  awsAuthenticationMethod: types.optional(types.string()),
+  awsSecretKey: types.optional(types.string()),
+  region: types.optional(types.string()),
+  endpoint: types.optional(types.string()),
+  signatureVersion: types.optional(
+    models.SignatureVersionOptionsS3CollectorConf$inboundSchema,
+  ),
+  reuseConnections: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  maxMessages: types.optional(types.number()),
+  visibilityTimeout: types.optional(types.number()),
+  numReceivers: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  skipOnError: types.optional(types.boolean()),
+  includeSqsMetadata: types.optional(types.boolean()),
+  enableAssumeRole: types.optional(types.boolean()),
+  assumeRoleArn: types.optional(types.string()),
+  assumeRoleExternalId: types.optional(types.string()),
+  durationSeconds: types.optional(types.number()),
+  enableSQSAssumeRole: types.optional(types.boolean()),
+  preprocess: types.optional(models.PreprocessType$inboundSchema),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  parquetChunkSizeMB: types.optional(types.number()),
+  parquetChunkDownloadTimeout: types.optional(types.number()),
+  checkpointing: types.optional(models.CheckpointingType$inboundSchema),
+  pollTimeout: types.optional(types.number()),
+  encoding: types.optional(types.string()),
+  description: types.optional(types.string()),
+  awsApiKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  tagAfterProcessing: types.optional(
+    models.TagAfterProcessingOptions$inboundSchema,
+  ),
+  processedTagKey: types.optional(types.string()),
+  processedTagValue: types.optional(types.string()),
+  __template_queueName: types.optional(types.string()),
+  __template_awsAccountId: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputSecurityLake$Outbound = {
   id: string;
   type: "security_lake";
   disabled?: boolean | undefined;
@@ -8902,10 +9632,8 @@ export type InputSecurityLake$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: models.CheckpointingType$Outbound | undefined;
@@ -8917,13 +9645,20 @@ export type InputSecurityLake$Outbound = {
   tagAfterProcessing?: string | undefined;
   processedTagKey?: string | undefined;
   processedTagValue?: string | undefined;
+  __template_queueName?: string | undefined;
+  __template_awsAccountId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
-export const InputSecurityLake$outboundSchema: z.ZodType<
-  InputSecurityLake$Outbound,
+export const CreateInputInputSecurityLake$outboundSchema: z.ZodType<
+  CreateInputInputSecurityLake$Outbound,
   z.ZodTypeDef,
-  InputSecurityLake
+  CreateInputInputSecurityLake
 > = z.object({
   id: z.string(),
   type: z.literal("security_lake"),
@@ -8960,10 +9695,8 @@ export const InputSecurityLake$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: models.CheckpointingType$outboundSchema.optional(),
@@ -8976,18 +9709,69 @@ export const InputSecurityLake$outboundSchema: z.ZodType<
     .optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
+  __template_queueName: z.string().optional(),
+  __template_awsAccountId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
 });
 
-export function inputSecurityLakeToJSON(
-  inputSecurityLake: InputSecurityLake,
+export function createInputInputSecurityLakeToJSON(
+  createInputInputSecurityLake: CreateInputInputSecurityLake,
 ): string {
   return JSON.stringify(
-    InputSecurityLake$outboundSchema.parse(inputSecurityLake),
+    CreateInputInputSecurityLake$outboundSchema.parse(
+      createInputInputSecurityLake,
+    ),
+  );
+}
+export function createInputInputSecurityLakeFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputSecurityLake, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputSecurityLake$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputSecurityLake' from JSON`,
   );
 }
 
 /** @internal */
-export type InputNetflow$Outbound = {
+export const CreateInputInputNetflow$inboundSchema: z.ZodType<
+  CreateInputInputNetflow,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("netflow"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  enablePassThrough: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  udpSocketRxBufSize: types.optional(types.number()),
+  templateCacheMinutes: types.optional(types.number()),
+  v5Enabled: types.optional(types.boolean()),
+  v9Enabled: types.optional(types.boolean()),
+  ipfixEnabled: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputNetflow$Outbound = {
   id: string;
   type: "netflow";
   disabled?: boolean | undefined;
@@ -9008,15 +9792,17 @@ export type InputNetflow$Outbound = {
   v5Enabled?: boolean | undefined;
   v9Enabled?: boolean | undefined;
   ipfixEnabled?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputNetflow$outboundSchema: z.ZodType<
-  InputNetflow$Outbound,
+export const CreateInputInputNetflow$outboundSchema: z.ZodType<
+  CreateInputInputNetflow$Outbound,
   z.ZodTypeDef,
-  InputNetflow
+  CreateInputInputNetflow
 > = z.object({
   id: z.string(),
   type: z.literal("netflow"),
@@ -9039,17 +9825,76 @@ export const InputNetflow$outboundSchema: z.ZodType<
   v5Enabled: z.boolean().optional(),
   v9Enabled: z.boolean().optional(),
   ipfixEnabled: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputNetflowToJSON(inputNetflow: InputNetflow): string {
-  return JSON.stringify(InputNetflow$outboundSchema.parse(inputNetflow));
+export function createInputInputNetflowToJSON(
+  createInputInputNetflow: CreateInputInputNetflow,
+): string {
+  return JSON.stringify(
+    CreateInputInputNetflow$outboundSchema.parse(createInputInputNetflow),
+  );
+}
+export function createInputInputNetflowFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputNetflow, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputNetflow$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputNetflow' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputWizWebhook$Outbound = {
+export const CreateInputInputWizWebhook$inboundSchema: z.ZodType<
+  CreateInputInputWizWebhook,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("wiz_webhook"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(z.array(types.string())),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  allowedPaths: types.optional(z.array(types.string())),
+  allowedMethods: types.optional(z.array(types.string())),
+  authTokensExt: types.optional(
+    z.array(models.ItemsTypeAuthTokensExt$inboundSchema),
+  ),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputWizWebhook$Outbound = {
   id: string;
   type: "wiz_webhook";
   disabled?: boolean | undefined;
@@ -9077,18 +9922,20 @@ export type InputWizWebhook$Outbound = {
   ipDenylistRegex?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedPaths?: Array<string> | undefined;
   allowedMethods?: Array<string> | undefined;
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputWizWebhook$outboundSchema: z.ZodType<
-  InputWizWebhook$Outbound,
+export const CreateInputInputWizWebhook$outboundSchema: z.ZodType<
+  CreateInputInputWizWebhook$Outbound,
   z.ZodTypeDef,
-  InputWizWebhook
+  CreateInputInputWizWebhook
 > = z.object({
   id: z.string(),
   type: z.literal("wiz_webhook"),
@@ -9118,51 +9965,111 @@ export const InputWizWebhook$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
   authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
     .optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputWizWebhookToJSON(
-  inputWizWebhook: InputWizWebhook,
+export function createInputInputWizWebhookToJSON(
+  createInputInputWizWebhook: CreateInputInputWizWebhook,
 ): string {
-  return JSON.stringify(InputWizWebhook$outboundSchema.parse(inputWizWebhook));
+  return JSON.stringify(
+    CreateInputInputWizWebhook$outboundSchema.parse(createInputInputWizWebhook),
+  );
+}
+export function createInputInputWizWebhookFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputWizWebhook, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputWizWebhook$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputWizWebhook' from JSON`,
+  );
 }
 
 /** @internal */
-export type ManageState$Outbound = {};
+export const CreateInputManageState$inboundSchema: z.ZodType<
+  CreateInputManageState,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type CreateInputManageState$Outbound = {};
 
 /** @internal */
-export const ManageState$outboundSchema: z.ZodType<
-  ManageState$Outbound,
+export const CreateInputManageState$outboundSchema: z.ZodType<
+  CreateInputManageState$Outbound,
   z.ZodTypeDef,
-  ManageState
+  CreateInputManageState
 > = z.object({});
 
-export function manageStateToJSON(manageState: ManageState): string {
-  return JSON.stringify(ManageState$outboundSchema.parse(manageState));
+export function createInputManageStateToJSON(
+  createInputManageState: CreateInputManageState,
+): string {
+  return JSON.stringify(
+    CreateInputManageState$outboundSchema.parse(createInputManageState),
+  );
+}
+export function createInputManageStateFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputManageState, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputManageState$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputManageState' from JSON`,
+  );
 }
 
 /** @internal */
-export const ContentConfigLogLevel$outboundSchema: z.ZodType<
+export const CreateInputContentConfigLogLevel$inboundSchema: z.ZodType<
+  CreateInputContentConfigLogLevel,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputContentConfigLogLevel);
+/** @internal */
+export const CreateInputContentConfigLogLevel$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ContentConfigLogLevel
-> = openEnums.outboundSchema(ContentConfigLogLevel);
+  CreateInputContentConfigLogLevel
+> = openEnums.outboundSchema(CreateInputContentConfigLogLevel);
 
 /** @internal */
-export type ContentConfigWiz$Outbound = {
+export const CreateInputContentConfigWiz$inboundSchema: z.ZodType<
+  CreateInputContentConfigWiz,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  contentType: types.string(),
+  contentDescription: types.optional(types.string()),
+  enabled: types.optional(types.boolean()),
+  stateTracking: types.optional(types.boolean()),
+  stateUpdateExpression: types.optional(types.string()),
+  stateMergeExpression: types.optional(types.string()),
+  manageState: types.optional(
+    z.lazy(() => CreateInputManageState$inboundSchema),
+  ),
+  contentQuery: types.string(),
+  cronSchedule: types.string(),
+  earliest: types.string(),
+  latest: types.string(),
+  jobTimeout: types.optional(types.string()),
+  logLevel: types.optional(CreateInputContentConfigLogLevel$inboundSchema),
+  maxPages: types.optional(types.number()),
+});
+/** @internal */
+export type CreateInputContentConfigWiz$Outbound = {
   contentType: string;
   contentDescription?: string | undefined;
   enabled?: boolean | undefined;
   stateTracking?: boolean | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
-  manageState?: ManageState$Outbound | undefined;
+  manageState?: CreateInputManageState$Outbound | undefined;
   contentQuery: string;
   cronSchedule: string;
   earliest: string;
@@ -9173,10 +10080,10 @@ export type ContentConfigWiz$Outbound = {
 };
 
 /** @internal */
-export const ContentConfigWiz$outboundSchema: z.ZodType<
-  ContentConfigWiz$Outbound,
+export const CreateInputContentConfigWiz$outboundSchema: z.ZodType<
+  CreateInputContentConfigWiz$Outbound,
   z.ZodTypeDef,
-  ContentConfigWiz
+  CreateInputContentConfigWiz
 > = z.object({
   contentType: z.string(),
   contentDescription: z.string().optional(),
@@ -9184,26 +10091,77 @@ export const ContentConfigWiz$outboundSchema: z.ZodType<
   stateTracking: z.boolean().optional(),
   stateUpdateExpression: z.string().optional(),
   stateMergeExpression: z.string().optional(),
-  manageState: z.lazy(() => ManageState$outboundSchema).optional(),
+  manageState: z.lazy(() => CreateInputManageState$outboundSchema).optional(),
   contentQuery: z.string(),
   cronSchedule: z.string(),
   earliest: z.string(),
   latest: z.string(),
   jobTimeout: z.string().optional(),
-  logLevel: ContentConfigLogLevel$outboundSchema.optional(),
+  logLevel: CreateInputContentConfigLogLevel$outboundSchema.optional(),
   maxPages: z.number().optional(),
 });
 
-export function contentConfigWizToJSON(
-  contentConfigWiz: ContentConfigWiz,
+export function createInputContentConfigWizToJSON(
+  createInputContentConfigWiz: CreateInputContentConfigWiz,
 ): string {
   return JSON.stringify(
-    ContentConfigWiz$outboundSchema.parse(contentConfigWiz),
+    CreateInputContentConfigWiz$outboundSchema.parse(
+      createInputContentConfigWiz,
+    ),
+  );
+}
+export function createInputContentConfigWizFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputContentConfigWiz, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputContentConfigWiz$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputContentConfigWiz' from JSON`,
   );
 }
 
 /** @internal */
-export type InputWiz$Outbound = {
+export const CreateInputInputWiz$inboundSchema: z.ZodType<
+  CreateInputInputWiz,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("wiz"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  endpoint: types.string(),
+  authUrl: types.string(),
+  authAudienceOverride: types.optional(types.string()),
+  clientId: types.string(),
+  contentConfig: z.array(
+    z.lazy(() => CreateInputContentConfigWiz$inboundSchema),
+  ),
+  requestTimeout: types.optional(types.number()),
+  keepAliveTime: types.optional(types.number()),
+  maxMissedKeepAlives: types.optional(types.number()),
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  retryRules: types.optional(models.RetryRulesType$inboundSchema),
+  authType: types.optional(models.AuthenticationMethodOptions1$inboundSchema),
+  description: types.optional(types.string()),
+  clientSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_authUrl: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputWiz$Outbound = {
   id: string;
   type: "wiz";
   disabled?: boolean | undefined;
@@ -9218,25 +10176,28 @@ export type InputWiz$Outbound = {
   authUrl: string;
   authAudienceOverride?: string | undefined;
   clientId: string;
-  contentConfig: Array<ContentConfigWiz$Outbound>;
+  contentConfig: Array<CreateInputContentConfigWiz$Outbound>;
   requestTimeout?: number | undefined;
   keepAliveTime?: number | undefined;
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: models.RetryRulesType$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_authUrl?: string | undefined;
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
-export const InputWiz$outboundSchema: z.ZodType<
-  InputWiz$Outbound,
+export const CreateInputInputWiz$outboundSchema: z.ZodType<
+  CreateInputInputWiz$Outbound,
   z.ZodTypeDef,
-  InputWiz
+  CreateInputInputWiz
 > = z.object({
   id: z.string(),
   type: z.literal("wiz"),
@@ -9253,51 +10214,117 @@ export const InputWiz$outboundSchema: z.ZodType<
   authUrl: z.string(),
   authAudienceOverride: z.string().optional(),
   clientId: z.string(),
-  contentConfig: z.array(z.lazy(() => ContentConfigWiz$outboundSchema)),
+  contentConfig: z.array(
+    z.lazy(() => CreateInputContentConfigWiz$outboundSchema),
+  ),
   requestTimeout: z.number().optional(),
   keepAliveTime: z.number().optional(),
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
   authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_authUrl: z.string().optional(),
+  __template_clientId: z.string().optional(),
 });
 
-export function inputWizToJSON(inputWiz: InputWiz): string {
-  return JSON.stringify(InputWiz$outboundSchema.parse(inputWiz));
+export function createInputInputWizToJSON(
+  createInputInputWiz: CreateInputInputWiz,
+): string {
+  return JSON.stringify(
+    CreateInputInputWiz$outboundSchema.parse(createInputInputWiz),
+  );
+}
+export function createInputInputWizFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputWiz, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputWiz$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputWiz' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputJournalFilesRule$Outbound = {
+export const CreateInputInputJournalFilesRule$inboundSchema: z.ZodType<
+  CreateInputInputJournalFilesRule,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  filter: types.string(),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputJournalFilesRule$Outbound = {
   filter: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputJournalFilesRule$outboundSchema: z.ZodType<
-  InputJournalFilesRule$Outbound,
+export const CreateInputInputJournalFilesRule$outboundSchema: z.ZodType<
+  CreateInputInputJournalFilesRule$Outbound,
   z.ZodTypeDef,
-  InputJournalFilesRule
+  CreateInputInputJournalFilesRule
 > = z.object({
   filter: z.string(),
   description: z.string().optional(),
 });
 
-export function inputJournalFilesRuleToJSON(
-  inputJournalFilesRule: InputJournalFilesRule,
+export function createInputInputJournalFilesRuleToJSON(
+  createInputInputJournalFilesRule: CreateInputInputJournalFilesRule,
 ): string {
   return JSON.stringify(
-    InputJournalFilesRule$outboundSchema.parse(inputJournalFilesRule),
+    CreateInputInputJournalFilesRule$outboundSchema.parse(
+      createInputInputJournalFilesRule,
+    ),
+  );
+}
+export function createInputInputJournalFilesRuleFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputJournalFilesRule, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputJournalFilesRule$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputJournalFilesRule' from JSON`,
   );
 }
 
 /** @internal */
-export type InputJournalFiles$Outbound = {
+export const CreateInputInputJournalFiles$inboundSchema: z.ZodType<
+  CreateInputInputJournalFiles,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("journal_files"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  path: types.string(),
+  interval: types.optional(types.number()),
+  journals: z.array(types.string()),
+  rules: types.optional(
+    z.array(z.lazy(() => CreateInputInputJournalFilesRule$inboundSchema)),
+  ),
+  currentBoot: types.optional(types.boolean()),
+  maxAgeDur: types.optional(types.string()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputJournalFiles$Outbound = {
   id: string;
   type: "journal_files";
   disabled?: boolean | undefined;
@@ -9311,18 +10338,18 @@ export type InputJournalFiles$Outbound = {
   path: string;
   interval?: number | undefined;
   journals: Array<string>;
-  rules?: Array<InputJournalFilesRule$Outbound> | undefined;
+  rules?: Array<CreateInputInputJournalFilesRule$Outbound> | undefined;
   currentBoot?: boolean | undefined;
   maxAgeDur?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputJournalFiles$outboundSchema: z.ZodType<
-  InputJournalFiles$Outbound,
+export const CreateInputInputJournalFiles$outboundSchema: z.ZodType<
+  CreateInputInputJournalFiles$Outbound,
   z.ZodTypeDef,
-  InputJournalFiles
+  CreateInputInputJournalFiles
 > = z.object({
   id: z.string(),
   type: z.literal("journal_files"),
@@ -9338,24 +10365,65 @@ export const InputJournalFiles$outboundSchema: z.ZodType<
   path: z.string(),
   interval: z.number().optional(),
   journals: z.array(z.string()),
-  rules: z.array(z.lazy(() => InputJournalFilesRule$outboundSchema)).optional(),
+  rules: z.array(z.lazy(() => CreateInputInputJournalFilesRule$outboundSchema))
+    .optional(),
   currentBoot: z.boolean().optional(),
   maxAgeDur: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-export function inputJournalFilesToJSON(
-  inputJournalFiles: InputJournalFiles,
+export function createInputInputJournalFilesToJSON(
+  createInputInputJournalFiles: CreateInputInputJournalFiles,
 ): string {
   return JSON.stringify(
-    InputJournalFiles$outboundSchema.parse(inputJournalFiles),
+    CreateInputInputJournalFiles$outboundSchema.parse(
+      createInputInputJournalFiles,
+    ),
+  );
+}
+export function createInputInputJournalFilesFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputJournalFiles, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputJournalFiles$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputJournalFiles' from JSON`,
   );
 }
 
 /** @internal */
-export type InputRawUdp$Outbound = {
+export const CreateInputInputRawUdp$inboundSchema: z.ZodType<
+  CreateInputInputRawUdp,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("raw_udp"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  maxBufferSize: types.optional(types.number()),
+  ipWhitelistRegex: types.optional(types.string()),
+  singleMsgUdpPackets: types.optional(types.boolean()),
+  ingestRawBytes: types.optional(types.boolean()),
+  udpSocketRxBufSize: types.optional(types.number()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputRawUdp$Outbound = {
   id: string;
   type: "raw_udp";
   disabled?: boolean | undefined;
@@ -9373,15 +10441,17 @@ export type InputRawUdp$Outbound = {
   singleMsgUdpPackets?: boolean | undefined;
   ingestRawBytes?: boolean | undefined;
   udpSocketRxBufSize?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputRawUdp$outboundSchema: z.ZodType<
-  InputRawUdp$Outbound,
+export const CreateInputInputRawUdp$outboundSchema: z.ZodType<
+  CreateInputInputRawUdp$Outbound,
   z.ZodTypeDef,
-  InputRawUdp
+  CreateInputInputRawUdp
 > = z.object({
   id: z.string(),
   type: z.literal("raw_udp"),
@@ -9401,31 +10471,87 @@ export const InputRawUdp$outboundSchema: z.ZodType<
   singleMsgUdpPackets: z.boolean().optional(),
   ingestRawBytes: z.boolean().optional(),
   udpSocketRxBufSize: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputRawUdpToJSON(inputRawUdp: InputRawUdp): string {
-  return JSON.stringify(InputRawUdp$outboundSchema.parse(inputRawUdp));
+export function createInputInputRawUdpToJSON(
+  createInputInputRawUdp: CreateInputInputRawUdp,
+): string {
+  return JSON.stringify(
+    CreateInputInputRawUdp$outboundSchema.parse(createInputInputRawUdp),
+  );
+}
+export function createInputInputRawUdpFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputRawUdp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputRawUdp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputRawUdp' from JSON`,
+  );
 }
 
 /** @internal */
-export const ReadMode$outboundSchema: z.ZodType<
+export const CreateInputReadMode$inboundSchema: z.ZodType<
+  CreateInputReadMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputReadMode);
+/** @internal */
+export const CreateInputReadMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ReadMode
-> = openEnums.outboundSchema(ReadMode);
+  CreateInputReadMode
+> = openEnums.outboundSchema(CreateInputReadMode);
 
 /** @internal */
-export const EventFormat$outboundSchema: z.ZodType<
+export const CreateInputEventFormat$inboundSchema: z.ZodType<
+  CreateInputEventFormat,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputEventFormat);
+/** @internal */
+export const CreateInputEventFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  EventFormat
-> = openEnums.outboundSchema(EventFormat);
+  CreateInputEventFormat
+> = openEnums.outboundSchema(CreateInputEventFormat);
 
 /** @internal */
-export type InputWinEventLogs$Outbound = {
+export const CreateInputInputWinEventLogs$inboundSchema: z.ZodType<
+  CreateInputInputWinEventLogs,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("win_event_logs"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  logNames: z.array(types.string()),
+  readMode: types.optional(CreateInputReadMode$inboundSchema),
+  eventFormat: types.optional(CreateInputEventFormat$inboundSchema),
+  disableNativeModule: types.optional(types.boolean()),
+  interval: types.optional(types.number()),
+  batchSize: types.optional(types.number()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  maxEventBytes: types.optional(types.number()),
+  description: types.optional(types.string()),
+  disableJsonRendering: types.optional(types.boolean()),
+  disableXmlRendering: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputInputWinEventLogs$Outbound = {
   id: string;
   type: "win_event_logs";
   disabled?: boolean | undefined;
@@ -9442,7 +10568,7 @@ export type InputWinEventLogs$Outbound = {
   disableNativeModule?: boolean | undefined;
   interval?: number | undefined;
   batchSize?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   maxEventBytes?: number | undefined;
   description?: string | undefined;
   disableJsonRendering?: boolean | undefined;
@@ -9450,10 +10576,10 @@ export type InputWinEventLogs$Outbound = {
 };
 
 /** @internal */
-export const InputWinEventLogs$outboundSchema: z.ZodType<
-  InputWinEventLogs$Outbound,
+export const CreateInputInputWinEventLogs$outboundSchema: z.ZodType<
+  CreateInputInputWinEventLogs$Outbound,
   z.ZodTypeDef,
-  InputWinEventLogs
+  CreateInputInputWinEventLogs
 > = z.object({
   id: z.string(),
   type: z.literal("win_event_logs"),
@@ -9467,36 +10593,74 @@ export const InputWinEventLogs$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   logNames: z.array(z.string()),
-  readMode: ReadMode$outboundSchema.optional(),
-  eventFormat: EventFormat$outboundSchema.optional(),
+  readMode: CreateInputReadMode$outboundSchema.optional(),
+  eventFormat: CreateInputEventFormat$outboundSchema.optional(),
   disableNativeModule: z.boolean().optional(),
   interval: z.number().optional(),
   batchSize: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   maxEventBytes: z.number().optional(),
   description: z.string().optional(),
   disableJsonRendering: z.boolean().optional(),
   disableXmlRendering: z.boolean().optional(),
 });
 
-export function inputWinEventLogsToJSON(
-  inputWinEventLogs: InputWinEventLogs,
+export function createInputInputWinEventLogsToJSON(
+  createInputInputWinEventLogs: CreateInputInputWinEventLogs,
 ): string {
   return JSON.stringify(
-    InputWinEventLogs$outboundSchema.parse(inputWinEventLogs),
+    CreateInputInputWinEventLogs$outboundSchema.parse(
+      createInputInputWinEventLogs,
+    ),
+  );
+}
+export function createInputInputWinEventLogsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputWinEventLogs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputWinEventLogs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputWinEventLogs' from JSON`,
   );
 }
 
 /** @internal */
-export const AuthMethodAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
+export const CreateInputAuthMethodAuthenticationMethod$inboundSchema: z.ZodType<
+  CreateInputAuthMethodAuthenticationMethod,
   z.ZodTypeDef,
-  AuthMethodAuthenticationMethod
-> = openEnums.outboundSchema(AuthMethodAuthenticationMethod);
+  unknown
+> = openEnums.inboundSchema(CreateInputAuthMethodAuthenticationMethod);
+/** @internal */
+export const CreateInputAuthMethodAuthenticationMethod$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputAuthMethodAuthenticationMethod> =
+    openEnums.outboundSchema(CreateInputAuthMethodAuthenticationMethod);
 
 /** @internal */
-export type MTLSSettings$Outbound = {
+export const CreateInputMTLSSettings$inboundSchema: z.ZodType<
+  CreateInputMTLSSettings,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  requestCert: types.optional(types.boolean()),
+  certificateName: types.optional(types.string()),
+  privKeyPath: types.string(),
+  passphrase: types.optional(types.string()),
+  certPath: types.string(),
+  caPath: types.string(),
+  commonNameRegex: types.optional(types.string()),
+  minVersion: types.optional(
+    models.MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  ),
+  maxVersion: types.optional(
+    models.MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  ),
+  ocspCheck: types.optional(types.boolean()),
+  ocspCheckFailClose: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputMTLSSettings$Outbound = {
   disabled?: boolean | undefined;
   rejectUnauthorized?: boolean | undefined;
   requestCert?: boolean | undefined;
@@ -9509,16 +10673,14 @@ export type MTLSSettings$Outbound = {
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
   ocspCheck?: boolean | undefined;
-  keytab?: any | undefined;
-  principal?: any | undefined;
   ocspCheckFailClose?: boolean | undefined;
 };
 
 /** @internal */
-export const MTLSSettings$outboundSchema: z.ZodType<
-  MTLSSettings$Outbound,
+export const CreateInputMTLSSettings$outboundSchema: z.ZodType<
+  CreateInputMTLSSettings$Outbound,
   z.ZodTypeDef,
-  MTLSSettings
+  CreateInputMTLSSettings
 > = z.object({
   disabled: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
@@ -9534,15 +10696,32 @@ export const MTLSSettings$outboundSchema: z.ZodType<
   maxVersion: models
     .MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema.optional(),
   ocspCheck: z.boolean().optional(),
-  keytab: z.any().optional(),
-  principal: z.any().optional(),
   ocspCheckFailClose: z.boolean().optional(),
 });
 
-export function mTLSSettingsToJSON(mtlsSettings: MTLSSettings): string {
-  return JSON.stringify(MTLSSettings$outboundSchema.parse(mtlsSettings));
+export function createInputMTLSSettingsToJSON(
+  createInputMTLSSettings: CreateInputMTLSSettings,
+): string {
+  return JSON.stringify(
+    CreateInputMTLSSettings$outboundSchema.parse(createInputMTLSSettings),
+  );
+}
+export function createInputMTLSSettingsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputMTLSSettings, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputMTLSSettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputMTLSSettings' from JSON`,
+  );
 }
 
+/** @internal */
+export const CreateInputFormat$inboundSchema: z.ZodType<
+  CreateInputFormat,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputFormat);
 /** @internal */
 export const CreateInputFormat$outboundSchema: z.ZodType<
   string,
@@ -9551,34 +10730,85 @@ export const CreateInputFormat$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateInputFormat);
 
 /** @internal */
-export const QueryBuilderMode$outboundSchema: z.ZodType<
+export const CreateInputQueryBuilderMode$inboundSchema: z.ZodType<
+  CreateInputQueryBuilderMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputQueryBuilderMode);
+/** @internal */
+export const CreateInputQueryBuilderMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  QueryBuilderMode
-> = openEnums.outboundSchema(QueryBuilderMode);
+  CreateInputQueryBuilderMode
+> = openEnums.outboundSchema(CreateInputQueryBuilderMode);
 
 /** @internal */
-export type Query$Outbound = {
+export const CreateInputQuery$inboundSchema: z.ZodType<
+  CreateInputQuery,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  path: types.string(),
+  queryExpression: types.string(),
+});
+/** @internal */
+export type CreateInputQuery$Outbound = {
   path: string;
   queryExpression: string;
 };
 
 /** @internal */
-export const Query$outboundSchema: z.ZodType<
-  Query$Outbound,
+export const CreateInputQuery$outboundSchema: z.ZodType<
+  CreateInputQuery$Outbound,
   z.ZodTypeDef,
-  Query
+  CreateInputQuery
 > = z.object({
   path: z.string(),
   queryExpression: z.string(),
 });
 
-export function queryToJSON(query: Query): string {
-  return JSON.stringify(Query$outboundSchema.parse(query));
+export function createInputQueryToJSON(
+  createInputQuery: CreateInputQuery,
+): string {
+  return JSON.stringify(
+    CreateInputQuery$outboundSchema.parse(createInputQuery),
+  );
+}
+export function createInputQueryFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputQuery, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputQuery$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputQuery' from JSON`,
+  );
 }
 
 /** @internal */
-export type Subscription$Outbound = {
+export const CreateInputSubscription$inboundSchema: z.ZodType<
+  CreateInputSubscription,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  subscriptionName: types.string(),
+  version: types.optional(types.string()),
+  contentFormat: CreateInputFormat$inboundSchema,
+  heartbeatInterval: types.number(),
+  batchTimeout: types.number(),
+  readExistingEvents: types.optional(types.boolean()),
+  sendBookmarks: types.optional(types.boolean()),
+  compress: types.optional(types.boolean()),
+  targets: z.array(types.string()),
+  locale: types.optional(types.string()),
+  querySelector: types.optional(CreateInputQueryBuilderMode$inboundSchema),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  queries: types.optional(
+    z.array(z.lazy(() => CreateInputQuery$inboundSchema)),
+  ),
+  xmlQuery: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputSubscription$Outbound = {
   subscriptionName: string;
   version?: string | undefined;
   contentFormat: string;
@@ -9590,16 +10820,16 @@ export type Subscription$Outbound = {
   targets: Array<string>;
   locale?: string | undefined;
   querySelector?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  queries?: Array<Query$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  queries?: Array<CreateInputQuery$Outbound> | undefined;
   xmlQuery?: string | undefined;
 };
 
 /** @internal */
-export const Subscription$outboundSchema: z.ZodType<
-  Subscription$Outbound,
+export const CreateInputSubscription$outboundSchema: z.ZodType<
+  CreateInputSubscription$Outbound,
   z.ZodTypeDef,
-  Subscription
+  CreateInputSubscription
 > = z.object({
   subscriptionName: z.string(),
   version: z.string().optional(),
@@ -9611,19 +10841,75 @@ export const Subscription$outboundSchema: z.ZodType<
   compress: z.boolean().optional(),
   targets: z.array(z.string()),
   locale: z.string().optional(),
-  querySelector: QueryBuilderMode$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
-  queries: z.array(z.lazy(() => Query$outboundSchema)).optional(),
+  querySelector: CreateInputQueryBuilderMode$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  queries: z.array(z.lazy(() => CreateInputQuery$outboundSchema)).optional(),
   xmlQuery: z.string().optional(),
 });
 
-export function subscriptionToJSON(subscription: Subscription): string {
-  return JSON.stringify(Subscription$outboundSchema.parse(subscription));
+export function createInputSubscriptionToJSON(
+  createInputSubscription: CreateInputSubscription,
+): string {
+  return JSON.stringify(
+    CreateInputSubscription$outboundSchema.parse(createInputSubscription),
+  );
+}
+export function createInputSubscriptionFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputSubscription, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputSubscription$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputSubscription' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputWef$Outbound = {
+export const CreateInputInputWef$inboundSchema: z.ZodType<
+  CreateInputInputWef,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("wef"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authMethod: types.optional(
+    CreateInputAuthMethodAuthenticationMethod$inboundSchema,
+  ),
+  tls: types.optional(z.lazy(() => CreateInputMTLSSettings$inboundSchema)),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  socketTimeout: types.optional(types.number()),
+  caFingerprint: types.optional(types.string()),
+  keytab: types.optional(types.string()),
+  principal: types.optional(types.string()),
+  allowMachineIdMismatch: types.optional(types.boolean()),
+  subscriptions: z.array(z.lazy(() => CreateInputSubscription$inboundSchema)),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+  logFingerprintMismatch: types.optional(types.boolean()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputWef$Outbound = {
   id: string;
   type: "wef";
   disabled?: boolean | undefined;
@@ -9637,7 +10923,7 @@ export type InputWef$Outbound = {
   host: string;
   port: number;
   authMethod?: string | undefined;
-  tls?: MTLSSettings$Outbound | undefined;
+  tls?: CreateInputMTLSSettings$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
   enableProxyHeader?: boolean | undefined;
@@ -9651,17 +10937,19 @@ export type InputWef$Outbound = {
   keytab?: string | undefined;
   principal?: string | undefined;
   allowMachineIdMismatch?: boolean | undefined;
-  subscriptions: Array<Subscription$Outbound>;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  subscriptions: Array<CreateInputSubscription$Outbound>;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   logFingerprintMismatch?: boolean | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputWef$outboundSchema: z.ZodType<
-  InputWef$Outbound,
+export const CreateInputInputWef$outboundSchema: z.ZodType<
+  CreateInputInputWef$Outbound,
   z.ZodTypeDef,
-  InputWef
+  CreateInputInputWef
 > = z.object({
   id: z.string(),
   type: z.literal("wef"),
@@ -9676,8 +10964,9 @@ export const InputWef$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
-  authMethod: AuthMethodAuthenticationMethod$outboundSchema.optional(),
-  tls: z.lazy(() => MTLSSettings$outboundSchema).optional(),
+  authMethod: CreateInputAuthMethodAuthenticationMethod$outboundSchema
+    .optional(),
+  tls: z.lazy(() => CreateInputMTLSSettings$outboundSchema).optional(),
   maxActiveReq: z.number().optional(),
   maxRequestsPerSocket: z.number().int().optional(),
   enableProxyHeader: z.boolean().optional(),
@@ -9691,61 +10980,135 @@ export const InputWef$outboundSchema: z.ZodType<
   keytab: z.string().optional(),
   principal: z.string().optional(),
   allowMachineIdMismatch: z.boolean().optional(),
-  subscriptions: z.array(z.lazy(() => Subscription$outboundSchema)),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  subscriptions: z.array(z.lazy(() => CreateInputSubscription$outboundSchema)),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputWefToJSON(inputWef: InputWef): string {
-  return JSON.stringify(InputWef$outboundSchema.parse(inputWef));
+export function createInputInputWefToJSON(
+  createInputInputWef: CreateInputInputWef,
+): string {
+  return JSON.stringify(
+    CreateInputInputWef$outboundSchema.parse(createInputInputWef),
+  );
+}
+export function createInputInputWefFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputWef, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputWef$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputWef' from JSON`,
+  );
 }
 
 /** @internal */
-export type Allow$Outbound = {
+export const CreateInputAllow$inboundSchema: z.ZodType<
+  CreateInputAllow,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  procname: types.string(),
+  arg: types.optional(types.string()),
+  config: types.string(),
+});
+/** @internal */
+export type CreateInputAllow$Outbound = {
   procname: string;
   arg?: string | undefined;
   config: string;
 };
 
 /** @internal */
-export const Allow$outboundSchema: z.ZodType<
-  Allow$Outbound,
+export const CreateInputAllow$outboundSchema: z.ZodType<
+  CreateInputAllow$Outbound,
   z.ZodTypeDef,
-  Allow
+  CreateInputAllow
 > = z.object({
   procname: z.string(),
   arg: z.string().optional(),
   config: z.string(),
 });
 
-export function allowToJSON(allow: Allow): string {
-  return JSON.stringify(Allow$outboundSchema.parse(allow));
+export function createInputAllowToJSON(
+  createInputAllow: CreateInputAllow,
+): string {
+  return JSON.stringify(
+    CreateInputAllow$outboundSchema.parse(createInputAllow),
+  );
+}
+export function createInputAllowFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputAllow, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputAllow$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputAllow' from JSON`,
+  );
 }
 
 /** @internal */
-export type FilterAppscope$Outbound = {
-  allow?: Array<Allow$Outbound> | undefined;
+export const CreateInputFilterAppscope$inboundSchema: z.ZodType<
+  CreateInputFilterAppscope,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  allow: types.optional(z.array(z.lazy(() => CreateInputAllow$inboundSchema))),
+  transportURL: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputFilterAppscope$Outbound = {
+  allow?: Array<CreateInputAllow$Outbound> | undefined;
   transportURL?: string | undefined;
 };
 
 /** @internal */
-export const FilterAppscope$outboundSchema: z.ZodType<
-  FilterAppscope$Outbound,
+export const CreateInputFilterAppscope$outboundSchema: z.ZodType<
+  CreateInputFilterAppscope$Outbound,
   z.ZodTypeDef,
-  FilterAppscope
+  CreateInputFilterAppscope
 > = z.object({
-  allow: z.array(z.lazy(() => Allow$outboundSchema)).optional(),
+  allow: z.array(z.lazy(() => CreateInputAllow$outboundSchema)).optional(),
   transportURL: z.string().optional(),
 });
 
-export function filterAppscopeToJSON(filterAppscope: FilterAppscope): string {
-  return JSON.stringify(FilterAppscope$outboundSchema.parse(filterAppscope));
+export function createInputFilterAppscopeToJSON(
+  createInputFilterAppscope: CreateInputFilterAppscope,
+): string {
+  return JSON.stringify(
+    CreateInputFilterAppscope$outboundSchema.parse(createInputFilterAppscope),
+  );
+}
+export function createInputFilterAppscopeFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputFilterAppscope, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputFilterAppscope$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputFilterAppscope' from JSON`,
+  );
 }
 
 /** @internal */
-export type PersistenceAppscope$Outbound = {
+export const CreateInputPersistenceAppscope$inboundSchema: z.ZodType<
+  CreateInputPersistenceAppscope,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+  timeWindow: types.optional(types.string()),
+  maxDataSize: types.optional(types.string()),
+  maxDataTime: types.optional(types.string()),
+  compress: types.optional(
+    models.DataCompressionFormatOptionsPersistence$inboundSchema,
+  ),
+  destPath: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputPersistenceAppscope$Outbound = {
   enable?: boolean | undefined;
   timeWindow?: string | undefined;
   maxDataSize?: string | undefined;
@@ -9755,10 +11118,10 @@ export type PersistenceAppscope$Outbound = {
 };
 
 /** @internal */
-export const PersistenceAppscope$outboundSchema: z.ZodType<
-  PersistenceAppscope$Outbound,
+export const CreateInputPersistenceAppscope$outboundSchema: z.ZodType<
+  CreateInputPersistenceAppscope$Outbound,
   z.ZodTypeDef,
-  PersistenceAppscope
+  CreateInputPersistenceAppscope
 > = z.object({
   enable: z.boolean().optional(),
   timeWindow: z.string().optional(),
@@ -9769,16 +11132,73 @@ export const PersistenceAppscope$outboundSchema: z.ZodType<
   destPath: z.string().optional(),
 });
 
-export function persistenceAppscopeToJSON(
-  persistenceAppscope: PersistenceAppscope,
+export function createInputPersistenceAppscopeToJSON(
+  createInputPersistenceAppscope: CreateInputPersistenceAppscope,
 ): string {
   return JSON.stringify(
-    PersistenceAppscope$outboundSchema.parse(persistenceAppscope),
+    CreateInputPersistenceAppscope$outboundSchema.parse(
+      createInputPersistenceAppscope,
+    ),
+  );
+}
+export function createInputPersistenceAppscopeFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputPersistenceAppscope, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputPersistenceAppscope$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputPersistenceAppscope' from JSON`,
   );
 }
 
 /** @internal */
-export type InputAppscope$Outbound = {
+export const CreateInputInputAppscope$inboundSchema: z.ZodType<
+  CreateInputInputAppscope,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("appscope"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  ipWhitelistRegex: types.optional(types.string()),
+  maxActiveCxn: types.optional(types.number()),
+  socketIdleTimeout: types.optional(types.number()),
+  socketEndingMaxWait: types.optional(types.number()),
+  socketMaxLifespan: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  enableUnixPath: types.optional(types.boolean()),
+  filter: types.optional(z.lazy(() => CreateInputFilterAppscope$inboundSchema)),
+  persistence: types.optional(
+    z.lazy(() => CreateInputPersistenceAppscope$inboundSchema),
+  ),
+  authType: types.optional(
+    models.AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  ),
+  description: types.optional(types.string()),
+  host: types.optional(types.string()),
+  port: types.optional(types.number()),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  unixSocketPath: types.optional(types.string()),
+  unixSocketPerms: types.optional(types.string()),
+  authToken: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputAppscope$Outbound = {
   id: string;
   type: "appscope";
   disabled?: boolean | undefined;
@@ -9795,12 +11215,12 @@ export type InputAppscope$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   enableUnixPath?: boolean | undefined;
-  filter?: FilterAppscope$Outbound | undefined;
-  persistence?: PersistenceAppscope$Outbound | undefined;
+  filter?: CreateInputFilterAppscope$Outbound | undefined;
+  persistence?: CreateInputPersistenceAppscope$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   host?: string | undefined;
@@ -9810,13 +11230,15 @@ export type InputAppscope$Outbound = {
   unixSocketPerms?: string | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputAppscope$outboundSchema: z.ZodType<
-  InputAppscope$Outbound,
+export const CreateInputInputAppscope$outboundSchema: z.ZodType<
+  CreateInputInputAppscope$Outbound,
   z.ZodTypeDef,
-  InputAppscope
+  CreateInputInputAppscope
 > = z.object({
   id: z.string(),
   type: z.literal("appscope"),
@@ -9835,13 +11257,13 @@ export const InputAppscope$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   enableUnixPath: z.boolean().optional(),
-  filter: z.lazy(() => FilterAppscope$outboundSchema).optional(),
-  persistence: z.lazy(() => PersistenceAppscope$outboundSchema).optional(),
+  filter: z.lazy(() => CreateInputFilterAppscope$outboundSchema).optional(),
+  persistence: z.lazy(() => CreateInputPersistenceAppscope$outboundSchema)
+    .optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   description: z.string().optional(),
@@ -9852,14 +11274,70 @@ export const InputAppscope$outboundSchema: z.ZodType<
   unixSocketPerms: z.string().optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputAppscopeToJSON(inputAppscope: InputAppscope): string {
-  return JSON.stringify(InputAppscope$outboundSchema.parse(inputAppscope));
+export function createInputInputAppscopeToJSON(
+  createInputInputAppscope: CreateInputInputAppscope,
+): string {
+  return JSON.stringify(
+    CreateInputInputAppscope$outboundSchema.parse(createInputInputAppscope),
+  );
+}
+export function createInputInputAppscopeFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputAppscope, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputAppscope$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputAppscope' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputTcp$Outbound = {
+export const CreateInputInputTcp$inboundSchema: z.ZodType<
+  CreateInputInputTcp,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("tcp"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  ipWhitelistRegex: types.optional(types.string()),
+  maxActiveCxn: types.optional(types.number()),
+  socketIdleTimeout: types.optional(types.number()),
+  socketEndingMaxWait: types.optional(types.number()),
+  socketMaxLifespan: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  enableHeader: types.optional(types.boolean()),
+  preprocess: types.optional(models.PreprocessType$inboundSchema),
+  description: types.optional(types.string()),
+  authToken: types.optional(types.string()),
+  authType: types.optional(
+    models.AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  ),
+  textSecret: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputTcp$Outbound = {
   id: string;
   type: "tcp";
   disabled?: boolean | undefined;
@@ -9879,24 +11357,24 @@ export type InputTcp$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   enableHeader?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
   description?: string | undefined;
   authToken?: string | undefined;
   authType?: string | undefined;
   textSecret?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputTcp$outboundSchema: z.ZodType<
-  InputTcp$Outbound,
+export const CreateInputInputTcp$outboundSchema: z.ZodType<
+  CreateInputInputTcp$Outbound,
   z.ZodTypeDef,
-  InputTcp
+  CreateInputInputTcp
 > = z.object({
   id: z.string(),
   type: z.literal("tcp"),
@@ -9918,33 +11396,92 @@ export const InputTcp$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   enableHeader: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
   description: z.string().optional(),
   authToken: z.string().optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   textSecret: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputTcpToJSON(inputTcp: InputTcp): string {
-  return JSON.stringify(InputTcp$outboundSchema.parse(inputTcp));
+export function createInputInputTcpToJSON(
+  createInputInputTcp: CreateInputInputTcp,
+): string {
+  return JSON.stringify(
+    CreateInputInputTcp$outboundSchema.parse(createInputInputTcp),
+  );
+}
+export function createInputInputTcpFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputTcp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputTcp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputTcp' from JSON`,
+  );
 }
 
 /** @internal */
-export const InputFileMode$outboundSchema: z.ZodType<
+export const CreateInputInputFileMode$inboundSchema: z.ZodType<
+  CreateInputInputFileMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputInputFileMode);
+/** @internal */
+export const CreateInputInputFileMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  InputFileMode
-> = openEnums.outboundSchema(InputFileMode);
+  CreateInputInputFileMode
+> = openEnums.outboundSchema(CreateInputInputFileMode);
 
 /** @internal */
-export type InputFile$Outbound = {
+export const CreateInputInputFile$inboundSchema: z.ZodType<
+  CreateInputInputFile,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("file"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  mode: types.optional(CreateInputInputFileMode$inboundSchema),
+  interval: types.optional(types.number()),
+  filenames: types.optional(z.array(types.string())),
+  filterArchivedFiles: types.optional(types.boolean()),
+  tailOnly: types.optional(types.boolean()),
+  idleTimeout: types.optional(types.number()),
+  minAgeDur: types.optional(types.string()),
+  maxAgeDur: types.optional(types.string()),
+  checkFileModTime: types.optional(types.boolean()),
+  forceText: types.optional(types.boolean()),
+  hashLen: types.optional(types.number()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  description: types.optional(types.string()),
+  path: types.optional(types.string()),
+  depth: types.optional(types.number()),
+  suppressMissingPathErrors: types.optional(types.boolean()),
+  deleteFiles: types.optional(types.boolean()),
+  saltHash: types.optional(types.boolean()),
+  includeUnidentifiableBinary: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputInputFile$Outbound = {
   id: string;
   type: "file";
   disabled?: boolean | undefined;
@@ -9966,7 +11503,7 @@ export type InputFile$Outbound = {
   checkFileModTime?: boolean | undefined;
   forceText?: boolean | undefined;
   hashLen?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
@@ -9979,10 +11516,10 @@ export type InputFile$Outbound = {
 };
 
 /** @internal */
-export const InputFile$outboundSchema: z.ZodType<
-  InputFile$Outbound,
+export const CreateInputInputFile$outboundSchema: z.ZodType<
+  CreateInputInputFile$Outbound,
   z.ZodTypeDef,
-  InputFile
+  CreateInputInputFile
 > = z.object({
   id: z.string(),
   type: z.literal("file"),
@@ -9995,7 +11532,7 @@ export const InputFile$outboundSchema: z.ZodType<
   connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
-  mode: InputFileMode$outboundSchema.optional(),
+  mode: CreateInputInputFileMode$outboundSchema.optional(),
   interval: z.number().optional(),
   filenames: z.array(z.string()).optional(),
   filterArchivedFiles: z.boolean().optional(),
@@ -10006,8 +11543,7 @@ export const InputFile$outboundSchema: z.ZodType<
   checkFileModTime: z.boolean().optional(),
   forceText: z.boolean().optional(),
   hashLen: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   description: z.string().optional(),
@@ -10019,17 +11555,79 @@ export const InputFile$outboundSchema: z.ZodType<
   includeUnidentifiableBinary: z.boolean().optional(),
 });
 
-export function inputFileToJSON(inputFile: InputFile): string {
-  return JSON.stringify(InputFile$outboundSchema.parse(inputFile));
+export function createInputInputFileToJSON(
+  createInputInputFile: CreateInputInputFile,
+): string {
+  return JSON.stringify(
+    CreateInputInputFile$outboundSchema.parse(createInputInputFile),
+  );
+}
+export function createInputInputFileFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputFile, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputFile$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputFile' from JSON`,
+  );
 }
 
 /** @internal */
-export const InputSyslogType2$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogType2
-> = z.nativeEnum(InputSyslogType2);
+export const CreateInputInputSyslogType2$inboundSchema: z.ZodNativeEnum<
+  typeof CreateInputInputSyslogType2
+> = z.nativeEnum(CreateInputInputSyslogType2);
+/** @internal */
+export const CreateInputInputSyslogType2$outboundSchema: z.ZodNativeEnum<
+  typeof CreateInputInputSyslogType2
+> = CreateInputInputSyslogType2$inboundSchema;
 
 /** @internal */
-export type InputSyslogSyslog2$Outbound = {
+export const CreateInputInputSyslogSyslog2$inboundSchema: z.ZodType<
+  CreateInputInputSyslogSyslog2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: CreateInputInputSyslogType2$inboundSchema,
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  udpPort: types.optional(types.number()),
+  tcpPort: types.number(),
+  maxBufferSize: types.optional(types.number()),
+  ipWhitelistRegex: types.optional(types.string()),
+  timestampTimezone: types.optional(types.string()),
+  singleMsgUdpPackets: types.optional(types.boolean()),
+  enableProxyHeader: types.optional(types.boolean()),
+  keepFieldsList: types.optional(z.array(types.string())),
+  octetCounting: types.optional(types.boolean()),
+  inferFraming: types.optional(types.boolean()),
+  strictlyInferOctetCounting: types.optional(types.boolean()),
+  allowNonStandardAppName: types.optional(types.boolean()),
+  maxActiveCxn: types.optional(types.number()),
+  socketIdleTimeout: types.optional(types.number()),
+  socketEndingMaxWait: types.optional(types.number()),
+  socketMaxLifespan: types.optional(types.number()),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  udpSocketRxBufSize: types.optional(types.number()),
+  enableLoadBalancing: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  enableEnhancedProxyHeaderParsing: types.optional(types.boolean()),
+  __template_host: types.optional(types.string()),
+  __template_udpPort: types.optional(types.string()),
+  __template_tcpPort: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputSyslogSyslog2$Outbound = {
   id: string;
   type: string;
   disabled?: boolean | undefined;
@@ -10058,21 +11656,24 @@ export type InputSyslogSyslog2$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  __template_host?: string | undefined;
+  __template_udpPort?: string | undefined;
+  __template_tcpPort?: string | undefined;
 };
 
 /** @internal */
-export const InputSyslogSyslog2$outboundSchema: z.ZodType<
-  InputSyslogSyslog2$Outbound,
+export const CreateInputInputSyslogSyslog2$outboundSchema: z.ZodType<
+  CreateInputInputSyslogSyslog2$Outbound,
   z.ZodTypeDef,
-  InputSyslogSyslog2
+  CreateInputInputSyslogSyslog2
 > = z.object({
   id: z.string(),
-  type: InputSyslogType2$outboundSchema,
+  type: CreateInputInputSyslogType2$outboundSchema,
   disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().optional(),
@@ -10100,29 +11701,91 @@ export const InputSyslogSyslog2$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
   enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+  __template_host: z.string().optional(),
+  __template_udpPort: z.string().optional(),
+  __template_tcpPort: z.string().optional(),
 });
 
-export function inputSyslogSyslog2ToJSON(
-  inputSyslogSyslog2: InputSyslogSyslog2,
+export function createInputInputSyslogSyslog2ToJSON(
+  createInputInputSyslogSyslog2: CreateInputInputSyslogSyslog2,
 ): string {
   return JSON.stringify(
-    InputSyslogSyslog2$outboundSchema.parse(inputSyslogSyslog2),
+    CreateInputInputSyslogSyslog2$outboundSchema.parse(
+      createInputInputSyslogSyslog2,
+    ),
+  );
+}
+export function createInputInputSyslogSyslog2FromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputSyslogSyslog2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputSyslogSyslog2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputSyslogSyslog2' from JSON`,
   );
 }
 
 /** @internal */
-export const InputSyslogType1$outboundSchema: z.ZodNativeEnum<
-  typeof InputSyslogType1
-> = z.nativeEnum(InputSyslogType1);
+export const CreateInputInputSyslogType1$inboundSchema: z.ZodNativeEnum<
+  typeof CreateInputInputSyslogType1
+> = z.nativeEnum(CreateInputInputSyslogType1);
+/** @internal */
+export const CreateInputInputSyslogType1$outboundSchema: z.ZodNativeEnum<
+  typeof CreateInputInputSyslogType1
+> = CreateInputInputSyslogType1$inboundSchema;
 
 /** @internal */
-export type InputSyslogSyslog1$Outbound = {
+export const CreateInputInputSyslogSyslog1$inboundSchema: z.ZodType<
+  CreateInputInputSyslogSyslog1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: CreateInputInputSyslogType1$inboundSchema,
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  udpPort: types.number(),
+  tcpPort: types.optional(types.number()),
+  maxBufferSize: types.optional(types.number()),
+  ipWhitelistRegex: types.optional(types.string()),
+  timestampTimezone: types.optional(types.string()),
+  singleMsgUdpPackets: types.optional(types.boolean()),
+  enableProxyHeader: types.optional(types.boolean()),
+  keepFieldsList: types.optional(z.array(types.string())),
+  octetCounting: types.optional(types.boolean()),
+  inferFraming: types.optional(types.boolean()),
+  strictlyInferOctetCounting: types.optional(types.boolean()),
+  allowNonStandardAppName: types.optional(types.boolean()),
+  maxActiveCxn: types.optional(types.number()),
+  socketIdleTimeout: types.optional(types.number()),
+  socketEndingMaxWait: types.optional(types.number()),
+  socketMaxLifespan: types.optional(types.number()),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  udpSocketRxBufSize: types.optional(types.number()),
+  enableLoadBalancing: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  enableEnhancedProxyHeaderParsing: types.optional(types.boolean()),
+  __template_host: types.optional(types.string()),
+  __template_udpPort: types.optional(types.string()),
+  __template_tcpPort: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputSyslogSyslog1$Outbound = {
   id: string;
   type: string;
   disabled?: boolean | undefined;
@@ -10151,21 +11814,24 @@ export type InputSyslogSyslog1$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
   enableEnhancedProxyHeaderParsing?: boolean | undefined;
+  __template_host?: string | undefined;
+  __template_udpPort?: string | undefined;
+  __template_tcpPort?: string | undefined;
 };
 
 /** @internal */
-export const InputSyslogSyslog1$outboundSchema: z.ZodType<
-  InputSyslogSyslog1$Outbound,
+export const CreateInputInputSyslogSyslog1$outboundSchema: z.ZodType<
+  CreateInputInputSyslogSyslog1$Outbound,
   z.ZodTypeDef,
-  InputSyslogSyslog1
+  CreateInputInputSyslogSyslog1
 > = z.object({
   id: z.string(),
-  type: InputSyslogType1$outboundSchema,
+  type: CreateInputInputSyslogType1$outboundSchema,
   disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().optional(),
@@ -10193,41 +11859,84 @@ export const InputSyslogSyslog1$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   enableLoadBalancing: z.boolean().optional(),
   description: z.string().optional(),
   enableEnhancedProxyHeaderParsing: z.boolean().optional(),
+  __template_host: z.string().optional(),
+  __template_udpPort: z.string().optional(),
+  __template_tcpPort: z.string().optional(),
 });
 
-export function inputSyslogSyslog1ToJSON(
-  inputSyslogSyslog1: InputSyslogSyslog1,
+export function createInputInputSyslogSyslog1ToJSON(
+  createInputInputSyslogSyslog1: CreateInputInputSyslogSyslog1,
 ): string {
   return JSON.stringify(
-    InputSyslogSyslog1$outboundSchema.parse(inputSyslogSyslog1),
+    CreateInputInputSyslogSyslog1$outboundSchema.parse(
+      createInputInputSyslogSyslog1,
+    ),
+  );
+}
+export function createInputInputSyslogSyslog1FromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputSyslogSyslog1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputSyslogSyslog1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputSyslogSyslog1' from JSON`,
   );
 }
 
 /** @internal */
-export type InputSyslog$Outbound =
-  | InputSyslogSyslog1$Outbound
-  | InputSyslogSyslog2$Outbound;
+export const CreateInputInputSyslogUnion$inboundSchema: z.ZodType<
+  CreateInputInputSyslogUnion,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  z.lazy(() => CreateInputInputSyslogSyslog1$inboundSchema),
+  z.lazy(() => CreateInputInputSyslogSyslog2$inboundSchema),
+]);
+/** @internal */
+export type CreateInputInputSyslogUnion$Outbound =
+  | CreateInputInputSyslogSyslog1$Outbound
+  | CreateInputInputSyslogSyslog2$Outbound;
 
 /** @internal */
-export const InputSyslog$outboundSchema: z.ZodType<
-  InputSyslog$Outbound,
+export const CreateInputInputSyslogUnion$outboundSchema: z.ZodType<
+  CreateInputInputSyslogUnion$Outbound,
   z.ZodTypeDef,
-  InputSyslog
+  CreateInputInputSyslogUnion
 > = smartUnion([
-  z.lazy(() => InputSyslogSyslog1$outboundSchema),
-  z.lazy(() => InputSyslogSyslog2$outboundSchema),
+  z.lazy(() => CreateInputInputSyslogSyslog1$outboundSchema),
+  z.lazy(() => CreateInputInputSyslogSyslog2$outboundSchema),
 ]);
 
-export function inputSyslogToJSON(inputSyslog: InputSyslog): string {
-  return JSON.stringify(InputSyslog$outboundSchema.parse(inputSyslog));
+export function createInputInputSyslogUnionToJSON(
+  createInputInputSyslogUnion: CreateInputInputSyslogUnion,
+): string {
+  return JSON.stringify(
+    CreateInputInputSyslogUnion$outboundSchema.parse(
+      createInputInputSyslogUnion,
+    ),
+  );
+}
+export function createInputInputSyslogUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputSyslogUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputSyslogUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputSyslogUnion' from JSON`,
+  );
 }
 
+/** @internal */
+export const CreateInputQueueType$inboundSchema: z.ZodType<
+  CreateInputQueueType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputQueueType);
 /** @internal */
 export const CreateInputQueueType$outboundSchema: z.ZodType<
   string,
@@ -10236,7 +11945,58 @@ export const CreateInputQueueType$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateInputQueueType);
 
 /** @internal */
-export type InputSqs$Outbound = {
+export const CreateInputInputSqs$inboundSchema: z.ZodType<
+  CreateInputInputSqs,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("sqs"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  queueName: types.string(),
+  queueType: CreateInputQueueType$inboundSchema,
+  awsAccountId: types.optional(types.string()),
+  createQueue: types.optional(types.boolean()),
+  awsAuthenticationMethod: types.optional(types.string()),
+  awsSecretKey: types.optional(types.string()),
+  region: types.optional(types.string()),
+  endpoint: types.optional(types.string()),
+  signatureVersion: types.optional(
+    models.SignatureVersionOptions3$inboundSchema,
+  ),
+  reuseConnections: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  enableAssumeRole: types.optional(types.boolean()),
+  assumeRoleArn: types.optional(types.string()),
+  assumeRoleExternalId: types.optional(types.string()),
+  durationSeconds: types.optional(types.number()),
+  maxMessages: types.optional(types.number()),
+  visibilityTimeout: types.optional(types.number()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  pollTimeout: types.optional(types.number()),
+  description: types.optional(types.string()),
+  awsApiKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  numReceivers: types.optional(types.number()),
+  __template_queueName: types.optional(types.string()),
+  __template_awsAccountId: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputSqs$Outbound = {
   id: string;
   type: "sqs";
   disabled?: boolean | undefined;
@@ -10264,19 +12024,26 @@ export type InputSqs$Outbound = {
   durationSeconds?: number | undefined;
   maxMessages?: number | undefined;
   visibilityTimeout?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   pollTimeout?: number | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   numReceivers?: number | undefined;
+  __template_queueName?: string | undefined;
+  __template_awsAccountId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
-export const InputSqs$outboundSchema: z.ZodType<
-  InputSqs$Outbound,
+export const CreateInputInputSqs$outboundSchema: z.ZodType<
+  CreateInputInputSqs$Outbound,
   z.ZodTypeDef,
-  InputSqs
+  CreateInputInputSqs
 > = z.object({
   id: z.string(),
   type: z.literal("sqs"),
@@ -10306,21 +12073,68 @@ export const InputSqs$outboundSchema: z.ZodType<
   durationSeconds: z.number().optional(),
   maxMessages: z.number().optional(),
   visibilityTimeout: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   pollTimeout: z.number().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   numReceivers: z.number().optional(),
+  __template_queueName: z.string().optional(),
+  __template_awsAccountId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
 });
 
-export function inputSqsToJSON(inputSqs: InputSqs): string {
-  return JSON.stringify(InputSqs$outboundSchema.parse(inputSqs));
+export function createInputInputSqsToJSON(
+  createInputInputSqs: CreateInputInputSqs,
+): string {
+  return JSON.stringify(
+    CreateInputInputSqs$outboundSchema.parse(createInputInputSqs),
+  );
+}
+export function createInputInputSqsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputSqs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputSqs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputSqs' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputModelDrivenTelemetry$Outbound = {
+export const CreateInputInputModelDrivenTelemetry$inboundSchema: z.ZodType<
+  CreateInputInputModelDrivenTelemetry,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("model_driven_telemetry"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  maxActiveCxn: types.optional(types.number()),
+  shutdownTimeoutMs: types.optional(types.number()),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputModelDrivenTelemetry$Outbound = {
   id: string;
   type: "model_driven_telemetry";
   disabled?: boolean | undefined;
@@ -10334,17 +12148,19 @@ export type InputModelDrivenTelemetry$Outbound = {
   host: string;
   port: number;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   maxActiveCxn?: number | undefined;
   shutdownTimeoutMs?: number | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputModelDrivenTelemetry$outboundSchema: z.ZodType<
-  InputModelDrivenTelemetry$Outbound,
+export const CreateInputInputModelDrivenTelemetry$outboundSchema: z.ZodType<
+  CreateInputInputModelDrivenTelemetry$Outbound,
   z.ZodTypeDef,
-  InputModelDrivenTelemetry
+  CreateInputInputModelDrivenTelemetry
 > = z.object({
   id: z.string(),
   type: z.literal("model_driven_telemetry"),
@@ -10360,21 +12176,40 @@ export const InputModelDrivenTelemetry$outboundSchema: z.ZodType<
   host: z.string(),
   port: z.number(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   maxActiveCxn: z.number().optional(),
   shutdownTimeoutMs: z.number().optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputModelDrivenTelemetryToJSON(
-  inputModelDrivenTelemetry: InputModelDrivenTelemetry,
+export function createInputInputModelDrivenTelemetryToJSON(
+  createInputInputModelDrivenTelemetry: CreateInputInputModelDrivenTelemetry,
 ): string {
   return JSON.stringify(
-    InputModelDrivenTelemetry$outboundSchema.parse(inputModelDrivenTelemetry),
+    CreateInputInputModelDrivenTelemetry$outboundSchema.parse(
+      createInputInputModelDrivenTelemetry,
+    ),
+  );
+}
+export function createInputInputModelDrivenTelemetryFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputModelDrivenTelemetry, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CreateInputInputModelDrivenTelemetry$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputModelDrivenTelemetry' from JSON`,
   );
 }
 
+/** @internal */
+export const CreateInputProtocol$inboundSchema: z.ZodType<
+  CreateInputProtocol,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputProtocol);
 /** @internal */
 export const CreateInputProtocol$outboundSchema: z.ZodType<
   string,
@@ -10383,6 +12218,12 @@ export const CreateInputProtocol$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateInputProtocol);
 
 /** @internal */
+export const CreateInputOTLPVersion$inboundSchema: z.ZodType<
+  CreateInputOTLPVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputOTLPVersion);
+/** @internal */
 export const CreateInputOTLPVersion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
@@ -10390,7 +12231,53 @@ export const CreateInputOTLPVersion$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateInputOTLPVersion);
 
 /** @internal */
-export type InputOpenTelemetry$Outbound = {
+export const CreateInputInputOpenTelemetry$inboundSchema: z.ZodType<
+  CreateInputInputOpenTelemetry,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("open_telemetry"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  protocol: types.optional(CreateInputProtocol$inboundSchema),
+  extractSpans: types.optional(types.boolean()),
+  extractMetrics: types.optional(types.boolean()),
+  otlpVersion: types.optional(CreateInputOTLPVersion$inboundSchema),
+  authType: types.optional(models.AuthenticationTypeOptions$inboundSchema),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  maxActiveCxn: types.optional(types.number()),
+  description: types.optional(types.string()),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+  extractLogs: types.optional(types.boolean()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputOpenTelemetry$Outbound = {
   id: string;
   type: "open_telemetry";
   disabled?: boolean | undefined;
@@ -10406,9 +12293,6 @@ export type InputOpenTelemetry$Outbound = {
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
-  enableProxyHeader?: any | undefined;
-  captureHeaders?: any | undefined;
-  activityLogSampleRate?: any | undefined;
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
@@ -10420,7 +12304,7 @@ export type InputOpenTelemetry$Outbound = {
   extractMetrics?: boolean | undefined;
   otlpVersion?: string | undefined;
   authType?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   maxActiveCxn?: number | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -10428,22 +12312,16 @@ export type InputOpenTelemetry$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
   extractLogs?: boolean | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputOpenTelemetry$outboundSchema: z.ZodType<
-  InputOpenTelemetry$Outbound,
+export const CreateInputInputOpenTelemetry$outboundSchema: z.ZodType<
+  CreateInputInputOpenTelemetry$Outbound,
   z.ZodTypeDef,
-  InputOpenTelemetry
+  CreateInputInputOpenTelemetry
 > = z.object({
   id: z.string(),
   type: z.literal("open_telemetry"),
@@ -10461,9 +12339,6 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
   maxActiveReq: z.number().optional(),
   maxRequestsPerSocket: z.number().int().optional(),
-  enableProxyHeader: z.any().optional(),
-  captureHeaders: z.any().optional(),
-  activityLogSampleRate: z.any().optional(),
   requestTimeout: z.number().optional(),
   socketTimeout: z.number().optional(),
   keepAliveTimeout: z.number().optional(),
@@ -10475,8 +12350,7 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   extractMetrics: z.boolean().optional(),
   otlpVersion: CreateInputOTLPVersion$outboundSchema.optional(),
   authType: models.AuthenticationTypeOptions$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   maxActiveCxn: z.number().optional(),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -10484,34 +12358,47 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
   extractLogs: z.boolean().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputOpenTelemetryToJSON(
-  inputOpenTelemetry: InputOpenTelemetry,
+export function createInputInputOpenTelemetryToJSON(
+  createInputInputOpenTelemetry: CreateInputInputOpenTelemetry,
 ): string {
   return JSON.stringify(
-    InputOpenTelemetry$outboundSchema.parse(inputOpenTelemetry),
+    CreateInputInputOpenTelemetry$outboundSchema.parse(
+      createInputInputOpenTelemetry,
+    ),
+  );
+}
+export function createInputInputOpenTelemetryFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputOpenTelemetry, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputOpenTelemetry$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputOpenTelemetry' from JSON`,
   );
 }
 
 /** @internal */
-export const PrivacyProtocol$outboundSchema: z.ZodType<
-  string,
+export const CreateInputV3User$inboundSchema: z.ZodType<
+  CreateInputV3User,
   z.ZodTypeDef,
-  PrivacyProtocol
-> = openEnums.outboundSchema(PrivacyProtocol);
-
+  unknown
+> = z.object({
+  name: types.string(),
+  authProtocol: types.optional(types.string()),
+  authKey: types.optional(types.string()),
+  privProtocol: types.optional(
+    models
+      .PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema,
+  ),
+  privKey: types.optional(types.string()),
+});
 /** @internal */
-export type V3User$Outbound = {
+export type CreateInputV3User$Outbound = {
   name: string;
   authProtocol?: string | undefined;
   authKey?: string | undefined;
@@ -10520,51 +12407,121 @@ export type V3User$Outbound = {
 };
 
 /** @internal */
-export const V3User$outboundSchema: z.ZodType<
-  V3User$Outbound,
+export const CreateInputV3User$outboundSchema: z.ZodType<
+  CreateInputV3User$Outbound,
   z.ZodTypeDef,
-  V3User
+  CreateInputV3User
 > = z.object({
   name: z.string(),
-  authProtocol: models.AuthenticationProtocolOptionsV3User$outboundSchema
-    .optional(),
+  authProtocol: z.string().optional(),
   authKey: z.string().optional(),
-  privProtocol: PrivacyProtocol$outboundSchema.optional(),
+  privProtocol: models
+    .PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema
+    .optional(),
   privKey: z.string().optional(),
 });
 
-export function v3UserToJSON(v3User: V3User): string {
-  return JSON.stringify(V3User$outboundSchema.parse(v3User));
-}
-
-/** @internal */
-export type SNMPv3Authentication$Outbound = {
-  v3AuthEnabled: boolean;
-  allowUnmatchedTrap?: boolean | undefined;
-  v3Users?: Array<V3User$Outbound> | undefined;
-};
-
-/** @internal */
-export const SNMPv3Authentication$outboundSchema: z.ZodType<
-  SNMPv3Authentication$Outbound,
-  z.ZodTypeDef,
-  SNMPv3Authentication
-> = z.object({
-  v3AuthEnabled: z.boolean(),
-  allowUnmatchedTrap: z.boolean().optional(),
-  v3Users: z.array(z.lazy(() => V3User$outboundSchema)).optional(),
-});
-
-export function snmPv3AuthenticationToJSON(
-  snmPv3Authentication: SNMPv3Authentication,
+export function createInputV3UserToJSON(
+  createInputV3User: CreateInputV3User,
 ): string {
   return JSON.stringify(
-    SNMPv3Authentication$outboundSchema.parse(snmPv3Authentication),
+    CreateInputV3User$outboundSchema.parse(createInputV3User),
+  );
+}
+export function createInputV3UserFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputV3User, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputV3User$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputV3User' from JSON`,
   );
 }
 
 /** @internal */
-export type InputSnmp$Outbound = {
+export const CreateInputSNMPv3Authentication$inboundSchema: z.ZodType<
+  CreateInputSNMPv3Authentication,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  v3AuthEnabled: types.boolean(),
+  allowUnmatchedTrap: types.optional(types.boolean()),
+  v3Users: types.optional(
+    z.array(z.lazy(() => CreateInputV3User$inboundSchema)),
+  ),
+});
+/** @internal */
+export type CreateInputSNMPv3Authentication$Outbound = {
+  v3AuthEnabled: boolean;
+  allowUnmatchedTrap?: boolean | undefined;
+  v3Users?: Array<CreateInputV3User$Outbound> | undefined;
+};
+
+/** @internal */
+export const CreateInputSNMPv3Authentication$outboundSchema: z.ZodType<
+  CreateInputSNMPv3Authentication$Outbound,
+  z.ZodTypeDef,
+  CreateInputSNMPv3Authentication
+> = z.object({
+  v3AuthEnabled: z.boolean(),
+  allowUnmatchedTrap: z.boolean().optional(),
+  v3Users: z.array(z.lazy(() => CreateInputV3User$outboundSchema)).optional(),
+});
+
+export function createInputSNMPv3AuthenticationToJSON(
+  createInputSNMPv3Authentication: CreateInputSNMPv3Authentication,
+): string {
+  return JSON.stringify(
+    CreateInputSNMPv3Authentication$outboundSchema.parse(
+      createInputSNMPv3Authentication,
+    ),
+  );
+}
+export function createInputSNMPv3AuthenticationFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputSNMPv3Authentication, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputSNMPv3Authentication$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputSNMPv3Authentication' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateInputInputSnmp$inboundSchema: z.ZodType<
+  CreateInputInputSnmp,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("snmp"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  snmpV3Auth: types.optional(
+    z.lazy(() => CreateInputSNMPv3Authentication$inboundSchema),
+  ),
+  maxBufferSize: types.optional(types.number()),
+  ipWhitelistRegex: types.optional(types.string()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  udpSocketRxBufSize: types.optional(types.number()),
+  varbindsWithTypes: types.optional(types.boolean()),
+  bestEffortParsing: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputSnmp$Outbound = {
   id: string;
   type: "snmp";
   disabled?: boolean | undefined;
@@ -10577,21 +12534,23 @@ export type InputSnmp$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
-  snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
+  snmpV3Auth?: CreateInputSNMPv3Authentication$Outbound | undefined;
   maxBufferSize?: number | undefined;
   ipWhitelistRegex?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   varbindsWithTypes?: boolean | undefined;
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputSnmp$outboundSchema: z.ZodType<
-  InputSnmp$Outbound,
+export const CreateInputInputSnmp$outboundSchema: z.ZodType<
+  CreateInputInputSnmp$Outbound,
   z.ZodTypeDef,
-  InputSnmp
+  CreateInputInputSnmp
 > = z.object({
   id: z.string(),
   type: z.literal("snmp"),
@@ -10606,23 +12565,106 @@ export const InputSnmp$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
-  snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
+  snmpV3Auth: z.lazy(() => CreateInputSNMPv3Authentication$outboundSchema)
+    .optional(),
   maxBufferSize: z.number().optional(),
   ipWhitelistRegex: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   varbindsWithTypes: z.boolean().optional(),
   bestEffortParsing: z.boolean().optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputSnmpToJSON(inputSnmp: InputSnmp): string {
-  return JSON.stringify(InputSnmp$outboundSchema.parse(inputSnmp));
+export function createInputInputSnmpToJSON(
+  createInputInputSnmp: CreateInputInputSnmp,
+): string {
+  return JSON.stringify(
+    CreateInputInputSnmp$outboundSchema.parse(createInputInputSnmp),
+  );
+}
+export function createInputInputSnmpFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputSnmp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputSnmp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputSnmp' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputS3Inventory$Outbound = {
+export const CreateInputInputS3Inventory$inboundSchema: z.ZodType<
+  CreateInputInputS3Inventory,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("s3_inventory"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  queueName: types.string(),
+  fileFilter: types.optional(types.string()),
+  awsAccountId: types.optional(types.string()),
+  awsAuthenticationMethod: types.optional(types.string()),
+  awsSecretKey: types.optional(types.string()),
+  region: types.optional(types.string()),
+  endpoint: types.optional(types.string()),
+  signatureVersion: types.optional(
+    models.SignatureVersionOptionsS3CollectorConf$inboundSchema,
+  ),
+  reuseConnections: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  maxMessages: types.optional(types.number()),
+  visibilityTimeout: types.optional(types.number()),
+  numReceivers: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  skipOnError: types.optional(types.boolean()),
+  includeSqsMetadata: types.optional(types.boolean()),
+  enableAssumeRole: types.optional(types.boolean()),
+  assumeRoleArn: types.optional(types.string()),
+  assumeRoleExternalId: types.optional(types.string()),
+  durationSeconds: types.optional(types.number()),
+  enableSQSAssumeRole: types.optional(types.boolean()),
+  preprocess: types.optional(models.PreprocessType$inboundSchema),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  parquetChunkSizeMB: types.optional(types.number()),
+  parquetChunkDownloadTimeout: types.optional(types.number()),
+  checkpointing: types.optional(models.CheckpointingType$inboundSchema),
+  pollTimeout: types.optional(types.number()),
+  checksumSuffix: types.optional(types.string()),
+  maxManifestSizeKB: types.optional(types.number()),
+  validateInventoryFiles: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  awsApiKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  tagAfterProcessing: types.optional(
+    models.TagAfterProcessingOptions$inboundSchema,
+  ),
+  processedTagKey: types.optional(types.string()),
+  processedTagValue: types.optional(types.string()),
+  __template_queueName: types.optional(types.string()),
+  __template_awsAccountId: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputS3Inventory$Outbound = {
   id: string;
   type: "s3_inventory";
   disabled?: boolean | undefined;
@@ -10656,10 +12698,8 @@ export type InputS3Inventory$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: models.CheckpointingType$Outbound | undefined;
@@ -10673,13 +12713,20 @@ export type InputS3Inventory$Outbound = {
   tagAfterProcessing?: string | undefined;
   processedTagKey?: string | undefined;
   processedTagValue?: string | undefined;
+  __template_queueName?: string | undefined;
+  __template_awsAccountId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
-export const InputS3Inventory$outboundSchema: z.ZodType<
-  InputS3Inventory$Outbound,
+export const CreateInputInputS3Inventory$outboundSchema: z.ZodType<
+  CreateInputInputS3Inventory$Outbound,
   z.ZodTypeDef,
-  InputS3Inventory
+  CreateInputInputS3Inventory
 > = z.object({
   id: z.string(),
   type: z.literal("s3_inventory"),
@@ -10716,10 +12763,8 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: models.CheckpointingType$outboundSchema.optional(),
@@ -10734,18 +12779,100 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
     .optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
+  __template_queueName: z.string().optional(),
+  __template_awsAccountId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
 });
 
-export function inputS3InventoryToJSON(
-  inputS3Inventory: InputS3Inventory,
+export function createInputInputS3InventoryToJSON(
+  createInputInputS3Inventory: CreateInputInputS3Inventory,
 ): string {
   return JSON.stringify(
-    InputS3Inventory$outboundSchema.parse(inputS3Inventory),
+    CreateInputInputS3Inventory$outboundSchema.parse(
+      createInputInputS3Inventory,
+    ),
+  );
+}
+export function createInputInputS3InventoryFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputS3Inventory, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputS3Inventory$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputS3Inventory' from JSON`,
   );
 }
 
 /** @internal */
-export type InputS3$Outbound = {
+export const CreateInputInputS3$inboundSchema: z.ZodType<
+  CreateInputInputS3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("s3"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  queueName: types.string(),
+  fileFilter: types.optional(types.string()),
+  awsAccountId: types.optional(types.string()),
+  awsAuthenticationMethod: types.optional(types.string()),
+  awsSecretKey: types.optional(types.string()),
+  region: types.optional(types.string()),
+  endpoint: types.optional(types.string()),
+  signatureVersion: types.optional(
+    models.SignatureVersionOptionsS3CollectorConf$inboundSchema,
+  ),
+  reuseConnections: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  maxMessages: types.optional(types.number()),
+  visibilityTimeout: types.optional(types.number()),
+  numReceivers: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  skipOnError: types.optional(types.boolean()),
+  includeSqsMetadata: types.optional(types.boolean()),
+  enableAssumeRole: types.optional(types.boolean()),
+  assumeRoleArn: types.optional(types.string()),
+  assumeRoleExternalId: types.optional(types.string()),
+  durationSeconds: types.optional(types.number()),
+  enableSQSAssumeRole: types.optional(types.boolean()),
+  preprocess: types.optional(models.PreprocessType$inboundSchema),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  parquetChunkSizeMB: types.optional(types.number()),
+  parquetChunkDownloadTimeout: types.optional(types.number()),
+  checkpointing: types.optional(models.CheckpointingType$inboundSchema),
+  pollTimeout: types.optional(types.number()),
+  encoding: types.optional(types.string()),
+  tagAfterProcessing: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  awsApiKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  processedTagKey: types.optional(types.string()),
+  processedTagValue: types.optional(types.string()),
+  __template_queueName: types.optional(types.string()),
+  __template_awsAccountId: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputS3$Outbound = {
   id: string;
   type: "s3";
   disabled?: boolean | undefined;
@@ -10779,10 +12906,8 @@ export type InputS3$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   parquetChunkSizeMB?: number | undefined;
   parquetChunkDownloadTimeout?: number | undefined;
   checkpointing?: models.CheckpointingType$Outbound | undefined;
@@ -10794,13 +12919,20 @@ export type InputS3$Outbound = {
   awsSecret?: string | undefined;
   processedTagKey?: string | undefined;
   processedTagValue?: string | undefined;
+  __template_queueName?: string | undefined;
+  __template_awsAccountId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
-export const InputS3$outboundSchema: z.ZodType<
-  InputS3$Outbound,
+export const CreateInputInputS3$outboundSchema: z.ZodType<
+  CreateInputInputS3$Outbound,
   z.ZodTypeDef,
-  InputS3
+  CreateInputInputS3
 > = z.object({
   id: z.string(),
   type: z.literal("s3"),
@@ -10837,10 +12969,8 @@ export const InputS3$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   parquetChunkSizeMB: z.number().optional(),
   parquetChunkDownloadTimeout: z.number().optional(),
   checkpointing: models.CheckpointingType$outboundSchema.optional(),
@@ -10852,14 +12982,66 @@ export const InputS3$outboundSchema: z.ZodType<
   awsSecret: z.string().optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
+  __template_queueName: z.string().optional(),
+  __template_awsAccountId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
 });
 
-export function inputS3ToJSON(inputS3: InputS3): string {
-  return JSON.stringify(InputS3$outboundSchema.parse(inputS3));
+export function createInputInputS3ToJSON(
+  createInputInputS3: CreateInputInputS3,
+): string {
+  return JSON.stringify(
+    CreateInputInputS3$outboundSchema.parse(createInputInputS3),
+  );
+}
+export function createInputInputS3FromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputS3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputS3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputS3' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputMetrics$Outbound = {
+export const CreateInputInputMetrics$inboundSchema: z.ZodType<
+  CreateInputInputMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("metrics"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  udpPort: types.optional(types.number()),
+  tcpPort: types.optional(types.number()),
+  maxBufferSize: types.optional(types.number()),
+  ipWhitelistRegex: types.optional(types.string()),
+  enableProxyHeader: types.optional(types.boolean()),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  udpSocketRxBufSize: types.optional(types.number()),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_udpPort: types.optional(types.string()),
+  __template_tcpPort: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputMetrics$Outbound = {
   id: string;
   type: "metrics";
   disabled?: boolean | undefined;
@@ -10877,16 +13059,19 @@ export type InputMetrics$Outbound = {
   ipWhitelistRegex?: string | undefined;
   enableProxyHeader?: boolean | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_udpPort?: string | undefined;
+  __template_tcpPort?: string | undefined;
 };
 
 /** @internal */
-export const InputMetrics$outboundSchema: z.ZodType<
-  InputMetrics$Outbound,
+export const CreateInputInputMetrics$outboundSchema: z.ZodType<
+  CreateInputInputMetrics$Outbound,
   z.ZodTypeDef,
-  InputMetrics
+  CreateInputInputMetrics
 > = z.object({
   id: z.string(),
   type: z.literal("metrics"),
@@ -10906,18 +13091,56 @@ export const InputMetrics$outboundSchema: z.ZodType<
   ipWhitelistRegex: z.string().optional(),
   enableProxyHeader: z.boolean().optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_udpPort: z.string().optional(),
+  __template_tcpPort: z.string().optional(),
 });
 
-export function inputMetricsToJSON(inputMetrics: InputMetrics): string {
-  return JSON.stringify(InputMetrics$outboundSchema.parse(inputMetrics));
+export function createInputInputMetricsToJSON(
+  createInputInputMetrics: CreateInputInputMetrics,
+): string {
+  return JSON.stringify(
+    CreateInputInputMetrics$outboundSchema.parse(createInputInputMetrics),
+  );
+}
+export function createInputInputMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputMetrics' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputCriblmetrics$Outbound = {
+export const CreateInputInputCriblmetrics$inboundSchema: z.ZodType<
+  CreateInputInputCriblmetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("criblmetrics"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  prefix: types.optional(types.string()),
+  fullFidelity: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputCriblmetrics$Outbound = {
   id: string;
   type: "criblmetrics";
   disabled?: boolean | undefined;
@@ -10930,15 +13153,15 @@ export type InputCriblmetrics$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   prefix?: string | undefined;
   fullFidelity?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputCriblmetrics$outboundSchema: z.ZodType<
-  InputCriblmetrics$Outbound,
+export const CreateInputInputCriblmetrics$outboundSchema: z.ZodType<
+  CreateInputInputCriblmetrics$Outbound,
   z.ZodTypeDef,
-  InputCriblmetrics
+  CreateInputInputCriblmetrics
 > = z.object({
   id: z.string(),
   type: z.literal("criblmetrics"),
@@ -10953,42 +13176,126 @@ export const InputCriblmetrics$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   prefix: z.string().optional(),
   fullFidelity: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-export function inputCriblmetricsToJSON(
-  inputCriblmetrics: InputCriblmetrics,
+export function createInputInputCriblmetricsToJSON(
+  createInputInputCriblmetrics: CreateInputInputCriblmetrics,
 ): string {
   return JSON.stringify(
-    InputCriblmetrics$outboundSchema.parse(inputCriblmetrics),
+    CreateInputInputCriblmetrics$outboundSchema.parse(
+      createInputInputCriblmetrics,
+    ),
+  );
+}
+export function createInputInputCriblmetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputCriblmetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputCriblmetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputCriblmetrics' from JSON`,
   );
 }
 
 /** @internal */
-export const ShardIteratorStart$outboundSchema: z.ZodType<
+export const CreateInputShardIteratorStart$inboundSchema: z.ZodType<
+  CreateInputShardIteratorStart,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputShardIteratorStart);
+/** @internal */
+export const CreateInputShardIteratorStart$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ShardIteratorStart
-> = openEnums.outboundSchema(ShardIteratorStart);
+  CreateInputShardIteratorStart
+> = openEnums.outboundSchema(CreateInputShardIteratorStart);
 
 /** @internal */
-export const RecordDataFormat$outboundSchema: z.ZodType<
+export const CreateInputRecordDataFormat$inboundSchema: z.ZodType<
+  CreateInputRecordDataFormat,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputRecordDataFormat);
+/** @internal */
+export const CreateInputRecordDataFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  RecordDataFormat
-> = openEnums.outboundSchema(RecordDataFormat);
+  CreateInputRecordDataFormat
+> = openEnums.outboundSchema(CreateInputRecordDataFormat);
 
 /** @internal */
-export const ShardLoadBalancing$outboundSchema: z.ZodType<
+export const CreateInputShardLoadBalancing$inboundSchema: z.ZodType<
+  CreateInputShardLoadBalancing,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputShardLoadBalancing);
+/** @internal */
+export const CreateInputShardLoadBalancing$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ShardLoadBalancing
-> = openEnums.outboundSchema(ShardLoadBalancing);
+  CreateInputShardLoadBalancing
+> = openEnums.outboundSchema(CreateInputShardLoadBalancing);
 
 /** @internal */
-export type InputKinesis$Outbound = {
+export const CreateInputInputKinesis$inboundSchema: z.ZodType<
+  CreateInputInputKinesis,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("kinesis"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  streamName: types.string(),
+  serviceInterval: types.optional(types.number()),
+  shardExpr: types.optional(types.string()),
+  shardIteratorType: types.optional(
+    CreateInputShardIteratorStart$inboundSchema,
+  ),
+  payloadFormat: types.optional(CreateInputRecordDataFormat$inboundSchema),
+  getRecordsLimit: types.optional(types.number()),
+  getRecordsLimitTotal: types.optional(types.number()),
+  loadBalancingAlgorithm: types.optional(
+    CreateInputShardLoadBalancing$inboundSchema,
+  ),
+  awsAuthenticationMethod: types.optional(types.string()),
+  awsSecretKey: types.optional(types.string()),
+  region: types.string(),
+  endpoint: types.optional(types.string()),
+  signatureVersion: types.optional(
+    models.SignatureVersionOptions2$inboundSchema,
+  ),
+  reuseConnections: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  enableAssumeRole: types.optional(types.boolean()),
+  assumeRoleArn: types.optional(types.string()),
+  assumeRoleExternalId: types.optional(types.string()),
+  durationSeconds: types.optional(types.number()),
+  verifyKPLCheckSums: types.optional(types.boolean()),
+  avoidDuplicates: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+  awsApiKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  __template_streamName: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputKinesis$Outbound = {
   id: string;
   type: "kinesis";
   disabled?: boolean | undefined;
@@ -11020,17 +13327,23 @@ export type InputKinesis$Outbound = {
   durationSeconds?: number | undefined;
   verifyKPLCheckSums?: boolean | undefined;
   avoidDuplicates?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
+  __template_streamName?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
-export const InputKinesis$outboundSchema: z.ZodType<
-  InputKinesis$Outbound,
+export const CreateInputInputKinesis$outboundSchema: z.ZodType<
+  CreateInputInputKinesis$Outbound,
   z.ZodTypeDef,
-  InputKinesis
+  CreateInputInputKinesis
 > = z.object({
   id: z.string(),
   type: z.literal("kinesis"),
@@ -11046,11 +13359,12 @@ export const InputKinesis$outboundSchema: z.ZodType<
   streamName: z.string(),
   serviceInterval: z.number().optional(),
   shardExpr: z.string().optional(),
-  shardIteratorType: ShardIteratorStart$outboundSchema.optional(),
-  payloadFormat: RecordDataFormat$outboundSchema.optional(),
+  shardIteratorType: CreateInputShardIteratorStart$outboundSchema.optional(),
+  payloadFormat: CreateInputRecordDataFormat$outboundSchema.optional(),
   getRecordsLimit: z.number().optional(),
   getRecordsLimitTotal: z.number().optional(),
-  loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.optional(),
+  loadBalancingAlgorithm: CreateInputShardLoadBalancing$outboundSchema
+    .optional(),
   awsAuthenticationMethod: z.string().optional(),
   awsSecretKey: z.string().optional(),
   region: z.string(),
@@ -11064,19 +13378,82 @@ export const InputKinesis$outboundSchema: z.ZodType<
   durationSeconds: z.number().optional(),
   verifyKPLCheckSums: z.boolean().optional(),
   avoidDuplicates: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  __template_streamName: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
 });
 
-export function inputKinesisToJSON(inputKinesis: InputKinesis): string {
-  return JSON.stringify(InputKinesis$outboundSchema.parse(inputKinesis));
+export function createInputInputKinesisToJSON(
+  createInputInputKinesis: CreateInputInputKinesis,
+): string {
+  return JSON.stringify(
+    CreateInputInputKinesis$outboundSchema.parse(createInputInputKinesis),
+  );
+}
+export function createInputInputKinesisFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputKinesis, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputKinesis$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputKinesis' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputHttpRaw$Outbound = {
+export const CreateInputInputHttpRaw$inboundSchema: z.ZodType<
+  CreateInputInputHttpRaw,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("http_raw"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(z.array(types.string())),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  allowedPaths: types.optional(z.array(types.string())),
+  allowedMethods: types.optional(z.array(types.string())),
+  authTokensExt: types.optional(
+    z.array(models.ItemsTypeAuthTokensExt$inboundSchema),
+  ),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputHttpRaw$Outbound = {
   id: string;
   type: "http_raw";
   disabled?: boolean | undefined;
@@ -11104,18 +13481,20 @@ export type InputHttpRaw$Outbound = {
   ipDenylistRegex?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedPaths?: Array<string> | undefined;
   allowedMethods?: Array<string> | undefined;
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputHttpRaw$outboundSchema: z.ZodType<
-  InputHttpRaw$Outbound,
+export const CreateInputInputHttpRaw$outboundSchema: z.ZodType<
+  CreateInputInputHttpRaw$Outbound,
   z.ZodTypeDef,
-  InputHttpRaw
+  CreateInputInputHttpRaw
 > = z.object({
   id: z.string(),
   type: z.literal("http_raw"),
@@ -11145,41 +13524,99 @@ export const InputHttpRaw$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
   authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
     .optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputHttpRawToJSON(inputHttpRaw: InputHttpRaw): string {
-  return JSON.stringify(InputHttpRaw$outboundSchema.parse(inputHttpRaw));
+export function createInputInputHttpRawToJSON(
+  createInputInputHttpRaw: CreateInputInputHttpRaw,
+): string {
+  return JSON.stringify(
+    CreateInputInputHttpRaw$outboundSchema.parse(createInputInputHttpRaw),
+  );
+}
+export function createInputInputHttpRawFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputHttpRaw, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputHttpRaw$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputHttpRaw' from JSON`,
+  );
 }
 
 /** @internal */
-export type Sample$Outbound = {
+export const CreateInputSample$inboundSchema: z.ZodType<
+  CreateInputSample,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sample: types.string(),
+  eventsPerSec: types.number(),
+});
+/** @internal */
+export type CreateInputSample$Outbound = {
   sample: string;
   eventsPerSec: number;
 };
 
 /** @internal */
-export const Sample$outboundSchema: z.ZodType<
-  Sample$Outbound,
+export const CreateInputSample$outboundSchema: z.ZodType<
+  CreateInputSample$Outbound,
   z.ZodTypeDef,
-  Sample
+  CreateInputSample
 > = z.object({
   sample: z.string(),
   eventsPerSec: z.number(),
 });
 
-export function sampleToJSON(sample: Sample): string {
-  return JSON.stringify(Sample$outboundSchema.parse(sample));
+export function createInputSampleToJSON(
+  createInputSample: CreateInputSample,
+): string {
+  return JSON.stringify(
+    CreateInputSample$outboundSchema.parse(createInputSample),
+  );
+}
+export function createInputSampleFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputSample, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputSample$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputSample' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputDatagen$Outbound = {
+export const CreateInputInputDatagen$inboundSchema: z.ZodType<
+  CreateInputInputDatagen,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("datagen"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  samples: z.array(z.lazy(() => CreateInputSample$inboundSchema)),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputDatagen$Outbound = {
   id: string;
   type: "datagen";
   disabled?: boolean | undefined;
@@ -11190,16 +13627,16 @@ export type InputDatagen$Outbound = {
   streamtags?: Array<string> | undefined;
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
-  samples: Array<Sample$Outbound>;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  samples: Array<CreateInputSample$Outbound>;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputDatagen$outboundSchema: z.ZodType<
-  InputDatagen$Outbound,
+export const CreateInputInputDatagen$outboundSchema: z.ZodType<
+  CreateInputInputDatagen$Outbound,
   z.ZodTypeDef,
-  InputDatagen
+  CreateInputInputDatagen
 > = z.object({
   id: z.string(),
   type: z.literal("datagen"),
@@ -11212,42 +13649,115 @@ export const InputDatagen$outboundSchema: z.ZodType<
   connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
-  samples: z.array(z.lazy(() => Sample$outboundSchema)),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  samples: z.array(z.lazy(() => CreateInputSample$outboundSchema)),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-export function inputDatagenToJSON(inputDatagen: InputDatagen): string {
-  return JSON.stringify(InputDatagen$outboundSchema.parse(inputDatagen));
+export function createInputInputDatagenToJSON(
+  createInputInputDatagen: CreateInputInputDatagen,
+): string {
+  return JSON.stringify(
+    CreateInputInputDatagen$outboundSchema.parse(createInputInputDatagen),
+  );
+}
+export function createInputInputDatagenFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputDatagen, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputDatagen$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputDatagen' from JSON`,
+  );
 }
 
 /** @internal */
-export type ProxyModeDatadogAgent$Outbound = {
+export const CreateInputProxyModeDatadogAgent$inboundSchema: z.ZodType<
+  CreateInputProxyModeDatadogAgent,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: types.boolean(),
+  rejectUnauthorized: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputProxyModeDatadogAgent$Outbound = {
   enabled: boolean;
   rejectUnauthorized?: boolean | undefined;
 };
 
 /** @internal */
-export const ProxyModeDatadogAgent$outboundSchema: z.ZodType<
-  ProxyModeDatadogAgent$Outbound,
+export const CreateInputProxyModeDatadogAgent$outboundSchema: z.ZodType<
+  CreateInputProxyModeDatadogAgent$Outbound,
   z.ZodTypeDef,
-  ProxyModeDatadogAgent
+  CreateInputProxyModeDatadogAgent
 > = z.object({
   enabled: z.boolean(),
   rejectUnauthorized: z.boolean().optional(),
 });
 
-export function proxyModeDatadogAgentToJSON(
-  proxyModeDatadogAgent: ProxyModeDatadogAgent,
+export function createInputProxyModeDatadogAgentToJSON(
+  createInputProxyModeDatadogAgent: CreateInputProxyModeDatadogAgent,
 ): string {
   return JSON.stringify(
-    ProxyModeDatadogAgent$outboundSchema.parse(proxyModeDatadogAgent),
+    CreateInputProxyModeDatadogAgent$outboundSchema.parse(
+      createInputProxyModeDatadogAgent,
+    ),
+  );
+}
+export function createInputProxyModeDatadogAgentFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputProxyModeDatadogAgent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputProxyModeDatadogAgent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputProxyModeDatadogAgent' from JSON`,
   );
 }
 
 /** @internal */
-export type InputDatadogAgent$Outbound = {
+export const CreateInputInputDatadogAgent$inboundSchema: z.ZodType<
+  CreateInputInputDatadogAgent,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("datadog_agent"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  extractMetrics: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  proxyMode: types.optional(
+    z.lazy(() => CreateInputProxyModeDatadogAgent$inboundSchema),
+  ),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputDatadogAgent$Outbound = {
   id: string;
   type: "datadog_agent";
   disabled?: boolean | undefined;
@@ -11273,16 +13783,18 @@ export type InputDatadogAgent$Outbound = {
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   extractMetrics?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  proxyMode?: ProxyModeDatadogAgent$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  proxyMode?: CreateInputProxyModeDatadogAgent$Outbound | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputDatadogAgent$outboundSchema: z.ZodType<
-  InputDatadogAgent$Outbound,
+export const CreateInputInputDatadogAgent$outboundSchema: z.ZodType<
+  CreateInputInputDatadogAgent$Outbound,
   z.ZodTypeDef,
-  InputDatadogAgent
+  CreateInputInputDatadogAgent
 > = z.object({
   id: z.string(),
   type: z.literal("datadog_agent"),
@@ -11310,22 +13822,99 @@ export const InputDatadogAgent$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   extractMetrics: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  proxyMode: z.lazy(() => CreateInputProxyModeDatadogAgent$outboundSchema)
     .optional(),
-  proxyMode: z.lazy(() => ProxyModeDatadogAgent$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputDatadogAgentToJSON(
-  inputDatadogAgent: InputDatadogAgent,
+export function createInputInputDatadogAgentToJSON(
+  createInputInputDatadogAgent: CreateInputInputDatadogAgent,
 ): string {
   return JSON.stringify(
-    InputDatadogAgent$outboundSchema.parse(inputDatadogAgent),
+    CreateInputInputDatadogAgent$outboundSchema.parse(
+      createInputInputDatadogAgent,
+    ),
+  );
+}
+export function createInputInputDatadogAgentFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputDatadogAgent, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputDatadogAgent$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputDatadogAgent' from JSON`,
   );
 }
 
 /** @internal */
-export type InputCrowdstrike$Outbound = {
+export const CreateInputInputCrowdstrike$inboundSchema: z.ZodType<
+  CreateInputInputCrowdstrike,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("crowdstrike"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  queueName: types.string(),
+  fileFilter: types.optional(types.string()),
+  awsAccountId: types.optional(types.string()),
+  awsAuthenticationMethod: types.optional(types.string()),
+  awsSecretKey: types.optional(types.string()),
+  region: types.optional(types.string()),
+  endpoint: types.optional(types.string()),
+  signatureVersion: types.optional(
+    models.SignatureVersionOptionsS3CollectorConf$inboundSchema,
+  ),
+  reuseConnections: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  maxMessages: types.optional(types.number()),
+  visibilityTimeout: types.optional(types.number()),
+  numReceivers: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  skipOnError: types.optional(types.boolean()),
+  includeSqsMetadata: types.optional(types.boolean()),
+  enableAssumeRole: types.optional(types.boolean()),
+  assumeRoleArn: types.optional(types.string()),
+  assumeRoleExternalId: types.optional(types.string()),
+  durationSeconds: types.optional(types.number()),
+  enableSQSAssumeRole: types.optional(types.boolean()),
+  preprocess: types.optional(models.PreprocessType$inboundSchema),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  checkpointing: types.optional(models.CheckpointingType$inboundSchema),
+  pollTimeout: types.optional(types.number()),
+  encoding: types.optional(types.string()),
+  description: types.optional(types.string()),
+  awsApiKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  tagAfterProcessing: types.optional(
+    models.TagAfterProcessingOptions$inboundSchema,
+  ),
+  processedTagKey: types.optional(types.string()),
+  processedTagValue: types.optional(types.string()),
+  __template_queueName: types.optional(types.string()),
+  __template_awsAccountId: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputCrowdstrike$Outbound = {
   id: string;
   type: "crowdstrike";
   disabled?: boolean | undefined;
@@ -11359,10 +13948,8 @@ export type InputCrowdstrike$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds?: number | undefined;
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   checkpointing?: models.CheckpointingType$Outbound | undefined;
   pollTimeout?: number | undefined;
   encoding?: string | undefined;
@@ -11372,13 +13959,20 @@ export type InputCrowdstrike$Outbound = {
   tagAfterProcessing?: string | undefined;
   processedTagKey?: string | undefined;
   processedTagValue?: string | undefined;
+  __template_queueName?: string | undefined;
+  __template_awsAccountId?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
-export const InputCrowdstrike$outboundSchema: z.ZodType<
-  InputCrowdstrike$Outbound,
+export const CreateInputInputCrowdstrike$outboundSchema: z.ZodType<
+  CreateInputInputCrowdstrike$Outbound,
   z.ZodTypeDef,
-  InputCrowdstrike
+  CreateInputInputCrowdstrike
 > = z.object({
   id: z.string(),
   type: z.literal("crowdstrike"),
@@ -11415,10 +14009,8 @@ export const InputCrowdstrike$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().optional(),
   enableSQSAssumeRole: z.boolean().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   checkpointing: models.CheckpointingType$outboundSchema.optional(),
   pollTimeout: z.number().optional(),
   encoding: z.string().optional(),
@@ -11429,56 +14021,117 @@ export const InputCrowdstrike$outboundSchema: z.ZodType<
     .optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
+  __template_queueName: z.string().optional(),
+  __template_awsAccountId: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
 });
 
-export function inputCrowdstrikeToJSON(
-  inputCrowdstrike: InputCrowdstrike,
+export function createInputInputCrowdstrikeToJSON(
+  createInputInputCrowdstrike: CreateInputInputCrowdstrike,
 ): string {
   return JSON.stringify(
-    InputCrowdstrike$outboundSchema.parse(inputCrowdstrike),
+    CreateInputInputCrowdstrike$outboundSchema.parse(
+      createInputInputCrowdstrike,
+    ),
+  );
+}
+export function createInputInputCrowdstrikeFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputCrowdstrike, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputCrowdstrike$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputCrowdstrike' from JSON`,
   );
 }
 
 /** @internal */
-export const SystemModeWindowsMetrics$outboundSchema: z.ZodType<
+export const CreateInputSystemModeWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputSystemModeWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputSystemModeWindowsMetrics);
+/** @internal */
+export const CreateInputSystemModeWindowsMetrics$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  SystemModeWindowsMetrics
-> = openEnums.outboundSchema(SystemModeWindowsMetrics);
+  CreateInputSystemModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputSystemModeWindowsMetrics);
 
 /** @internal */
-export type SystemWindowsMetrics$Outbound = {
+export const CreateInputSystemWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputSystemWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(CreateInputSystemModeWindowsMetrics$inboundSchema),
+  detail: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputSystemWindowsMetrics$Outbound = {
   mode?: string | undefined;
   detail?: boolean | undefined;
 };
 
 /** @internal */
-export const SystemWindowsMetrics$outboundSchema: z.ZodType<
-  SystemWindowsMetrics$Outbound,
+export const CreateInputSystemWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputSystemWindowsMetrics$Outbound,
   z.ZodTypeDef,
-  SystemWindowsMetrics
+  CreateInputSystemWindowsMetrics
 > = z.object({
-  mode: SystemModeWindowsMetrics$outboundSchema.optional(),
+  mode: CreateInputSystemModeWindowsMetrics$outboundSchema.optional(),
   detail: z.boolean().optional(),
 });
 
-export function systemWindowsMetricsToJSON(
-  systemWindowsMetrics: SystemWindowsMetrics,
+export function createInputSystemWindowsMetricsToJSON(
+  createInputSystemWindowsMetrics: CreateInputSystemWindowsMetrics,
 ): string {
   return JSON.stringify(
-    SystemWindowsMetrics$outboundSchema.parse(systemWindowsMetrics),
+    CreateInputSystemWindowsMetrics$outboundSchema.parse(
+      createInputSystemWindowsMetrics,
+    ),
+  );
+}
+export function createInputSystemWindowsMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputSystemWindowsMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputSystemWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputSystemWindowsMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export const CpuModeWindowsMetrics$outboundSchema: z.ZodType<
+export const CreateInputCpuModeWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputCpuModeWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputCpuModeWindowsMetrics);
+/** @internal */
+export const CreateInputCpuModeWindowsMetrics$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CpuModeWindowsMetrics
-> = openEnums.outboundSchema(CpuModeWindowsMetrics);
+  CreateInputCpuModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputCpuModeWindowsMetrics);
 
 /** @internal */
-export type CpuWindowsMetrics$Outbound = {
+export const CreateInputCpuWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputCpuWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(CreateInputCpuModeWindowsMetrics$inboundSchema),
+  perCpu: types.optional(types.boolean()),
+  detail: types.optional(types.boolean()),
+  time: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputCpuWindowsMetrics$Outbound = {
   mode?: string | undefined;
   perCpu?: boolean | undefined;
   detail?: boolean | undefined;
@@ -11486,65 +14139,120 @@ export type CpuWindowsMetrics$Outbound = {
 };
 
 /** @internal */
-export const CpuWindowsMetrics$outboundSchema: z.ZodType<
-  CpuWindowsMetrics$Outbound,
+export const CreateInputCpuWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputCpuWindowsMetrics$Outbound,
   z.ZodTypeDef,
-  CpuWindowsMetrics
+  CreateInputCpuWindowsMetrics
 > = z.object({
-  mode: CpuModeWindowsMetrics$outboundSchema.optional(),
+  mode: CreateInputCpuModeWindowsMetrics$outboundSchema.optional(),
   perCpu: z.boolean().optional(),
   detail: z.boolean().optional(),
   time: z.boolean().optional(),
 });
 
-export function cpuWindowsMetricsToJSON(
-  cpuWindowsMetrics: CpuWindowsMetrics,
+export function createInputCpuWindowsMetricsToJSON(
+  createInputCpuWindowsMetrics: CreateInputCpuWindowsMetrics,
 ): string {
   return JSON.stringify(
-    CpuWindowsMetrics$outboundSchema.parse(cpuWindowsMetrics),
+    CreateInputCpuWindowsMetrics$outboundSchema.parse(
+      createInputCpuWindowsMetrics,
+    ),
+  );
+}
+export function createInputCpuWindowsMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputCpuWindowsMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputCpuWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputCpuWindowsMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export const MemoryModeWindowsMetrics$outboundSchema: z.ZodType<
+export const CreateInputMemoryModeWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputMemoryModeWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputMemoryModeWindowsMetrics);
+/** @internal */
+export const CreateInputMemoryModeWindowsMetrics$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  MemoryModeWindowsMetrics
-> = openEnums.outboundSchema(MemoryModeWindowsMetrics);
+  CreateInputMemoryModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputMemoryModeWindowsMetrics);
 
 /** @internal */
-export type MemoryWindowsMetrics$Outbound = {
+export const CreateInputMemoryWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputMemoryWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(CreateInputMemoryModeWindowsMetrics$inboundSchema),
+  detail: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputMemoryWindowsMetrics$Outbound = {
   mode?: string | undefined;
   detail?: boolean | undefined;
 };
 
 /** @internal */
-export const MemoryWindowsMetrics$outboundSchema: z.ZodType<
-  MemoryWindowsMetrics$Outbound,
+export const CreateInputMemoryWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputMemoryWindowsMetrics$Outbound,
   z.ZodTypeDef,
-  MemoryWindowsMetrics
+  CreateInputMemoryWindowsMetrics
 > = z.object({
-  mode: MemoryModeWindowsMetrics$outboundSchema.optional(),
+  mode: CreateInputMemoryModeWindowsMetrics$outboundSchema.optional(),
   detail: z.boolean().optional(),
 });
 
-export function memoryWindowsMetricsToJSON(
-  memoryWindowsMetrics: MemoryWindowsMetrics,
+export function createInputMemoryWindowsMetricsToJSON(
+  createInputMemoryWindowsMetrics: CreateInputMemoryWindowsMetrics,
 ): string {
   return JSON.stringify(
-    MemoryWindowsMetrics$outboundSchema.parse(memoryWindowsMetrics),
+    CreateInputMemoryWindowsMetrics$outboundSchema.parse(
+      createInputMemoryWindowsMetrics,
+    ),
+  );
+}
+export function createInputMemoryWindowsMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputMemoryWindowsMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputMemoryWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputMemoryWindowsMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export const NetworkModeWindowsMetrics$outboundSchema: z.ZodType<
+export const CreateInputNetworkModeWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputNetworkModeWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputNetworkModeWindowsMetrics);
+/** @internal */
+export const CreateInputNetworkModeWindowsMetrics$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  NetworkModeWindowsMetrics
-> = openEnums.outboundSchema(NetworkModeWindowsMetrics);
+  CreateInputNetworkModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputNetworkModeWindowsMetrics);
 
 /** @internal */
-export type NetworkWindowsMetrics$Outbound = {
+export const CreateInputNetworkWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputNetworkWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(CreateInputNetworkModeWindowsMetrics$inboundSchema),
+  detail: types.optional(types.boolean()),
+  protocols: types.optional(types.boolean()),
+  devices: types.optional(z.array(types.string())),
+  perInterface: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputNetworkWindowsMetrics$Outbound = {
   mode?: string | undefined;
   detail?: boolean | undefined;
   protocols?: boolean | undefined;
@@ -11553,35 +14261,63 @@ export type NetworkWindowsMetrics$Outbound = {
 };
 
 /** @internal */
-export const NetworkWindowsMetrics$outboundSchema: z.ZodType<
-  NetworkWindowsMetrics$Outbound,
+export const CreateInputNetworkWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputNetworkWindowsMetrics$Outbound,
   z.ZodTypeDef,
-  NetworkWindowsMetrics
+  CreateInputNetworkWindowsMetrics
 > = z.object({
-  mode: NetworkModeWindowsMetrics$outboundSchema.optional(),
+  mode: CreateInputNetworkModeWindowsMetrics$outboundSchema.optional(),
   detail: z.boolean().optional(),
   protocols: z.boolean().optional(),
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().optional(),
 });
 
-export function networkWindowsMetricsToJSON(
-  networkWindowsMetrics: NetworkWindowsMetrics,
+export function createInputNetworkWindowsMetricsToJSON(
+  createInputNetworkWindowsMetrics: CreateInputNetworkWindowsMetrics,
 ): string {
   return JSON.stringify(
-    NetworkWindowsMetrics$outboundSchema.parse(networkWindowsMetrics),
+    CreateInputNetworkWindowsMetrics$outboundSchema.parse(
+      createInputNetworkWindowsMetrics,
+    ),
+  );
+}
+export function createInputNetworkWindowsMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputNetworkWindowsMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputNetworkWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputNetworkWindowsMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export const DiskModeWindowsMetrics$outboundSchema: z.ZodType<
+export const CreateInputDiskModeWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputDiskModeWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputDiskModeWindowsMetrics);
+/** @internal */
+export const CreateInputDiskModeWindowsMetrics$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  DiskModeWindowsMetrics
-> = openEnums.outboundSchema(DiskModeWindowsMetrics);
+  CreateInputDiskModeWindowsMetrics
+> = openEnums.outboundSchema(CreateInputDiskModeWindowsMetrics);
 
 /** @internal */
-export type DiskWindowsMetrics$Outbound = {
+export const CreateInputDiskWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputDiskWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(CreateInputDiskModeWindowsMetrics$inboundSchema),
+  perVolume: types.optional(types.boolean()),
+  detail: types.optional(types.boolean()),
+  volumes: types.optional(z.array(types.string())),
+});
+/** @internal */
+export type CreateInputDiskWindowsMetrics$Outbound = {
   mode?: string | undefined;
   perVolume?: boolean | undefined;
   detail?: boolean | undefined;
@@ -11589,81 +14325,164 @@ export type DiskWindowsMetrics$Outbound = {
 };
 
 /** @internal */
-export const DiskWindowsMetrics$outboundSchema: z.ZodType<
-  DiskWindowsMetrics$Outbound,
+export const CreateInputDiskWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputDiskWindowsMetrics$Outbound,
   z.ZodTypeDef,
-  DiskWindowsMetrics
+  CreateInputDiskWindowsMetrics
 > = z.object({
-  mode: DiskModeWindowsMetrics$outboundSchema.optional(),
+  mode: CreateInputDiskModeWindowsMetrics$outboundSchema.optional(),
   perVolume: z.boolean().optional(),
   detail: z.boolean().optional(),
   volumes: z.array(z.string()).optional(),
 });
 
-export function diskWindowsMetricsToJSON(
-  diskWindowsMetrics: DiskWindowsMetrics,
+export function createInputDiskWindowsMetricsToJSON(
+  createInputDiskWindowsMetrics: CreateInputDiskWindowsMetrics,
 ): string {
   return JSON.stringify(
-    DiskWindowsMetrics$outboundSchema.parse(diskWindowsMetrics),
+    CreateInputDiskWindowsMetrics$outboundSchema.parse(
+      createInputDiskWindowsMetrics,
+    ),
+  );
+}
+export function createInputDiskWindowsMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputDiskWindowsMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputDiskWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputDiskWindowsMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export type CustomWindowsMetrics$Outbound = {
-  system?: SystemWindowsMetrics$Outbound | undefined;
-  cpu?: CpuWindowsMetrics$Outbound | undefined;
-  memory?: MemoryWindowsMetrics$Outbound | undefined;
-  network?: NetworkWindowsMetrics$Outbound | undefined;
-  disk?: DiskWindowsMetrics$Outbound | undefined;
+export const CreateInputCustomWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputCustomWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  system: types.optional(
+    z.lazy(() => CreateInputSystemWindowsMetrics$inboundSchema),
+  ),
+  cpu: types.optional(z.lazy(() => CreateInputCpuWindowsMetrics$inboundSchema)),
+  memory: types.optional(
+    z.lazy(() => CreateInputMemoryWindowsMetrics$inboundSchema),
+  ),
+  network: types.optional(
+    z.lazy(() => CreateInputNetworkWindowsMetrics$inboundSchema),
+  ),
+  disk: types.optional(
+    z.lazy(() => CreateInputDiskWindowsMetrics$inboundSchema),
+  ),
+});
+/** @internal */
+export type CreateInputCustomWindowsMetrics$Outbound = {
+  system?: CreateInputSystemWindowsMetrics$Outbound | undefined;
+  cpu?: CreateInputCpuWindowsMetrics$Outbound | undefined;
+  memory?: CreateInputMemoryWindowsMetrics$Outbound | undefined;
+  network?: CreateInputNetworkWindowsMetrics$Outbound | undefined;
+  disk?: CreateInputDiskWindowsMetrics$Outbound | undefined;
 };
 
 /** @internal */
-export const CustomWindowsMetrics$outboundSchema: z.ZodType<
-  CustomWindowsMetrics$Outbound,
+export const CreateInputCustomWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputCustomWindowsMetrics$Outbound,
   z.ZodTypeDef,
-  CustomWindowsMetrics
+  CreateInputCustomWindowsMetrics
 > = z.object({
-  system: z.lazy(() => SystemWindowsMetrics$outboundSchema).optional(),
-  cpu: z.lazy(() => CpuWindowsMetrics$outboundSchema).optional(),
-  memory: z.lazy(() => MemoryWindowsMetrics$outboundSchema).optional(),
-  network: z.lazy(() => NetworkWindowsMetrics$outboundSchema).optional(),
-  disk: z.lazy(() => DiskWindowsMetrics$outboundSchema).optional(),
+  system: z.lazy(() => CreateInputSystemWindowsMetrics$outboundSchema)
+    .optional(),
+  cpu: z.lazy(() => CreateInputCpuWindowsMetrics$outboundSchema).optional(),
+  memory: z.lazy(() => CreateInputMemoryWindowsMetrics$outboundSchema)
+    .optional(),
+  network: z.lazy(() => CreateInputNetworkWindowsMetrics$outboundSchema)
+    .optional(),
+  disk: z.lazy(() => CreateInputDiskWindowsMetrics$outboundSchema).optional(),
 });
 
-export function customWindowsMetricsToJSON(
-  customWindowsMetrics: CustomWindowsMetrics,
+export function createInputCustomWindowsMetricsToJSON(
+  createInputCustomWindowsMetrics: CreateInputCustomWindowsMetrics,
 ): string {
   return JSON.stringify(
-    CustomWindowsMetrics$outboundSchema.parse(customWindowsMetrics),
+    CreateInputCustomWindowsMetrics$outboundSchema.parse(
+      createInputCustomWindowsMetrics,
+    ),
+  );
+}
+export function createInputCustomWindowsMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputCustomWindowsMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputCustomWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputCustomWindowsMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export type HostWindowsMetrics$Outbound = {
+export const CreateInputHostWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputHostWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(models.ModeOptionsHost$inboundSchema),
+  custom: types.optional(
+    z.lazy(() => CreateInputCustomWindowsMetrics$inboundSchema),
+  ),
+});
+/** @internal */
+export type CreateInputHostWindowsMetrics$Outbound = {
   mode?: string | undefined;
-  custom?: CustomWindowsMetrics$Outbound | undefined;
+  custom?: CreateInputCustomWindowsMetrics$Outbound | undefined;
 };
 
 /** @internal */
-export const HostWindowsMetrics$outboundSchema: z.ZodType<
-  HostWindowsMetrics$Outbound,
+export const CreateInputHostWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputHostWindowsMetrics$Outbound,
   z.ZodTypeDef,
-  HostWindowsMetrics
+  CreateInputHostWindowsMetrics
 > = z.object({
   mode: models.ModeOptionsHost$outboundSchema.optional(),
-  custom: z.lazy(() => CustomWindowsMetrics$outboundSchema).optional(),
+  custom: z.lazy(() => CreateInputCustomWindowsMetrics$outboundSchema)
+    .optional(),
 });
 
-export function hostWindowsMetricsToJSON(
-  hostWindowsMetrics: HostWindowsMetrics,
+export function createInputHostWindowsMetricsToJSON(
+  createInputHostWindowsMetrics: CreateInputHostWindowsMetrics,
 ): string {
   return JSON.stringify(
-    HostWindowsMetrics$outboundSchema.parse(hostWindowsMetrics),
+    CreateInputHostWindowsMetrics$outboundSchema.parse(
+      createInputHostWindowsMetrics,
+    ),
+  );
+}
+export function createInputHostWindowsMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputHostWindowsMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputHostWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputHostWindowsMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export type PersistenceWindowsMetrics$Outbound = {
+export const CreateInputPersistenceWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputPersistenceWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+  timeWindow: types.optional(types.string()),
+  maxDataSize: types.optional(types.string()),
+  maxDataTime: types.optional(types.string()),
+  compress: types.optional(
+    models.DataCompressionFormatOptionsPersistence$inboundSchema,
+  ),
+  destPath: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputPersistenceWindowsMetrics$Outbound = {
   enable?: boolean | undefined;
   timeWindow?: string | undefined;
   maxDataSize?: string | undefined;
@@ -11673,10 +14492,10 @@ export type PersistenceWindowsMetrics$Outbound = {
 };
 
 /** @internal */
-export const PersistenceWindowsMetrics$outboundSchema: z.ZodType<
-  PersistenceWindowsMetrics$Outbound,
+export const CreateInputPersistenceWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputPersistenceWindowsMetrics$Outbound,
   z.ZodTypeDef,
-  PersistenceWindowsMetrics
+  CreateInputPersistenceWindowsMetrics
 > = z.object({
   enable: z.boolean().optional(),
   timeWindow: z.string().optional(),
@@ -11687,16 +14506,58 @@ export const PersistenceWindowsMetrics$outboundSchema: z.ZodType<
   destPath: z.string().optional(),
 });
 
-export function persistenceWindowsMetricsToJSON(
-  persistenceWindowsMetrics: PersistenceWindowsMetrics,
+export function createInputPersistenceWindowsMetricsToJSON(
+  createInputPersistenceWindowsMetrics: CreateInputPersistenceWindowsMetrics,
 ): string {
   return JSON.stringify(
-    PersistenceWindowsMetrics$outboundSchema.parse(persistenceWindowsMetrics),
+    CreateInputPersistenceWindowsMetrics$outboundSchema.parse(
+      createInputPersistenceWindowsMetrics,
+    ),
+  );
+}
+export function createInputPersistenceWindowsMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputPersistenceWindowsMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CreateInputPersistenceWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputPersistenceWindowsMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export type InputWindowsMetrics$Outbound = {
+export const CreateInputInputWindowsMetrics$inboundSchema: z.ZodType<
+  CreateInputInputWindowsMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("windows_metrics"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  interval: types.optional(types.number()),
+  host: types.optional(
+    z.lazy(() => CreateInputHostWindowsMetrics$inboundSchema),
+  ),
+  process: types.optional(models.ProcessType$inboundSchema),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  persistence: types.optional(
+    z.lazy(() => CreateInputPersistenceWindowsMetrics$inboundSchema),
+  ),
+  disableNativeModule: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputWindowsMetrics$Outbound = {
   id: string;
   type: "windows_metrics";
   disabled?: boolean | undefined;
@@ -11708,19 +14569,19 @@ export type InputWindowsMetrics$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
-  host?: HostWindowsMetrics$Outbound | undefined;
+  host?: CreateInputHostWindowsMetrics$Outbound | undefined;
   process?: models.ProcessType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  persistence?: PersistenceWindowsMetrics$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  persistence?: CreateInputPersistenceWindowsMetrics$Outbound | undefined;
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputWindowsMetrics$outboundSchema: z.ZodType<
-  InputWindowsMetrics$Outbound,
+export const CreateInputInputWindowsMetrics$outboundSchema: z.ZodType<
+  CreateInputInputWindowsMetrics$Outbound,
   z.ZodTypeDef,
-  InputWindowsMetrics
+  CreateInputInputWindowsMetrics
 > = z.object({
   id: z.string(),
   type: z.literal("windows_metrics"),
@@ -11734,26 +14595,58 @@ export const InputWindowsMetrics$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   interval: z.number().optional(),
-  host: z.lazy(() => HostWindowsMetrics$outboundSchema).optional(),
+  host: z.lazy(() => CreateInputHostWindowsMetrics$outboundSchema).optional(),
   process: models.ProcessType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
-  persistence: z.lazy(() => PersistenceWindowsMetrics$outboundSchema)
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  persistence: z.lazy(() => CreateInputPersistenceWindowsMetrics$outboundSchema)
     .optional(),
   disableNativeModule: z.boolean().optional(),
   description: z.string().optional(),
 });
 
-export function inputWindowsMetricsToJSON(
-  inputWindowsMetrics: InputWindowsMetrics,
+export function createInputInputWindowsMetricsToJSON(
+  createInputInputWindowsMetrics: CreateInputInputWindowsMetrics,
 ): string {
   return JSON.stringify(
-    InputWindowsMetrics$outboundSchema.parse(inputWindowsMetrics),
+    CreateInputInputWindowsMetrics$outboundSchema.parse(
+      createInputInputWindowsMetrics,
+    ),
+  );
+}
+export function createInputInputWindowsMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputWindowsMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputWindowsMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputWindowsMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export type InputKubeEvents$Outbound = {
+export const CreateInputInputKubeEvents$inboundSchema: z.ZodType<
+  CreateInputInputKubeEvents,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("kube_events"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  rules: types.optional(z.array(models.ItemsTypeRules$inboundSchema)),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputKubeEvents$Outbound = {
   id: string;
   type: "kube_events";
   disabled?: boolean | undefined;
@@ -11765,15 +14658,15 @@ export type InputKubeEvents$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   rules?: Array<models.ItemsTypeRules$Outbound> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputKubeEvents$outboundSchema: z.ZodType<
-  InputKubeEvents$Outbound,
+export const CreateInputInputKubeEvents$outboundSchema: z.ZodType<
+  CreateInputInputKubeEvents$Outbound,
   z.ZodTypeDef,
-  InputKubeEvents
+  CreateInputInputKubeEvents
 > = z.object({
   id: z.string(),
   type: z.literal("kube_events"),
@@ -11787,39 +14680,101 @@ export const InputKubeEvents$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   rules: z.array(models.ItemsTypeRules$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-export function inputKubeEventsToJSON(
-  inputKubeEvents: InputKubeEvents,
+export function createInputInputKubeEventsToJSON(
+  createInputInputKubeEvents: CreateInputInputKubeEvents,
 ): string {
-  return JSON.stringify(InputKubeEvents$outboundSchema.parse(inputKubeEvents));
+  return JSON.stringify(
+    CreateInputInputKubeEvents$outboundSchema.parse(createInputInputKubeEvents),
+  );
+}
+export function createInputInputKubeEventsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputKubeEvents, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputKubeEvents$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputKubeEvents' from JSON`,
+  );
 }
 
 /** @internal */
-export type RuleKubeLogs$Outbound = {
+export const CreateInputRuleKubeLogs$inboundSchema: z.ZodType<
+  CreateInputRuleKubeLogs,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  filter: types.string(),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputRuleKubeLogs$Outbound = {
   filter: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const RuleKubeLogs$outboundSchema: z.ZodType<
-  RuleKubeLogs$Outbound,
+export const CreateInputRuleKubeLogs$outboundSchema: z.ZodType<
+  CreateInputRuleKubeLogs$Outbound,
   z.ZodTypeDef,
-  RuleKubeLogs
+  CreateInputRuleKubeLogs
 > = z.object({
   filter: z.string(),
   description: z.string().optional(),
 });
 
-export function ruleKubeLogsToJSON(ruleKubeLogs: RuleKubeLogs): string {
-  return JSON.stringify(RuleKubeLogs$outboundSchema.parse(ruleKubeLogs));
+export function createInputRuleKubeLogsToJSON(
+  createInputRuleKubeLogs: CreateInputRuleKubeLogs,
+): string {
+  return JSON.stringify(
+    CreateInputRuleKubeLogs$outboundSchema.parse(createInputRuleKubeLogs),
+  );
+}
+export function createInputRuleKubeLogsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputRuleKubeLogs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputRuleKubeLogs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputRuleKubeLogs' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputKubeLogs$Outbound = {
+export const CreateInputInputKubeLogs$inboundSchema: z.ZodType<
+  CreateInputInputKubeLogs,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("kube_logs"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  interval: types.optional(types.number()),
+  rules: types.optional(
+    z.array(z.lazy(() => CreateInputRuleKubeLogs$inboundSchema)),
+  ),
+  timestamps: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  persistence: types.optional(models.DiskSpoolingType$inboundSchema),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  enableLoadBalancing: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputKubeLogs$Outbound = {
   id: string;
   type: "kube_logs";
   disabled?: boolean | undefined;
@@ -11831,9 +14786,9 @@ export type InputKubeLogs$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
-  rules?: Array<RuleKubeLogs$Outbound> | undefined;
+  rules?: Array<CreateInputRuleKubeLogs$Outbound> | undefined;
   timestamps?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   persistence?: models.DiskSpoolingType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
@@ -11842,10 +14797,10 @@ export type InputKubeLogs$Outbound = {
 };
 
 /** @internal */
-export const InputKubeLogs$outboundSchema: z.ZodType<
-  InputKubeLogs$Outbound,
+export const CreateInputInputKubeLogs$outboundSchema: z.ZodType<
+  CreateInputInputKubeLogs$Outbound,
   z.ZodTypeDef,
-  InputKubeLogs
+  CreateInputInputKubeLogs
 > = z.object({
   id: z.string(),
   type: z.literal("kube_logs"),
@@ -11859,10 +14814,10 @@ export const InputKubeLogs$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   interval: z.number().optional(),
-  rules: z.array(z.lazy(() => RuleKubeLogs$outboundSchema)).optional(),
-  timestamps: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  rules: z.array(z.lazy(() => CreateInputRuleKubeLogs$outboundSchema))
     .optional(),
+  timestamps: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   persistence: models.DiskSpoolingType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
@@ -11870,12 +14825,40 @@ export const InputKubeLogs$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-export function inputKubeLogsToJSON(inputKubeLogs: InputKubeLogs): string {
-  return JSON.stringify(InputKubeLogs$outboundSchema.parse(inputKubeLogs));
+export function createInputInputKubeLogsToJSON(
+  createInputInputKubeLogs: CreateInputInputKubeLogs,
+): string {
+  return JSON.stringify(
+    CreateInputInputKubeLogs$outboundSchema.parse(createInputInputKubeLogs),
+  );
+}
+export function createInputInputKubeLogsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputKubeLogs, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputKubeLogs$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputKubeLogs' from JSON`,
+  );
 }
 
 /** @internal */
-export type PersistenceKubeMetrics$Outbound = {
+export const CreateInputPersistenceKubeMetrics$inboundSchema: z.ZodType<
+  CreateInputPersistenceKubeMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+  timeWindow: types.optional(types.string()),
+  maxDataSize: types.optional(types.string()),
+  maxDataTime: types.optional(types.string()),
+  compress: types.optional(
+    models.DataCompressionFormatOptionsPersistence$inboundSchema,
+  ),
+  destPath: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputPersistenceKubeMetrics$Outbound = {
   enable?: boolean | undefined;
   timeWindow?: string | undefined;
   maxDataSize?: string | undefined;
@@ -11885,10 +14868,10 @@ export type PersistenceKubeMetrics$Outbound = {
 };
 
 /** @internal */
-export const PersistenceKubeMetrics$outboundSchema: z.ZodType<
-  PersistenceKubeMetrics$Outbound,
+export const CreateInputPersistenceKubeMetrics$outboundSchema: z.ZodType<
+  CreateInputPersistenceKubeMetrics$Outbound,
   z.ZodTypeDef,
-  PersistenceKubeMetrics
+  CreateInputPersistenceKubeMetrics
 > = z.object({
   enable: z.boolean().optional(),
   timeWindow: z.string().optional(),
@@ -11899,16 +14882,53 @@ export const PersistenceKubeMetrics$outboundSchema: z.ZodType<
   destPath: z.string().optional(),
 });
 
-export function persistenceKubeMetricsToJSON(
-  persistenceKubeMetrics: PersistenceKubeMetrics,
+export function createInputPersistenceKubeMetricsToJSON(
+  createInputPersistenceKubeMetrics: CreateInputPersistenceKubeMetrics,
 ): string {
   return JSON.stringify(
-    PersistenceKubeMetrics$outboundSchema.parse(persistenceKubeMetrics),
+    CreateInputPersistenceKubeMetrics$outboundSchema.parse(
+      createInputPersistenceKubeMetrics,
+    ),
+  );
+}
+export function createInputPersistenceKubeMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputPersistenceKubeMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputPersistenceKubeMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputPersistenceKubeMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export type InputKubeMetrics$Outbound = {
+export const CreateInputInputKubeMetrics$inboundSchema: z.ZodType<
+  CreateInputInputKubeMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("kube_metrics"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  interval: types.optional(types.number()),
+  rules: types.optional(z.array(models.ItemsTypeRules$inboundSchema)),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  persistence: types.optional(
+    z.lazy(() => CreateInputPersistenceKubeMetrics$inboundSchema),
+  ),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputKubeMetrics$Outbound = {
   id: string;
   type: "kube_metrics";
   disabled?: boolean | undefined;
@@ -11921,16 +14941,16 @@ export type InputKubeMetrics$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
   rules?: Array<models.ItemsTypeRules$Outbound> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  persistence?: PersistenceKubeMetrics$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  persistence?: CreateInputPersistenceKubeMetrics$Outbound | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputKubeMetrics$outboundSchema: z.ZodType<
-  InputKubeMetrics$Outbound,
+export const CreateInputInputKubeMetrics$outboundSchema: z.ZodType<
+  CreateInputInputKubeMetrics$Outbound,
   z.ZodTypeDef,
-  InputKubeMetrics
+  CreateInputInputKubeMetrics
 > = z.object({
   id: z.string(),
   type: z.literal("kube_metrics"),
@@ -11945,259 +14965,548 @@ export const InputKubeMetrics$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   interval: z.number().optional(),
   rules: z.array(models.ItemsTypeRules$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  persistence: z.lazy(() => CreateInputPersistenceKubeMetrics$outboundSchema)
     .optional(),
-  persistence: z.lazy(() => PersistenceKubeMetrics$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-export function inputKubeMetricsToJSON(
-  inputKubeMetrics: InputKubeMetrics,
+export function createInputInputKubeMetricsToJSON(
+  createInputInputKubeMetrics: CreateInputInputKubeMetrics,
 ): string {
   return JSON.stringify(
-    InputKubeMetrics$outboundSchema.parse(inputKubeMetrics),
+    CreateInputInputKubeMetrics$outboundSchema.parse(
+      createInputInputKubeMetrics,
+    ),
+  );
+}
+export function createInputInputKubeMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputKubeMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputKubeMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputKubeMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export type HostsFile$Outbound = {
+export const CreateInputHostsFile$inboundSchema: z.ZodType<
+  CreateInputHostsFile,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputHostsFile$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const HostsFile$outboundSchema: z.ZodType<
-  HostsFile$Outbound,
+export const CreateInputHostsFile$outboundSchema: z.ZodType<
+  CreateInputHostsFile$Outbound,
   z.ZodTypeDef,
-  HostsFile
+  CreateInputHostsFile
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function hostsFileToJSON(hostsFile: HostsFile): string {
-  return JSON.stringify(HostsFile$outboundSchema.parse(hostsFile));
-}
-
-/** @internal */
-export type Interfaces$Outbound = {
-  enable?: boolean | undefined;
-};
-
-/** @internal */
-export const Interfaces$outboundSchema: z.ZodType<
-  Interfaces$Outbound,
-  z.ZodTypeDef,
-  Interfaces
-> = z.object({
-  enable: z.boolean().optional(),
-});
-
-export function interfacesToJSON(interfaces: Interfaces): string {
-  return JSON.stringify(Interfaces$outboundSchema.parse(interfaces));
-}
-
-/** @internal */
-export type DisksAndFileSystems$Outbound = {
-  enable?: boolean | undefined;
-};
-
-/** @internal */
-export const DisksAndFileSystems$outboundSchema: z.ZodType<
-  DisksAndFileSystems$Outbound,
-  z.ZodTypeDef,
-  DisksAndFileSystems
-> = z.object({
-  enable: z.boolean().optional(),
-});
-
-export function disksAndFileSystemsToJSON(
-  disksAndFileSystems: DisksAndFileSystems,
+export function createInputHostsFileToJSON(
+  createInputHostsFile: CreateInputHostsFile,
 ): string {
   return JSON.stringify(
-    DisksAndFileSystems$outboundSchema.parse(disksAndFileSystems),
+    CreateInputHostsFile$outboundSchema.parse(createInputHostsFile),
+  );
+}
+export function createInputHostsFileFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputHostsFile, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputHostsFile$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputHostsFile' from JSON`,
   );
 }
 
 /** @internal */
-export type HostInfo$Outbound = {
+export const CreateInputInterfaces$inboundSchema: z.ZodType<
+  CreateInputInterfaces,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputInterfaces$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const HostInfo$outboundSchema: z.ZodType<
-  HostInfo$Outbound,
+export const CreateInputInterfaces$outboundSchema: z.ZodType<
+  CreateInputInterfaces$Outbound,
   z.ZodTypeDef,
-  HostInfo
+  CreateInputInterfaces
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function hostInfoToJSON(hostInfo: HostInfo): string {
-  return JSON.stringify(HostInfo$outboundSchema.parse(hostInfo));
+export function createInputInterfacesToJSON(
+  createInputInterfaces: CreateInputInterfaces,
+): string {
+  return JSON.stringify(
+    CreateInputInterfaces$outboundSchema.parse(createInputInterfaces),
+  );
+}
+export function createInputInterfacesFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInterfaces, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInterfaces$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInterfaces' from JSON`,
+  );
 }
 
 /** @internal */
-export type Routes$Outbound = {
+export const CreateInputDisksAndFileSystems$inboundSchema: z.ZodType<
+  CreateInputDisksAndFileSystems,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputDisksAndFileSystems$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const Routes$outboundSchema: z.ZodType<
-  Routes$Outbound,
+export const CreateInputDisksAndFileSystems$outboundSchema: z.ZodType<
+  CreateInputDisksAndFileSystems$Outbound,
   z.ZodTypeDef,
-  Routes
+  CreateInputDisksAndFileSystems
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function routesToJSON(routes: Routes): string {
-  return JSON.stringify(Routes$outboundSchema.parse(routes));
+export function createInputDisksAndFileSystemsToJSON(
+  createInputDisksAndFileSystems: CreateInputDisksAndFileSystems,
+): string {
+  return JSON.stringify(
+    CreateInputDisksAndFileSystems$outboundSchema.parse(
+      createInputDisksAndFileSystems,
+    ),
+  );
+}
+export function createInputDisksAndFileSystemsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputDisksAndFileSystems, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputDisksAndFileSystems$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputDisksAndFileSystems' from JSON`,
+  );
 }
 
 /** @internal */
-export type Dns$Outbound = {
-  enable?: boolean | undefined;
-};
-
-/** @internal */
-export const Dns$outboundSchema: z.ZodType<Dns$Outbound, z.ZodTypeDef, Dns> = z
-  .object({
-    enable: z.boolean().optional(),
-  });
-
-export function dnsToJSON(dns: Dns): string {
-  return JSON.stringify(Dns$outboundSchema.parse(dns));
-}
-
-/** @internal */
-export type UsersAndGroups$Outbound = {
-  enable?: boolean | undefined;
-};
-
-/** @internal */
-export const UsersAndGroups$outboundSchema: z.ZodType<
-  UsersAndGroups$Outbound,
+export const CreateInputHostInfo$inboundSchema: z.ZodType<
+  CreateInputHostInfo,
   z.ZodTypeDef,
-  UsersAndGroups
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputHostInfo$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputHostInfo$outboundSchema: z.ZodType<
+  CreateInputHostInfo$Outbound,
+  z.ZodTypeDef,
+  CreateInputHostInfo
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function usersAndGroupsToJSON(usersAndGroups: UsersAndGroups): string {
-  return JSON.stringify(UsersAndGroups$outboundSchema.parse(usersAndGroups));
+export function createInputHostInfoToJSON(
+  createInputHostInfo: CreateInputHostInfo,
+): string {
+  return JSON.stringify(
+    CreateInputHostInfo$outboundSchema.parse(createInputHostInfo),
+  );
+}
+export function createInputHostInfoFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputHostInfo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputHostInfo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputHostInfo' from JSON`,
+  );
 }
 
 /** @internal */
-export type Firewall$Outbound = {
+export const CreateInputRoutes$inboundSchema: z.ZodType<
+  CreateInputRoutes,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputRoutes$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const Firewall$outboundSchema: z.ZodType<
-  Firewall$Outbound,
+export const CreateInputRoutes$outboundSchema: z.ZodType<
+  CreateInputRoutes$Outbound,
   z.ZodTypeDef,
-  Firewall
+  CreateInputRoutes
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function firewallToJSON(firewall: Firewall): string {
-  return JSON.stringify(Firewall$outboundSchema.parse(firewall));
+export function createInputRoutesToJSON(
+  createInputRoutes: CreateInputRoutes,
+): string {
+  return JSON.stringify(
+    CreateInputRoutes$outboundSchema.parse(createInputRoutes),
+  );
+}
+export function createInputRoutesFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputRoutes, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputRoutes$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputRoutes' from JSON`,
+  );
 }
 
 /** @internal */
-export type Services$Outbound = {
+export const CreateInputDNS$inboundSchema: z.ZodType<
+  CreateInputDNS,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputDNS$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const Services$outboundSchema: z.ZodType<
-  Services$Outbound,
+export const CreateInputDNS$outboundSchema: z.ZodType<
+  CreateInputDNS$Outbound,
   z.ZodTypeDef,
-  Services
+  CreateInputDNS
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function servicesToJSON(services: Services): string {
-  return JSON.stringify(Services$outboundSchema.parse(services));
+export function createInputDNSToJSON(createInputDNS: CreateInputDNS): string {
+  return JSON.stringify(CreateInputDNS$outboundSchema.parse(createInputDNS));
+}
+export function createInputDNSFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputDNS, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputDNS$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputDNS' from JSON`,
+  );
 }
 
 /** @internal */
-export type ListeningPorts$Outbound = {
+export const CreateInputUsersAndGroups$inboundSchema: z.ZodType<
+  CreateInputUsersAndGroups,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputUsersAndGroups$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const ListeningPorts$outboundSchema: z.ZodType<
-  ListeningPorts$Outbound,
+export const CreateInputUsersAndGroups$outboundSchema: z.ZodType<
+  CreateInputUsersAndGroups$Outbound,
   z.ZodTypeDef,
-  ListeningPorts
+  CreateInputUsersAndGroups
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function listeningPortsToJSON(listeningPorts: ListeningPorts): string {
-  return JSON.stringify(ListeningPorts$outboundSchema.parse(listeningPorts));
+export function createInputUsersAndGroupsToJSON(
+  createInputUsersAndGroups: CreateInputUsersAndGroups,
+): string {
+  return JSON.stringify(
+    CreateInputUsersAndGroups$outboundSchema.parse(createInputUsersAndGroups),
+  );
+}
+export function createInputUsersAndGroupsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputUsersAndGroups, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputUsersAndGroups$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputUsersAndGroups' from JSON`,
+  );
 }
 
 /** @internal */
-export type LoggedInUsers$Outbound = {
+export const CreateInputFirewall$inboundSchema: z.ZodType<
+  CreateInputFirewall,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputFirewall$Outbound = {
   enable?: boolean | undefined;
 };
 
 /** @internal */
-export const LoggedInUsers$outboundSchema: z.ZodType<
-  LoggedInUsers$Outbound,
+export const CreateInputFirewall$outboundSchema: z.ZodType<
+  CreateInputFirewall$Outbound,
   z.ZodTypeDef,
-  LoggedInUsers
+  CreateInputFirewall
 > = z.object({
   enable: z.boolean().optional(),
 });
 
-export function loggedInUsersToJSON(loggedInUsers: LoggedInUsers): string {
-  return JSON.stringify(LoggedInUsers$outboundSchema.parse(loggedInUsers));
+export function createInputFirewallToJSON(
+  createInputFirewall: CreateInputFirewall,
+): string {
+  return JSON.stringify(
+    CreateInputFirewall$outboundSchema.parse(createInputFirewall),
+  );
+}
+export function createInputFirewallFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputFirewall, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputFirewall$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputFirewall' from JSON`,
+  );
 }
 
 /** @internal */
-export type Collectors$Outbound = {
-  hostsfile?: HostsFile$Outbound | undefined;
-  interfaces?: Interfaces$Outbound | undefined;
-  disk?: DisksAndFileSystems$Outbound | undefined;
-  metadata?: HostInfo$Outbound | undefined;
-  routes?: Routes$Outbound | undefined;
-  dns?: Dns$Outbound | undefined;
-  user?: UsersAndGroups$Outbound | undefined;
-  firewall?: Firewall$Outbound | undefined;
-  services?: Services$Outbound | undefined;
-  ports?: ListeningPorts$Outbound | undefined;
-  loginUsers?: LoggedInUsers$Outbound | undefined;
+export const CreateInputServices$inboundSchema: z.ZodType<
+  CreateInputServices,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputServices$Outbound = {
+  enable?: boolean | undefined;
 };
 
 /** @internal */
-export const Collectors$outboundSchema: z.ZodType<
-  Collectors$Outbound,
+export const CreateInputServices$outboundSchema: z.ZodType<
+  CreateInputServices$Outbound,
   z.ZodTypeDef,
-  Collectors
+  CreateInputServices
 > = z.object({
-  hostsfile: z.lazy(() => HostsFile$outboundSchema).optional(),
-  interfaces: z.lazy(() => Interfaces$outboundSchema).optional(),
-  disk: z.lazy(() => DisksAndFileSystems$outboundSchema).optional(),
-  metadata: z.lazy(() => HostInfo$outboundSchema).optional(),
-  routes: z.lazy(() => Routes$outboundSchema).optional(),
-  dns: z.lazy(() => Dns$outboundSchema).optional(),
-  user: z.lazy(() => UsersAndGroups$outboundSchema).optional(),
-  firewall: z.lazy(() => Firewall$outboundSchema).optional(),
-  services: z.lazy(() => Services$outboundSchema).optional(),
-  ports: z.lazy(() => ListeningPorts$outboundSchema).optional(),
-  loginUsers: z.lazy(() => LoggedInUsers$outboundSchema).optional(),
+  enable: z.boolean().optional(),
 });
 
-export function collectorsToJSON(collectors: Collectors): string {
-  return JSON.stringify(Collectors$outboundSchema.parse(collectors));
+export function createInputServicesToJSON(
+  createInputServices: CreateInputServices,
+): string {
+  return JSON.stringify(
+    CreateInputServices$outboundSchema.parse(createInputServices),
+  );
+}
+export function createInputServicesFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputServices, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputServices$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputServices' from JSON`,
+  );
 }
 
 /** @internal */
-export type PersistenceSystemState$Outbound = {
+export const CreateInputListeningPorts$inboundSchema: z.ZodType<
+  CreateInputListeningPorts,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputListeningPorts$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputListeningPorts$outboundSchema: z.ZodType<
+  CreateInputListeningPorts$Outbound,
+  z.ZodTypeDef,
+  CreateInputListeningPorts
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputListeningPortsToJSON(
+  createInputListeningPorts: CreateInputListeningPorts,
+): string {
+  return JSON.stringify(
+    CreateInputListeningPorts$outboundSchema.parse(createInputListeningPorts),
+  );
+}
+export function createInputListeningPortsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputListeningPorts, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputListeningPorts$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputListeningPorts' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateInputLoggedInUsers$inboundSchema: z.ZodType<
+  CreateInputLoggedInUsers,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputLoggedInUsers$Outbound = {
+  enable?: boolean | undefined;
+};
+
+/** @internal */
+export const CreateInputLoggedInUsers$outboundSchema: z.ZodType<
+  CreateInputLoggedInUsers$Outbound,
+  z.ZodTypeDef,
+  CreateInputLoggedInUsers
+> = z.object({
+  enable: z.boolean().optional(),
+});
+
+export function createInputLoggedInUsersToJSON(
+  createInputLoggedInUsers: CreateInputLoggedInUsers,
+): string {
+  return JSON.stringify(
+    CreateInputLoggedInUsers$outboundSchema.parse(createInputLoggedInUsers),
+  );
+}
+export function createInputLoggedInUsersFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputLoggedInUsers, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputLoggedInUsers$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputLoggedInUsers' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateInputCollectors$inboundSchema: z.ZodType<
+  CreateInputCollectors,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  hostsfile: types.optional(z.lazy(() => CreateInputHostsFile$inboundSchema)),
+  interfaces: types.optional(z.lazy(() => CreateInputInterfaces$inboundSchema)),
+  disk: types.optional(
+    z.lazy(() => CreateInputDisksAndFileSystems$inboundSchema),
+  ),
+  metadata: types.optional(z.lazy(() => CreateInputHostInfo$inboundSchema)),
+  routes: types.optional(z.lazy(() => CreateInputRoutes$inboundSchema)),
+  dns: types.optional(z.lazy(() => CreateInputDNS$inboundSchema)),
+  user: types.optional(z.lazy(() => CreateInputUsersAndGroups$inboundSchema)),
+  firewall: types.optional(z.lazy(() => CreateInputFirewall$inboundSchema)),
+  services: types.optional(z.lazy(() => CreateInputServices$inboundSchema)),
+  ports: types.optional(z.lazy(() => CreateInputListeningPorts$inboundSchema)),
+  loginUsers: types.optional(
+    z.lazy(() => CreateInputLoggedInUsers$inboundSchema),
+  ),
+});
+/** @internal */
+export type CreateInputCollectors$Outbound = {
+  hostsfile?: CreateInputHostsFile$Outbound | undefined;
+  interfaces?: CreateInputInterfaces$Outbound | undefined;
+  disk?: CreateInputDisksAndFileSystems$Outbound | undefined;
+  metadata?: CreateInputHostInfo$Outbound | undefined;
+  routes?: CreateInputRoutes$Outbound | undefined;
+  dns?: CreateInputDNS$Outbound | undefined;
+  user?: CreateInputUsersAndGroups$Outbound | undefined;
+  firewall?: CreateInputFirewall$Outbound | undefined;
+  services?: CreateInputServices$Outbound | undefined;
+  ports?: CreateInputListeningPorts$Outbound | undefined;
+  loginUsers?: CreateInputLoggedInUsers$Outbound | undefined;
+};
+
+/** @internal */
+export const CreateInputCollectors$outboundSchema: z.ZodType<
+  CreateInputCollectors$Outbound,
+  z.ZodTypeDef,
+  CreateInputCollectors
+> = z.object({
+  hostsfile: z.lazy(() => CreateInputHostsFile$outboundSchema).optional(),
+  interfaces: z.lazy(() => CreateInputInterfaces$outboundSchema).optional(),
+  disk: z.lazy(() => CreateInputDisksAndFileSystems$outboundSchema).optional(),
+  metadata: z.lazy(() => CreateInputHostInfo$outboundSchema).optional(),
+  routes: z.lazy(() => CreateInputRoutes$outboundSchema).optional(),
+  dns: z.lazy(() => CreateInputDNS$outboundSchema).optional(),
+  user: z.lazy(() => CreateInputUsersAndGroups$outboundSchema).optional(),
+  firewall: z.lazy(() => CreateInputFirewall$outboundSchema).optional(),
+  services: z.lazy(() => CreateInputServices$outboundSchema).optional(),
+  ports: z.lazy(() => CreateInputListeningPorts$outboundSchema).optional(),
+  loginUsers: z.lazy(() => CreateInputLoggedInUsers$outboundSchema).optional(),
+});
+
+export function createInputCollectorsToJSON(
+  createInputCollectors: CreateInputCollectors,
+): string {
+  return JSON.stringify(
+    CreateInputCollectors$outboundSchema.parse(createInputCollectors),
+  );
+}
+export function createInputCollectorsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputCollectors, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputCollectors$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputCollectors' from JSON`,
+  );
+}
+
+/** @internal */
+export const CreateInputPersistenceSystemState$inboundSchema: z.ZodType<
+  CreateInputPersistenceSystemState,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+  timeWindow: types.optional(types.string()),
+  maxDataSize: types.optional(types.string()),
+  maxDataTime: types.optional(types.string()),
+  compress: types.optional(
+    models.DataCompressionFormatOptionsPersistence$inboundSchema,
+  ),
+  destPath: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputPersistenceSystemState$Outbound = {
   enable?: boolean | undefined;
   timeWindow?: string | undefined;
   maxDataSize?: string | undefined;
@@ -12207,10 +15516,10 @@ export type PersistenceSystemState$Outbound = {
 };
 
 /** @internal */
-export const PersistenceSystemState$outboundSchema: z.ZodType<
-  PersistenceSystemState$Outbound,
+export const CreateInputPersistenceSystemState$outboundSchema: z.ZodType<
+  CreateInputPersistenceSystemState$Outbound,
   z.ZodTypeDef,
-  PersistenceSystemState
+  CreateInputPersistenceSystemState
 > = z.object({
   enable: z.boolean().optional(),
   timeWindow: z.string().optional(),
@@ -12221,16 +15530,55 @@ export const PersistenceSystemState$outboundSchema: z.ZodType<
   destPath: z.string().optional(),
 });
 
-export function persistenceSystemStateToJSON(
-  persistenceSystemState: PersistenceSystemState,
+export function createInputPersistenceSystemStateToJSON(
+  createInputPersistenceSystemState: CreateInputPersistenceSystemState,
 ): string {
   return JSON.stringify(
-    PersistenceSystemState$outboundSchema.parse(persistenceSystemState),
+    CreateInputPersistenceSystemState$outboundSchema.parse(
+      createInputPersistenceSystemState,
+    ),
+  );
+}
+export function createInputPersistenceSystemStateFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputPersistenceSystemState, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputPersistenceSystemState$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputPersistenceSystemState' from JSON`,
   );
 }
 
 /** @internal */
-export type InputSystemState$Outbound = {
+export const CreateInputInputSystemState$inboundSchema: z.ZodType<
+  CreateInputInputSystemState,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("system_state"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  interval: types.optional(types.number()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  collectors: types.optional(z.lazy(() => CreateInputCollectors$inboundSchema)),
+  persistence: types.optional(
+    z.lazy(() => CreateInputPersistenceSystemState$inboundSchema),
+  ),
+  disableNativeModule: types.optional(types.boolean()),
+  disableNativeLastLogModule: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputSystemState$Outbound = {
   id: string;
   type: "system_state";
   disabled?: boolean | undefined;
@@ -12242,19 +15590,19 @@ export type InputSystemState$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  collectors?: Collectors$Outbound | undefined;
-  persistence?: PersistenceSystemState$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  collectors?: CreateInputCollectors$Outbound | undefined;
+  persistence?: CreateInputPersistenceSystemState$Outbound | undefined;
   disableNativeModule?: boolean | undefined;
   disableNativeLastLogModule?: boolean | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputSystemState$outboundSchema: z.ZodType<
-  InputSystemState$Outbound,
+export const CreateInputInputSystemState$outboundSchema: z.ZodType<
+  CreateInputInputSystemState$Outbound,
   z.ZodTypeDef,
-  InputSystemState
+  CreateInputInputSystemState
 > = z.object({
   id: z.string(),
   type: z.literal("system_state"),
@@ -12268,63 +15616,117 @@ export const InputSystemState$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   interval: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  collectors: z.lazy(() => CreateInputCollectors$outboundSchema).optional(),
+  persistence: z.lazy(() => CreateInputPersistenceSystemState$outboundSchema)
     .optional(),
-  collectors: z.lazy(() => Collectors$outboundSchema).optional(),
-  persistence: z.lazy(() => PersistenceSystemState$outboundSchema).optional(),
   disableNativeModule: z.boolean().optional(),
   disableNativeLastLogModule: z.boolean().optional(),
   description: z.string().optional(),
 });
 
-export function inputSystemStateToJSON(
-  inputSystemState: InputSystemState,
+export function createInputInputSystemStateToJSON(
+  createInputInputSystemState: CreateInputInputSystemState,
 ): string {
   return JSON.stringify(
-    InputSystemState$outboundSchema.parse(inputSystemState),
+    CreateInputInputSystemState$outboundSchema.parse(
+      createInputInputSystemState,
+    ),
+  );
+}
+export function createInputInputSystemStateFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputSystemState, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputSystemState$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputSystemState' from JSON`,
   );
 }
 
 /** @internal */
-export const SystemModeSystemMetrics$outboundSchema: z.ZodType<
+export const CreateInputSystemModeSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputSystemModeSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputSystemModeSystemMetrics);
+/** @internal */
+export const CreateInputSystemModeSystemMetrics$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  SystemModeSystemMetrics
-> = openEnums.outboundSchema(SystemModeSystemMetrics);
+  CreateInputSystemModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputSystemModeSystemMetrics);
 
 /** @internal */
-export type SystemSystemMetrics$Outbound = {
+export const CreateInputSystemSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputSystemSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(CreateInputSystemModeSystemMetrics$inboundSchema),
+  processes: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputSystemSystemMetrics$Outbound = {
   mode?: string | undefined;
   processes?: boolean | undefined;
 };
 
 /** @internal */
-export const SystemSystemMetrics$outboundSchema: z.ZodType<
-  SystemSystemMetrics$Outbound,
+export const CreateInputSystemSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputSystemSystemMetrics$Outbound,
   z.ZodTypeDef,
-  SystemSystemMetrics
+  CreateInputSystemSystemMetrics
 > = z.object({
-  mode: SystemModeSystemMetrics$outboundSchema.optional(),
+  mode: CreateInputSystemModeSystemMetrics$outboundSchema.optional(),
   processes: z.boolean().optional(),
 });
 
-export function systemSystemMetricsToJSON(
-  systemSystemMetrics: SystemSystemMetrics,
+export function createInputSystemSystemMetricsToJSON(
+  createInputSystemSystemMetrics: CreateInputSystemSystemMetrics,
 ): string {
   return JSON.stringify(
-    SystemSystemMetrics$outboundSchema.parse(systemSystemMetrics),
+    CreateInputSystemSystemMetrics$outboundSchema.parse(
+      createInputSystemSystemMetrics,
+    ),
+  );
+}
+export function createInputSystemSystemMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputSystemSystemMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputSystemSystemMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputSystemSystemMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export const CpuModeSystemMetrics$outboundSchema: z.ZodType<
+export const CreateInputCpuModeSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputCpuModeSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputCpuModeSystemMetrics);
+/** @internal */
+export const CreateInputCpuModeSystemMetrics$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CpuModeSystemMetrics
-> = openEnums.outboundSchema(CpuModeSystemMetrics);
+  CreateInputCpuModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputCpuModeSystemMetrics);
 
 /** @internal */
-export type CpuSystemMetrics$Outbound = {
+export const CreateInputCpuSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputCpuSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(CreateInputCpuModeSystemMetrics$inboundSchema),
+  perCpu: types.optional(types.boolean()),
+  detail: types.optional(types.boolean()),
+  time: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputCpuSystemMetrics$Outbound = {
   mode?: string | undefined;
   perCpu?: boolean | undefined;
   detail?: boolean | undefined;
@@ -12332,65 +15734,120 @@ export type CpuSystemMetrics$Outbound = {
 };
 
 /** @internal */
-export const CpuSystemMetrics$outboundSchema: z.ZodType<
-  CpuSystemMetrics$Outbound,
+export const CreateInputCpuSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputCpuSystemMetrics$Outbound,
   z.ZodTypeDef,
-  CpuSystemMetrics
+  CreateInputCpuSystemMetrics
 > = z.object({
-  mode: CpuModeSystemMetrics$outboundSchema.optional(),
+  mode: CreateInputCpuModeSystemMetrics$outboundSchema.optional(),
   perCpu: z.boolean().optional(),
   detail: z.boolean().optional(),
   time: z.boolean().optional(),
 });
 
-export function cpuSystemMetricsToJSON(
-  cpuSystemMetrics: CpuSystemMetrics,
+export function createInputCpuSystemMetricsToJSON(
+  createInputCpuSystemMetrics: CreateInputCpuSystemMetrics,
 ): string {
   return JSON.stringify(
-    CpuSystemMetrics$outboundSchema.parse(cpuSystemMetrics),
+    CreateInputCpuSystemMetrics$outboundSchema.parse(
+      createInputCpuSystemMetrics,
+    ),
+  );
+}
+export function createInputCpuSystemMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputCpuSystemMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputCpuSystemMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputCpuSystemMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export const MemoryModeSystemMetrics$outboundSchema: z.ZodType<
+export const CreateInputMemoryModeSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputMemoryModeSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputMemoryModeSystemMetrics);
+/** @internal */
+export const CreateInputMemoryModeSystemMetrics$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  MemoryModeSystemMetrics
-> = openEnums.outboundSchema(MemoryModeSystemMetrics);
+  CreateInputMemoryModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputMemoryModeSystemMetrics);
 
 /** @internal */
-export type MemorySystemMetrics$Outbound = {
+export const CreateInputMemorySystemMetrics$inboundSchema: z.ZodType<
+  CreateInputMemorySystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(CreateInputMemoryModeSystemMetrics$inboundSchema),
+  detail: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputMemorySystemMetrics$Outbound = {
   mode?: string | undefined;
   detail?: boolean | undefined;
 };
 
 /** @internal */
-export const MemorySystemMetrics$outboundSchema: z.ZodType<
-  MemorySystemMetrics$Outbound,
+export const CreateInputMemorySystemMetrics$outboundSchema: z.ZodType<
+  CreateInputMemorySystemMetrics$Outbound,
   z.ZodTypeDef,
-  MemorySystemMetrics
+  CreateInputMemorySystemMetrics
 > = z.object({
-  mode: MemoryModeSystemMetrics$outboundSchema.optional(),
+  mode: CreateInputMemoryModeSystemMetrics$outboundSchema.optional(),
   detail: z.boolean().optional(),
 });
 
-export function memorySystemMetricsToJSON(
-  memorySystemMetrics: MemorySystemMetrics,
+export function createInputMemorySystemMetricsToJSON(
+  createInputMemorySystemMetrics: CreateInputMemorySystemMetrics,
 ): string {
   return JSON.stringify(
-    MemorySystemMetrics$outboundSchema.parse(memorySystemMetrics),
+    CreateInputMemorySystemMetrics$outboundSchema.parse(
+      createInputMemorySystemMetrics,
+    ),
+  );
+}
+export function createInputMemorySystemMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputMemorySystemMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputMemorySystemMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputMemorySystemMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export const NetworkModeSystemMetrics$outboundSchema: z.ZodType<
+export const CreateInputNetworkModeSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputNetworkModeSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputNetworkModeSystemMetrics);
+/** @internal */
+export const CreateInputNetworkModeSystemMetrics$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  NetworkModeSystemMetrics
-> = openEnums.outboundSchema(NetworkModeSystemMetrics);
+  CreateInputNetworkModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputNetworkModeSystemMetrics);
 
 /** @internal */
-export type NetworkSystemMetrics$Outbound = {
+export const CreateInputNetworkSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputNetworkSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(CreateInputNetworkModeSystemMetrics$inboundSchema),
+  detail: types.optional(types.boolean()),
+  protocols: types.optional(types.boolean()),
+  devices: types.optional(z.array(types.string())),
+  perInterface: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputNetworkSystemMetrics$Outbound = {
   mode?: string | undefined;
   detail?: boolean | undefined;
   protocols?: boolean | undefined;
@@ -12399,35 +15856,66 @@ export type NetworkSystemMetrics$Outbound = {
 };
 
 /** @internal */
-export const NetworkSystemMetrics$outboundSchema: z.ZodType<
-  NetworkSystemMetrics$Outbound,
+export const CreateInputNetworkSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputNetworkSystemMetrics$Outbound,
   z.ZodTypeDef,
-  NetworkSystemMetrics
+  CreateInputNetworkSystemMetrics
 > = z.object({
-  mode: NetworkModeSystemMetrics$outboundSchema.optional(),
+  mode: CreateInputNetworkModeSystemMetrics$outboundSchema.optional(),
   detail: z.boolean().optional(),
   protocols: z.boolean().optional(),
   devices: z.array(z.string()).optional(),
   perInterface: z.boolean().optional(),
 });
 
-export function networkSystemMetricsToJSON(
-  networkSystemMetrics: NetworkSystemMetrics,
+export function createInputNetworkSystemMetricsToJSON(
+  createInputNetworkSystemMetrics: CreateInputNetworkSystemMetrics,
 ): string {
   return JSON.stringify(
-    NetworkSystemMetrics$outboundSchema.parse(networkSystemMetrics),
+    CreateInputNetworkSystemMetrics$outboundSchema.parse(
+      createInputNetworkSystemMetrics,
+    ),
+  );
+}
+export function createInputNetworkSystemMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputNetworkSystemMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputNetworkSystemMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputNetworkSystemMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export const DiskModeSystemMetrics$outboundSchema: z.ZodType<
+export const CreateInputDiskModeSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputDiskModeSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputDiskModeSystemMetrics);
+/** @internal */
+export const CreateInputDiskModeSystemMetrics$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  DiskModeSystemMetrics
-> = openEnums.outboundSchema(DiskModeSystemMetrics);
+  CreateInputDiskModeSystemMetrics
+> = openEnums.outboundSchema(CreateInputDiskModeSystemMetrics);
 
 /** @internal */
-export type DiskSystemMetrics$Outbound = {
+export const CreateInputDiskSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputDiskSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(CreateInputDiskModeSystemMetrics$inboundSchema),
+  detail: types.optional(types.boolean()),
+  inodes: types.optional(types.boolean()),
+  devices: types.optional(z.array(types.string())),
+  mountpoints: types.optional(z.array(types.string())),
+  fstypes: types.optional(z.array(types.string())),
+  perDevice: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputDiskSystemMetrics$Outbound = {
   mode?: string | undefined;
   detail?: boolean | undefined;
   inodes?: boolean | undefined;
@@ -12438,12 +15926,12 @@ export type DiskSystemMetrics$Outbound = {
 };
 
 /** @internal */
-export const DiskSystemMetrics$outboundSchema: z.ZodType<
-  DiskSystemMetrics$Outbound,
+export const CreateInputDiskSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputDiskSystemMetrics$Outbound,
   z.ZodTypeDef,
-  DiskSystemMetrics
+  CreateInputDiskSystemMetrics
 > = z.object({
-  mode: DiskModeSystemMetrics$outboundSchema.optional(),
+  mode: CreateInputDiskModeSystemMetrics$outboundSchema.optional(),
   detail: z.boolean().optional(),
   inodes: z.boolean().optional(),
   devices: z.array(z.string()).optional(),
@@ -12452,127 +15940,265 @@ export const DiskSystemMetrics$outboundSchema: z.ZodType<
   perDevice: z.boolean().optional(),
 });
 
-export function diskSystemMetricsToJSON(
-  diskSystemMetrics: DiskSystemMetrics,
+export function createInputDiskSystemMetricsToJSON(
+  createInputDiskSystemMetrics: CreateInputDiskSystemMetrics,
 ): string {
   return JSON.stringify(
-    DiskSystemMetrics$outboundSchema.parse(diskSystemMetrics),
+    CreateInputDiskSystemMetrics$outboundSchema.parse(
+      createInputDiskSystemMetrics,
+    ),
+  );
+}
+export function createInputDiskSystemMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputDiskSystemMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputDiskSystemMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputDiskSystemMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export type CustomSystemMetrics$Outbound = {
-  system?: SystemSystemMetrics$Outbound | undefined;
-  cpu?: CpuSystemMetrics$Outbound | undefined;
-  memory?: MemorySystemMetrics$Outbound | undefined;
-  network?: NetworkSystemMetrics$Outbound | undefined;
-  disk?: DiskSystemMetrics$Outbound | undefined;
+export const CreateInputCustomSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputCustomSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  system: types.optional(
+    z.lazy(() => CreateInputSystemSystemMetrics$inboundSchema),
+  ),
+  cpu: types.optional(z.lazy(() => CreateInputCpuSystemMetrics$inboundSchema)),
+  memory: types.optional(
+    z.lazy(() => CreateInputMemorySystemMetrics$inboundSchema),
+  ),
+  network: types.optional(
+    z.lazy(() => CreateInputNetworkSystemMetrics$inboundSchema),
+  ),
+  disk: types.optional(
+    z.lazy(() => CreateInputDiskSystemMetrics$inboundSchema),
+  ),
+});
+/** @internal */
+export type CreateInputCustomSystemMetrics$Outbound = {
+  system?: CreateInputSystemSystemMetrics$Outbound | undefined;
+  cpu?: CreateInputCpuSystemMetrics$Outbound | undefined;
+  memory?: CreateInputMemorySystemMetrics$Outbound | undefined;
+  network?: CreateInputNetworkSystemMetrics$Outbound | undefined;
+  disk?: CreateInputDiskSystemMetrics$Outbound | undefined;
 };
 
 /** @internal */
-export const CustomSystemMetrics$outboundSchema: z.ZodType<
-  CustomSystemMetrics$Outbound,
+export const CreateInputCustomSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputCustomSystemMetrics$Outbound,
   z.ZodTypeDef,
-  CustomSystemMetrics
+  CreateInputCustomSystemMetrics
 > = z.object({
-  system: z.lazy(() => SystemSystemMetrics$outboundSchema).optional(),
-  cpu: z.lazy(() => CpuSystemMetrics$outboundSchema).optional(),
-  memory: z.lazy(() => MemorySystemMetrics$outboundSchema).optional(),
-  network: z.lazy(() => NetworkSystemMetrics$outboundSchema).optional(),
-  disk: z.lazy(() => DiskSystemMetrics$outboundSchema).optional(),
+  system: z.lazy(() => CreateInputSystemSystemMetrics$outboundSchema)
+    .optional(),
+  cpu: z.lazy(() => CreateInputCpuSystemMetrics$outboundSchema).optional(),
+  memory: z.lazy(() => CreateInputMemorySystemMetrics$outboundSchema)
+    .optional(),
+  network: z.lazy(() => CreateInputNetworkSystemMetrics$outboundSchema)
+    .optional(),
+  disk: z.lazy(() => CreateInputDiskSystemMetrics$outboundSchema).optional(),
 });
 
-export function customSystemMetricsToJSON(
-  customSystemMetrics: CustomSystemMetrics,
+export function createInputCustomSystemMetricsToJSON(
+  createInputCustomSystemMetrics: CreateInputCustomSystemMetrics,
 ): string {
   return JSON.stringify(
-    CustomSystemMetrics$outboundSchema.parse(customSystemMetrics),
+    CreateInputCustomSystemMetrics$outboundSchema.parse(
+      createInputCustomSystemMetrics,
+    ),
+  );
+}
+export function createInputCustomSystemMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputCustomSystemMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputCustomSystemMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputCustomSystemMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export type HostSystemMetrics$Outbound = {
+export const CreateInputHostSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputHostSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(models.ModeOptionsHost$inboundSchema),
+  custom: types.optional(
+    z.lazy(() => CreateInputCustomSystemMetrics$inboundSchema),
+  ),
+});
+/** @internal */
+export type CreateInputHostSystemMetrics$Outbound = {
   mode?: string | undefined;
-  custom?: CustomSystemMetrics$Outbound | undefined;
+  custom?: CreateInputCustomSystemMetrics$Outbound | undefined;
 };
 
 /** @internal */
-export const HostSystemMetrics$outboundSchema: z.ZodType<
-  HostSystemMetrics$Outbound,
+export const CreateInputHostSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputHostSystemMetrics$Outbound,
   z.ZodTypeDef,
-  HostSystemMetrics
+  CreateInputHostSystemMetrics
 > = z.object({
   mode: models.ModeOptionsHost$outboundSchema.optional(),
-  custom: z.lazy(() => CustomSystemMetrics$outboundSchema).optional(),
+  custom: z.lazy(() => CreateInputCustomSystemMetrics$outboundSchema)
+    .optional(),
 });
 
-export function hostSystemMetricsToJSON(
-  hostSystemMetrics: HostSystemMetrics,
+export function createInputHostSystemMetricsToJSON(
+  createInputHostSystemMetrics: CreateInputHostSystemMetrics,
 ): string {
   return JSON.stringify(
-    HostSystemMetrics$outboundSchema.parse(hostSystemMetrics),
+    CreateInputHostSystemMetrics$outboundSchema.parse(
+      createInputHostSystemMetrics,
+    ),
+  );
+}
+export function createInputHostSystemMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputHostSystemMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputHostSystemMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputHostSystemMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export const ContainerMode$outboundSchema: z.ZodType<
+export const CreateInputContainerMode$inboundSchema: z.ZodType<
+  CreateInputContainerMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputContainerMode);
+/** @internal */
+export const CreateInputContainerMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ContainerMode
-> = openEnums.outboundSchema(ContainerMode);
+  CreateInputContainerMode
+> = openEnums.outboundSchema(CreateInputContainerMode);
 
 /** @internal */
-export type ContainerFilter$Outbound = {
+export const CreateInputContainerFilter$inboundSchema: z.ZodType<
+  CreateInputContainerFilter,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  expr: types.string(),
+});
+/** @internal */
+export type CreateInputContainerFilter$Outbound = {
   expr: string;
 };
 
 /** @internal */
-export const ContainerFilter$outboundSchema: z.ZodType<
-  ContainerFilter$Outbound,
+export const CreateInputContainerFilter$outboundSchema: z.ZodType<
+  CreateInputContainerFilter$Outbound,
   z.ZodTypeDef,
-  ContainerFilter
+  CreateInputContainerFilter
 > = z.object({
   expr: z.string(),
 });
 
-export function containerFilterToJSON(
-  containerFilter: ContainerFilter,
+export function createInputContainerFilterToJSON(
+  createInputContainerFilter: CreateInputContainerFilter,
 ): string {
-  return JSON.stringify(ContainerFilter$outboundSchema.parse(containerFilter));
+  return JSON.stringify(
+    CreateInputContainerFilter$outboundSchema.parse(createInputContainerFilter),
+  );
+}
+export function createInputContainerFilterFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputContainerFilter, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputContainerFilter$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputContainerFilter' from JSON`,
+  );
 }
 
 /** @internal */
-export type Container$Outbound = {
+export const CreateInputContainer$inboundSchema: z.ZodType<
+  CreateInputContainer,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: types.optional(CreateInputContainerMode$inboundSchema),
+  dockerSocket: types.optional(z.array(types.string())),
+  dockerTimeout: types.optional(types.number()),
+  filters: types.optional(
+    z.array(z.lazy(() => CreateInputContainerFilter$inboundSchema)),
+  ),
+  allContainers: types.optional(types.boolean()),
+  perDevice: types.optional(types.boolean()),
+  detail: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputContainer$Outbound = {
   mode?: string | undefined;
   dockerSocket?: Array<string> | undefined;
   dockerTimeout?: number | undefined;
-  filters?: Array<ContainerFilter$Outbound> | undefined;
+  filters?: Array<CreateInputContainerFilter$Outbound> | undefined;
   allContainers?: boolean | undefined;
   perDevice?: boolean | undefined;
   detail?: boolean | undefined;
 };
 
 /** @internal */
-export const Container$outboundSchema: z.ZodType<
-  Container$Outbound,
+export const CreateInputContainer$outboundSchema: z.ZodType<
+  CreateInputContainer$Outbound,
   z.ZodTypeDef,
-  Container
+  CreateInputContainer
 > = z.object({
-  mode: ContainerMode$outboundSchema.optional(),
+  mode: CreateInputContainerMode$outboundSchema.optional(),
   dockerSocket: z.array(z.string()).optional(),
   dockerTimeout: z.number().optional(),
-  filters: z.array(z.lazy(() => ContainerFilter$outboundSchema)).optional(),
+  filters: z.array(z.lazy(() => CreateInputContainerFilter$outboundSchema))
+    .optional(),
   allContainers: z.boolean().optional(),
   perDevice: z.boolean().optional(),
   detail: z.boolean().optional(),
 });
 
-export function containerToJSON(container: Container): string {
-  return JSON.stringify(Container$outboundSchema.parse(container));
+export function createInputContainerToJSON(
+  createInputContainer: CreateInputContainer,
+): string {
+  return JSON.stringify(
+    CreateInputContainer$outboundSchema.parse(createInputContainer),
+  );
+}
+export function createInputContainerFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputContainer, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputContainer$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputContainer' from JSON`,
+  );
 }
 
 /** @internal */
-export type PersistenceSystemMetrics$Outbound = {
+export const CreateInputPersistenceSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputPersistenceSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: types.optional(types.boolean()),
+  timeWindow: types.optional(types.string()),
+  maxDataSize: types.optional(types.string()),
+  maxDataTime: types.optional(types.string()),
+  compress: types.optional(
+    models.DataCompressionFormatOptionsPersistence$inboundSchema,
+  ),
+  destPath: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputPersistenceSystemMetrics$Outbound = {
   enable?: boolean | undefined;
   timeWindow?: string | undefined;
   maxDataSize?: string | undefined;
@@ -12582,10 +16208,10 @@ export type PersistenceSystemMetrics$Outbound = {
 };
 
 /** @internal */
-export const PersistenceSystemMetrics$outboundSchema: z.ZodType<
-  PersistenceSystemMetrics$Outbound,
+export const CreateInputPersistenceSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputPersistenceSystemMetrics$Outbound,
   z.ZodTypeDef,
-  PersistenceSystemMetrics
+  CreateInputPersistenceSystemMetrics
 > = z.object({
   enable: z.boolean().optional(),
   timeWindow: z.string().optional(),
@@ -12596,16 +16222,58 @@ export const PersistenceSystemMetrics$outboundSchema: z.ZodType<
   destPath: z.string().optional(),
 });
 
-export function persistenceSystemMetricsToJSON(
-  persistenceSystemMetrics: PersistenceSystemMetrics,
+export function createInputPersistenceSystemMetricsToJSON(
+  createInputPersistenceSystemMetrics: CreateInputPersistenceSystemMetrics,
 ): string {
   return JSON.stringify(
-    PersistenceSystemMetrics$outboundSchema.parse(persistenceSystemMetrics),
+    CreateInputPersistenceSystemMetrics$outboundSchema.parse(
+      createInputPersistenceSystemMetrics,
+    ),
+  );
+}
+export function createInputPersistenceSystemMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputPersistenceSystemMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CreateInputPersistenceSystemMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputPersistenceSystemMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export type InputSystemMetrics$Outbound = {
+export const CreateInputInputSystemMetrics$inboundSchema: z.ZodType<
+  CreateInputInputSystemMetrics,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("system_metrics"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  interval: types.optional(types.number()),
+  host: types.optional(
+    z.lazy(() => CreateInputHostSystemMetrics$inboundSchema),
+  ),
+  process: types.optional(models.ProcessType$inboundSchema),
+  container: types.optional(z.lazy(() => CreateInputContainer$inboundSchema)),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  persistence: types.optional(
+    z.lazy(() => CreateInputPersistenceSystemMetrics$inboundSchema),
+  ),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputSystemMetrics$Outbound = {
   id: string;
   type: "system_metrics";
   disabled?: boolean | undefined;
@@ -12617,19 +16285,19 @@ export type InputSystemMetrics$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   interval?: number | undefined;
-  host?: HostSystemMetrics$Outbound | undefined;
+  host?: CreateInputHostSystemMetrics$Outbound | undefined;
   process?: models.ProcessType$Outbound | undefined;
-  container?: Container$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  persistence?: PersistenceSystemMetrics$Outbound | undefined;
+  container?: CreateInputContainer$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  persistence?: CreateInputPersistenceSystemMetrics$Outbound | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputSystemMetrics$outboundSchema: z.ZodType<
-  InputSystemMetrics$Outbound,
+export const CreateInputInputSystemMetrics$outboundSchema: z.ZodType<
+  CreateInputInputSystemMetrics$Outbound,
   z.ZodTypeDef,
-  InputSystemMetrics
+  CreateInputInputSystemMetrics
 > = z.object({
   id: z.string(),
   type: z.literal("system_metrics"),
@@ -12643,25 +16311,74 @@ export const InputSystemMetrics$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   interval: z.number().optional(),
-  host: z.lazy(() => HostSystemMetrics$outboundSchema).optional(),
+  host: z.lazy(() => CreateInputHostSystemMetrics$outboundSchema).optional(),
   process: models.ProcessType$outboundSchema.optional(),
-  container: z.lazy(() => Container$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  container: z.lazy(() => CreateInputContainer$outboundSchema).optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  persistence: z.lazy(() => CreateInputPersistenceSystemMetrics$outboundSchema)
     .optional(),
-  persistence: z.lazy(() => PersistenceSystemMetrics$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-export function inputSystemMetricsToJSON(
-  inputSystemMetrics: InputSystemMetrics,
+export function createInputInputSystemMetricsToJSON(
+  createInputInputSystemMetrics: CreateInputInputSystemMetrics,
 ): string {
   return JSON.stringify(
-    InputSystemMetrics$outboundSchema.parse(inputSystemMetrics),
+    CreateInputInputSystemMetrics$outboundSchema.parse(
+      createInputInputSystemMetrics,
+    ),
+  );
+}
+export function createInputInputSystemMetricsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputSystemMetrics, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputSystemMetrics$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputSystemMetrics' from JSON`,
   );
 }
 
 /** @internal */
-export type InputTcpjson$Outbound = {
+export const CreateInputInputTcpjson$inboundSchema: z.ZodType<
+  CreateInputInputTcpjson,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("tcpjson"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  ipWhitelistRegex: types.optional(types.string()),
+  maxActiveCxn: types.optional(types.number()),
+  socketIdleTimeout: types.optional(types.number()),
+  socketEndingMaxWait: types.optional(types.number()),
+  socketMaxLifespan: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  enableLoadBalancing: types.optional(types.boolean()),
+  authType: types.optional(
+    models.AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  ),
+  description: types.optional(types.string()),
+  authToken: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputTcpjson$Outbound = {
   id: string;
   type: "tcpjson";
   disabled?: boolean | undefined;
@@ -12681,19 +16398,21 @@ export type InputTcpjson$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   enableLoadBalancing?: boolean | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputTcpjson$outboundSchema: z.ZodType<
-  InputTcpjson$Outbound,
+export const CreateInputInputTcpjson$outboundSchema: z.ZodType<
+  CreateInputInputTcpjson$Outbound,
   z.ZodTypeDef,
-  InputTcpjson
+  CreateInputInputTcpjson
 > = z.object({
   id: z.string(),
   type: z.literal("tcpjson"),
@@ -12715,100 +16434,231 @@ export const InputTcpjson$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   enableLoadBalancing: z.boolean().optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   description: z.string().optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputTcpjsonToJSON(inputTcpjson: InputTcpjson): string {
-  return JSON.stringify(InputTcpjson$outboundSchema.parse(inputTcpjson));
+export function createInputInputTcpjsonToJSON(
+  createInputInputTcpjson: CreateInputInputTcpjson,
+): string {
+  return JSON.stringify(
+    CreateInputInputTcpjson$outboundSchema.parse(createInputInputTcpjson),
+  );
+}
+export function createInputInputTcpjsonFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputTcpjson, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputTcpjson$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputTcpjson' from JSON`,
+  );
 }
 
 /** @internal */
-export type SplunkHecMetadata$Outbound = {
+export const CreateInputSplunkHecMetadata$inboundSchema: z.ZodType<
+  CreateInputSplunkHecMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: types.optional(types.boolean()),
+  defaultDataset: types.optional(types.string()),
+  allowedIndexesAtToken: types.optional(z.array(types.string())),
+});
+/** @internal */
+export type CreateInputSplunkHecMetadata$Outbound = {
   enabled?: boolean | undefined;
   defaultDataset?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
 };
 
 /** @internal */
-export const SplunkHecMetadata$outboundSchema: z.ZodType<
-  SplunkHecMetadata$Outbound,
+export const CreateInputSplunkHecMetadata$outboundSchema: z.ZodType<
+  CreateInputSplunkHecMetadata$Outbound,
   z.ZodTypeDef,
-  SplunkHecMetadata
+  CreateInputSplunkHecMetadata
 > = z.object({
   enabled: z.boolean().optional(),
   defaultDataset: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
 });
 
-export function splunkHecMetadataToJSON(
-  splunkHecMetadata: SplunkHecMetadata,
+export function createInputSplunkHecMetadataToJSON(
+  createInputSplunkHecMetadata: CreateInputSplunkHecMetadata,
 ): string {
   return JSON.stringify(
-    SplunkHecMetadata$outboundSchema.parse(splunkHecMetadata),
+    CreateInputSplunkHecMetadata$outboundSchema.parse(
+      createInputSplunkHecMetadata,
+    ),
+  );
+}
+export function createInputSplunkHecMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputSplunkHecMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputSplunkHecMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputSplunkHecMetadata' from JSON`,
   );
 }
 
 /** @internal */
-export type ElasticsearchMetadata$Outbound = {
+export const CreateInputElasticsearchMetadata$inboundSchema: z.ZodType<
+  CreateInputElasticsearchMetadata,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: types.optional(types.boolean()),
+  defaultDataset: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputElasticsearchMetadata$Outbound = {
   enabled?: boolean | undefined;
   defaultDataset?: string | undefined;
 };
 
 /** @internal */
-export const ElasticsearchMetadata$outboundSchema: z.ZodType<
-  ElasticsearchMetadata$Outbound,
+export const CreateInputElasticsearchMetadata$outboundSchema: z.ZodType<
+  CreateInputElasticsearchMetadata$Outbound,
   z.ZodTypeDef,
-  ElasticsearchMetadata
+  CreateInputElasticsearchMetadata
 > = z.object({
   enabled: z.boolean().optional(),
   defaultDataset: z.string().optional(),
 });
 
-export function elasticsearchMetadataToJSON(
-  elasticsearchMetadata: ElasticsearchMetadata,
+export function createInputElasticsearchMetadataToJSON(
+  createInputElasticsearchMetadata: CreateInputElasticsearchMetadata,
 ): string {
   return JSON.stringify(
-    ElasticsearchMetadata$outboundSchema.parse(elasticsearchMetadata),
+    CreateInputElasticsearchMetadata$outboundSchema.parse(
+      createInputElasticsearchMetadata,
+    ),
+  );
+}
+export function createInputElasticsearchMetadataFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputElasticsearchMetadata, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputElasticsearchMetadata$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputElasticsearchMetadata' from JSON`,
   );
 }
 
 /** @internal */
-export type AuthTokensExt$Outbound = {
+export const CreateInputAuthTokensExt$inboundSchema: z.ZodType<
+  CreateInputAuthTokensExt,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  token: types.string(),
+  description: types.optional(types.string()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  splunkHecMetadata: types.optional(
+    z.lazy(() => CreateInputSplunkHecMetadata$inboundSchema),
+  ),
+  elasticsearchMetadata: types.optional(
+    z.lazy(() => CreateInputElasticsearchMetadata$inboundSchema),
+  ),
+});
+/** @internal */
+export type CreateInputAuthTokensExt$Outbound = {
   token: string;
   description?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  splunkHecMetadata?: SplunkHecMetadata$Outbound | undefined;
-  elasticsearchMetadata?: ElasticsearchMetadata$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  splunkHecMetadata?: CreateInputSplunkHecMetadata$Outbound | undefined;
+  elasticsearchMetadata?: CreateInputElasticsearchMetadata$Outbound | undefined;
 };
 
 /** @internal */
-export const AuthTokensExt$outboundSchema: z.ZodType<
-  AuthTokensExt$Outbound,
+export const CreateInputAuthTokensExt$outboundSchema: z.ZodType<
+  CreateInputAuthTokensExt$Outbound,
   z.ZodTypeDef,
-  AuthTokensExt
+  CreateInputAuthTokensExt
 > = z.object({
   token: z.string(),
   description: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  splunkHecMetadata: z.lazy(() => CreateInputSplunkHecMetadata$outboundSchema)
     .optional(),
-  splunkHecMetadata: z.lazy(() => SplunkHecMetadata$outboundSchema).optional(),
-  elasticsearchMetadata: z.lazy(() => ElasticsearchMetadata$outboundSchema)
-    .optional(),
+  elasticsearchMetadata: z.lazy(() =>
+    CreateInputElasticsearchMetadata$outboundSchema
+  ).optional(),
 });
 
-export function authTokensExtToJSON(authTokensExt: AuthTokensExt): string {
-  return JSON.stringify(AuthTokensExt$outboundSchema.parse(authTokensExt));
+export function createInputAuthTokensExtToJSON(
+  createInputAuthTokensExt: CreateInputAuthTokensExt,
+): string {
+  return JSON.stringify(
+    CreateInputAuthTokensExt$outboundSchema.parse(createInputAuthTokensExt),
+  );
+}
+export function createInputAuthTokensExtFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputAuthTokensExt, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputAuthTokensExt$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputAuthTokensExt' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputCriblLakeHttp$Outbound = {
+export const CreateInputInputCriblLakeHttp$inboundSchema: z.ZodType<
+  CreateInputInputCriblLakeHttp,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("cribl_lake_http"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(z.array(types.string())),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  criblAPI: types.optional(types.string()),
+  elasticAPI: types.optional(types.string()),
+  splunkHecAPI: types.optional(types.string()),
+  splunkHecAcks: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  authTokensExt: types.optional(
+    z.array(z.lazy(() => CreateInputAuthTokensExt$inboundSchema)),
+  ),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  __template_splunkHecAPI: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputCriblLakeHttp$Outbound = {
   id: string;
   type: "cribl_lake_http";
   disabled?: boolean | undefined;
@@ -12838,16 +16688,19 @@ export type InputCriblLakeHttp$Outbound = {
   elasticAPI?: string | undefined;
   splunkHecAPI?: string | undefined;
   splunkHecAcks?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  authTokensExt?: Array<AuthTokensExt$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  authTokensExt?: Array<CreateInputAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_splunkHecAPI?: string | undefined;
 };
 
 /** @internal */
-export const InputCriblLakeHttp$outboundSchema: z.ZodType<
-  InputCriblLakeHttp$Outbound,
+export const CreateInputInputCriblLakeHttp$outboundSchema: z.ZodType<
+  CreateInputInputCriblLakeHttp$Outbound,
   z.ZodTypeDef,
-  InputCriblLakeHttp
+  CreateInputInputCriblLakeHttp
 > = z.object({
   id: z.string(),
   type: z.literal("cribl_lake_http"),
@@ -12879,22 +16732,74 @@ export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().optional(),
   splunkHecAPI: z.string().optional(),
   splunkHecAcks: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  authTokensExt: z.array(z.lazy(() => CreateInputAuthTokensExt$outboundSchema))
     .optional(),
-  authTokensExt: z.array(z.lazy(() => AuthTokensExt$outboundSchema)).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_splunkHecAPI: z.string().optional(),
 });
 
-export function inputCriblLakeHttpToJSON(
-  inputCriblLakeHttp: InputCriblLakeHttp,
+export function createInputInputCriblLakeHttpToJSON(
+  createInputInputCriblLakeHttp: CreateInputInputCriblLakeHttp,
 ): string {
   return JSON.stringify(
-    InputCriblLakeHttp$outboundSchema.parse(inputCriblLakeHttp),
+    CreateInputInputCriblLakeHttp$outboundSchema.parse(
+      createInputInputCriblLakeHttp,
+    ),
+  );
+}
+export function createInputInputCriblLakeHttpFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputCriblLakeHttp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputCriblLakeHttp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputCriblLakeHttp' from JSON`,
   );
 }
 
 /** @internal */
-export type InputCriblHttp$Outbound = {
+export const CreateInputInputCriblHttp$inboundSchema: z.ZodType<
+  CreateInputInputCriblHttp,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("cribl_http"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(z.array(models.ItemsTypeAuthTokens$inboundSchema)),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputCriblHttp$Outbound = {
   id: string;
   type: "cribl_http";
   disabled?: boolean | undefined;
@@ -12920,15 +16825,17 @@ export type InputCriblHttp$Outbound = {
   enableHealthCheck?: boolean | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputCriblHttp$outboundSchema: z.ZodType<
-  InputCriblHttp$Outbound,
+export const CreateInputInputCriblHttp$outboundSchema: z.ZodType<
+  CreateInputInputCriblHttp$Outbound,
   z.ZodTypeDef,
-  InputCriblHttp
+  CreateInputInputCriblHttp
 > = z.object({
   id: z.string(),
   type: z.literal("cribl_http"),
@@ -12956,17 +16863,64 @@ export const InputCriblHttp$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputCriblHttpToJSON(inputCriblHttp: InputCriblHttp): string {
-  return JSON.stringify(InputCriblHttp$outboundSchema.parse(inputCriblHttp));
+export function createInputInputCriblHttpToJSON(
+  createInputInputCriblHttp: CreateInputInputCriblHttp,
+): string {
+  return JSON.stringify(
+    CreateInputInputCriblHttp$outboundSchema.parse(createInputInputCriblHttp),
+  );
+}
+export function createInputInputCriblHttpFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputCriblHttp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputCriblHttp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputCriblHttp' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputCriblTcp$Outbound = {
+export const CreateInputInputCriblTcp$inboundSchema: z.ZodType<
+  CreateInputInputCriblTcp,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("cribl_tcp"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveCxn: types.optional(types.number()),
+  socketIdleTimeout: types.optional(types.number()),
+  socketEndingMaxWait: types.optional(types.number()),
+  socketMaxLifespan: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  enableLoadBalancing: types.optional(types.boolean()),
+  authTokens: types.optional(z.array(models.ItemsTypeAuthTokens$inboundSchema)),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputCriblTcp$Outbound = {
   id: string;
   type: "cribl_tcp";
   disabled?: boolean | undefined;
@@ -12985,17 +16939,19 @@ export type InputCriblTcp$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   enableLoadBalancing?: boolean | undefined;
   authTokens?: Array<models.ItemsTypeAuthTokens$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputCriblTcp$outboundSchema: z.ZodType<
-  InputCriblTcp$Outbound,
+export const CreateInputInputCriblTcp$outboundSchema: z.ZodType<
+  CreateInputInputCriblTcp$Outbound,
   z.ZodTypeDef,
-  InputCriblTcp
+  CreateInputInputCriblTcp
 > = z.object({
   id: z.string(),
   type: z.literal("cribl_tcp"),
@@ -13016,19 +16972,55 @@ export const InputCriblTcp$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   enableLoadBalancing: z.boolean().optional(),
   authTokens: z.array(models.ItemsTypeAuthTokens$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputCriblTcpToJSON(inputCriblTcp: InputCriblTcp): string {
-  return JSON.stringify(InputCriblTcp$outboundSchema.parse(inputCriblTcp));
+export function createInputInputCriblTcpToJSON(
+  createInputInputCriblTcp: CreateInputInputCriblTcp,
+): string {
+  return JSON.stringify(
+    CreateInputInputCriblTcp$outboundSchema.parse(createInputInputCriblTcp),
+  );
+}
+export function createInputInputCriblTcpFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputCriblTcp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputCriblTcp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputCriblTcp' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputCribl$Outbound = {
+export const CreateInputInputCribl$inboundSchema: z.ZodType<
+  CreateInputInputCribl,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("cribl"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  filter: types.optional(types.string()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputCribl$Outbound = {
   id: string;
   type: "cribl";
   disabled?: boolean | undefined;
@@ -13040,15 +17032,15 @@ export type InputCribl$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   filter?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputCribl$outboundSchema: z.ZodType<
-  InputCribl$Outbound,
+export const CreateInputInputCribl$outboundSchema: z.ZodType<
+  CreateInputInputCribl$Outbound,
   z.ZodTypeDef,
-  InputCribl
+  CreateInputInputCribl
 > = z.object({
   id: z.string(),
   type: z.literal("cribl"),
@@ -13062,17 +17054,68 @@ export const InputCribl$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   filter: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-export function inputCriblToJSON(inputCribl: InputCribl): string {
-  return JSON.stringify(InputCribl$outboundSchema.parse(inputCribl));
+export function createInputInputCriblToJSON(
+  createInputInputCribl: CreateInputInputCribl,
+): string {
+  return JSON.stringify(
+    CreateInputInputCribl$outboundSchema.parse(createInputInputCribl),
+  );
+}
+export function createInputInputCriblFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputCribl, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputCribl$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputCribl' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputGooglePubsub$Outbound = {
+export const CreateInputInputGooglePubsub$inboundSchema: z.ZodType<
+  CreateInputInputGooglePubsub,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("google_pubsub"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  topicName: types.string(),
+  subscriptionName: types.string(),
+  monitorSubscription: types.optional(types.boolean()),
+  createTopic: types.optional(types.boolean()),
+  createSubscription: types.optional(types.boolean()),
+  region: types.optional(types.string()),
+  googleAuthMethod: types.optional(
+    models.GoogleAuthenticationMethodOptions$inboundSchema,
+  ),
+  serviceAccountCredentials: types.optional(types.string()),
+  secret: types.optional(types.string()),
+  maxBacklog: types.optional(types.number()),
+  concurrency: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+  orderedDelivery: types.optional(types.boolean()),
+  __template_topicName: types.optional(types.string()),
+  __template_subscriptionName: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputGooglePubsub$Outbound = {
   id: string;
   type: "google_pubsub";
   disabled?: boolean | undefined;
@@ -13095,16 +17138,19 @@ export type InputGooglePubsub$Outbound = {
   maxBacklog?: number | undefined;
   concurrency?: number | undefined;
   requestTimeout?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   orderedDelivery?: boolean | undefined;
+  __template_topicName?: string | undefined;
+  __template_subscriptionName?: string | undefined;
+  __template_region?: string | undefined;
 };
 
 /** @internal */
-export const InputGooglePubsub$outboundSchema: z.ZodType<
-  InputGooglePubsub$Outbound,
+export const CreateInputInputGooglePubsub$outboundSchema: z.ZodType<
+  CreateInputInputGooglePubsub$Outbound,
   z.ZodTypeDef,
-  InputGooglePubsub
+  CreateInputInputGooglePubsub
 > = z.object({
   id: z.string(),
   type: z.literal("google_pubsub"),
@@ -13130,22 +17176,73 @@ export const InputGooglePubsub$outboundSchema: z.ZodType<
   maxBacklog: z.number().optional(),
   concurrency: z.number().optional(),
   requestTimeout: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   orderedDelivery: z.boolean().optional(),
+  __template_topicName: z.string().optional(),
+  __template_subscriptionName: z.string().optional(),
+  __template_region: z.string().optional(),
 });
 
-export function inputGooglePubsubToJSON(
-  inputGooglePubsub: InputGooglePubsub,
+export function createInputInputGooglePubsubToJSON(
+  createInputInputGooglePubsub: CreateInputInputGooglePubsub,
 ): string {
   return JSON.stringify(
-    InputGooglePubsub$outboundSchema.parse(inputGooglePubsub),
+    CreateInputInputGooglePubsub$outboundSchema.parse(
+      createInputInputGooglePubsub,
+    ),
+  );
+}
+export function createInputInputGooglePubsubFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputGooglePubsub, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputGooglePubsub$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputGooglePubsub' from JSON`,
   );
 }
 
 /** @internal */
-export type InputFirehose$Outbound = {
+export const CreateInputInputFirehose$inboundSchema: z.ZodType<
+  CreateInputInputFirehose,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("firehose"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(z.array(types.string())),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputFirehose$Outbound = {
   id: string;
   type: "firehose";
   disabled?: boolean | undefined;
@@ -13171,15 +17268,17 @@ export type InputFirehose$Outbound = {
   enableHealthCheck?: boolean | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputFirehose$outboundSchema: z.ZodType<
-  InputFirehose$Outbound,
+export const CreateInputInputFirehose$outboundSchema: z.ZodType<
+  CreateInputInputFirehose$Outbound,
   z.ZodTypeDef,
-  InputFirehose
+  CreateInputInputFirehose
 > = z.object({
   id: z.string(),
   type: z.literal("firehose"),
@@ -13207,24 +17306,73 @@ export const InputFirehose$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputFirehoseToJSON(inputFirehose: InputFirehose): string {
-  return JSON.stringify(InputFirehose$outboundSchema.parse(inputFirehose));
+export function createInputInputFirehoseToJSON(
+  createInputInputFirehose: CreateInputInputFirehose,
+): string {
+  return JSON.stringify(
+    CreateInputInputFirehose$outboundSchema.parse(createInputInputFirehose),
+  );
+}
+export function createInputInputFirehoseFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputFirehose, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputFirehose$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputFirehose' from JSON`,
+  );
 }
 
 /** @internal */
-export const ScheduleType$outboundSchema: z.ZodType<
+export const CreateInputScheduleType$inboundSchema: z.ZodType<
+  CreateInputScheduleType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputScheduleType);
+/** @internal */
+export const CreateInputScheduleType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ScheduleType
-> = openEnums.outboundSchema(ScheduleType);
+  CreateInputScheduleType
+> = openEnums.outboundSchema(CreateInputScheduleType);
 
 /** @internal */
-export type InputExec$Outbound = {
+export const CreateInputInputExec$inboundSchema: z.ZodType<
+  CreateInputInputExec,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("exec"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  command: types.string(),
+  script: types.optional(types.string()),
+  retries: types.optional(types.number()),
+  scheduleType: types.optional(CreateInputScheduleType$inboundSchema),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+  interval: types.optional(types.number()),
+  cronSchedule: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputExec$Outbound = {
   id: string;
   type: "exec";
   disabled?: boolean | undefined;
@@ -13236,21 +17384,22 @@ export type InputExec$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   command: string;
+  script?: string | undefined;
   retries?: number | undefined;
   scheduleType?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   interval?: number | undefined;
   cronSchedule?: string | undefined;
 };
 
 /** @internal */
-export const InputExec$outboundSchema: z.ZodType<
-  InputExec$Outbound,
+export const CreateInputInputExec$outboundSchema: z.ZodType<
+  CreateInputInputExec$Outbound,
   z.ZodTypeDef,
-  InputExec
+  CreateInputInputExec
 > = z.object({
   id: z.string(),
   type: z.literal("exec"),
@@ -13264,23 +17413,80 @@ export const InputExec$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   command: z.string(),
+  script: z.string().optional(),
   retries: z.number().optional(),
-  scheduleType: ScheduleType$outboundSchema.optional(),
+  scheduleType: CreateInputScheduleType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   interval: z.number().optional(),
   cronSchedule: z.string().optional(),
 });
 
-export function inputExecToJSON(inputExec: InputExec): string {
-  return JSON.stringify(InputExec$outboundSchema.parse(inputExec));
+export function createInputInputExecToJSON(
+  createInputInputExec: CreateInputInputExec,
+): string {
+  return JSON.stringify(
+    CreateInputInputExec$outboundSchema.parse(createInputInputExec),
+  );
+}
+export function createInputInputExecFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputExec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputExec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputExec' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputEventhub$Outbound = {
+export const CreateInputInputEventhub$inboundSchema: z.ZodType<
+  CreateInputInputEventhub,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("eventhub"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  brokers: z.array(types.string()),
+  topics: z.array(types.string()),
+  groupId: types.optional(types.string()),
+  fromBeginning: types.optional(types.boolean()),
+  connectionTimeout: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  maxRetries: types.optional(types.number()),
+  maxBackOff: types.optional(types.number()),
+  initialBackoff: types.optional(types.number()),
+  backoffRate: types.optional(types.number()),
+  authenticationTimeout: types.optional(types.number()),
+  reauthenticationThreshold: types.optional(types.number()),
+  sasl: types.optional(models.AuthenticationType1$inboundSchema),
+  tls: types.optional(models.TlsSettingsClientSideType$inboundSchema),
+  sessionTimeout: types.optional(types.number()),
+  rebalanceTimeout: types.optional(types.number()),
+  heartbeatInterval: types.optional(types.number()),
+  autoCommitInterval: types.optional(types.number()),
+  autoCommitThreshold: types.optional(types.number()),
+  maxBytesPerPartition: types.optional(types.number()),
+  maxBytes: types.optional(types.number()),
+  maxSocketErrors: types.optional(types.number()),
+  minimizeDuplicates: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputEventhub$Outbound = {
   id: string;
   type: "eventhub";
   disabled?: boolean | undefined;
@@ -13314,15 +17520,15 @@ export type InputEventhub$Outbound = {
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
   minimizeDuplicates?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputEventhub$outboundSchema: z.ZodType<
-  InputEventhub$Outbound,
+export const CreateInputInputEventhub$outboundSchema: z.ZodType<
+  CreateInputInputEventhub$Outbound,
   z.ZodTypeDef,
-  InputEventhub
+  CreateInputInputEventhub
 > = z.object({
   id: z.string(),
   type: z.literal("eventhub"),
@@ -13358,31 +17564,70 @@ export const InputEventhub$outboundSchema: z.ZodType<
   maxBytes: z.number().optional(),
   maxSocketErrors: z.number().optional(),
   minimizeDuplicates: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-export function inputEventhubToJSON(inputEventhub: InputEventhub): string {
-  return JSON.stringify(InputEventhub$outboundSchema.parse(inputEventhub));
+export function createInputInputEventhubToJSON(
+  createInputInputEventhub: CreateInputInputEventhub,
+): string {
+  return JSON.stringify(
+    CreateInputInputEventhub$outboundSchema.parse(createInputInputEventhub),
+  );
+}
+export function createInputInputEventhubFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputEventhub, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputEventhub$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputEventhub' from JSON`,
+  );
 }
 
 /** @internal */
-export const AuthenticationMethodOffice365MsgTrace$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthenticationMethodOffice365MsgTrace
-> = openEnums.outboundSchema(AuthenticationMethodOffice365MsgTrace);
+export const CreateInputAuthenticationMethodOffice365MsgTrace$inboundSchema:
+  z.ZodType<
+    CreateInputAuthenticationMethodOffice365MsgTrace,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(CreateInputAuthenticationMethodOffice365MsgTrace);
+/** @internal */
+export const CreateInputAuthenticationMethodOffice365MsgTrace$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputAuthenticationMethodOffice365MsgTrace
+  > = openEnums.outboundSchema(
+    CreateInputAuthenticationMethodOffice365MsgTrace,
+  );
 
 /** @internal */
-export const LogLevelOffice365MsgTrace$outboundSchema: z.ZodType<
+export const CreateInputLogLevelOffice365MsgTrace$inboundSchema: z.ZodType<
+  CreateInputLogLevelOffice365MsgTrace,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputLogLevelOffice365MsgTrace);
+/** @internal */
+export const CreateInputLogLevelOffice365MsgTrace$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  LogLevelOffice365MsgTrace
-> = openEnums.outboundSchema(LogLevelOffice365MsgTrace);
+  CreateInputLogLevelOffice365MsgTrace
+> = openEnums.outboundSchema(CreateInputLogLevelOffice365MsgTrace);
 
 /** @internal */
-export type CertOptions$Outbound = {
+export const CreateInputCertOptions$inboundSchema: z.ZodType<
+  CreateInputCertOptions,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: types.optional(types.string()),
+  privKeyPath: types.string(),
+  passphrase: types.optional(types.string()),
+  certPath: types.string(),
+});
+/** @internal */
+export type CreateInputCertOptions$Outbound = {
   certificateName?: string | undefined;
   privKeyPath: string;
   passphrase?: string | undefined;
@@ -13390,10 +17635,10 @@ export type CertOptions$Outbound = {
 };
 
 /** @internal */
-export const CertOptions$outboundSchema: z.ZodType<
-  CertOptions$Outbound,
+export const CreateInputCertOptions$outboundSchema: z.ZodType<
+  CreateInputCertOptions$Outbound,
   z.ZodTypeDef,
-  CertOptions
+  CreateInputCertOptions
 > = z.object({
   certificateName: z.string().optional(),
   privKeyPath: z.string(),
@@ -13401,12 +17646,80 @@ export const CertOptions$outboundSchema: z.ZodType<
   certPath: z.string(),
 });
 
-export function certOptionsToJSON(certOptions: CertOptions): string {
-  return JSON.stringify(CertOptions$outboundSchema.parse(certOptions));
+export function createInputCertOptionsToJSON(
+  createInputCertOptions: CreateInputCertOptions,
+): string {
+  return JSON.stringify(
+    CreateInputCertOptions$outboundSchema.parse(createInputCertOptions),
+  );
+}
+export function createInputCertOptionsFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputCertOptions, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputCertOptions$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputCertOptions' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputOffice365MsgTrace$Outbound = {
+export const CreateInputInputOffice365MsgTrace$inboundSchema: z.ZodType<
+  CreateInputInputOffice365MsgTrace,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("office365_msg_trace"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  url: types.string(),
+  interval: types.number(),
+  startDate: types.optional(types.string()),
+  endDate: types.optional(types.string()),
+  timeout: types.optional(types.number()),
+  disableTimeFilter: types.optional(types.boolean()),
+  authType: types.optional(
+    CreateInputAuthenticationMethodOffice365MsgTrace$inboundSchema,
+  ),
+  rescheduleDroppedTasks: types.optional(types.boolean()),
+  maxTaskReschedule: types.optional(types.number()),
+  logLevel: types.optional(CreateInputLogLevelOffice365MsgTrace$inboundSchema),
+  jobTimeout: types.optional(types.string()),
+  keepAliveTime: types.optional(types.number()),
+  maxMissedKeepAlives: types.optional(types.number()),
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  retryRules: types.optional(models.RetryRulesType1$inboundSchema),
+  description: types.optional(types.string()),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  clientSecret: types.optional(types.string()),
+  tenantId: types.optional(types.string()),
+  clientId: types.optional(types.string()),
+  resource: types.optional(types.string()),
+  planType: types.optional(models.SubscriptionPlanOptions$inboundSchema),
+  textSecret: types.optional(types.string()),
+  certOptions: types.optional(
+    z.lazy(() => CreateInputCertOptions$inboundSchema),
+  ),
+  __template_url: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
+  __template_resource: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputOffice365MsgTrace$Outbound = {
   id: string;
   type: "office365_msg_trace";
   disabled?: boolean | undefined;
@@ -13432,7 +17745,7 @@ export type InputOffice365MsgTrace$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: models.RetryRulesType1$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -13444,14 +17757,18 @@ export type InputOffice365MsgTrace$Outbound = {
   resource?: string | undefined;
   planType?: string | undefined;
   textSecret?: string | undefined;
-  certOptions?: CertOptions$Outbound | undefined;
+  certOptions?: CreateInputCertOptions$Outbound | undefined;
+  __template_url?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_resource?: string | undefined;
 };
 
 /** @internal */
-export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
-  InputOffice365MsgTrace$Outbound,
+export const CreateInputInputOffice365MsgTrace$outboundSchema: z.ZodType<
+  CreateInputInputOffice365MsgTrace$Outbound,
   z.ZodTypeDef,
-  InputOffice365MsgTrace
+  CreateInputInputOffice365MsgTrace
 > = z.object({
   id: z.string(),
   type: z.literal("office365_msg_trace"),
@@ -13470,17 +17787,17 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   endDate: z.string().optional(),
   timeout: z.number().optional(),
   disableTimeFilter: z.boolean().optional(),
-  authType: AuthenticationMethodOffice365MsgTrace$outboundSchema.optional(),
+  authType: CreateInputAuthenticationMethodOffice365MsgTrace$outboundSchema
+    .optional(),
   rescheduleDroppedTasks: z.boolean().optional(),
   maxTaskReschedule: z.number().optional(),
-  logLevel: LogLevelOffice365MsgTrace$outboundSchema.optional(),
+  logLevel: CreateInputLogLevelOffice365MsgTrace$outboundSchema.optional(),
   jobTimeout: z.string().optional(),
   keepAliveTime: z.number().optional(),
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: models.RetryRulesType1$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -13492,19 +17809,48 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   resource: z.string().optional(),
   planType: models.SubscriptionPlanOptions$outboundSchema.optional(),
   textSecret: z.string().optional(),
-  certOptions: z.lazy(() => CertOptions$outboundSchema).optional(),
+  certOptions: z.lazy(() => CreateInputCertOptions$outboundSchema).optional(),
+  __template_url: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_resource: z.string().optional(),
 });
 
-export function inputOffice365MsgTraceToJSON(
-  inputOffice365MsgTrace: InputOffice365MsgTrace,
+export function createInputInputOffice365MsgTraceToJSON(
+  createInputInputOffice365MsgTrace: CreateInputInputOffice365MsgTrace,
 ): string {
   return JSON.stringify(
-    InputOffice365MsgTrace$outboundSchema.parse(inputOffice365MsgTrace),
+    CreateInputInputOffice365MsgTrace$outboundSchema.parse(
+      createInputInputOffice365MsgTrace,
+    ),
+  );
+}
+export function createInputInputOffice365MsgTraceFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputOffice365MsgTrace, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputOffice365MsgTrace$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputOffice365MsgTrace' from JSON`,
   );
 }
 
 /** @internal */
-export type ContentConfigOffice365Service$Outbound = {
+export const CreateInputContentConfigOffice365Service$inboundSchema: z.ZodType<
+  CreateInputContentConfigOffice365Service,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  contentType: types.optional(types.string()),
+  description: types.optional(types.string()),
+  interval: types.optional(types.number()),
+  logLevel: types.optional(
+    models.LogLevelOptionsContentConfigItems$inboundSchema,
+  ),
+  enabled: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputContentConfigOffice365Service$Outbound = {
   contentType?: string | undefined;
   description?: string | undefined;
   interval?: number | undefined;
@@ -13513,10 +17859,10 @@ export type ContentConfigOffice365Service$Outbound = {
 };
 
 /** @internal */
-export const ContentConfigOffice365Service$outboundSchema: z.ZodType<
-  ContentConfigOffice365Service$Outbound,
+export const CreateInputContentConfigOffice365Service$outboundSchema: z.ZodType<
+  CreateInputContentConfigOffice365Service$Outbound,
   z.ZodTypeDef,
-  ContentConfigOffice365Service
+  CreateInputContentConfigOffice365Service
 > = z.object({
   contentType: z.string().optional(),
   description: z.string().optional(),
@@ -13525,18 +17871,76 @@ export const ContentConfigOffice365Service$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
 });
 
-export function contentConfigOffice365ServiceToJSON(
-  contentConfigOffice365Service: ContentConfigOffice365Service,
+export function createInputContentConfigOffice365ServiceToJSON(
+  createInputContentConfigOffice365Service:
+    CreateInputContentConfigOffice365Service,
 ): string {
   return JSON.stringify(
-    ContentConfigOffice365Service$outboundSchema.parse(
-      contentConfigOffice365Service,
+    CreateInputContentConfigOffice365Service$outboundSchema.parse(
+      createInputContentConfigOffice365Service,
     ),
+  );
+}
+export function createInputContentConfigOffice365ServiceFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  CreateInputContentConfigOffice365Service,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CreateInputContentConfigOffice365Service$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'CreateInputContentConfigOffice365Service' from JSON`,
   );
 }
 
 /** @internal */
-export type InputOffice365Service$Outbound = {
+export const CreateInputInputOffice365Service$inboundSchema: z.ZodType<
+  CreateInputInputOffice365Service,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("office365_service"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  planType: types.optional(models.SubscriptionPlanOptions$inboundSchema),
+  tenantId: types.string(),
+  appId: types.string(),
+  timeout: types.optional(types.number()),
+  keepAliveTime: types.optional(types.number()),
+  jobTimeout: types.optional(types.string()),
+  maxMissedKeepAlives: types.optional(types.number()),
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  contentConfig: types.optional(
+    z.array(
+      z.lazy(() => CreateInputContentConfigOffice365Service$inboundSchema),
+    ),
+  ),
+  retryRules: types.optional(models.RetryRulesType1$inboundSchema),
+  authType: types.optional(models.AuthenticationMethodOptions1$inboundSchema),
+  description: types.optional(types.string()),
+  clientSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_appId: types.optional(types.string()),
+  __template_clientSecret: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputOffice365Service$Outbound = {
   id: string;
   type: "office365_service";
   disabled?: boolean | undefined;
@@ -13556,20 +17960,25 @@ export type InputOffice365Service$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  contentConfig?: Array<ContentConfigOffice365Service$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  contentConfig?:
+    | Array<CreateInputContentConfigOffice365Service$Outbound>
+    | undefined;
   retryRules?: models.RetryRulesType1$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_appId?: string | undefined;
+  __template_clientSecret?: string | undefined;
 };
 
 /** @internal */
-export const InputOffice365Service$outboundSchema: z.ZodType<
-  InputOffice365Service$Outbound,
+export const CreateInputInputOffice365Service$outboundSchema: z.ZodType<
+  CreateInputInputOffice365Service$Outbound,
   z.ZodTypeDef,
-  InputOffice365Service
+  CreateInputInputOffice365Service
 > = z.object({
   id: z.string(),
   type: z.literal("office365_service"),
@@ -13591,28 +18000,55 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   contentConfig: z.array(
-    z.lazy(() => ContentConfigOffice365Service$outboundSchema),
+    z.lazy(() => CreateInputContentConfigOffice365Service$outboundSchema),
   ).optional(),
   retryRules: models.RetryRulesType1$outboundSchema.optional(),
   authType: models.AuthenticationMethodOptions1$outboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_appId: z.string().optional(),
+  __template_clientSecret: z.string().optional(),
 });
 
-export function inputOffice365ServiceToJSON(
-  inputOffice365Service: InputOffice365Service,
+export function createInputInputOffice365ServiceToJSON(
+  createInputInputOffice365Service: CreateInputInputOffice365Service,
 ): string {
   return JSON.stringify(
-    InputOffice365Service$outboundSchema.parse(inputOffice365Service),
+    CreateInputInputOffice365Service$outboundSchema.parse(
+      createInputInputOffice365Service,
+    ),
+  );
+}
+export function createInputInputOffice365ServiceFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputOffice365Service, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputOffice365Service$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputOffice365Service' from JSON`,
   );
 }
 
 /** @internal */
-export type ContentConfigOffice365Mgmt$Outbound = {
+export const CreateInputContentConfigOffice365Mgmt$inboundSchema: z.ZodType<
+  CreateInputContentConfigOffice365Mgmt,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  contentType: types.optional(types.string()),
+  description: types.optional(types.string()),
+  interval: types.optional(types.number()),
+  logLevel: types.optional(
+    models.LogLevelOptionsContentConfigItems$inboundSchema,
+  ),
+  enabled: types.optional(types.boolean()),
+});
+/** @internal */
+export type CreateInputContentConfigOffice365Mgmt$Outbound = {
   contentType?: string | undefined;
   description?: string | undefined;
   interval?: number | undefined;
@@ -13621,10 +18057,10 @@ export type ContentConfigOffice365Mgmt$Outbound = {
 };
 
 /** @internal */
-export const ContentConfigOffice365Mgmt$outboundSchema: z.ZodType<
-  ContentConfigOffice365Mgmt$Outbound,
+export const CreateInputContentConfigOffice365Mgmt$outboundSchema: z.ZodType<
+  CreateInputContentConfigOffice365Mgmt$Outbound,
   z.ZodTypeDef,
-  ContentConfigOffice365Mgmt
+  CreateInputContentConfigOffice365Mgmt
 > = z.object({
   contentType: z.string().optional(),
   description: z.string().optional(),
@@ -13633,16 +18069,71 @@ export const ContentConfigOffice365Mgmt$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
 });
 
-export function contentConfigOffice365MgmtToJSON(
-  contentConfigOffice365Mgmt: ContentConfigOffice365Mgmt,
+export function createInputContentConfigOffice365MgmtToJSON(
+  createInputContentConfigOffice365Mgmt: CreateInputContentConfigOffice365Mgmt,
 ): string {
   return JSON.stringify(
-    ContentConfigOffice365Mgmt$outboundSchema.parse(contentConfigOffice365Mgmt),
+    CreateInputContentConfigOffice365Mgmt$outboundSchema.parse(
+      createInputContentConfigOffice365Mgmt,
+    ),
+  );
+}
+export function createInputContentConfigOffice365MgmtFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputContentConfigOffice365Mgmt, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CreateInputContentConfigOffice365Mgmt$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputContentConfigOffice365Mgmt' from JSON`,
   );
 }
 
 /** @internal */
-export type InputOffice365Mgmt$Outbound = {
+export const CreateInputInputOffice365Mgmt$inboundSchema: z.ZodType<
+  CreateInputInputOffice365Mgmt,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("office365_mgmt"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  planType: models.SubscriptionPlanOptions$inboundSchema,
+  tenantId: types.string(),
+  appId: types.string(),
+  timeout: types.optional(types.number()),
+  keepAliveTime: types.optional(types.number()),
+  jobTimeout: types.optional(types.string()),
+  maxMissedKeepAlives: types.optional(types.number()),
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  publisherIdentifier: types.optional(types.string()),
+  contentConfig: types.optional(
+    z.array(z.lazy(() => CreateInputContentConfigOffice365Mgmt$inboundSchema)),
+  ),
+  ingestionLag: types.optional(types.number()),
+  retryRules: types.optional(models.RetryRulesType1$inboundSchema),
+  authType: types.optional(models.AuthenticationMethodOptions1$inboundSchema),
+  description: types.optional(types.string()),
+  clientSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_appId: types.optional(types.string()),
+  __template_publisherIdentifier: types.optional(types.string()),
+  __template_clientSecret: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputOffice365Mgmt$Outbound = {
   id: string;
   type: "office365_mgmt";
   disabled?: boolean | undefined;
@@ -13662,22 +18153,28 @@ export type InputOffice365Mgmt$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   publisherIdentifier?: string | undefined;
-  contentConfig?: Array<ContentConfigOffice365Mgmt$Outbound> | undefined;
+  contentConfig?:
+    | Array<CreateInputContentConfigOffice365Mgmt$Outbound>
+    | undefined;
   ingestionLag?: number | undefined;
   retryRules?: models.RetryRulesType1$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_appId?: string | undefined;
+  __template_publisherIdentifier?: string | undefined;
+  __template_clientSecret?: string | undefined;
 };
 
 /** @internal */
-export const InputOffice365Mgmt$outboundSchema: z.ZodType<
-  InputOffice365Mgmt$Outbound,
+export const CreateInputInputOffice365Mgmt$outboundSchema: z.ZodType<
+  CreateInputInputOffice365Mgmt$Outbound,
   z.ZodTypeDef,
-  InputOffice365Mgmt
+  CreateInputInputOffice365Mgmt
 > = z.object({
   id: z.string(),
   type: z.literal("office365_mgmt"),
@@ -13699,11 +18196,10 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   publisherIdentifier: z.string().optional(),
   contentConfig: z.array(
-    z.lazy(() => ContentConfigOffice365Mgmt$outboundSchema),
+    z.lazy(() => CreateInputContentConfigOffice365Mgmt$outboundSchema),
   ).optional(),
   ingestionLag: z.number().optional(),
   retryRules: models.RetryRulesType1$outboundSchema.optional(),
@@ -13711,32 +18207,72 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_appId: z.string().optional(),
+  __template_publisherIdentifier: z.string().optional(),
+  __template_clientSecret: z.string().optional(),
 });
 
-export function inputOffice365MgmtToJSON(
-  inputOffice365Mgmt: InputOffice365Mgmt,
+export function createInputInputOffice365MgmtToJSON(
+  createInputInputOffice365Mgmt: CreateInputInputOffice365Mgmt,
 ): string {
   return JSON.stringify(
-    InputOffice365Mgmt$outboundSchema.parse(inputOffice365Mgmt),
+    CreateInputInputOffice365Mgmt$outboundSchema.parse(
+      createInputInputOffice365Mgmt,
+    ),
+  );
+}
+export function createInputInputOffice365MgmtFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputOffice365Mgmt, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputOffice365Mgmt$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputOffice365Mgmt' from JSON`,
   );
 }
 
 /** @internal */
-export const DiscoveryTypeEdgePrometheus$outboundSchema: z.ZodType<
+export const CreateInputDiscoveryTypeEdgePrometheus$inboundSchema: z.ZodType<
+  CreateInputDiscoveryTypeEdgePrometheus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputDiscoveryTypeEdgePrometheus);
+/** @internal */
+export const CreateInputDiscoveryTypeEdgePrometheus$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  DiscoveryTypeEdgePrometheus
-> = openEnums.outboundSchema(DiscoveryTypeEdgePrometheus);
+  CreateInputDiscoveryTypeEdgePrometheus
+> = openEnums.outboundSchema(CreateInputDiscoveryTypeEdgePrometheus);
 
 /** @internal */
-export const AuthenticationMethodEdgePrometheus$outboundSchema: z.ZodType<
-  string,
+export const CreateInputAuthenticationMethodEdgePrometheus$inboundSchema:
+  z.ZodType<
+    CreateInputAuthenticationMethodEdgePrometheus,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(CreateInputAuthenticationMethodEdgePrometheus);
+/** @internal */
+export const CreateInputAuthenticationMethodEdgePrometheus$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateInputAuthenticationMethodEdgePrometheus
+  > = openEnums.outboundSchema(CreateInputAuthenticationMethodEdgePrometheus);
+
+/** @internal */
+export const CreateInputTarget$inboundSchema: z.ZodType<
+  CreateInputTarget,
   z.ZodTypeDef,
-  AuthenticationMethodEdgePrometheus
-> = openEnums.outboundSchema(AuthenticationMethodEdgePrometheus);
-
+  unknown
+> = z.object({
+  protocol: types.optional(models.ProtocolOptionsTargetsItems$inboundSchema),
+  host: types.string(),
+  port: types.optional(types.number()),
+  path: types.optional(types.string()),
+});
 /** @internal */
-export type Target$Outbound = {
+export type CreateInputTarget$Outbound = {
   protocol?: string | undefined;
   host: string;
   port?: number | undefined;
@@ -13744,10 +18280,10 @@ export type Target$Outbound = {
 };
 
 /** @internal */
-export const Target$outboundSchema: z.ZodType<
-  Target$Outbound,
+export const CreateInputTarget$outboundSchema: z.ZodType<
+  CreateInputTarget$Outbound,
   z.ZodTypeDef,
-  Target
+  CreateInputTarget
 > = z.object({
   protocol: models.ProtocolOptionsTargetsItems$outboundSchema.optional(),
   host: z.string(),
@@ -13755,32 +18291,139 @@ export const Target$outboundSchema: z.ZodType<
   path: z.string().optional(),
 });
 
-export function targetToJSON(target: Target): string {
-  return JSON.stringify(Target$outboundSchema.parse(target));
+export function createInputTargetToJSON(
+  createInputTarget: CreateInputTarget,
+): string {
+  return JSON.stringify(
+    CreateInputTarget$outboundSchema.parse(createInputTarget),
+  );
+}
+export function createInputTargetFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputTarget, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputTarget$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputTarget' from JSON`,
+  );
 }
 
 /** @internal */
-export type PodFilter$Outbound = {
+export const CreateInputPodFilter$inboundSchema: z.ZodType<
+  CreateInputPodFilter,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  filter: types.string(),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputPodFilter$Outbound = {
   filter: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const PodFilter$outboundSchema: z.ZodType<
-  PodFilter$Outbound,
+export const CreateInputPodFilter$outboundSchema: z.ZodType<
+  CreateInputPodFilter$Outbound,
   z.ZodTypeDef,
-  PodFilter
+  CreateInputPodFilter
 > = z.object({
   filter: z.string(),
   description: z.string().optional(),
 });
 
-export function podFilterToJSON(podFilter: PodFilter): string {
-  return JSON.stringify(PodFilter$outboundSchema.parse(podFilter));
+export function createInputPodFilterToJSON(
+  createInputPodFilter: CreateInputPodFilter,
+): string {
+  return JSON.stringify(
+    CreateInputPodFilter$outboundSchema.parse(createInputPodFilter),
+  );
+}
+export function createInputPodFilterFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputPodFilter, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputPodFilter$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputPodFilter' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputEdgePrometheus$Outbound = {
+export const CreateInputInputEdgePrometheus$inboundSchema: z.ZodType<
+  CreateInputInputEdgePrometheus,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("edge_prometheus"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  dimensionList: types.optional(z.array(types.string())),
+  discoveryType: CreateInputDiscoveryTypeEdgePrometheus$inboundSchema,
+  interval: types.number(),
+  timeout: types.optional(types.number()),
+  persistence: types.optional(models.DiskSpoolingType$inboundSchema),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  authType: types.optional(
+    CreateInputAuthenticationMethodEdgePrometheus$inboundSchema,
+  ),
+  description: types.optional(types.string()),
+  targets: types.optional(
+    z.array(z.lazy(() => CreateInputTarget$inboundSchema)),
+  ),
+  recordType: types.optional(models.RecordTypeOptions$inboundSchema),
+  scrapePort: types.optional(types.number()),
+  nameList: types.optional(z.array(types.string())),
+  scrapeProtocol: types.optional(
+    models.ProtocolOptionsTargetsItems$inboundSchema,
+  ),
+  scrapePath: types.optional(types.string()),
+  awsAuthenticationMethod: types.optional(types.string()),
+  awsApiKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  usePublicIp: types.optional(types.boolean()),
+  searchFilter: types.optional(
+    z.array(models.ItemsTypeSearchFilter$inboundSchema),
+  ),
+  awsSecretKey: types.optional(types.string()),
+  region: types.optional(types.string()),
+  endpoint: types.optional(types.string()),
+  signatureVersion: types.optional(
+    models.SignatureVersionOptions1$inboundSchema,
+  ),
+  reuseConnections: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  enableAssumeRole: types.optional(types.boolean()),
+  assumeRoleArn: types.optional(types.string()),
+  assumeRoleExternalId: types.optional(types.string()),
+  durationSeconds: types.optional(types.number()),
+  scrapeProtocolExpr: types.optional(types.string()),
+  scrapePortExpr: types.optional(types.string()),
+  scrapePathExpr: types.optional(types.string()),
+  podFilter: types.optional(
+    z.array(z.lazy(() => CreateInputPodFilter$inboundSchema)),
+  ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputEdgePrometheus$Outbound = {
   id: string;
   type: "edge_prometheus";
   disabled?: boolean | undefined;
@@ -13796,10 +18439,10 @@ export type InputEdgePrometheus$Outbound = {
   interval: number;
   timeout?: number | undefined;
   persistence?: models.DiskSpoolingType$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
-  targets?: Array<Target$Outbound> | undefined;
+  targets?: Array<CreateInputTarget$Outbound> | undefined;
   recordType?: string | undefined;
   scrapePort?: number | undefined;
   nameList?: Array<string> | undefined;
@@ -13823,17 +18466,22 @@ export type InputEdgePrometheus$Outbound = {
   scrapeProtocolExpr?: string | undefined;
   scrapePortExpr?: string | undefined;
   scrapePathExpr?: string | undefined;
-  podFilter?: Array<PodFilter$Outbound> | undefined;
+  podFilter?: Array<CreateInputPodFilter$Outbound> | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
-export const InputEdgePrometheus$outboundSchema: z.ZodType<
-  InputEdgePrometheus$Outbound,
+export const CreateInputInputEdgePrometheus$outboundSchema: z.ZodType<
+  CreateInputInputEdgePrometheus$Outbound,
   z.ZodTypeDef,
-  InputEdgePrometheus
+  CreateInputInputEdgePrometheus
 > = z.object({
   id: z.string(),
   type: z.literal("edge_prometheus"),
@@ -13847,15 +18495,15 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
-  discoveryType: DiscoveryTypeEdgePrometheus$outboundSchema,
+  discoveryType: CreateInputDiscoveryTypeEdgePrometheus$outboundSchema,
   interval: z.number(),
   timeout: z.number().optional(),
   persistence: models.DiskSpoolingType$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  authType: CreateInputAuthenticationMethodEdgePrometheus$outboundSchema
     .optional(),
-  authType: AuthenticationMethodEdgePrometheus$outboundSchema.optional(),
   description: z.string().optional(),
-  targets: z.array(z.lazy(() => Target$outboundSchema)).optional(),
+  targets: z.array(z.lazy(() => CreateInputTarget$outboundSchema)).optional(),
   recordType: models.RecordTypeOptions$outboundSchema.optional(),
   scrapePort: z.number().optional(),
   nameList: z.array(z.string()).optional(),
@@ -13879,43 +18527,148 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   scrapeProtocolExpr: z.string().optional(),
   scrapePortExpr: z.string().optional(),
   scrapePathExpr: z.string().optional(),
-  podFilter: z.array(z.lazy(() => PodFilter$outboundSchema)).optional(),
+  podFilter: z.array(z.lazy(() => CreateInputPodFilter$outboundSchema))
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
-export function inputEdgePrometheusToJSON(
-  inputEdgePrometheus: InputEdgePrometheus,
+export function createInputInputEdgePrometheusToJSON(
+  createInputInputEdgePrometheus: CreateInputInputEdgePrometheus,
 ): string {
   return JSON.stringify(
-    InputEdgePrometheus$outboundSchema.parse(inputEdgePrometheus),
+    CreateInputInputEdgePrometheus$outboundSchema.parse(
+      createInputInputEdgePrometheus,
+    ),
+  );
+}
+export function createInputInputEdgePrometheusFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputEdgePrometheus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputEdgePrometheus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputEdgePrometheus' from JSON`,
   );
 }
 
 /** @internal */
-export const DiscoveryTypePrometheus$outboundSchema: z.ZodType<
+export const CreateInputDiscoveryTypePrometheus$inboundSchema: z.ZodType<
+  CreateInputDiscoveryTypePrometheus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputDiscoveryTypePrometheus);
+/** @internal */
+export const CreateInputDiscoveryTypePrometheus$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  DiscoveryTypePrometheus
-> = openEnums.outboundSchema(DiscoveryTypePrometheus);
+  CreateInputDiscoveryTypePrometheus
+> = openEnums.outboundSchema(CreateInputDiscoveryTypePrometheus);
 
 /** @internal */
-export const LogLevelPrometheus$outboundSchema: z.ZodType<
+export const CreateInputLogLevelPrometheus$inboundSchema: z.ZodType<
+  CreateInputLogLevelPrometheus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputLogLevelPrometheus);
+/** @internal */
+export const CreateInputLogLevelPrometheus$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  LogLevelPrometheus
-> = openEnums.outboundSchema(LogLevelPrometheus);
+  CreateInputLogLevelPrometheus
+> = openEnums.outboundSchema(CreateInputLogLevelPrometheus);
 
 /** @internal */
-export const MetricsProtocol$outboundSchema: z.ZodType<
+export const CreateInputMetricsProtocol$inboundSchema: z.ZodType<
+  CreateInputMetricsProtocol,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputMetricsProtocol);
+/** @internal */
+export const CreateInputMetricsProtocol$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  MetricsProtocol
-> = openEnums.outboundSchema(MetricsProtocol);
+  CreateInputMetricsProtocol
+> = openEnums.outboundSchema(CreateInputMetricsProtocol);
 
 /** @internal */
-export type InputPrometheus$Outbound = {
+export const CreateInputInputPrometheus$inboundSchema: z.ZodType<
+  CreateInputInputPrometheus,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("prometheus"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  dimensionList: types.optional(z.array(types.string())),
+  discoveryType: types.optional(
+    CreateInputDiscoveryTypePrometheus$inboundSchema,
+  ),
+  interval: types.number(),
+  logLevel: CreateInputLogLevelPrometheus$inboundSchema,
+  rejectUnauthorized: types.optional(types.boolean()),
+  timeout: types.optional(types.number()),
+  keepAliveTime: types.optional(types.number()),
+  jobTimeout: types.optional(types.string()),
+  maxMissedKeepAlives: types.optional(types.number()),
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  authType: types.optional(
+    models.AuthenticationMethodOptionsSasl$inboundSchema,
+  ),
+  description: types.optional(types.string()),
+  targetList: types.optional(z.array(types.string())),
+  recordType: types.optional(models.RecordTypeOptions$inboundSchema),
+  scrapePort: types.optional(types.number()),
+  nameList: types.optional(z.array(types.string())),
+  scrapeProtocol: types.optional(CreateInputMetricsProtocol$inboundSchema),
+  scrapePath: types.optional(types.string()),
+  awsAuthenticationMethod: types.optional(types.string()),
+  awsApiKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  usePublicIp: types.optional(types.boolean()),
+  searchFilter: types.optional(
+    z.array(models.ItemsTypeSearchFilter$inboundSchema),
+  ),
+  awsSecretKey: types.optional(types.string()),
+  region: types.optional(types.string()),
+  endpoint: types.optional(types.string()),
+  signatureVersion: types.optional(
+    models.SignatureVersionOptions1$inboundSchema,
+  ),
+  reuseConnections: types.optional(types.boolean()),
+  enableAssumeRole: types.optional(types.boolean()),
+  assumeRoleArn: types.optional(types.string()),
+  assumeRoleExternalId: types.optional(types.string()),
+  durationSeconds: types.optional(types.number()),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  __template_logLevel: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputPrometheus$Outbound = {
   id: string;
   type: "prometheus";
   disabled?: boolean | undefined;
@@ -13937,7 +18690,7 @@ export type InputPrometheus$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   targetList?: Array<string> | undefined;
@@ -13963,13 +18716,19 @@ export type InputPrometheus$Outbound = {
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
+  __template_logLevel?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
 };
 
 /** @internal */
-export const InputPrometheus$outboundSchema: z.ZodType<
-  InputPrometheus$Outbound,
+export const CreateInputInputPrometheus$outboundSchema: z.ZodType<
+  CreateInputInputPrometheus$Outbound,
   z.ZodTypeDef,
-  InputPrometheus
+  CreateInputInputPrometheus
 > = z.object({
   id: z.string(),
   type: z.literal("prometheus"),
@@ -13983,9 +18742,9 @@ export const InputPrometheus$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   dimensionList: z.array(z.string()).optional(),
-  discoveryType: DiscoveryTypePrometheus$outboundSchema.optional(),
+  discoveryType: CreateInputDiscoveryTypePrometheus$outboundSchema.optional(),
   interval: z.number(),
-  logLevel: LogLevelPrometheus$outboundSchema,
+  logLevel: CreateInputLogLevelPrometheus$outboundSchema,
   rejectUnauthorized: z.boolean().optional(),
   timeout: z.number().optional(),
   keepAliveTime: z.number().optional(),
@@ -13993,15 +18752,14 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   authType: models.AuthenticationMethodOptionsSasl$outboundSchema.optional(),
   description: z.string().optional(),
   targetList: z.array(z.string()).optional(),
   recordType: models.RecordTypeOptions$outboundSchema.optional(),
   scrapePort: z.number().optional(),
   nameList: z.array(z.string()).optional(),
-  scrapeProtocol: MetricsProtocol$outboundSchema.optional(),
+  scrapeProtocol: CreateInputMetricsProtocol$outboundSchema.optional(),
   scrapePath: z.string().optional(),
   awsAuthenticationMethod: z.string().optional(),
   awsApiKey: z.string().optional(),
@@ -14020,16 +18778,80 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
+  __template_logLevel: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
 });
 
-export function inputPrometheusToJSON(
-  inputPrometheus: InputPrometheus,
+export function createInputInputPrometheusToJSON(
+  createInputInputPrometheus: CreateInputInputPrometheus,
 ): string {
-  return JSON.stringify(InputPrometheus$outboundSchema.parse(inputPrometheus));
+  return JSON.stringify(
+    CreateInputInputPrometheus$outboundSchema.parse(createInputInputPrometheus),
+  );
+}
+export function createInputInputPrometheusFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputPrometheus, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputPrometheus$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputPrometheus' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputPrometheusRw$Outbound = {
+export const CreateInputInputPrometheusRw$inboundSchema: z.ZodType<
+  CreateInputInputPrometheusRw,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("prometheus_rw"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  prometheusAPI: types.string(),
+  authType: types.optional(
+    models.AuthenticationTypeOptionsPrometheusAuth$inboundSchema,
+  ),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  __template_prometheusAPI: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputPrometheusRw$Outbound = {
   id: string;
   type: "prometheus_rw";
   disabled?: boolean | undefined;
@@ -14056,28 +18878,23 @@ export type InputPrometheusRw$Outbound = {
   ipDenylistRegex?: string | undefined;
   prometheusAPI: string;
   authType?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_prometheusAPI?: string | undefined;
 };
 
 /** @internal */
-export const InputPrometheusRw$outboundSchema: z.ZodType<
-  InputPrometheusRw$Outbound,
+export const CreateInputInputPrometheusRw$outboundSchema: z.ZodType<
+  CreateInputInputPrometheusRw$Outbound,
   z.ZodTypeDef,
-  InputPrometheusRw
+  CreateInputInputPrometheusRw
 > = z.object({
   id: z.string(),
   type: z.literal("prometheus_rw"),
@@ -14107,34 +18924,85 @@ export const InputPrometheusRw$outboundSchema: z.ZodType<
   prometheusAPI: z.string(),
   authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
     .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_prometheusAPI: z.string().optional(),
 });
 
-export function inputPrometheusRwToJSON(
-  inputPrometheusRw: InputPrometheusRw,
+export function createInputInputPrometheusRwToJSON(
+  createInputInputPrometheusRw: CreateInputInputPrometheusRw,
 ): string {
   return JSON.stringify(
-    InputPrometheusRw$outboundSchema.parse(inputPrometheusRw),
+    CreateInputInputPrometheusRw$outboundSchema.parse(
+      createInputInputPrometheusRw,
+    ),
+  );
+}
+export function createInputInputPrometheusRwFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputPrometheusRw, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputPrometheusRw$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputPrometheusRw' from JSON`,
   );
 }
 
 /** @internal */
-export type InputLoki$Outbound = {
+export const CreateInputInputLoki$inboundSchema: z.ZodType<
+  CreateInputInputLoki,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("loki"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  lokiAPI: types.string(),
+  authType: types.optional(
+    models.AuthenticationTypeOptionsLokiAuth$inboundSchema,
+  ),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputLoki$Outbound = {
   id: string;
   type: "loki";
   disabled?: boolean | undefined;
@@ -14161,28 +19029,22 @@ export type InputLoki$Outbound = {
   ipDenylistRegex?: string | undefined;
   lokiAPI: string;
   authType?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputLoki$outboundSchema: z.ZodType<
-  InputLoki$Outbound,
+export const CreateInputInputLoki$outboundSchema: z.ZodType<
+  CreateInputInputLoki$Outbound,
   z.ZodTypeDef,
-  InputLoki
+  CreateInputInputLoki
 > = z.object({
   id: z.string(),
   type: z.literal("loki"),
@@ -14211,56 +19073,73 @@ export const InputLoki$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   lokiAPI: z.string(),
   authType: models.AuthenticationTypeOptionsLokiAuth$outboundSchema.optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputLokiToJSON(inputLoki: InputLoki): string {
-  return JSON.stringify(InputLoki$outboundSchema.parse(inputLoki));
+export function createInputInputLokiToJSON(
+  createInputInputLoki: CreateInputInputLoki,
+): string {
+  return JSON.stringify(
+    CreateInputInputLoki$outboundSchema.parse(createInputInputLoki),
+  );
+}
+export function createInputInputLokiFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputLoki, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputLoki$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputLoki' from JSON`,
+  );
 }
 
 /** @internal */
-export const InputGrafanaType2$outboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaType2
-> = z.nativeEnum(InputGrafanaType2);
+export const CreateInputInputGrafanaType2$inboundSchema: z.ZodNativeEnum<
+  typeof CreateInputInputGrafanaType2
+> = z.nativeEnum(CreateInputInputGrafanaType2);
+/** @internal */
+export const CreateInputInputGrafanaType2$outboundSchema: z.ZodNativeEnum<
+  typeof CreateInputInputGrafanaType2
+> = CreateInputInputGrafanaType2$inboundSchema;
 
 /** @internal */
-export type PrometheusAuth2$Outbound = {
+export const CreateInputPrometheusAuth2$inboundSchema: z.ZodType<
+  CreateInputPrometheusAuth2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: types.optional(
+    models.AuthenticationTypeOptionsPrometheusAuth$inboundSchema,
+  ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputPrometheusAuth2$Outbound = {
   authType?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
 };
 
 /** @internal */
-export const PrometheusAuth2$outboundSchema: z.ZodType<
-  PrometheusAuth2$Outbound,
+export const CreateInputPrometheusAuth2$outboundSchema: z.ZodType<
+  CreateInputPrometheusAuth2$Outbound,
   z.ZodTypeDef,
-  PrometheusAuth2
+  CreateInputPrometheusAuth2
 > = z.object({
   authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
     .optional(),
@@ -14269,45 +19148,55 @@ export const PrometheusAuth2$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
-export function prometheusAuth2ToJSON(
-  prometheusAuth2: PrometheusAuth2,
+export function createInputPrometheusAuth2ToJSON(
+  createInputPrometheusAuth2: CreateInputPrometheusAuth2,
 ): string {
-  return JSON.stringify(PrometheusAuth2$outboundSchema.parse(prometheusAuth2));
+  return JSON.stringify(
+    CreateInputPrometheusAuth2$outboundSchema.parse(createInputPrometheusAuth2),
+  );
+}
+export function createInputPrometheusAuth2FromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputPrometheusAuth2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputPrometheusAuth2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputPrometheusAuth2' from JSON`,
+  );
 }
 
 /** @internal */
-export type LokiAuth2$Outbound = {
+export const CreateInputLokiAuth2$inboundSchema: z.ZodType<
+  CreateInputLokiAuth2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: types.optional(
+    models.AuthenticationTypeOptionsLokiAuth$inboundSchema,
+  ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputLokiAuth2$Outbound = {
   authType?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
 };
 
 /** @internal */
-export const LokiAuth2$outboundSchema: z.ZodType<
-  LokiAuth2$Outbound,
+export const CreateInputLokiAuth2$outboundSchema: z.ZodType<
+  CreateInputLokiAuth2$Outbound,
   z.ZodTypeDef,
-  LokiAuth2
+  CreateInputLokiAuth2
 > = z.object({
   authType: models.AuthenticationTypeOptionsLokiAuth$outboundSchema.optional(),
   username: z.string().optional(),
@@ -14315,22 +19204,70 @@ export const LokiAuth2$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
-export function lokiAuth2ToJSON(lokiAuth2: LokiAuth2): string {
-  return JSON.stringify(LokiAuth2$outboundSchema.parse(lokiAuth2));
+export function createInputLokiAuth2ToJSON(
+  createInputLokiAuth2: CreateInputLokiAuth2,
+): string {
+  return JSON.stringify(
+    CreateInputLokiAuth2$outboundSchema.parse(createInputLokiAuth2),
+  );
+}
+export function createInputLokiAuth2FromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputLokiAuth2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputLokiAuth2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputLokiAuth2' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputGrafanaGrafana2$Outbound = {
+export const CreateInputInputGrafanaGrafana2$inboundSchema: z.ZodType<
+  CreateInputInputGrafanaGrafana2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: CreateInputInputGrafanaType2$inboundSchema,
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  prometheusAPI: types.optional(types.string()),
+  lokiAPI: types.string(),
+  prometheusAuth: types.optional(
+    z.lazy(() => CreateInputPrometheusAuth2$inboundSchema),
+  ),
+  lokiAuth: types.optional(z.lazy(() => CreateInputLokiAuth2$inboundSchema)),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputGrafanaGrafana2$Outbound = {
   id: string;
   type: string;
   disabled?: boolean | undefined;
@@ -14357,20 +19294,22 @@ export type InputGrafanaGrafana2$Outbound = {
   ipDenylistRegex?: string | undefined;
   prometheusAPI?: string | undefined;
   lokiAPI: string;
-  prometheusAuth?: PrometheusAuth2$Outbound | undefined;
-  lokiAuth?: LokiAuth2$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  prometheusAuth?: CreateInputPrometheusAuth2$Outbound | undefined;
+  lokiAuth?: CreateInputLokiAuth2$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
-  InputGrafanaGrafana2$Outbound,
+export const CreateInputInputGrafanaGrafana2$outboundSchema: z.ZodType<
+  CreateInputInputGrafanaGrafana2$Outbound,
   z.ZodTypeDef,
-  InputGrafanaGrafana2
+  CreateInputInputGrafanaGrafana2
 > = z.object({
   id: z.string(),
-  type: InputGrafanaType2$outboundSchema,
+  type: CreateInputInputGrafanaType2$outboundSchema,
   disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().optional(),
@@ -14396,49 +19335,73 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   prometheusAPI: z.string().optional(),
   lokiAPI: z.string(),
-  prometheusAuth: z.lazy(() => PrometheusAuth2$outboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth2$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  prometheusAuth: z.lazy(() => CreateInputPrometheusAuth2$outboundSchema)
     .optional(),
+  lokiAuth: z.lazy(() => CreateInputLokiAuth2$outboundSchema).optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputGrafanaGrafana2ToJSON(
-  inputGrafanaGrafana2: InputGrafanaGrafana2,
+export function createInputInputGrafanaGrafana2ToJSON(
+  createInputInputGrafanaGrafana2: CreateInputInputGrafanaGrafana2,
 ): string {
   return JSON.stringify(
-    InputGrafanaGrafana2$outboundSchema.parse(inputGrafanaGrafana2),
+    CreateInputInputGrafanaGrafana2$outboundSchema.parse(
+      createInputInputGrafanaGrafana2,
+    ),
+  );
+}
+export function createInputInputGrafanaGrafana2FromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputGrafanaGrafana2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputGrafanaGrafana2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputGrafanaGrafana2' from JSON`,
   );
 }
 
 /** @internal */
-export const InputGrafanaType1$outboundSchema: z.ZodNativeEnum<
-  typeof InputGrafanaType1
-> = z.nativeEnum(InputGrafanaType1);
+export const CreateInputInputGrafanaType1$inboundSchema: z.ZodNativeEnum<
+  typeof CreateInputInputGrafanaType1
+> = z.nativeEnum(CreateInputInputGrafanaType1);
+/** @internal */
+export const CreateInputInputGrafanaType1$outboundSchema: z.ZodNativeEnum<
+  typeof CreateInputInputGrafanaType1
+> = CreateInputInputGrafanaType1$inboundSchema;
 
 /** @internal */
-export type PrometheusAuth1$Outbound = {
+export const CreateInputPrometheusAuth1$inboundSchema: z.ZodType<
+  CreateInputPrometheusAuth1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: types.optional(
+    models.AuthenticationTypeOptionsPrometheusAuth$inboundSchema,
+  ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputPrometheusAuth1$Outbound = {
   authType?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
 };
 
 /** @internal */
-export const PrometheusAuth1$outboundSchema: z.ZodType<
-  PrometheusAuth1$Outbound,
+export const CreateInputPrometheusAuth1$outboundSchema: z.ZodType<
+  CreateInputPrometheusAuth1$Outbound,
   z.ZodTypeDef,
-  PrometheusAuth1
+  CreateInputPrometheusAuth1
 > = z.object({
   authType: models.AuthenticationTypeOptionsPrometheusAuth$outboundSchema
     .optional(),
@@ -14447,45 +19410,55 @@ export const PrometheusAuth1$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
-export function prometheusAuth1ToJSON(
-  prometheusAuth1: PrometheusAuth1,
+export function createInputPrometheusAuth1ToJSON(
+  createInputPrometheusAuth1: CreateInputPrometheusAuth1,
 ): string {
-  return JSON.stringify(PrometheusAuth1$outboundSchema.parse(prometheusAuth1));
+  return JSON.stringify(
+    CreateInputPrometheusAuth1$outboundSchema.parse(createInputPrometheusAuth1),
+  );
+}
+export function createInputPrometheusAuth1FromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputPrometheusAuth1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputPrometheusAuth1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputPrometheusAuth1' from JSON`,
+  );
 }
 
 /** @internal */
-export type LokiAuth1$Outbound = {
+export const CreateInputLokiAuth1$inboundSchema: z.ZodType<
+  CreateInputLokiAuth1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: types.optional(
+    models.AuthenticationTypeOptionsLokiAuth$inboundSchema,
+  ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputLokiAuth1$Outbound = {
   authType?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
 };
 
 /** @internal */
-export const LokiAuth1$outboundSchema: z.ZodType<
-  LokiAuth1$Outbound,
+export const CreateInputLokiAuth1$outboundSchema: z.ZodType<
+  CreateInputLokiAuth1$Outbound,
   z.ZodTypeDef,
-  LokiAuth1
+  CreateInputLokiAuth1
 > = z.object({
   authType: models.AuthenticationTypeOptionsLokiAuth$outboundSchema.optional(),
   username: z.string().optional(),
@@ -14493,22 +19466,70 @@ export const LokiAuth1$outboundSchema: z.ZodType<
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
-export function lokiAuth1ToJSON(lokiAuth1: LokiAuth1): string {
-  return JSON.stringify(LokiAuth1$outboundSchema.parse(lokiAuth1));
+export function createInputLokiAuth1ToJSON(
+  createInputLokiAuth1: CreateInputLokiAuth1,
+): string {
+  return JSON.stringify(
+    CreateInputLokiAuth1$outboundSchema.parse(createInputLokiAuth1),
+  );
+}
+export function createInputLokiAuth1FromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputLokiAuth1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputLokiAuth1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputLokiAuth1' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputGrafanaGrafana1$Outbound = {
+export const CreateInputInputGrafanaGrafana1$inboundSchema: z.ZodType<
+  CreateInputInputGrafanaGrafana1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: CreateInputInputGrafanaType1$inboundSchema,
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  prometheusAPI: types.string(),
+  lokiAPI: types.optional(types.string()),
+  prometheusAuth: types.optional(
+    z.lazy(() => CreateInputPrometheusAuth1$inboundSchema),
+  ),
+  lokiAuth: types.optional(z.lazy(() => CreateInputLokiAuth1$inboundSchema)),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputGrafanaGrafana1$Outbound = {
   id: string;
   type: string;
   disabled?: boolean | undefined;
@@ -14535,20 +19556,22 @@ export type InputGrafanaGrafana1$Outbound = {
   ipDenylistRegex?: string | undefined;
   prometheusAPI: string;
   lokiAPI?: string | undefined;
-  prometheusAuth?: PrometheusAuth1$Outbound | undefined;
-  lokiAuth?: LokiAuth1$Outbound | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  prometheusAuth?: CreateInputPrometheusAuth1$Outbound | undefined;
+  lokiAuth?: CreateInputLokiAuth1$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
-  InputGrafanaGrafana1$Outbound,
+export const CreateInputInputGrafanaGrafana1$outboundSchema: z.ZodType<
+  CreateInputInputGrafanaGrafana1$Outbound,
   z.ZodTypeDef,
-  InputGrafanaGrafana1
+  CreateInputInputGrafanaGrafana1
 > = z.object({
   id: z.string(),
-  type: InputGrafanaType1$outboundSchema,
+  type: CreateInputInputGrafanaType1$outboundSchema,
   disabled: z.boolean().optional(),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().optional(),
@@ -14574,42 +19597,127 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().optional(),
   prometheusAPI: z.string(),
   lokiAPI: z.string().optional(),
-  prometheusAuth: z.lazy(() => PrometheusAuth1$outboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth1$outboundSchema).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  prometheusAuth: z.lazy(() => CreateInputPrometheusAuth1$outboundSchema)
     .optional(),
+  lokiAuth: z.lazy(() => CreateInputLokiAuth1$outboundSchema).optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputGrafanaGrafana1ToJSON(
-  inputGrafanaGrafana1: InputGrafanaGrafana1,
+export function createInputInputGrafanaGrafana1ToJSON(
+  createInputInputGrafanaGrafana1: CreateInputInputGrafanaGrafana1,
 ): string {
   return JSON.stringify(
-    InputGrafanaGrafana1$outboundSchema.parse(inputGrafanaGrafana1),
+    CreateInputInputGrafanaGrafana1$outboundSchema.parse(
+      createInputInputGrafanaGrafana1,
+    ),
+  );
+}
+export function createInputInputGrafanaGrafana1FromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputGrafanaGrafana1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputGrafanaGrafana1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputGrafanaGrafana1' from JSON`,
   );
 }
 
 /** @internal */
-export type InputGrafana$Outbound =
-  | InputGrafanaGrafana1$Outbound
-  | InputGrafanaGrafana2$Outbound;
+export const CreateInputInputGrafanaUnion$inboundSchema: z.ZodType<
+  CreateInputInputGrafanaUnion,
+  z.ZodTypeDef,
+  unknown
+> = smartUnion([
+  z.lazy(() => CreateInputInputGrafanaGrafana1$inboundSchema),
+  z.lazy(() => CreateInputInputGrafanaGrafana2$inboundSchema),
+]);
+/** @internal */
+export type CreateInputInputGrafanaUnion$Outbound =
+  | CreateInputInputGrafanaGrafana1$Outbound
+  | CreateInputInputGrafanaGrafana2$Outbound;
 
 /** @internal */
-export const InputGrafana$outboundSchema: z.ZodType<
-  InputGrafana$Outbound,
+export const CreateInputInputGrafanaUnion$outboundSchema: z.ZodType<
+  CreateInputInputGrafanaUnion$Outbound,
   z.ZodTypeDef,
-  InputGrafana
+  CreateInputInputGrafanaUnion
 > = smartUnion([
-  z.lazy(() => InputGrafanaGrafana1$outboundSchema),
-  z.lazy(() => InputGrafanaGrafana2$outboundSchema),
+  z.lazy(() => CreateInputInputGrafanaGrafana1$outboundSchema),
+  z.lazy(() => CreateInputInputGrafanaGrafana2$outboundSchema),
 ]);
 
-export function inputGrafanaToJSON(inputGrafana: InputGrafana): string {
-  return JSON.stringify(InputGrafana$outboundSchema.parse(inputGrafana));
+export function createInputInputGrafanaUnionToJSON(
+  createInputInputGrafanaUnion: CreateInputInputGrafanaUnion,
+): string {
+  return JSON.stringify(
+    CreateInputInputGrafanaUnion$outboundSchema.parse(
+      createInputInputGrafanaUnion,
+    ),
+  );
+}
+export function createInputInputGrafanaUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputGrafanaUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputGrafanaUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputGrafanaUnion' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputConfluentCloud$Outbound = {
+export const CreateInputInputConfluentCloud$inboundSchema: z.ZodType<
+  CreateInputInputConfluentCloud,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("confluent_cloud"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  brokers: z.array(types.string()),
+  tls: types.optional(
+    models.TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  ),
+  topics: z.array(types.string()),
+  groupId: types.optional(types.string()),
+  fromBeginning: types.optional(types.boolean()),
+  kafkaSchemaRegistry: types.optional(
+    models.KafkaSchemaRegistryAuthenticationType$inboundSchema,
+  ),
+  connectionTimeout: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  maxRetries: types.optional(types.number()),
+  maxBackOff: types.optional(types.number()),
+  initialBackoff: types.optional(types.number()),
+  backoffRate: types.optional(types.number()),
+  authenticationTimeout: types.optional(types.number()),
+  reauthenticationThreshold: types.optional(types.number()),
+  sasl: types.optional(models.AuthenticationType$inboundSchema),
+  sessionTimeout: types.optional(types.number()),
+  rebalanceTimeout: types.optional(types.number()),
+  heartbeatInterval: types.optional(types.number()),
+  autoCommitInterval: types.optional(types.number()),
+  autoCommitThreshold: types.optional(types.number()),
+  maxBytesPerPartition: types.optional(types.number()),
+  maxBytes: types.optional(types.number()),
+  maxSocketErrors: types.optional(types.number()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputConfluentCloud$Outbound = {
   id: string;
   type: "confluent_cloud";
   disabled?: boolean | undefined;
@@ -14647,15 +19755,15 @@ export type InputConfluentCloud$Outbound = {
   maxBytesPerPartition?: number | undefined;
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputConfluentCloud$outboundSchema: z.ZodType<
-  InputConfluentCloud$Outbound,
+export const CreateInputInputConfluentCloud$outboundSchema: z.ZodType<
+  CreateInputInputConfluentCloud$Outbound,
   z.ZodTypeDef,
-  InputConfluentCloud
+  CreateInputInputConfluentCloud
 > = z.object({
   id: z.string(),
   type: z.literal("confluent_cloud"),
@@ -14693,26 +19801,48 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().optional(),
   maxBytes: z.number().optional(),
   maxSocketErrors: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-export function inputConfluentCloudToJSON(
-  inputConfluentCloud: InputConfluentCloud,
+export function createInputInputConfluentCloudToJSON(
+  createInputInputConfluentCloud: CreateInputInputConfluentCloud,
 ): string {
   return JSON.stringify(
-    InputConfluentCloud$outboundSchema.parse(inputConfluentCloud),
+    CreateInputInputConfluentCloud$outboundSchema.parse(
+      createInputInputConfluentCloud,
+    ),
+  );
+}
+export function createInputInputConfluentCloudFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputConfluentCloud, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputConfluentCloud$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputConfluentCloud' from JSON`,
   );
 }
 
 /** @internal */
-export const AuthenticationTypeElastic$outboundSchema: z.ZodType<
+export const CreateInputAuthenticationTypeElastic$inboundSchema: z.ZodType<
+  CreateInputAuthenticationTypeElastic,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputAuthenticationTypeElastic);
+/** @internal */
+export const CreateInputAuthenticationTypeElastic$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  AuthenticationTypeElastic
-> = openEnums.outboundSchema(AuthenticationTypeElastic);
+  CreateInputAuthenticationTypeElastic
+> = openEnums.outboundSchema(CreateInputAuthenticationTypeElastic);
 
+/** @internal */
+export const CreateInputAPIVersion$inboundSchema: z.ZodType<
+  CreateInputAPIVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputAPIVersion);
 /** @internal */
 export const CreateInputAPIVersion$outboundSchema: z.ZodType<
   string,
@@ -14721,14 +19851,39 @@ export const CreateInputAPIVersion$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateInputAPIVersion);
 
 /** @internal */
-export const ProxyModeAuthenticationMethod$outboundSchema: z.ZodType<
+export const CreateInputProxyModeAuthenticationMethod$inboundSchema: z.ZodType<
+  CreateInputProxyModeAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputProxyModeAuthenticationMethod);
+/** @internal */
+export const CreateInputProxyModeAuthenticationMethod$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  ProxyModeAuthenticationMethod
-> = openEnums.outboundSchema(ProxyModeAuthenticationMethod);
+  CreateInputProxyModeAuthenticationMethod
+> = openEnums.outboundSchema(CreateInputProxyModeAuthenticationMethod);
 
 /** @internal */
-export type ProxyModeElastic$Outbound = {
+export const CreateInputProxyModeElastic$inboundSchema: z.ZodType<
+  CreateInputProxyModeElastic,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: types.boolean(),
+  authType: types.optional(
+    CreateInputProxyModeAuthenticationMethod$inboundSchema,
+  ),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  url: types.optional(types.string()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  removeHeaders: types.optional(z.array(types.string())),
+  timeoutSec: types.optional(types.number()),
+  __template_url: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputProxyModeElastic$Outbound = {
   enabled: boolean;
   authType?: string | undefined;
   username?: string | undefined;
@@ -14738,16 +19893,17 @@ export type ProxyModeElastic$Outbound = {
   rejectUnauthorized?: boolean | undefined;
   removeHeaders?: Array<string> | undefined;
   timeoutSec?: number | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
-export const ProxyModeElastic$outboundSchema: z.ZodType<
-  ProxyModeElastic$Outbound,
+export const CreateInputProxyModeElastic$outboundSchema: z.ZodType<
+  CreateInputProxyModeElastic$Outbound,
   z.ZodTypeDef,
-  ProxyModeElastic
+  CreateInputProxyModeElastic
 > = z.object({
   enabled: z.boolean(),
-  authType: ProxyModeAuthenticationMethod$outboundSchema.optional(),
+  authType: CreateInputProxyModeAuthenticationMethod$outboundSchema.optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
@@ -14755,18 +19911,81 @@ export const ProxyModeElastic$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().optional(),
   removeHeaders: z.array(z.string()).optional(),
   timeoutSec: z.number().optional(),
+  __template_url: z.string().optional(),
 });
 
-export function proxyModeElasticToJSON(
-  proxyModeElastic: ProxyModeElastic,
+export function createInputProxyModeElasticToJSON(
+  createInputProxyModeElastic: CreateInputProxyModeElastic,
 ): string {
   return JSON.stringify(
-    ProxyModeElastic$outboundSchema.parse(proxyModeElastic),
+    CreateInputProxyModeElastic$outboundSchema.parse(
+      createInputProxyModeElastic,
+    ),
+  );
+}
+export function createInputProxyModeElasticFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputProxyModeElastic, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputProxyModeElastic$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputProxyModeElastic' from JSON`,
   );
 }
 
 /** @internal */
-export type InputElastic$Outbound = {
+export const CreateInputInputElastic$inboundSchema: z.ZodType<
+  CreateInputInputElastic,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("elastic"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  elasticAPI: types.string(),
+  authType: types.optional(CreateInputAuthenticationTypeElastic$inboundSchema),
+  apiVersion: types.optional(CreateInputAPIVersion$inboundSchema),
+  extraHttpHeaders: types.optional(
+    z.array(models.ItemsTypeExtraHttpHeaders$inboundSchema),
+  ),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  proxyMode: types.optional(
+    z.lazy(() => CreateInputProxyModeElastic$inboundSchema),
+  ),
+  description: types.optional(types.string()),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  authTokens: types.optional(z.array(types.string())),
+  customAPIVersion: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputElastic$Outbound = {
   id: string;
   type: "elastic";
   disabled?: boolean | undefined;
@@ -14797,21 +20016,23 @@ export type InputElastic$Outbound = {
   extraHttpHeaders?:
     | Array<models.ItemsTypeExtraHttpHeaders$Outbound>
     | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
-  proxyMode?: ProxyModeElastic$Outbound | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  proxyMode?: CreateInputProxyModeElastic$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
   credentialsSecret?: string | undefined;
   authTokens?: Array<string> | undefined;
   customAPIVersion?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputElastic$outboundSchema: z.ZodType<
-  InputElastic$Outbound,
+export const CreateInputInputElastic$outboundSchema: z.ZodType<
+  CreateInputInputElastic$Outbound,
   z.ZodTypeDef,
-  InputElastic
+  CreateInputInputElastic
 > = z.object({
   id: z.string(),
   type: z.literal("elastic"),
@@ -14839,27 +20060,90 @@ export const InputElastic$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   elasticAPI: z.string(),
-  authType: AuthenticationTypeElastic$outboundSchema.optional(),
+  authType: CreateInputAuthenticationTypeElastic$outboundSchema.optional(),
   apiVersion: CreateInputAPIVersion$outboundSchema.optional(),
   extraHttpHeaders: z.array(models.ItemsTypeExtraHttpHeaders$outboundSchema)
     .optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  proxyMode: z.lazy(() => CreateInputProxyModeElastic$outboundSchema)
     .optional(),
-  proxyMode: z.lazy(() => ProxyModeElastic$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
   authTokens: z.array(z.string()).optional(),
   customAPIVersion: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputElasticToJSON(inputElastic: InputElastic): string {
-  return JSON.stringify(InputElastic$outboundSchema.parse(inputElastic));
+export function createInputInputElasticToJSON(
+  createInputInputElastic: CreateInputInputElastic,
+): string {
+  return JSON.stringify(
+    CreateInputInputElastic$outboundSchema.parse(createInputInputElastic),
+  );
+}
+export function createInputInputElasticFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputElastic, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputElastic$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputElastic' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputAzureBlob$Outbound = {
+export const CreateInputInputAzureBlob$inboundSchema: z.ZodType<
+  CreateInputInputAzureBlob,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("azure_blob"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  queueName: types.string(),
+  fileFilter: types.optional(types.string()),
+  visibilityTimeout: types.optional(types.number()),
+  numReceivers: types.optional(types.number()),
+  maxMessages: types.optional(types.number()),
+  servicePeriodSecs: types.optional(types.number()),
+  skipOnError: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  parquetChunkSizeMB: types.optional(types.number()),
+  parquetChunkDownloadTimeout: types.optional(types.number()),
+  authType: types.optional(models.AuthenticationMethodOptions$inboundSchema),
+  description: types.optional(types.string()),
+  connectionString: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+  storageAccountName: types.optional(types.string()),
+  tenantId: types.optional(types.string()),
+  clientId: types.optional(types.string()),
+  azureCloud: types.optional(types.string()),
+  endpointSuffix: types.optional(types.string()),
+  clientTextSecret: types.optional(types.string()),
+  certificate: types.optional(
+    models.CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
+  ),
+  __template_queueName: types.optional(types.string()),
+  __template_connectionString: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputAzureBlob$Outbound = {
   id: string;
   type: "azure_blob";
   disabled?: boolean | undefined;
@@ -14877,7 +20161,7 @@ export type InputAzureBlob$Outbound = {
   maxMessages?: number | undefined;
   servicePeriodSecs?: number | undefined;
   skipOnError?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
@@ -14895,13 +20179,17 @@ export type InputAzureBlob$Outbound = {
   certificate?:
     | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
     | undefined;
+  __template_queueName?: string | undefined;
+  __template_connectionString?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
-export const InputAzureBlob$outboundSchema: z.ZodType<
-  InputAzureBlob$Outbound,
+export const CreateInputInputAzureBlob$outboundSchema: z.ZodType<
+  CreateInputInputAzureBlob$Outbound,
   z.ZodTypeDef,
-  InputAzureBlob
+  CreateInputInputAzureBlob
 > = z.object({
   id: z.string(),
   type: z.literal("azure_blob"),
@@ -14921,8 +20209,7 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   servicePeriodSecs: z.number().optional(),
   skipOnError: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
@@ -14939,28 +20226,61 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
+  __template_queueName: z.string().optional(),
+  __template_connectionString: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
 });
 
-export function inputAzureBlobToJSON(inputAzureBlob: InputAzureBlob): string {
-  return JSON.stringify(InputAzureBlob$outboundSchema.parse(inputAzureBlob));
+export function createInputInputAzureBlobToJSON(
+  createInputInputAzureBlob: CreateInputInputAzureBlob,
+): string {
+  return JSON.stringify(
+    CreateInputInputAzureBlob$outboundSchema.parse(createInputInputAzureBlob),
+  );
+}
+export function createInputInputAzureBlobFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputAzureBlob, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputAzureBlob$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputAzureBlob' from JSON`,
+  );
 }
 
 /** @internal */
-export type AuthTokenSplunkHec$Outbound = {
+export const CreateInputAuthTokenSplunkHec$inboundSchema: z.ZodType<
+  CreateInputAuthTokenSplunkHec,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: types.optional(
+    models.AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
+  ),
+  tokenSecret: types.optional(types.string()),
+  token: types.string(),
+  enabled: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  allowedIndexesAtToken: types.optional(z.array(types.string())),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+});
+/** @internal */
+export type CreateInputAuthTokenSplunkHec$Outbound = {
   authType?: string | undefined;
   tokenSecret?: string | undefined;
   token: string;
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
 };
 
 /** @internal */
-export const AuthTokenSplunkHec$outboundSchema: z.ZodType<
-  AuthTokenSplunkHec$Outbound,
+export const CreateInputAuthTokenSplunkHec$outboundSchema: z.ZodType<
+  CreateInputAuthTokenSplunkHec$Outbound,
   z.ZodTypeDef,
-  AuthTokenSplunkHec
+  CreateInputAuthTokenSplunkHec
 > = z.object({
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
@@ -14969,20 +20289,81 @@ export const AuthTokenSplunkHec$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
 });
 
-export function authTokenSplunkHecToJSON(
-  authTokenSplunkHec: AuthTokenSplunkHec,
+export function createInputAuthTokenSplunkHecToJSON(
+  createInputAuthTokenSplunkHec: CreateInputAuthTokenSplunkHec,
 ): string {
   return JSON.stringify(
-    AuthTokenSplunkHec$outboundSchema.parse(authTokenSplunkHec),
+    CreateInputAuthTokenSplunkHec$outboundSchema.parse(
+      createInputAuthTokenSplunkHec,
+    ),
+  );
+}
+export function createInputAuthTokenSplunkHecFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputAuthTokenSplunkHec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputAuthTokenSplunkHec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputAuthTokenSplunkHec' from JSON`,
   );
 }
 
 /** @internal */
-export type InputSplunkHec$Outbound = {
+export const CreateInputInputSplunkHec$inboundSchema: z.ZodType<
+  CreateInputInputSplunkHec,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("splunk_hec"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(
+    z.array(z.lazy(() => CreateInputAuthTokenSplunkHec$inboundSchema)),
+  ),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  splunkHecAPI: types.string(),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  allowedIndexes: types.optional(z.array(types.string())),
+  splunkHecAcks: types.optional(types.boolean()),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  useFwdTimezone: types.optional(types.boolean()),
+  dropControlFields: types.optional(types.boolean()),
+  extractMetrics: types.optional(types.boolean()),
+  accessControlAllowOrigin: types.optional(z.array(types.string())),
+  accessControlAllowHeaders: types.optional(z.array(types.string())),
+  emitTokenMetrics: types.optional(types.boolean()),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  __template_splunkHecAPI: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputSplunkHec$Outbound = {
   id: string;
   type: "splunk_hec";
   disabled?: boolean | undefined;
@@ -14995,7 +20376,7 @@ export type InputSplunkHec$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   host: string;
   port: number;
-  authTokens?: Array<AuthTokenSplunkHec$Outbound> | undefined;
+  authTokens?: Array<CreateInputAuthTokenSplunkHec$Outbound> | undefined;
   tls?: models.TlsSettingsServerSideType$Outbound | undefined;
   maxActiveReq?: number | undefined;
   maxRequestsPerSocket?: number | undefined;
@@ -15005,11 +20386,10 @@ export type InputSplunkHec$Outbound = {
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   splunkHecAPI: string;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   splunkHecAcks?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
@@ -15021,13 +20401,16 @@ export type InputSplunkHec$Outbound = {
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_splunkHecAPI?: string | undefined;
 };
 
 /** @internal */
-export const InputSplunkHec$outboundSchema: z.ZodType<
-  InputSplunkHec$Outbound,
+export const CreateInputInputSplunkHec$outboundSchema: z.ZodType<
+  CreateInputInputSplunkHec$Outbound,
   z.ZodTypeDef,
-  InputSplunkHec
+  CreateInputInputSplunkHec
 > = z.object({
   id: z.string(),
   type: z.literal("splunk_hec"),
@@ -15042,8 +20425,9 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   host: z.string(),
   port: z.number(),
-  authTokens: z.array(z.lazy(() => AuthTokenSplunkHec$outboundSchema))
-    .optional(),
+  authTokens: z.array(
+    z.lazy(() => CreateInputAuthTokenSplunkHec$outboundSchema),
+  ).optional(),
   tls: models.TlsSettingsServerSideType$outboundSchema.optional(),
   maxActiveReq: z.number().optional(),
   maxRequestsPerSocket: z.number().int().optional(),
@@ -15053,12 +20437,10 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   requestTimeout: z.number().optional(),
   socketTimeout: z.number().optional(),
   keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.any().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   splunkHecAPI: z.string(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   splunkHecAcks: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
@@ -15070,68 +20452,193 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_splunkHecAPI: z.string().optional(),
 });
 
-export function inputSplunkHecToJSON(inputSplunkHec: InputSplunkHec): string {
-  return JSON.stringify(InputSplunkHec$outboundSchema.parse(inputSplunkHec));
+export function createInputInputSplunkHecToJSON(
+  createInputInputSplunkHec: CreateInputInputSplunkHec,
+): string {
+  return JSON.stringify(
+    CreateInputInputSplunkHec$outboundSchema.parse(createInputInputSplunkHec),
+  );
+}
+export function createInputInputSplunkHecFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputSplunkHec, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputSplunkHec$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputSplunkHec' from JSON`,
+  );
 }
 
 /** @internal */
-export type EndpointParam$Outbound = {
+export const CreateInputEndpointParam$inboundSchema: z.ZodType<
+  CreateInputEndpointParam,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: types.string(),
+  value: types.string(),
+});
+/** @internal */
+export type CreateInputEndpointParam$Outbound = {
   name: string;
   value: string;
 };
 
 /** @internal */
-export const EndpointParam$outboundSchema: z.ZodType<
-  EndpointParam$Outbound,
+export const CreateInputEndpointParam$outboundSchema: z.ZodType<
+  CreateInputEndpointParam$Outbound,
   z.ZodTypeDef,
-  EndpointParam
+  CreateInputEndpointParam
 > = z.object({
   name: z.string(),
   value: z.string(),
 });
 
-export function endpointParamToJSON(endpointParam: EndpointParam): string {
-  return JSON.stringify(EndpointParam$outboundSchema.parse(endpointParam));
+export function createInputEndpointParamToJSON(
+  createInputEndpointParam: CreateInputEndpointParam,
+): string {
+  return JSON.stringify(
+    CreateInputEndpointParam$outboundSchema.parse(createInputEndpointParam),
+  );
+}
+export function createInputEndpointParamFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputEndpointParam, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputEndpointParam$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputEndpointParam' from JSON`,
+  );
 }
 
 /** @internal */
-export type EndpointHeader$Outbound = {
+export const CreateInputEndpointHeader$inboundSchema: z.ZodType<
+  CreateInputEndpointHeader,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: types.string(),
+  value: types.string(),
+});
+/** @internal */
+export type CreateInputEndpointHeader$Outbound = {
   name: string;
   value: string;
 };
 
 /** @internal */
-export const EndpointHeader$outboundSchema: z.ZodType<
-  EndpointHeader$Outbound,
+export const CreateInputEndpointHeader$outboundSchema: z.ZodType<
+  CreateInputEndpointHeader$Outbound,
   z.ZodTypeDef,
-  EndpointHeader
+  CreateInputEndpointHeader
 > = z.object({
   name: z.string(),
   value: z.string(),
 });
 
-export function endpointHeaderToJSON(endpointHeader: EndpointHeader): string {
-  return JSON.stringify(EndpointHeader$outboundSchema.parse(endpointHeader));
+export function createInputEndpointHeaderToJSON(
+  createInputEndpointHeader: CreateInputEndpointHeader,
+): string {
+  return JSON.stringify(
+    CreateInputEndpointHeader$outboundSchema.parse(createInputEndpointHeader),
+  );
+}
+export function createInputEndpointHeaderFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputEndpointHeader, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputEndpointHeader$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputEndpointHeader' from JSON`,
+  );
 }
 
 /** @internal */
-export const LogLevelSplunkSearch$outboundSchema: z.ZodType<
+export const CreateInputLogLevelSplunkSearch$inboundSchema: z.ZodType<
+  CreateInputLogLevelSplunkSearch,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputLogLevelSplunkSearch);
+/** @internal */
+export const CreateInputLogLevelSplunkSearch$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  LogLevelSplunkSearch
-> = openEnums.outboundSchema(LogLevelSplunkSearch);
+  CreateInputLogLevelSplunkSearch
+> = openEnums.outboundSchema(CreateInputLogLevelSplunkSearch);
 
 /** @internal */
-export const AuthenticationTypeSplunkSearch$outboundSchema: z.ZodType<
-  string,
+export const CreateInputAuthenticationTypeSplunkSearch$inboundSchema: z.ZodType<
+  CreateInputAuthenticationTypeSplunkSearch,
   z.ZodTypeDef,
-  AuthenticationTypeSplunkSearch
-> = openEnums.outboundSchema(AuthenticationTypeSplunkSearch);
+  unknown
+> = openEnums.inboundSchema(CreateInputAuthenticationTypeSplunkSearch);
+/** @internal */
+export const CreateInputAuthenticationTypeSplunkSearch$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateInputAuthenticationTypeSplunkSearch> =
+    openEnums.outboundSchema(CreateInputAuthenticationTypeSplunkSearch);
 
 /** @internal */
-export type InputSplunkSearch$Outbound = {
+export const CreateInputInputSplunkSearch$inboundSchema: z.ZodType<
+  CreateInputInputSplunkSearch,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("splunk_search"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  searchHead: types.string(),
+  search: types.string(),
+  earliest: types.optional(types.string()),
+  latest: types.optional(types.string()),
+  cronSchedule: types.string(),
+  endpoint: types.string(),
+  outputMode: models.OutputModeOptionsSplunkCollectorConf$inboundSchema,
+  endpointParams: types.optional(
+    z.array(z.lazy(() => CreateInputEndpointParam$inboundSchema)),
+  ),
+  endpointHeaders: types.optional(
+    z.array(z.lazy(() => CreateInputEndpointHeader$inboundSchema)),
+  ),
+  logLevel: types.optional(CreateInputLogLevelSplunkSearch$inboundSchema),
+  requestTimeout: types.optional(types.number()),
+  useRoundRobinDns: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  encoding: types.optional(types.string()),
+  keepAliveTime: types.optional(types.number()),
+  jobTimeout: types.optional(types.string()),
+  maxMissedKeepAlives: types.optional(types.number()),
+  ttl: types.optional(types.string()),
+  ignoreGroupJobsLimit: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  retryRules: types.optional(models.RetryRulesType$inboundSchema),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  authType: types.optional(
+    CreateInputAuthenticationTypeSplunkSearch$inboundSchema,
+  ),
+  description: types.optional(types.string()),
+  username: types.optional(types.string()),
+  password: types.optional(types.string()),
+  token: types.optional(types.string()),
+  credentialsSecret: types.optional(types.string()),
+  textSecret: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputSplunkSearch$Outbound = {
   id: string;
   type: "splunk_search";
   disabled?: boolean | undefined;
@@ -15149,8 +20656,8 @@ export type InputSplunkSearch$Outbound = {
   cronSchedule: string;
   endpoint: string;
   outputMode: string;
-  endpointParams?: Array<EndpointParam$Outbound> | undefined;
-  endpointHeaders?: Array<EndpointHeader$Outbound> | undefined;
+  endpointParams?: Array<CreateInputEndpointParam$Outbound> | undefined;
+  endpointHeaders?: Array<CreateInputEndpointHeader$Outbound> | undefined;
   logLevel?: string | undefined;
   requestTimeout?: number | undefined;
   useRoundRobinDns?: boolean | undefined;
@@ -15161,7 +20668,7 @@ export type InputSplunkSearch$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: models.RetryRulesType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
@@ -15172,21 +20679,13 @@ export type InputSplunkSearch$Outbound = {
   token?: string | undefined;
   credentialsSecret?: string | undefined;
   textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr?: string | undefined;
-  tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
 };
 
 /** @internal */
-export const InputSplunkSearch$outboundSchema: z.ZodType<
-  InputSplunkSearch$Outbound,
+export const CreateInputInputSplunkSearch$outboundSchema: z.ZodType<
+  CreateInputInputSplunkSearch$Outbound,
   z.ZodTypeDef,
-  InputSplunkSearch
+  CreateInputInputSplunkSearch
 > = z.object({
   id: z.string(),
   type: z.literal("splunk_search"),
@@ -15206,11 +20705,12 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   cronSchedule: z.string(),
   endpoint: z.string(),
   outputMode: models.OutputModeOptionsSplunkCollectorConf$outboundSchema,
-  endpointParams: z.array(z.lazy(() => EndpointParam$outboundSchema))
+  endpointParams: z.array(z.lazy(() => CreateInputEndpointParam$outboundSchema))
     .optional(),
-  endpointHeaders: z.array(z.lazy(() => EndpointHeader$outboundSchema))
-    .optional(),
-  logLevel: LogLevelSplunkSearch$outboundSchema.optional(),
+  endpointHeaders: z.array(
+    z.lazy(() => CreateInputEndpointHeader$outboundSchema),
+  ).optional(),
+  logLevel: CreateInputLogLevelSplunkSearch$outboundSchema.optional(),
   requestTimeout: z.number().optional(),
   useRoundRobinDns: z.boolean().optional(),
   rejectUnauthorized: z.boolean().optional(),
@@ -15220,65 +20720,99 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: models.RetryRulesType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  authType: AuthenticationTypeSplunkSearch$outboundSchema.optional(),
+  authType: CreateInputAuthenticationTypeSplunkSearch$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
   credentialsSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().optional(),
-  tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
 });
 
-export function inputSplunkSearchToJSON(
-  inputSplunkSearch: InputSplunkSearch,
+export function createInputInputSplunkSearchToJSON(
+  createInputInputSplunkSearch: CreateInputInputSplunkSearch,
 ): string {
   return JSON.stringify(
-    InputSplunkSearch$outboundSchema.parse(inputSplunkSearch),
+    CreateInputInputSplunkSearch$outboundSchema.parse(
+      createInputInputSplunkSearch,
+    ),
+  );
+}
+export function createInputInputSplunkSearchFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputSplunkSearch, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputSplunkSearch$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputSplunkSearch' from JSON`,
   );
 }
 
 /** @internal */
-export type AuthTokenSplunk$Outbound = {
+export const CreateInputAuthTokenSplunk$inboundSchema: z.ZodType<
+  CreateInputAuthTokenSplunk,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  token: types.string(),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputAuthTokenSplunk$Outbound = {
   token: string;
   description?: string | undefined;
 };
 
 /** @internal */
-export const AuthTokenSplunk$outboundSchema: z.ZodType<
-  AuthTokenSplunk$Outbound,
+export const CreateInputAuthTokenSplunk$outboundSchema: z.ZodType<
+  CreateInputAuthTokenSplunk$Outbound,
   z.ZodTypeDef,
-  AuthTokenSplunk
+  CreateInputAuthTokenSplunk
 > = z.object({
   token: z.string(),
   description: z.string().optional(),
 });
 
-export function authTokenSplunkToJSON(
-  authTokenSplunk: AuthTokenSplunk,
+export function createInputAuthTokenSplunkToJSON(
+  createInputAuthTokenSplunk: CreateInputAuthTokenSplunk,
 ): string {
-  return JSON.stringify(AuthTokenSplunk$outboundSchema.parse(authTokenSplunk));
+  return JSON.stringify(
+    CreateInputAuthTokenSplunk$outboundSchema.parse(createInputAuthTokenSplunk),
+  );
+}
+export function createInputAuthTokenSplunkFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputAuthTokenSplunk, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputAuthTokenSplunk$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputAuthTokenSplunk' from JSON`,
+  );
 }
 
 /** @internal */
-export const MaxS2SVersion$outboundSchema: z.ZodType<
+export const CreateInputMaxS2SVersion$inboundSchema: z.ZodType<
+  CreateInputMaxS2SVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputMaxS2SVersion);
+/** @internal */
+export const CreateInputMaxS2SVersion$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  MaxS2SVersion
-> = openEnums.outboundSchema(MaxS2SVersion);
+  CreateInputMaxS2SVersion
+> = openEnums.outboundSchema(CreateInputMaxS2SVersion);
 
+/** @internal */
+export const CreateInputCompression$inboundSchema: z.ZodType<
+  CreateInputCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CreateInputCompression);
 /** @internal */
 export const CreateInputCompression$outboundSchema: z.ZodType<
   string,
@@ -15287,7 +20821,49 @@ export const CreateInputCompression$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CreateInputCompression);
 
 /** @internal */
-export type InputSplunk$Outbound = {
+export const CreateInputInputSplunk$inboundSchema: z.ZodType<
+  CreateInputInputSplunk,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("splunk"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  ipWhitelistRegex: types.optional(types.string()),
+  maxActiveCxn: types.optional(types.number()),
+  socketIdleTimeout: types.optional(types.number()),
+  socketEndingMaxWait: types.optional(types.number()),
+  socketMaxLifespan: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  authTokens: types.optional(
+    z.array(z.lazy(() => CreateInputAuthTokenSplunk$inboundSchema)),
+  ),
+  maxS2Sversion: types.optional(CreateInputMaxS2SVersion$inboundSchema),
+  description: types.optional(types.string()),
+  useFwdTimezone: types.optional(types.boolean()),
+  dropControlFields: types.optional(types.boolean()),
+  extractMetrics: types.optional(types.boolean()),
+  compress: types.optional(CreateInputCompression$inboundSchema),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputSplunk$Outbound = {
   id: string;
   type: "splunk";
   disabled?: boolean | undefined;
@@ -15307,23 +20883,25 @@ export type InputSplunk$Outbound = {
   socketEndingMaxWait?: number | undefined;
   socketMaxLifespan?: number | undefined;
   enableProxyHeader?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  authTokens?: Array<AuthTokenSplunk$Outbound> | undefined;
+  authTokens?: Array<CreateInputAuthTokenSplunk$Outbound> | undefined;
   maxS2Sversion?: string | undefined;
   description?: string | undefined;
   useFwdTimezone?: boolean | undefined;
   dropControlFields?: boolean | undefined;
   extractMetrics?: boolean | undefined;
   compress?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const InputSplunk$outboundSchema: z.ZodType<
-  InputSplunk$Outbound,
+export const CreateInputInputSplunk$outboundSchema: z.ZodType<
+  CreateInputInputSplunk$Outbound,
   z.ZodTypeDef,
-  InputSplunk
+  CreateInputInputSplunk
 > = z.object({
   id: z.string(),
   type: z.literal("splunk"),
@@ -15345,25 +20923,86 @@ export const InputSplunk$outboundSchema: z.ZodType<
   socketEndingMaxWait: z.number().optional(),
   socketMaxLifespan: z.number().optional(),
   enableProxyHeader: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  authTokens: z.array(z.lazy(() => AuthTokenSplunk$outboundSchema)).optional(),
-  maxS2Sversion: MaxS2SVersion$outboundSchema.optional(),
+  authTokens: z.array(z.lazy(() => CreateInputAuthTokenSplunk$outboundSchema))
+    .optional(),
+  maxS2Sversion: CreateInputMaxS2SVersion$outboundSchema.optional(),
   description: z.string().optional(),
   useFwdTimezone: z.boolean().optional(),
   dropControlFields: z.boolean().optional(),
   extractMetrics: z.boolean().optional(),
   compress: CreateInputCompression$outboundSchema.optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function inputSplunkToJSON(inputSplunk: InputSplunk): string {
-  return JSON.stringify(InputSplunk$outboundSchema.parse(inputSplunk));
+export function createInputInputSplunkToJSON(
+  createInputInputSplunk: CreateInputInputSplunk,
+): string {
+  return JSON.stringify(
+    CreateInputInputSplunk$outboundSchema.parse(createInputInputSplunk),
+  );
+}
+export function createInputInputSplunkFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputSplunk, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputSplunk$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputSplunk' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputHttp$Outbound = {
+export const CreateInputInputHttp$inboundSchema: z.ZodType<
+  CreateInputInputHttp,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("http"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  host: types.string(),
+  port: types.number(),
+  authTokens: types.optional(z.array(types.string())),
+  tls: types.optional(models.TlsSettingsServerSideType$inboundSchema),
+  maxActiveReq: types.optional(types.number()),
+  maxRequestsPerSocket: types.optional(types.number()),
+  enableProxyHeader: types.optional(types.boolean()),
+  captureHeaders: types.optional(types.boolean()),
+  activityLogSampleRate: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  socketTimeout: types.optional(types.number()),
+  keepAliveTimeout: types.optional(types.number()),
+  enableHealthCheck: types.optional(types.boolean()),
+  ipAllowlistRegex: types.optional(types.string()),
+  ipDenylistRegex: types.optional(types.string()),
+  criblAPI: types.optional(types.string()),
+  elasticAPI: types.optional(types.string()),
+  splunkHecAPI: types.optional(types.string()),
+  splunkHecAcks: types.optional(types.boolean()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  authTokensExt: types.optional(
+    z.array(models.ItemsTypeAuthTokensExt$inboundSchema),
+  ),
+  description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  __template_splunkHecAPI: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputHttp$Outbound = {
   id: string;
   type: "http";
   disabled?: boolean | undefined;
@@ -15393,16 +21032,19 @@ export type InputHttp$Outbound = {
   elasticAPI?: string | undefined;
   splunkHecAPI?: string | undefined;
   splunkHecAcks?: boolean | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   authTokensExt?: Array<models.ItemsTypeAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_splunkHecAPI?: string | undefined;
 };
 
 /** @internal */
-export const InputHttp$outboundSchema: z.ZodType<
-  InputHttp$Outbound,
+export const CreateInputInputHttp$outboundSchema: z.ZodType<
+  CreateInputInputHttp$Outbound,
   z.ZodTypeDef,
-  InputHttp
+  CreateInputInputHttp
 > = z.object({
   id: z.string(),
   type: z.literal("http"),
@@ -15434,19 +21076,101 @@ export const InputHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().optional(),
   splunkHecAPI: z.string().optional(),
   splunkHecAcks: z.boolean().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   authTokensExt: z.array(models.ItemsTypeAuthTokensExt$outboundSchema)
     .optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_splunkHecAPI: z.string().optional(),
 });
 
-export function inputHttpToJSON(inputHttp: InputHttp): string {
-  return JSON.stringify(InputHttp$outboundSchema.parse(inputHttp));
+export function createInputInputHttpToJSON(
+  createInputInputHttp: CreateInputInputHttp,
+): string {
+  return JSON.stringify(
+    CreateInputInputHttp$outboundSchema.parse(createInputInputHttp),
+  );
+}
+export function createInputInputHttpFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputHttp, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputHttp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputHttp' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputMsk$Outbound = {
+export const CreateInputInputMsk$inboundSchema: z.ZodType<
+  CreateInputInputMsk,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("msk"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  brokers: z.array(types.string()),
+  topics: z.array(types.string()),
+  groupId: types.optional(types.string()),
+  fromBeginning: types.optional(types.boolean()),
+  sessionTimeout: types.optional(types.number()),
+  rebalanceTimeout: types.optional(types.number()),
+  heartbeatInterval: types.optional(types.number()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  kafkaSchemaRegistry: types.optional(
+    models.KafkaSchemaRegistryAuthenticationType$inboundSchema,
+  ),
+  connectionTimeout: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  maxRetries: types.optional(types.number()),
+  maxBackOff: types.optional(types.number()),
+  initialBackoff: types.optional(types.number()),
+  backoffRate: types.optional(types.number()),
+  authenticationTimeout: types.optional(types.number()),
+  reauthenticationThreshold: types.optional(types.number()),
+  awsAuthenticationMethod: types.string(),
+  awsSecretKey: types.optional(types.string()),
+  region: types.string(),
+  endpoint: types.optional(types.string()),
+  signatureVersion: types.optional(
+    models.SignatureVersionOptions$inboundSchema,
+  ),
+  reuseConnections: types.optional(types.boolean()),
+  rejectUnauthorized: types.optional(types.boolean()),
+  enableAssumeRole: types.optional(types.boolean()),
+  assumeRoleArn: types.optional(types.string()),
+  assumeRoleExternalId: types.optional(types.string()),
+  durationSeconds: types.optional(types.number()),
+  tls: types.optional(
+    models.TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  ),
+  autoCommitInterval: types.optional(types.number()),
+  autoCommitThreshold: types.optional(types.number()),
+  maxBytesPerPartition: types.optional(types.number()),
+  maxBytes: types.optional(types.number()),
+  maxSocketErrors: types.optional(types.number()),
+  description: types.optional(types.string()),
+  awsApiKey: types.optional(types.string()),
+  awsSecret: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
+  __template_awsApiKey: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputMsk$Outbound = {
   id: string;
   type: "msk";
   disabled?: boolean | undefined;
@@ -15464,7 +21188,7 @@ export type InputMsk$Outbound = {
   sessionTimeout?: number | undefined;
   rebalanceTimeout?: number | undefined;
   heartbeatInterval?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   kafkaSchemaRegistry?:
     | models.KafkaSchemaRegistryAuthenticationType$Outbound
     | undefined;
@@ -15498,13 +21222,18 @@ export type InputMsk$Outbound = {
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
-export const InputMsk$outboundSchema: z.ZodType<
-  InputMsk$Outbound,
+export const CreateInputInputMsk$outboundSchema: z.ZodType<
+  CreateInputInputMsk$Outbound,
   z.ZodTypeDef,
-  InputMsk
+  CreateInputInputMsk
 > = z.object({
   id: z.string(),
   type: z.literal("msk"),
@@ -15524,8 +21253,7 @@ export const InputMsk$outboundSchema: z.ZodType<
   sessionTimeout: z.number().optional(),
   rebalanceTimeout: z.number().optional(),
   heartbeatInterval: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   kafkaSchemaRegistry: models
     .KafkaSchemaRegistryAuthenticationType$outboundSchema.optional(),
   connectionTimeout: z.number().optional(),
@@ -15557,14 +21285,80 @@ export const InputMsk$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
 });
 
-export function inputMskToJSON(inputMsk: InputMsk): string {
-  return JSON.stringify(InputMsk$outboundSchema.parse(inputMsk));
+export function createInputInputMskToJSON(
+  createInputInputMsk: CreateInputInputMsk,
+): string {
+  return JSON.stringify(
+    CreateInputInputMsk$outboundSchema.parse(createInputInputMsk),
+  );
+}
+export function createInputInputMskFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputMsk, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputMsk$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputMsk' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputKafka$Outbound = {
+export const CreateInputInputKafka$inboundSchema: z.ZodType<
+  CreateInputInputKafka,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("kafka"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  brokers: z.array(types.string()),
+  topics: z.array(types.string()),
+  groupId: types.optional(types.string()),
+  fromBeginning: types.optional(types.boolean()),
+  kafkaSchemaRegistry: types.optional(
+    models.KafkaSchemaRegistryAuthenticationType$inboundSchema,
+  ),
+  connectionTimeout: types.optional(types.number()),
+  requestTimeout: types.optional(types.number()),
+  maxRetries: types.optional(types.number()),
+  maxBackOff: types.optional(types.number()),
+  initialBackoff: types.optional(types.number()),
+  backoffRate: types.optional(types.number()),
+  authenticationTimeout: types.optional(types.number()),
+  reauthenticationThreshold: types.optional(types.number()),
+  sasl: types.optional(models.AuthenticationType$inboundSchema),
+  tls: types.optional(
+    models.TlsSettingsClientSideTypeKafkaSchemaRegistry$inboundSchema,
+  ),
+  sessionTimeout: types.optional(types.number()),
+  rebalanceTimeout: types.optional(types.number()),
+  heartbeatInterval: types.optional(types.number()),
+  autoCommitInterval: types.optional(types.number()),
+  autoCommitThreshold: types.optional(types.number()),
+  maxBytesPerPartition: types.optional(types.number()),
+  maxBytes: types.optional(types.number()),
+  maxSocketErrors: types.optional(types.number()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  description: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputKafka$Outbound = {
   id: string;
   type: "kafka";
   disabled?: boolean | undefined;
@@ -15602,15 +21396,15 @@ export type InputKafka$Outbound = {
   maxBytesPerPartition?: number | undefined;
   maxBytes?: number | undefined;
   maxSocketErrors?: number | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputKafka$outboundSchema: z.ZodType<
-  InputKafka$Outbound,
+export const CreateInputInputKafka$outboundSchema: z.ZodType<
+  CreateInputInputKafka$Outbound,
   z.ZodTypeDef,
-  InputKafka
+  CreateInputInputKafka
 > = z.object({
   id: z.string(),
   type: z.literal("kafka"),
@@ -15648,17 +21442,54 @@ export const InputKafka$outboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().optional(),
   maxBytes: z.number().optional(),
   maxSocketErrors: z.number().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-export function inputKafkaToJSON(inputKafka: InputKafka): string {
-  return JSON.stringify(InputKafka$outboundSchema.parse(inputKafka));
+export function createInputInputKafkaToJSON(
+  createInputInputKafka: CreateInputInputKafka,
+): string {
+  return JSON.stringify(
+    CreateInputInputKafka$outboundSchema.parse(createInputInputKafka),
+  );
+}
+export function createInputInputKafkaFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputKafka, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputKafka$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputKafka' from JSON`,
+  );
 }
 
 /** @internal */
-export type InputCollection$Outbound = {
+export const CreateInputInputCollection$inboundSchema: z.ZodType<
+  CreateInputInputCollection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  type: types.literal("collection"),
+  disabled: types.optional(types.boolean()),
+  pipeline: types.optional(types.string()),
+  sendToRoutes: types.optional(types.boolean()),
+  environment: types.optional(types.string()),
+  pqEnabled: types.optional(types.boolean()),
+  streamtags: types.optional(z.array(types.string())),
+  connections: types.optional(
+    z.array(models.ItemsTypeConnectionsOptional$inboundSchema),
+  ),
+  pq: types.optional(models.PqType$inboundSchema),
+  breakerRulesets: types.optional(z.array(types.string())),
+  staleChannelFlushMs: types.optional(types.number()),
+  preprocess: types.optional(models.PreprocessType$inboundSchema),
+  throttleRatePerSec: types.optional(types.string()),
+  metadata: types.optional(z.array(models.ItemsTypeMetadata$inboundSchema)),
+  output: types.optional(types.string()),
+});
+/** @internal */
+export type CreateInputInputCollection$Outbound = {
   id: string;
   type: "collection";
   disabled?: boolean | undefined;
@@ -15671,19 +21502,17 @@ export type InputCollection$Outbound = {
   pq?: models.PqType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
-  preprocess?:
-    | models.PreprocessTypeSavedJobCollectionInput$Outbound
-    | undefined;
+  preprocess?: models.PreprocessType$Outbound | undefined;
   throttleRatePerSec?: string | undefined;
-  metadata?: Array<models.ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
   output?: string | undefined;
 };
 
 /** @internal */
-export const InputCollection$outboundSchema: z.ZodType<
-  InputCollection$Outbound,
+export const CreateInputInputCollection$outboundSchema: z.ZodType<
+  CreateInputInputCollection$Outbound,
   z.ZodTypeDef,
-  InputCollection
+  CreateInputInputCollection
 > = z.object({
   id: z.string(),
   type: z.literal("collection"),
@@ -15698,88 +21527,170 @@ export const InputCollection$outboundSchema: z.ZodType<
   pq: models.PqType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
-  preprocess: models.PreprocessTypeSavedJobCollectionInput$outboundSchema
-    .optional(),
+  preprocess: models.PreprocessType$outboundSchema.optional(),
   throttleRatePerSec: z.string().optional(),
-  metadata: z.array(models.ItemsTypeNotificationMetadata$outboundSchema)
-    .optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
   output: z.string().optional(),
 });
 
-export function inputCollectionToJSON(
-  inputCollection: InputCollection,
+export function createInputInputCollectionToJSON(
+  createInputInputCollection: CreateInputInputCollection,
 ): string {
-  return JSON.stringify(InputCollection$outboundSchema.parse(inputCollection));
+  return JSON.stringify(
+    CreateInputInputCollection$outboundSchema.parse(createInputInputCollection),
+  );
+}
+export function createInputInputCollectionFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputInputCollection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputInputCollection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputInputCollection' from JSON`,
+  );
 }
 
 /** @internal */
+export const CreateInputRequest$inboundSchema: z.ZodType<
+  CreateInputRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => CreateInputInputCollection$inboundSchema),
+  z.lazy(() => CreateInputInputKafka$inboundSchema),
+  z.lazy(() => CreateInputInputMsk$inboundSchema),
+  z.lazy(() => CreateInputInputHttp$inboundSchema),
+  z.lazy(() => CreateInputInputSplunk$inboundSchema),
+  z.lazy(() => CreateInputInputSplunkSearch$inboundSchema),
+  z.lazy(() => CreateInputInputSplunkHec$inboundSchema),
+  z.lazy(() => CreateInputInputAzureBlob$inboundSchema),
+  z.lazy(() => CreateInputInputElastic$inboundSchema),
+  z.lazy(() => CreateInputInputConfluentCloud$inboundSchema),
+  smartUnion([
+    z.lazy(() => CreateInputInputGrafanaGrafana1$inboundSchema),
+    z.lazy(() => CreateInputInputGrafanaGrafana2$inboundSchema),
+  ]).and(z.object({ type: z.literal("grafana") })),
+  z.lazy(() => CreateInputInputLoki$inboundSchema),
+  z.lazy(() => CreateInputInputPrometheusRw$inboundSchema),
+  z.lazy(() => CreateInputInputPrometheus$inboundSchema),
+  z.lazy(() => CreateInputInputEdgePrometheus$inboundSchema),
+  z.lazy(() => CreateInputInputOffice365Mgmt$inboundSchema),
+  z.lazy(() => CreateInputInputOffice365Service$inboundSchema),
+  z.lazy(() => CreateInputInputOffice365MsgTrace$inboundSchema),
+  z.lazy(() => CreateInputInputEventhub$inboundSchema),
+  z.lazy(() => CreateInputInputExec$inboundSchema),
+  z.lazy(() => CreateInputInputFirehose$inboundSchema),
+  z.lazy(() => CreateInputInputGooglePubsub$inboundSchema),
+  z.lazy(() => CreateInputInputCribl$inboundSchema),
+  z.lazy(() => CreateInputInputCriblTcp$inboundSchema),
+  z.lazy(() => CreateInputInputCriblHttp$inboundSchema),
+  z.lazy(() => CreateInputInputCriblLakeHttp$inboundSchema),
+  z.lazy(() => CreateInputInputTcpjson$inboundSchema),
+  z.lazy(() => CreateInputInputSystemMetrics$inboundSchema),
+  z.lazy(() => CreateInputInputSystemState$inboundSchema),
+  z.lazy(() => CreateInputInputKubeMetrics$inboundSchema),
+  z.lazy(() => CreateInputInputKubeLogs$inboundSchema),
+  z.lazy(() => CreateInputInputKubeEvents$inboundSchema),
+  z.lazy(() => CreateInputInputWindowsMetrics$inboundSchema),
+  z.lazy(() => CreateInputInputCrowdstrike$inboundSchema),
+  z.lazy(() => CreateInputInputDatadogAgent$inboundSchema),
+  z.lazy(() => CreateInputInputDatagen$inboundSchema),
+  z.lazy(() => CreateInputInputHttpRaw$inboundSchema),
+  z.lazy(() => CreateInputInputKinesis$inboundSchema),
+  z.lazy(() => CreateInputInputCriblmetrics$inboundSchema),
+  z.lazy(() => CreateInputInputMetrics$inboundSchema),
+  z.lazy(() => CreateInputInputS3$inboundSchema),
+  z.lazy(() => CreateInputInputS3Inventory$inboundSchema),
+  z.lazy(() => CreateInputInputSnmp$inboundSchema),
+  z.lazy(() => CreateInputInputOpenTelemetry$inboundSchema),
+  z.lazy(() => CreateInputInputModelDrivenTelemetry$inboundSchema),
+  z.lazy(() => CreateInputInputSqs$inboundSchema),
+  smartUnion([
+    z.lazy(() => CreateInputInputSyslogSyslog1$inboundSchema),
+    z.lazy(() => CreateInputInputSyslogSyslog2$inboundSchema),
+  ]).and(z.object({ type: z.literal("syslog") })),
+  z.lazy(() => CreateInputInputFile$inboundSchema),
+  z.lazy(() => CreateInputInputTcp$inboundSchema),
+  z.lazy(() => CreateInputInputAppscope$inboundSchema),
+  z.lazy(() => CreateInputInputWef$inboundSchema),
+  z.lazy(() => CreateInputInputWinEventLogs$inboundSchema),
+  z.lazy(() => CreateInputInputRawUdp$inboundSchema),
+  z.lazy(() => CreateInputInputJournalFiles$inboundSchema),
+  z.lazy(() => CreateInputInputWiz$inboundSchema),
+  z.lazy(() => CreateInputInputWizWebhook$inboundSchema),
+  z.lazy(() => CreateInputInputNetflow$inboundSchema),
+  z.lazy(() => CreateInputInputSecurityLake$inboundSchema),
+  z.lazy(() => CreateInputInputZscalerHec$inboundSchema),
+  z.lazy(() => CreateInputInputCloudflareHec$inboundSchema),
+]);
+/** @internal */
 export type CreateInputRequest$Outbound =
-  | InputCollection$Outbound
-  | InputKafka$Outbound
-  | InputMsk$Outbound
-  | InputHttp$Outbound
-  | InputSplunk$Outbound
-  | InputSplunkSearch$Outbound
-  | InputSplunkHec$Outbound
-  | InputAzureBlob$Outbound
-  | InputElastic$Outbound
-  | InputConfluentCloud$Outbound
+  | CreateInputInputCollection$Outbound
+  | CreateInputInputKafka$Outbound
+  | CreateInputInputMsk$Outbound
+  | CreateInputInputHttp$Outbound
+  | CreateInputInputSplunk$Outbound
+  | CreateInputInputSplunkSearch$Outbound
+  | CreateInputInputSplunkHec$Outbound
+  | CreateInputInputAzureBlob$Outbound
+  | CreateInputInputElastic$Outbound
+  | CreateInputInputConfluentCloud$Outbound
   | (
-    | InputGrafanaGrafana1$Outbound
-    | InputGrafanaGrafana2$Outbound & { type: "grafana" }
+    | CreateInputInputGrafanaGrafana1$Outbound
+    | CreateInputInputGrafanaGrafana2$Outbound & { type: "grafana" }
   )
-  | InputLoki$Outbound
-  | InputPrometheusRw$Outbound
-  | InputPrometheus$Outbound
-  | InputEdgePrometheus$Outbound
-  | InputOffice365Mgmt$Outbound
-  | InputOffice365Service$Outbound
-  | InputOffice365MsgTrace$Outbound
-  | InputEventhub$Outbound
-  | InputExec$Outbound
-  | InputFirehose$Outbound
-  | InputGooglePubsub$Outbound
-  | InputCribl$Outbound
-  | InputCriblTcp$Outbound
-  | InputCriblHttp$Outbound
-  | InputCriblLakeHttp$Outbound
-  | InputTcpjson$Outbound
-  | InputSystemMetrics$Outbound
-  | InputSystemState$Outbound
-  | InputKubeMetrics$Outbound
-  | InputKubeLogs$Outbound
-  | InputKubeEvents$Outbound
-  | InputWindowsMetrics$Outbound
-  | InputCrowdstrike$Outbound
-  | InputDatadogAgent$Outbound
-  | InputDatagen$Outbound
-  | InputHttpRaw$Outbound
-  | InputKinesis$Outbound
-  | InputCriblmetrics$Outbound
-  | InputMetrics$Outbound
-  | InputS3$Outbound
-  | InputS3Inventory$Outbound
-  | InputSnmp$Outbound
-  | InputOpenTelemetry$Outbound
-  | InputModelDrivenTelemetry$Outbound
-  | InputSqs$Outbound
+  | CreateInputInputLoki$Outbound
+  | CreateInputInputPrometheusRw$Outbound
+  | CreateInputInputPrometheus$Outbound
+  | CreateInputInputEdgePrometheus$Outbound
+  | CreateInputInputOffice365Mgmt$Outbound
+  | CreateInputInputOffice365Service$Outbound
+  | CreateInputInputOffice365MsgTrace$Outbound
+  | CreateInputInputEventhub$Outbound
+  | CreateInputInputExec$Outbound
+  | CreateInputInputFirehose$Outbound
+  | CreateInputInputGooglePubsub$Outbound
+  | CreateInputInputCribl$Outbound
+  | CreateInputInputCriblTcp$Outbound
+  | CreateInputInputCriblHttp$Outbound
+  | CreateInputInputCriblLakeHttp$Outbound
+  | CreateInputInputTcpjson$Outbound
+  | CreateInputInputSystemMetrics$Outbound
+  | CreateInputInputSystemState$Outbound
+  | CreateInputInputKubeMetrics$Outbound
+  | CreateInputInputKubeLogs$Outbound
+  | CreateInputInputKubeEvents$Outbound
+  | CreateInputInputWindowsMetrics$Outbound
+  | CreateInputInputCrowdstrike$Outbound
+  | CreateInputInputDatadogAgent$Outbound
+  | CreateInputInputDatagen$Outbound
+  | CreateInputInputHttpRaw$Outbound
+  | CreateInputInputKinesis$Outbound
+  | CreateInputInputCriblmetrics$Outbound
+  | CreateInputInputMetrics$Outbound
+  | CreateInputInputS3$Outbound
+  | CreateInputInputS3Inventory$Outbound
+  | CreateInputInputSnmp$Outbound
+  | CreateInputInputOpenTelemetry$Outbound
+  | CreateInputInputModelDrivenTelemetry$Outbound
+  | CreateInputInputSqs$Outbound
   | (
-    | InputSyslogSyslog1$Outbound
-    | InputSyslogSyslog2$Outbound & { type: "syslog" }
+    | CreateInputInputSyslogSyslog1$Outbound
+    | CreateInputInputSyslogSyslog2$Outbound & { type: "syslog" }
   )
-  | InputFile$Outbound
-  | InputTcp$Outbound
-  | InputAppscope$Outbound
-  | InputWef$Outbound
-  | InputWinEventLogs$Outbound
-  | InputRawUdp$Outbound
-  | InputJournalFiles$Outbound
-  | InputWiz$Outbound
-  | InputWizWebhook$Outbound
-  | InputNetflow$Outbound
-  | InputSecurityLake$Outbound
-  | InputZscalerHec$Outbound
-  | InputCloudflareHec$Outbound;
+  | CreateInputInputFile$Outbound
+  | CreateInputInputTcp$Outbound
+  | CreateInputInputAppscope$Outbound
+  | CreateInputInputWef$Outbound
+  | CreateInputInputWinEventLogs$Outbound
+  | CreateInputInputRawUdp$Outbound
+  | CreateInputInputJournalFiles$Outbound
+  | CreateInputInputWiz$Outbound
+  | CreateInputInputWizWebhook$Outbound
+  | CreateInputInputNetflow$Outbound
+  | CreateInputInputSecurityLake$Outbound
+  | CreateInputInputZscalerHec$Outbound
+  | CreateInputInputCloudflareHec$Outbound;
 
 /** @internal */
 export const CreateInputRequest$outboundSchema: z.ZodType<
@@ -15787,72 +21698,72 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateInputRequest
 > = z.union([
-  z.lazy(() => InputCollection$outboundSchema),
-  z.lazy(() => InputKafka$outboundSchema),
-  z.lazy(() => InputMsk$outboundSchema),
-  z.lazy(() => InputHttp$outboundSchema),
-  z.lazy(() => InputSplunk$outboundSchema),
-  z.lazy(() => InputSplunkSearch$outboundSchema),
-  z.lazy(() => InputSplunkHec$outboundSchema),
-  z.lazy(() => InputAzureBlob$outboundSchema),
-  z.lazy(() => InputElastic$outboundSchema),
-  z.lazy(() => InputConfluentCloud$outboundSchema),
+  z.lazy(() => CreateInputInputCollection$outboundSchema),
+  z.lazy(() => CreateInputInputKafka$outboundSchema),
+  z.lazy(() => CreateInputInputMsk$outboundSchema),
+  z.lazy(() => CreateInputInputHttp$outboundSchema),
+  z.lazy(() => CreateInputInputSplunk$outboundSchema),
+  z.lazy(() => CreateInputInputSplunkSearch$outboundSchema),
+  z.lazy(() => CreateInputInputSplunkHec$outboundSchema),
+  z.lazy(() => CreateInputInputAzureBlob$outboundSchema),
+  z.lazy(() => CreateInputInputElastic$outboundSchema),
+  z.lazy(() => CreateInputInputConfluentCloud$outboundSchema),
   smartUnion([
-    z.lazy(() => InputGrafanaGrafana1$outboundSchema),
-    z.lazy(() => InputGrafanaGrafana2$outboundSchema),
+    z.lazy(() => CreateInputInputGrafanaGrafana1$outboundSchema),
+    z.lazy(() => CreateInputInputGrafanaGrafana2$outboundSchema),
   ]).and(z.object({ type: z.literal("grafana") })),
-  z.lazy(() => InputLoki$outboundSchema),
-  z.lazy(() => InputPrometheusRw$outboundSchema),
-  z.lazy(() => InputPrometheus$outboundSchema),
-  z.lazy(() => InputEdgePrometheus$outboundSchema),
-  z.lazy(() => InputOffice365Mgmt$outboundSchema),
-  z.lazy(() => InputOffice365Service$outboundSchema),
-  z.lazy(() => InputOffice365MsgTrace$outboundSchema),
-  z.lazy(() => InputEventhub$outboundSchema),
-  z.lazy(() => InputExec$outboundSchema),
-  z.lazy(() => InputFirehose$outboundSchema),
-  z.lazy(() => InputGooglePubsub$outboundSchema),
-  z.lazy(() => InputCribl$outboundSchema),
-  z.lazy(() => InputCriblTcp$outboundSchema),
-  z.lazy(() => InputCriblHttp$outboundSchema),
-  z.lazy(() => InputCriblLakeHttp$outboundSchema),
-  z.lazy(() => InputTcpjson$outboundSchema),
-  z.lazy(() => InputSystemMetrics$outboundSchema),
-  z.lazy(() => InputSystemState$outboundSchema),
-  z.lazy(() => InputKubeMetrics$outboundSchema),
-  z.lazy(() => InputKubeLogs$outboundSchema),
-  z.lazy(() => InputKubeEvents$outboundSchema),
-  z.lazy(() => InputWindowsMetrics$outboundSchema),
-  z.lazy(() => InputCrowdstrike$outboundSchema),
-  z.lazy(() => InputDatadogAgent$outboundSchema),
-  z.lazy(() => InputDatagen$outboundSchema),
-  z.lazy(() => InputHttpRaw$outboundSchema),
-  z.lazy(() => InputKinesis$outboundSchema),
-  z.lazy(() => InputCriblmetrics$outboundSchema),
-  z.lazy(() => InputMetrics$outboundSchema),
-  z.lazy(() => InputS3$outboundSchema),
-  z.lazy(() => InputS3Inventory$outboundSchema),
-  z.lazy(() => InputSnmp$outboundSchema),
-  z.lazy(() => InputOpenTelemetry$outboundSchema),
-  z.lazy(() => InputModelDrivenTelemetry$outboundSchema),
-  z.lazy(() => InputSqs$outboundSchema),
+  z.lazy(() => CreateInputInputLoki$outboundSchema),
+  z.lazy(() => CreateInputInputPrometheusRw$outboundSchema),
+  z.lazy(() => CreateInputInputPrometheus$outboundSchema),
+  z.lazy(() => CreateInputInputEdgePrometheus$outboundSchema),
+  z.lazy(() => CreateInputInputOffice365Mgmt$outboundSchema),
+  z.lazy(() => CreateInputInputOffice365Service$outboundSchema),
+  z.lazy(() => CreateInputInputOffice365MsgTrace$outboundSchema),
+  z.lazy(() => CreateInputInputEventhub$outboundSchema),
+  z.lazy(() => CreateInputInputExec$outboundSchema),
+  z.lazy(() => CreateInputInputFirehose$outboundSchema),
+  z.lazy(() => CreateInputInputGooglePubsub$outboundSchema),
+  z.lazy(() => CreateInputInputCribl$outboundSchema),
+  z.lazy(() => CreateInputInputCriblTcp$outboundSchema),
+  z.lazy(() => CreateInputInputCriblHttp$outboundSchema),
+  z.lazy(() => CreateInputInputCriblLakeHttp$outboundSchema),
+  z.lazy(() => CreateInputInputTcpjson$outboundSchema),
+  z.lazy(() => CreateInputInputSystemMetrics$outboundSchema),
+  z.lazy(() => CreateInputInputSystemState$outboundSchema),
+  z.lazy(() => CreateInputInputKubeMetrics$outboundSchema),
+  z.lazy(() => CreateInputInputKubeLogs$outboundSchema),
+  z.lazy(() => CreateInputInputKubeEvents$outboundSchema),
+  z.lazy(() => CreateInputInputWindowsMetrics$outboundSchema),
+  z.lazy(() => CreateInputInputCrowdstrike$outboundSchema),
+  z.lazy(() => CreateInputInputDatadogAgent$outboundSchema),
+  z.lazy(() => CreateInputInputDatagen$outboundSchema),
+  z.lazy(() => CreateInputInputHttpRaw$outboundSchema),
+  z.lazy(() => CreateInputInputKinesis$outboundSchema),
+  z.lazy(() => CreateInputInputCriblmetrics$outboundSchema),
+  z.lazy(() => CreateInputInputMetrics$outboundSchema),
+  z.lazy(() => CreateInputInputS3$outboundSchema),
+  z.lazy(() => CreateInputInputS3Inventory$outboundSchema),
+  z.lazy(() => CreateInputInputSnmp$outboundSchema),
+  z.lazy(() => CreateInputInputOpenTelemetry$outboundSchema),
+  z.lazy(() => CreateInputInputModelDrivenTelemetry$outboundSchema),
+  z.lazy(() => CreateInputInputSqs$outboundSchema),
   smartUnion([
-    z.lazy(() => InputSyslogSyslog1$outboundSchema),
-    z.lazy(() => InputSyslogSyslog2$outboundSchema),
+    z.lazy(() => CreateInputInputSyslogSyslog1$outboundSchema),
+    z.lazy(() => CreateInputInputSyslogSyslog2$outboundSchema),
   ]).and(z.object({ type: z.literal("syslog") })),
-  z.lazy(() => InputFile$outboundSchema),
-  z.lazy(() => InputTcp$outboundSchema),
-  z.lazy(() => InputAppscope$outboundSchema),
-  z.lazy(() => InputWef$outboundSchema),
-  z.lazy(() => InputWinEventLogs$outboundSchema),
-  z.lazy(() => InputRawUdp$outboundSchema),
-  z.lazy(() => InputJournalFiles$outboundSchema),
-  z.lazy(() => InputWiz$outboundSchema),
-  z.lazy(() => InputWizWebhook$outboundSchema),
-  z.lazy(() => InputNetflow$outboundSchema),
-  z.lazy(() => InputSecurityLake$outboundSchema),
-  z.lazy(() => InputZscalerHec$outboundSchema),
-  z.lazy(() => InputCloudflareHec$outboundSchema),
+  z.lazy(() => CreateInputInputFile$outboundSchema),
+  z.lazy(() => CreateInputInputTcp$outboundSchema),
+  z.lazy(() => CreateInputInputAppscope$outboundSchema),
+  z.lazy(() => CreateInputInputWef$outboundSchema),
+  z.lazy(() => CreateInputInputWinEventLogs$outboundSchema),
+  z.lazy(() => CreateInputInputRawUdp$outboundSchema),
+  z.lazy(() => CreateInputInputJournalFiles$outboundSchema),
+  z.lazy(() => CreateInputInputWiz$outboundSchema),
+  z.lazy(() => CreateInputInputWizWebhook$outboundSchema),
+  z.lazy(() => CreateInputInputNetflow$outboundSchema),
+  z.lazy(() => CreateInputInputSecurityLake$outboundSchema),
+  z.lazy(() => CreateInputInputZscalerHec$outboundSchema),
+  z.lazy(() => CreateInputInputCloudflareHec$outboundSchema),
 ]);
 
 export function createInputRequestToJSON(
@@ -15860,5 +21771,14 @@ export function createInputRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateInputRequest$outboundSchema.parse(createInputRequest),
+  );
+}
+export function createInputRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputRequest' from JSON`,
   );
 }

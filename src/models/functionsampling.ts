@@ -46,7 +46,53 @@ export const FunctionSampling$inboundSchema: z.ZodType<
   version: types.string(),
   schema: types.optional(z.record(z.any())),
 });
+/** @internal */
+export type FunctionSampling$Outbound = {
+  __filename: string;
+  asyncTimeout?: number | undefined;
+  cribl_version?: string | undefined;
+  disabled?: boolean | undefined;
+  group: string;
+  handleSignals?: boolean | undefined;
+  id: "sampling";
+  loadTime: number;
+  modTime: number;
+  name: string;
+  sync?: boolean | undefined;
+  uischema: { [k: string]: any };
+  version: string;
+  schema?: { [k: string]: any } | undefined;
+};
 
+/** @internal */
+export const FunctionSampling$outboundSchema: z.ZodType<
+  FunctionSampling$Outbound,
+  z.ZodTypeDef,
+  FunctionSampling
+> = z.object({
+  __filename: z.string(),
+  asyncTimeout: z.number().optional(),
+  cribl_version: z.string().optional(),
+  disabled: z.boolean().optional(),
+  group: z.string(),
+  handleSignals: z.boolean().optional(),
+  id: z.literal("sampling"),
+  loadTime: z.number(),
+  modTime: z.number(),
+  name: z.string(),
+  sync: z.boolean().optional(),
+  uischema: z.record(z.any()),
+  version: z.string(),
+  schema: z.record(z.any()).optional(),
+});
+
+export function functionSamplingToJSON(
+  functionSampling: FunctionSampling,
+): string {
+  return JSON.stringify(
+    FunctionSampling$outboundSchema.parse(functionSampling),
+  );
+}
 export function functionSamplingFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionSampling, SDKValidationError> {

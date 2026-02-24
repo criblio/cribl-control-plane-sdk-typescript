@@ -30,7 +30,37 @@ export const AwsTypeHeartbeatMetadata$inboundSchema: z.ZodType<
   type: types.string(),
   zone: types.string(),
 });
+/** @internal */
+export type AwsTypeHeartbeatMetadata$Outbound = {
+  enabled: boolean;
+  instanceId: string;
+  region: string;
+  tags?: { [k: string]: string } | undefined;
+  type: string;
+  zone: string;
+};
 
+/** @internal */
+export const AwsTypeHeartbeatMetadata$outboundSchema: z.ZodType<
+  AwsTypeHeartbeatMetadata$Outbound,
+  z.ZodTypeDef,
+  AwsTypeHeartbeatMetadata
+> = z.object({
+  enabled: z.boolean(),
+  instanceId: z.string(),
+  region: z.string(),
+  tags: z.record(z.string()).optional(),
+  type: z.string(),
+  zone: z.string(),
+});
+
+export function awsTypeHeartbeatMetadataToJSON(
+  awsTypeHeartbeatMetadata: AwsTypeHeartbeatMetadata,
+): string {
+  return JSON.stringify(
+    AwsTypeHeartbeatMetadata$outboundSchema.parse(awsTypeHeartbeatMetadata),
+  );
+}
 export function awsTypeHeartbeatMetadataFromJSON(
   jsonString: string,
 ): SafeParseResult<AwsTypeHeartbeatMetadata, SDKValidationError> {

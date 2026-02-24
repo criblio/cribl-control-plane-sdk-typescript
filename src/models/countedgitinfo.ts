@@ -7,7 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { GitInfo, GitInfo$inboundSchema } from "./gitinfo.js";
+import {
+  GitInfo,
+  GitInfo$inboundSchema,
+  GitInfo$Outbound,
+  GitInfo$outboundSchema,
+} from "./gitinfo.js";
 
 export type CountedGitInfo = {
   /**
@@ -26,7 +31,25 @@ export const CountedGitInfo$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(GitInfo$inboundSchema)),
 });
+/** @internal */
+export type CountedGitInfo$Outbound = {
+  count?: number | undefined;
+  items?: Array<GitInfo$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedGitInfo$outboundSchema: z.ZodType<
+  CountedGitInfo$Outbound,
+  z.ZodTypeDef,
+  CountedGitInfo
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(GitInfo$outboundSchema).optional(),
+});
+
+export function countedGitInfoToJSON(countedGitInfo: CountedGitInfo): string {
+  return JSON.stringify(CountedGitInfo$outboundSchema.parse(countedGitInfo));
+}
 export function countedGitInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedGitInfo, SDKValidationError> {

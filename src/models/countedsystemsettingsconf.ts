@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   SystemSettingsConf,
   SystemSettingsConf$inboundSchema,
+  SystemSettingsConf$Outbound,
+  SystemSettingsConf$outboundSchema,
 } from "./systemsettingsconf.js";
 
 export type CountedSystemSettingsConf = {
@@ -29,7 +31,29 @@ export const CountedSystemSettingsConf$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(SystemSettingsConf$inboundSchema)),
 });
+/** @internal */
+export type CountedSystemSettingsConf$Outbound = {
+  count?: number | undefined;
+  items?: Array<SystemSettingsConf$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedSystemSettingsConf$outboundSchema: z.ZodType<
+  CountedSystemSettingsConf$Outbound,
+  z.ZodTypeDef,
+  CountedSystemSettingsConf
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(SystemSettingsConf$outboundSchema).optional(),
+});
+
+export function countedSystemSettingsConfToJSON(
+  countedSystemSettingsConf: CountedSystemSettingsConf,
+): string {
+  return JSON.stringify(
+    CountedSystemSettingsConf$outboundSchema.parse(countedSystemSettingsConf),
+  );
+}
 export function countedSystemSettingsConfFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedSystemSettingsConf, SDKValidationError> {

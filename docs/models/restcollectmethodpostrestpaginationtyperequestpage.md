@@ -8,12 +8,9 @@ import { RestCollectMethodPostRestPaginationTypeRequestPage } from "cribl-contro
 let value: RestCollectMethodPostRestPaginationTypeRequestPage = {
   type: "request_page",
   pageField: "<value>",
-  page: 8836.54,
   sizeField: "<value>",
-  size: 9484.68,
-  totalPageField: "<value>",
-  totalRecordField: "<value>",
-  maxPages: 6431.81,
+  size: 8836.54,
+  maxPages: 9484.68,
   zeroIndexed: false,
 };
 ```

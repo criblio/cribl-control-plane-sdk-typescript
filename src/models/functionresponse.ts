@@ -11,202 +11,392 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FunctionAggregateMetrics,
   FunctionAggregateMetrics$inboundSchema,
+  FunctionAggregateMetrics$Outbound,
+  FunctionAggregateMetrics$outboundSchema,
 } from "./functionaggregatemetrics.js";
 import {
   FunctionAggregation,
   FunctionAggregation$inboundSchema,
+  FunctionAggregation$Outbound,
+  FunctionAggregation$outboundSchema,
 } from "./functionaggregation.js";
 import {
   FunctionAutoTimestamp,
   FunctionAutoTimestamp$inboundSchema,
+  FunctionAutoTimestamp$Outbound,
+  FunctionAutoTimestamp$outboundSchema,
 } from "./functionautotimestamp.js";
-import { FunctionCef, FunctionCef$inboundSchema } from "./functioncef.js";
-import { FunctionChain, FunctionChain$inboundSchema } from "./functionchain.js";
-import { FunctionClone, FunctionClone$inboundSchema } from "./functionclone.js";
-import { FunctionCode, FunctionCode$inboundSchema } from "./functioncode.js";
+import {
+  FunctionCef,
+  FunctionCef$inboundSchema,
+  FunctionCef$Outbound,
+  FunctionCef$outboundSchema,
+} from "./functioncef.js";
+import {
+  FunctionChain,
+  FunctionChain$inboundSchema,
+  FunctionChain$Outbound,
+  FunctionChain$outboundSchema,
+} from "./functionchain.js";
+import {
+  FunctionClone,
+  FunctionClone$inboundSchema,
+  FunctionClone$Outbound,
+  FunctionClone$outboundSchema,
+} from "./functionclone.js";
+import {
+  FunctionCode,
+  FunctionCode$inboundSchema,
+  FunctionCode$Outbound,
+  FunctionCode$outboundSchema,
+} from "./functioncode.js";
 import {
   FunctionComment,
   FunctionComment$inboundSchema,
+  FunctionComment$Outbound,
+  FunctionComment$outboundSchema,
 } from "./functioncomment.js";
 import {
   FunctionDistinct,
   FunctionDistinct$inboundSchema,
+  FunctionDistinct$Outbound,
+  FunctionDistinct$outboundSchema,
 } from "./functiondistinct.js";
 import {
   FunctionDnsLookup,
   FunctionDnsLookup$inboundSchema,
+  FunctionDnsLookup$Outbound,
+  FunctionDnsLookup$outboundSchema,
 } from "./functiondnslookup.js";
-import { FunctionDrop, FunctionDrop$inboundSchema } from "./functiondrop.js";
+import {
+  FunctionDrop,
+  FunctionDrop$inboundSchema,
+  FunctionDrop$Outbound,
+  FunctionDrop$outboundSchema,
+} from "./functiondrop.js";
 import {
   FunctionDropDimensions,
   FunctionDropDimensions$inboundSchema,
+  FunctionDropDimensions$Outbound,
+  FunctionDropDimensions$outboundSchema,
 } from "./functiondropdimensions.js";
 import {
   FunctionDynamicSampling,
   FunctionDynamicSampling$inboundSchema,
+  FunctionDynamicSampling$Outbound,
+  FunctionDynamicSampling$outboundSchema,
 } from "./functiondynamicsampling.js";
-import { FunctionEval, FunctionEval$inboundSchema } from "./functioneval.js";
+import {
+  FunctionEval,
+  FunctionEval$inboundSchema,
+  FunctionEval$Outbound,
+  FunctionEval$outboundSchema,
+} from "./functioneval.js";
 import {
   FunctionEventBreaker,
   FunctionEventBreaker$inboundSchema,
+  FunctionEventBreaker$Outbound,
+  FunctionEventBreaker$outboundSchema,
 } from "./functioneventbreaker.js";
 import {
   FunctionEventstats,
   FunctionEventstats$inboundSchema,
+  FunctionEventstats$Outbound,
+  FunctionEventstats$outboundSchema,
 } from "./functioneventstats.js";
 import {
   FunctionExternaldata,
   FunctionExternaldata$inboundSchema,
+  FunctionExternaldata$Outbound,
+  FunctionExternaldata$outboundSchema,
 } from "./functionexternaldata.js";
 import {
   FunctionFlatten,
   FunctionFlatten$inboundSchema,
+  FunctionFlatten$Outbound,
+  FunctionFlatten$outboundSchema,
 } from "./functionflatten.js";
 import {
   FunctionFoldkeys,
   FunctionFoldkeys$inboundSchema,
+  FunctionFoldkeys$Outbound,
+  FunctionFoldkeys$outboundSchema,
 } from "./functionfoldkeys.js";
 import {
   FunctionGenStats,
   FunctionGenStats$inboundSchema,
+  FunctionGenStats$Outbound,
+  FunctionGenStats$outboundSchema,
 } from "./functiongenstats.js";
-import { FunctionGeoip, FunctionGeoip$inboundSchema } from "./functiongeoip.js";
-import { FunctionGrok, FunctionGrok$inboundSchema } from "./functiongrok.js";
+import {
+  FunctionGeoip,
+  FunctionGeoip$inboundSchema,
+  FunctionGeoip$Outbound,
+  FunctionGeoip$outboundSchema,
+} from "./functiongeoip.js";
+import {
+  FunctionGrok,
+  FunctionGrok$inboundSchema,
+  FunctionGrok$Outbound,
+  FunctionGrok$outboundSchema,
+} from "./functiongrok.js";
 import {
   FunctionHandlebars,
   FunctionHandlebars$inboundSchema,
+  FunctionHandlebars$Outbound,
+  FunctionHandlebars$outboundSchema,
 } from "./functionhandlebars.js";
-import { FunctionJoin, FunctionJoin$inboundSchema } from "./functionjoin.js";
+import {
+  FunctionJoin,
+  FunctionJoin$inboundSchema,
+  FunctionJoin$Outbound,
+  FunctionJoin$outboundSchema,
+} from "./functionjoin.js";
 import {
   FunctionJsonUnroll,
   FunctionJsonUnroll$inboundSchema,
+  FunctionJsonUnroll$Outbound,
+  FunctionJsonUnroll$outboundSchema,
 } from "./functionjsonunroll.js";
 import {
   FunctionLakeExport,
   FunctionLakeExport$inboundSchema,
+  FunctionLakeExport$Outbound,
+  FunctionLakeExport$outboundSchema,
 } from "./functionlakeexport.js";
-import { FunctionLimit, FunctionLimit$inboundSchema } from "./functionlimit.js";
+import {
+  FunctionLimit,
+  FunctionLimit$inboundSchema,
+  FunctionLimit$Outbound,
+  FunctionLimit$outboundSchema,
+} from "./functionlimit.js";
 import {
   FunctionLocalSearchDatatypeParser,
   FunctionLocalSearchDatatypeParser$inboundSchema,
+  FunctionLocalSearchDatatypeParser$Outbound,
+  FunctionLocalSearchDatatypeParser$outboundSchema,
 } from "./functionlocalsearchdatatypeparser.js";
 import {
   FunctionLocalSearchRulesetRunner,
   FunctionLocalSearchRulesetRunner$inboundSchema,
+  FunctionLocalSearchRulesetRunner$Outbound,
+  FunctionLocalSearchRulesetRunner$outboundSchema,
 } from "./functionlocalsearchrulesetrunner.js";
 import {
   FunctionLookup,
   FunctionLookup$inboundSchema,
+  FunctionLookup$Outbound,
+  FunctionLookup$outboundSchema,
 } from "./functionlookup.js";
-import { FunctionMask, FunctionMask$inboundSchema } from "./functionmask.js";
+import {
+  FunctionMask,
+  FunctionMask$inboundSchema,
+  FunctionMask$Outbound,
+  FunctionMask$outboundSchema,
+} from "./functionmask.js";
 import {
   FunctionMvExpand,
   FunctionMvExpand$inboundSchema,
+  FunctionMvExpand$Outbound,
+  FunctionMvExpand$outboundSchema,
 } from "./functionmvexpand.js";
 import {
   FunctionMvPull,
   FunctionMvPull$inboundSchema,
+  FunctionMvPull$Outbound,
+  FunctionMvPull$outboundSchema,
 } from "./functionmvpull.js";
 import {
   FunctionNotificationPolicies,
   FunctionNotificationPolicies$inboundSchema,
+  FunctionNotificationPolicies$Outbound,
+  FunctionNotificationPolicies$outboundSchema,
 } from "./functionnotificationpolicies.js";
 import {
   FunctionNotifications,
   FunctionNotifications$inboundSchema,
+  FunctionNotifications$Outbound,
+  FunctionNotifications$outboundSchema,
 } from "./functionnotifications.js";
 import {
   FunctionNotify,
   FunctionNotify$inboundSchema,
+  FunctionNotify$Outbound,
+  FunctionNotify$outboundSchema,
 } from "./functionnotify.js";
 import {
   FunctionNumerify,
   FunctionNumerify$inboundSchema,
+  FunctionNumerify$Outbound,
+  FunctionNumerify$outboundSchema,
 } from "./functionnumerify.js";
 import {
   FunctionOtlpLogs,
   FunctionOtlpLogs$inboundSchema,
+  FunctionOtlpLogs$Outbound,
+  FunctionOtlpLogs$outboundSchema,
 } from "./functionotlplogs.js";
 import {
   FunctionOtlpMetrics,
   FunctionOtlpMetrics$inboundSchema,
+  FunctionOtlpMetrics$Outbound,
+  FunctionOtlpMetrics$outboundSchema,
 } from "./functionotlpmetrics.js";
 import {
   FunctionOtlpTraces,
   FunctionOtlpTraces$inboundSchema,
+  FunctionOtlpTraces$Outbound,
+  FunctionOtlpTraces$outboundSchema,
 } from "./functionotlptraces.js";
-import { FunctionPack, FunctionPack$inboundSchema } from "./functionpack.js";
-import { FunctionPivot, FunctionPivot$inboundSchema } from "./functionpivot.js";
+import {
+  FunctionPack,
+  FunctionPack$inboundSchema,
+  FunctionPack$Outbound,
+  FunctionPack$outboundSchema,
+} from "./functionpack.js";
+import {
+  FunctionPivot,
+  FunctionPivot$inboundSchema,
+  FunctionPivot$Outbound,
+  FunctionPivot$outboundSchema,
+} from "./functionpivot.js";
 import {
   FunctionPublishMetrics,
   FunctionPublishMetrics$inboundSchema,
+  FunctionPublishMetrics$Outbound,
+  FunctionPublishMetrics$outboundSchema,
 } from "./functionpublishmetrics.js";
-import { FunctionRedis, FunctionRedis$inboundSchema } from "./functionredis.js";
+import {
+  FunctionRedis,
+  FunctionRedis$inboundSchema,
+  FunctionRedis$Outbound,
+  FunctionRedis$outboundSchema,
+} from "./functionredis.js";
 import {
   FunctionRegexExtract,
   FunctionRegexExtract$inboundSchema,
+  FunctionRegexExtract$Outbound,
+  FunctionRegexExtract$outboundSchema,
 } from "./functionregexextract.js";
 import {
   FunctionRegexFilter,
   FunctionRegexFilter$inboundSchema,
+  FunctionRegexFilter$Outbound,
+  FunctionRegexFilter$outboundSchema,
 } from "./functionregexfilter.js";
 import {
   FunctionRename,
   FunctionRename$inboundSchema,
+  FunctionRename$Outbound,
+  FunctionRename$outboundSchema,
 } from "./functionrename.js";
 import {
   FunctionRollupMetrics,
   FunctionRollupMetrics$inboundSchema,
+  FunctionRollupMetrics$Outbound,
+  FunctionRollupMetrics$outboundSchema,
 } from "./functionrollupmetrics.js";
 import {
   FunctionSampling,
   FunctionSampling$inboundSchema,
+  FunctionSampling$Outbound,
+  FunctionSampling$outboundSchema,
 } from "./functionsampling.js";
-import { FunctionSend, FunctionSend$inboundSchema } from "./functionsend.js";
+import {
+  FunctionSend,
+  FunctionSend$inboundSchema,
+  FunctionSend$Outbound,
+  FunctionSend$outboundSchema,
+} from "./functionsend.js";
 import {
   FunctionSensitiveDataScanner,
   FunctionSensitiveDataScanner$inboundSchema,
+  FunctionSensitiveDataScanner$Outbound,
+  FunctionSensitiveDataScanner$outboundSchema,
 } from "./functionsensitivedatascanner.js";
-import { FunctionSerde, FunctionSerde$inboundSchema } from "./functionserde.js";
+import {
+  FunctionSerde,
+  FunctionSerde$inboundSchema,
+  FunctionSerde$Outbound,
+  FunctionSerde$outboundSchema,
+} from "./functionserde.js";
 import {
   FunctionSerialize,
   FunctionSerialize$inboundSchema,
+  FunctionSerialize$Outbound,
+  FunctionSerialize$outboundSchema,
 } from "./functionserialize.js";
 import {
   FunctionSidlookup,
   FunctionSidlookup$inboundSchema,
+  FunctionSidlookup$Outbound,
+  FunctionSidlookup$outboundSchema,
 } from "./functionsidlookup.js";
 import {
   FunctionSignalFilter,
   FunctionSignalFilter$inboundSchema,
+  FunctionSignalFilter$Outbound,
+  FunctionSignalFilter$outboundSchema,
 } from "./functionsignalfilter.js";
 import {
   FunctionSnmpTrapSerialize,
   FunctionSnmpTrapSerialize$inboundSchema,
+  FunctionSnmpTrapSerialize$Outbound,
+  FunctionSnmpTrapSerialize$outboundSchema,
 } from "./functionsnmptrapserialize.js";
-import { FunctionSort, FunctionSort$inboundSchema } from "./functionsort.js";
-import { FunctionStore, FunctionStore$inboundSchema } from "./functionstore.js";
+import {
+  FunctionSort,
+  FunctionSort$inboundSchema,
+  FunctionSort$Outbound,
+  FunctionSort$outboundSchema,
+} from "./functionsort.js";
+import {
+  FunctionStore,
+  FunctionStore$inboundSchema,
+  FunctionStore$Outbound,
+  FunctionStore$outboundSchema,
+} from "./functionstore.js";
 import {
   FunctionSuppress,
   FunctionSuppress$inboundSchema,
+  FunctionSuppress$Outbound,
+  FunctionSuppress$outboundSchema,
 } from "./functionsuppress.js";
-import { FunctionTee, FunctionTee$inboundSchema } from "./functiontee.js";
+import {
+  FunctionTee,
+  FunctionTee$inboundSchema,
+  FunctionTee$Outbound,
+  FunctionTee$outboundSchema,
+} from "./functiontee.js";
 import {
   FunctionTrimTimestamp,
   FunctionTrimTimestamp$inboundSchema,
+  FunctionTrimTimestamp$Outbound,
+  FunctionTrimTimestamp$outboundSchema,
 } from "./functiontrimtimestamp.js";
-import { FunctionUnion, FunctionUnion$inboundSchema } from "./functionunion.js";
+import {
+  FunctionUnion,
+  FunctionUnion$inboundSchema,
+  FunctionUnion$Outbound,
+  FunctionUnion$outboundSchema,
+} from "./functionunion.js";
 import {
   FunctionUnroll,
   FunctionUnroll$inboundSchema,
+  FunctionUnroll$Outbound,
+  FunctionUnroll$outboundSchema,
 } from "./functionunroll.js";
 import {
   FunctionWindow,
   FunctionWindow$inboundSchema,
+  FunctionWindow$Outbound,
+  FunctionWindow$outboundSchema,
 } from "./functionwindow.js";
 import {
   FunctionXmlUnroll,
   FunctionXmlUnroll$inboundSchema,
+  FunctionXmlUnroll$Outbound,
+  FunctionXmlUnroll$outboundSchema,
 } from "./functionxmlunroll.js";
 
 export type FunctionResponse =
@@ -349,7 +539,154 @@ export const FunctionResponse$inboundSchema: z.ZodType<
   window: FunctionWindow$inboundSchema,
   xml_unroll: FunctionXmlUnroll$inboundSchema,
 });
+/** @internal */
+export type FunctionResponse$Outbound =
+  | FunctionAggregateMetrics$Outbound
+  | FunctionAggregation$Outbound
+  | FunctionAutoTimestamp$Outbound
+  | FunctionCef$Outbound
+  | FunctionChain$Outbound
+  | FunctionClone$Outbound
+  | FunctionCode$Outbound
+  | FunctionComment$Outbound
+  | FunctionDistinct$Outbound
+  | FunctionDnsLookup$Outbound
+  | FunctionDrop$Outbound
+  | FunctionDropDimensions$Outbound
+  | FunctionDynamicSampling$Outbound
+  | FunctionEval$Outbound
+  | FunctionEventBreaker$Outbound
+  | FunctionEventstats$Outbound
+  | FunctionExternaldata$Outbound
+  | FunctionFlatten$Outbound
+  | FunctionFoldkeys$Outbound
+  | FunctionGenStats$Outbound
+  | FunctionGeoip$Outbound
+  | FunctionGrok$Outbound
+  | FunctionHandlebars$Outbound
+  | FunctionJoin$Outbound
+  | FunctionJsonUnroll$Outbound
+  | FunctionLakeExport$Outbound
+  | FunctionLimit$Outbound
+  | FunctionLocalSearchDatatypeParser$Outbound
+  | FunctionLocalSearchRulesetRunner$Outbound
+  | FunctionLookup$Outbound
+  | FunctionMask$Outbound
+  | FunctionMvExpand$Outbound
+  | FunctionMvPull$Outbound
+  | FunctionNotificationPolicies$Outbound
+  | FunctionNotifications$Outbound
+  | FunctionNotify$Outbound
+  | FunctionNumerify$Outbound
+  | FunctionOtlpLogs$Outbound
+  | FunctionOtlpMetrics$Outbound
+  | FunctionOtlpTraces$Outbound
+  | FunctionPack$Outbound
+  | FunctionPivot$Outbound
+  | FunctionPublishMetrics$Outbound
+  | FunctionRedis$Outbound
+  | FunctionRegexExtract$Outbound
+  | FunctionRegexFilter$Outbound
+  | FunctionRename$Outbound
+  | FunctionRollupMetrics$Outbound
+  | FunctionSampling$Outbound
+  | FunctionSend$Outbound
+  | FunctionSensitiveDataScanner$Outbound
+  | FunctionSerde$Outbound
+  | FunctionSerialize$Outbound
+  | FunctionSidlookup$Outbound
+  | FunctionSignalFilter$Outbound
+  | FunctionSnmpTrapSerialize$Outbound
+  | FunctionSort$Outbound
+  | FunctionStore$Outbound
+  | FunctionSuppress$Outbound
+  | FunctionTee$Outbound
+  | FunctionTrimTimestamp$Outbound
+  | FunctionUnion$Outbound
+  | FunctionUnroll$Outbound
+  | FunctionWindow$Outbound
+  | FunctionXmlUnroll$Outbound;
 
+/** @internal */
+export const FunctionResponse$outboundSchema: z.ZodType<
+  FunctionResponse$Outbound,
+  z.ZodTypeDef,
+  FunctionResponse
+> = z.union([
+  FunctionAggregateMetrics$outboundSchema,
+  FunctionAggregation$outboundSchema,
+  FunctionAutoTimestamp$outboundSchema,
+  FunctionCef$outboundSchema,
+  FunctionChain$outboundSchema,
+  FunctionClone$outboundSchema,
+  FunctionCode$outboundSchema,
+  FunctionComment$outboundSchema,
+  FunctionDistinct$outboundSchema,
+  FunctionDnsLookup$outboundSchema,
+  FunctionDrop$outboundSchema,
+  FunctionDropDimensions$outboundSchema,
+  FunctionDynamicSampling$outboundSchema,
+  FunctionEval$outboundSchema,
+  FunctionEventBreaker$outboundSchema,
+  FunctionEventstats$outboundSchema,
+  FunctionExternaldata$outboundSchema,
+  FunctionFlatten$outboundSchema,
+  FunctionFoldkeys$outboundSchema,
+  FunctionGenStats$outboundSchema,
+  FunctionGeoip$outboundSchema,
+  FunctionGrok$outboundSchema,
+  FunctionHandlebars$outboundSchema,
+  FunctionJoin$outboundSchema,
+  FunctionJsonUnroll$outboundSchema,
+  FunctionLakeExport$outboundSchema,
+  FunctionLimit$outboundSchema,
+  FunctionLocalSearchDatatypeParser$outboundSchema,
+  FunctionLocalSearchRulesetRunner$outboundSchema,
+  FunctionLookup$outboundSchema,
+  FunctionMask$outboundSchema,
+  FunctionMvExpand$outboundSchema,
+  FunctionMvPull$outboundSchema,
+  FunctionNotificationPolicies$outboundSchema,
+  FunctionNotifications$outboundSchema,
+  FunctionNotify$outboundSchema,
+  FunctionNumerify$outboundSchema,
+  FunctionOtlpLogs$outboundSchema,
+  FunctionOtlpMetrics$outboundSchema,
+  FunctionOtlpTraces$outboundSchema,
+  FunctionPack$outboundSchema,
+  FunctionPivot$outboundSchema,
+  FunctionPublishMetrics$outboundSchema,
+  FunctionRedis$outboundSchema,
+  FunctionRegexExtract$outboundSchema,
+  FunctionRegexFilter$outboundSchema,
+  FunctionRename$outboundSchema,
+  FunctionRollupMetrics$outboundSchema,
+  FunctionSampling$outboundSchema,
+  FunctionSend$outboundSchema,
+  FunctionSensitiveDataScanner$outboundSchema,
+  FunctionSerde$outboundSchema,
+  FunctionSerialize$outboundSchema,
+  FunctionSidlookup$outboundSchema,
+  FunctionSignalFilter$outboundSchema,
+  FunctionSnmpTrapSerialize$outboundSchema,
+  FunctionSort$outboundSchema,
+  FunctionStore$outboundSchema,
+  FunctionSuppress$outboundSchema,
+  FunctionTee$outboundSchema,
+  FunctionTrimTimestamp$outboundSchema,
+  FunctionUnion$outboundSchema,
+  FunctionUnroll$outboundSchema,
+  FunctionWindow$outboundSchema,
+  FunctionXmlUnroll$outboundSchema,
+]);
+
+export function functionResponseToJSON(
+  functionResponse: FunctionResponse,
+): string {
+  return JSON.stringify(
+    FunctionResponse$outboundSchema.parse(functionResponse),
+  );
+}
 export function functionResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionResponse, SDKValidationError> {

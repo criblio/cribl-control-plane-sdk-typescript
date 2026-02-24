@@ -46,7 +46,53 @@ export const FunctionSerialize$inboundSchema: z.ZodType<
   version: types.string(),
   schema: types.optional(z.record(z.any())),
 });
+/** @internal */
+export type FunctionSerialize$Outbound = {
+  __filename: string;
+  asyncTimeout?: number | undefined;
+  cribl_version?: string | undefined;
+  disabled?: boolean | undefined;
+  group: string;
+  handleSignals?: boolean | undefined;
+  id: "serialize";
+  loadTime: number;
+  modTime: number;
+  name: string;
+  sync?: boolean | undefined;
+  uischema: { [k: string]: any };
+  version: string;
+  schema?: { [k: string]: any } | undefined;
+};
 
+/** @internal */
+export const FunctionSerialize$outboundSchema: z.ZodType<
+  FunctionSerialize$Outbound,
+  z.ZodTypeDef,
+  FunctionSerialize
+> = z.object({
+  __filename: z.string(),
+  asyncTimeout: z.number().optional(),
+  cribl_version: z.string().optional(),
+  disabled: z.boolean().optional(),
+  group: z.string(),
+  handleSignals: z.boolean().optional(),
+  id: z.literal("serialize"),
+  loadTime: z.number(),
+  modTime: z.number(),
+  name: z.string(),
+  sync: z.boolean().optional(),
+  uischema: z.record(z.any()),
+  version: z.string(),
+  schema: z.record(z.any()).optional(),
+});
+
+export function functionSerializeToJSON(
+  functionSerialize: FunctionSerialize,
+): string {
+  return JSON.stringify(
+    FunctionSerialize$outboundSchema.parse(functionSerialize),
+  );
+}
 export function functionSerializeFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionSerialize, SDKValidationError> {

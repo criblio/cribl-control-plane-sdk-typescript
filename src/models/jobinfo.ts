@@ -9,10 +9,22 @@ import * as types from "../types/primitives.js";
 import {
   AdditionalPropertiesTypeJobInfoStats,
   AdditionalPropertiesTypeJobInfoStats$inboundSchema,
+  AdditionalPropertiesTypeJobInfoStats$Outbound,
+  AdditionalPropertiesTypeJobInfoStats$outboundSchema,
 } from "./additionalpropertiestypejobinfostats.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { JobStatus, JobStatus$inboundSchema } from "./jobstatus.js";
-import { RunnableJob, RunnableJob$inboundSchema } from "./runnablejob.js";
+import {
+  JobStatus,
+  JobStatus$inboundSchema,
+  JobStatus$Outbound,
+  JobStatus$outboundSchema,
+} from "./jobstatus.js";
+import {
+  RunnableJob,
+  RunnableJob$inboundSchema,
+  RunnableJob$Outbound,
+  RunnableJob$outboundSchema,
+} from "./runnablejob.js";
 
 export type JobInfo = {
   args: RunnableJob;
@@ -31,7 +43,31 @@ export const JobInfo$inboundSchema: z.ZodType<JobInfo, z.ZodTypeDef, unknown> =
     stats: z.record(AdditionalPropertiesTypeJobInfoStats$inboundSchema),
     status: JobStatus$inboundSchema,
   });
+/** @internal */
+export type JobInfo$Outbound = {
+  args: RunnableJob$Outbound;
+  id: string;
+  keep?: boolean | undefined;
+  stats: { [k: string]: AdditionalPropertiesTypeJobInfoStats$Outbound };
+  status: JobStatus$Outbound;
+};
 
+/** @internal */
+export const JobInfo$outboundSchema: z.ZodType<
+  JobInfo$Outbound,
+  z.ZodTypeDef,
+  JobInfo
+> = z.object({
+  args: RunnableJob$outboundSchema,
+  id: z.string(),
+  keep: z.boolean().optional(),
+  stats: z.record(AdditionalPropertiesTypeJobInfoStats$outboundSchema),
+  status: JobStatus$outboundSchema,
+});
+
+export function jobInfoToJSON(jobInfo: JobInfo): string {
+  return JSON.stringify(JobInfo$outboundSchema.parse(jobInfo));
+}
 export function jobInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<JobInfo, SDKValidationError> {

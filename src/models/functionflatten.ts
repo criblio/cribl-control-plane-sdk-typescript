@@ -46,7 +46,51 @@ export const FunctionFlatten$inboundSchema: z.ZodType<
   version: types.string(),
   schema: types.optional(z.record(z.any())),
 });
+/** @internal */
+export type FunctionFlatten$Outbound = {
+  __filename: string;
+  asyncTimeout?: number | undefined;
+  cribl_version?: string | undefined;
+  disabled?: boolean | undefined;
+  group: string;
+  handleSignals?: boolean | undefined;
+  id: "flatten";
+  loadTime: number;
+  modTime: number;
+  name: string;
+  sync?: boolean | undefined;
+  uischema: { [k: string]: any };
+  version: string;
+  schema?: { [k: string]: any } | undefined;
+};
 
+/** @internal */
+export const FunctionFlatten$outboundSchema: z.ZodType<
+  FunctionFlatten$Outbound,
+  z.ZodTypeDef,
+  FunctionFlatten
+> = z.object({
+  __filename: z.string(),
+  asyncTimeout: z.number().optional(),
+  cribl_version: z.string().optional(),
+  disabled: z.boolean().optional(),
+  group: z.string(),
+  handleSignals: z.boolean().optional(),
+  id: z.literal("flatten"),
+  loadTime: z.number(),
+  modTime: z.number(),
+  name: z.string(),
+  sync: z.boolean().optional(),
+  uischema: z.record(z.any()),
+  version: z.string(),
+  schema: z.record(z.any()).optional(),
+});
+
+export function functionFlattenToJSON(
+  functionFlatten: FunctionFlatten,
+): string {
+  return JSON.stringify(FunctionFlatten$outboundSchema.parse(functionFlatten));
+}
 export function functionFlattenFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionFlatten, SDKValidationError> {

@@ -22,7 +22,31 @@ export const OwnerTypeHeartbeatMetadataKube$inboundSchema: z.ZodType<
   kind: types.string(),
   name: types.string(),
 });
+/** @internal */
+export type OwnerTypeHeartbeatMetadataKube$Outbound = {
+  kind: string;
+  name: string;
+};
 
+/** @internal */
+export const OwnerTypeHeartbeatMetadataKube$outboundSchema: z.ZodType<
+  OwnerTypeHeartbeatMetadataKube$Outbound,
+  z.ZodTypeDef,
+  OwnerTypeHeartbeatMetadataKube
+> = z.object({
+  kind: z.string(),
+  name: z.string(),
+});
+
+export function ownerTypeHeartbeatMetadataKubeToJSON(
+  ownerTypeHeartbeatMetadataKube: OwnerTypeHeartbeatMetadataKube,
+): string {
+  return JSON.stringify(
+    OwnerTypeHeartbeatMetadataKube$outboundSchema.parse(
+      ownerTypeHeartbeatMetadataKube,
+    ),
+  );
+}
 export function ownerTypeHeartbeatMetadataKubeFromJSON(
   jsonString: string,
 ): SafeParseResult<OwnerTypeHeartbeatMetadataKube, SDKValidationError> {

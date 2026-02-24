@@ -46,7 +46,55 @@ export const FunctionLocalSearchDatatypeParser$inboundSchema: z.ZodType<
   version: types.string(),
   schema: types.optional(z.record(z.any())),
 });
+/** @internal */
+export type FunctionLocalSearchDatatypeParser$Outbound = {
+  __filename: string;
+  asyncTimeout?: number | undefined;
+  cribl_version?: string | undefined;
+  disabled?: boolean | undefined;
+  group: string;
+  handleSignals?: boolean | undefined;
+  id: "local_search_datatype_parser";
+  loadTime: number;
+  modTime: number;
+  name: string;
+  sync?: boolean | undefined;
+  uischema: { [k: string]: any };
+  version: string;
+  schema?: { [k: string]: any } | undefined;
+};
 
+/** @internal */
+export const FunctionLocalSearchDatatypeParser$outboundSchema: z.ZodType<
+  FunctionLocalSearchDatatypeParser$Outbound,
+  z.ZodTypeDef,
+  FunctionLocalSearchDatatypeParser
+> = z.object({
+  __filename: z.string(),
+  asyncTimeout: z.number().optional(),
+  cribl_version: z.string().optional(),
+  disabled: z.boolean().optional(),
+  group: z.string(),
+  handleSignals: z.boolean().optional(),
+  id: z.literal("local_search_datatype_parser"),
+  loadTime: z.number(),
+  modTime: z.number(),
+  name: z.string(),
+  sync: z.boolean().optional(),
+  uischema: z.record(z.any()),
+  version: z.string(),
+  schema: z.record(z.any()).optional(),
+});
+
+export function functionLocalSearchDatatypeParserToJSON(
+  functionLocalSearchDatatypeParser: FunctionLocalSearchDatatypeParser,
+): string {
+  return JSON.stringify(
+    FunctionLocalSearchDatatypeParser$outboundSchema.parse(
+      functionLocalSearchDatatypeParser,
+    ),
+  );
+}
 export function functionLocalSearchDatatypeParserFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionLocalSearchDatatypeParser, SDKValidationError> {

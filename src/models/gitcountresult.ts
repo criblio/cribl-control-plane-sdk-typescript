@@ -20,7 +20,23 @@ export const GitCountResult$inboundSchema: z.ZodType<
 > = z.object({
   count: types.number(),
 });
+/** @internal */
+export type GitCountResult$Outbound = {
+  count: number;
+};
 
+/** @internal */
+export const GitCountResult$outboundSchema: z.ZodType<
+  GitCountResult$Outbound,
+  z.ZodTypeDef,
+  GitCountResult
+> = z.object({
+  count: z.number(),
+});
+
+export function gitCountResultToJSON(gitCountResult: GitCountResult): string {
+  return JSON.stringify(GitCountResult$outboundSchema.parse(gitCountResult));
+}
 export function gitCountResultFromJSON(
   jsonString: string,
 ): SafeParseResult<GitCountResult, SDKValidationError> {

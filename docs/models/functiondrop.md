@@ -7,24 +7,13 @@ import { FunctionDrop } from "cribl-control-plane/models";
 
 let value: FunctionDrop = {
   __filename: "example.file",
-  asyncTimeout: 7169.86,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: true,
   id: "drop",
-  loadTime: 7510.87,
-  modTime: 74.1,
+  loadTime: 7169.86,
+  modTime: 5321.61,
   name: "<value>",
-  sync: true,
-  uischema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
+  uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TagsTypePackInstallInfo,
   TagsTypePackInstallInfo$inboundSchema,
+  TagsTypePackInstallInfo$Outbound,
+  TagsTypePackInstallInfo$outboundSchema,
 } from "./tagstypepackinstallinfo.js";
 
 export type PackInfo = {
@@ -52,7 +54,51 @@ export const PackInfo$inboundSchema: z.ZodType<
   tags: types.optional(TagsTypePackInstallInfo$inboundSchema),
   version: types.optional(types.string()),
 });
+/** @internal */
+export type PackInfo$Outbound = {
+  author?: string | undefined;
+  dependencies?: { [k: string]: string } | undefined;
+  description?: string | undefined;
+  displayName?: string | undefined;
+  exports?: Array<string> | undefined;
+  id: string;
+  inputs?: number | undefined;
+  isDisabled?: boolean | undefined;
+  minLogStreamVersion?: string | undefined;
+  outputs?: number | undefined;
+  settings?: { [k: string]: any } | undefined;
+  source: string;
+  spec?: string | undefined;
+  tags?: TagsTypePackInstallInfo$Outbound | undefined;
+  version?: string | undefined;
+};
 
+/** @internal */
+export const PackInfo$outboundSchema: z.ZodType<
+  PackInfo$Outbound,
+  z.ZodTypeDef,
+  PackInfo
+> = z.object({
+  author: z.string().optional(),
+  dependencies: z.record(z.string()).optional(),
+  description: z.string().optional(),
+  displayName: z.string().optional(),
+  exports: z.array(z.string()).optional(),
+  id: z.string(),
+  inputs: z.number().optional(),
+  isDisabled: z.boolean().optional(),
+  minLogStreamVersion: z.string().optional(),
+  outputs: z.number().optional(),
+  settings: z.record(z.any()).optional(),
+  source: z.string(),
+  spec: z.string().optional(),
+  tags: TagsTypePackInstallInfo$outboundSchema.optional(),
+  version: z.string().optional(),
+});
+
+export function packInfoToJSON(packInfo: PackInfo): string {
+  return JSON.stringify(PackInfo$outboundSchema.parse(packInfo));
+}
 export function packInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<PackInfo, SDKValidationError> {

@@ -7,10 +7,16 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { HBLeaderInfo, HBLeaderInfo$inboundSchema } from "./hbleaderinfo.js";
+import {
+  HBLeaderInfo,
+  HBLeaderInfo$inboundSchema,
+  HBLeaderInfo$Outbound,
+  HBLeaderInfo$outboundSchema,
+} from "./hbleaderinfo.js";
 import {
   ModeOptionsInstanceSettingsSchema,
   ModeOptionsInstanceSettingsSchema$inboundSchema,
+  ModeOptionsInstanceSettingsSchema$outboundSchema,
 } from "./modeoptionsinstancesettingsschema.js";
 
 export type Config = {
@@ -48,7 +54,31 @@ export const Config$inboundSchema: z.ZodType<Config, z.ZodTypeDef, unknown> = z
     policyRev: types.optional(types.string()),
     version: types.optional(types.string()),
   });
+/** @internal */
+export type Config$Outbound = {
+  featuresRev?: string | undefined;
+  hbPeriodSeconds?: number | undefined;
+  logStreamEnv?: string | undefined;
+  policyRev?: string | undefined;
+  version?: string | undefined;
+};
 
+/** @internal */
+export const Config$outboundSchema: z.ZodType<
+  Config$Outbound,
+  z.ZodTypeDef,
+  Config
+> = z.object({
+  featuresRev: z.string().optional(),
+  hbPeriodSeconds: z.number().optional(),
+  logStreamEnv: z.string().optional(),
+  policyRev: z.string().optional(),
+  version: z.string().optional(),
+});
+
+export function configToJSON(config: Config): string {
+  return JSON.stringify(Config$outboundSchema.parse(config));
+}
 export function configFromJSON(
   jsonString: string,
 ): SafeParseResult<Config, SDKValidationError> {
@@ -81,7 +111,51 @@ export const HBCriblInfo$inboundSchema: z.ZodType<
   tags: z.array(types.string()),
   version: types.optional(types.string()),
 });
+/** @internal */
+export type HBCriblInfo$Outbound = {
+  config: Config$Outbound;
+  deploymentId?: string | undefined;
+  disableSNIRouting?: boolean | undefined;
+  distMode: string;
+  edgeNodes?: number | undefined;
+  group: string;
+  guid: string;
+  installType?: string | undefined;
+  lookupVersions?: { [k: string]: { [k: string]: string } } | undefined;
+  master?: HBLeaderInfo$Outbound | undefined;
+  pid?: number | undefined;
+  socksEnabled?: boolean | undefined;
+  startTime: number;
+  tags: Array<string>;
+  version?: string | undefined;
+};
 
+/** @internal */
+export const HBCriblInfo$outboundSchema: z.ZodType<
+  HBCriblInfo$Outbound,
+  z.ZodTypeDef,
+  HBCriblInfo
+> = z.object({
+  config: z.lazy(() => Config$outboundSchema),
+  deploymentId: z.string().optional(),
+  disableSNIRouting: z.boolean().optional(),
+  distMode: ModeOptionsInstanceSettingsSchema$outboundSchema,
+  edgeNodes: z.number().optional(),
+  group: z.string(),
+  guid: z.string(),
+  installType: z.string().optional(),
+  lookupVersions: z.record(z.record(z.string())).optional(),
+  master: HBLeaderInfo$outboundSchema.optional(),
+  pid: z.number().optional(),
+  socksEnabled: z.boolean().optional(),
+  startTime: z.number(),
+  tags: z.array(z.string()),
+  version: z.string().optional(),
+});
+
+export function hbCriblInfoToJSON(hbCriblInfo: HBCriblInfo): string {
+  return JSON.stringify(HBCriblInfo$outboundSchema.parse(hbCriblInfo));
+}
 export function hbCriblInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<HBCriblInfo, SDKValidationError> {

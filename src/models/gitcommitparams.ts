@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitCommitParams = {
   effective?: boolean | undefined;
@@ -11,6 +15,17 @@ export type GitCommitParams = {
   message: string;
 };
 
+/** @internal */
+export const GitCommitParams$inboundSchema: z.ZodType<
+  GitCommitParams,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  effective: types.optional(types.boolean()),
+  files: types.optional(z.array(types.string())),
+  group: types.optional(types.string()),
+  message: types.string(),
+});
 /** @internal */
 export type GitCommitParams$Outbound = {
   effective?: boolean | undefined;
@@ -35,4 +50,13 @@ export function gitCommitParamsToJSON(
   gitCommitParams: GitCommitParams,
 ): string {
   return JSON.stringify(GitCommitParams$outboundSchema.parse(gitCommitParams));
+}
+export function gitCommitParamsFromJSON(
+  jsonString: string,
+): SafeParseResult<GitCommitParams, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GitCommitParams$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GitCommitParams' from JSON`,
+  );
 }

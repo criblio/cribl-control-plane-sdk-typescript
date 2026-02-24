@@ -6,104 +6,10 @@
 import { InputCloudflareHec } from "cribl-control-plane/models";
 
 let value: InputCloudflareHec = {
-  id: "<id>",
   type: "cloudflare_hec",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "disloyal-challenge.name",
-  port: 9753.01,
-  authTokens: [
-    {
-      authType: "manual",
-      tokenSecret: "<value>",
-      token: "<value>",
-      enabled: false,
-      description: "pro pish equate cumbersome unwritten while unless right",
-      allowedIndexesAtToken: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 4987.89,
-  maxRequestsPerSocket: 655252,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 6374.67,
-  requestTimeout: 2259.74,
-  socketTimeout: 8058.3,
-  keepAliveTimeout: 7840.92,
-  enableHealthCheck: "<value>",
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
+  host: "grizzled-receptor.com",
+  port: 5918.65,
   hecAPI: "<value>",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedIndexes: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  breakerRulesets: [
-    "<value 1>",
-  ],
-  staleChannelFlushMs: 9558.71,
-  accessControlAllowOrigin: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  accessControlAllowHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  emitTokenMetrics: true,
-  description: "loose puzzled well but",
 };
 ```
 
@@ -124,7 +30,7 @@ let value: InputCloudflareHec = {
 | `host`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Address to bind on. Defaults to 0.0.0.0 (all addresses).                                                                                                                                                                                     |
 | `port`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Port to listen on                                                                                                                                                                                                                            |
 | `authTokens`                                                                                                                                                                                                                                 | [models.InputCloudflareHecAuthToken](../models/inputcloudflarehecauthtoken.md)[]                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.                                                                                                                            |
-| `tls`                                                                                                                                                                                                                                        | [models.TlsSettingsServerSideType](../models/tlssettingsserversidetype.md)                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `tls`                                                                                                                                                                                                                                        | [models.TLSSettingsServerSide](../models/tlssettingsserverside.md)                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `maxActiveReq`                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.                      |
 | `maxRequestsPerSocket`                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).                                                                                                              |
 | `enableProxyHeader`                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.                                                           |
@@ -133,11 +39,10 @@ let value: InputCloudflareHec = {
 | `requestTimeout`                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How long to wait for an incoming request to complete before aborting it. Use 0 to disable.                                                                                                                                                   |
 | `socketTimeout`                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.                                                                                                                            |
 | `keepAliveTimeout`                                                                                                                                                                                                                           | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).                                                                |
-| `enableHealthCheck`                                                                                                                                                                                                                          | *any*                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `ipAllowlistRegex`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Messages from matched IP addresses will be processed, unless also matched by the denylist                                                                                                                                                    |
 | `ipDenylistRegex`                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.                                                                                                                                                |
 | `hecAPI`                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                           | Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.                                                                                                              |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to every event. May be overridden by fields added at the token or request level.                                                                                                                                               |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to every event. May be overridden by fields added at the token or request level.                                                                                                                                               |
 | `allowedIndexes`                                                                                                                                                                                                                             | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.                                                                            |
 | `breakerRulesets`                                                                                                                                                                                                                            | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | A list of event-breaking rulesets that will be applied, in order, to the input data stream                                                                                                                                                   |
 | `staleChannelFlushMs`                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines                                                                            |
@@ -145,3 +50,5 @@ let value: InputCloudflareHec = {
 | `accessControlAllowHeaders`                                                                                                                                                                                                                  | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.                                                                                      |
 | `emitTokenMetrics`                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics                                                                                                                                                  |
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `templateHost`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.                                                        |
+| `templatePort`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.                                                        |

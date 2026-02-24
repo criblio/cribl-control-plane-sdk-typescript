@@ -7,7 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Pipeline, Pipeline$inboundSchema } from "./pipeline.js";
+import {
+  Pipeline,
+  Pipeline$inboundSchema,
+  Pipeline$Outbound,
+  Pipeline$outboundSchema,
+} from "./pipeline.js";
 
 export type CountedPipeline = {
   /**
@@ -26,7 +31,27 @@ export const CountedPipeline$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(Pipeline$inboundSchema)),
 });
+/** @internal */
+export type CountedPipeline$Outbound = {
+  count?: number | undefined;
+  items?: Array<Pipeline$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedPipeline$outboundSchema: z.ZodType<
+  CountedPipeline$Outbound,
+  z.ZodTypeDef,
+  CountedPipeline
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(Pipeline$outboundSchema).optional(),
+});
+
+export function countedPipelineToJSON(
+  countedPipeline: CountedPipeline,
+): string {
+  return JSON.stringify(CountedPipeline$outboundSchema.parse(countedPipeline));
+}
 export function countedPipelineFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedPipeline, SDKValidationError> {

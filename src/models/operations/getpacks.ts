@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetPacksRequest = {
   /**
@@ -11,6 +15,14 @@ export type GetPacksRequest = {
   with?: string | undefined;
 };
 
+/** @internal */
+export const GetPacksRequest$inboundSchema: z.ZodType<
+  GetPacksRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  with: types.optional(types.string()),
+});
 /** @internal */
 export type GetPacksRequest$Outbound = {
   with?: string | undefined;
@@ -29,4 +41,13 @@ export function getPacksRequestToJSON(
   getPacksRequest: GetPacksRequest,
 ): string {
   return JSON.stringify(GetPacksRequest$outboundSchema.parse(getPacksRequest));
+}
+export function getPacksRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetPacksRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetPacksRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetPacksRequest' from JSON`,
+  );
 }

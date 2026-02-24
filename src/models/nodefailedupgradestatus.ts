@@ -7,8 +7,8 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 
 export const NodeFailedUpgradeStatus = {
-  Zero: 0,
-  One: 1,
+  UpgradeErrorOnNode: 0,
+  UpgradeInstallationRollback: 1,
 } as const;
 export type NodeFailedUpgradeStatus = OpenEnum<typeof NodeFailedUpgradeStatus>;
 
@@ -18,3 +18,9 @@ export const NodeFailedUpgradeStatus$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchemaInt(NodeFailedUpgradeStatus);
+/** @internal */
+export const NodeFailedUpgradeStatus$outboundSchema: z.ZodType<
+  number,
+  z.ZodTypeDef,
+  NodeFailedUpgradeStatus
+> = openEnums.outboundSchemaInt(NodeFailedUpgradeStatus);

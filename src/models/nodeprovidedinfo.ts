@@ -10,28 +10,45 @@ import { smartUnion } from "../types/smartUnion.js";
 import {
   AwsTypeHeartbeatMetadata,
   AwsTypeHeartbeatMetadata$inboundSchema,
+  AwsTypeHeartbeatMetadata$Outbound,
+  AwsTypeHeartbeatMetadata$outboundSchema,
 } from "./awstypeheartbeatmetadata.js";
 import {
   AzureTypeHeartbeatMetadata,
   AzureTypeHeartbeatMetadata$inboundSchema,
+  AzureTypeHeartbeatMetadata$Outbound,
+  AzureTypeHeartbeatMetadata$outboundSchema,
 } from "./azuretypeheartbeatmetadata.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { HBCriblInfo, HBCriblInfo$inboundSchema } from "./hbcriblinfo.js";
+import {
+  HBCriblInfo,
+  HBCriblInfo$inboundSchema,
+  HBCriblInfo$Outbound,
+  HBCriblInfo$outboundSchema,
+} from "./hbcriblinfo.js";
 import {
   HeartbeatMetadata,
   HeartbeatMetadata$inboundSchema,
+  HeartbeatMetadata$Outbound,
+  HeartbeatMetadata$outboundSchema,
 } from "./heartbeatmetadata.js";
 import {
   HostOsTypeHeartbeatMetadata,
   HostOsTypeHeartbeatMetadata$inboundSchema,
+  HostOsTypeHeartbeatMetadata$Outbound,
+  HostOsTypeHeartbeatMetadata$outboundSchema,
 } from "./hostostypeheartbeatmetadata.js";
 import {
   KubeTypeHeartbeatMetadata,
   KubeTypeHeartbeatMetadata$inboundSchema,
+  KubeTypeHeartbeatMetadata$Outbound,
+  KubeTypeHeartbeatMetadata$outboundSchema,
 } from "./kubetypeheartbeatmetadata.js";
 import {
   OutpostNodeInfo,
   OutpostNodeInfo$inboundSchema,
+  OutpostNodeInfo$Outbound,
+  OutpostNodeInfo$outboundSchema,
 } from "./outpostnodeinfo.js";
 
 export type Os = {
@@ -68,7 +85,20 @@ export type NodeProvidedInfo = {
 export const Os$inboundSchema: z.ZodType<Os, z.ZodTypeDef, unknown> = z.object({
   addresses: z.array(types.string()),
 });
+/** @internal */
+export type Os$Outbound = {
+  addresses: Array<string>;
+};
 
+/** @internal */
+export const Os$outboundSchema: z.ZodType<Os$Outbound, z.ZodTypeDef, Os> = z
+  .object({
+    addresses: z.array(z.string()),
+  });
+
+export function osToJSON(os: Os): string {
+  return JSON.stringify(Os$outboundSchema.parse(os));
+}
 export function osFromJSON(
   jsonString: string,
 ): SafeParseResult<Os, SDKValidationError> {
@@ -85,7 +115,24 @@ export const OsUnion$inboundSchema: z.ZodType<OsUnion, z.ZodTypeDef, unknown> =
     HostOsTypeHeartbeatMetadata$inboundSchema,
     z.lazy(() => Os$inboundSchema),
   ]);
+/** @internal */
+export type OsUnion$Outbound =
+  | HostOsTypeHeartbeatMetadata$Outbound
+  | Os$Outbound;
 
+/** @internal */
+export const OsUnion$outboundSchema: z.ZodType<
+  OsUnion$Outbound,
+  z.ZodTypeDef,
+  OsUnion
+> = smartUnion([
+  HostOsTypeHeartbeatMetadata$outboundSchema,
+  z.lazy(() => Os$outboundSchema),
+]);
+
+export function osUnionToJSON(osUnion: OsUnion): string {
+  return JSON.stringify(OsUnion$outboundSchema.parse(osUnion));
+}
 export function osUnionFromJSON(
   jsonString: string,
 ): SafeParseResult<OsUnion, SDKValidationError> {
@@ -129,7 +176,70 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
   totalDiskSpace: types.optional(types.number()),
   totalmem: types.number(),
 });
+/** @internal */
+export type NodeProvidedInfo$Outbound = {
+  architecture: string;
+  aws?: AwsTypeHeartbeatMetadata$Outbound | undefined;
+  azure?: AzureTypeHeartbeatMetadata$Outbound | undefined;
+  conn_ip?: string | undefined;
+  cpus: number;
+  cribl: HBCriblInfo$Outbound;
+  env: { [k: string]: string };
+  freeDiskSpace?: number | undefined;
+  hostOs?: HostOsTypeHeartbeatMetadata$Outbound | undefined;
+  hostname: string;
+  isSaasWorker?: boolean | undefined;
+  kube?: KubeTypeHeartbeatMetadata$Outbound | undefined;
+  localTime?: number | undefined;
+  metadata?: HeartbeatMetadata$Outbound | undefined;
+  node: string;
+  os?: HostOsTypeHeartbeatMetadata$Outbound | Os$Outbound | undefined;
+  outpost?: OutpostNodeInfo$Outbound | undefined;
+  platform: string;
+  release: string;
+  totalDiskSpace?: number | undefined;
+  totalmem: number;
+};
 
+/** @internal */
+export const NodeProvidedInfo$outboundSchema: z.ZodType<
+  NodeProvidedInfo$Outbound,
+  z.ZodTypeDef,
+  NodeProvidedInfo
+> = z.object({
+  architecture: z.string(),
+  aws: AwsTypeHeartbeatMetadata$outboundSchema.optional(),
+  azure: AzureTypeHeartbeatMetadata$outboundSchema.optional(),
+  conn_ip: z.string().optional(),
+  cpus: z.number(),
+  cribl: HBCriblInfo$outboundSchema,
+  env: z.record(z.string()),
+  freeDiskSpace: z.number().optional(),
+  hostOs: HostOsTypeHeartbeatMetadata$outboundSchema.optional(),
+  hostname: z.string(),
+  isSaasWorker: z.boolean().optional(),
+  kube: KubeTypeHeartbeatMetadata$outboundSchema.optional(),
+  localTime: z.number().optional(),
+  metadata: HeartbeatMetadata$outboundSchema.optional(),
+  node: z.string(),
+  os: smartUnion([
+    HostOsTypeHeartbeatMetadata$outboundSchema,
+    z.lazy(() => Os$outboundSchema),
+  ]).optional(),
+  outpost: OutpostNodeInfo$outboundSchema.optional(),
+  platform: z.string(),
+  release: z.string(),
+  totalDiskSpace: z.number().optional(),
+  totalmem: z.number(),
+});
+
+export function nodeProvidedInfoToJSON(
+  nodeProvidedInfo: NodeProvidedInfo,
+): string {
+  return JSON.stringify(
+    NodeProvidedInfo$outboundSchema.parse(nodeProvidedInfo),
+  );
+}
 export function nodeProvidedInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<NodeProvidedInfo, SDKValidationError> {

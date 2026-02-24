@@ -6,62 +6,7 @@
 import { InputKubeLogs } from "cribl-control-plane/models";
 
 let value: InputKubeLogs = {
-  id: "<id>",
   type: "kube_logs",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  interval: 971.18,
-  rules: [
-    {
-      filter: "<value>",
-      description: "graduate now fiddle ouch carefully wherever where",
-    },
-  ],
-  timestamps: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {
-    enable: false,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "gzip",
-  },
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  staleChannelFlushMs: 9531.45,
-  enableLoadBalancing: true,
-  description: "but over wafer following ugh strait dimly yuck crumble hastily",
 };
 ```
 
@@ -82,7 +27,7 @@ let value: InputKubeLogs = {
 | `interval`                                                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Time, in seconds, between checks for new containers. Default is 15 secs.                                                                                                                                                                                                                   |
 | `rules`                                                                                                                                                                                                                                                                                    | [models.InputKubeLogsRule](../models/inputkubelogsrule.md)[]                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.                                                                                                                                           |
 | `timestamps`                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted. |
-| `metadata`                                                                                                                                                                                                                                                                                 | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Fields to add to events from this input                                                                                                                                                                                                                                                    |
+| `metadata`                                                                                                                                                                                                                                                                                 | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | Fields to add to events from this input                                                                                                                                                                                                                                                    |
 | `persistence`                                                                                                                                                                                                                                                                              | [models.DiskSpoolingType](../models/diskspoolingtype.md)                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | N/A                                                                                                                                                                                                                                                                                        |
 | `breakerRulesets`                                                                                                                                                                                                                                                                          | *string*[]                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | A list of event-breaking rulesets that will be applied, in order, to the input data stream                                                                                                                                                                                                 |
 | `staleChannelFlushMs`                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                         | How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines                                                                                                                          |

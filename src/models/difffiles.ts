@@ -7,7 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { smartUnion } from "../types/smartUnion.js";
-import { DiffLine, DiffLine$inboundSchema } from "./diffline.js";
+import {
+  DiffLine,
+  DiffLine$inboundSchema,
+  DiffLine$Outbound,
+  DiffLine$outboundSchema,
+} from "./diffline.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type Block = {
@@ -60,7 +65,31 @@ export const Block$inboundSchema: z.ZodType<Block, z.ZodTypeDef, unknown> = z
     oldStartLine: types.number(),
     oldStartLine2: types.optional(types.number()),
   });
+/** @internal */
+export type Block$Outbound = {
+  header: string;
+  lines: Array<DiffLine$Outbound>;
+  newStartLine: number;
+  oldStartLine: number;
+  oldStartLine2?: number | undefined;
+};
 
+/** @internal */
+export const Block$outboundSchema: z.ZodType<
+  Block$Outbound,
+  z.ZodTypeDef,
+  Block
+> = z.object({
+  header: z.string(),
+  lines: z.array(DiffLine$outboundSchema),
+  newStartLine: z.number(),
+  oldStartLine: z.number(),
+  oldStartLine2: z.number().optional(),
+});
+
+export function blockToJSON(block: Block): string {
+  return JSON.stringify(Block$outboundSchema.parse(block));
+}
 export function blockFromJSON(
   jsonString: string,
 ): SafeParseResult<Block, SDKValidationError> {
@@ -77,7 +106,19 @@ export const ChecksumBefore$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = smartUnion([types.string(), z.array(types.string())]);
+/** @internal */
+export type ChecksumBefore$Outbound = string | Array<string>;
 
+/** @internal */
+export const ChecksumBefore$outboundSchema: z.ZodType<
+  ChecksumBefore$Outbound,
+  z.ZodTypeDef,
+  ChecksumBefore
+> = smartUnion([z.string(), z.array(z.string())]);
+
+export function checksumBeforeToJSON(checksumBefore: ChecksumBefore): string {
+  return JSON.stringify(ChecksumBefore$outboundSchema.parse(checksumBefore));
+}
 export function checksumBeforeFromJSON(
   jsonString: string,
 ): SafeParseResult<ChecksumBefore, SDKValidationError> {
@@ -91,7 +132,19 @@ export function checksumBeforeFromJSON(
 /** @internal */
 export const OldMode$inboundSchema: z.ZodType<OldMode, z.ZodTypeDef, unknown> =
   smartUnion([types.string(), z.array(types.string())]);
+/** @internal */
+export type OldMode$Outbound = string | Array<string>;
 
+/** @internal */
+export const OldMode$outboundSchema: z.ZodType<
+  OldMode$Outbound,
+  z.ZodTypeDef,
+  OldMode
+> = smartUnion([z.string(), z.array(z.string())]);
+
+export function oldModeToJSON(oldMode: OldMode): string {
+  return JSON.stringify(OldMode$outboundSchema.parse(oldMode));
+}
 export function oldModeFromJSON(
   jsonString: string,
 ): SafeParseResult<OldMode, SDKValidationError> {
@@ -136,7 +189,67 @@ export const DiffFiles$inboundSchema: z.ZodType<
   oldName: types.string(),
   unchangedPercentage: types.optional(types.number()),
 });
+/** @internal */
+export type DiffFiles$Outbound = {
+  addedLines: number;
+  blocks: Array<Block$Outbound>;
+  changedPercentage?: number | undefined;
+  checksumAfter?: string | undefined;
+  checksumBefore?: string | Array<string> | undefined;
+  deletedFileMode?: string | undefined;
+  deletedLines: number;
+  isBinary?: boolean | undefined;
+  isCombined: boolean;
+  isCopy?: boolean | undefined;
+  isDeleted?: boolean | undefined;
+  isGitDiff: boolean;
+  isNew?: boolean | undefined;
+  isRename?: boolean | undefined;
+  isTooBig?: boolean | undefined;
+  language: string;
+  mode?: string | undefined;
+  newFileMode?: string | undefined;
+  newMode?: string | undefined;
+  newName: string;
+  oldMode?: string | Array<string> | undefined;
+  oldName: string;
+  unchangedPercentage?: number | undefined;
+};
 
+/** @internal */
+export const DiffFiles$outboundSchema: z.ZodType<
+  DiffFiles$Outbound,
+  z.ZodTypeDef,
+  DiffFiles
+> = z.object({
+  addedLines: z.number(),
+  blocks: z.array(z.lazy(() => Block$outboundSchema)),
+  changedPercentage: z.number().optional(),
+  checksumAfter: z.string().optional(),
+  checksumBefore: smartUnion([z.string(), z.array(z.string())]).optional(),
+  deletedFileMode: z.string().optional(),
+  deletedLines: z.number(),
+  isBinary: z.boolean().optional(),
+  isCombined: z.boolean(),
+  isCopy: z.boolean().optional(),
+  isDeleted: z.boolean().optional(),
+  isGitDiff: z.boolean(),
+  isNew: z.boolean().optional(),
+  isRename: z.boolean().optional(),
+  isTooBig: z.boolean().optional(),
+  language: z.string(),
+  mode: z.string().optional(),
+  newFileMode: z.string().optional(),
+  newMode: z.string().optional(),
+  newName: z.string(),
+  oldMode: smartUnion([z.string(), z.array(z.string())]).optional(),
+  oldName: z.string(),
+  unchangedPercentage: z.number().optional(),
+});
+
+export function diffFilesToJSON(diffFiles: DiffFiles): string {
+  return JSON.stringify(DiffFiles$outboundSchema.parse(diffFiles));
+}
 export function diffFilesFromJSON(
   jsonString: string,
 ): SafeParseResult<DiffFiles, SDKValidationError> {

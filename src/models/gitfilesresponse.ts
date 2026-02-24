@@ -7,7 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { GitFile, GitFile$inboundSchema } from "./gitfile.js";
+import {
+  GitFile,
+  GitFile$inboundSchema,
+  GitFile$Outbound,
+  GitFile$outboundSchema,
+} from "./gitfile.js";
 
 export type GitFilesResponse = {
   commitMessage?: { [k: string]: any } | undefined;
@@ -25,7 +30,31 @@ export const GitFilesResponse$inboundSchema: z.ZodType<
   count: types.number(),
   items: z.array(GitFile$inboundSchema),
 });
+/** @internal */
+export type GitFilesResponse$Outbound = {
+  commitMessage?: { [k: string]: any } | undefined;
+  count: number;
+  items: Array<GitFile$Outbound>;
+};
 
+/** @internal */
+export const GitFilesResponse$outboundSchema: z.ZodType<
+  GitFilesResponse$Outbound,
+  z.ZodTypeDef,
+  GitFilesResponse
+> = z.object({
+  commitMessage: z.record(z.any()).optional(),
+  count: z.number(),
+  items: z.array(GitFile$outboundSchema),
+});
+
+export function gitFilesResponseToJSON(
+  gitFilesResponse: GitFilesResponse,
+): string {
+  return JSON.stringify(
+    GitFilesResponse$outboundSchema.parse(gitFilesResponse),
+  );
+}
 export function gitFilesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GitFilesResponse, SDKValidationError> {

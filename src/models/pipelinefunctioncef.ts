@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FunctionConfSchemaCef,
   FunctionConfSchemaCef$inboundSchema,
+  FunctionConfSchemaCef$Outbound,
+  FunctionConfSchemaCef$outboundSchema,
 } from "./functionconfschemacef.js";
 
 export type PipelineFunctionCef = {
@@ -54,7 +56,39 @@ export const PipelineFunctionCef$inboundSchema: z.ZodType<
   conf: FunctionConfSchemaCef$inboundSchema,
   groupId: types.optional(types.string()),
 });
+/** @internal */
+export type PipelineFunctionCef$Outbound = {
+  filter?: string | undefined;
+  id: "cef";
+  description?: string | undefined;
+  disabled?: boolean | undefined;
+  final?: boolean | undefined;
+  conf: FunctionConfSchemaCef$Outbound;
+  groupId?: string | undefined;
+};
 
+/** @internal */
+export const PipelineFunctionCef$outboundSchema: z.ZodType<
+  PipelineFunctionCef$Outbound,
+  z.ZodTypeDef,
+  PipelineFunctionCef
+> = z.object({
+  filter: z.string().optional(),
+  id: z.literal("cef"),
+  description: z.string().optional(),
+  disabled: z.boolean().optional(),
+  final: z.boolean().optional(),
+  conf: FunctionConfSchemaCef$outboundSchema,
+  groupId: z.string().optional(),
+});
+
+export function pipelineFunctionCefToJSON(
+  pipelineFunctionCef: PipelineFunctionCef,
+): string {
+  return JSON.stringify(
+    PipelineFunctionCef$outboundSchema.parse(pipelineFunctionCef),
+  );
+}
 export function pipelineFunctionCefFromJSON(
   jsonString: string,
 ): SafeParseResult<PipelineFunctionCef, SDKValidationError> {

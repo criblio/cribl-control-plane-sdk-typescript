@@ -3,17 +3,31 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
 import {
   DeployRequestLookups,
+  DeployRequestLookups$inboundSchema,
   DeployRequestLookups$Outbound,
   DeployRequestLookups$outboundSchema,
 } from "./deployrequestlookups.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type DeployRequest = {
   lookups?: Array<DeployRequestLookups> | undefined;
   version: string;
 };
 
+/** @internal */
+export const DeployRequest$inboundSchema: z.ZodType<
+  DeployRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  lookups: types.optional(z.array(DeployRequestLookups$inboundSchema)),
+  version: types.string(),
+});
 /** @internal */
 export type DeployRequest$Outbound = {
   lookups?: Array<DeployRequestLookups$Outbound> | undefined;
@@ -32,4 +46,13 @@ export const DeployRequest$outboundSchema: z.ZodType<
 
 export function deployRequestToJSON(deployRequest: DeployRequest): string {
   return JSON.stringify(DeployRequest$outboundSchema.parse(deployRequest));
+}
+export function deployRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<DeployRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeployRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeployRequest' from JSON`,
+  );
 }

@@ -1,0 +1,16 @@
+# GetInputStatusRequest
+
+## Example Usage
+
+```typescript
+import { GetInputStatusRequest } from "cribl-control-plane/models/operations";
+
+let value: GetInputStatusRequest = {};
+```
+
+## Fields
+
+| Field                                                                                                                        | Type                                                                                                                         | Required                                                                                                                     | Description                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `metrics`                                                                                                                    | *boolean*                                                                                                                    | :heavy_minus_sign:                                                                                                           | Set to true <code>true</code> to include metrics for each Source. Otherwise, <code>false</code> (default).                   |
+| `type`                                                                                                                       | *boolean*                                                                                                                    | :heavy_minus_sign:                                                                                                           | Set to <code>true</code> to prefix the Source <code>id</code> with the Source type. Otherwise, <code>false</code> (default). |

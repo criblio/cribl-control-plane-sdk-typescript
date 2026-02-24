@@ -46,7 +46,53 @@ export const FunctionJsonUnroll$inboundSchema: z.ZodType<
   version: types.string(),
   schema: types.optional(z.record(z.any())),
 });
+/** @internal */
+export type FunctionJsonUnroll$Outbound = {
+  __filename: string;
+  asyncTimeout?: number | undefined;
+  cribl_version?: string | undefined;
+  disabled?: boolean | undefined;
+  group: string;
+  handleSignals?: boolean | undefined;
+  id: "json_unroll";
+  loadTime: number;
+  modTime: number;
+  name: string;
+  sync?: boolean | undefined;
+  uischema: { [k: string]: any };
+  version: string;
+  schema?: { [k: string]: any } | undefined;
+};
 
+/** @internal */
+export const FunctionJsonUnroll$outboundSchema: z.ZodType<
+  FunctionJsonUnroll$Outbound,
+  z.ZodTypeDef,
+  FunctionJsonUnroll
+> = z.object({
+  __filename: z.string(),
+  asyncTimeout: z.number().optional(),
+  cribl_version: z.string().optional(),
+  disabled: z.boolean().optional(),
+  group: z.string(),
+  handleSignals: z.boolean().optional(),
+  id: z.literal("json_unroll"),
+  loadTime: z.number(),
+  modTime: z.number(),
+  name: z.string(),
+  sync: z.boolean().optional(),
+  uischema: z.record(z.any()),
+  version: z.string(),
+  schema: z.record(z.any()).optional(),
+});
+
+export function functionJsonUnrollToJSON(
+  functionJsonUnroll: FunctionJsonUnroll,
+): string {
+  return JSON.stringify(
+    FunctionJsonUnroll$outboundSchema.parse(functionJsonUnroll),
+  );
+}
 export function functionJsonUnrollFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionJsonUnroll, SDKValidationError> {

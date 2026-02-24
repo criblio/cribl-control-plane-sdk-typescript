@@ -3,16 +3,16 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetVersionDiffRequest = {
   /**
    * The Git commit hash to get the diff for.
    */
   commit?: string | undefined;
-  /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to get the diff for.
-   */
-  groupId?: string | undefined;
   /**
    * The relative path of the file to get the diff for.
    */
@@ -24,9 +24,18 @@ export type GetVersionDiffRequest = {
 };
 
 /** @internal */
+export const GetVersionDiffRequest$inboundSchema: z.ZodType<
+  GetVersionDiffRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  commit: types.optional(types.string()),
+  filename: types.optional(types.string()),
+  diffLineLimit: types.optional(types.number()),
+});
+/** @internal */
 export type GetVersionDiffRequest$Outbound = {
   commit?: string | undefined;
-  groupId?: string | undefined;
   filename?: string | undefined;
   diffLineLimit?: number | undefined;
 };
@@ -38,9 +47,8 @@ export const GetVersionDiffRequest$outboundSchema: z.ZodType<
   GetVersionDiffRequest
 > = z.object({
   commit: z.string().optional(),
-  groupId: z.string().optional(),
   filename: z.string().optional(),
-  diffLineLimit: z.number().optional(),
+  diffLineLimit: z.number().int().optional(),
 });
 
 export function getVersionDiffRequestToJSON(
@@ -48,5 +56,14 @@ export function getVersionDiffRequestToJSON(
 ): string {
   return JSON.stringify(
     GetVersionDiffRequest$outboundSchema.parse(getVersionDiffRequest),
+  );
+}
+export function getVersionDiffRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetVersionDiffRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetVersionDiffRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetVersionDiffRequest' from JSON`,
   );
 }

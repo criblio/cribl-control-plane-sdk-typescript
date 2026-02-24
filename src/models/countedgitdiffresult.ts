@@ -7,7 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { GitDiffResult, GitDiffResult$inboundSchema } from "./gitdiffresult.js";
+import {
+  GitDiffResult,
+  GitDiffResult$inboundSchema,
+  GitDiffResult$Outbound,
+  GitDiffResult$outboundSchema,
+} from "./gitdiffresult.js";
 
 export type CountedGitDiffResult = {
   /**
@@ -26,7 +31,29 @@ export const CountedGitDiffResult$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(GitDiffResult$inboundSchema)),
 });
+/** @internal */
+export type CountedGitDiffResult$Outbound = {
+  count?: number | undefined;
+  items?: Array<GitDiffResult$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedGitDiffResult$outboundSchema: z.ZodType<
+  CountedGitDiffResult$Outbound,
+  z.ZodTypeDef,
+  CountedGitDiffResult
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(GitDiffResult$outboundSchema).optional(),
+});
+
+export function countedGitDiffResultToJSON(
+  countedGitDiffResult: CountedGitDiffResult,
+): string {
+  return JSON.stringify(
+    CountedGitDiffResult$outboundSchema.parse(countedGitDiffResult),
+  );
+}
 export function countedGitDiffResultFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedGitDiffResult, SDKValidationError> {

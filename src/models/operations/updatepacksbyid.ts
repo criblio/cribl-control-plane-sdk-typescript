@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdatePacksByIdRequest = {
@@ -17,6 +21,19 @@ export type UpdatePacksByIdRequest = {
   packUpgradeRequest: models.PackUpgradeRequest;
 };
 
+/** @internal */
+export const UpdatePacksByIdRequest$inboundSchema: z.ZodType<
+  UpdatePacksByIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  PackUpgradeRequest: models.PackUpgradeRequest$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "PackUpgradeRequest": "packUpgradeRequest",
+  });
+});
 /** @internal */
 export type UpdatePacksByIdRequest$Outbound = {
   id: string;
@@ -42,5 +59,14 @@ export function updatePacksByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdatePacksByIdRequest$outboundSchema.parse(updatePacksByIdRequest),
+  );
+}
+export function updatePacksByIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdatePacksByIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdatePacksByIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdatePacksByIdRequest' from JSON`,
   );
 }

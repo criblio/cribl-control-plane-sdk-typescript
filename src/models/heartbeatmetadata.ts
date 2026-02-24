@@ -9,19 +9,27 @@ import * as types from "../types/primitives.js";
 import {
   AwsTypeHeartbeatMetadata,
   AwsTypeHeartbeatMetadata$inboundSchema,
+  AwsTypeHeartbeatMetadata$Outbound,
+  AwsTypeHeartbeatMetadata$outboundSchema,
 } from "./awstypeheartbeatmetadata.js";
 import {
   AzureTypeHeartbeatMetadata,
   AzureTypeHeartbeatMetadata$inboundSchema,
+  AzureTypeHeartbeatMetadata$Outbound,
+  AzureTypeHeartbeatMetadata$outboundSchema,
 } from "./azuretypeheartbeatmetadata.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   HostOsTypeHeartbeatMetadata,
   HostOsTypeHeartbeatMetadata$inboundSchema,
+  HostOsTypeHeartbeatMetadata$Outbound,
+  HostOsTypeHeartbeatMetadata$outboundSchema,
 } from "./hostostypeheartbeatmetadata.js";
 import {
   KubeTypeHeartbeatMetadata,
   KubeTypeHeartbeatMetadata$inboundSchema,
+  KubeTypeHeartbeatMetadata$Outbound,
+  KubeTypeHeartbeatMetadata$outboundSchema,
 } from "./kubetypeheartbeatmetadata.js";
 
 export type HeartbeatMetadata = {
@@ -44,7 +52,35 @@ export const HeartbeatMetadata$inboundSchema: z.ZodType<
   kube: types.optional(KubeTypeHeartbeatMetadata$inboundSchema),
   os: types.optional(HostOsTypeHeartbeatMetadata$inboundSchema),
 });
+/** @internal */
+export type HeartbeatMetadata$Outbound = {
+  aws?: AwsTypeHeartbeatMetadata$Outbound | undefined;
+  azure?: AzureTypeHeartbeatMetadata$Outbound | undefined;
+  hostOs?: HostOsTypeHeartbeatMetadata$Outbound | undefined;
+  kube?: KubeTypeHeartbeatMetadata$Outbound | undefined;
+  os?: HostOsTypeHeartbeatMetadata$Outbound | undefined;
+};
 
+/** @internal */
+export const HeartbeatMetadata$outboundSchema: z.ZodType<
+  HeartbeatMetadata$Outbound,
+  z.ZodTypeDef,
+  HeartbeatMetadata
+> = z.object({
+  aws: AwsTypeHeartbeatMetadata$outboundSchema.optional(),
+  azure: AzureTypeHeartbeatMetadata$outboundSchema.optional(),
+  hostOs: HostOsTypeHeartbeatMetadata$outboundSchema.optional(),
+  kube: KubeTypeHeartbeatMetadata$outboundSchema.optional(),
+  os: HostOsTypeHeartbeatMetadata$outboundSchema.optional(),
+});
+
+export function heartbeatMetadataToJSON(
+  heartbeatMetadata: HeartbeatMetadata,
+): string {
+  return JSON.stringify(
+    HeartbeatMetadata$outboundSchema.parse(heartbeatMetadata),
+  );
+}
 export function heartbeatMetadataFromJSON(
   jsonString: string,
 ): SafeParseResult<HeartbeatMetadata, SDKValidationError> {

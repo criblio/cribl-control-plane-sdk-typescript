@@ -16,26 +16,40 @@ export const Role = {
 } as const;
 export type Role = OpenEnum<typeof Role>;
 
-export const Status = {
+export const HealthServerStatusStatus = {
   ShuttingDown: "shutting down",
   Healthy: "healthy",
   Standby: "standby",
 } as const;
-export type Status = OpenEnum<typeof Status>;
+export type HealthServerStatusStatus = OpenEnum<
+  typeof HealthServerStatusStatus
+>;
 
 export type HealthServerStatus = {
   role?: Role | undefined;
   startTime: number;
-  status: Status;
+  status: HealthServerStatusStatus;
 };
 
 /** @internal */
 export const Role$inboundSchema: z.ZodType<Role, z.ZodTypeDef, unknown> =
   openEnums.inboundSchema(Role);
+/** @internal */
+export const Role$outboundSchema: z.ZodType<string, z.ZodTypeDef, Role> =
+  openEnums.outboundSchema(Role);
 
 /** @internal */
-export const Status$inboundSchema: z.ZodType<Status, z.ZodTypeDef, unknown> =
-  openEnums.inboundSchema(Status);
+export const HealthServerStatusStatus$inboundSchema: z.ZodType<
+  HealthServerStatusStatus,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(HealthServerStatusStatus);
+/** @internal */
+export const HealthServerStatusStatus$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  HealthServerStatusStatus
+> = openEnums.outboundSchema(HealthServerStatusStatus);
 
 /** @internal */
 export const HealthServerStatus$inboundSchema: z.ZodType<
@@ -45,9 +59,33 @@ export const HealthServerStatus$inboundSchema: z.ZodType<
 > = z.object({
   role: types.optional(Role$inboundSchema),
   startTime: types.number(),
-  status: Status$inboundSchema,
+  status: HealthServerStatusStatus$inboundSchema,
+});
+/** @internal */
+export type HealthServerStatus$Outbound = {
+  role?: string | undefined;
+  startTime: number;
+  status: string;
+};
+
+/** @internal */
+export const HealthServerStatus$outboundSchema: z.ZodType<
+  HealthServerStatus$Outbound,
+  z.ZodTypeDef,
+  HealthServerStatus
+> = z.object({
+  role: Role$outboundSchema.optional(),
+  startTime: z.number(),
+  status: HealthServerStatusStatus$outboundSchema,
 });
 
+export function healthServerStatusToJSON(
+  healthServerStatus: HealthServerStatus,
+): string {
+  return JSON.stringify(
+    HealthServerStatus$outboundSchema.parse(healthServerStatus),
+  );
+}
 export function healthServerStatusFromJSON(
   jsonString: string,
 ): SafeParseResult<HealthServerStatus, SDKValidationError> {

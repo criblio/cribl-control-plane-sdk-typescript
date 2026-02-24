@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   MasterWorkerEntry,
   MasterWorkerEntry$inboundSchema,
+  MasterWorkerEntry$Outbound,
+  MasterWorkerEntry$outboundSchema,
 } from "./masterworkerentry.js";
 
 export type CountedMasterWorkerEntry = {
@@ -29,7 +31,29 @@ export const CountedMasterWorkerEntry$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(MasterWorkerEntry$inboundSchema)),
 });
+/** @internal */
+export type CountedMasterWorkerEntry$Outbound = {
+  count?: number | undefined;
+  items?: Array<MasterWorkerEntry$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedMasterWorkerEntry$outboundSchema: z.ZodType<
+  CountedMasterWorkerEntry$Outbound,
+  z.ZodTypeDef,
+  CountedMasterWorkerEntry
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(MasterWorkerEntry$outboundSchema).optional(),
+});
+
+export function countedMasterWorkerEntryToJSON(
+  countedMasterWorkerEntry: CountedMasterWorkerEntry,
+): string {
+  return JSON.stringify(
+    CountedMasterWorkerEntry$outboundSchema.parse(countedMasterWorkerEntry),
+  );
+}
 export function countedMasterWorkerEntryFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedMasterWorkerEntry, SDKValidationError> {

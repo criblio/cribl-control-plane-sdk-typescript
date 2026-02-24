@@ -3,20 +3,32 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type SchemeClientOauth = {
   clientID: string;
   clientSecret: string;
   tokenURL?: string | undefined;
-  audience: string;
 };
 
+/** @internal */
+export const SchemeClientOauth$inboundSchema: z.ZodType<
+  SchemeClientOauth,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  clientID: types.string(),
+  clientSecret: types.string(),
+  tokenURL: types.string().default("https://login.cribl.cloud/oauth/token"),
+});
 /** @internal */
 export type SchemeClientOauth$Outbound = {
   clientID: string;
   clientSecret: string;
   tokenURL: string;
-  audience: string;
 };
 
 /** @internal */
@@ -28,7 +40,6 @@ export const SchemeClientOauth$outboundSchema: z.ZodType<
   clientID: z.string(),
   clientSecret: z.string(),
   tokenURL: z.string().default("https://login.cribl.cloud/oauth/token"),
-  audience: z.string(),
 });
 
 export function schemeClientOauthToJSON(
@@ -36,5 +47,14 @@ export function schemeClientOauthToJSON(
 ): string {
   return JSON.stringify(
     SchemeClientOauth$outboundSchema.parse(schemeClientOauth),
+  );
+}
+export function schemeClientOauthFromJSON(
+  jsonString: string,
+): SafeParseResult<SchemeClientOauth, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SchemeClientOauth$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SchemeClientOauth' from JSON`,
   );
 }

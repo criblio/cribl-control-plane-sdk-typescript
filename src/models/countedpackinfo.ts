@@ -7,7 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { PackInfo, PackInfo$inboundSchema } from "./packinfo.js";
+import {
+  PackInfo,
+  PackInfo$inboundSchema,
+  PackInfo$Outbound,
+  PackInfo$outboundSchema,
+} from "./packinfo.js";
 
 export type CountedPackInfo = {
   /**
@@ -26,7 +31,27 @@ export const CountedPackInfo$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(PackInfo$inboundSchema)),
 });
+/** @internal */
+export type CountedPackInfo$Outbound = {
+  count?: number | undefined;
+  items?: Array<PackInfo$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedPackInfo$outboundSchema: z.ZodType<
+  CountedPackInfo$Outbound,
+  z.ZodTypeDef,
+  CountedPackInfo
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(PackInfo$outboundSchema).optional(),
+});
+
+export function countedPackInfoToJSON(
+  countedPackInfo: CountedPackInfo,
+): string {
+  return JSON.stringify(CountedPackInfo$outboundSchema.parse(countedPackInfo));
+}
 export function countedPackInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedPackInfo, SDKValidationError> {

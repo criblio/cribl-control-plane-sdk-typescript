@@ -7,7 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { RbacResource, RbacResource$inboundSchema } from "./rbacresource.js";
+import {
+  RbacResource,
+  RbacResource$inboundSchema,
+  RbacResource$outboundSchema,
+} from "./rbacresource.js";
 
 export type ResourcePolicy = {
   gid: string;
@@ -27,7 +31,29 @@ export const ResourcePolicy$inboundSchema: z.ZodType<
   policy: types.string(),
   type: RbacResource$inboundSchema,
 });
+/** @internal */
+export type ResourcePolicy$Outbound = {
+  gid: string;
+  id?: string | undefined;
+  policy: string;
+  type: string;
+};
 
+/** @internal */
+export const ResourcePolicy$outboundSchema: z.ZodType<
+  ResourcePolicy$Outbound,
+  z.ZodTypeDef,
+  ResourcePolicy
+> = z.object({
+  gid: z.string(),
+  id: z.string().optional(),
+  policy: z.string(),
+  type: RbacResource$outboundSchema,
+});
+
+export function resourcePolicyToJSON(resourcePolicy: ResourcePolicy): string {
+  return JSON.stringify(ResourcePolicy$outboundSchema.parse(resourcePolicy));
+}
 export function resourcePolicyFromJSON(
   jsonString: string,
 ): SafeParseResult<ResourcePolicy, SDKValidationError> {

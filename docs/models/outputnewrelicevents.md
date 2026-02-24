@@ -6,74 +6,9 @@
 import { OutputNewrelicEvents } from "cribl-control-plane/models";
 
 let value: OutputNewrelicEvents = {
-  id: "<id>",
   type: "newrelic_events",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  region: "US",
   accountId: "<id>",
   eventType: "<value>",
-  concurrency: 1583.7,
-  maxPayloadSizeKB: 7630.87,
-  maxPayloadEvents: 9175.36,
-  compress: false,
-  rejectUnauthorized: true,
-  timeoutSec: 9158.34,
-  flushPeriodSec: 8917.84,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: false,
-  failedRequestLoggingMode: "none",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "queue",
-  authType: "manual",
-  description:
-    "hateful whereas inwardly among issue see till below whenever tightly",
-  customUrl: "https://bleak-veto.info/",
-  pqStrictOrdering: false,
-  pqRatePerSec: 9720.12,
-  pqMode: "always",
-  pqMaxBufferSize: 7433.36,
-  pqMaxBackpressureSec: 6100.64,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "drop",
-  pqControls: {},
-  apiKey: "<value>",
-  textSecret: "<value>",
 };
 ```
 
@@ -121,3 +56,7 @@ let value: OutputNewrelicEvents = {
 | `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputNewrelicEventsPqControls](../models/outputnewreliceventspqcontrols.md)                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `apiKey`                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | New Relic API key. Can be overridden using __newRelic_apiKey field.                                                                                                                                                                                                                                                                              |
 | `textSecret`                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a stored text secret                                                                                                                                                                                                                                                                                                            |
+| `templateRegion`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.                                                                                                                                                        |
+| `templateAccountId`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'accountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accountId' at runtime.                                                                                                                                                  |
+| `templateEventType`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'eventType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'eventType' at runtime.                                                                                                                                                  |
+| `templateCustomUrl`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'customUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customUrl' at runtime.                                                                                                                                                  |

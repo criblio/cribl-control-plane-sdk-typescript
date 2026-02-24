@@ -40,7 +40,47 @@ export const AzureTypeHeartbeatMetadata$inboundSchema: z.ZodType<
   vmId: types.optional(types.string()),
   zone: types.optional(types.string()),
 });
+/** @internal */
+export type AzureTypeHeartbeatMetadata$Outbound = {
+  enabled: boolean;
+  hostname?: string | undefined;
+  instanceId?: string | undefined;
+  name?: string | undefined;
+  region?: string | undefined;
+  resourceGroup?: string | undefined;
+  subscriptionId?: string | undefined;
+  tags?: { [k: string]: string } | undefined;
+  type?: string | undefined;
+  vmId?: string | undefined;
+  zone?: string | undefined;
+};
 
+/** @internal */
+export const AzureTypeHeartbeatMetadata$outboundSchema: z.ZodType<
+  AzureTypeHeartbeatMetadata$Outbound,
+  z.ZodTypeDef,
+  AzureTypeHeartbeatMetadata
+> = z.object({
+  enabled: z.boolean(),
+  hostname: z.string().optional(),
+  instanceId: z.string().optional(),
+  name: z.string().optional(),
+  region: z.string().optional(),
+  resourceGroup: z.string().optional(),
+  subscriptionId: z.string().optional(),
+  tags: z.record(z.string()).optional(),
+  type: z.string().optional(),
+  vmId: z.string().optional(),
+  zone: z.string().optional(),
+});
+
+export function azureTypeHeartbeatMetadataToJSON(
+  azureTypeHeartbeatMetadata: AzureTypeHeartbeatMetadata,
+): string {
+  return JSON.stringify(
+    AzureTypeHeartbeatMetadata$outboundSchema.parse(azureTypeHeartbeatMetadata),
+  );
+}
 export function azureTypeHeartbeatMetadataFromJSON(
   jsonString: string,
 ): SafeParseResult<AzureTypeHeartbeatMetadata, SDKValidationError> {

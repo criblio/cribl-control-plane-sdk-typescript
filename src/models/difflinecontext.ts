@@ -26,7 +26,31 @@ export const DiffLineContext$inboundSchema: z.ZodType<
   oldNumber: types.number(),
   content: types.string(),
 });
+/** @internal */
+export type DiffLineContext$Outbound = {
+  type: "context";
+  newNumber: number;
+  oldNumber: number;
+  content: string;
+};
 
+/** @internal */
+export const DiffLineContext$outboundSchema: z.ZodType<
+  DiffLineContext$Outbound,
+  z.ZodTypeDef,
+  DiffLineContext
+> = z.object({
+  type: z.literal("context"),
+  newNumber: z.number(),
+  oldNumber: z.number(),
+  content: z.string(),
+});
+
+export function diffLineContextToJSON(
+  diffLineContext: DiffLineContext,
+): string {
+  return JSON.stringify(DiffLineContext$outboundSchema.parse(diffLineContext));
+}
 export function diffLineContextFromJSON(
   jsonString: string,
 ): SafeParseResult<DiffLineContext, SDKValidationError> {

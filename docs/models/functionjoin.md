@@ -7,27 +7,15 @@ import { FunctionJoin } from "cribl-control-plane/models";
 
 let value: FunctionJoin = {
   __filename: "example.file",
-  asyncTimeout: 3529.61,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "join",
-  loadTime: 7143.87,
-  modTime: 821.81,
+  loadTime: 3529.61,
+  modTime: 4007.54,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
-  },
 };
 ```
 

@@ -6,120 +6,10 @@
 import { InputGrafanaGrafana2 } from "cribl-control-plane/models";
 
 let value: InputGrafanaGrafana2 = {
-  id: "<id>",
   type: "grafana",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "dependable-blossom.name",
-  port: 9236.33,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 6258.72,
-  maxRequestsPerSocket: 854900,
-  enableProxyHeader: false,
-  captureHeaders: false,
-  activityLogSampleRate: 4606.81,
-  requestTimeout: 1544.73,
-  socketTimeout: 3384.86,
-  keepAliveTimeout: 5182.16,
-  enableHealthCheck: true,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  prometheusAPI: "<value>",
+  host: "clueless-knuckle.com",
+  port: 5419.65,
   lokiAPI: "<value>",
-  prometheusAuth: {
-    authType: "textSecret",
-    username: "Jimmie.Schulist94",
-    password: "6_4yHj1li18jxjk",
-    token: "<value>",
-    credentialsSecret: "<value>",
-    textSecret: "<value>",
-    loginUrl: "https://unwelcome-jazz.name",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 7666.24,
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
-  lokiAuth: {
-    authType: "oauth",
-    username: "Ressie_Mills60",
-    password: "qlBvHj1XjKBCN_o",
-    token: "<value>",
-    credentialsSecret: "<value>",
-    textSecret: "<value>",
-    loginUrl: "https://devoted-design.org/",
-    secretParamName: "<value>",
-    secret: "<value>",
-    tokenAttributeName: "<value>",
-    authHeaderExpr: "<value>",
-    tokenTimeoutSecs: 8551.08,
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    oauthHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  description: "swear doubtfully as",
 };
 ```
 
@@ -155,5 +45,7 @@ let value: InputGrafanaGrafana2 = {
 | `lokiAPI`                                                                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                                                              | Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.                                                                                                                                                 |
 | `prometheusAuth`                                                                                                                                                                                                                                                                                                                                                                                                | [models.PrometheusAuth2](../models/prometheusauth2.md)                                                                                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `lokiAuth`                                                                                                                                                                                                                                                                                                                                                                                                      | [models.LokiAuth2](../models/lokiauth2.md)                                                                                                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `metadata`                                                                                                                                                                                                                                                                                                                                                                                                      | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | Fields to add to events from this input                                                                                                                                                                                                                                                                                                                                                                         |
+| `metadata`                                                                                                                                                                                                                                                                                                                                                                                                      | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | Fields to add to events from this input                                                                                                                                                                                                                                                                                                                                                                         |
 | `description`                                                                                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | N/A                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `templateHost`                                                                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.                                                                                                                                                                                                                           |
+| `templatePort`                                                                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                                                              | Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.                                                                                                                                                                                                                           |

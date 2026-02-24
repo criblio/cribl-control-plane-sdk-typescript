@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TeamAccessControlList,
   TeamAccessControlList$inboundSchema,
+  TeamAccessControlList$Outbound,
+  TeamAccessControlList$outboundSchema,
 } from "./teamaccesscontrollist.js";
 
 export type CountedTeamAccessControlList = {
@@ -29,7 +31,31 @@ export const CountedTeamAccessControlList$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(TeamAccessControlList$inboundSchema)),
 });
+/** @internal */
+export type CountedTeamAccessControlList$Outbound = {
+  count?: number | undefined;
+  items?: Array<TeamAccessControlList$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedTeamAccessControlList$outboundSchema: z.ZodType<
+  CountedTeamAccessControlList$Outbound,
+  z.ZodTypeDef,
+  CountedTeamAccessControlList
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(TeamAccessControlList$outboundSchema).optional(),
+});
+
+export function countedTeamAccessControlListToJSON(
+  countedTeamAccessControlList: CountedTeamAccessControlList,
+): string {
+  return JSON.stringify(
+    CountedTeamAccessControlList$outboundSchema.parse(
+      countedTeamAccessControlList,
+    ),
+  );
+}
 export function countedTeamAccessControlListFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedTeamAccessControlList, SDKValidationError> {

@@ -20,7 +20,27 @@ export const UploadPackResponse$inboundSchema: z.ZodType<
 > = z.object({
   source: types.string(),
 });
+/** @internal */
+export type UploadPackResponse$Outbound = {
+  source: string;
+};
 
+/** @internal */
+export const UploadPackResponse$outboundSchema: z.ZodType<
+  UploadPackResponse$Outbound,
+  z.ZodTypeDef,
+  UploadPackResponse
+> = z.object({
+  source: z.string(),
+});
+
+export function uploadPackResponseToJSON(
+  uploadPackResponse: UploadPackResponse,
+): string {
+  return JSON.stringify(
+    UploadPackResponse$outboundSchema.parse(uploadPackResponse),
+  );
+}
 export function uploadPackResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<UploadPackResponse, SDKValidationError> {

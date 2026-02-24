@@ -5,7 +5,12 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import { DiffFiles, DiffFiles$inboundSchema } from "./difffiles.js";
+import {
+  DiffFiles,
+  DiffFiles$inboundSchema,
+  DiffFiles$Outbound,
+  DiffFiles$outboundSchema,
+} from "./difffiles.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitDiffResult = {
@@ -20,7 +25,23 @@ export const GitDiffResult$inboundSchema: z.ZodType<
 > = z.object({
   diffJson: z.array(DiffFiles$inboundSchema),
 });
+/** @internal */
+export type GitDiffResult$Outbound = {
+  diffJson: Array<DiffFiles$Outbound>;
+};
 
+/** @internal */
+export const GitDiffResult$outboundSchema: z.ZodType<
+  GitDiffResult$Outbound,
+  z.ZodTypeDef,
+  GitDiffResult
+> = z.object({
+  diffJson: z.array(DiffFiles$outboundSchema),
+});
+
+export function gitDiffResultToJSON(gitDiffResult: GitDiffResult): string {
+  return JSON.stringify(GitDiffResult$outboundSchema.parse(gitDiffResult));
+}
 export function gitDiffResultFromJSON(
   jsonString: string,
 ): SafeParseResult<GitDiffResult, SDKValidationError> {

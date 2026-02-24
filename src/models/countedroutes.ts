@@ -7,7 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { Routes, Routes$inboundSchema } from "./routes.js";
+import {
+  Routes,
+  Routes$inboundSchema,
+  Routes$Outbound,
+  Routes$outboundSchema,
+} from "./routes.js";
 
 export type CountedRoutes = {
   /**
@@ -26,7 +31,25 @@ export const CountedRoutes$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(Routes$inboundSchema)),
 });
+/** @internal */
+export type CountedRoutes$Outbound = {
+  count?: number | undefined;
+  items?: Array<Routes$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedRoutes$outboundSchema: z.ZodType<
+  CountedRoutes$Outbound,
+  z.ZodTypeDef,
+  CountedRoutes
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(Routes$outboundSchema).optional(),
+});
+
+export function countedRoutesToJSON(countedRoutes: CountedRoutes): string {
+  return JSON.stringify(CountedRoutes$outboundSchema.parse(countedRoutes));
+}
 export function countedRoutesFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedRoutes, SDKValidationError> {

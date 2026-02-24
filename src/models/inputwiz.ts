@@ -21,11 +21,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -178,7 +178,7 @@ export type InputWiz = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   retryRules?: RetryRulesType | undefined;
   /**
    * Enter client secret directly, or select a stored secret
@@ -193,6 +193,18 @@ export type InputWiz = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+   */
+  __template_endpoint?: string | undefined;
+  /**
+   * Binds 'authUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authUrl' at runtime.
+   */
+  __template_authUrl?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -343,14 +355,15 @@ export const InputWiz$inboundSchema: z.ZodType<
   maxMissedKeepAlives: types.optional(types.number()),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   retryRules: types.optional(RetryRulesType$inboundSchema),
   authType: types.optional(AuthenticationMethodOptions1$inboundSchema),
   description: types.optional(types.string()),
   clientSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_endpoint: types.optional(types.string()),
+  __template_authUrl: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
 });
 /** @internal */
 export type InputWiz$Outbound = {
@@ -374,12 +387,15 @@ export type InputWiz$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   retryRules?: RetryRulesType$Outbound | undefined;
   authType?: string | undefined;
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_endpoint?: string | undefined;
+  __template_authUrl?: string | undefined;
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -408,12 +424,15 @@ export const InputWiz$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   retryRules: RetryRulesType$outboundSchema.optional(),
   authType: AuthenticationMethodOptions1$outboundSchema.optional(),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_endpoint: z.string().optional(),
+  __template_authUrl: z.string().optional(),
+  __template_clientId: z.string().optional(),
 });
 
 export function inputWizToJSON(inputWiz: InputWiz): string {

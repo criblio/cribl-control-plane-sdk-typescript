@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   OutputSamplesResponse,
   OutputSamplesResponse$inboundSchema,
+  OutputSamplesResponse$Outbound,
+  OutputSamplesResponse$outboundSchema,
 } from "./outputsamplesresponse.js";
 
 export type CountedOutputSamplesResponse = {
@@ -29,7 +31,31 @@ export const CountedOutputSamplesResponse$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(OutputSamplesResponse$inboundSchema)),
 });
+/** @internal */
+export type CountedOutputSamplesResponse$Outbound = {
+  count?: number | undefined;
+  items?: Array<OutputSamplesResponse$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedOutputSamplesResponse$outboundSchema: z.ZodType<
+  CountedOutputSamplesResponse$Outbound,
+  z.ZodTypeDef,
+  CountedOutputSamplesResponse
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(OutputSamplesResponse$outboundSchema).optional(),
+});
+
+export function countedOutputSamplesResponseToJSON(
+  countedOutputSamplesResponse: CountedOutputSamplesResponse,
+): string {
+  return JSON.stringify(
+    CountedOutputSamplesResponse$outboundSchema.parse(
+      countedOutputSamplesResponse,
+    ),
+  );
+}
 export function countedOutputSamplesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedOutputSamplesResponse, SDKValidationError> {

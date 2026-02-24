@@ -7,26 +7,17 @@ import { FunctionLookup } from "cribl-control-plane/models";
 
 let value: FunctionLookup = {
   __filename: "example.file",
-  asyncTimeout: 2465.37,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: false,
   id: "lookup",
-  loadTime: 8031.47,
-  modTime: 8407.32,
+  loadTime: 2465.37,
+  modTime: 3934.35,
   name: "<value>",
-  sync: true,
   uischema: {
-    "key": "<value>",
-    "key1": "<value>",
-  },
-  version: "<value>",
-  schema: {
     "key": "<value>",
     "key1": "<value>",
     "key2": "<value>",
   },
+  version: "<value>",
 };
 ```
 

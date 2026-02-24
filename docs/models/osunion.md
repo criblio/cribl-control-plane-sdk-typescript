@@ -22,8 +22,6 @@ const value: models.HostOsTypeHeartbeatMetadata = {
 const value: models.Os = {
   addresses: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
 };
 ```

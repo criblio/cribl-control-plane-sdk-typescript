@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type ListConfigGroupByProductRequest = {
@@ -16,6 +20,15 @@ export type ListConfigGroupByProductRequest = {
   fields?: string | undefined;
 };
 
+/** @internal */
+export const ListConfigGroupByProductRequest$inboundSchema: z.ZodType<
+  ListConfigGroupByProductRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  product: models.ProductsCore$inboundSchema,
+  fields: types.optional(types.string()),
+});
 /** @internal */
 export type ListConfigGroupByProductRequest$Outbound = {
   product: string;
@@ -39,5 +52,14 @@ export function listConfigGroupByProductRequestToJSON(
     ListConfigGroupByProductRequest$outboundSchema.parse(
       listConfigGroupByProductRequest,
     ),
+  );
+}
+export function listConfigGroupByProductRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<ListConfigGroupByProductRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListConfigGroupByProductRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListConfigGroupByProductRequest' from JSON`,
   );
 }

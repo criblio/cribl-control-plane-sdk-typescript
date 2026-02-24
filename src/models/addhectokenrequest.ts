@@ -3,8 +3,13 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   EventBreakerRuleFields,
+  EventBreakerRuleFields$inboundSchema,
   EventBreakerRuleFields$Outbound,
   EventBreakerRuleFields$outboundSchema,
 } from "./eventbreakerrulefields.js";
@@ -17,6 +22,18 @@ export type AddHecTokenRequest = {
   token: string;
 };
 
+/** @internal */
+export const AddHecTokenRequest$inboundSchema: z.ZodType<
+  AddHecTokenRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  allowedIndexesAtToken: types.optional(z.array(types.string())),
+  description: types.optional(types.string()),
+  enabled: types.optional(types.boolean()),
+  metadata: types.optional(z.array(EventBreakerRuleFields$inboundSchema)),
+  token: types.string(),
+});
 /** @internal */
 export type AddHecTokenRequest$Outbound = {
   allowedIndexesAtToken?: Array<string> | undefined;
@@ -44,5 +61,14 @@ export function addHecTokenRequestToJSON(
 ): string {
   return JSON.stringify(
     AddHecTokenRequest$outboundSchema.parse(addHecTokenRequest),
+  );
+}
+export function addHecTokenRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<AddHecTokenRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AddHecTokenRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AddHecTokenRequest' from JSON`,
   );
 }

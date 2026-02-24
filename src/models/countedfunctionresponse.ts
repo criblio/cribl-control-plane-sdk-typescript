@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FunctionResponse,
   FunctionResponse$inboundSchema,
+  FunctionResponse$Outbound,
+  FunctionResponse$outboundSchema,
 } from "./functionresponse.js";
 
 export type CountedFunctionResponse = {
@@ -29,7 +31,29 @@ export const CountedFunctionResponse$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(FunctionResponse$inboundSchema)),
 });
+/** @internal */
+export type CountedFunctionResponse$Outbound = {
+  count?: number | undefined;
+  items?: Array<FunctionResponse$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedFunctionResponse$outboundSchema: z.ZodType<
+  CountedFunctionResponse$Outbound,
+  z.ZodTypeDef,
+  CountedFunctionResponse
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(FunctionResponse$outboundSchema).optional(),
+});
+
+export function countedFunctionResponseToJSON(
+  countedFunctionResponse: CountedFunctionResponse,
+): string {
+  return JSON.stringify(
+    CountedFunctionResponse$outboundSchema.parse(countedFunctionResponse),
+  );
+}
 export function countedFunctionResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedFunctionResponse, SDKValidationError> {

@@ -10,13 +10,13 @@ import { CriblControlPlaneError } from "./criblcontrolplaneerror.js";
 export type HealthServerStatusErrorData = {
   role?: models.Role | undefined;
   startTime: number;
-  status: models.Status;
+  status: models.HealthServerStatusStatus;
 };
 
 export class HealthServerStatusError extends CriblControlPlaneError {
   role?: models.Role | undefined;
   startTime: number;
-  status: models.Status;
+  status: models.HealthServerStatusStatus;
 
   /** The original data that was passed to this error instance. */
   data$: HealthServerStatusErrorData;
@@ -46,7 +46,7 @@ export const HealthServerStatusError$inboundSchema: z.ZodType<
 > = z.object({
   role: types.optional(models.Role$inboundSchema),
   startTime: types.number(),
-  status: models.Status$inboundSchema,
+  status: models.HealthServerStatusStatus$inboundSchema,
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
   body$: z.string(),
@@ -58,3 +58,23 @@ export const HealthServerStatusError$inboundSchema: z.ZodType<
       body: v.body$,
     });
   });
+
+/** @internal */
+export type HealthServerStatusError$Outbound = {
+  role?: string | undefined;
+  startTime: number;
+  status: string;
+};
+
+/** @internal */
+export const HealthServerStatusError$outboundSchema: z.ZodType<
+  HealthServerStatusError$Outbound,
+  z.ZodTypeDef,
+  HealthServerStatusError
+> = z.instanceof(HealthServerStatusError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    role: models.Role$outboundSchema.optional(),
+    startTime: z.number(),
+    status: models.HealthServerStatusStatus$outboundSchema,
+  }));

@@ -3,16 +3,16 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetVersionShowRequest = {
   /**
    * The Git commit hash to retrieve the diff and log message for.
    */
   commit?: string | undefined;
-  /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to get the diff and log message for.
-   */
-  groupId?: string | undefined;
   /**
    * The relative path of the file to get the diff and log message for.
    */
@@ -24,9 +24,18 @@ export type GetVersionShowRequest = {
 };
 
 /** @internal */
+export const GetVersionShowRequest$inboundSchema: z.ZodType<
+  GetVersionShowRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  commit: types.optional(types.string()),
+  filename: types.optional(types.string()),
+  diffLineLimit: types.optional(types.number()),
+});
+/** @internal */
 export type GetVersionShowRequest$Outbound = {
   commit?: string | undefined;
-  groupId?: string | undefined;
   filename?: string | undefined;
   diffLineLimit?: number | undefined;
 };
@@ -38,9 +47,8 @@ export const GetVersionShowRequest$outboundSchema: z.ZodType<
   GetVersionShowRequest
 > = z.object({
   commit: z.string().optional(),
-  groupId: z.string().optional(),
   filename: z.string().optional(),
-  diffLineLimit: z.number().optional(),
+  diffLineLimit: z.number().int().optional(),
 });
 
 export function getVersionShowRequestToJSON(
@@ -48,5 +56,14 @@ export function getVersionShowRequestToJSON(
 ): string {
   return JSON.stringify(
     GetVersionShowRequest$outboundSchema.parse(getVersionShowRequest),
+  );
+}
+export function getVersionShowRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetVersionShowRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetVersionShowRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetVersionShowRequest' from JSON`,
   );
 }

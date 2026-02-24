@@ -25,3 +25,9 @@ export const ModeOptionsInstanceSettingsSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(ModeOptionsInstanceSettingsSchema);
+/** @internal */
+export const ModeOptionsInstanceSettingsSchema$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  ModeOptionsInstanceSettingsSchema
+> = openEnums.outboundSchema(ModeOptionsInstanceSettingsSchema);

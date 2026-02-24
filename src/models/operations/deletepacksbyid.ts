@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeletePacksByIdRequest = {
   /**
@@ -11,6 +15,14 @@ export type DeletePacksByIdRequest = {
   id: string;
 };
 
+/** @internal */
+export const DeletePacksByIdRequest$inboundSchema: z.ZodType<
+  DeletePacksByIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+});
 /** @internal */
 export type DeletePacksByIdRequest$Outbound = {
   id: string;
@@ -30,5 +42,14 @@ export function deletePacksByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     DeletePacksByIdRequest$outboundSchema.parse(deletePacksByIdRequest),
+  );
+}
+export function deletePacksByIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<DeletePacksByIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeletePacksByIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeletePacksByIdRequest' from JSON`,
   );
 }

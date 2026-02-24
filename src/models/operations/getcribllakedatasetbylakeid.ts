@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetCriblLakeDatasetByLakeIdRequest = {
   /**
@@ -36,6 +40,20 @@ export type GetCriblLakeDatasetByLakeIdRequest = {
 };
 
 /** @internal */
+export const GetCriblLakeDatasetByLakeIdRequest$inboundSchema: z.ZodType<
+  GetCriblLakeDatasetByLakeIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  lakeId: types.string(),
+  storageLocationId: types.optional(types.string()),
+  format: types.optional(types.string()),
+  excludeDDSS: types.optional(types.boolean()),
+  excludeDeleted: types.optional(types.boolean()),
+  excludeInternal: types.optional(types.boolean()),
+  excludeBYOS: types.optional(types.boolean()),
+});
+/** @internal */
 export type GetCriblLakeDatasetByLakeIdRequest$Outbound = {
   lakeId: string;
   storageLocationId?: string | undefined;
@@ -68,5 +86,15 @@ export function getCriblLakeDatasetByLakeIdRequestToJSON(
     GetCriblLakeDatasetByLakeIdRequest$outboundSchema.parse(
       getCriblLakeDatasetByLakeIdRequest,
     ),
+  );
+}
+export function getCriblLakeDatasetByLakeIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetCriblLakeDatasetByLakeIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetCriblLakeDatasetByLakeIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetCriblLakeDatasetByLakeIdRequest' from JSON`,
   );
 }

@@ -67,7 +67,25 @@ export const Header$inboundSchema: z.ZodType<Header, z.ZodTypeDef, unknown> = z
     name: types.optional(types.string()),
     value: types.string(),
   });
+/** @internal */
+export type Header$Outbound = {
+  name?: string | undefined;
+  value: string;
+};
 
+/** @internal */
+export const Header$outboundSchema: z.ZodType<
+  Header$Outbound,
+  z.ZodTypeDef,
+  Header
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+
+export function headerToJSON(header: Header): string {
+  return JSON.stringify(Header$outboundSchema.parse(header));
+}
 export function headerFromJSON(
   jsonString: string,
 ): SafeParseResult<Header, SDKValidationError> {
@@ -126,7 +144,31 @@ export const FunctionConfSchemaCef$inboundSchema: z.ZodType<
   header: types.optional(z.array(z.lazy(() => Header$inboundSchema))),
   extension: types.optional(z.array(z.lazy(() => Extension$inboundSchema))),
 });
+/** @internal */
+export type FunctionConfSchemaCef$Outbound = {
+  outputField?: string | undefined;
+  header?: Array<Header$Outbound> | undefined;
+  extension?: Array<Extension$Outbound> | undefined;
+};
 
+/** @internal */
+export const FunctionConfSchemaCef$outboundSchema: z.ZodType<
+  FunctionConfSchemaCef$Outbound,
+  z.ZodTypeDef,
+  FunctionConfSchemaCef
+> = z.object({
+  outputField: z.string().optional(),
+  header: z.array(z.lazy(() => Header$outboundSchema)).optional(),
+  extension: z.array(z.lazy(() => Extension$outboundSchema)).optional(),
+});
+
+export function functionConfSchemaCefToJSON(
+  functionConfSchemaCef: FunctionConfSchemaCef,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaCef$outboundSchema.parse(functionConfSchemaCef),
+  );
+}
 export function functionConfSchemaCefFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionConfSchemaCef, SDKValidationError> {
@@ -137,6 +179,14 @@ export function functionConfSchemaCefFromJSON(
   );
 }
 
+/** @internal */
+export const HeaderInput$inboundSchema: z.ZodType<
+  HeaderInput,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  value: types.string(),
+});
 /** @internal */
 export type HeaderInput$Outbound = {
   value: string;
@@ -154,7 +204,26 @@ export const HeaderInput$outboundSchema: z.ZodType<
 export function headerInputToJSON(headerInput: HeaderInput): string {
   return JSON.stringify(HeaderInput$outboundSchema.parse(headerInput));
 }
+export function headerInputFromJSON(
+  jsonString: string,
+): SafeParseResult<HeaderInput, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HeaderInput$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HeaderInput' from JSON`,
+  );
+}
 
+/** @internal */
+export const FunctionConfSchemaCefInput$inboundSchema: z.ZodType<
+  FunctionConfSchemaCefInput,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  outputField: types.optional(types.string()),
+  header: types.optional(z.array(z.lazy(() => HeaderInput$inboundSchema))),
+  extension: types.optional(z.array(z.lazy(() => Extension$inboundSchema))),
+});
 /** @internal */
 export type FunctionConfSchemaCefInput$Outbound = {
   outputField?: string | undefined;
@@ -178,5 +247,14 @@ export function functionConfSchemaCefInputToJSON(
 ): string {
   return JSON.stringify(
     FunctionConfSchemaCefInput$outboundSchema.parse(functionConfSchemaCefInput),
+  );
+}
+export function functionConfSchemaCefInputFromJSON(
+  jsonString: string,
+): SafeParseResult<FunctionConfSchemaCefInput, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => FunctionConfSchemaCefInput$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'FunctionConfSchemaCefInput' from JSON`,
   );
 }

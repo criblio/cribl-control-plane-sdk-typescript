@@ -46,7 +46,53 @@ export const FunctionRegexFilter$inboundSchema: z.ZodType<
   version: types.string(),
   schema: types.optional(z.record(z.any())),
 });
+/** @internal */
+export type FunctionRegexFilter$Outbound = {
+  __filename: string;
+  asyncTimeout?: number | undefined;
+  cribl_version?: string | undefined;
+  disabled?: boolean | undefined;
+  group: string;
+  handleSignals?: boolean | undefined;
+  id: "regex_filter";
+  loadTime: number;
+  modTime: number;
+  name: string;
+  sync?: boolean | undefined;
+  uischema: { [k: string]: any };
+  version: string;
+  schema?: { [k: string]: any } | undefined;
+};
 
+/** @internal */
+export const FunctionRegexFilter$outboundSchema: z.ZodType<
+  FunctionRegexFilter$Outbound,
+  z.ZodTypeDef,
+  FunctionRegexFilter
+> = z.object({
+  __filename: z.string(),
+  asyncTimeout: z.number().optional(),
+  cribl_version: z.string().optional(),
+  disabled: z.boolean().optional(),
+  group: z.string(),
+  handleSignals: z.boolean().optional(),
+  id: z.literal("regex_filter"),
+  loadTime: z.number(),
+  modTime: z.number(),
+  name: z.string(),
+  sync: z.boolean().optional(),
+  uischema: z.record(z.any()),
+  version: z.string(),
+  schema: z.record(z.any()).optional(),
+});
+
+export function functionRegexFilterToJSON(
+  functionRegexFilter: FunctionRegexFilter,
+): string {
+  return JSON.stringify(
+    FunctionRegexFilter$outboundSchema.parse(functionRegexFilter),
+  );
+}
 export function functionRegexFilterFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionRegexFilter, SDKValidationError> {

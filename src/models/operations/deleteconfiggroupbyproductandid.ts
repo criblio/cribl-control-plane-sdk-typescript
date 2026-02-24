@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type DeleteConfigGroupByProductAndIdRequest = {
@@ -16,6 +20,15 @@ export type DeleteConfigGroupByProductAndIdRequest = {
   id: string;
 };
 
+/** @internal */
+export const DeleteConfigGroupByProductAndIdRequest$inboundSchema: z.ZodType<
+  DeleteConfigGroupByProductAndIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  product: models.ProductsCore$inboundSchema,
+  id: types.string(),
+});
 /** @internal */
 export type DeleteConfigGroupByProductAndIdRequest$Outbound = {
   product: string;
@@ -40,5 +53,15 @@ export function deleteConfigGroupByProductAndIdRequestToJSON(
     DeleteConfigGroupByProductAndIdRequest$outboundSchema.parse(
       deleteConfigGroupByProductAndIdRequest,
     ),
+  );
+}
+export function deleteConfigGroupByProductAndIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteConfigGroupByProductAndIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DeleteConfigGroupByProductAndIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteConfigGroupByProductAndIdRequest' from JSON`,
   );
 }

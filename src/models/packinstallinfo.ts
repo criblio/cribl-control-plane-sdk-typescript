@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   TagsTypePackInstallInfo,
   TagsTypePackInstallInfo$inboundSchema,
+  TagsTypePackInstallInfo$Outbound,
+  TagsTypePackInstallInfo$outboundSchema,
 } from "./tagstypepackinstallinfo.js";
 
 export type PackInstallInfo = {
@@ -54,7 +56,55 @@ export const PackInstallInfo$inboundSchema: z.ZodType<
   version: types.optional(types.string()),
   warnings: types.optional(z.array(types.string())),
 });
+/** @internal */
+export type PackInstallInfo$Outbound = {
+  author?: string | undefined;
+  dependencies?: { [k: string]: string } | undefined;
+  description?: string | undefined;
+  displayName?: string | undefined;
+  exports?: Array<string> | undefined;
+  id: string;
+  inputs?: number | undefined;
+  isDisabled?: boolean | undefined;
+  minLogStreamVersion?: string | undefined;
+  outputs?: number | undefined;
+  settings?: { [k: string]: any } | undefined;
+  source: string;
+  spec?: string | undefined;
+  tags?: TagsTypePackInstallInfo$Outbound | undefined;
+  version?: string | undefined;
+  warnings?: Array<string> | undefined;
+};
 
+/** @internal */
+export const PackInstallInfo$outboundSchema: z.ZodType<
+  PackInstallInfo$Outbound,
+  z.ZodTypeDef,
+  PackInstallInfo
+> = z.object({
+  author: z.string().optional(),
+  dependencies: z.record(z.string()).optional(),
+  description: z.string().optional(),
+  displayName: z.string().optional(),
+  exports: z.array(z.string()).optional(),
+  id: z.string(),
+  inputs: z.number().optional(),
+  isDisabled: z.boolean().optional(),
+  minLogStreamVersion: z.string().optional(),
+  outputs: z.number().optional(),
+  settings: z.record(z.any()).optional(),
+  source: z.string(),
+  spec: z.string().optional(),
+  tags: TagsTypePackInstallInfo$outboundSchema.optional(),
+  version: z.string().optional(),
+  warnings: z.array(z.string()).optional(),
+});
+
+export function packInstallInfoToJSON(
+  packInstallInfo: PackInstallInfo,
+): string {
+  return JSON.stringify(PackInstallInfo$outboundSchema.parse(packInstallInfo));
+}
 export function packInstallInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<PackInstallInfo, SDKValidationError> {

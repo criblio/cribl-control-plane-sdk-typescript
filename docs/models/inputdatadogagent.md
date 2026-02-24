@@ -6,72 +6,9 @@
 import { InputDatadogAgent } from "cribl-control-plane/models";
 
 let value: InputDatadogAgent = {
-  id: "<id>",
   type: "datadog_agent",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "stable-hovercraft.info",
-  port: 5714.97,
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 9434.99,
-  maxRequestsPerSocket: 378452,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 550,
-  requestTimeout: 8039.38,
-  socketTimeout: 7657.4,
-  keepAliveTimeout: 771,
-  enableHealthCheck: true,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  extractMetrics: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  proxyMode: {
-    enabled: false,
-    rejectUnauthorized: false,
-  },
-  description:
-    "upright outflank mmm per successfully yum ape councilman between grandpa",
+  host: "standard-granny.net",
+  port: 3507.99,
 };
 ```
 
@@ -104,6 +41,8 @@ let value: InputDatadogAgent = {
 | `ipAllowlistRegex`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Messages from matched IP addresses will be processed, unless also matched by the denylist                                                                                                                                                                              |
 | `ipDenylistRegex`                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.                                                                                                                                                                          |
 | `extractMetrics`                                                                                                                                                                                                                                                       | *boolean*                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default). |
-| `metadata`                                                                                                                                                                                                                                                             | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Fields to add to events from this input                                                                                                                                                                                                                                |
+| `metadata`                                                                                                                                                                                                                                                             | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Fields to add to events from this input                                                                                                                                                                                                                                |
 | `proxyMode`                                                                                                                                                                                                                                                            | [models.InputDatadogAgentProxyMode](../models/inputdatadogagentproxymode.md)                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                                                                    |
 | `description`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                                                                    |
+| `templateHost`                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.                                                                                  |
+| `templatePort`                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                     | Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.                                                                                  |

@@ -6,7 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { BranchInfo, BranchInfo$inboundSchema } from "./branchinfo.js";
+import {
+  BranchInfo,
+  BranchInfo$inboundSchema,
+  BranchInfo$Outbound,
+  BranchInfo$outboundSchema,
+} from "./branchinfo.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type CountedBranchInfo = {
@@ -26,7 +31,29 @@ export const CountedBranchInfo$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(BranchInfo$inboundSchema)),
 });
+/** @internal */
+export type CountedBranchInfo$Outbound = {
+  count?: number | undefined;
+  items?: Array<BranchInfo$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedBranchInfo$outboundSchema: z.ZodType<
+  CountedBranchInfo$Outbound,
+  z.ZodTypeDef,
+  CountedBranchInfo
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(BranchInfo$outboundSchema).optional(),
+});
+
+export function countedBranchInfoToJSON(
+  countedBranchInfo: CountedBranchInfo,
+): string {
+  return JSON.stringify(
+    CountedBranchInfo$outboundSchema.parse(countedBranchInfo),
+  );
+}
 export function countedBranchInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedBranchInfo, SDKValidationError> {

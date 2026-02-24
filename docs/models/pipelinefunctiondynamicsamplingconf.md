@@ -8,9 +8,6 @@ import { PipelineFunctionDynamicSamplingConf } from "cribl-control-plane/models"
 let value: PipelineFunctionDynamicSamplingConf = {
   mode: "log",
   keyExpr: "<value>",
-  samplePeriod: 7991.28,
-  minEvents: 6431.17,
-  maxSampleRate: 1446.97,
 };
 ```
 

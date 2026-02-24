@@ -19,11 +19,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   ItemsTypeRules,
   ItemsTypeRules$inboundSchema,
@@ -104,7 +104,7 @@ export type InputKubeMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   persistence?: InputKubeMetricsPersistence | undefined;
   description?: string | undefined;
 };
@@ -187,9 +187,7 @@ export const InputKubeMetrics$inboundSchema: z.ZodType<
   pq: types.optional(PqType$inboundSchema),
   interval: types.optional(types.number()),
   rules: types.optional(z.array(ItemsTypeRules$inboundSchema)),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   persistence: types.optional(
     z.lazy(() => InputKubeMetricsPersistence$inboundSchema),
   ),
@@ -209,7 +207,7 @@ export type InputKubeMetrics$Outbound = {
   pq?: PqType$Outbound | undefined;
   interval?: number | undefined;
   rules?: Array<ItemsTypeRules$Outbound> | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   persistence?: InputKubeMetricsPersistence$Outbound | undefined;
   description?: string | undefined;
 };
@@ -232,7 +230,7 @@ export const InputKubeMetrics$outboundSchema: z.ZodType<
   pq: PqType$outboundSchema.optional(),
   interval: z.number().optional(),
   rules: z.array(ItemsTypeRules$outboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   persistence: z.lazy(() => InputKubeMetricsPersistence$outboundSchema)
     .optional(),
   description: z.string().optional(),

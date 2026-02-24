@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateCriblLakeDatasetByLakeIdAndIdRequest = {
@@ -21,6 +25,18 @@ export type UpdateCriblLakeDatasetByLakeIdAndIdRequest = {
   criblLakeDatasetUpdate: models.CriblLakeDatasetUpdate;
 };
 
+/** @internal */
+export const UpdateCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema:
+  z.ZodType<UpdateCriblLakeDatasetByLakeIdAndIdRequest, z.ZodTypeDef, unknown> =
+    z.object({
+      lakeId: types.string(),
+      id: types.string(),
+      CriblLakeDatasetUpdate: models.CriblLakeDatasetUpdate$inboundSchema,
+    }).transform((v) => {
+      return remap$(v, {
+        "CriblLakeDatasetUpdate": "criblLakeDatasetUpdate",
+      });
+    });
 /** @internal */
 export type UpdateCriblLakeDatasetByLakeIdAndIdRequest$Outbound = {
   lakeId: string;
@@ -52,5 +68,20 @@ export function updateCriblLakeDatasetByLakeIdAndIdRequestToJSON(
     UpdateCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema.parse(
       updateCriblLakeDatasetByLakeIdAndIdRequest,
     ),
+  );
+}
+export function updateCriblLakeDatasetByLakeIdAndIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  UpdateCriblLakeDatasetByLakeIdAndIdRequest,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      UpdateCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'UpdateCriblLakeDatasetByLakeIdAndIdRequest' from JSON`,
   );
 }

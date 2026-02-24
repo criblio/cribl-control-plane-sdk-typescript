@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteCriblLakeDatasetByLakeIdAndIdRequest = {
   /**
@@ -15,6 +19,13 @@ export type DeleteCriblLakeDatasetByLakeIdAndIdRequest = {
   id: string;
 };
 
+/** @internal */
+export const DeleteCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema:
+  z.ZodType<DeleteCriblLakeDatasetByLakeIdAndIdRequest, z.ZodTypeDef, unknown> =
+    z.object({
+      lakeId: types.string(),
+      id: types.string(),
+    });
 /** @internal */
 export type DeleteCriblLakeDatasetByLakeIdAndIdRequest$Outbound = {
   lakeId: string;
@@ -40,5 +51,20 @@ export function deleteCriblLakeDatasetByLakeIdAndIdRequestToJSON(
     DeleteCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema.parse(
       deleteCriblLakeDatasetByLakeIdAndIdRequest,
     ),
+  );
+}
+export function deleteCriblLakeDatasetByLakeIdAndIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  DeleteCriblLakeDatasetByLakeIdAndIdRequest,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DeleteCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'DeleteCriblLakeDatasetByLakeIdAndIdRequest' from JSON`,
   );
 }

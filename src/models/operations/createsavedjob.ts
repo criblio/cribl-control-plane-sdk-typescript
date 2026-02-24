@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateSavedJobRequest = {
@@ -17,6 +21,19 @@ export type CreateSavedJobRequest = {
   savedJob: models.SavedJob;
 };
 
+/** @internal */
+export const CreateSavedJobRequest$inboundSchema: z.ZodType<
+  CreateSavedJobRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  criblPack: types.optional(types.string()),
+  SavedJob: models.SavedJob$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "SavedJob": "savedJob",
+  });
+});
 /** @internal */
 export type CreateSavedJobRequest$Outbound = {
   criblPack?: string | undefined;
@@ -42,5 +59,14 @@ export function createSavedJobRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateSavedJobRequest$outboundSchema.parse(createSavedJobRequest),
+  );
+}
+export function createSavedJobRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateSavedJobRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateSavedJobRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateSavedJobRequest' from JSON`,
   );
 }

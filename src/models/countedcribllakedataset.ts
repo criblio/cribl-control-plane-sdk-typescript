@@ -9,6 +9,8 @@ import * as types from "../types/primitives.js";
 import {
   CriblLakeDataset,
   CriblLakeDataset$inboundSchema,
+  CriblLakeDataset$Outbound,
+  CriblLakeDataset$outboundSchema,
 } from "./cribllakedataset.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -29,7 +31,29 @@ export const CountedCriblLakeDataset$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(CriblLakeDataset$inboundSchema)),
 });
+/** @internal */
+export type CountedCriblLakeDataset$Outbound = {
+  count?: number | undefined;
+  items?: Array<CriblLakeDataset$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedCriblLakeDataset$outboundSchema: z.ZodType<
+  CountedCriblLakeDataset$Outbound,
+  z.ZodTypeDef,
+  CountedCriblLakeDataset
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(CriblLakeDataset$outboundSchema).optional(),
+});
+
+export function countedCriblLakeDatasetToJSON(
+  countedCriblLakeDataset: CountedCriblLakeDataset,
+): string {
+  return JSON.stringify(
+    CountedCriblLakeDataset$outboundSchema.parse(countedCriblLakeDataset),
+  );
+}
 export function countedCriblLakeDatasetFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedCriblLakeDataset, SDKValidationError> {

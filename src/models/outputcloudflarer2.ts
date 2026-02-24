@@ -76,9 +76,14 @@ import {
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const OutputCloudflareR2AuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
-  Manual: "manual",
 } as const;
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -125,7 +130,6 @@ export type OutputCloudflareR2 = {
    * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
    */
   awsSecretKey?: string | undefined;
-  region?: any | undefined;
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
    */
@@ -142,7 +146,6 @@ export type OutputCloudflareR2 = {
    * Signature version to use for signing MinIO requests
    */
   signatureVersion?: SignatureVersionOptions5 | undefined;
-  objectACL?: any | undefined;
   /**
    * Storage class to select for uploaded objects
    */
@@ -230,10 +233,6 @@ export type OutputCloudflareR2 = {
   maxConcurrentFileParts?: number | undefined;
   description?: string | undefined;
   /**
-   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-   */
-  awsApiKey?: string | undefined;
-  /**
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
@@ -305,6 +304,14 @@ export type OutputCloudflareR2 = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -338,12 +345,10 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
     OutputCloudflareR2AuthenticationMethod$inboundSchema,
   ),
   awsSecretKey: types.optional(types.string()),
-  region: types.optional(z.any()),
   stagePath: types.string(),
   addIdToStagePath: types.optional(types.boolean()),
   destPath: types.optional(types.string()),
   signatureVersion: types.optional(SignatureVersionOptions5$inboundSchema),
-  objectACL: types.optional(z.any()),
   storageClass: types.optional(StorageClassOptions2$inboundSchema),
   serverSideEncryption: types.optional(
     ServerSideEncryptionOptions$inboundSchema,
@@ -371,7 +376,6 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   maxFileIdleTimeSec: types.optional(types.number()),
   maxConcurrentFileParts: types.optional(types.number()),
   description: types.optional(types.string()),
-  awsApiKey: types.optional(types.string()),
   awsSecret: types.optional(types.string()),
   compress: types.optional(CompressionOptions2$inboundSchema),
   compressionLevel: types.optional(CompressionLevelOptions$inboundSchema),
@@ -392,6 +396,8 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   directoryBatchSize: types.optional(types.number()),
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
+  __template_bucket: types.optional(types.string()),
+  __template_format: types.optional(types.string()),
 });
 /** @internal */
 export type OutputCloudflareR2$Outbound = {
@@ -405,12 +411,10 @@ export type OutputCloudflareR2$Outbound = {
   bucket: string;
   awsAuthenticationMethod?: string | undefined;
   awsSecretKey?: string | undefined;
-  region?: any | undefined;
   stagePath: string;
   addIdToStagePath?: boolean | undefined;
   destPath?: string | undefined;
   signatureVersion?: string | undefined;
-  objectACL?: any | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
   reuseConnections?: boolean | undefined;
@@ -434,7 +438,6 @@ export type OutputCloudflareR2$Outbound = {
   maxFileIdleTimeSec?: number | undefined;
   maxConcurrentFileParts?: number | undefined;
   description?: string | undefined;
-  awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   compress?: string | undefined;
   compressionLevel?: string | undefined;
@@ -453,6 +456,8 @@ export type OutputCloudflareR2$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_bucket?: string | undefined;
+  __template_format?: string | undefined;
 };
 
 /** @internal */
@@ -472,12 +477,10 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   awsAuthenticationMethod: OutputCloudflareR2AuthenticationMethod$outboundSchema
     .optional(),
   awsSecretKey: z.string().optional(),
-  region: z.any().optional(),
   stagePath: z.string(),
   addIdToStagePath: z.boolean().optional(),
   destPath: z.string().optional(),
   signatureVersion: SignatureVersionOptions5$outboundSchema.optional(),
-  objectACL: z.any().optional(),
   storageClass: StorageClassOptions2$outboundSchema.optional(),
   serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
   reuseConnections: z.boolean().optional(),
@@ -501,7 +504,6 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().optional(),
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
-  awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   compress: CompressionOptions2$outboundSchema.optional(),
   compressionLevel: CompressionLevelOptions$outboundSchema.optional(),
@@ -521,6 +523,8 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_bucket: z.string().optional(),
+  __template_format: z.string().optional(),
 });
 
 export function outputCloudflareR2ToJSON(

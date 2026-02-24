@@ -3,12 +3,25 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type EventBreakerRuleFields = {
   name: string;
   value: string;
 };
 
+/** @internal */
+export const EventBreakerRuleFields$inboundSchema: z.ZodType<
+  EventBreakerRuleFields,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: types.string(),
+  value: types.string(),
+});
 /** @internal */
 export type EventBreakerRuleFields$Outbound = {
   name: string;
@@ -30,5 +43,14 @@ export function eventBreakerRuleFieldsToJSON(
 ): string {
   return JSON.stringify(
     EventBreakerRuleFields$outboundSchema.parse(eventBreakerRuleFields),
+  );
+}
+export function eventBreakerRuleFieldsFromJSON(
+  jsonString: string,
+): SafeParseResult<EventBreakerRuleFields, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => EventBreakerRuleFields$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'EventBreakerRuleFields' from JSON`,
   );
 }

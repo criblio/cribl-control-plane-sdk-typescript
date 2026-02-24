@@ -10,14 +10,20 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   RunnableJobCollection,
   RunnableJobCollection$inboundSchema,
+  RunnableJobCollection$Outbound,
+  RunnableJobCollection$outboundSchema,
 } from "./runnablejobcollection.js";
 import {
   RunnableJobExecutor,
   RunnableJobExecutor$inboundSchema,
+  RunnableJobExecutor$Outbound,
+  RunnableJobExecutor$outboundSchema,
 } from "./runnablejobexecutor.js";
 import {
   RunnableJobScheduledSearch,
   RunnableJobScheduledSearch$inboundSchema,
+  RunnableJobScheduledSearch$Outbound,
+  RunnableJobScheduledSearch$outboundSchema,
 } from "./runnablejobscheduledsearch.js";
 
 export type RunnableJob =
@@ -35,7 +41,26 @@ export const RunnableJob$inboundSchema: z.ZodType<
   RunnableJobExecutor$inboundSchema,
   RunnableJobScheduledSearch$inboundSchema,
 ]);
+/** @internal */
+export type RunnableJob$Outbound =
+  | RunnableJobCollection$Outbound
+  | RunnableJobExecutor$Outbound
+  | RunnableJobScheduledSearch$Outbound;
 
+/** @internal */
+export const RunnableJob$outboundSchema: z.ZodType<
+  RunnableJob$Outbound,
+  z.ZodTypeDef,
+  RunnableJob
+> = smartUnion([
+  RunnableJobCollection$outboundSchema,
+  RunnableJobExecutor$outboundSchema,
+  RunnableJobScheduledSearch$outboundSchema,
+]);
+
+export function runnableJobToJSON(runnableJob: RunnableJob): string {
+  return JSON.stringify(RunnableJob$outboundSchema.parse(runnableJob));
+}
 export function runnableJobFromJSON(
   jsonString: string,
 ): SafeParseResult<RunnableJob, SDKValidationError> {

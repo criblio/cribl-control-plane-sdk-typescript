@@ -46,7 +46,55 @@ export const FunctionNotificationPolicies$inboundSchema: z.ZodType<
   version: types.string(),
   schema: types.optional(z.record(z.any())),
 });
+/** @internal */
+export type FunctionNotificationPolicies$Outbound = {
+  __filename: string;
+  asyncTimeout?: number | undefined;
+  cribl_version?: string | undefined;
+  disabled?: boolean | undefined;
+  group: string;
+  handleSignals?: boolean | undefined;
+  id: "notification_policies";
+  loadTime: number;
+  modTime: number;
+  name: string;
+  sync?: boolean | undefined;
+  uischema: { [k: string]: any };
+  version: string;
+  schema?: { [k: string]: any } | undefined;
+};
 
+/** @internal */
+export const FunctionNotificationPolicies$outboundSchema: z.ZodType<
+  FunctionNotificationPolicies$Outbound,
+  z.ZodTypeDef,
+  FunctionNotificationPolicies
+> = z.object({
+  __filename: z.string(),
+  asyncTimeout: z.number().optional(),
+  cribl_version: z.string().optional(),
+  disabled: z.boolean().optional(),
+  group: z.string(),
+  handleSignals: z.boolean().optional(),
+  id: z.literal("notification_policies"),
+  loadTime: z.number(),
+  modTime: z.number(),
+  name: z.string(),
+  sync: z.boolean().optional(),
+  uischema: z.record(z.any()),
+  version: z.string(),
+  schema: z.record(z.any()).optional(),
+});
+
+export function functionNotificationPoliciesToJSON(
+  functionNotificationPolicies: FunctionNotificationPolicies,
+): string {
+  return JSON.stringify(
+    FunctionNotificationPolicies$outboundSchema.parse(
+      functionNotificationPolicies,
+    ),
+  );
+}
 export function functionNotificationPoliciesFromJSON(
   jsonString: string,
 ): SafeParseResult<FunctionNotificationPolicies, SDKValidationError> {

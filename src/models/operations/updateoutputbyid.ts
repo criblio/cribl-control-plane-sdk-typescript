@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateOutputByIdRequest = {
@@ -17,6 +21,19 @@ export type UpdateOutputByIdRequest = {
   output: models.Output;
 };
 
+/** @internal */
+export const UpdateOutputByIdRequest$inboundSchema: z.ZodType<
+  UpdateOutputByIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  Output: models.Output$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Output": "output",
+  });
+});
 /** @internal */
 export type UpdateOutputByIdRequest$Outbound = {
   id: string;
@@ -42,5 +59,14 @@ export function updateOutputByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateOutputByIdRequest$outboundSchema.parse(updateOutputByIdRequest),
+  );
+}
+export function updateOutputByIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateOutputByIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateOutputByIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateOutputByIdRequest' from JSON`,
   );
 }

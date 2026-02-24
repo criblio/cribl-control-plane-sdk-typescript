@@ -14,11 +14,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -92,12 +92,24 @@ export type InputMetrics = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+   */
+  __template_udpPort?: string | undefined;
+  /**
+   * Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+   */
+  __template_tcpPort?: string | undefined;
 };
 
 /** @internal */
@@ -125,11 +137,12 @@ export const InputMetrics$inboundSchema: z.ZodType<
   ipWhitelistRegex: types.optional(types.string()),
   enableProxyHeader: types.optional(types.boolean()),
   tls: types.optional(TlsSettingsServerSideType$inboundSchema),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   udpSocketRxBufSize: types.optional(types.number()),
   description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_udpPort: types.optional(types.string()),
+  __template_tcpPort: types.optional(types.string()),
 });
 /** @internal */
 export type InputMetrics$Outbound = {
@@ -150,9 +163,12 @@ export type InputMetrics$Outbound = {
   ipWhitelistRegex?: string | undefined;
   enableProxyHeader?: boolean | undefined;
   tls?: TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_udpPort?: string | undefined;
+  __template_tcpPort?: string | undefined;
 };
 
 /** @internal */
@@ -178,9 +194,12 @@ export const InputMetrics$outboundSchema: z.ZodType<
   ipWhitelistRegex: z.string().optional(),
   enableProxyHeader: z.boolean().optional(),
   tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_udpPort: z.string().optional(),
+  __template_tcpPort: z.string().optional(),
 });
 
 export function inputMetricsToJSON(inputMetrics: InputMetrics): string {

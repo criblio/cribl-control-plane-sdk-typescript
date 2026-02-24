@@ -26,7 +26,35 @@ export const HostOsTypeHeartbeatMetadata$inboundSchema: z.ZodType<
   id: types.string(),
   version: types.string(),
 });
+/** @internal */
+export type HostOsTypeHeartbeatMetadata$Outbound = {
+  addresses: Array<string>;
+  enabled: boolean;
+  id: string;
+  version: string;
+};
 
+/** @internal */
+export const HostOsTypeHeartbeatMetadata$outboundSchema: z.ZodType<
+  HostOsTypeHeartbeatMetadata$Outbound,
+  z.ZodTypeDef,
+  HostOsTypeHeartbeatMetadata
+> = z.object({
+  addresses: z.array(z.string()),
+  enabled: z.boolean(),
+  id: z.string(),
+  version: z.string(),
+});
+
+export function hostOsTypeHeartbeatMetadataToJSON(
+  hostOsTypeHeartbeatMetadata: HostOsTypeHeartbeatMetadata,
+): string {
+  return JSON.stringify(
+    HostOsTypeHeartbeatMetadata$outboundSchema.parse(
+      hostOsTypeHeartbeatMetadata,
+    ),
+  );
+}
 export function hostOsTypeHeartbeatMetadataFromJSON(
   jsonString: string,
 ): SafeParseResult<HostOsTypeHeartbeatMetadata, SDKValidationError> {

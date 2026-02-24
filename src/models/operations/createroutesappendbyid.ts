@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateRoutesAppendByIdRequest = {
@@ -17,6 +21,19 @@ export type CreateRoutesAppendByIdRequest = {
   requestBody: Array<models.RouteConf>;
 };
 
+/** @internal */
+export const CreateRoutesAppendByIdRequest$inboundSchema: z.ZodType<
+  CreateRoutesAppendByIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  RequestBody: z.array(models.RouteConf$inboundSchema),
+}).transform((v) => {
+  return remap$(v, {
+    "RequestBody": "requestBody",
+  });
+});
 /** @internal */
 export type CreateRoutesAppendByIdRequest$Outbound = {
   id: string;
@@ -44,5 +61,14 @@ export function createRoutesAppendByIdRequestToJSON(
     CreateRoutesAppendByIdRequest$outboundSchema.parse(
       createRoutesAppendByIdRequest,
     ),
+  );
+}
+export function createRoutesAppendByIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateRoutesAppendByIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateRoutesAppendByIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateRoutesAppendByIdRequest' from JSON`,
   );
 }

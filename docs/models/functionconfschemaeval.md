@@ -5,24 +5,7 @@
 ```typescript
 import { FunctionConfSchemaEval } from "cribl-control-plane/models";
 
-let value: FunctionConfSchemaEval = {
-  add: [
-    {
-      name: "<value>",
-      value: "<value>",
-      disabled: true,
-    },
-  ],
-  keep: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  remove: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-};
+let value: FunctionConfSchemaEval = {};
 ```
 
 ## Fields

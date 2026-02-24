@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetConfigGroupConfigVersionByProductAndIdRequest = {
@@ -16,6 +20,16 @@ export type GetConfigGroupConfigVersionByProductAndIdRequest = {
   id: string;
 };
 
+/** @internal */
+export const GetConfigGroupConfigVersionByProductAndIdRequest$inboundSchema:
+  z.ZodType<
+    GetConfigGroupConfigVersionByProductAndIdRequest,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    product: models.ProductsCore$inboundSchema,
+    id: types.string(),
+  });
 /** @internal */
 export type GetConfigGroupConfigVersionByProductAndIdRequest$Outbound = {
   product: string;
@@ -41,5 +55,20 @@ export function getConfigGroupConfigVersionByProductAndIdRequestToJSON(
     GetConfigGroupConfigVersionByProductAndIdRequest$outboundSchema.parse(
       getConfigGroupConfigVersionByProductAndIdRequest,
     ),
+  );
+}
+export function getConfigGroupConfigVersionByProductAndIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetConfigGroupConfigVersionByProductAndIdRequest,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetConfigGroupConfigVersionByProductAndIdRequest$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetConfigGroupConfigVersionByProductAndIdRequest' from JSON`,
   );
 }

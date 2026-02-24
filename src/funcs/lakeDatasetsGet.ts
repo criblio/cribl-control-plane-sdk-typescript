@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get a Lake Dataset
+ * Get a Lake Dataset (Cribl.Cloud only)
  *
  * @remarks
- * Get the specified Lake Dataset in the specified Lake.
+ * Get the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
  */
 export function lakeDatasetsGet(
   client: CriblControlPlaneCore,

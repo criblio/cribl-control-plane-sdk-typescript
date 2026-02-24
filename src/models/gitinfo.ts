@@ -29,11 +29,29 @@ export const RemoteEnum$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(RemoteEnum);
+/** @internal */
+export const RemoteEnum$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RemoteEnum
+> = openEnums.outboundSchema(RemoteEnum);
 
 /** @internal */
 export const Remote$inboundSchema: z.ZodType<Remote, z.ZodTypeDef, unknown> =
   smartUnion([types.string(), RemoteEnum$inboundSchema]);
+/** @internal */
+export type Remote$Outbound = string | string;
 
+/** @internal */
+export const Remote$outboundSchema: z.ZodType<
+  Remote$Outbound,
+  z.ZodTypeDef,
+  Remote
+> = smartUnion([z.string(), RemoteEnum$outboundSchema]);
+
+export function remoteToJSON(remote: Remote): string {
+  return JSON.stringify(Remote$outboundSchema.parse(remote));
+}
 export function remoteFromJSON(
   jsonString: string,
 ): SafeParseResult<Remote, SDKValidationError> {
@@ -50,7 +68,25 @@ export const GitInfo$inboundSchema: z.ZodType<GitInfo, z.ZodTypeDef, unknown> =
     remote: smartUnion([types.string(), RemoteEnum$inboundSchema]),
     versioning: types.boolean(),
   });
+/** @internal */
+export type GitInfo$Outbound = {
+  remote: string | string;
+  versioning: boolean;
+};
 
+/** @internal */
+export const GitInfo$outboundSchema: z.ZodType<
+  GitInfo$Outbound,
+  z.ZodTypeDef,
+  GitInfo
+> = z.object({
+  remote: smartUnion([z.string(), RemoteEnum$outboundSchema]),
+  versioning: z.boolean(),
+});
+
+export function gitInfoToJSON(gitInfo: GitInfo): string {
+  return JSON.stringify(GitInfo$outboundSchema.parse(gitInfo));
+}
 export function gitInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<GitInfo, SDKValidationError> {

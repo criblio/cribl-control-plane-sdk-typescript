@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateInputHecTokenByIdRequest = {
@@ -17,6 +21,19 @@ export type CreateInputHecTokenByIdRequest = {
   addHecTokenRequest: models.AddHecTokenRequest;
 };
 
+/** @internal */
+export const CreateInputHecTokenByIdRequest$inboundSchema: z.ZodType<
+  CreateInputHecTokenByIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  AddHecTokenRequest: models.AddHecTokenRequest$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "AddHecTokenRequest": "addHecTokenRequest",
+  });
+});
 /** @internal */
 export type CreateInputHecTokenByIdRequest$Outbound = {
   id: string;
@@ -44,5 +61,14 @@ export function createInputHecTokenByIdRequestToJSON(
     CreateInputHecTokenByIdRequest$outboundSchema.parse(
       createInputHecTokenByIdRequest,
     ),
+  );
+}
+export function createInputHecTokenByIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateInputHecTokenByIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateInputHecTokenByIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateInputHecTokenByIdRequest' from JSON`,
   );
 }

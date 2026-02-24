@@ -12,78 +12,9 @@ let value: CollectorRest = {
   conf: {
     authentication: "hmac",
     hmacFunctionId: "<id>",
-    discovery: {
-      discoverMethod: "post_with_body",
-      discoverBody: "<value>",
-      discoverType: "http",
-      discoverUrl: "https://sweet-giant.info/",
-      discoverVerb: "<value>",
-      discoverRequestParams: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: true,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: true,
-    },
-    collectUrl: "https://true-cow.name",
-    collectMethod: "post",
-    collectVerb: "<value>",
-    collectRequestParams: "<value>",
-    collectBody: "<value>",
-    collectRequestHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    pagination: {
-      type: "request_offset",
-      offsetField: "<value>",
-      offset: 2713.22,
-      limitField: "<value>",
-      limit: 8073.59,
-      totalRecordField: "<value>",
-      maxPages: 8005.17,
-      zeroIndexed: true,
-    },
-    timeout: 5200.78,
-    useRoundRobinDns: true,
-    disableTimeFilter: false,
-    decodeUrl: true,
-    rejectUnauthorized: true,
-    captureHeaders: false,
-    stopOnEmptyResults: true,
-    safeHeaders: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    retryRules: {
-      type: "static",
-      interval: "<value>",
-      limit: "<value>",
-      codes: "<value>",
-      enableHeader: "<value>",
-      retryConnectTimeout: "<value>",
-      retryConnectReset: "<value>",
-      multiplier: "<value>",
-      maxIntervalMs: "<value>",
-    },
-    __scheduling: {
-      stateTracking: {
-        enabled: true,
-      },
-    },
+    collectUrl: "https://simplistic-cardboard.biz/",
+    collectMethod: "other",
   },
-  destructive: true,
-  encoding: "<value>",
 };
 ```
 

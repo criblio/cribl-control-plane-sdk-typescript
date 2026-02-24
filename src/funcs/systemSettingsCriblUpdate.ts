@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Update Cribl system settings
  *
  * @remarks
- * Update Cribl system settings
+ * Update Cribl system settings.
  */
 export function systemSettingsCriblUpdate(
   client: CriblControlPlaneCore,

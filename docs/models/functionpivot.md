@@ -7,24 +7,16 @@ import { FunctionPivot } from "cribl-control-plane/models";
 
 let value: FunctionPivot = {
   __filename: "example.file",
-  asyncTimeout: 3354.7,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: false,
   id: "pivot",
-  loadTime: 3520.47,
-  modTime: 4909.49,
+  loadTime: 3354.7,
+  modTime: 7466.76,
   name: "<value>",
-  sync: true,
   uischema: {
-    "key": "<value>",
-  },
-  version: "<value>",
-  schema: {
     "key": "<value>",
     "key1": "<value>",
   },
+  version: "<value>",
 };
 ```
 

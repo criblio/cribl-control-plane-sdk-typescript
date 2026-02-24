@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitRevertParams = {
   commit: string;
@@ -10,6 +14,16 @@ export type GitRevertParams = {
   message?: string | undefined;
 };
 
+/** @internal */
+export const GitRevertParams$inboundSchema: z.ZodType<
+  GitRevertParams,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  commit: types.string(),
+  force: types.optional(types.boolean()),
+  message: types.optional(types.string()),
+});
 /** @internal */
 export type GitRevertParams$Outbound = {
   commit: string;
@@ -32,4 +46,13 @@ export function gitRevertParamsToJSON(
   gitRevertParams: GitRevertParams,
 ): string {
   return JSON.stringify(GitRevertParams$outboundSchema.parse(gitRevertParams));
+}
+export function gitRevertParamsFromJSON(
+  jsonString: string,
+): SafeParseResult<GitRevertParams, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GitRevertParams$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GitRevertParams' from JSON`,
+  );
 }

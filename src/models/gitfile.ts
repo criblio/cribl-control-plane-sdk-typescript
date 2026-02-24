@@ -21,7 +21,27 @@ export const GitFile$inboundSchema: z.ZodType<GitFile, z.ZodTypeDef, unknown> =
     name: types.string(),
     state: types.optional(types.string()),
   });
+/** @internal */
+export type GitFile$Outbound = {
+  children?: Array<GitFile$Outbound> | undefined;
+  name: string;
+  state?: string | undefined;
+};
 
+/** @internal */
+export const GitFile$outboundSchema: z.ZodType<
+  GitFile$Outbound,
+  z.ZodTypeDef,
+  GitFile
+> = z.object({
+  children: z.array(z.lazy(() => GitFile$outboundSchema)).optional(),
+  name: z.string(),
+  state: z.string().optional(),
+});
+
+export function gitFileToJSON(gitFile: GitFile): string {
+  return JSON.stringify(GitFile$outboundSchema.parse(gitFile));
+}
 export function gitFileFromJSON(
   jsonString: string,
 ): SafeParseResult<GitFile, SDKValidationError> {

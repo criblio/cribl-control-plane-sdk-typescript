@@ -20,7 +20,27 @@ export const CurrentBranchResult$inboundSchema: z.ZodType<
 > = z.object({
   branch: types.string(),
 });
+/** @internal */
+export type CurrentBranchResult$Outbound = {
+  branch: string;
+};
 
+/** @internal */
+export const CurrentBranchResult$outboundSchema: z.ZodType<
+  CurrentBranchResult$Outbound,
+  z.ZodTypeDef,
+  CurrentBranchResult
+> = z.object({
+  branch: z.string(),
+});
+
+export function currentBranchResultToJSON(
+  currentBranchResult: CurrentBranchResult,
+): string {
+  return JSON.stringify(
+    CurrentBranchResult$outboundSchema.parse(currentBranchResult),
+  );
+}
 export function currentBranchResultFromJSON(
   jsonString: string,
 ): SafeParseResult<CurrentBranchResult, SDKValidationError> {

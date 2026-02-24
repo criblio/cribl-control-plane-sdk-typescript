@@ -4,6 +4,9 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateConfigGroupByProductRequest = {
@@ -17,6 +20,19 @@ export type CreateConfigGroupByProductRequest = {
   groupCreateRequest: models.GroupCreateRequest;
 };
 
+/** @internal */
+export const CreateConfigGroupByProductRequest$inboundSchema: z.ZodType<
+  CreateConfigGroupByProductRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  product: models.ProductsCore$inboundSchema,
+  GroupCreateRequest: models.GroupCreateRequest$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "GroupCreateRequest": "groupCreateRequest",
+  });
+});
 /** @internal */
 export type CreateConfigGroupByProductRequest$Outbound = {
   product: string;
@@ -44,5 +60,14 @@ export function createConfigGroupByProductRequestToJSON(
     CreateConfigGroupByProductRequest$outboundSchema.parse(
       createConfigGroupByProductRequest,
     ),
+  );
+}
+export function createConfigGroupByProductRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateConfigGroupByProductRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateConfigGroupByProductRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateConfigGroupByProductRequest' from JSON`,
   );
 }

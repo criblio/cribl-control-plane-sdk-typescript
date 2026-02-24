@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetSavedJobRequest = {
   /**
@@ -19,6 +23,16 @@ export type GetSavedJobRequest = {
   groupId?: string | undefined;
 };
 
+/** @internal */
+export const GetSavedJobRequest$inboundSchema: z.ZodType<
+  GetSavedJobRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  collectorType: types.optional(types.string()),
+  criblPack: types.optional(types.string()),
+  groupId: types.optional(types.string()),
+});
 /** @internal */
 export type GetSavedJobRequest$Outbound = {
   collectorType?: string | undefined;
@@ -42,5 +56,14 @@ export function getSavedJobRequestToJSON(
 ): string {
   return JSON.stringify(
     GetSavedJobRequest$outboundSchema.parse(getSavedJobRequest),
+  );
+}
+export function getSavedJobRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetSavedJobRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetSavedJobRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetSavedJobRequest' from JSON`,
   );
 }

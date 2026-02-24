@@ -9,6 +9,8 @@ import * as types from "../types/primitives.js";
 import {
   DistributedSummary,
   DistributedSummary$inboundSchema,
+  DistributedSummary$Outbound,
+  DistributedSummary$outboundSchema,
 } from "./distributedsummary.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -29,7 +31,29 @@ export const CountedDistributedSummary$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(DistributedSummary$inboundSchema)),
 });
+/** @internal */
+export type CountedDistributedSummary$Outbound = {
+  count?: number | undefined;
+  items?: Array<DistributedSummary$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedDistributedSummary$outboundSchema: z.ZodType<
+  CountedDistributedSummary$Outbound,
+  z.ZodTypeDef,
+  CountedDistributedSummary
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(DistributedSummary$outboundSchema).optional(),
+});
+
+export function countedDistributedSummaryToJSON(
+  countedDistributedSummary: CountedDistributedSummary,
+): string {
+  return JSON.stringify(
+    CountedDistributedSummary$outboundSchema.parse(countedDistributedSummary),
+  );
+}
 export function countedDistributedSummaryFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedDistributedSummary, SDKValidationError> {

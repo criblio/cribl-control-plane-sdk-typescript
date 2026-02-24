@@ -5,15 +5,7 @@
 ```typescript
 import { GitLogResult } from "cribl-control-plane/models";
 
-let value: GitLogResult = {
-  author_email: "<value>",
-  author_name: "<value>",
-  body: "<value>",
-  date: "2024-12-02",
-  hash: "<value>",
-  message: "<value>",
-  refs: "<value>",
-};
+let value: GitLogResult = {};
 ```
 
 ## Fields

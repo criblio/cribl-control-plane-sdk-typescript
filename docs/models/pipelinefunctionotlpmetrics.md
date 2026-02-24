@@ -6,21 +6,8 @@
 import { PipelineFunctionOtlpMetrics } from "cribl-control-plane/models";
 
 let value: PipelineFunctionOtlpMetrics = {
-  filter: "<value>",
   id: "otlp_metrics",
-  description: "stained pish ack worth aw throughout like ew",
-  disabled: false,
-  final: true,
-  conf: {
-    resourceAttributePrefixes: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    dropNonMetricEvents: true,
-    otlpVersion: "1.3.1",
-    batchOTLPMetrics: false,
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 
@@ -33,5 +20,5 @@ let value: PipelineFunctionOtlpMetrics = {
 | `description`                                                                                | *string*                                                                                     | :heavy_minus_sign:                                                                           | Simple description of this step                                                              |
 | `disabled`                                                                                   | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If true, data will not be pushed through this function                                       |
 | `final`                                                                                      | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If enabled, stops the results of this Function from being passed to the downstream Functions |
-| `conf`                                                                                       | [models.FunctionConfSchemaOtlpMetrics](../models/functionconfschemaotlpmetrics.md)           | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `conf`                                                                                       | *models.FunctionConfSchemaOtlpMetrics*                                                       | :heavy_check_mark:                                                                           | N/A                                                                                          |
 | `groupId`                                                                                    | *string*                                                                                     | :heavy_minus_sign:                                                                           | Group ID                                                                                     |

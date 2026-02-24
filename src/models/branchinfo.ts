@@ -20,7 +20,23 @@ export const BranchInfo$inboundSchema: z.ZodType<
 > = z.object({
   id: types.string(),
 });
+/** @internal */
+export type BranchInfo$Outbound = {
+  id: string;
+};
 
+/** @internal */
+export const BranchInfo$outboundSchema: z.ZodType<
+  BranchInfo$Outbound,
+  z.ZodTypeDef,
+  BranchInfo
+> = z.object({
+  id: z.string(),
+});
+
+export function branchInfoToJSON(branchInfo: BranchInfo): string {
+  return JSON.stringify(BranchInfo$outboundSchema.parse(branchInfo));
+}
 export function branchInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<BranchInfo, SDKValidationError> {

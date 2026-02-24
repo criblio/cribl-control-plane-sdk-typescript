@@ -6,90 +6,8 @@
 import { OutputGoogleChronicle } from "cribl-control-plane/models";
 
 let value: OutputGoogleChronicle = {
-  id: "<id>",
   type: "google_chronicle",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  apiVersion: "v1",
-  authenticationMethod: "secret",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
   logFormatType: "unstructured",
-  region: "<value>",
-  concurrency: 4739.81,
-  maxPayloadSizeKB: 7330.33,
-  maxPayloadEvents: 9752.33,
-  compress: true,
-  rejectUnauthorized: true,
-  timeoutSec: 2832.8,
-  flushPeriodSec: 1807.57,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  failedRequestLoggingMode: "none",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  useRoundRobinDns: true,
-  onBackpressure: "block",
-  totalMemoryLimitKB: 7015.39,
-  description: "defiantly embarrassment mmm vol",
-  extraLogTypes: [
-    {
-      logType: "<value>",
-      description: "zowie dreary um while considering",
-    },
-  ],
-  logType: "<value>",
-  logTextField: "<value>",
-  customerId: "<id>",
-  namespace: "<value>",
-  customLabels: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
-  udmType: "entities",
-  apiKey: "<value>",
-  apiKeySecret: "<value>",
-  serviceAccountCredentials: "<value>",
-  serviceAccountCredentialsSecret: "<value>",
-  pqStrictOrdering: false,
-  pqRatePerSec: 7574.99,
-  pqMode: "always",
-  pqMaxBufferSize: 9803.08,
-  pqMaxBackpressureSec: 6785.48,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "block",
-  pqControls: {},
 };
 ```
 
@@ -146,3 +64,6 @@ let value: OutputGoogleChronicle = {
 | `pqCompress`                                                                                                                                                                                                                                                                                                                                     | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                      |
 | `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                               | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                            |
 | `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputGoogleChroniclePqControls](../models/outputgooglechroniclepqcontrols.md)                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `templateApiVersion`                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.                                                                                                                                                |
+| `templateRegion`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.                                                                                                                                                        |
+| `templateCustomerId`                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'customerId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'customerId' at runtime.                                                                                                                                                |

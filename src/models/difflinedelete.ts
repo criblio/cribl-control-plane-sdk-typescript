@@ -24,7 +24,27 @@ export const DiffLineDelete$inboundSchema: z.ZodType<
   oldNumber: types.number(),
   content: types.string(),
 });
+/** @internal */
+export type DiffLineDelete$Outbound = {
+  type: "delete";
+  oldNumber: number;
+  content: string;
+};
 
+/** @internal */
+export const DiffLineDelete$outboundSchema: z.ZodType<
+  DiffLineDelete$Outbound,
+  z.ZodTypeDef,
+  DiffLineDelete
+> = z.object({
+  type: z.literal("delete"),
+  oldNumber: z.number(),
+  content: z.string(),
+});
+
+export function diffLineDeleteToJSON(diffLineDelete: DiffLineDelete): string {
+  return JSON.stringify(DiffLineDelete$outboundSchema.parse(diffLineDelete));
+}
 export function diffLineDeleteFromJSON(
   jsonString: string,
 ): SafeParseResult<DiffLineDelete, SDKValidationError> {

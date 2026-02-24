@@ -9,17 +9,8 @@ let value: CreateOutputTestByIdRequest = {
   id: "<id>",
   outputTestRequest: {
     events: [
-      {
-        "key": "<value>",
-      },
-      {
-        "key": "<value>",
-      },
-      {
-        "key": "<value>",
-        "key1": "<value>",
-        "key2": "<value>",
-      },
+      {},
+      {},
     ],
   },
 };

@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetConfigGroupAclTeamsByProductAndIdRequest = {
@@ -20,6 +24,17 @@ export type GetConfigGroupAclTeamsByProductAndIdRequest = {
   type?: models.RbacResource | undefined;
 };
 
+/** @internal */
+export const GetConfigGroupAclTeamsByProductAndIdRequest$inboundSchema:
+  z.ZodType<
+    GetConfigGroupAclTeamsByProductAndIdRequest,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    product: models.ProductsCore$inboundSchema,
+    id: types.string(),
+    type: types.optional(models.RbacResource$inboundSchema),
+  });
 /** @internal */
 export type GetConfigGroupAclTeamsByProductAndIdRequest$Outbound = {
   product: string;
@@ -47,5 +62,20 @@ export function getConfigGroupAclTeamsByProductAndIdRequestToJSON(
     GetConfigGroupAclTeamsByProductAndIdRequest$outboundSchema.parse(
       getConfigGroupAclTeamsByProductAndIdRequest,
     ),
+  );
+}
+export function getConfigGroupAclTeamsByProductAndIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  GetConfigGroupAclTeamsByProductAndIdRequest,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetConfigGroupAclTeamsByProductAndIdRequest$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'GetConfigGroupAclTeamsByProductAndIdRequest' from JSON`,
   );
 }

@@ -10,16 +10,9 @@ let value: NotifyConfiguration = {
   notificationId: "<id>",
   searchId: "<id>",
   savedQueryId: "<id>",
-  trigger: "<value>",
-  triggerType: "custom",
-  triggerComparator: "<",
-  triggerCount: 1201.04,
-  resultsLimit: 2093.01,
-  searchUrl: "https://oblong-siege.info",
-  message: "<value>",
+  searchUrl: "https://glass-case.biz/",
   authToken: "<value>",
   messagesEndpoint: "<value>",
-  tenantId: "<id>",
 };
 ```
 

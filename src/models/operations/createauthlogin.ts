@@ -27,7 +27,33 @@ export const CreateAuthLoginResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
+/** @internal */
+export type CreateAuthLoginResponse$Outbound = {
+  Headers: { [k: string]: Array<string> };
+  Result: models.AuthToken$Outbound;
+};
 
+/** @internal */
+export const CreateAuthLoginResponse$outboundSchema: z.ZodType<
+  CreateAuthLoginResponse$Outbound,
+  z.ZodTypeDef,
+  CreateAuthLoginResponse
+> = z.object({
+  Headers: z.record(z.array(z.string())),
+  result: models.AuthToken$outboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    result: "Result",
+  });
+});
+
+export function createAuthLoginResponseToJSON(
+  createAuthLoginResponse: CreateAuthLoginResponse,
+): string {
+  return JSON.stringify(
+    CreateAuthLoginResponse$outboundSchema.parse(createAuthLoginResponse),
+  );
+}
 export function createAuthLoginResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateAuthLoginResponse, SDKValidationError> {

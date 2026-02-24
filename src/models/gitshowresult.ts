@@ -6,7 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { DiffFiles, DiffFiles$inboundSchema } from "./difffiles.js";
+import {
+  DiffFiles,
+  DiffFiles$inboundSchema,
+  DiffFiles$Outbound,
+  DiffFiles$outboundSchema,
+} from "./difffiles.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitShowResult = {
@@ -23,7 +28,25 @@ export const GitShowResult$inboundSchema: z.ZodType<
   commitMessage: types.string(),
   diffJson: z.array(DiffFiles$inboundSchema),
 });
+/** @internal */
+export type GitShowResult$Outbound = {
+  commitMessage: string;
+  diffJson: Array<DiffFiles$Outbound>;
+};
 
+/** @internal */
+export const GitShowResult$outboundSchema: z.ZodType<
+  GitShowResult$Outbound,
+  z.ZodTypeDef,
+  GitShowResult
+> = z.object({
+  commitMessage: z.string(),
+  diffJson: z.array(DiffFiles$outboundSchema),
+});
+
+export function gitShowResultToJSON(gitShowResult: GitShowResult): string {
+  return JSON.stringify(GitShowResult$outboundSchema.parse(gitShowResult));
+}
 export function gitShowResultFromJSON(
   jsonString: string,
 ): SafeParseResult<GitShowResult, SDKValidationError> {

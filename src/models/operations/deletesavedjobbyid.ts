@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteSavedJobByIdRequest = {
   /**
@@ -19,6 +23,16 @@ export type DeleteSavedJobByIdRequest = {
   groupId?: string | undefined;
 };
 
+/** @internal */
+export const DeleteSavedJobByIdRequest$inboundSchema: z.ZodType<
+  DeleteSavedJobByIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  criblPack: types.optional(types.string()),
+  groupId: types.optional(types.string()),
+});
 /** @internal */
 export type DeleteSavedJobByIdRequest$Outbound = {
   id: string;
@@ -42,5 +56,14 @@ export function deleteSavedJobByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     DeleteSavedJobByIdRequest$outboundSchema.parse(deleteSavedJobByIdRequest),
+  );
+}
+export function deleteSavedJobByIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<DeleteSavedJobByIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeleteSavedJobByIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeleteSavedJobByIdRequest' from JSON`,
   );
 }

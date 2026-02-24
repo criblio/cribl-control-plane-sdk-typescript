@@ -14,6 +14,12 @@ export const ProductsCore = {
 export type ProductsCore = OpenEnum<typeof ProductsCore>;
 
 /** @internal */
+export const ProductsCore$inboundSchema: z.ZodType<
+  ProductsCore,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(ProductsCore);
+/** @internal */
 export const ProductsCore$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,

@@ -8,18 +8,29 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
+import {
+  ConnectionProtocol,
+  ConnectionProtocol$inboundSchema,
+  ConnectionProtocol$outboundSchema,
+} from "./connectionprotocol.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   HeartbeatMetadata,
   HeartbeatMetadata$inboundSchema,
+  HeartbeatMetadata$Outbound,
+  HeartbeatMetadata$outboundSchema,
 } from "./heartbeatmetadata.js";
 import {
   NodeProvidedInfo,
   NodeProvidedInfo$inboundSchema,
+  NodeProvidedInfo$Outbound,
+  NodeProvidedInfo$outboundSchema,
 } from "./nodeprovidedinfo.js";
 import {
   NodeUpgradeStatus,
   NodeUpgradeStatus$inboundSchema,
+  NodeUpgradeStatus$Outbound,
+  NodeUpgradeStatus$outboundSchema,
 } from "./nodeupgradestatus.js";
 
 export const MasterWorkerEntryType = {
@@ -34,6 +45,7 @@ export type MasterWorkerEntryWorkers = {
 };
 
 export type MasterWorkerEntry = {
+  connectionProtocol?: ConnectionProtocol | undefined;
   deployable?: boolean | undefined;
   disconnected?: boolean | undefined;
   firstMsgTime: number;
@@ -56,6 +68,12 @@ export const MasterWorkerEntryType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(MasterWorkerEntryType);
+/** @internal */
+export const MasterWorkerEntryType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  MasterWorkerEntryType
+> = openEnums.outboundSchema(MasterWorkerEntryType);
 
 /** @internal */
 export const MasterWorkerEntryWorkers$inboundSchema: z.ZodType<
@@ -65,7 +83,27 @@ export const MasterWorkerEntryWorkers$inboundSchema: z.ZodType<
 > = z.object({
   count: types.number(),
 });
+/** @internal */
+export type MasterWorkerEntryWorkers$Outbound = {
+  count: number;
+};
 
+/** @internal */
+export const MasterWorkerEntryWorkers$outboundSchema: z.ZodType<
+  MasterWorkerEntryWorkers$Outbound,
+  z.ZodTypeDef,
+  MasterWorkerEntryWorkers
+> = z.object({
+  count: z.number(),
+});
+
+export function masterWorkerEntryWorkersToJSON(
+  masterWorkerEntryWorkers: MasterWorkerEntryWorkers,
+): string {
+  return JSON.stringify(
+    MasterWorkerEntryWorkers$outboundSchema.parse(masterWorkerEntryWorkers),
+  );
+}
 export function masterWorkerEntryWorkersFromJSON(
   jsonString: string,
 ): SafeParseResult<MasterWorkerEntryWorkers, SDKValidationError> {
@@ -82,6 +120,7 @@ export const MasterWorkerEntry$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  connectionProtocol: types.optional(ConnectionProtocol$inboundSchema),
   deployable: types.optional(types.boolean()),
   disconnected: types.optional(types.boolean()),
   firstMsgTime: types.number(),
@@ -97,7 +136,55 @@ export const MasterWorkerEntry$inboundSchema: z.ZodType<
   workerProcesses: types.number(),
   workers: types.optional(z.lazy(() => MasterWorkerEntryWorkers$inboundSchema)),
 });
+/** @internal */
+export type MasterWorkerEntry$Outbound = {
+  connectionProtocol?: string | undefined;
+  deployable?: boolean | undefined;
+  disconnected?: boolean | undefined;
+  firstMsgTime: number;
+  group: string;
+  id: string;
+  info: NodeProvidedInfo$Outbound;
+  lastMetrics?: { [k: string]: any } | undefined;
+  lastMsgTime: number;
+  metadata?: HeartbeatMetadata$Outbound | undefined;
+  nodeUpgradeStatus?: NodeUpgradeStatus$Outbound | undefined;
+  status?: string | undefined;
+  type?: string | undefined;
+  workerProcesses: number;
+  workers?: MasterWorkerEntryWorkers$Outbound | undefined;
+};
 
+/** @internal */
+export const MasterWorkerEntry$outboundSchema: z.ZodType<
+  MasterWorkerEntry$Outbound,
+  z.ZodTypeDef,
+  MasterWorkerEntry
+> = z.object({
+  connectionProtocol: ConnectionProtocol$outboundSchema.optional(),
+  deployable: z.boolean().optional(),
+  disconnected: z.boolean().optional(),
+  firstMsgTime: z.number(),
+  group: z.string(),
+  id: z.string(),
+  info: NodeProvidedInfo$outboundSchema,
+  lastMetrics: z.record(z.any()).optional(),
+  lastMsgTime: z.number(),
+  metadata: HeartbeatMetadata$outboundSchema.optional(),
+  nodeUpgradeStatus: NodeUpgradeStatus$outboundSchema.optional(),
+  status: z.string().optional(),
+  type: MasterWorkerEntryType$outboundSchema.optional(),
+  workerProcesses: z.number(),
+  workers: z.lazy(() => MasterWorkerEntryWorkers$outboundSchema).optional(),
+});
+
+export function masterWorkerEntryToJSON(
+  masterWorkerEntry: MasterWorkerEntry,
+): string {
+  return JSON.stringify(
+    MasterWorkerEntry$outboundSchema.parse(masterWorkerEntry),
+  );
+}
 export function masterWorkerEntryFromJSON(
   jsonString: string,
 ): SafeParseResult<MasterWorkerEntry, SDKValidationError> {

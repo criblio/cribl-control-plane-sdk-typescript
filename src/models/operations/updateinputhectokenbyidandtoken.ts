@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateInputHecTokenByIdAndTokenRequest = {
@@ -21,6 +25,20 @@ export type UpdateInputHecTokenByIdAndTokenRequest = {
   updateHecTokenRequest: models.UpdateHecTokenRequest;
 };
 
+/** @internal */
+export const UpdateInputHecTokenByIdAndTokenRequest$inboundSchema: z.ZodType<
+  UpdateInputHecTokenByIdAndTokenRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  token: types.string(),
+  UpdateHecTokenRequest: models.UpdateHecTokenRequest$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "UpdateHecTokenRequest": "updateHecTokenRequest",
+  });
+});
 /** @internal */
 export type UpdateInputHecTokenByIdAndTokenRequest$Outbound = {
   id: string;
@@ -51,5 +69,15 @@ export function updateInputHecTokenByIdAndTokenRequestToJSON(
     UpdateInputHecTokenByIdAndTokenRequest$outboundSchema.parse(
       updateInputHecTokenByIdAndTokenRequest,
     ),
+  );
+}
+export function updateInputHecTokenByIdAndTokenRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateInputHecTokenByIdAndTokenRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      UpdateInputHecTokenByIdAndTokenRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateInputHecTokenByIdAndTokenRequest' from JSON`,
   );
 }

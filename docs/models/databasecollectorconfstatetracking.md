@@ -5,9 +5,7 @@
 ```typescript
 import { DatabaseCollectorConfStateTracking } from "cribl-control-plane/models";
 
-let value: DatabaseCollectorConfStateTracking = {
-  enabled: false,
-};
+let value: DatabaseCollectorConfStateTracking = {};
 ```
 
 ## Fields

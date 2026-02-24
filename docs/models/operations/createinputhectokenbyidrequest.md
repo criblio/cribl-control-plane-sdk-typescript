@@ -8,18 +8,6 @@ import { CreateInputHecTokenByIdRequest } from "cribl-control-plane/models/opera
 let value: CreateInputHecTokenByIdRequest = {
   id: "<id>",
   addHecTokenRequest: {
-    allowedIndexesAtToken: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    description: "circumference before likewise arrogantly gosh parade um",
-    enabled: false,
-    metadata: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
     token: "<value>",
   },
 };

@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ResourcePolicy,
   ResourcePolicy$inboundSchema,
+  ResourcePolicy$Outbound,
+  ResourcePolicy$outboundSchema,
 } from "./resourcepolicy.js";
 
 export type TeamAccessControlList = {
@@ -26,7 +28,29 @@ export const TeamAccessControlList$inboundSchema: z.ZodType<
   perms: z.array(ResourcePolicy$inboundSchema),
   team: types.string(),
 });
+/** @internal */
+export type TeamAccessControlList$Outbound = {
+  perms: Array<ResourcePolicy$Outbound>;
+  team: string;
+};
 
+/** @internal */
+export const TeamAccessControlList$outboundSchema: z.ZodType<
+  TeamAccessControlList$Outbound,
+  z.ZodTypeDef,
+  TeamAccessControlList
+> = z.object({
+  perms: z.array(ResourcePolicy$outboundSchema),
+  team: z.string(),
+});
+
+export function teamAccessControlListToJSON(
+  teamAccessControlList: TeamAccessControlList,
+): string {
+  return JSON.stringify(
+    TeamAccessControlList$outboundSchema.parse(teamAccessControlList),
+  );
+}
 export function teamAccessControlListFromJSON(
   jsonString: string,
 ): SafeParseResult<TeamAccessControlList, SDKValidationError> {

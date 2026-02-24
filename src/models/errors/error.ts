@@ -44,3 +44,19 @@ export const ErrorT$inboundSchema: z.ZodType<ErrorT, z.ZodTypeDef, unknown> = z
       body: v.body$,
     });
   });
+
+/** @internal */
+export type ErrorT$Outbound = {
+  message?: string | undefined;
+};
+
+/** @internal */
+export const ErrorT$outboundSchema: z.ZodType<
+  ErrorT$Outbound,
+  z.ZodTypeDef,
+  ErrorT
+> = z.instanceof(ErrorT)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    message: z.string().optional(),
+  }));

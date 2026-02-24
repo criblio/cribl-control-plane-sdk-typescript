@@ -4,15 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import {
-  AuthenticationProtocolOptionsV3User,
-  AuthenticationProtocolOptionsV3User$inboundSchema,
-  AuthenticationProtocolOptionsV3User$outboundSchema,
-} from "./authenticationprotocoloptionsv3user.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ItemsTypeConnectionsOptional,
@@ -21,47 +14,30 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
   PqType$Outbound,
   PqType$outboundSchema,
 } from "./pqtype.js";
-
-export const PrivacyProtocol = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * DES
-   */
-  Des: "des",
-  /**
-   * AES128
-   */
-  Aes: "aes",
-  /**
-   * AES256b (Blumenthal)
-   */
-  Aes256b: "aes256b",
-  /**
-   * AES256r (Reeder)
-   */
-  Aes256r: "aes256r",
-} as const;
-export type PrivacyProtocol = OpenEnum<typeof PrivacyProtocol>;
+import {
+  PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone,
+  PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema,
+  PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema,
+} from "./privacyprotocoloptionssnmptrapserializev3userauthprotocolnotnone.js";
 
 export type InputSnmpV3User = {
   name: string;
-  authProtocol?: AuthenticationProtocolOptionsV3User | undefined;
+  authProtocol?: string | undefined;
   authKey?: string | undefined;
-  privProtocol?: PrivacyProtocol | undefined;
+  privProtocol?:
+    | PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone
+    | undefined;
   privKey?: string | undefined;
 };
 
@@ -135,7 +111,7 @@ export type InputSnmp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -149,20 +125,15 @@ export type InputSnmp = {
    */
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
-
-/** @internal */
-export const PrivacyProtocol$inboundSchema: z.ZodType<
-  PrivacyProtocol,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(PrivacyProtocol);
-/** @internal */
-export const PrivacyProtocol$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  PrivacyProtocol
-> = openEnums.outboundSchema(PrivacyProtocol);
 
 /** @internal */
 export const InputSnmpV3User$inboundSchema: z.ZodType<
@@ -171,11 +142,11 @@ export const InputSnmpV3User$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   name: types.string(),
-  authProtocol: types.optional(
-    AuthenticationProtocolOptionsV3User$inboundSchema,
-  ),
+  authProtocol: types.optional(types.string()),
   authKey: types.optional(types.string()),
-  privProtocol: types.optional(PrivacyProtocol$inboundSchema),
+  privProtocol: types.optional(
+    PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$inboundSchema,
+  ),
   privKey: types.optional(types.string()),
 });
 /** @internal */
@@ -194,9 +165,11 @@ export const InputSnmpV3User$outboundSchema: z.ZodType<
   InputSnmpV3User
 > = z.object({
   name: z.string(),
-  authProtocol: AuthenticationProtocolOptionsV3User$outboundSchema.optional(),
+  authProtocol: z.string().optional(),
   authKey: z.string().optional(),
-  privProtocol: PrivacyProtocol$outboundSchema.optional(),
+  privProtocol:
+    PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone$outboundSchema
+      .optional(),
   privKey: z.string().optional(),
 });
 
@@ -283,13 +256,13 @@ export const InputSnmp$inboundSchema: z.ZodType<
   snmpV3Auth: types.optional(z.lazy(() => SNMPv3Authentication$inboundSchema)),
   maxBufferSize: types.optional(types.number()),
   ipWhitelistRegex: types.optional(types.string()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   udpSocketRxBufSize: types.optional(types.number()),
   varbindsWithTypes: types.optional(types.boolean()),
   bestEffortParsing: types.optional(types.boolean()),
   description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type InputSnmp$Outbound = {
@@ -308,11 +281,13 @@ export type InputSnmp$Outbound = {
   snmpV3Auth?: SNMPv3Authentication$Outbound | undefined;
   maxBufferSize?: number | undefined;
   ipWhitelistRegex?: string | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   varbindsWithTypes?: boolean | undefined;
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -336,11 +311,13 @@ export const InputSnmp$outboundSchema: z.ZodType<
   snmpV3Auth: z.lazy(() => SNMPv3Authentication$outboundSchema).optional(),
   maxBufferSize: z.number().optional(),
   ipWhitelistRegex: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   udpSocketRxBufSize: z.number().optional(),
   varbindsWithTypes: z.boolean().optional(),
   bestEffortParsing: z.boolean().optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
 export function inputSnmpToJSON(inputSnmp: InputSnmp): string {

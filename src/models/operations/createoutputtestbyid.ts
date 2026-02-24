@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateOutputTestByIdRequest = {
@@ -17,6 +21,19 @@ export type CreateOutputTestByIdRequest = {
   outputTestRequest: models.OutputTestRequest;
 };
 
+/** @internal */
+export const CreateOutputTestByIdRequest$inboundSchema: z.ZodType<
+  CreateOutputTestByIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+  OutputTestRequest: models.OutputTestRequest$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "OutputTestRequest": "outputTestRequest",
+  });
+});
 /** @internal */
 export type CreateOutputTestByIdRequest$Outbound = {
   id: string;
@@ -44,5 +61,14 @@ export function createOutputTestByIdRequestToJSON(
     CreateOutputTestByIdRequest$outboundSchema.parse(
       createOutputTestByIdRequest,
     ),
+  );
+}
+export function createOutputTestByIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<CreateOutputTestByIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CreateOutputTestByIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CreateOutputTestByIdRequest' from JSON`,
   );
 }

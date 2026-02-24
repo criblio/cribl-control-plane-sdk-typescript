@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type DeployRequestLookupsLookup = {
   file: string;
@@ -14,6 +18,15 @@ export type DeployRequestLookups = {
   lookups: Array<DeployRequestLookupsLookup>;
 };
 
+/** @internal */
+export const DeployRequestLookupsLookup$inboundSchema: z.ZodType<
+  DeployRequestLookupsLookup,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  file: types.string(),
+  version: types.string(),
+});
 /** @internal */
 export type DeployRequestLookupsLookup$Outbound = {
   file: string;
@@ -37,7 +50,25 @@ export function deployRequestLookupsLookupToJSON(
     DeployRequestLookupsLookup$outboundSchema.parse(deployRequestLookupsLookup),
   );
 }
+export function deployRequestLookupsLookupFromJSON(
+  jsonString: string,
+): SafeParseResult<DeployRequestLookupsLookup, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeployRequestLookupsLookup$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeployRequestLookupsLookup' from JSON`,
+  );
+}
 
+/** @internal */
+export const DeployRequestLookups$inboundSchema: z.ZodType<
+  DeployRequestLookups,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  context: types.string(),
+  lookups: z.array(z.lazy(() => DeployRequestLookupsLookup$inboundSchema)),
+});
 /** @internal */
 export type DeployRequestLookups$Outbound = {
   context: string;
@@ -59,5 +90,14 @@ export function deployRequestLookupsToJSON(
 ): string {
   return JSON.stringify(
     DeployRequestLookups$outboundSchema.parse(deployRequestLookups),
+  );
+}
+export function deployRequestLookupsFromJSON(
+  jsonString: string,
+): SafeParseResult<DeployRequestLookups, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DeployRequestLookups$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DeployRequestLookups' from JSON`,
   );
 }

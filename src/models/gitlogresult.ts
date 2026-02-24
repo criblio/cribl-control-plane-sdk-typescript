@@ -32,7 +32,35 @@ export const GitLogResult$inboundSchema: z.ZodType<
   message: types.optional(types.string()),
   refs: types.optional(types.string()),
 });
+/** @internal */
+export type GitLogResult$Outbound = {
+  author_email?: string | undefined;
+  author_name?: string | undefined;
+  body?: string | undefined;
+  date?: string | undefined;
+  hash?: string | undefined;
+  message?: string | undefined;
+  refs?: string | undefined;
+};
 
+/** @internal */
+export const GitLogResult$outboundSchema: z.ZodType<
+  GitLogResult$Outbound,
+  z.ZodTypeDef,
+  GitLogResult
+> = z.object({
+  author_email: z.string().optional(),
+  author_name: z.string().optional(),
+  body: z.string().optional(),
+  date: z.string().optional(),
+  hash: z.string().optional(),
+  message: z.string().optional(),
+  refs: z.string().optional(),
+});
+
+export function gitLogResultToJSON(gitLogResult: GitLogResult): string {
+  return JSON.stringify(GitLogResult$outboundSchema.parse(gitLogResult));
+}
 export function gitLogResultFromJSON(
   jsonString: string,
 ): SafeParseResult<GitLogResult, SDKValidationError> {

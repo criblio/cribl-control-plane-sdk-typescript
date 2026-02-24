@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PackUninstallInfo,
   PackUninstallInfo$inboundSchema,
+  PackUninstallInfo$Outbound,
+  PackUninstallInfo$outboundSchema,
 } from "./packuninstallinfo.js";
 
 export type CountedPackUninstallInfo = {
@@ -29,7 +31,29 @@ export const CountedPackUninstallInfo$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(PackUninstallInfo$inboundSchema)),
 });
+/** @internal */
+export type CountedPackUninstallInfo$Outbound = {
+  count?: number | undefined;
+  items?: Array<PackUninstallInfo$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedPackUninstallInfo$outboundSchema: z.ZodType<
+  CountedPackUninstallInfo$Outbound,
+  z.ZodTypeDef,
+  CountedPackUninstallInfo
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(PackUninstallInfo$outboundSchema).optional(),
+});
+
+export function countedPackUninstallInfoToJSON(
+  countedPackUninstallInfo: CountedPackUninstallInfo,
+): string {
+  return JSON.stringify(
+    CountedPackUninstallInfo$outboundSchema.parse(countedPackUninstallInfo),
+  );
+}
 export function countedPackUninstallInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedPackUninstallInfo, SDKValidationError> {

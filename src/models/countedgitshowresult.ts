@@ -7,7 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { GitShowResult, GitShowResult$inboundSchema } from "./gitshowresult.js";
+import {
+  GitShowResult,
+  GitShowResult$inboundSchema,
+  GitShowResult$Outbound,
+  GitShowResult$outboundSchema,
+} from "./gitshowresult.js";
 
 export type CountedGitShowResult = {
   /**
@@ -26,7 +31,29 @@ export const CountedGitShowResult$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(GitShowResult$inboundSchema)),
 });
+/** @internal */
+export type CountedGitShowResult$Outbound = {
+  count?: number | undefined;
+  items?: Array<GitShowResult$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedGitShowResult$outboundSchema: z.ZodType<
+  CountedGitShowResult$Outbound,
+  z.ZodTypeDef,
+  CountedGitShowResult
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(GitShowResult$outboundSchema).optional(),
+});
+
+export function countedGitShowResultToJSON(
+  countedGitShowResult: CountedGitShowResult,
+): string {
+  return JSON.stringify(
+    CountedGitShowResult$outboundSchema.parse(countedGitShowResult),
+  );
+}
 export function countedGitShowResultFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedGitShowResult, SDKValidationError> {

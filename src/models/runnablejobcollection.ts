@@ -8,24 +8,40 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
-import { Collector, Collector$inboundSchema } from "./collector.js";
+import {
+  Collector,
+  Collector$inboundSchema,
+  Collector$Outbound,
+  Collector$outboundSchema,
+} from "./collector.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  JobTypeOptionsSavedJobCollection,
-  JobTypeOptionsSavedJobCollection$inboundSchema,
-} from "./jobtypeoptionssavedjobcollection.js";
+  JobTypeOptionsRunnableJobCollection,
+  JobTypeOptionsRunnableJobCollection$inboundSchema,
+  JobTypeOptionsRunnableJobCollection$outboundSchema,
+} from "./jobtypeoptionsrunnablejobcollection.js";
 import {
-  LogLevelOptionsSavedJobCollectionScheduleRun,
-  LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema,
-} from "./logleveloptionssavedjobcollectionschedulerun.js";
-import { MetricsStore, MetricsStore$inboundSchema } from "./metricsstore.js";
+  LogLevelOptionsRunnableJobCollectionScheduleRun,
+  LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
+  LogLevelOptionsRunnableJobCollectionScheduleRun$outboundSchema,
+} from "./logleveloptionsrunnablejobcollectionschedulerun.js";
+import {
+  MetricsStore,
+  MetricsStore$inboundSchema,
+  MetricsStore$Outbound,
+  MetricsStore$outboundSchema,
+} from "./metricsstore.js";
 import {
   ScheduleTypeRunnableJobCollection,
   ScheduleTypeRunnableJobCollection$inboundSchema,
+  ScheduleTypeRunnableJobCollection$Outbound,
+  ScheduleTypeRunnableJobCollection$outboundSchema,
 } from "./scheduletyperunnablejobcollection.js";
 import {
   TypeCollectionWithBreakerRulesetsConstraint,
   TypeCollectionWithBreakerRulesetsConstraint$inboundSchema,
+  TypeCollectionWithBreakerRulesetsConstraint$Outbound,
+  TypeCollectionWithBreakerRulesetsConstraint$outboundSchema,
 } from "./typecollectionwithbreakerrulesetsconstraint.js";
 
 /**
@@ -53,19 +69,19 @@ export const WhereToCapture = {
   /**
    * 1. Before pre-processing Pipeline
    */
-  Zero: 0,
+  BeforePreProcessingPipeline: 0,
   /**
    * 2. Before the Routes
    */
-  One: 1,
+  BeforeTheRoutes: 1,
   /**
    * 3. Before post-processing Pipeline
    */
-  Two: 2,
+  BeforePostProcessingPipeline: 2,
   /**
    * 4. Before the Destination
    */
-  Three: 3,
+  BeforeTheDestination: 3,
 } as const;
 export type WhereToCapture = OpenEnum<typeof WhereToCapture>;
 
@@ -93,7 +109,7 @@ export type RunnableJobCollectionRun = {
   /**
    * Level at which to set task logging
    */
-  logLevel?: LogLevelOptionsSavedJobCollectionScheduleRun | undefined;
+  logLevel?: LogLevelOptionsRunnableJobCollectionScheduleRun | undefined;
   /**
    * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
@@ -149,7 +165,7 @@ export type RunnableJobCollection = {
    */
   id?: string | undefined;
   description?: string | undefined;
-  type?: JobTypeOptionsSavedJobCollection | undefined;
+  type?: JobTypeOptionsRunnableJobCollection | undefined;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
@@ -196,6 +212,12 @@ export const RunnableJobCollectionMode$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(RunnableJobCollectionMode);
+/** @internal */
+export const RunnableJobCollectionMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  RunnableJobCollectionMode
+> = openEnums.outboundSchema(RunnableJobCollectionMode);
 
 /** @internal */
 export const TimeRange$inboundSchema: z.ZodType<
@@ -203,6 +225,12 @@ export const TimeRange$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(TimeRange);
+/** @internal */
+export const TimeRange$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  TimeRange
+> = openEnums.outboundSchema(TimeRange);
 
 /** @internal */
 export const WhereToCapture$inboundSchema: z.ZodType<
@@ -210,6 +238,12 @@ export const WhereToCapture$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchemaInt(WhereToCapture);
+/** @internal */
+export const WhereToCapture$outboundSchema: z.ZodType<
+  number,
+  z.ZodTypeDef,
+  WhereToCapture
+> = openEnums.outboundSchemaInt(WhereToCapture);
 
 /** @internal */
 export const CaptureSettings$inboundSchema: z.ZodType<
@@ -221,7 +255,29 @@ export const CaptureSettings$inboundSchema: z.ZodType<
   maxEvents: types.optional(types.number()),
   level: types.optional(WhereToCapture$inboundSchema),
 });
+/** @internal */
+export type CaptureSettings$Outbound = {
+  duration?: number | undefined;
+  maxEvents?: number | undefined;
+  level?: number | undefined;
+};
 
+/** @internal */
+export const CaptureSettings$outboundSchema: z.ZodType<
+  CaptureSettings$Outbound,
+  z.ZodTypeDef,
+  CaptureSettings
+> = z.object({
+  duration: z.number().optional(),
+  maxEvents: z.number().optional(),
+  level: WhereToCapture$outboundSchema.optional(),
+});
+
+export function captureSettingsToJSON(
+  captureSettings: CaptureSettings,
+): string {
+  return JSON.stringify(CaptureSettings$outboundSchema.parse(captureSettings));
+}
 export function captureSettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<CaptureSettings, SDKValidationError> {
@@ -241,7 +297,7 @@ export const RunnableJobCollectionRun$inboundSchema: z.ZodType<
   rescheduleDroppedTasks: types.optional(types.boolean()),
   maxTaskReschedule: types.optional(types.number()),
   logLevel: types.optional(
-    LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema,
+    LogLevelOptionsRunnableJobCollectionScheduleRun$inboundSchema,
   ),
   jobTimeout: types.optional(types.string()),
   mode: RunnableJobCollectionMode$inboundSchema,
@@ -256,7 +312,56 @@ export const RunnableJobCollectionRun$inboundSchema: z.ZodType<
   discoverToRoutes: types.optional(types.boolean()),
   capture: types.optional(z.lazy(() => CaptureSettings$inboundSchema)),
 });
+/** @internal */
+export type RunnableJobCollectionRun$Outbound = {
+  rescheduleDroppedTasks?: boolean | undefined;
+  maxTaskReschedule?: number | undefined;
+  logLevel?: string | undefined;
+  jobTimeout?: string | undefined;
+  mode: string;
+  timeRangeType?: string | undefined;
+  earliest?: number | undefined;
+  latest?: number | undefined;
+  timestampTimezone?: string | undefined;
+  timeWarning?: MetricsStore$Outbound | undefined;
+  expression?: string | undefined;
+  minTaskSize?: string | undefined;
+  maxTaskSize?: string | undefined;
+  discoverToRoutes?: boolean | undefined;
+  capture?: CaptureSettings$Outbound | undefined;
+};
 
+/** @internal */
+export const RunnableJobCollectionRun$outboundSchema: z.ZodType<
+  RunnableJobCollectionRun$Outbound,
+  z.ZodTypeDef,
+  RunnableJobCollectionRun
+> = z.object({
+  rescheduleDroppedTasks: z.boolean().optional(),
+  maxTaskReschedule: z.number().optional(),
+  logLevel: LogLevelOptionsRunnableJobCollectionScheduleRun$outboundSchema
+    .optional(),
+  jobTimeout: z.string().optional(),
+  mode: RunnableJobCollectionMode$outboundSchema,
+  timeRangeType: TimeRange$outboundSchema.optional(),
+  earliest: z.number().optional(),
+  latest: z.number().optional(),
+  timestampTimezone: z.string().optional(),
+  timeWarning: MetricsStore$outboundSchema.optional(),
+  expression: z.string().optional(),
+  minTaskSize: z.string().optional(),
+  maxTaskSize: z.string().optional(),
+  discoverToRoutes: z.boolean().optional(),
+  capture: z.lazy(() => CaptureSettings$outboundSchema).optional(),
+});
+
+export function runnableJobCollectionRunToJSON(
+  runnableJobCollectionRun: RunnableJobCollectionRun,
+): string {
+  return JSON.stringify(
+    RunnableJobCollectionRun$outboundSchema.parse(runnableJobCollectionRun),
+  );
+}
 export function runnableJobCollectionRunFromJSON(
   jsonString: string,
 ): SafeParseResult<RunnableJobCollectionRun, SDKValidationError> {
@@ -275,7 +380,7 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
 > = z.object({
   id: types.optional(types.string()),
   description: types.optional(types.string()),
-  type: types.optional(JobTypeOptionsSavedJobCollection$inboundSchema),
+  type: types.optional(JobTypeOptionsRunnableJobCollection$inboundSchema),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
   removeFields: types.optional(z.array(types.string())),
@@ -290,7 +395,53 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
   ),
   run: z.lazy(() => RunnableJobCollectionRun$inboundSchema),
 });
+/** @internal */
+export type RunnableJobCollection$Outbound = {
+  id?: string | undefined;
+  description?: string | undefined;
+  type?: string | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  removeFields?: Array<string> | undefined;
+  resumeOnBoot?: boolean | undefined;
+  environment?: string | undefined;
+  schedule?: ScheduleTypeRunnableJobCollection$Outbound | undefined;
+  streamtags?: Array<string> | undefined;
+  workerAffinity?: boolean | undefined;
+  collector: Collector$Outbound;
+  input?: TypeCollectionWithBreakerRulesetsConstraint$Outbound | undefined;
+  run: RunnableJobCollectionRun$Outbound;
+};
 
+/** @internal */
+export const RunnableJobCollection$outboundSchema: z.ZodType<
+  RunnableJobCollection$Outbound,
+  z.ZodTypeDef,
+  RunnableJobCollection
+> = z.object({
+  id: z.string().optional(),
+  description: z.string().optional(),
+  type: JobTypeOptionsRunnableJobCollection$outboundSchema.optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  removeFields: z.array(z.string()).optional(),
+  resumeOnBoot: z.boolean().optional(),
+  environment: z.string().optional(),
+  schedule: ScheduleTypeRunnableJobCollection$outboundSchema.optional(),
+  streamtags: z.array(z.string()).optional(),
+  workerAffinity: z.boolean().optional(),
+  collector: Collector$outboundSchema,
+  input: TypeCollectionWithBreakerRulesetsConstraint$outboundSchema.optional(),
+  run: z.lazy(() => RunnableJobCollectionRun$outboundSchema),
+});
+
+export function runnableJobCollectionToJSON(
+  runnableJobCollection: RunnableJobCollection,
+): string {
+  return JSON.stringify(
+    RunnableJobCollection$outboundSchema.parse(runnableJobCollection),
+  );
+}
 export function runnableJobCollectionFromJSON(
   jsonString: string,
 ): SafeParseResult<RunnableJobCollection, SDKValidationError> {

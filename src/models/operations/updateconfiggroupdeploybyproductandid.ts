@@ -4,6 +4,10 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateConfigGroupDeployByProductAndIdRequest = {
@@ -21,6 +25,21 @@ export type UpdateConfigGroupDeployByProductAndIdRequest = {
   deployRequest: models.DeployRequest;
 };
 
+/** @internal */
+export const UpdateConfigGroupDeployByProductAndIdRequest$inboundSchema:
+  z.ZodType<
+    UpdateConfigGroupDeployByProductAndIdRequest,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    product: models.ProductsCore$inboundSchema,
+    id: types.string(),
+    DeployRequest: models.DeployRequest$inboundSchema,
+  }).transform((v) => {
+    return remap$(v, {
+      "DeployRequest": "deployRequest",
+    });
+  });
 /** @internal */
 export type UpdateConfigGroupDeployByProductAndIdRequest$Outbound = {
   product: string;
@@ -52,5 +71,20 @@ export function updateConfigGroupDeployByProductAndIdRequestToJSON(
     UpdateConfigGroupDeployByProductAndIdRequest$outboundSchema.parse(
       updateConfigGroupDeployByProductAndIdRequest,
     ),
+  );
+}
+export function updateConfigGroupDeployByProductAndIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  UpdateConfigGroupDeployByProductAndIdRequest,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      UpdateConfigGroupDeployByProductAndIdRequest$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'UpdateConfigGroupDeployByProductAndIdRequest' from JSON`,
   );
 }

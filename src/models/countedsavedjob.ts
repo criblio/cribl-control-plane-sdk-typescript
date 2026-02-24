@@ -7,7 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { SavedJob, SavedJob$inboundSchema } from "./savedjob.js";
+import {
+  SavedJob,
+  SavedJob$inboundSchema,
+  SavedJob$Outbound,
+  SavedJob$outboundSchema,
+} from "./savedjob.js";
 
 export type CountedSavedJob = {
   /**
@@ -26,7 +31,27 @@ export const CountedSavedJob$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(SavedJob$inboundSchema)),
 });
+/** @internal */
+export type CountedSavedJob$Outbound = {
+  count?: number | undefined;
+  items?: Array<SavedJob$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedSavedJob$outboundSchema: z.ZodType<
+  CountedSavedJob$Outbound,
+  z.ZodTypeDef,
+  CountedSavedJob
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(SavedJob$outboundSchema).optional(),
+});
+
+export function countedSavedJobToJSON(
+  countedSavedJob: CountedSavedJob,
+): string {
+  return JSON.stringify(CountedSavedJob$outboundSchema.parse(countedSavedJob));
+}
 export function countedSavedJobFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedSavedJob, SDKValidationError> {

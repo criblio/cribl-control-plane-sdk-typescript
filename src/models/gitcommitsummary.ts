@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   FilesTypeGitCommitSummary,
   FilesTypeGitCommitSummary$inboundSchema,
+  FilesTypeGitCommitSummary$Outbound,
+  FilesTypeGitCommitSummary$outboundSchema,
 } from "./filestypegitcommitsummary.js";
 
 export type Author = {
@@ -37,7 +39,25 @@ export const Author$inboundSchema: z.ZodType<Author, z.ZodTypeDef, unknown> = z
     email: types.string(),
     name: types.string(),
   });
+/** @internal */
+export type Author$Outbound = {
+  email: string;
+  name: string;
+};
 
+/** @internal */
+export const Author$outboundSchema: z.ZodType<
+  Author$Outbound,
+  z.ZodTypeDef,
+  Author
+> = z.object({
+  email: z.string(),
+  name: z.string(),
+});
+
+export function authorToJSON(author: Author): string {
+  return JSON.stringify(Author$outboundSchema.parse(author));
+}
 export function authorFromJSON(
   jsonString: string,
 ): SafeParseResult<Author, SDKValidationError> {
@@ -55,7 +75,27 @@ export const Summary$inboundSchema: z.ZodType<Summary, z.ZodTypeDef, unknown> =
     deletions: types.number(),
     insertions: types.number(),
   });
+/** @internal */
+export type Summary$Outbound = {
+  changes: number;
+  deletions: number;
+  insertions: number;
+};
 
+/** @internal */
+export const Summary$outboundSchema: z.ZodType<
+  Summary$Outbound,
+  z.ZodTypeDef,
+  Summary
+> = z.object({
+  changes: z.number(),
+  deletions: z.number(),
+  insertions: z.number(),
+});
+
+export function summaryToJSON(summary: Summary): string {
+  return JSON.stringify(Summary$outboundSchema.parse(summary));
+}
 export function summaryFromJSON(
   jsonString: string,
 ): SafeParseResult<Summary, SDKValidationError> {
@@ -78,7 +118,35 @@ export const GitCommitSummary$inboundSchema: z.ZodType<
   files: types.optional(FilesTypeGitCommitSummary$inboundSchema),
   summary: z.lazy(() => Summary$inboundSchema),
 });
+/** @internal */
+export type GitCommitSummary$Outbound = {
+  author?: Author$Outbound | undefined;
+  branch: string;
+  commit: string;
+  files?: FilesTypeGitCommitSummary$Outbound | undefined;
+  summary: Summary$Outbound;
+};
 
+/** @internal */
+export const GitCommitSummary$outboundSchema: z.ZodType<
+  GitCommitSummary$Outbound,
+  z.ZodTypeDef,
+  GitCommitSummary
+> = z.object({
+  author: z.lazy(() => Author$outboundSchema).optional(),
+  branch: z.string(),
+  commit: z.string(),
+  files: FilesTypeGitCommitSummary$outboundSchema.optional(),
+  summary: z.lazy(() => Summary$outboundSchema),
+});
+
+export function gitCommitSummaryToJSON(
+  gitCommitSummary: GitCommitSummary,
+): string {
+  return JSON.stringify(
+    GitCommitSummary$outboundSchema.parse(gitCommitSummary),
+  );
+}
 export function gitCommitSummaryFromJSON(
   jsonString: string,
 ): SafeParseResult<GitCommitSummary, SDKValidationError> {

@@ -6,9 +6,7 @@
 import { FunctionConfSchemaEvalAdd } from "cribl-control-plane/models";
 
 let value: FunctionConfSchemaEvalAdd = {
-  name: "<value>",
   value: "<value>",
-  disabled: false,
 };
 ```
 

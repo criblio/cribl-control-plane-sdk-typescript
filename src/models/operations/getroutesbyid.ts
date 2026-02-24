@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import * as types from "../../types/primitives.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetRoutesByIdRequest = {
   /**
@@ -11,6 +15,14 @@ export type GetRoutesByIdRequest = {
   id: string;
 };
 
+/** @internal */
+export const GetRoutesByIdRequest$inboundSchema: z.ZodType<
+  GetRoutesByIdRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  id: types.string(),
+});
 /** @internal */
 export type GetRoutesByIdRequest$Outbound = {
   id: string;
@@ -30,5 +42,14 @@ export function getRoutesByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     GetRoutesByIdRequest$outboundSchema.parse(getRoutesByIdRequest),
+  );
+}
+export function getRoutesByIdRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<GetRoutesByIdRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetRoutesByIdRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetRoutesByIdRequest' from JSON`,
   );
 }

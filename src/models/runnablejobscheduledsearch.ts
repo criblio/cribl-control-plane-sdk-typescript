@@ -8,12 +8,15 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  JobTypeOptionsSavedJobCollection,
-  JobTypeOptionsSavedJobCollection$inboundSchema,
-} from "./jobtypeoptionssavedjobcollection.js";
+  JobTypeOptionsRunnableJobCollection,
+  JobTypeOptionsRunnableJobCollection$inboundSchema,
+  JobTypeOptionsRunnableJobCollection$outboundSchema,
+} from "./jobtypeoptionsrunnablejobcollection.js";
 import {
   ScheduleTypeRunnableJobCollection,
   ScheduleTypeRunnableJobCollection$inboundSchema,
+  ScheduleTypeRunnableJobCollection$Outbound,
+  ScheduleTypeRunnableJobCollection$outboundSchema,
 } from "./scheduletyperunnablejobcollection.js";
 
 export type RunnableJobScheduledSearch = {
@@ -22,7 +25,7 @@ export type RunnableJobScheduledSearch = {
    */
   id?: string | undefined;
   description?: string | undefined;
-  type: JobTypeOptionsSavedJobCollection;
+  type: JobTypeOptionsRunnableJobCollection;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
@@ -65,7 +68,7 @@ export const RunnableJobScheduledSearch$inboundSchema: z.ZodType<
 > = z.object({
   id: types.optional(types.string()),
   description: types.optional(types.string()),
-  type: JobTypeOptionsSavedJobCollection$inboundSchema,
+  type: JobTypeOptionsRunnableJobCollection$inboundSchema,
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
   removeFields: types.optional(z.array(types.string())),
@@ -75,7 +78,47 @@ export const RunnableJobScheduledSearch$inboundSchema: z.ZodType<
   streamtags: types.optional(z.array(types.string())),
   savedQueryId: types.string(),
 });
+/** @internal */
+export type RunnableJobScheduledSearch$Outbound = {
+  id?: string | undefined;
+  description?: string | undefined;
+  type: string;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  removeFields?: Array<string> | undefined;
+  resumeOnBoot?: boolean | undefined;
+  environment?: string | undefined;
+  schedule?: ScheduleTypeRunnableJobCollection$Outbound | undefined;
+  streamtags?: Array<string> | undefined;
+  savedQueryId: string;
+};
 
+/** @internal */
+export const RunnableJobScheduledSearch$outboundSchema: z.ZodType<
+  RunnableJobScheduledSearch$Outbound,
+  z.ZodTypeDef,
+  RunnableJobScheduledSearch
+> = z.object({
+  id: z.string().optional(),
+  description: z.string().optional(),
+  type: JobTypeOptionsRunnableJobCollection$outboundSchema,
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  removeFields: z.array(z.string()).optional(),
+  resumeOnBoot: z.boolean().optional(),
+  environment: z.string().optional(),
+  schedule: ScheduleTypeRunnableJobCollection$outboundSchema.optional(),
+  streamtags: z.array(z.string()).optional(),
+  savedQueryId: z.string(),
+});
+
+export function runnableJobScheduledSearchToJSON(
+  runnableJobScheduledSearch: RunnableJobScheduledSearch,
+): string {
+  return JSON.stringify(
+    RunnableJobScheduledSearch$outboundSchema.parse(runnableJobScheduledSearch),
+  );
+}
 export function runnableJobScheduledSearchFromJSON(
   jsonString: string,
 ): SafeParseResult<RunnableJobScheduledSearch, SDKValidationError> {

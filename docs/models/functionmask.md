@@ -7,21 +7,15 @@ import { FunctionMask } from "cribl-control-plane/models";
 
 let value: FunctionMask = {
   __filename: "example.file",
-  asyncTimeout: 8419.45,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "mask",
-  loadTime: 1580.31,
-  modTime: 4015.36,
+  loadTime: 8419.45,
+  modTime: 3939.08,
   name: "<value>",
-  sync: true,
-  uischema: {},
-  version: "<value>",
-  schema: {
+  uischema: {
     "key": "<value>",
   },
+  version: "<value>",
 };
 ```
 

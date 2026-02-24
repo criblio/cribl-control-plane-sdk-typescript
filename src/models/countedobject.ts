@@ -25,7 +25,25 @@ export const CountedObject$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(z.record(z.any()))),
 });
+/** @internal */
+export type CountedObject$Outbound = {
+  count?: number | undefined;
+  items?: Array<{ [k: string]: any }> | undefined;
+};
 
+/** @internal */
+export const CountedObject$outboundSchema: z.ZodType<
+  CountedObject$Outbound,
+  z.ZodTypeDef,
+  CountedObject
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(z.record(z.any())).optional(),
+});
+
+export function countedObjectToJSON(countedObject: CountedObject): string {
+  return JSON.stringify(CountedObject$outboundSchema.parse(countedObject));
+}
 export function countedObjectFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedObject, SDKValidationError> {

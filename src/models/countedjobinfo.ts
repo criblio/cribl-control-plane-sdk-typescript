@@ -7,7 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import { JobInfo, JobInfo$inboundSchema } from "./jobinfo.js";
+import {
+  JobInfo,
+  JobInfo$inboundSchema,
+  JobInfo$Outbound,
+  JobInfo$outboundSchema,
+} from "./jobinfo.js";
 
 export type CountedJobInfo = {
   /**
@@ -26,7 +31,25 @@ export const CountedJobInfo$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(JobInfo$inboundSchema)),
 });
+/** @internal */
+export type CountedJobInfo$Outbound = {
+  count?: number | undefined;
+  items?: Array<JobInfo$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedJobInfo$outboundSchema: z.ZodType<
+  CountedJobInfo$Outbound,
+  z.ZodTypeDef,
+  CountedJobInfo
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(JobInfo$outboundSchema).optional(),
+});
+
+export function countedJobInfoToJSON(countedJobInfo: CountedJobInfo): string {
+  return JSON.stringify(CountedJobInfo$outboundSchema.parse(countedJobInfo));
+}
 export function countedJobInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedJobInfo, SDKValidationError> {

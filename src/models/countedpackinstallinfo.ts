@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PackInstallInfo,
   PackInstallInfo$inboundSchema,
+  PackInstallInfo$Outbound,
+  PackInstallInfo$outboundSchema,
 } from "./packinstallinfo.js";
 
 export type CountedPackInstallInfo = {
@@ -29,7 +31,29 @@ export const CountedPackInstallInfo$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(PackInstallInfo$inboundSchema)),
 });
+/** @internal */
+export type CountedPackInstallInfo$Outbound = {
+  count?: number | undefined;
+  items?: Array<PackInstallInfo$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedPackInstallInfo$outboundSchema: z.ZodType<
+  CountedPackInstallInfo$Outbound,
+  z.ZodTypeDef,
+  CountedPackInstallInfo
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(PackInstallInfo$outboundSchema).optional(),
+});
+
+export function countedPackInstallInfoToJSON(
+  countedPackInstallInfo: CountedPackInstallInfo,
+): string {
+  return JSON.stringify(
+    CountedPackInstallInfo$outboundSchema.parse(countedPackInstallInfo),
+  );
+}
 export function countedPackInstallInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedPackInstallInfo, SDKValidationError> {

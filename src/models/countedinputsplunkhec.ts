@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   InputSplunkHec,
   InputSplunkHec$inboundSchema,
+  InputSplunkHec$Outbound,
+  InputSplunkHec$outboundSchema,
 } from "./inputsplunkhec.js";
 
 export type CountedInputSplunkHec = {
@@ -29,7 +31,29 @@ export const CountedInputSplunkHec$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(InputSplunkHec$inboundSchema)),
 });
+/** @internal */
+export type CountedInputSplunkHec$Outbound = {
+  count?: number | undefined;
+  items?: Array<InputSplunkHec$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedInputSplunkHec$outboundSchema: z.ZodType<
+  CountedInputSplunkHec$Outbound,
+  z.ZodTypeDef,
+  CountedInputSplunkHec
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(InputSplunkHec$outboundSchema).optional(),
+});
+
+export function countedInputSplunkHecToJSON(
+  countedInputSplunkHec: CountedInputSplunkHec,
+): string {
+  return JSON.stringify(
+    CountedInputSplunkHec$outboundSchema.parse(countedInputSplunkHec),
+  );
+}
 export function countedInputSplunkHecFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedInputSplunkHec, SDKValidationError> {

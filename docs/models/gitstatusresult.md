@@ -15,18 +15,19 @@ let value: GitStatusResult = {
   files: [
     {
       index: "<value>",
-      path: "/opt/include",
+      path: "/rescue",
       working_dir: "<value>",
     },
   ],
-  modified: [
+  modified: [],
+  not_added: [
     "<value 1>",
-    "<value 2>",
   ],
-  not_added: [],
   renamed: [],
   staged: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
 };
 ```

@@ -3,8 +3,13 @@
  */
 
 import * as z from "zod/v3";
+import { safeParse } from "../lib/schemas.js";
+import { Result as SafeParseResult } from "../types/fp.js";
+import * as types from "../types/primitives.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   EventBreakerRuleFields,
+  EventBreakerRuleFields$inboundSchema,
   EventBreakerRuleFields$Outbound,
   EventBreakerRuleFields$outboundSchema,
 } from "./eventbreakerrulefields.js";
@@ -16,6 +21,17 @@ export type UpdateHecTokenRequest = {
   metadata?: Array<EventBreakerRuleFields> | undefined;
 };
 
+/** @internal */
+export const UpdateHecTokenRequest$inboundSchema: z.ZodType<
+  UpdateHecTokenRequest,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  allowedIndexesAtToken: types.optional(z.array(types.string())),
+  description: types.optional(types.string()),
+  enabled: types.optional(types.boolean()),
+  metadata: types.optional(z.array(EventBreakerRuleFields$inboundSchema)),
+});
 /** @internal */
 export type UpdateHecTokenRequest$Outbound = {
   allowedIndexesAtToken?: Array<string> | undefined;
@@ -41,5 +57,14 @@ export function updateHecTokenRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateHecTokenRequest$outboundSchema.parse(updateHecTokenRequest),
+  );
+}
+export function updateHecTokenRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<UpdateHecTokenRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UpdateHecTokenRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UpdateHecTokenRequest' from JSON`,
   );
 }

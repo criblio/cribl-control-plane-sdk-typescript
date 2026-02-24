@@ -6,58 +6,9 @@
 import { OutputSplunk } from "cribl-control-plane/models";
 
 let value: OutputSplunk = {
-  id: "<id>",
   type: "splunk",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  host: "elastic-custody.com",
-  port: 591.86,
-  nestedFields: "json",
-  throttleRatePerSec: "<value>",
-  connectionTimeout: 7911.16,
-  writeTimeout: 7603.34,
-  tls: {
-    disabled: false,
-    rejectUnauthorized: true,
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
-  enableMultiMetrics: false,
-  enableACK: true,
-  logFailedRequests: false,
-  maxS2Sversion: "v3",
-  onBackpressure: "queue",
-  authType: "manual",
-  description: "excepting why near absentmindedly bracelet beret chap",
-  maxFailedHealthChecks: 1903.03,
-  compress: "disabled",
-  pqStrictOrdering: true,
-  pqRatePerSec: 3661.02,
-  pqMode: "error",
-  pqMaxBufferSize: 6767.61,
-  pqMaxBackpressureSec: 7998.82,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "gzip",
-  pqOnBackpressure: "block",
-  pqControls: {},
-  authToken: "<value>",
-  textSecret: "<value>",
+  host: "blushing-plastic.biz",
+  port: 2123.37,
 };
 ```
 
@@ -100,3 +51,5 @@ let value: OutputSplunk = {
 | `pqControls`                                                                                                                                                                                                                                                   | [models.OutputSplunkPqControls](../models/outputsplunkpqcontrols.md)                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
 | `authToken`                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Shared secret token to use when establishing a connection to a Splunk indexer.                                                                                                                                                                                 |
 | `textSecret`                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Select or create a stored text secret                                                                                                                                                                                                                          |
+| `templateHost`                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.                                                                          |
+| `templatePort`                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.                                                                          |

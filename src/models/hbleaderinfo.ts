@@ -26,7 +26,29 @@ export const HBLeaderInfo$inboundSchema: z.ZodType<
   servername: types.optional(types.string()),
   tls: types.optional(types.boolean()),
 });
+/** @internal */
+export type HBLeaderInfo$Outbound = {
+  host: string;
+  port: number;
+  servername?: string | undefined;
+  tls?: boolean | undefined;
+};
 
+/** @internal */
+export const HBLeaderInfo$outboundSchema: z.ZodType<
+  HBLeaderInfo$Outbound,
+  z.ZodTypeDef,
+  HBLeaderInfo
+> = z.object({
+  host: z.string(),
+  port: z.number(),
+  servername: z.string().optional(),
+  tls: z.boolean().optional(),
+});
+
+export function hbLeaderInfoToJSON(hbLeaderInfo: HBLeaderInfo): string {
+  return JSON.stringify(HBLeaderInfo$outboundSchema.parse(hbLeaderInfo));
+}
 export function hbLeaderInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<HBLeaderInfo, SDKValidationError> {

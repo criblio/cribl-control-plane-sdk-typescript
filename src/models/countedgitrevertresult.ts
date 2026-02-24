@@ -10,6 +10,8 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   GitRevertResult,
   GitRevertResult$inboundSchema,
+  GitRevertResult$Outbound,
+  GitRevertResult$outboundSchema,
 } from "./gitrevertresult.js";
 
 export type CountedGitRevertResult = {
@@ -29,7 +31,29 @@ export const CountedGitRevertResult$inboundSchema: z.ZodType<
   count: types.optional(types.number()),
   items: types.optional(z.array(GitRevertResult$inboundSchema)),
 });
+/** @internal */
+export type CountedGitRevertResult$Outbound = {
+  count?: number | undefined;
+  items?: Array<GitRevertResult$Outbound> | undefined;
+};
 
+/** @internal */
+export const CountedGitRevertResult$outboundSchema: z.ZodType<
+  CountedGitRevertResult$Outbound,
+  z.ZodTypeDef,
+  CountedGitRevertResult
+> = z.object({
+  count: z.number().int().optional(),
+  items: z.array(GitRevertResult$outboundSchema).optional(),
+});
+
+export function countedGitRevertResultToJSON(
+  countedGitRevertResult: CountedGitRevertResult,
+): string {
+  return JSON.stringify(
+    CountedGitRevertResult$outboundSchema.parse(countedGitRevertResult),
+  );
+}
 export function countedGitRevertResultFromJSON(
   jsonString: string,
 ): SafeParseResult<CountedGitRevertResult, SDKValidationError> {
