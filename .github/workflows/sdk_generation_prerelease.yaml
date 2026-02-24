@@ -42,21 +42,37 @@ jobs:
           # Fetch tags (add --refs to avoid peeled ^{} entries)
           git fetch --tags --quiet || true
 
-          # DEBUG: show last tags
-          echo "Last tags on origin:"
-          git ls-remote --tags --refs origin | awk '{print $2}' | sed 's|refs/tags/||' | tail -n 50 || true
+          # Find the latest official (non-rc) version tag (with retry)
+          MAX_ATTEMPTS=5
+          attempt=1
+          LATEST_OFFICIAL=""
+          
+          while [ $attempt -le $MAX_ATTEMPTS ]; do
+            echo "Fetching latest official version from tags (attempt $attempt/$MAX_ATTEMPTS)"
+            
+            # DEBUG: show last tags
+            echo "Last tags on origin:"
+            git ls-remote --tags --refs origin | awk '{print $2}' | sed 's|refs/tags/||' | tail -n 50 || true
 
-          # Find the latest official (non-rc) version tag
-          # Extract all version tags (with or without 'v' prefix), exclude rc tags, sort semver-style
-          # Use awk to pad version numbers for proper numeric sorting
-          LATEST_OFFICIAL=$(git ls-remote --tags --refs origin | awk '{print $2}' | sed 's|refs/tags/||' | sed 's|^v||' \
-            | { grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' || true; } \
-            | awk -F. '{printf "%03d.%03d.%03d %s\n", $1, $2, $3, $0}' | sort -r | head -n 1 | awk '{print $2}' || true)
+            # Extract all version tags (with or without 'v' prefix), exclude rc tags, sort semver-style
+            # Use awk to pad version numbers for proper numeric sorting
+            LATEST_OFFICIAL=$(git ls-remote --tags --refs origin | awk '{print $2}' | sed 's|refs/tags/||' | sed 's|^v||' \
+              | { grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' || true; } \
+              | awk -F. '{printf "%03d.%03d.%03d %s\n", $1, $2, $3, $0}' | sort -r | head -n 1 | awk '{print $2}' || true)
 
-          if [[ -z "${LATEST_OFFICIAL}" ]]; then
-            echo "Error: No official version tags found. Cannot compute prerelease version."
-            exit 1
-          fi
+            if [[ -n "${LATEST_OFFICIAL}" ]]; then
+              break
+            fi
+            
+            if [ $attempt -lt $MAX_ATTEMPTS ]; then
+              echo "⚠️  No official version tags found (attempt $attempt/$MAX_ATTEMPTS), retrying in 2s..."
+              sleep 2
+              attempt=$((attempt + 1))
+            else
+              echo "❌ Error: No official version tags found after $MAX_ATTEMPTS attempts. Cannot compute prerelease version."
+              exit 1
+            fi
+          done
 
           echo "Latest official version: ${LATEST_OFFICIAL}"
 
