@@ -5663,6 +5663,10 @@ export type CreateInputInputExec = {
    */
   command: string;
   /**
+   * Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
+   */
+  script?: string | undefined;
+  /**
    * Maximum number of retry attempts in the event that the command fails
    */
   retries?: number | undefined;
@@ -14071,6 +14075,7 @@ export type CreateInputInputExec$Outbound = {
   connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: models.PqType$Outbound | undefined;
   command: string;
+  script?: string | undefined;
   retries?: number | undefined;
   scheduleType?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
@@ -14099,6 +14104,7 @@ export const CreateInputInputExec$outboundSchema: z.ZodType<
     .optional(),
   pq: models.PqType$outboundSchema.optional(),
   command: z.string(),
+  script: z.string().optional(),
   retries: z.number().optional(),
   scheduleType: CreateInputScheduleType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),

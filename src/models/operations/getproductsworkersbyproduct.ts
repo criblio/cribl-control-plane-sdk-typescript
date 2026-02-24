@@ -3,6 +3,10 @@
  */
 
 import * as z from "zod/v3";
+import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetProductsWorkersByProductRequest = {
@@ -34,6 +38,10 @@ export type GetProductsWorkersByProductRequest = {
    * Starting point from which to retrieve results for this request. Use with <code>limit</code> to paginate the response into manageable batches.
    */
   offset?: number | undefined;
+};
+
+export type GetProductsWorkersByProductResponse = {
+  result: models.CountedMasterWorkerEntry;
 };
 
 /** @internal */
@@ -69,5 +77,29 @@ export function getProductsWorkersByProductRequestToJSON(
     GetProductsWorkersByProductRequest$outboundSchema.parse(
       getProductsWorkersByProductRequest,
     ),
+  );
+}
+
+/** @internal */
+export const GetProductsWorkersByProductResponse$inboundSchema: z.ZodType<
+  GetProductsWorkersByProductResponse,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  Result: models.CountedMasterWorkerEntry$inboundSchema,
+}).transform((v) => {
+  return remap$(v, {
+    "Result": "result",
+  });
+});
+
+export function getProductsWorkersByProductResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<GetProductsWorkersByProductResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      GetProductsWorkersByProductResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetProductsWorkersByProductResponse' from JSON`,
   );
 }
