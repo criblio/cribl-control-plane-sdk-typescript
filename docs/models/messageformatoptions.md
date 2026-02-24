@@ -1,0 +1,19 @@
+# MessageFormatOptions
+
+Format to use when sending logs to Loki (Protobuf or JSON)
+
+## Example Usage
+
+```typescript
+import { MessageFormatOptions } from "cribl-control-plane/models";
+
+let value: MessageFormatOptions = "json";
+```
+
+## Values
+
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
+```typescript
+"protobuf" | "json" | Unrecognized<string>
+```
