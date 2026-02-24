@@ -71,9 +71,9 @@ import {
 } from "./tlssettingsclientsidetype1.js";
 
 /**
- * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+ * Data format to use when sending data. Defaults to JSON Compact.
  */
-export const OutputClickHouseFormat = {
+export const OutputLocalSearchStorageFormat = {
   /**
    * JSONCompactEachRowWithNames
    */
@@ -84,14 +84,16 @@ export const OutputClickHouseFormat = {
   JsonEachRow: "json-each-row",
 } as const;
 /**
- * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+ * Data format to use when sending data. Defaults to JSON Compact.
  */
-export type OutputClickHouseFormat = OpenEnum<typeof OutputClickHouseFormat>;
+export type OutputLocalSearchStorageFormat = OpenEnum<
+  typeof OutputLocalSearchStorageFormat
+>;
 
 /**
- * How event fields are mapped to ClickHouse columns.
+ * How event fields are mapped to columns.
  */
-export const OutputClickHouseMappingType = {
+export const OutputLocalSearchStorageMappingType = {
   /**
    * Automatic
    */
@@ -102,35 +104,35 @@ export const OutputClickHouseMappingType = {
   Custom: "custom",
 } as const;
 /**
- * How event fields are mapped to ClickHouse columns.
+ * How event fields are mapped to columns.
  */
-export type OutputClickHouseMappingType = OpenEnum<
-  typeof OutputClickHouseMappingType
+export type OutputLocalSearchStorageMappingType = OpenEnum<
+  typeof OutputLocalSearchStorageMappingType
 >;
 
-export type OutputClickHouseColumnMapping = {
+export type OutputLocalSearchStorageColumnMapping = {
   /**
-   * Name of the column in ClickHouse that will store field value
+   * Name of the column that will store field value
    */
   columnName: string;
   /**
-   * Type of the column in the ClickHouse database
+   * Type of the column in the database
    */
   columnType?: string | undefined;
   /**
-   * JavaScript expression to compute value to be inserted into ClickHouse table
+   * JavaScript expression to compute value to be inserted into the table
    */
   columnValueExpression: string;
 };
 
-export type OutputClickHousePqControls = {};
+export type OutputLocalSearchStoragePqControls = {};
 
-export type OutputClickHouse = {
+export type OutputLocalSearchStorage = {
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: "click_house";
+  type: "local_search_storage";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -148,25 +150,25 @@ export type OutputClickHouse = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * URL of the ClickHouse instance. Example: http://localhost:8123/
+   * URL of the database instance. Example: http://localhost:8123/
    */
   url: string;
   authType?: AuthenticationTypeOptions1 | undefined;
   database: string;
   /**
-   * Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+   * Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
    */
   tableName: string;
   /**
-   * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+   * Data format to use when sending data. Defaults to JSON Compact.
    */
-  format?: OutputClickHouseFormat | undefined;
+  format?: OutputLocalSearchStorageFormat | undefined;
   /**
-   * How event fields are mapped to ClickHouse columns.
+   * How event fields are mapped to columns.
    */
-  mappingType?: OutputClickHouseMappingType | undefined;
+  mappingType?: OutputLocalSearchStorageMappingType | undefined;
   /**
-   * Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+   * Collect data into batches for later processing. Disable to write to a table immediately.
    */
   asyncInserts?: boolean | undefined;
   tls?: TlsSettingsClientSideType1 | undefined;
@@ -248,18 +250,18 @@ export type OutputClickHouse = {
    */
   sqlUsername?: string | undefined;
   /**
-   * Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+   * Cribl will wait for confirmation that data has been fully inserted into the database before proceeding. Disabling this option can increase throughput, but Cribl won't be able to verify data has been completely inserted.
    */
   waitForAsyncInserts?: boolean | undefined;
   /**
-   * Fields to exclude from sending to ClickHouse
+   * Fields to exclude from sending
    */
   excludeMappingFields?: Array<string> | undefined;
   /**
-   * Retrieves the table schema from ClickHouse and populates the Column Mapping table
+   * Retrieves the table schema and populates the Column Mapping table
    */
   describeTable?: string | undefined;
-  columnMappings?: Array<OutputClickHouseColumnMapping> | undefined;
+  columnMappings?: Array<OutputLocalSearchStorageColumnMapping> | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -300,7 +302,7 @@ export type OutputClickHouse = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
-  pqControls?: OutputClickHousePqControls | undefined;
+  pqControls?: OutputLocalSearchStoragePqControls | undefined;
   /**
    * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
    */
@@ -316,34 +318,34 @@ export type OutputClickHouse = {
 };
 
 /** @internal */
-export const OutputClickHouseFormat$inboundSchema: z.ZodType<
-  OutputClickHouseFormat,
+export const OutputLocalSearchStorageFormat$inboundSchema: z.ZodType<
+  OutputLocalSearchStorageFormat,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(OutputClickHouseFormat);
+> = openEnums.inboundSchema(OutputLocalSearchStorageFormat);
 /** @internal */
-export const OutputClickHouseFormat$outboundSchema: z.ZodType<
+export const OutputLocalSearchStorageFormat$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  OutputClickHouseFormat
-> = openEnums.outboundSchema(OutputClickHouseFormat);
+  OutputLocalSearchStorageFormat
+> = openEnums.outboundSchema(OutputLocalSearchStorageFormat);
 
 /** @internal */
-export const OutputClickHouseMappingType$inboundSchema: z.ZodType<
-  OutputClickHouseMappingType,
+export const OutputLocalSearchStorageMappingType$inboundSchema: z.ZodType<
+  OutputLocalSearchStorageMappingType,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(OutputClickHouseMappingType);
+> = openEnums.inboundSchema(OutputLocalSearchStorageMappingType);
 /** @internal */
-export const OutputClickHouseMappingType$outboundSchema: z.ZodType<
+export const OutputLocalSearchStorageMappingType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  OutputClickHouseMappingType
-> = openEnums.outboundSchema(OutputClickHouseMappingType);
+  OutputLocalSearchStorageMappingType
+> = openEnums.outboundSchema(OutputLocalSearchStorageMappingType);
 
 /** @internal */
-export const OutputClickHouseColumnMapping$inboundSchema: z.ZodType<
-  OutputClickHouseColumnMapping,
+export const OutputLocalSearchStorageColumnMapping$inboundSchema: z.ZodType<
+  OutputLocalSearchStorageColumnMapping,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -352,83 +354,87 @@ export const OutputClickHouseColumnMapping$inboundSchema: z.ZodType<
   columnValueExpression: types.string(),
 });
 /** @internal */
-export type OutputClickHouseColumnMapping$Outbound = {
+export type OutputLocalSearchStorageColumnMapping$Outbound = {
   columnName: string;
   columnType?: string | undefined;
   columnValueExpression: string;
 };
 
 /** @internal */
-export const OutputClickHouseColumnMapping$outboundSchema: z.ZodType<
-  OutputClickHouseColumnMapping$Outbound,
+export const OutputLocalSearchStorageColumnMapping$outboundSchema: z.ZodType<
+  OutputLocalSearchStorageColumnMapping$Outbound,
   z.ZodTypeDef,
-  OutputClickHouseColumnMapping
+  OutputLocalSearchStorageColumnMapping
 > = z.object({
   columnName: z.string(),
   columnType: z.string().optional(),
   columnValueExpression: z.string(),
 });
 
-export function outputClickHouseColumnMappingToJSON(
-  outputClickHouseColumnMapping: OutputClickHouseColumnMapping,
+export function outputLocalSearchStorageColumnMappingToJSON(
+  outputLocalSearchStorageColumnMapping: OutputLocalSearchStorageColumnMapping,
 ): string {
   return JSON.stringify(
-    OutputClickHouseColumnMapping$outboundSchema.parse(
-      outputClickHouseColumnMapping,
+    OutputLocalSearchStorageColumnMapping$outboundSchema.parse(
+      outputLocalSearchStorageColumnMapping,
     ),
   );
 }
-export function outputClickHouseColumnMappingFromJSON(
+export function outputLocalSearchStorageColumnMappingFromJSON(
   jsonString: string,
-): SafeParseResult<OutputClickHouseColumnMapping, SDKValidationError> {
+): SafeParseResult<OutputLocalSearchStorageColumnMapping, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputClickHouseColumnMapping$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputClickHouseColumnMapping' from JSON`,
+    (x) =>
+      OutputLocalSearchStorageColumnMapping$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputLocalSearchStorageColumnMapping' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputClickHousePqControls$inboundSchema: z.ZodType<
-  OutputClickHousePqControls,
+export const OutputLocalSearchStoragePqControls$inboundSchema: z.ZodType<
+  OutputLocalSearchStoragePqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
 /** @internal */
-export type OutputClickHousePqControls$Outbound = {};
+export type OutputLocalSearchStoragePqControls$Outbound = {};
 
 /** @internal */
-export const OutputClickHousePqControls$outboundSchema: z.ZodType<
-  OutputClickHousePqControls$Outbound,
+export const OutputLocalSearchStoragePqControls$outboundSchema: z.ZodType<
+  OutputLocalSearchStoragePqControls$Outbound,
   z.ZodTypeDef,
-  OutputClickHousePqControls
+  OutputLocalSearchStoragePqControls
 > = z.object({});
 
-export function outputClickHousePqControlsToJSON(
-  outputClickHousePqControls: OutputClickHousePqControls,
+export function outputLocalSearchStoragePqControlsToJSON(
+  outputLocalSearchStoragePqControls: OutputLocalSearchStoragePqControls,
 ): string {
   return JSON.stringify(
-    OutputClickHousePqControls$outboundSchema.parse(outputClickHousePqControls),
+    OutputLocalSearchStoragePqControls$outboundSchema.parse(
+      outputLocalSearchStoragePqControls,
+    ),
   );
 }
-export function outputClickHousePqControlsFromJSON(
+export function outputLocalSearchStoragePqControlsFromJSON(
   jsonString: string,
-): SafeParseResult<OutputClickHousePqControls, SDKValidationError> {
+): SafeParseResult<OutputLocalSearchStoragePqControls, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputClickHousePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputClickHousePqControls' from JSON`,
+    (x) =>
+      OutputLocalSearchStoragePqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputLocalSearchStoragePqControls' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputClickHouse$inboundSchema: z.ZodType<
-  OutputClickHouse,
+export const OutputLocalSearchStorage$inboundSchema: z.ZodType<
+  OutputLocalSearchStorage,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: types.optional(types.string()),
-  type: types.literal("click_house"),
+  type: types.literal("local_search_storage"),
   pipeline: types.optional(types.string()),
   systemFields: types.optional(z.array(types.string())),
   environment: types.optional(types.string()),
@@ -437,8 +443,10 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   authType: types.optional(AuthenticationTypeOptions1$inboundSchema),
   database: types.string(),
   tableName: types.string(),
-  format: types.optional(OutputClickHouseFormat$inboundSchema),
-  mappingType: types.optional(OutputClickHouseMappingType$inboundSchema),
+  format: types.optional(OutputLocalSearchStorageFormat$inboundSchema),
+  mappingType: types.optional(
+    OutputLocalSearchStorageMappingType$inboundSchema,
+  ),
   asyncInserts: types.optional(types.boolean()),
   tls: types.optional(TlsSettingsClientSideType1$inboundSchema),
   concurrency: types.optional(types.number()),
@@ -473,7 +481,7 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   excludeMappingFields: types.optional(z.array(types.string())),
   describeTable: types.optional(types.string()),
   columnMappings: types.optional(
-    z.array(z.lazy(() => OutputClickHouseColumnMapping$inboundSchema)),
+    z.array(z.lazy(() => OutputLocalSearchStorageColumnMapping$inboundSchema)),
   ),
   pqStrictOrdering: types.optional(types.boolean()),
   pqRatePerSec: types.optional(types.number()),
@@ -486,16 +494,16 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
   pqControls: types.optional(
-    z.lazy(() => OutputClickHousePqControls$inboundSchema),
+    z.lazy(() => OutputLocalSearchStoragePqControls$inboundSchema),
   ),
   __template_url: types.optional(types.string()),
   __template_database: types.optional(types.string()),
   __template_tableName: types.optional(types.string()),
 });
 /** @internal */
-export type OutputClickHouse$Outbound = {
+export type OutputLocalSearchStorage$Outbound = {
   id?: string | undefined;
-  type: "click_house";
+  type: "local_search_storage";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -535,7 +543,9 @@ export type OutputClickHouse$Outbound = {
   waitForAsyncInserts?: boolean | undefined;
   excludeMappingFields?: Array<string> | undefined;
   describeTable?: string | undefined;
-  columnMappings?: Array<OutputClickHouseColumnMapping$Outbound> | undefined;
+  columnMappings?:
+    | Array<OutputLocalSearchStorageColumnMapping$Outbound>
+    | undefined;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -546,20 +556,20 @@ export type OutputClickHouse$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: OutputClickHousePqControls$Outbound | undefined;
+  pqControls?: OutputLocalSearchStoragePqControls$Outbound | undefined;
   __template_url?: string | undefined;
   __template_database?: string | undefined;
   __template_tableName?: string | undefined;
 };
 
 /** @internal */
-export const OutputClickHouse$outboundSchema: z.ZodType<
-  OutputClickHouse$Outbound,
+export const OutputLocalSearchStorage$outboundSchema: z.ZodType<
+  OutputLocalSearchStorage$Outbound,
   z.ZodTypeDef,
-  OutputClickHouse
+  OutputLocalSearchStorage
 > = z.object({
   id: z.string().optional(),
-  type: z.literal("click_house"),
+  type: z.literal("local_search_storage"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -568,8 +578,8 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   authType: AuthenticationTypeOptions1$outboundSchema.optional(),
   database: z.string(),
   tableName: z.string(),
-  format: OutputClickHouseFormat$outboundSchema.optional(),
-  mappingType: OutputClickHouseMappingType$outboundSchema.optional(),
+  format: OutputLocalSearchStorageFormat$outboundSchema.optional(),
+  mappingType: OutputLocalSearchStorageMappingType$outboundSchema.optional(),
   asyncInserts: z.boolean().optional(),
   tls: TlsSettingsClientSideType1$outboundSchema.optional(),
   concurrency: z.number().optional(),
@@ -601,7 +611,7 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   excludeMappingFields: z.array(z.string()).optional(),
   describeTable: z.string().optional(),
   columnMappings: z.array(
-    z.lazy(() => OutputClickHouseColumnMapping$outboundSchema),
+    z.lazy(() => OutputLocalSearchStorageColumnMapping$outboundSchema),
   ).optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
@@ -613,26 +623,26 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => OutputClickHousePqControls$outboundSchema)
+  pqControls: z.lazy(() => OutputLocalSearchStoragePqControls$outboundSchema)
     .optional(),
   __template_url: z.string().optional(),
   __template_database: z.string().optional(),
   __template_tableName: z.string().optional(),
 });
 
-export function outputClickHouseToJSON(
-  outputClickHouse: OutputClickHouse,
+export function outputLocalSearchStorageToJSON(
+  outputLocalSearchStorage: OutputLocalSearchStorage,
 ): string {
   return JSON.stringify(
-    OutputClickHouse$outboundSchema.parse(outputClickHouse),
+    OutputLocalSearchStorage$outboundSchema.parse(outputLocalSearchStorage),
   );
 }
-export function outputClickHouseFromJSON(
+export function outputLocalSearchStorageFromJSON(
   jsonString: string,
-): SafeParseResult<OutputClickHouse, SDKValidationError> {
+): SafeParseResult<OutputLocalSearchStorage, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputClickHouse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputClickHouse' from JSON`,
+    (x) => OutputLocalSearchStorage$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputLocalSearchStorage' from JSON`,
   );
 }

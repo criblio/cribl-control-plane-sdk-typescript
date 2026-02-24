@@ -1,13 +1,13 @@
-# MappingType
+# CreateOutputSystemByPackMappingTypeClickHouse
 
 How event fields are mapped to ClickHouse columns.
 
 ## Example Usage
 
 ```typescript
-import { MappingType } from "cribl-control-plane/models";
+import { CreateOutputSystemByPackMappingTypeClickHouse } from "cribl-control-plane/models/operations";
 
-let value: MappingType = "custom";
+let value: CreateOutputSystemByPackMappingTypeClickHouse = "custom";
 ```
 
 ## Values

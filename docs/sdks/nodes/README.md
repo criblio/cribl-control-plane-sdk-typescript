@@ -201,7 +201,9 @@ async function run() {
     offset: 990978,
   });
 
-  console.log(result);
+  for await (const page of result) {
+    console.log(page);
+  }
 }
 
 run();
@@ -236,7 +238,9 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    for await (const page of result) {
+    console.log(page);
+  }
   } else {
     console.log("nodesList failed:", res.error);
   }
@@ -256,7 +260,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedMasterWorkerEntry](../../models/countedmasterworkerentry.md)\>**
+**Promise\<[operations.GetProductsWorkersByProductResponse](../../models/operations/getproductsworkersbyproductresponse.md)\>**
 
 ### Errors
 
