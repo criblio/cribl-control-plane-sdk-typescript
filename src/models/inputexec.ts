@@ -77,6 +77,10 @@ export type InputExec = {
    */
   command: string;
   /**
+   * Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
+   */
+  script?: string | undefined;
+  /**
    * Maximum number of retry attempts in the event that the command fails
    */
   retries?: number | undefined;
@@ -139,6 +143,7 @@ export const InputExec$inboundSchema: z.ZodType<
   ),
   pq: types.optional(PqType$inboundSchema),
   command: types.string(),
+  script: types.optional(types.string()),
   retries: types.optional(types.number()),
   scheduleType: types.optional(ScheduleType$inboundSchema),
   breakerRulesets: types.optional(z.array(types.string())),
@@ -161,6 +166,7 @@ export type InputExec$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   command: string;
+  script?: string | undefined;
   retries?: number | undefined;
   scheduleType?: string | undefined;
   breakerRulesets?: Array<string> | undefined;
@@ -188,6 +194,7 @@ export const InputExec$outboundSchema: z.ZodType<
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   command: z.string(),
+  script: z.string().optional(),
   retries: z.number().optional(),
   scheduleType: ScheduleType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),

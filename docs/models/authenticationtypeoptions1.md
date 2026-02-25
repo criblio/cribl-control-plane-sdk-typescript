@@ -1,12 +1,11 @@
-# CreateOutputSystemByPackAuthenticationTypeClickHouse
+# AuthenticationTypeOptions1
 
 ## Example Usage
 
 ```typescript
-import { CreateOutputSystemByPackAuthenticationTypeClickHouse } from "cribl-control-plane/models/operations";
+import { AuthenticationTypeOptions1 } from "cribl-control-plane/models";
 
-let value: CreateOutputSystemByPackAuthenticationTypeClickHouse =
-  "sslUserCertificate";
+let value: AuthenticationTypeOptions1 = "credentialsSecret";
 ```
 
 ## Values

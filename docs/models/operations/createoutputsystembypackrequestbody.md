@@ -673,6 +673,18 @@ const value: operations.CreateOutputSystemByPackOutputClickHouse = {
 };
 ```
 
+### `operations.CreateOutputSystemByPackOutputLocalSearchStorage`
+
+```typescript
+const value: operations.CreateOutputSystemByPackOutputLocalSearchStorage = {
+  id: "<id>",
+  type: "local_search_storage",
+  url: "https://amazing-sandbar.biz/",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
 ### `operations.CreateOutputSystemByPackOutputXsiam`
 
 ```typescript

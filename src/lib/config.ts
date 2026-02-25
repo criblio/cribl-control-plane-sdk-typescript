@@ -9,11 +9,38 @@ import { RetryConfig } from "./retries.js";
 import { Params, pathToFunc } from "./url.js";
 
 /**
+ * On-prem Cribl Stream/Edge Leader API
+ */
+export const ServerOnpremLeader = "onprem-leader";
+/**
+ * On-prem Worker Group or Edge Fleet API
+ */
+export const ServerOnpremGroup = "onprem-group";
+/**
+ * Cribl.Cloud Worker Group or Edge Fleet API
+ */
+export const ServerCloudGroup = "cloud-group";
+/**
+ * Cribl.Cloud Search API
+ */
+export const ServerSearch = "search";
+/**
+ * Cribl.Cloud API
+ */
+export const ServerCloudLeader = "cloud-leader";
+/**
  * Contains the list of servers available to the SDK
  */
-export const ServerList = [
-  "/",
-] as const;
+export const ServerList = {
+  [ServerOnpremLeader]: "https://{leaderUrl}/api/v1",
+  [ServerOnpremGroup]: "https://{leaderUrl}/api/v1/m/{groupId}",
+  [ServerCloudGroup]:
+    "https://{workspaceName}-{organizationId}.{envDomain}/api/v1/m/{groupId}",
+  [ServerSearch]:
+    "https://{workspaceName}-{organizationId}.{envDomain}/api/v1/m/default_search",
+  [ServerCloudLeader]:
+    "https://{workspaceName}-{organizationId}.{envDomain}/api/v1",
+} as const;
 
 export type SDKOptions = {
   /**
@@ -25,11 +52,31 @@ export type SDKOptions = {
   /**
    * Allows overriding the default server used by the SDK
    */
-  serverIdx?: number | undefined;
+  server?: keyof typeof ServerList | undefined;
   /**
-   * Specifies the server URL to be used by the SDK
+   * Sets the leaderUrl variable for url substitution
    */
-  serverURL: string;
+  leaderUrl?: string | undefined;
+  /**
+   * Sets the groupId variable for url substitution
+   */
+  groupId?: string | undefined;
+  /**
+   * Sets the workspaceName variable for url substitution
+   */
+  workspaceName?: string | undefined;
+  /**
+   * Sets the organizationId variable for url substitution
+   */
+  organizationId?: string | undefined;
+  /**
+   * Sets the envDomain variable for url substitution
+   */
+  envDomain?: string | undefined;
+  /**
+   * Allows overriding the default server URL used by the SDK
+   */
+  serverURL?: string | undefined;
   /**
    * Allows overriding the default user agent used by the SDK
    */
@@ -45,14 +92,38 @@ export type SDKOptions = {
 export function serverURLFromOptions(options: SDKOptions): URL | null {
   let serverURL = options.serverURL;
 
-  const params: Params = {};
+  const serverParams: Record<string, Params> = {
+    "onprem-leader": {
+      "leaderUrl": options.leaderUrl ?? "localhost:9000",
+    },
+    "onprem-group": {
+      "leaderUrl": options.leaderUrl ?? "localhost:9000",
+      "groupId": options.groupId ?? "default",
+    },
+    "cloud-group": {
+      "workspaceName": options.workspaceName ?? "main",
+      "organizationId": options.organizationId ?? "my-org",
+      "envDomain": options.envDomain ?? "cribl.cloud",
+      "groupId": options.groupId ?? "default",
+    },
+    "search": {
+      "workspaceName": options.workspaceName ?? "main",
+      "organizationId": options.organizationId ?? "my-org",
+      "envDomain": options.envDomain ?? "cribl.cloud",
+    },
+    "cloud-leader": {
+      "workspaceName": options.workspaceName ?? "main",
+      "organizationId": options.organizationId ?? "my-org",
+      "envDomain": options.envDomain ?? "cribl.cloud",
+    },
+  };
+
+  let params: Params = {};
 
   if (!serverURL) {
-    const serverIdx = options.serverIdx ?? 0;
-    if (serverIdx < 0 || serverIdx >= ServerList.length) {
-      throw new Error(`Invalid server index ${serverIdx}`);
-    }
-    serverURL = ServerList[serverIdx] || "";
+    const server = options.server ?? ServerOnpremLeader;
+    serverURL = ServerList[server] || "";
+    params = serverParams[server] || {};
   }
 
   const u = pathToFunc(serverURL)(params);
@@ -61,9 +132,9 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 
 export const SDK_METADATA = {
   language: "typescript",
-  openapiDocVersion: "4.17.0-alpha.1771852934969-ccd6192b",
-  sdkVersion: "0.6.0-rc.28",
-  genVersion: "2.836.5",
+  openapiDocVersion: "4.17.0-alpha.1772012808178-2d6a6cbe",
+  sdkVersion: "0.6.0-rc.30",
+  genVersion: "2.839.0",
   userAgent:
-    "speakeasy-sdk/typescript 0.6.0-rc.28 2.836.5 4.17.0-alpha.1771852934969-ccd6192b cribl-control-plane",
+    "speakeasy-sdk/typescript 0.6.0-rc.30 2.839.0 4.17.0-alpha.1772012808178-2d6a6cbe cribl-control-plane",
 } as const;

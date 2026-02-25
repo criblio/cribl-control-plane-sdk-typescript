@@ -24,7 +24,6 @@ Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specifie
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -53,7 +52,6 @@ import { groupsList } from "cribl-control-plane/funcs/groupsList.js";
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -106,7 +104,6 @@ Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl 
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -118,11 +115,10 @@ async function run() {
     groupCreateRequest: {
       description: "Worker Group cloned from goatOnPremIanWg with identical configuration",
       id: "goatOnPremDollyWg",
-      isFleet: false,
-      isSearch: false,
-      name: "goatOnPremDollyWg",
+      name: "goatonpremdollywg",
       onPrem: true,
       sourceGroupId: "goatOnPremIanWg",
+      type: "stream",
       workerRemoteAccess: true,
     },
   });
@@ -144,7 +140,6 @@ import { groupsCreate } from "cribl-control-plane/funcs/groupsCreate.js";
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -156,11 +151,10 @@ async function run() {
     groupCreateRequest: {
       description: "Worker Group cloned from goatOnPremIanWg with identical configuration",
       id: "goatOnPremDollyWg",
-      isFleet: false,
-      isSearch: false,
-      name: "goatOnPremDollyWg",
+      name: "goatonpremdollywg",
       onPrem: true,
       sourceGroupId: "goatOnPremIanWg",
+      type: "stream",
       workerRemoteAccess: true,
     },
   });
@@ -181,7 +175,6 @@ run();
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -197,11 +190,10 @@ async function run() {
       },
       estimatedIngestRate: 2048,
       id: "goatCloudIanWg",
-      isFleet: false,
-      isSearch: false,
-      name: "goatCloudIanWg",
+      name: "goatcloudianwg",
       onPrem: false,
       provisioned: true,
+      type: "stream",
       workerRemoteAccess: true,
     },
   });
@@ -223,7 +215,6 @@ import { groupsCreate } from "cribl-control-plane/funcs/groupsCreate.js";
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -239,11 +230,10 @@ async function run() {
       },
       estimatedIngestRate: 2048,
       id: "goatCloudIanWg",
-      isFleet: false,
-      isSearch: false,
-      name: "goatCloudIanWg",
+      name: "goatcloudianwg",
       onPrem: false,
       provisioned: true,
+      type: "stream",
       workerRemoteAccess: true,
     },
   });
@@ -264,7 +254,6 @@ run();
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -276,10 +265,9 @@ async function run() {
     groupCreateRequest: {
       description: "Create a new Edge Fleet",
       id: "goatIanEdgeFleet",
-      isFleet: true,
-      isSearch: false,
-      name: "goatIanEdgeFleet",
+      name: "goatianedgefleet",
       onPrem: true,
+      type: "edge",
       workerRemoteAccess: true,
     },
   });
@@ -301,7 +289,6 @@ import { groupsCreate } from "cribl-control-plane/funcs/groupsCreate.js";
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -313,10 +300,9 @@ async function run() {
     groupCreateRequest: {
       description: "Create a new Edge Fleet",
       id: "goatIanEdgeFleet",
-      isFleet: true,
-      isSearch: false,
-      name: "goatIanEdgeFleet",
+      name: "goatianedgefleet",
       onPrem: true,
+      type: "edge",
       workerRemoteAccess: true,
     },
   });
@@ -337,7 +323,6 @@ run();
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -349,10 +334,9 @@ async function run() {
     groupCreateRequest: {
       description: "Worker group in customer-managed deployment",
       id: "goatOnPremIanWg",
-      isFleet: false,
-      isSearch: false,
-      name: "goatOnPremIanWg",
+      name: "goatonpremianwg",
       onPrem: true,
+      type: "stream",
       workerRemoteAccess: true,
     },
   });
@@ -374,7 +358,6 @@ import { groupsCreate } from "cribl-control-plane/funcs/groupsCreate.js";
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -386,10 +369,9 @@ async function run() {
     groupCreateRequest: {
       description: "Worker group in customer-managed deployment",
       id: "goatOnPremIanWg",
-      isFleet: false,
-      isSearch: false,
-      name: "goatOnPremIanWg",
+      name: "goatonpremianwg",
       onPrem: true,
+      type: "stream",
       workerRemoteAccess: true,
     },
   });
@@ -435,7 +417,6 @@ Get the specified Worker Group, Outpost Group, or Edge Fleet.
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -465,7 +446,6 @@ import { groupsGet } from "cribl-control-plane/funcs/groupsGet.js";
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -519,7 +499,6 @@ Update the specified Worker Group, Outpost Group, or Edge Fleet.
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -537,11 +516,10 @@ async function run() {
       description: "Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity",
       estimatedIngestRate: 4096,
       id: "goatCloudIanWg",
-      isFleet: false,
-      isSearch: false,
-      name: "goatCloudIanWg",
+      name: "goatcloudianwg",
       onPrem: false,
       provisioned: true,
+      type: "stream",
       workerRemoteAccess: true,
     },
   });
@@ -563,7 +541,6 @@ import { groupsUpdate } from "cribl-control-plane/funcs/groupsUpdate.js";
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -581,11 +558,10 @@ async function run() {
       description: "Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity",
       estimatedIngestRate: 4096,
       id: "goatCloudIanWg",
-      isFleet: false,
-      isSearch: false,
-      name: "goatCloudIanWg",
+      name: "goatcloudianwg",
       onPrem: false,
       provisioned: true,
+      type: "stream",
       workerRemoteAccess: true,
     },
   });
@@ -631,7 +607,6 @@ Delete the specified Worker Group, Outpost Group, or Edge Fleet.
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -660,7 +635,6 @@ import { groupsDelete } from "cribl-control-plane/funcs/groupsDelete.js";
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -713,7 +687,6 @@ Deploy commits to the specified Worker Group, Outpost Group, or Edge Fleet.
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -745,7 +718,6 @@ import { groupsDeploy } from "cribl-control-plane/funcs/groupsDeploy.js";
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
