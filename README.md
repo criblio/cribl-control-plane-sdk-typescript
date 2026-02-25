@@ -29,7 +29,6 @@ Complementary API reference documentation is available at [https://docs.cribl.io
   * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
-  * [Server Selection](#server-selection)
   * [Custom HTTP Client](#custom-http-client)
   * [Debugging](#debugging)
 
@@ -293,6 +292,15 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
 
+#### [Groups.Mappings](docs/sdks/mappings/README.md)
+
+* [activate](docs/sdks/mappings/README.md#activate) - Set a Mapping Ruleset as the active configuration for the specified Cribl product
+* [create](docs/sdks/mappings/README.md#create) - Create a new Mapping Ruleset for the specified Cribl product
+* [list](docs/sdks/mappings/README.md#list) - List all Mapping Rulesets for the specified Cribl product
+* [delete](docs/sdks/mappings/README.md#delete) - Delete the specified Mapping Ruleset from the Worker Group or Edge Fleet
+* [get](docs/sdks/mappings/README.md#get) - Retrieve a Specific Mapping Ruleset
+* [update](docs/sdks/mappings/README.md#update) - Update an existing Mapping Ruleset for a Worker Group or Edge Fleet
+
 ### [Health](docs/sdks/health/README.md)
 
 * [get](docs/sdks/health/README.md#get) - Retrieve health status of the server
@@ -514,6 +522,12 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`groupsDeploy`](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
 - [`groupsGet`](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
 - [`groupsList`](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
+- [`groupsMappingsActivate`](docs/sdks/mappings/README.md#activate) - Set a Mapping Ruleset as the active configuration for the specified Cribl product
+- [`groupsMappingsCreate`](docs/sdks/mappings/README.md#create) - Create a new Mapping Ruleset for the specified Cribl product
+- [`groupsMappingsDelete`](docs/sdks/mappings/README.md#delete) - Delete the specified Mapping Ruleset from the Worker Group or Edge Fleet
+- [`groupsMappingsGet`](docs/sdks/mappings/README.md#get) - Retrieve a Specific Mapping Ruleset
+- [`groupsMappingsList`](docs/sdks/mappings/README.md#list) - List all Mapping Rulesets for the specified Cribl product
+- [`groupsMappingsUpdate`](docs/sdks/mappings/README.md#update) - Update an existing Mapping Ruleset for a Worker Group or Edge Fleet
 - [`groupsUpdate`](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 - [`healthGet`](docs/sdks/health/README.md#get) - Retrieve health status of the server
 - [`lakeDatasetsCreate`](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset (Cribl.Cloud only)
@@ -615,6 +629,7 @@ Here's an example of consuming a JSONL stream:
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -659,6 +674,7 @@ Here's an example of one such pagination call:
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -704,6 +720,7 @@ import { CriblControlPlane } from "cribl-control-plane";
 import { openAsBlob } from "node:fs";
 
 const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -835,99 +852,6 @@ run();
 
 \* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- No Error Handling [errors] -->
-
-<!-- Start Server Selection [server] -->
-## Server Selection
-
-### Select Server by Name
-
-You can override the default server globally by passing a server name to the `server: keyof typeof ServerList` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
-
-| Name            | Server                                                                         | Variables                                                          | Description                                |
-| --------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------ |
-| `onprem-leader` | `https://{leaderUrl}/api/v1`                                                   | `leaderUrl`                                                        | On-prem Cribl Stream/Edge Leader API       |
-| `onprem-group`  | `https://{leaderUrl}/api/v1/m/{groupId}`                                       | `leaderUrl`<br/>`groupId`                                          | On-prem Worker Group or Edge Fleet API     |
-| `cloud-group`   | `https://{workspaceName}-{organizationId}.{envDomain}/api/v1/m/{groupId}`      | `workspaceName`<br/>`organizationId`<br/>`envDomain`<br/>`groupId` | Cribl.Cloud Worker Group or Edge Fleet API |
-| `search`        | `https://{workspaceName}-{organizationId}.{envDomain}/api/v1/m/default_search` | `workspaceName`<br/>`organizationId`<br/>`envDomain`               | Cribl.Cloud Search API                     |
-| `cloud-leader`  | `https://{workspaceName}-{organizationId}.{envDomain}/api/v1`                  | `workspaceName`<br/>`organizationId`<br/>`envDomain`               | Cribl.Cloud API                            |
-
-If the selected server has variables, you may override its default values through the additional parameters made available in the SDK constructor:
-
-| Variable         | Parameter                | Default            | Description                                        |
-| ---------------- | ------------------------ | ------------------ | -------------------------------------------------- |
-| `leaderUrl`      | `leaderUrl: string`      | `"localhost:9000"` | Leader host and port (e.g. cribl.example.com:9000) |
-| `groupId`        | `groupId: string`        | `"default"`        | Worker Group or Edge Fleet ID                      |
-| `workspaceName`  | `workspaceName: string`  | `"main"`           | Workspace name (e.g. main)                         |
-| `organizationId` | `organizationId: string` | `"my-org"`         | Organization ID                                    |
-| `envDomain`      | `envDomain: string`      | `"cribl.cloud"`    | Domain                                             |
-
-#### Example
-
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  server: "cloud-group",
-  workspaceName: "main",
-  organizationId: "my-org",
-  envDomain: "cribl.cloud",
-  groupId: "default",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.databaseConnections.create({
-    authType: "connectionString",
-    connectionString:
-      "mysql://admin:password123@mysql.example.com:3306/production?ssl=true",
-    connectionTimeout: 10000,
-    databaseType: "mysql",
-    description: "Production MySQL database for customer data",
-    id: "mysql-prod-db",
-    tags: "production,mysql,customer-data",
-  });
-
-  console.log(result);
-}
-
-run();
-
-```
-
-### Override Server URL Per-Client
-
-The default server can also be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://localhost:9000/api/v1",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.databaseConnections.create({
-    authType: "connectionString",
-    connectionString:
-      "mysql://admin:password123@mysql.example.com:3306/production?ssl=true",
-    connectionTimeout: 10000,
-    databaseType: "mysql",
-    description: "Production MySQL database for customer data",
-    id: "mysql-prod-db",
-    tags: "production,mysql,customer-data",
-  });
-
-  console.log(result);
-}
-
-run();
-
-```
-<!-- End Server Selection [server] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client

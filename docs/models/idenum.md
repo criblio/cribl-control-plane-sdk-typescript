@@ -1,0 +1,17 @@
+# IdEnum
+
+## Example Usage
+
+```typescript
+import { IdEnum } from "cribl-control-plane/models";
+
+let value: IdEnum = "eval";
+```
+
+## Values
+
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
+```typescript
+"eval" | Unrecognized<string>
+```
