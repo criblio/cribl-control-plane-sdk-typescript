@@ -16,9 +16,7 @@ This endpoint is unavailable on Cribl.Cloud.Instead, follow the instructions at 
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-});
+const criblControlPlane = new CriblControlPlane();
 
 async function run() {
   const result = await criblControlPlane.auth.tokens.get({
@@ -42,9 +40,7 @@ import { authTokensGet } from "cribl-control-plane/funcs/authTokensGet.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-});
+const criblControlPlane = new CriblControlPlaneCore();
 
 async function run() {
   const res = await authTokensGet(criblControlPlane, {

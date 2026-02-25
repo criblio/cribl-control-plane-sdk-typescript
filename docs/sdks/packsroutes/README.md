@@ -20,7 +20,6 @@ Get the specified Routing table within the specified Pack.
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -49,7 +48,6 @@ import { packsRoutesGet } from "cribl-control-plane/funcs/packsRoutesGet.js";
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -102,7 +100,6 @@ Update the specified Route within the specified Pack.</br></br>Provide a complet
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -144,7 +141,6 @@ import { packsRoutesUpdate } from "cribl-control-plane/funcs/packsRoutesUpdate.j
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -185,7 +181,6 @@ run();
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -255,7 +250,6 @@ import { packsRoutesUpdate } from "cribl-control-plane/funcs/packsRoutesUpdate.j
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -324,7 +318,6 @@ run();
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -368,7 +361,6 @@ import { packsRoutesUpdate } from "cribl-control-plane/funcs/packsRoutesUpdate.j
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -436,7 +428,6 @@ Get a list of all Routes within the specified Pack.
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -464,7 +455,6 @@ import { packsRoutesList } from "cribl-control-plane/funcs/packsRoutesList.js";
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -516,7 +506,6 @@ Add a Route to the end of the specified Routing table within the specified Pack.
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -565,7 +554,6 @@ import { packsRoutesAppend } from "cribl-control-plane/funcs/packsRoutesAppend.j
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -613,7 +601,6 @@ run();
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -654,7 +641,6 @@ import { packsRoutesAppend } from "cribl-control-plane/funcs/packsRoutesAppend.j
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -694,7 +680,6 @@ run();
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -733,7 +718,6 @@ import { packsRoutesAppend } from "cribl-control-plane/funcs/packsRoutesAppend.j
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },

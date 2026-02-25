@@ -1,13 +1,13 @@
-# CreateOutputMappingType
+# CreateOutputMappingTypeClickHouse
 
 How event fields are mapped to ClickHouse columns.
 
 ## Example Usage
 
 ```typescript
-import { CreateOutputMappingType } from "cribl-control-plane/models/operations";
+import { CreateOutputMappingTypeClickHouse } from "cribl-control-plane/models/operations";
 
-let value: CreateOutputMappingType = "custom";
+let value: CreateOutputMappingTypeClickHouse = "automatic";
 ```
 
 ## Values

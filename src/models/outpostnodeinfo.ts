@@ -9,6 +9,7 @@ import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutpostNodeInfo = {
+  groupname?: string | undefined;
   guid: string;
   host: string;
 };
@@ -19,6 +20,7 @@ export const OutpostNodeInfo$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  groupname: types.optional(types.string()),
   guid: types.string(),
   host: types.string(),
 });

@@ -29,6 +29,7 @@ Complementary API reference documentation is available at [https://docs.cribl.io
   * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
+  * [Server Selection](#server-selection)
   * [Custom HTTP Client](#custom-http-client)
   * [Debugging](#debugging)
 
@@ -614,7 +615,6 @@ Here's an example of consuming a JSONL stream:
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -659,7 +659,6 @@ Here's an example of one such pagination call:
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -705,7 +704,6 @@ import { CriblControlPlane } from "cribl-control-plane";
 import { openAsBlob } from "node:fs";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -837,6 +835,99 @@ run();
 
 \* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- No Error Handling [errors] -->
+
+<!-- Start Server Selection [server] -->
+## Server Selection
+
+### Select Server by Name
+
+You can override the default server globally by passing a server name to the `server: keyof typeof ServerList` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
+
+| Name            | Server                                                                         | Variables                                                          | Description                                |
+| --------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------ |
+| `onprem-leader` | `https://{leaderUrl}/api/v1`                                                   | `leaderUrl`                                                        | On-prem Cribl Stream/Edge Leader API       |
+| `onprem-group`  | `https://{leaderUrl}/api/v1/m/{groupId}`                                       | `leaderUrl`<br/>`groupId`                                          | On-prem Worker Group or Edge Fleet API     |
+| `cloud-group`   | `https://{workspaceName}-{organizationId}.{envDomain}/api/v1/m/{groupId}`      | `workspaceName`<br/>`organizationId`<br/>`envDomain`<br/>`groupId` | Cribl.Cloud Worker Group or Edge Fleet API |
+| `search`        | `https://{workspaceName}-{organizationId}.{envDomain}/api/v1/m/default_search` | `workspaceName`<br/>`organizationId`<br/>`envDomain`               | Cribl.Cloud Search API                     |
+| `cloud-leader`  | `https://{workspaceName}-{organizationId}.{envDomain}/api/v1`                  | `workspaceName`<br/>`organizationId`<br/>`envDomain`               | Cribl.Cloud API                            |
+
+If the selected server has variables, you may override its default values through the additional parameters made available in the SDK constructor:
+
+| Variable         | Parameter                | Default            | Description                                        |
+| ---------------- | ------------------------ | ------------------ | -------------------------------------------------- |
+| `leaderUrl`      | `leaderUrl: string`      | `"localhost:9000"` | Leader host and port (e.g. cribl.example.com:9000) |
+| `groupId`        | `groupId: string`        | `"default"`        | Worker Group or Edge Fleet ID                      |
+| `workspaceName`  | `workspaceName: string`  | `"main"`           | Workspace name (e.g. main)                         |
+| `organizationId` | `organizationId: string` | `"my-org"`         | Organization ID                                    |
+| `envDomain`      | `envDomain: string`      | `"cribl.cloud"`    | Domain                                             |
+
+#### Example
+
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  server: "cloud-group",
+  workspaceName: "main",
+  organizationId: "my-org",
+  envDomain: "cribl.cloud",
+  groupId: "default",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.create({
+    authType: "connectionString",
+    connectionString:
+      "mysql://admin:password123@mysql.example.com:3306/production?ssl=true",
+    connectionTimeout: 10000,
+    databaseType: "mysql",
+    description: "Production MySQL database for customer data",
+    id: "mysql-prod-db",
+    tags: "production,mysql,customer-data",
+  });
+
+  console.log(result);
+}
+
+run();
+
+```
+
+### Override Server URL Per-Client
+
+The default server can also be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://localhost:9000/api/v1",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.databaseConnections.create({
+    authType: "connectionString",
+    connectionString:
+      "mysql://admin:password123@mysql.example.com:3306/production?ssl=true",
+    connectionTimeout: 10000,
+    databaseType: "mysql",
+    description: "Production MySQL database for customer data",
+    id: "mysql-prod-db",
+    tags: "production,mysql,customer-data",
+  });
+
+  console.log(result);
+}
+
+run();
+
+```
+<!-- End Server Selection [server] -->
 
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client

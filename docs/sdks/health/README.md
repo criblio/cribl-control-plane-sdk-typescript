@@ -18,9 +18,7 @@ Get the current health status of the server.
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-});
+const criblControlPlane = new CriblControlPlane();
 
 async function run() {
   const result = await criblControlPlane.health.get();
@@ -41,9 +39,7 @@ import { healthGet } from "cribl-control-plane/funcs/healthGet.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-});
+const criblControlPlane = new CriblControlPlaneCore();
 
 async function run() {
   const res = await healthGet(criblControlPlane);

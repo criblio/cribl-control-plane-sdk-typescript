@@ -9,6 +9,11 @@ import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
+  AuthenticationTypeOptions1,
+  AuthenticationTypeOptions1$inboundSchema,
+  AuthenticationTypeOptions1$outboundSchema,
+} from "./authenticationtypeoptions1.js";
+import {
   BackpressureBehaviorOptions,
   BackpressureBehaviorOptions$inboundSchema,
   BackpressureBehaviorOptions$outboundSchema,
@@ -47,6 +52,12 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
+  StatsDestinationType,
+  StatsDestinationType$inboundSchema,
+  StatsDestinationType$Outbound,
+  StatsDestinationType$outboundSchema,
+} from "./statsdestinationtype.js";
+import {
   TimeoutRetrySettingsType,
   TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
@@ -58,28 +69,6 @@ import {
   TlsSettingsClientSideType1$Outbound,
   TlsSettingsClientSideType1$outboundSchema,
 } from "./tlssettingsclientsidetype1.js";
-
-export const OutputClickHouseAuthenticationType = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Basic
-   */
-  Basic: "basic",
-  /**
-   * Basic (credentials secret)
-   */
-  CredentialsSecret: "credentialsSecret",
-  /**
-   * SSL User Certificate
-   */
-  SslUserCertificate: "sslUserCertificate",
-} as const;
-export type OutputClickHouseAuthenticationType = OpenEnum<
-  typeof OutputClickHouseAuthenticationType
->;
 
 /**
  * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
@@ -102,7 +91,7 @@ export type OutputClickHouseFormat = OpenEnum<typeof OutputClickHouseFormat>;
 /**
  * How event fields are mapped to ClickHouse columns.
  */
-export const MappingType = {
+export const OutputClickHouseMappingType = {
   /**
    * Automatic
    */
@@ -115,19 +104,11 @@ export const MappingType = {
 /**
  * How event fields are mapped to ClickHouse columns.
  */
-export type MappingType = OpenEnum<typeof MappingType>;
+export type OutputClickHouseMappingType = OpenEnum<
+  typeof OutputClickHouseMappingType
+>;
 
-export type StatsDestination = {
-  url?: string | undefined;
-  database?: string | undefined;
-  tableName?: string | undefined;
-  authType?: string | undefined;
-  username?: string | undefined;
-  sqlUsername?: string | undefined;
-  password?: string | undefined;
-};
-
-export type ColumnMapping = {
+export type OutputClickHouseColumnMapping = {
   /**
    * Name of the column in ClickHouse that will store field value
    */
@@ -170,7 +151,7 @@ export type OutputClickHouse = {
    * URL of the ClickHouse instance. Example: http://localhost:8123/
    */
   url: string;
-  authType?: OutputClickHouseAuthenticationType | undefined;
+  authType?: AuthenticationTypeOptions1 | undefined;
   database: string;
   /**
    * Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
@@ -183,7 +164,7 @@ export type OutputClickHouse = {
   /**
    * How event fields are mapped to ClickHouse columns.
    */
-  mappingType?: MappingType | undefined;
+  mappingType?: OutputClickHouseMappingType | undefined;
   /**
    * Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
    */
@@ -250,7 +231,7 @@ export type OutputClickHouse = {
    * Log the most recent event that fails to match the table schema
    */
   dumpFormatErrorsToDisk?: boolean | undefined;
-  statsDestination?: StatsDestination | undefined;
+  statsDestination?: StatsDestinationType | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -278,7 +259,7 @@ export type OutputClickHouse = {
    * Retrieves the table schema from ClickHouse and populates the Column Mapping table
    */
   describeTable?: string | undefined;
-  columnMappings?: Array<ColumnMapping> | undefined;
+  columnMappings?: Array<OutputClickHouseColumnMapping> | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
    */
@@ -335,19 +316,6 @@ export type OutputClickHouse = {
 };
 
 /** @internal */
-export const OutputClickHouseAuthenticationType$inboundSchema: z.ZodType<
-  OutputClickHouseAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputClickHouseAuthenticationType);
-/** @internal */
-export const OutputClickHouseAuthenticationType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputClickHouseAuthenticationType
-> = openEnums.outboundSchema(OutputClickHouseAuthenticationType);
-
-/** @internal */
 export const OutputClickHouseFormat$inboundSchema: z.ZodType<
   OutputClickHouseFormat,
   z.ZodTypeDef,
@@ -361,78 +329,21 @@ export const OutputClickHouseFormat$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputClickHouseFormat);
 
 /** @internal */
-export const MappingType$inboundSchema: z.ZodType<
-  MappingType,
+export const OutputClickHouseMappingType$inboundSchema: z.ZodType<
+  OutputClickHouseMappingType,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(MappingType);
+> = openEnums.inboundSchema(OutputClickHouseMappingType);
 /** @internal */
-export const MappingType$outboundSchema: z.ZodType<
+export const OutputClickHouseMappingType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  MappingType
-> = openEnums.outboundSchema(MappingType);
+  OutputClickHouseMappingType
+> = openEnums.outboundSchema(OutputClickHouseMappingType);
 
 /** @internal */
-export const StatsDestination$inboundSchema: z.ZodType<
-  StatsDestination,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: types.optional(types.string()),
-  database: types.optional(types.string()),
-  tableName: types.optional(types.string()),
-  authType: types.optional(types.string()),
-  username: types.optional(types.string()),
-  sqlUsername: types.optional(types.string()),
-  password: types.optional(types.string()),
-});
-/** @internal */
-export type StatsDestination$Outbound = {
-  url?: string | undefined;
-  database?: string | undefined;
-  tableName?: string | undefined;
-  authType?: string | undefined;
-  username?: string | undefined;
-  sqlUsername?: string | undefined;
-  password?: string | undefined;
-};
-
-/** @internal */
-export const StatsDestination$outboundSchema: z.ZodType<
-  StatsDestination$Outbound,
-  z.ZodTypeDef,
-  StatsDestination
-> = z.object({
-  url: z.string().optional(),
-  database: z.string().optional(),
-  tableName: z.string().optional(),
-  authType: z.string().optional(),
-  username: z.string().optional(),
-  sqlUsername: z.string().optional(),
-  password: z.string().optional(),
-});
-
-export function statsDestinationToJSON(
-  statsDestination: StatsDestination,
-): string {
-  return JSON.stringify(
-    StatsDestination$outboundSchema.parse(statsDestination),
-  );
-}
-export function statsDestinationFromJSON(
-  jsonString: string,
-): SafeParseResult<StatsDestination, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => StatsDestination$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'StatsDestination' from JSON`,
-  );
-}
-
-/** @internal */
-export const ColumnMapping$inboundSchema: z.ZodType<
-  ColumnMapping,
+export const OutputClickHouseColumnMapping$inboundSchema: z.ZodType<
+  OutputClickHouseColumnMapping,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -441,33 +352,39 @@ export const ColumnMapping$inboundSchema: z.ZodType<
   columnValueExpression: types.string(),
 });
 /** @internal */
-export type ColumnMapping$Outbound = {
+export type OutputClickHouseColumnMapping$Outbound = {
   columnName: string;
   columnType?: string | undefined;
   columnValueExpression: string;
 };
 
 /** @internal */
-export const ColumnMapping$outboundSchema: z.ZodType<
-  ColumnMapping$Outbound,
+export const OutputClickHouseColumnMapping$outboundSchema: z.ZodType<
+  OutputClickHouseColumnMapping$Outbound,
   z.ZodTypeDef,
-  ColumnMapping
+  OutputClickHouseColumnMapping
 > = z.object({
   columnName: z.string(),
   columnType: z.string().optional(),
   columnValueExpression: z.string(),
 });
 
-export function columnMappingToJSON(columnMapping: ColumnMapping): string {
-  return JSON.stringify(ColumnMapping$outboundSchema.parse(columnMapping));
+export function outputClickHouseColumnMappingToJSON(
+  outputClickHouseColumnMapping: OutputClickHouseColumnMapping,
+): string {
+  return JSON.stringify(
+    OutputClickHouseColumnMapping$outboundSchema.parse(
+      outputClickHouseColumnMapping,
+    ),
+  );
 }
-export function columnMappingFromJSON(
+export function outputClickHouseColumnMappingFromJSON(
   jsonString: string,
-): SafeParseResult<ColumnMapping, SDKValidationError> {
+): SafeParseResult<OutputClickHouseColumnMapping, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ColumnMapping$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ColumnMapping' from JSON`,
+    (x) => OutputClickHouseColumnMapping$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputClickHouseColumnMapping' from JSON`,
   );
 }
 
@@ -517,11 +434,11 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   environment: types.optional(types.string()),
   streamtags: types.optional(z.array(types.string())),
   url: types.string(),
-  authType: types.optional(OutputClickHouseAuthenticationType$inboundSchema),
+  authType: types.optional(AuthenticationTypeOptions1$inboundSchema),
   database: types.string(),
   tableName: types.string(),
   format: types.optional(OutputClickHouseFormat$inboundSchema),
-  mappingType: types.optional(MappingType$inboundSchema),
+  mappingType: types.optional(OutputClickHouseMappingType$inboundSchema),
   asyncInserts: types.optional(types.boolean()),
   tls: types.optional(TlsSettingsClientSideType1$inboundSchema),
   concurrency: types.optional(types.number()),
@@ -545,9 +462,7 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
   dumpFormatErrorsToDisk: types.optional(types.boolean()),
-  statsDestination: types.optional(
-    z.lazy(() => StatsDestination$inboundSchema),
-  ),
+  statsDestination: types.optional(StatsDestinationType$inboundSchema),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   description: types.optional(types.string()),
   username: types.optional(types.string()),
@@ -558,7 +473,7 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   excludeMappingFields: types.optional(z.array(types.string())),
   describeTable: types.optional(types.string()),
   columnMappings: types.optional(
-    z.array(z.lazy(() => ColumnMapping$inboundSchema)),
+    z.array(z.lazy(() => OutputClickHouseColumnMapping$inboundSchema)),
   ),
   pqStrictOrdering: types.optional(types.boolean()),
   pqRatePerSec: types.optional(types.number()),
@@ -610,7 +525,7 @@ export type OutputClickHouse$Outbound = {
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
   dumpFormatErrorsToDisk?: boolean | undefined;
-  statsDestination?: StatsDestination$Outbound | undefined;
+  statsDestination?: StatsDestinationType$Outbound | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -620,7 +535,7 @@ export type OutputClickHouse$Outbound = {
   waitForAsyncInserts?: boolean | undefined;
   excludeMappingFields?: Array<string> | undefined;
   describeTable?: string | undefined;
-  columnMappings?: Array<ColumnMapping$Outbound> | undefined;
+  columnMappings?: Array<OutputClickHouseColumnMapping$Outbound> | undefined;
   pqStrictOrdering?: boolean | undefined;
   pqRatePerSec?: number | undefined;
   pqMode?: string | undefined;
@@ -650,11 +565,11 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   url: z.string(),
-  authType: OutputClickHouseAuthenticationType$outboundSchema.optional(),
+  authType: AuthenticationTypeOptions1$outboundSchema.optional(),
   database: z.string(),
   tableName: z.string(),
   format: OutputClickHouseFormat$outboundSchema.optional(),
-  mappingType: MappingType$outboundSchema.optional(),
+  mappingType: OutputClickHouseMappingType$outboundSchema.optional(),
   asyncInserts: z.boolean().optional(),
   tls: TlsSettingsClientSideType1$outboundSchema.optional(),
   concurrency: z.number().optional(),
@@ -675,7 +590,7 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   dumpFormatErrorsToDisk: z.boolean().optional(),
-  statsDestination: z.lazy(() => StatsDestination$outboundSchema).optional(),
+  statsDestination: StatsDestinationType$outboundSchema.optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -685,8 +600,9 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   waitForAsyncInserts: z.boolean().optional(),
   excludeMappingFields: z.array(z.string()).optional(),
   describeTable: z.string().optional(),
-  columnMappings: z.array(z.lazy(() => ColumnMapping$outboundSchema))
-    .optional(),
+  columnMappings: z.array(
+    z.lazy(() => OutputClickHouseColumnMapping$outboundSchema),
+  ).optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
   pqMode: ModeOptions$outboundSchema.optional(),

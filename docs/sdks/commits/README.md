@@ -23,7 +23,6 @@ Create a new commit for pending changes to the Cribl configuration. Any merge co
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -51,7 +50,6 @@ import { versionsCommitsCreate } from "cribl-control-plane/funcs/versionsCommits
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -103,7 +101,6 @@ Get the diff for a commit. Default is the latest commit (HEAD).
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -133,7 +130,6 @@ import { versionsCommitsDiff } from "cribl-control-plane/funcs/versionsCommitsDi
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -187,7 +183,6 @@ List the commit history.</br></br>Analogous to <code>git log</code> for the Crib
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -215,7 +210,6 @@ import { versionsCommitsList } from "cribl-control-plane/funcs/versionsCommitsLi
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -267,7 +261,6 @@ Push all local commits from the local repository to the remote repository.
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -293,7 +286,6 @@ import { versionsCommitsPush } from "cribl-control-plane/funcs/versionsCommitsPu
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -342,7 +334,6 @@ Revert a commit in the local repository.
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -370,7 +361,6 @@ import { versionsCommitsRevert } from "cribl-control-plane/funcs/versionsCommits
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -422,7 +412,6 @@ Get the diff and log message for a commit. Default is the latest commit (HEAD).
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -452,7 +441,6 @@ import { versionsCommitsGet } from "cribl-control-plane/funcs/versionsCommitsGet
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -506,7 +494,6 @@ Discard all uncommitted (staged) configuration changes, resetting the working di
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -532,7 +519,6 @@ import { versionsCommitsUndo } from "cribl-control-plane/funcs/versionsCommitsUn
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },

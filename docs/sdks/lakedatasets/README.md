@@ -21,7 +21,6 @@ Create a new Lake Dataset in the specified Lake (Cribl.Cloud only).
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -52,7 +51,6 @@ import { lakeDatasetsCreate } from "cribl-control-plane/funcs/lakeDatasetsCreate
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -107,7 +105,6 @@ Get a list of all Lake Datasets in the specified Lake (Cribl.Cloud only).
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -141,7 +138,6 @@ import { lakeDatasetsList } from "cribl-control-plane/funcs/lakeDatasetsList.js"
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -199,7 +195,6 @@ Delete the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -228,7 +223,6 @@ import { lakeDatasetsDelete } from "cribl-control-plane/funcs/lakeDatasetsDelete
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -281,7 +275,6 @@ Get the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -310,7 +303,6 @@ import { lakeDatasetsGet } from "cribl-control-plane/funcs/lakeDatasetsGet.js";
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -363,7 +355,6 @@ Update the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -393,7 +384,6 @@ import { lakeDatasetsUpdate } from "cribl-control-plane/funcs/lakeDatasetsUpdate
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },

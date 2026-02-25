@@ -18,7 +18,6 @@ Get sample event data for the specified Destination to validate the configuratio
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -46,7 +45,6 @@ import { destinationsSamplesGet } from "cribl-control-plane/funcs/destinationsSa
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -98,7 +96,6 @@ Send sample event data to the specified Destination to validate the configuratio
 import { CriblControlPlane } from "cribl-control-plane";
 
 const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },
@@ -133,7 +130,6 @@ import { destinationsSamplesCreate } from "cribl-control-plane/funcs/destination
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
 const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
   security: {
     bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
   },

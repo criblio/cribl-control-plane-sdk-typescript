@@ -8,8 +8,8 @@ import * as openEnums from "../../types/enums.js";
 import { OpenEnum } from "../../types/enums.js";
 import * as models from "../index.js";
 import {
-  CreateOutputSystemByPackAuthenticationMethodAzureLogs,
-  CreateOutputSystemByPackAuthenticationMethodAzureLogs$outboundSchema,
+  CreateOutputSystemByPackCompression,
+  CreateOutputSystemByPackCompression$outboundSchema,
   CreateOutputSystemByPackOutputAzureEventhub,
   CreateOutputSystemByPackOutputAzureEventhub$Outbound,
   CreateOutputSystemByPackOutputAzureEventhub$outboundSchema,
@@ -103,9 +103,9 @@ import {
   CreateOutputSystemByPackOutputKafka,
   CreateOutputSystemByPackOutputKafka$Outbound,
   CreateOutputSystemByPackOutputKafka$outboundSchema,
-  CreateOutputSystemByPackOutputKinesis,
-  CreateOutputSystemByPackOutputKinesis$Outbound,
-  CreateOutputSystemByPackOutputKinesis$outboundSchema,
+  CreateOutputSystemByPackOutputLocalSearchStorage,
+  CreateOutputSystemByPackOutputLocalSearchStorage$Outbound,
+  CreateOutputSystemByPackOutputLocalSearchStorage$outboundSchema,
   CreateOutputSystemByPackOutputLoki,
   CreateOutputSystemByPackOutputLoki$Outbound,
   CreateOutputSystemByPackOutputLoki$outboundSchema,
@@ -169,10 +169,198 @@ import {
   CreateOutputSystemByPackOutputXsiam,
   CreateOutputSystemByPackOutputXsiam$Outbound,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
-  CreateOutputSystemByPackPqControlsAzureLogs,
-  CreateOutputSystemByPackPqControlsAzureLogs$Outbound,
-  CreateOutputSystemByPackPqControlsAzureLogs$outboundSchema,
-} from "./createoutputsystembypackpqcontrolsazurelogs.js";
+  CreateOutputSystemByPackPqControlsKinesis,
+  CreateOutputSystemByPackPqControlsKinesis$Outbound,
+  CreateOutputSystemByPackPqControlsKinesis$outboundSchema,
+} from "./createoutputsystembypackpqcontrolskinesis.js";
+
+export type CreateOutputSystemByPackOutputKinesis = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "kinesis";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Kinesis stream name to send events to.
+   */
+  streamName: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing Kinesis stream requests
+   */
+  signatureVersion?: models.SignatureVersionOptions2 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of ongoing put requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For uncompressed or non-compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Compression type to use for records
+   */
+  compression?: CreateOutputSystemByPackCompression | undefined;
+  /**
+   * Provides higher stream rate limits, improving delivery speed and reliability by minimizing throttling. See the [ListShards API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html) documentation for details.
+   */
+  useListShards?: boolean | undefined;
+  /**
+   * Batch events into a single record as NDJSON
+   */
+  asNdjson?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Maximum number of records to send in a single request
+   */
+  maxEventsPerFlush?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsKinesis | undefined;
+  /**
+   * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
+   */
+  __template_streamName?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+};
+
+/**
+ * Enter workspace ID and workspace key directly, or select a stored secret
+ */
+export const CreateOutputSystemByPackAuthenticationMethodAzureLogs = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter workspace ID and workspace key directly, or select a stored secret
+ */
+export type CreateOutputSystemByPackAuthenticationMethodAzureLogs = OpenEnum<
+  typeof CreateOutputSystemByPackAuthenticationMethodAzureLogs
+>;
+
+export type CreateOutputSystemByPackPqControlsAzureLogs = {};
 
 export type CreateOutputSystemByPackOutputAzureLogs = {
   /**
@@ -3766,6 +3954,7 @@ export type CreateOutputSystemByPackRequestBody =
   | CreateOutputSystemByPackOutputCriblLake
   | CreateOutputSystemByPackOutputDiskSpool
   | CreateOutputSystemByPackOutputClickHouse
+  | CreateOutputSystemByPackOutputLocalSearchStorage
   | CreateOutputSystemByPackOutputXsiam
   | CreateOutputSystemByPackOutputNetflow
   | CreateOutputSystemByPackOutputDynatraceHttp
@@ -3848,6 +4037,7 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputCriblLake
     | CreateOutputSystemByPackOutputDiskSpool
     | CreateOutputSystemByPackOutputClickHouse
+    | CreateOutputSystemByPackOutputLocalSearchStorage
     | CreateOutputSystemByPackOutputXsiam
     | CreateOutputSystemByPackOutputNetflow
     | CreateOutputSystemByPackOutputDynatraceHttp
@@ -3858,6 +4048,153 @@ export type CreateOutputSystemByPackRequest = {
     | CreateOutputSystemByPackOutputMicrosoftFabric
     | CreateOutputSystemByPackOutputCloudflareR2;
 };
+
+/** @internal */
+export type CreateOutputSystemByPackOutputKinesis$Outbound = {
+  id: string;
+  type: "kinesis";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  streamName: string;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  concurrency?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  compression?: string | undefined;
+  useListShards?: boolean | undefined;
+  asNdjson?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  maxEventsPerFlush?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: CreateOutputSystemByPackPqControlsKinesis$Outbound | undefined;
+  __template_streamName?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputSystemByPackOutputKinesis$outboundSchema: z.ZodType<
+  CreateOutputSystemByPackOutputKinesis$Outbound,
+  z.ZodTypeDef,
+  CreateOutputSystemByPackOutputKinesis
+> = z.object({
+  id: z.string(),
+  type: z.literal("kinesis"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptions2$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  concurrency: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  compression: CreateOutputSystemByPackCompression$outboundSchema.optional(),
+  useListShards: z.boolean().optional(),
+  asNdjson: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: CreateOutputSystemByPackPqControlsKinesis$outboundSchema
+    .optional(),
+  __template_streamName: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
+});
+
+export function createOutputSystemByPackOutputKinesisToJSON(
+  createOutputSystemByPackOutputKinesis: CreateOutputSystemByPackOutputKinesis,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackOutputKinesis$outboundSchema.parse(
+      createOutputSystemByPackOutputKinesis,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateOutputSystemByPackAuthenticationMethodAzureLogs$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackAuthenticationMethodAzureLogs
+  > = openEnums.outboundSchema(
+    CreateOutputSystemByPackAuthenticationMethodAzureLogs,
+  );
+
+/** @internal */
+export type CreateOutputSystemByPackPqControlsAzureLogs$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsAzureLogs$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsAzureLogs$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsAzureLogs
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsAzureLogsToJSON(
+  createOutputSystemByPackPqControlsAzureLogs:
+    CreateOutputSystemByPackPqControlsAzureLogs,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsAzureLogs$outboundSchema.parse(
+      createOutputSystemByPackPqControlsAzureLogs,
+    ),
+  );
+}
 
 /** @internal */
 export type CreateOutputSystemByPackOutputAzureLogs$Outbound = {
@@ -3957,8 +4294,9 @@ export const CreateOutputSystemByPackOutputAzureLogs$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: CreateOutputSystemByPackPqControlsAzureLogs$outboundSchema
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsAzureLogs$outboundSchema
+  ).optional(),
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
   keypairSecret: z.string().optional(),
@@ -6691,6 +7029,7 @@ export type CreateOutputSystemByPackRequestBody$Outbound =
   | CreateOutputSystemByPackOutputCriblLake$Outbound
   | CreateOutputSystemByPackOutputDiskSpool$Outbound
   | CreateOutputSystemByPackOutputClickHouse$Outbound
+  | CreateOutputSystemByPackOutputLocalSearchStorage$Outbound
   | CreateOutputSystemByPackOutputXsiam$Outbound
   | CreateOutputSystemByPackOutputNetflow$Outbound
   | CreateOutputSystemByPackOutputDynatraceHttp$Outbound
@@ -6724,7 +7063,7 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateOutputSystemByPackOutputAzureBlob$outboundSchema),
   z.lazy(() => CreateOutputSystemByPackOutputAzureDataExplorer$outboundSchema),
   z.lazy(() => CreateOutputSystemByPackOutputAzureLogs$outboundSchema),
-  CreateOutputSystemByPackOutputKinesis$outboundSchema,
+  z.lazy(() => CreateOutputSystemByPackOutputKinesis$outboundSchema),
   CreateOutputSystemByPackOutputHoneycomb$outboundSchema,
   CreateOutputSystemByPackOutputAzureEventhub$outboundSchema,
   CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema,
@@ -6770,6 +7109,7 @@ export const CreateOutputSystemByPackRequestBody$outboundSchema: z.ZodType<
   CreateOutputSystemByPackOutputCriblLake$outboundSchema,
   CreateOutputSystemByPackOutputDiskSpool$outboundSchema,
   CreateOutputSystemByPackOutputClickHouse$outboundSchema,
+  CreateOutputSystemByPackOutputLocalSearchStorage$outboundSchema,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
   CreateOutputSystemByPackOutputNetflow$outboundSchema,
   CreateOutputSystemByPackOutputDynatraceHttp$outboundSchema,
@@ -6858,6 +7198,7 @@ export type CreateOutputSystemByPackRequest$Outbound = {
     | CreateOutputSystemByPackOutputCriblLake$Outbound
     | CreateOutputSystemByPackOutputDiskSpool$Outbound
     | CreateOutputSystemByPackOutputClickHouse$Outbound
+    | CreateOutputSystemByPackOutputLocalSearchStorage$Outbound
     | CreateOutputSystemByPackOutputXsiam$Outbound
     | CreateOutputSystemByPackOutputNetflow$Outbound
     | CreateOutputSystemByPackOutputDynatraceHttp$Outbound
@@ -6896,7 +7237,7 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
       CreateOutputSystemByPackOutputAzureDataExplorer$outboundSchema
     ),
     z.lazy(() => CreateOutputSystemByPackOutputAzureLogs$outboundSchema),
-    CreateOutputSystemByPackOutputKinesis$outboundSchema,
+    z.lazy(() => CreateOutputSystemByPackOutputKinesis$outboundSchema),
     CreateOutputSystemByPackOutputHoneycomb$outboundSchema,
     CreateOutputSystemByPackOutputAzureEventhub$outboundSchema,
     CreateOutputSystemByPackOutputGoogleChronicle$outboundSchema,
@@ -6942,6 +7283,7 @@ export const CreateOutputSystemByPackRequest$outboundSchema: z.ZodType<
     CreateOutputSystemByPackOutputCriblLake$outboundSchema,
     CreateOutputSystemByPackOutputDiskSpool$outboundSchema,
     CreateOutputSystemByPackOutputClickHouse$outboundSchema,
+    CreateOutputSystemByPackOutputLocalSearchStorage$outboundSchema,
     CreateOutputSystemByPackOutputXsiam$outboundSchema,
     CreateOutputSystemByPackOutputNetflow$outboundSchema,
     CreateOutputSystemByPackOutputDynatraceHttp$outboundSchema,

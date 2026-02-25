@@ -668,6 +668,18 @@ const value: operations.CreateOutputOutputClickHouse = {
 };
 ```
 
+### `operations.CreateOutputOutputLocalSearchStorage`
+
+```typescript
+const value: operations.CreateOutputOutputLocalSearchStorage = {
+  id: "<id>",
+  type: "local_search_storage",
+  url: "https://gloomy-march.biz",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
 ### `operations.CreateOutputOutputXsiam`
 
 ```typescript
