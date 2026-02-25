@@ -92,7 +92,8 @@ Add the following server definition to your `claude_desktop_config.json` file:
         "--bearer-auth", "...",
         "--client-id", "...",
         "--client-secret", "...",
-        "--token-url", "..."
+        "--token-url", "...",
+        "--audience", "..."
       ]
     }
   }
@@ -119,7 +120,8 @@ Create a `.cursor/mcp.json` file in your project root with the following content
         "--bearer-auth", "...",
         "--client-id", "...",
         "--client-secret", "...",
-        "--token-url", "..."
+        "--token-url", "...",
+        "--audience", "..."
       ]
     }
   }

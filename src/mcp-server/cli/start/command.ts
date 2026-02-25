@@ -69,6 +69,14 @@ export const startCommand = buildCommand({
             .parse(value);
         },
       },
+      audience: {
+        kind: "parsed",
+        brief: "Sets the audience auth field for the API",
+        optional: true,
+        parse: (value) => {
+          return z.string().parse(value);
+        },
+      },
       "server-url": {
         kind: "parsed",
         brief: "Overrides the default server URL used by the SDK",

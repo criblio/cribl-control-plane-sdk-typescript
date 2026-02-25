@@ -21,6 +21,7 @@ interface StartCommandFlags {
   readonly "client-id"?: string | undefined;
   readonly "client-secret"?: string | undefined;
   readonly "token-url": string;
+  readonly audience?: string | undefined;
   readonly "server-url": string;
   readonly "server-index"?: SDKOptions["serverIdx"];
   readonly "log-level": ConsoleLoggerLevel;
@@ -54,6 +55,7 @@ async function startStdio(flags: StartCommandFlags) {
       bearerAuth: flags["bearer-auth"] ?? "",
       clientOauth: flags["client-id"] != null && flags["client-secret"] != null
         ? {
+          audience: flags["audience"] ?? "https://api.cribl.cloud",
           clientID: flags["client-id"],
           clientSecret: flags["client-secret"],
           tokenURL: flags["token-url"],
@@ -83,6 +85,7 @@ async function startSSE(flags: StartCommandFlags) {
       bearerAuth: flags["bearer-auth"] ?? "",
       clientOauth: flags["client-id"] != null && flags["client-secret"] != null
         ? {
+          audience: flags["audience"] ?? "https://api.cribl.cloud",
           clientID: flags["client-id"],
           clientSecret: flags["client-secret"],
           tokenURL: flags["token-url"],
