@@ -3,373 +3,313 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
-import { discriminatedUnion } from "../types/discriminatedUnion.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   InputAppscope,
-  InputAppscope$inboundSchema,
   InputAppscope$Outbound,
   InputAppscope$outboundSchema,
 } from "./inputappscope.js";
 import {
   InputAzureBlob,
-  InputAzureBlob$inboundSchema,
   InputAzureBlob$Outbound,
   InputAzureBlob$outboundSchema,
 } from "./inputazureblob.js";
 import {
   InputCloudflareHec,
-  InputCloudflareHec$inboundSchema,
   InputCloudflareHec$Outbound,
   InputCloudflareHec$outboundSchema,
 } from "./inputcloudflarehec.js";
 import {
   InputCollection,
-  InputCollection$inboundSchema,
   InputCollection$Outbound,
   InputCollection$outboundSchema,
 } from "./inputcollection.js";
 import {
   InputConfluentCloud,
-  InputConfluentCloud$inboundSchema,
   InputConfluentCloud$Outbound,
   InputConfluentCloud$outboundSchema,
 } from "./inputconfluentcloud.js";
 import {
   InputCribl,
-  InputCribl$inboundSchema,
   InputCribl$Outbound,
   InputCribl$outboundSchema,
 } from "./inputcribl.js";
 import {
   InputCriblHttp,
-  InputCriblHttp$inboundSchema,
   InputCriblHttp$Outbound,
   InputCriblHttp$outboundSchema,
 } from "./inputcriblhttp.js";
 import {
   InputCriblLakeHttp,
-  InputCriblLakeHttp$inboundSchema,
   InputCriblLakeHttp$Outbound,
   InputCriblLakeHttp$outboundSchema,
 } from "./inputcribllakehttp.js";
 import {
   InputCriblmetrics,
-  InputCriblmetrics$inboundSchema,
   InputCriblmetrics$Outbound,
   InputCriblmetrics$outboundSchema,
 } from "./inputcriblmetrics.js";
 import {
   InputCriblTcp,
-  InputCriblTcp$inboundSchema,
   InputCriblTcp$Outbound,
   InputCriblTcp$outboundSchema,
 } from "./inputcribltcp.js";
 import {
   InputCrowdstrike,
-  InputCrowdstrike$inboundSchema,
   InputCrowdstrike$Outbound,
   InputCrowdstrike$outboundSchema,
 } from "./inputcrowdstrike.js";
 import {
   InputDatadogAgent,
-  InputDatadogAgent$inboundSchema,
   InputDatadogAgent$Outbound,
   InputDatadogAgent$outboundSchema,
 } from "./inputdatadogagent.js";
 import {
   InputDatagen,
-  InputDatagen$inboundSchema,
   InputDatagen$Outbound,
   InputDatagen$outboundSchema,
 } from "./inputdatagen.js";
 import {
   InputEdgePrometheus,
-  InputEdgePrometheus$inboundSchema,
   InputEdgePrometheus$Outbound,
   InputEdgePrometheus$outboundSchema,
 } from "./inputedgeprometheus.js";
 import {
   InputElastic,
-  InputElastic$inboundSchema,
   InputElastic$Outbound,
   InputElastic$outboundSchema,
 } from "./inputelastic.js";
 import {
   InputEventhub,
-  InputEventhub$inboundSchema,
   InputEventhub$Outbound,
   InputEventhub$outboundSchema,
 } from "./inputeventhub.js";
 import {
   InputExec,
-  InputExec$inboundSchema,
   InputExec$Outbound,
   InputExec$outboundSchema,
 } from "./inputexec.js";
 import {
   InputFile,
-  InputFile$inboundSchema,
   InputFile$Outbound,
   InputFile$outboundSchema,
 } from "./inputfile.js";
 import {
   InputFirehose,
-  InputFirehose$inboundSchema,
   InputFirehose$Outbound,
   InputFirehose$outboundSchema,
 } from "./inputfirehose.js";
 import {
   InputGooglePubsub,
-  InputGooglePubsub$inboundSchema,
   InputGooglePubsub$Outbound,
   InputGooglePubsub$outboundSchema,
 } from "./inputgooglepubsub.js";
 import {
   InputGrafana,
-  InputGrafana$inboundSchema,
   InputGrafana$Outbound,
   InputGrafana$outboundSchema,
 } from "./inputgrafana.js";
 import {
   InputHttp,
-  InputHttp$inboundSchema,
   InputHttp$Outbound,
   InputHttp$outboundSchema,
 } from "./inputhttp.js";
 import {
   InputHttpRaw,
-  InputHttpRaw$inboundSchema,
   InputHttpRaw$Outbound,
   InputHttpRaw$outboundSchema,
 } from "./inputhttpraw.js";
 import {
   InputJournalFiles,
-  InputJournalFiles$inboundSchema,
   InputJournalFiles$Outbound,
   InputJournalFiles$outboundSchema,
 } from "./inputjournalfiles.js";
 import {
   InputKafka,
-  InputKafka$inboundSchema,
   InputKafka$Outbound,
   InputKafka$outboundSchema,
 } from "./inputkafka.js";
 import {
   InputKinesis,
-  InputKinesis$inboundSchema,
   InputKinesis$Outbound,
   InputKinesis$outboundSchema,
 } from "./inputkinesis.js";
 import {
   InputKubeEvents,
-  InputKubeEvents$inboundSchema,
   InputKubeEvents$Outbound,
   InputKubeEvents$outboundSchema,
 } from "./inputkubeevents.js";
 import {
   InputKubeLogs,
-  InputKubeLogs$inboundSchema,
   InputKubeLogs$Outbound,
   InputKubeLogs$outboundSchema,
 } from "./inputkubelogs.js";
 import {
   InputKubeMetrics,
-  InputKubeMetrics$inboundSchema,
   InputKubeMetrics$Outbound,
   InputKubeMetrics$outboundSchema,
 } from "./inputkubemetrics.js";
 import {
   InputLoki,
-  InputLoki$inboundSchema,
   InputLoki$Outbound,
   InputLoki$outboundSchema,
 } from "./inputloki.js";
 import {
   InputMetrics,
-  InputMetrics$inboundSchema,
   InputMetrics$Outbound,
   InputMetrics$outboundSchema,
 } from "./inputmetrics.js";
 import {
   InputModelDrivenTelemetry,
-  InputModelDrivenTelemetry$inboundSchema,
   InputModelDrivenTelemetry$Outbound,
   InputModelDrivenTelemetry$outboundSchema,
 } from "./inputmodeldriventelemetry.js";
 import {
   InputMsk,
-  InputMsk$inboundSchema,
   InputMsk$Outbound,
   InputMsk$outboundSchema,
 } from "./inputmsk.js";
 import {
   InputNetflow,
-  InputNetflow$inboundSchema,
   InputNetflow$Outbound,
   InputNetflow$outboundSchema,
 } from "./inputnetflow.js";
 import {
   InputOffice365Mgmt,
-  InputOffice365Mgmt$inboundSchema,
   InputOffice365Mgmt$Outbound,
   InputOffice365Mgmt$outboundSchema,
 } from "./inputoffice365mgmt.js";
 import {
   InputOffice365MsgTrace,
-  InputOffice365MsgTrace$inboundSchema,
   InputOffice365MsgTrace$Outbound,
   InputOffice365MsgTrace$outboundSchema,
 } from "./inputoffice365msgtrace.js";
 import {
   InputOffice365Service,
-  InputOffice365Service$inboundSchema,
   InputOffice365Service$Outbound,
   InputOffice365Service$outboundSchema,
 } from "./inputoffice365service.js";
 import {
+  InputOpenaiInput,
+  InputOpenaiInput$Outbound,
+  InputOpenaiInput$outboundSchema,
+} from "./inputopenai.js";
+import {
   InputOpenTelemetry,
-  InputOpenTelemetry$inboundSchema,
   InputOpenTelemetry$Outbound,
   InputOpenTelemetry$outboundSchema,
 } from "./inputopentelemetry.js";
 import {
   InputPrometheus,
-  InputPrometheus$inboundSchema,
   InputPrometheus$Outbound,
   InputPrometheus$outboundSchema,
 } from "./inputprometheus.js";
 import {
   InputPrometheusRw,
-  InputPrometheusRw$inboundSchema,
   InputPrometheusRw$Outbound,
   InputPrometheusRw$outboundSchema,
 } from "./inputprometheusrw.js";
 import {
   InputRawUdp,
-  InputRawUdp$inboundSchema,
   InputRawUdp$Outbound,
   InputRawUdp$outboundSchema,
 } from "./inputrawudp.js";
 import {
   InputS3,
-  InputS3$inboundSchema,
   InputS3$Outbound,
   InputS3$outboundSchema,
 } from "./inputs3.js";
 import {
   InputS3Inventory,
-  InputS3Inventory$inboundSchema,
   InputS3Inventory$Outbound,
   InputS3Inventory$outboundSchema,
 } from "./inputs3inventory.js";
 import {
   InputSecurityLake,
-  InputSecurityLake$inboundSchema,
   InputSecurityLake$Outbound,
   InputSecurityLake$outboundSchema,
 } from "./inputsecuritylake.js";
 import {
   InputSnmp,
-  InputSnmp$inboundSchema,
   InputSnmp$Outbound,
   InputSnmp$outboundSchema,
 } from "./inputsnmp.js";
 import {
   InputSplunk,
-  InputSplunk$inboundSchema,
   InputSplunk$Outbound,
   InputSplunk$outboundSchema,
 } from "./inputsplunk.js";
 import {
   InputSplunkHec,
-  InputSplunkHec$inboundSchema,
   InputSplunkHec$Outbound,
   InputSplunkHec$outboundSchema,
 } from "./inputsplunkhec.js";
 import {
   InputSplunkSearch,
-  InputSplunkSearch$inboundSchema,
   InputSplunkSearch$Outbound,
   InputSplunkSearch$outboundSchema,
 } from "./inputsplunksearch.js";
 import {
   InputSqs,
-  InputSqs$inboundSchema,
   InputSqs$Outbound,
   InputSqs$outboundSchema,
 } from "./inputsqs.js";
 import {
   InputSyslog,
-  InputSyslog$inboundSchema,
   InputSyslog$Outbound,
   InputSyslog$outboundSchema,
 } from "./inputsyslog.js";
 import {
   InputSystemMetrics,
-  InputSystemMetrics$inboundSchema,
   InputSystemMetrics$Outbound,
   InputSystemMetrics$outboundSchema,
 } from "./inputsystemmetrics.js";
 import {
   InputSystemState,
-  InputSystemState$inboundSchema,
   InputSystemState$Outbound,
   InputSystemState$outboundSchema,
 } from "./inputsystemstate.js";
 import {
   InputTcp,
-  InputTcp$inboundSchema,
   InputTcp$Outbound,
   InputTcp$outboundSchema,
 } from "./inputtcp.js";
 import {
   InputTcpjson,
-  InputTcpjson$inboundSchema,
   InputTcpjson$Outbound,
   InputTcpjson$outboundSchema,
 } from "./inputtcpjson.js";
 import {
   InputWef,
-  InputWef$inboundSchema,
   InputWef$Outbound,
   InputWef$outboundSchema,
 } from "./inputwef.js";
 import {
   InputWindowsMetrics,
-  InputWindowsMetrics$inboundSchema,
   InputWindowsMetrics$Outbound,
   InputWindowsMetrics$outboundSchema,
 } from "./inputwindowsmetrics.js";
 import {
   InputWinEventLogs,
-  InputWinEventLogs$inboundSchema,
   InputWinEventLogs$Outbound,
   InputWinEventLogs$outboundSchema,
 } from "./inputwineventlogs.js";
 import {
   InputWiz,
-  InputWiz$inboundSchema,
   InputWiz$Outbound,
   InputWiz$outboundSchema,
 } from "./inputwiz.js";
 import {
   InputWizWebhook,
-  InputWizWebhook$inboundSchema,
   InputWizWebhook$Outbound,
   InputWizWebhook$outboundSchema,
 } from "./inputwizwebhook.js";
 import {
   InputZscalerHec,
-  InputZscalerHec$inboundSchema,
   InputZscalerHec$Outbound,
   InputZscalerHec$outboundSchema,
 } from "./inputzscalerhec.js";
 
-export type Input =
+export type Input2 =
   | InputCollection
   | InputKafka
   | InputMsk
@@ -425,85 +365,15 @@ export type Input =
   | InputRawUdp
   | InputJournalFiles
   | InputWiz
+  | InputOpenaiInput
   | InputWizWebhook
   | InputNetflow
   | InputSecurityLake
   | InputZscalerHec
-  | InputCloudflareHec
-  | discriminatedUnionTypes.Unknown<"type">;
+  | InputCloudflareHec;
 
 /** @internal */
-export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> =
-  discriminatedUnion("type", {
-    collection: InputCollection$inboundSchema,
-    kafka: InputKafka$inboundSchema,
-    msk: InputMsk$inboundSchema,
-    http: InputHttp$inboundSchema,
-    splunk: InputSplunk$inboundSchema,
-    splunk_search: InputSplunkSearch$inboundSchema,
-    splunk_hec: InputSplunkHec$inboundSchema.and(
-      z.object({ type: z.literal("splunk_hec") }),
-    ),
-    azure_blob: InputAzureBlob$inboundSchema,
-    elastic: InputElastic$inboundSchema,
-    confluent_cloud: InputConfluentCloud$inboundSchema,
-    grafana: InputGrafana$inboundSchema.and(
-      z.object({ type: z.literal("grafana") }),
-    ),
-    loki: InputLoki$inboundSchema,
-    prometheus_rw: InputPrometheusRw$inboundSchema,
-    prometheus: InputPrometheus$inboundSchema,
-    edge_prometheus: InputEdgePrometheus$inboundSchema,
-    office365_mgmt: InputOffice365Mgmt$inboundSchema,
-    office365_service: InputOffice365Service$inboundSchema,
-    office365_msg_trace: InputOffice365MsgTrace$inboundSchema,
-    eventhub: InputEventhub$inboundSchema,
-    exec: InputExec$inboundSchema,
-    firehose: InputFirehose$inboundSchema,
-    google_pubsub: InputGooglePubsub$inboundSchema,
-    cribl: InputCribl$inboundSchema,
-    cribl_tcp: InputCriblTcp$inboundSchema,
-    cribl_http: InputCriblHttp$inboundSchema,
-    cribl_lake_http: InputCriblLakeHttp$inboundSchema,
-    tcpjson: InputTcpjson$inboundSchema,
-    system_metrics: InputSystemMetrics$inboundSchema,
-    system_state: InputSystemState$inboundSchema,
-    kube_metrics: InputKubeMetrics$inboundSchema,
-    kube_logs: InputKubeLogs$inboundSchema,
-    kube_events: InputKubeEvents$inboundSchema,
-    windows_metrics: InputWindowsMetrics$inboundSchema,
-    crowdstrike: InputCrowdstrike$inboundSchema,
-    datadog_agent: InputDatadogAgent$inboundSchema,
-    datagen: InputDatagen$inboundSchema,
-    http_raw: InputHttpRaw$inboundSchema,
-    kinesis: InputKinesis$inboundSchema,
-    criblmetrics: InputCriblmetrics$inboundSchema,
-    metrics: InputMetrics$inboundSchema,
-    s3: InputS3$inboundSchema,
-    s3_inventory: InputS3Inventory$inboundSchema,
-    snmp: InputSnmp$inboundSchema,
-    open_telemetry: InputOpenTelemetry$inboundSchema,
-    model_driven_telemetry: InputModelDrivenTelemetry$inboundSchema,
-    sqs: InputSqs$inboundSchema,
-    syslog: InputSyslog$inboundSchema.and(
-      z.object({ type: z.literal("syslog") }),
-    ),
-    file: InputFile$inboundSchema,
-    tcp: InputTcp$inboundSchema,
-    appscope: InputAppscope$inboundSchema,
-    wef: InputWef$inboundSchema,
-    win_event_logs: InputWinEventLogs$inboundSchema,
-    raw_udp: InputRawUdp$inboundSchema,
-    journal_files: InputJournalFiles$inboundSchema,
-    wiz: InputWiz$inboundSchema,
-    wiz_webhook: InputWizWebhook$inboundSchema,
-    netflow: InputNetflow$inboundSchema,
-    security_lake: InputSecurityLake$inboundSchema,
-    zscaler_hec: InputZscalerHec$inboundSchema,
-    cloudflare_hec: InputCloudflareHec$inboundSchema,
-  });
-/** @internal */
-export type Input$Outbound =
+export type Input2$Outbound =
   | InputCollection$Outbound
   | InputKafka$Outbound
   | InputMsk$Outbound
@@ -559,6 +429,7 @@ export type Input$Outbound =
   | InputRawUdp$Outbound
   | InputJournalFiles$Outbound
   | InputWiz$Outbound
+  | InputOpenaiInput$Outbound
   | InputWizWebhook$Outbound
   | InputNetflow$Outbound
   | InputSecurityLake$Outbound
@@ -566,10 +437,10 @@ export type Input$Outbound =
   | InputCloudflareHec$Outbound;
 
 /** @internal */
-export const Input$outboundSchema: z.ZodType<
-  Input$Outbound,
+export const Input2$outboundSchema: z.ZodType<
+  Input2$Outbound,
   z.ZodTypeDef,
-  Input
+  Input2
 > = z.union([
   InputCollection$outboundSchema,
   InputKafka$outboundSchema,
@@ -628,6 +499,7 @@ export const Input$outboundSchema: z.ZodType<
   InputRawUdp$outboundSchema,
   InputJournalFiles$outboundSchema,
   InputWiz$outboundSchema,
+  InputOpenaiInput$outboundSchema,
   InputWizWebhook$outboundSchema,
   InputNetflow$outboundSchema,
   InputSecurityLake$outboundSchema,
@@ -635,15 +507,6 @@ export const Input$outboundSchema: z.ZodType<
   InputCloudflareHec$outboundSchema,
 ]);
 
-export function inputToJSON(input: Input): string {
-  return JSON.stringify(Input$outboundSchema.parse(input));
-}
-export function inputFromJSON(
-  jsonString: string,
-): SafeParseResult<Input, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Input$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Input' from JSON`,
-  );
+export function input2ToJSON(input2: Input2): string {
+  return JSON.stringify(Input2$outboundSchema.parse(input2));
 }

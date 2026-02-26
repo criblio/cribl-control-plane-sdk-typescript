@@ -39,7 +39,7 @@ import {
   RetryRulesType$outboundSchema,
 } from "./retryrulestype.js";
 
-export type ManageState = {};
+export type InputWizManageState = {};
 
 /**
  * Collector runtime log level
@@ -75,7 +75,7 @@ export type InputWizContentConfig = {
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
-  manageState?: ManageState | undefined;
+  manageState?: InputWizManageState | undefined;
   /**
    * Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
    */
@@ -208,31 +208,35 @@ export type InputWiz = {
 };
 
 /** @internal */
-export const ManageState$inboundSchema: z.ZodType<
-  ManageState,
+export const InputWizManageState$inboundSchema: z.ZodType<
+  InputWizManageState,
   z.ZodTypeDef,
   unknown
 > = z.object({});
 /** @internal */
-export type ManageState$Outbound = {};
+export type InputWizManageState$Outbound = {};
 
 /** @internal */
-export const ManageState$outboundSchema: z.ZodType<
-  ManageState$Outbound,
+export const InputWizManageState$outboundSchema: z.ZodType<
+  InputWizManageState$Outbound,
   z.ZodTypeDef,
-  ManageState
+  InputWizManageState
 > = z.object({});
 
-export function manageStateToJSON(manageState: ManageState): string {
-  return JSON.stringify(ManageState$outboundSchema.parse(manageState));
+export function inputWizManageStateToJSON(
+  inputWizManageState: InputWizManageState,
+): string {
+  return JSON.stringify(
+    InputWizManageState$outboundSchema.parse(inputWizManageState),
+  );
 }
-export function manageStateFromJSON(
+export function inputWizManageStateFromJSON(
   jsonString: string,
-): SafeParseResult<ManageState, SDKValidationError> {
+): SafeParseResult<InputWizManageState, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ManageState$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ManageState' from JSON`,
+    (x) => InputWizManageState$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWizManageState' from JSON`,
   );
 }
 
@@ -261,7 +265,7 @@ export const InputWizContentConfig$inboundSchema: z.ZodType<
   stateTracking: types.optional(types.boolean()),
   stateUpdateExpression: types.optional(types.string()),
   stateMergeExpression: types.optional(types.string()),
-  manageState: types.optional(z.lazy(() => ManageState$inboundSchema)),
+  manageState: types.optional(z.lazy(() => InputWizManageState$inboundSchema)),
   contentQuery: types.string(),
   cronSchedule: types.string(),
   earliest: types.string(),
@@ -278,7 +282,7 @@ export type InputWizContentConfig$Outbound = {
   stateTracking?: boolean | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
-  manageState?: ManageState$Outbound | undefined;
+  manageState?: InputWizManageState$Outbound | undefined;
   contentQuery: string;
   cronSchedule: string;
   earliest: string;
@@ -300,7 +304,7 @@ export const InputWizContentConfig$outboundSchema: z.ZodType<
   stateTracking: z.boolean().optional(),
   stateUpdateExpression: z.string().optional(),
   stateMergeExpression: z.string().optional(),
-  manageState: z.lazy(() => ManageState$outboundSchema).optional(),
+  manageState: z.lazy(() => InputWizManageState$outboundSchema).optional(),
   contentQuery: z.string(),
   cronSchedule: z.string(),
   earliest: z.string(),

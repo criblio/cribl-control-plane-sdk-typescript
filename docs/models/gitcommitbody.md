@@ -1,11 +1,11 @@
-# GitCommitParams
+# GitCommitBody
 
 ## Example Usage
 
 ```typescript
-import { GitCommitParams } from "cribl-control-plane/models";
+import { GitCommitBody } from "cribl-control-plane/models";
 
-let value: GitCommitParams = {
+let value: GitCommitBody = {
   message: "<value>",
 };
 ```
@@ -16,5 +16,4 @@ let value: GitCommitParams = {
 | ------------------ | ------------------ | ------------------ | ------------------ |
 | `effective`        | *boolean*          | :heavy_minus_sign: | N/A                |
 | `files`            | *string*[]         | :heavy_minus_sign: | N/A                |
-| `group`            | *string*           | :heavy_minus_sign: | N/A                |
 | `message`          | *string*           | :heavy_check_mark: | N/A                |

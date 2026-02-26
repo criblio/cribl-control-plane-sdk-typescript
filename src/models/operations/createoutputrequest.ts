@@ -168,10 +168,9 @@ import {
   CreateOutputOutputXsiam,
   CreateOutputOutputXsiam$Outbound,
   CreateOutputOutputXsiam$outboundSchema,
-  CreateOutputPqControlsKinesis,
-  CreateOutputPqControlsKinesis$Outbound,
-  CreateOutputPqControlsKinesis$outboundSchema,
-} from "./createoutputpqcontrolskinesis.js";
+} from "./createoutputcompression.js";
+
+export type CreateOutputPqControlsKinesis = {};
 
 export type CreateOutputOutputKinesis = {
   /**
@@ -3951,6 +3950,26 @@ export type CreateOutputRequest =
   | CreateOutputOutputCloudflareR2;
 
 /** @internal */
+export type CreateOutputPqControlsKinesis$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsKinesis$outboundSchema: z.ZodType<
+  CreateOutputPqControlsKinesis$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsKinesis
+> = z.object({});
+
+export function createOutputPqControlsKinesisToJSON(
+  createOutputPqControlsKinesis: CreateOutputPqControlsKinesis,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsKinesis$outboundSchema.parse(
+      createOutputPqControlsKinesis,
+    ),
+  );
+}
+
+/** @internal */
 export type CreateOutputOutputKinesis$Outbound = {
   id: string;
   type: "kinesis";
@@ -4045,7 +4064,8 @@ export const CreateOutputOutputKinesis$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: CreateOutputPqControlsKinesis$outboundSchema.optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsKinesis$outboundSchema)
+    .optional(),
   __template_streamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),

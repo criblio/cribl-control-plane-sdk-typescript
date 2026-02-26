@@ -1,11 +1,11 @@
-# ManageState
+# CreateInputManageStateWiz
 
 ## Example Usage
 
 ```typescript
-import { ManageState } from "cribl-control-plane/models";
+import { CreateInputManageStateWiz } from "cribl-control-plane/models/operations";
 
-let value: ManageState = {};
+let value: CreateInputManageStateWiz = {};
 ```
 
 ## Fields

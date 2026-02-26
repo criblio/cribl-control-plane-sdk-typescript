@@ -1,11 +1,11 @@
-# StatsDestinationType
+# StatsDestination
 
 ## Example Usage
 
 ```typescript
-import { StatsDestinationType } from "cribl-control-plane/models";
+import { StatsDestination } from "cribl-control-plane/models";
 
-let value: StatsDestinationType = {};
+let value: StatsDestination = {};
 ```
 
 ## Fields

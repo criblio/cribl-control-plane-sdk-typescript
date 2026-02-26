@@ -52,12 +52,6 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  StatsDestinationType,
-  StatsDestinationType$inboundSchema,
-  StatsDestinationType$Outbound,
-  StatsDestinationType$outboundSchema,
-} from "./statsdestinationtype.js";
-import {
   TimeoutRetrySettingsType,
   TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
@@ -231,7 +225,6 @@ export type OutputClickHouse = {
    * Log the most recent event that fails to match the table schema
    */
   dumpFormatErrorsToDisk?: boolean | undefined;
-  statsDestination?: StatsDestinationType | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -462,7 +455,6 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
   dumpFormatErrorsToDisk: types.optional(types.boolean()),
-  statsDestination: types.optional(StatsDestinationType$inboundSchema),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
   description: types.optional(types.string()),
   username: types.optional(types.string()),
@@ -525,7 +517,6 @@ export type OutputClickHouse$Outbound = {
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
   dumpFormatErrorsToDisk?: boolean | undefined;
-  statsDestination?: StatsDestinationType$Outbound | undefined;
   onBackpressure?: string | undefined;
   description?: string | undefined;
   username?: string | undefined;
@@ -590,7 +581,6 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   dumpFormatErrorsToDisk: z.boolean().optional(),
-  statsDestination: StatsDestinationType$outboundSchema.optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
   description: z.string().optional(),
   username: z.string().optional(),

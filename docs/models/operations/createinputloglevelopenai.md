@@ -1,13 +1,13 @@
-# CreateInputContentConfigLogLevel
+# CreateInputLogLevelOpenai
 
-Collector runtime log level
+Collector runtime log level.
 
 ## Example Usage
 
 ```typescript
-import { CreateInputContentConfigLogLevel } from "cribl-control-plane/models/operations";
+import { CreateInputLogLevelOpenai } from "cribl-control-plane/models/operations";
 
-let value: CreateInputContentConfigLogLevel = "info";
+let value: CreateInputLogLevelOpenai = "info";
 ```
 
 ## Values
