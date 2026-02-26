@@ -6,86 +6,11 @@
 import { OutputSentinel } from "cribl-control-plane/models";
 
 let value: OutputSentinel = {
-  id: "<id>",
   type: "sentinel",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  keepAlive: false,
-  concurrency: 5626.04,
-  maxPayloadSizeKB: 5196.64,
-  maxPayloadEvents: 6024.92,
-  compress: false,
-  rejectUnauthorized: true,
-  timeoutSec: 9560.32,
-  flushPeriodSec: 2262.75,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: false,
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "queue",
-  authType: "oauth",
-  loginUrl: "https://authentic-gloom.info/",
+  loginUrl: "https://extra-large-obesity.name",
   secret: "<value>",
   client_id: "<id>",
-  scope: "<value>",
   endpointURLConfiguration: "ID",
-  totalMemoryLimitKB: 4418.4,
-  description: "trouser including zowie along ew to instead common",
-  format: "advanced",
-  customSourceExpression: "<value>",
-  customDropWhenNull: true,
-  customEventDelimiter: "<value>",
-  customContentType: "<value>",
-  customPayloadExpression: "<value>",
-  advancedContentType: "<value>",
-  formatEventCode: "<value>",
-  formatPayloadCode: "<value>",
-  pqStrictOrdering: true,
-  pqRatePerSec: 9122.18,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 6032.63,
-  pqMaxBackpressureSec: 192.61,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
-  url: "https://elegant-scenario.biz/",
-  dcrID: "<id>",
-  dceEndpoint: "<value>",
-  streamName: "<value>",
 };
 ```
 
@@ -147,3 +72,11 @@ let value: OutputSentinel = {
 | `dcrID`                                                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Immutable ID for the Data Collection Rule (DCR)                                                                                                                                                                                                                                                                                                                           |
 | `dceEndpoint`                                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Data collection endpoint (DCE) URL. In the format: `https://<Endpoint-Name>-<Identifier>.<Region>.ingest.monitor.azure.com`                                                                                                                                                                                                                                               |
 | `streamName`                                                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | The name of the stream (Sentinel table) in which to store the events                                                                                                                                                                                                                                                                                                      |
+| `templateLoginUrl`                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.                                                                                                                                                                             |
+| `templateSecret`                                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.                                                                                                                                                                                 |
+| `templateClientId`                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Binds 'client_id' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'client_id' at runtime.                                                                                                                                                                           |
+| `templateScope`                                                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.                                                                                                                                                                                   |
+| `templateUrl`                                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.                                                                                                                                                                                       |
+| `templateDcrID`                                                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Binds 'dcrID' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dcrID' at runtime.                                                                                                                                                                                   |
+| `templateDceEndpoint`                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Binds 'dceEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dceEndpoint' at runtime.                                                                                                                                                                       |
+| `templateStreamName`                                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.                                                                                                                                                                         |

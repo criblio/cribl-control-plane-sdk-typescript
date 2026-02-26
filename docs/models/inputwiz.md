@@ -6,67 +6,11 @@
 import { InputWiz } from "cribl-control-plane/models";
 
 let value: InputWiz = {
-  id: "<id>",
   type: "wiz",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
   endpoint: "<value>",
-  authUrl: "https://dependable-riser.name/",
-  authAudienceOverride: "<value>",
+  authUrl: "https://lone-cinder.name/",
   clientId: "<id>",
   contentConfig: [],
-  requestTimeout: 2735.91,
-  keepAliveTime: 4208.71,
-  maxMissedKeepAlives: 632.03,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    type: "<value>",
-    interval: 376.03,
-    limit: 6996.29,
-    multiplier: 5006.8,
-    codes: [
-      2139.95,
-      9559.24,
-      6726.47,
-    ],
-    enableHeader: false,
-    retryConnectTimeout: true,
-    retryConnectReset: false,
-  },
-  authType: "manual",
-  description: "stark cannibalise flint fumigate",
-  clientSecret: "<value>",
-  textSecret: "<value>",
 };
 ```
 
@@ -94,9 +38,12 @@ let value: InputWiz = {
 | `maxMissedKeepAlives`                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.                                                                                                                                      |
 | `ttl`                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.                                                                                                              |
 | `ignoreGroupJobsLimit`                                                                                                                                                                                                                       | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.                                                     |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
 | `retryRules`                                                                                                                                                                                                                                 | [models.RetryRulesType](../models/retryrulestype.md)                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `authType`                                                                                                                                                                                                                                   | [models.AuthenticationMethodOptions1](../models/authenticationmethodoptions1.md)                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                           | Enter client secret directly, or select a stored secret                                                                                                                                                                                      |
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `clientSecret`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The client secret of the Wiz application                                                                                                                                                                                                     |
 | `textSecret`                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Select or create a stored text secret                                                                                                                                                                                                        |
+| `templateEndpoint`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.                                                |
+| `templateAuthUrl`                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'authUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authUrl' at runtime.                                                  |
+| `templateClientId`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.                                                |

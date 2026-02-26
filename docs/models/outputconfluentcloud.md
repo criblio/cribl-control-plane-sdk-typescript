@@ -6,117 +6,9 @@
 import { OutputConfluentCloud } from "cribl-control-plane/models";
 
 let value: OutputConfluentCloud = {
-  id: "<id>",
   type: "confluent_cloud",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  brokers: [
-    "<value 1>",
-  ],
-  tls: {
-    disabled: false,
-    rejectUnauthorized: true,
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.1",
-  },
+  brokers: [],
   topic: "<value>",
-  ack: -1,
-  format: "raw",
-  compression: "gzip",
-  maxRecordSizeKB: 7689.49,
-  flushEventCount: 4559.39,
-  flushPeriodSec: 7875.65,
-  kafkaSchemaRegistry: {
-    disabled: true,
-    schemaRegistryURL: "https://victorious-doing.com",
-    connectionTimeout: 7639.56,
-    requestTimeout: 2499.69,
-    maxRetries: 2532.45,
-    auth: {
-      disabled: false,
-      credentialsSecret: "<value>",
-    },
-    tls: {
-      disabled: false,
-      rejectUnauthorized: true,
-      servername: "<value>",
-      certificateName: "<value>",
-      caPath: "<value>",
-      privKeyPath: "<value>",
-      certPath: "<value>",
-      passphrase: "<value>",
-      minVersion: "TLSv1",
-      maxVersion: "TLSv1.1",
-    },
-    defaultKeySchemaId: 8554.22,
-    defaultValueSchemaId: 4553.76,
-  },
-  connectionTimeout: 188.93,
-  requestTimeout: 3929.17,
-  maxRetries: 3193.47,
-  maxBackOff: 9204.12,
-  initialBackoff: 3386.08,
-  backoffRate: 6593.73,
-  authenticationTimeout: 1413.26,
-  reauthenticationThreshold: 3058.96,
-  sasl: {
-    disabled: true,
-    username: "Mertie.Abbott",
-    password: "pD36Q7Bu1OSy91K",
-    authType: "manual",
-    credentialsSecret: "<value>",
-    mechanism: "kerberos",
-    keytabLocation: "<value>",
-    principal: "<value>",
-    brokerServiceClass: "<value>",
-    oauthEnabled: false,
-    tokenUrl: "https://victorious-tectonics.net",
-    clientId: "<id>",
-    oauthSecretType: "<value>",
-    clientTextSecret: "<value>",
-    oauthParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    saslExtensions: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
-  onBackpressure: "block",
-  description:
-    "via fledgling keel hello offensively bah duh geez upsell deflect",
-  protobufLibraryId: "<id>",
-  protobufEncodingId: "<id>",
-  pqStrictOrdering: false,
-  pqRatePerSec: 6864.77,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 2791.29,
-  pqMaxBackpressureSec: 2694.01,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "block",
-  pqControls: {},
 };
 ```
 
@@ -164,3 +56,4 @@ let value: OutputConfluentCloud = {
 | `pqCompress`                                                                                                                                                                                                                                                                                                                                                   | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                                    |
 | `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                                             | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                                          |
 | `pqControls`                                                                                                                                                                                                                                                                                                                                                   | [models.OutputConfluentCloudPqControls](../models/outputconfluentcloudpqcontrols.md)                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                                                                                                                            |
+| `templateTopic`                                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                             | Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.                                                                                                                                                                        |

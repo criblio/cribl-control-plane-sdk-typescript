@@ -6,7 +6,6 @@
 import { SslTypeSystemSettingsConfApi } from "cribl-control-plane/models";
 
 let value: SslTypeSystemSettingsConfApi = {
-  caPath: "<value>",
   certPath: "<value>",
   disabled: false,
   passphrase: "<value>",

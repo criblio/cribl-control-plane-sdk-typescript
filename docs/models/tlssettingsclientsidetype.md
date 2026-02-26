@@ -7,7 +7,6 @@ import { TlsSettingsClientSideType } from "cribl-control-plane/models";
 
 let value: TlsSettingsClientSideType = {
   disabled: false,
-  rejectUnauthorized: true,
 };
 ```
 

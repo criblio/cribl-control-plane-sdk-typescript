@@ -6,100 +6,7 @@
 import { InputWindowsMetrics } from "cribl-control-plane/models";
 
 let value: InputWindowsMetrics = {
-  id: "<id>",
   type: "windows_metrics",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  interval: 4147.56,
-  host: {
-    mode: "custom",
-    custom: {
-      system: {
-        mode: "basic",
-        detail: true,
-      },
-      cpu: {
-        mode: "custom",
-        perCpu: false,
-        detail: false,
-        time: true,
-      },
-      memory: {
-        mode: "all",
-        detail: false,
-      },
-      network: {
-        mode: "all",
-        detail: true,
-        protocols: true,
-        devices: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-        perInterface: true,
-      },
-      disk: {
-        mode: "custom",
-        perVolume: true,
-        detail: false,
-        volumes: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-      },
-    },
-  },
-  process: {
-    sets: [
-      {
-        name: "<value>",
-        filter: "<value>",
-        includeChildren: true,
-      },
-    ],
-  },
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  persistence: {
-    enable: false,
-    timeWindow: "<value>",
-    maxDataSize: "<value>",
-    maxDataTime: "<value>",
-    compress: "none",
-    destPath: "<value>",
-  },
-  disableNativeModule: true,
-  description:
-    "above commemorate quarrelsomely outrun independence kettledrum very along",
 };
 ```
 
@@ -120,7 +27,7 @@ let value: InputWindowsMetrics = {
 | `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time, in seconds, between consecutive metric collections. Default is 10 seconds.                                                                                                                                                             |
 | `host`                                                                                                                                                                                                                                       | [models.InputWindowsMetricsHost](../models/inputwindowsmetricshost.md)                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `process`                                                                                                                                                                                                                                    | [models.ProcessType](../models/processtype.md)                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
 | `persistence`                                                                                                                                                                                                                                | [models.InputWindowsMetricsPersistence](../models/inputwindowsmetricspersistence.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `disableNativeModule`                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)                                                                  |
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

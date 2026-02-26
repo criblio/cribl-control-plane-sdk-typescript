@@ -7,25 +7,17 @@ import { FunctionClone } from "cribl-control-plane/models";
 
 let value: FunctionClone = {
   __filename: "example.file",
-  asyncTimeout: 8448.96,
-  cribl_version: "<value>",
-  disabled: false,
   group: "<value>",
-  handleSignals: false,
   id: "clone",
-  loadTime: 6647.33,
-  modTime: 8379.67,
+  loadTime: 8448.96,
+  modTime: 6420.97,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
     "key1": "<value>",
     "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

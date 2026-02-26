@@ -6,80 +6,7 @@
 import { OutputNewrelic } from "cribl-control-plane/models";
 
 let value: OutputNewrelic = {
-  id: "<id>",
   type: "newrelic",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
-  region: "EU",
-  logType: "<value>",
-  messageField: "<value>",
-  metadata: [
-    {
-      name: "timestamp",
-      value: "<value>",
-    },
-  ],
-  concurrency: 1243.99,
-  maxPayloadSizeKB: 7293.26,
-  maxPayloadEvents: 6503.29,
-  compress: false,
-  rejectUnauthorized: false,
-  timeoutSec: 4113.67,
-  flushPeriodSec: 7148.22,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "payloadAndHeaders",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
-  onBackpressure: "block",
-  authType: "manual",
-  totalMemoryLimitKB: 1894.64,
-  description:
-    "despite cross-contamination profitable unto underneath disgorge miserably heating wring",
-  customUrl: "https://ordinary-importance.info",
-  pqStrictOrdering: false,
-  pqRatePerSec: 8061.29,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 973.3,
-  pqMaxBackpressureSec: 5504.67,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "block",
-  pqControls: {},
-  apiKey: "<value>",
-  textSecret: "<value>",
 };
 ```
 
@@ -129,3 +56,6 @@ let value: OutputNewrelic = {
 | `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputNewrelicPqControls](../models/outputnewrelicpqcontrols.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `apiKey`                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | New Relic API key. Can be overridden using __newRelic_apiKey field.                                                                                                                                                                                                                                                                              |
 | `textSecret`                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a stored text secret                                                                                                                                                                                                                                                                                                            |
+| `templateRegion`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.                                                                                                                                                        |
+| `templateLogType`                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'logType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logType' at runtime.                                                                                                                                                      |
+| `templateMessageField`                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'messageField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'messageField' at runtime.                                                                                                                                            |

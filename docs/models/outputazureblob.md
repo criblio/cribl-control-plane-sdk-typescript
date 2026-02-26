@@ -6,83 +6,9 @@
 import { OutputAzureBlob } from "cribl-control-plane/models";
 
 let value: OutputAzureBlob = {
-  id: "<id>",
   type: "azure_blob",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
   containerName: "<value>",
-  createContainer: false,
-  destPath: "<value>",
   stagePath: "<value>",
-  addIdToStagePath: false,
-  maxConcurrentFileParts: 4076.47,
-  removeEmptyDirs: false,
-  partitionExpr: "<value>",
-  format: "parquet",
-  baseFileName: "<value>",
-  fileNameSuffix: "<value>",
-  maxFileSizeMB: 346.93,
-  maxFileOpenTimeSec: 2492.96,
-  maxFileIdleTimeSec: 6818.16,
-  maxOpenFiles: 4296.25,
-  headerLine: "<value>",
-  writeHighWaterMark: 4593.29,
-  onBackpressure: "drop",
-  deadletterEnabled: false,
-  onDiskFullBackpressure: "block",
-  forceCloseOnShutdown: false,
-  retrySettings: {
-    enabled: false,
-    initialBackoffMs: 192.63,
-    backoffMultiplier: 5447.21,
-    maxBackoffMs: 1266.88,
-    jitterPercent: 3342.59,
-  },
-  authType: "clientSecret",
-  storageClass: "Archive",
-  description: "properly ha sparse",
-  compress: "gzip",
-  compressionLevel: "normal",
-  automaticSchema: false,
-  parquetSchema: "<value>",
-  parquetVersion: "PARQUET_1_0",
-  parquetDataPageVersion: "DATA_PAGE_V1",
-  parquetRowGroupLength: 8902.74,
-  parquetPageSize: "<value>",
-  shouldLogInvalidRows: true,
-  keyValueMetadata: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
-  enableStatistics: false,
-  enableWritePageIndex: false,
-  enablePageChecksum: false,
-  emptyDirCleanupSec: 6063.3,
-  directoryBatchSize: 94.73,
-  deadletterPath: "<value>",
-  maxRetryNum: 4462.32,
-  connectionString: "<value>",
-  textSecret: "<value>",
-  storageAccountName: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  azureCloud: "<value>",
-  endpointSuffix: "<value>",
-  clientTextSecret: "<value>",
-  certificate: {
-    certificateName: "<value>",
-  },
 };
 ```
 
@@ -147,3 +73,8 @@ let value: OutputAzureBlob = {
 | `endpointSuffix`                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.                                                                                                                                                                                                                                                      |
 | `clientTextSecret`                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Select or create a stored text secret                                                                                                                                                                                                                                                                                                                                  |
 | `certificate`                                                                                                                                                                                                                                                                                                                                                          | [models.CertificateTypeAzureBlobAuthTypeClientCert](../models/certificatetypeazureblobauthtypeclientcert.md)                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                                                                                                                                                                    |
+| `templateContainerName`                                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.                                                                                                                                                                |
+| `templateFormat`                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.                                                                                                                                                                              |
+| `templateConnectionString`                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.                                                                                                                                                          |
+| `templateTenantId`                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.                                                                                                                                                                          |
+| `templateClientId`                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.                                                                                                                                                                          |

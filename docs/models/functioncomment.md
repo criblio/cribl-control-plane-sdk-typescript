@@ -7,25 +7,15 @@ import { FunctionComment } from "cribl-control-plane/models";
 
 let value: FunctionComment = {
   __filename: "example.file",
-  asyncTimeout: 5446.2,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "comment",
-  loadTime: 5047.79,
-  modTime: 5.96,
+  loadTime: 5446.2,
+  modTime: 226.92,
   name: "<value>",
-  sync: false,
   uischema: {
     "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
   },
   version: "<value>",
-  schema: {
-    "key": "<value>",
-  },
 };
 ```
 

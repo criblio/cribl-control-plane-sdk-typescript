@@ -237,6 +237,12 @@ import {
   OutputKinesis$outboundSchema,
 } from "./outputkinesis.js";
 import {
+  OutputLocalSearchStorage,
+  OutputLocalSearchStorage$inboundSchema,
+  OutputLocalSearchStorage$Outbound,
+  OutputLocalSearchStorage$outboundSchema,
+} from "./outputlocalsearchstorage.js";
+import {
   OutputLoki,
   OutputLoki$inboundSchema,
   OutputLoki$Outbound,
@@ -491,6 +497,7 @@ export type Output =
   | OutputCriblLake
   | OutputDiskSpool
   | OutputClickHouse
+  | OutputLocalSearchStorage
   | OutputXsiam
   | OutputNetflow
   | OutputDynatraceHttp
@@ -568,6 +575,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> =
     cribl_lake: OutputCriblLake$inboundSchema,
     disk_spool: OutputDiskSpool$inboundSchema,
     click_house: OutputClickHouse$inboundSchema,
+    local_search_storage: OutputLocalSearchStorage$inboundSchema,
     xsiam: OutputXsiam$inboundSchema,
     netflow: OutputNetflow$inboundSchema,
     dynatrace_http: OutputDynatraceHttp$inboundSchema,
@@ -641,6 +649,7 @@ export type Output$Outbound =
   | OutputCriblLake$Outbound
   | OutputDiskSpool$Outbound
   | OutputClickHouse$Outbound
+  | OutputLocalSearchStorage$Outbound
   | OutputXsiam$Outbound
   | OutputNetflow$Outbound
   | OutputDynatraceHttp$Outbound
@@ -720,6 +729,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputCriblLake$outboundSchema,
   OutputDiskSpool$outboundSchema,
   OutputClickHouse$outboundSchema,
+  OutputLocalSearchStorage$outboundSchema,
   OutputXsiam$outboundSchema,
   OutputNetflow$outboundSchema,
   OutputDynatraceHttp$outboundSchema,

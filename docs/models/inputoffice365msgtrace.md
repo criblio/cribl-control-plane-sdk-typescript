@@ -6,84 +6,9 @@
 import { InputOffice365MsgTrace } from "cribl-control-plane/models";
 
 let value: InputOffice365MsgTrace = {
-  id: "<id>",
   type: "office365_msg_trace",
-  disabled: false,
-  pipeline: "<value>",
-  sendToRoutes: false,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  url: "https://mean-signature.name/",
-  interval: 8682.26,
-  startDate: "<value>",
-  endDate: "<value>",
-  timeout: 7291.07,
-  disableTimeFilter: true,
-  authType: "secret",
-  rescheduleDroppedTasks: true,
-  maxTaskReschedule: 5401.17,
-  logLevel: "warn",
-  jobTimeout: "<value>",
-  keepAliveTime: 8128.14,
-  maxMissedKeepAlives: 5626.75,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: false,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  retryRules: {
-    type: "<value>",
-    interval: 6390.37,
-    limit: 2107.49,
-    multiplier: 2764.09,
-    codes: [
-      1648,
-      6941.51,
-      1223.37,
-    ],
-    enableHeader: true,
-    retryConnectTimeout: true,
-    retryConnectReset: true,
-  },
-  description:
-    "microblog ill-fated ha finally detective illiterate before precedent in",
-  username: "Ada.Shanahan",
-  password: "oOeRF2zrHIlSKLX",
-  credentialsSecret: "<value>",
-  clientSecret: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  resource: "<value>",
-  planType: "enterprise_gcc",
-  textSecret: "<value>",
-  certOptions: {
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-  },
+  url: "https://paltry-obedience.com",
+  interval: 2809.28,
 };
 ```
 
@@ -116,7 +41,7 @@ let value: InputOffice365MsgTrace = {
 | `maxMissedKeepAlives`                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.                                                                                                                                      |
 | `ttl`                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.                                                                                                              |
 | `ignoreGroupJobsLimit`                                                                                                                                                                                                                       | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.                                                     |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
 | `retryRules`                                                                                                                                                                                                                                 | [models.RetryRulesType1](../models/retryrulestype1.md)                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `username`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Username to run Message Trace API call.                                                                                                                                                                                                      |
@@ -129,3 +54,7 @@ let value: InputOffice365MsgTrace = {
 | `planType`                                                                                                                                                                                                                                   | [models.SubscriptionPlanOptions](../models/subscriptionplanoptions.md)                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | Office 365 subscription plan for your organization, typically Office 365 Enterprise                                                                                                                                                          |
 | `textSecret`                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Select or create a secret that references your client_secret to pass in the OAuth request parameter.                                                                                                                                         |
 | `certOptions`                                                                                                                                                                                                                                | [models.CertOptions](../models/certoptions.md)                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `templateUrl`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.                                                          |
+| `templateTenantId`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.                                                |
+| `templateClientId`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.                                                |
+| `templateResource`                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.                                                |

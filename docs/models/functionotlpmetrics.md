@@ -7,23 +7,13 @@ import { FunctionOtlpMetrics } from "cribl-control-plane/models";
 
 let value: FunctionOtlpMetrics = {
   __filename: "example.file",
-  asyncTimeout: 2251.51,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: true,
   id: "otlp_metrics",
-  loadTime: 3598.47,
-  modTime: 2838.68,
+  loadTime: 2251.51,
+  modTime: 4831.46,
   name: "<value>",
-  sync: false,
   uischema: {},
   version: "<value>",
-  schema: {
-    "key": "<value>",
-    "key1": "<value>",
-    "key2": "<value>",
-  },
 };
 ```
 

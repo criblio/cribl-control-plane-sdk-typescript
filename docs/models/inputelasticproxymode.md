@@ -7,17 +7,6 @@ import { InputElasticProxyMode } from "cribl-control-plane/models";
 
 let value: InputElasticProxyMode = {
   enabled: true,
-  authType: "secret",
-  username: "Sidney26",
-  password: "XZNh3Ay_8XKD4F0",
-  credentialsSecret: "<value>",
-  url: "https://chilly-pigsty.org/",
-  rejectUnauthorized: true,
-  removeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  timeoutSec: 4162.03,
 };
 ```
 
@@ -34,3 +23,4 @@ let value: InputElasticProxyMode = {
 | `rejectUnauthorized`                                                                                                                                                                                                      | *boolean*                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                        | Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)                                                                                                                         |
 | `removeHeaders`                                                                                                                                                                                                           | *string*[]                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                        | List of headers to remove from the request to proxy                                                                                                                                                                       |
 | `timeoutSec`                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                        | Amount of time, in seconds, to wait for a proxy request to complete before canceling it                                                                                                                                   |
+| `templateUrl`                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                        | Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.                                       |

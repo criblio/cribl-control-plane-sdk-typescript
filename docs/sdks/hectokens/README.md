@@ -11,9 +11,9 @@
 
 Add an HEC token and optional metadata to the specified Splunk HEC Source.
 
-### Example Usage
+### Example Usage: HecTokenExamplesHecToken
 
-<!-- UsageSnippet language="typescript" operationID="createInputHecTokenById" method="post" path="/system/inputs/{id}/hectoken" -->
+<!-- UsageSnippet language="typescript" operationID="createInputHecTokenById" method="post" path="/system/inputs/{id}/hectoken" example="HecTokenExamplesHecToken" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -28,10 +28,6 @@ async function run() {
   const result = await criblControlPlane.sources.hecTokens.create({
     id: "<id>",
     addHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
-      description: "toward precedent merry vaguely across ha fooey ingratiate jealously outlying",
       enabled: true,
       metadata: [
         {
@@ -70,10 +66,6 @@ async function run() {
   const res = await sourcesHecTokensCreate(criblControlPlane, {
     id: "<id>",
     addHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
-      description: "toward precedent merry vaguely across ha fooey ingratiate jealously outlying",
       enabled: true,
       metadata: [
         {
@@ -81,6 +73,75 @@ async function run() {
           value: "valueX",
         },
       ],
+      token: "12345678901",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesHecTokensCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: HecTokenExamplesHecTokenWithIndexAccess
+
+<!-- UsageSnippet language="typescript" operationID="createInputHecTokenById" method="post" path="/system/inputs/{id}/hectoken" example="HecTokenExamplesHecTokenWithIndexAccess" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.hecTokens.create({
+    id: "<id>",
+    addHecTokenRequest: {
+      allowedIndexesAtToken: [
+        "myIndex6",
+      ],
+      enabled: true,
+      token: "12345678901",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesHecTokensCreate } from "cribl-control-plane/funcs/sourcesHecTokensCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesHecTokensCreate(criblControlPlane, {
+    id: "<id>",
+    addHecTokenRequest: {
+      allowedIndexesAtToken: [
+        "myIndex6",
+      ],
+      enabled: true,
       token: "12345678901",
     },
   });
@@ -119,9 +180,9 @@ run();
 
 Update the metadata for the specified HEC token for the specified Splunk HEC Source.
 
-### Example Usage
+### Example Usage: HecTokenExamplesHecToken
 
-<!-- UsageSnippet language="typescript" operationID="updateInputHecTokenByIdAndToken" method="patch" path="/system/inputs/{id}/hectoken/{token}" -->
+<!-- UsageSnippet language="typescript" operationID="updateInputHecTokenByIdAndToken" method="patch" path="/system/inputs/{id}/hectoken/{token}" example="HecTokenExamplesHecToken" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -137,10 +198,6 @@ async function run() {
     id: "<id>",
     token: "<value>",
     updateHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
-      description: "once lively fooey who though while dampen please denitrify pish",
       enabled: true,
       metadata: [
         {
@@ -179,10 +236,6 @@ async function run() {
     id: "<id>",
     token: "<value>",
     updateHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
-      description: "once lively fooey who though while dampen please denitrify pish",
       enabled: true,
       metadata: [
         {
@@ -190,6 +243,75 @@ async function run() {
           value: "valueX",
         },
       ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("sourcesHecTokensUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: HecTokenExamplesHecTokenWithIndexAccess
+
+<!-- UsageSnippet language="typescript" operationID="updateInputHecTokenByIdAndToken" method="patch" path="/system/inputs/{id}/hectoken/{token}" example="HecTokenExamplesHecTokenWithIndexAccess" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.sources.hecTokens.update({
+    id: "<id>",
+    token: "<value>",
+    updateHecTokenRequest: {
+      allowedIndexesAtToken: [
+        "myIndex6",
+      ],
+      enabled: true,
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { sourcesHecTokensUpdate } from "cribl-control-plane/funcs/sourcesHecTokensUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await sourcesHecTokensUpdate(criblControlPlane, {
+    id: "<id>",
+    token: "<value>",
+    updateHecTokenRequest: {
+      allowedIndexesAtToken: [
+        "myIndex6",
+      ],
+      enabled: true,
     },
   });
   if (res.ok) {

@@ -20,11 +20,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -68,7 +68,7 @@ export type InputSplunkHecAuthToken = {
   /**
    * Fields to add to events referencing this token
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
 };
 
 export type InputSplunkHec = {
@@ -148,7 +148,6 @@ export type InputSplunkHec = {
    * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
    */
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   /**
    * Messages from matched IP addresses will be processed, unless also matched by the denylist
    */
@@ -164,7 +163,7 @@ export type InputSplunkHec = {
   /**
    * Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
    */
@@ -206,6 +205,18 @@ export type InputSplunkHec = {
    */
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
+  /**
+   * Binds 'splunkHecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'splunkHecAPI' at runtime.
+   */
+  __template_splunkHecAPI?: string | undefined;
 };
 
 /** @internal */
@@ -231,9 +242,7 @@ export const InputSplunkHecAuthToken$inboundSchema: z.ZodType<
   enabled: types.optional(types.boolean()),
   description: types.optional(types.string()),
   allowedIndexesAtToken: types.optional(z.array(types.string())),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
 });
 /** @internal */
 export type InputSplunkHecAuthToken$Outbound = {
@@ -243,7 +252,7 @@ export type InputSplunkHecAuthToken$Outbound = {
   enabled?: boolean | undefined;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
 };
 
 /** @internal */
@@ -259,7 +268,7 @@ export const InputSplunkHecAuthToken$outboundSchema: z.ZodType<
   enabled: z.boolean().optional(),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
 });
 
 export function inputSplunkHecAuthTokenToJSON(
@@ -311,13 +320,10 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
   requestTimeout: types.optional(types.number()),
   socketTimeout: types.optional(types.number()),
   keepAliveTimeout: types.optional(types.number()),
-  enableHealthCheck: types.optional(z.any()),
   ipAllowlistRegex: types.optional(types.string()),
   ipDenylistRegex: types.optional(types.string()),
   splunkHecAPI: types.string(),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   allowedIndexes: types.optional(z.array(types.string())),
   splunkHecAcks: types.optional(types.boolean()),
   breakerRulesets: types.optional(z.array(types.string())),
@@ -329,6 +335,9 @@ export const InputSplunkHec$inboundSchema: z.ZodType<
   accessControlAllowHeaders: types.optional(z.array(types.string())),
   emitTokenMetrics: types.optional(types.boolean()),
   description: types.optional(types.string()),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
+  __template_splunkHecAPI: types.optional(types.string()),
 });
 /** @internal */
 export type InputSplunkHec$Outbound = {
@@ -354,11 +363,10 @@ export type InputSplunkHec$Outbound = {
   requestTimeout?: number | undefined;
   socketTimeout?: number | undefined;
   keepAliveTimeout?: number | undefined;
-  enableHealthCheck?: any | undefined;
   ipAllowlistRegex?: string | undefined;
   ipDenylistRegex?: string | undefined;
   splunkHecAPI: string;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   allowedIndexes?: Array<string> | undefined;
   splunkHecAcks?: boolean | undefined;
   breakerRulesets?: Array<string> | undefined;
@@ -370,6 +378,9 @@ export type InputSplunkHec$Outbound = {
   accessControlAllowHeaders?: Array<string> | undefined;
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
+  __template_splunkHecAPI?: string | undefined;
 };
 
 /** @internal */
@@ -401,11 +412,10 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   requestTimeout: z.number().optional(),
   socketTimeout: z.number().optional(),
   keepAliveTimeout: z.number().optional(),
-  enableHealthCheck: z.any().optional(),
   ipAllowlistRegex: z.string().optional(),
   ipDenylistRegex: z.string().optional(),
   splunkHecAPI: z.string(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   allowedIndexes: z.array(z.string()).optional(),
   splunkHecAcks: z.boolean().optional(),
   breakerRulesets: z.array(z.string()).optional(),
@@ -417,6 +427,9 @@ export const InputSplunkHec$outboundSchema: z.ZodType<
   accessControlAllowHeaders: z.array(z.string()).optional(),
   emitTokenMetrics: z.boolean().optional(),
   description: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
+  __template_splunkHecAPI: z.string().optional(),
 });
 
 export function inputSplunkHecToJSON(inputSplunkHec: InputSplunkHec): string {

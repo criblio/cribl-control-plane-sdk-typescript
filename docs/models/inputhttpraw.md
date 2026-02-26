@@ -6,98 +6,9 @@
 import { InputHttpRaw } from "cribl-control-plane/models";
 
 let value: InputHttpRaw = {
-  id: "<id>",
   type: "http_raw",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: false,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  host: "intelligent-reward.net",
-  port: 4895.66,
-  authTokens: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  tls: {
-    disabled: false,
-    requestCert: true,
-    rejectUnauthorized: true,
-    commonNameRegex: "<value>",
-    certificateName: "<value>",
-    privKeyPath: "<value>",
-    passphrase: "<value>",
-    certPath: "<value>",
-    caPath: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1",
-  },
-  maxActiveReq: 6896.22,
-  maxRequestsPerSocket: 967298,
-  enableProxyHeader: false,
-  captureHeaders: true,
-  activityLogSampleRate: 1148.51,
-  requestTimeout: 2454.06,
-  socketTimeout: 6101.23,
-  keepAliveTimeout: 3165.33,
-  enableHealthCheck: true,
-  ipAllowlistRegex: "<value>",
-  ipDenylistRegex: "<value>",
-  breakerRulesets: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  staleChannelFlushMs: 2369.85,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  allowedPaths: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  allowedMethods: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  authTokensExt: [
-    {
-      token: "<value>",
-      description: "instead worth trek drain eek below",
-      metadata: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
-  description: "very incomparable stale sidetrack",
+  host: "equatorial-importance.org",
+  port: 1259.51,
 };
 ```
 
@@ -132,8 +43,10 @@ let value: InputHttpRaw = {
 | `ipDenylistRegex`                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.                                                                                                                                                |
 | `breakerRulesets`                                                                                                                                                                                                                            | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | A list of event-breaking rulesets that will be applied, in order, to the input data stream                                                                                                                                                   |
 | `staleChannelFlushMs`                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines                                                                            |
-| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
+| `metadata`                                                                                                                                                                                                                                   | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
 | `allowedPaths`                                                                                                                                                                                                                               | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | List of URI paths accepted by this input, wildcards are supported, e.g /api/v*/hook. Defaults to allow all.                                                                                                                                  |
 | `allowedMethods`                                                                                                                                                                                                                             | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.                                                                                                                               |
 | `authTokensExt`                                                                                                                                                                                                                              | [models.ItemsTypeAuthTokensExt](../models/itemstypeauthtokensext.md)[]                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.                                                                                                                            |
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `templateHost`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.                                                        |
+| `templatePort`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.                                                        |

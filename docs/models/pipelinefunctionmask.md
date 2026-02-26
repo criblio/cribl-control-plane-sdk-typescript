@@ -6,32 +6,10 @@
 import { PipelineFunctionMask } from "cribl-control-plane/models";
 
 let value: PipelineFunctionMask = {
-  filter: "<value>",
   id: "mask",
-  description: "sparse whereas ack excitable scrabble merge",
-  disabled: true,
-  final: true,
   conf: {
-    rules: [
-      {
-        matchRegex: "<value>",
-        replaceExpr: "<value>",
-        disabled: false,
-      },
-    ],
-    fields: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    depth: 95074,
-    flags: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
+    rules: [],
   },
-  groupId: "<id>",
 };
 ```
 

@@ -5,9 +5,7 @@
 ```typescript
 import { Certificate } from "cribl-control-plane/models";
 
-let value: Certificate = {
-  certificateName: "<value>",
-};
+let value: Certificate = {};
 ```
 
 ## Fields

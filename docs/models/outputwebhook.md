@@ -6,124 +6,7 @@
 import { OutputWebhook } from "cribl-control-plane/models";
 
 let value: OutputWebhook = {
-  id: "<id>",
   type: "webhook",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  method: "POST",
-  format: "custom",
-  keepAlive: false,
-  concurrency: 6164.91,
-  maxPayloadSizeKB: 470.04,
-  maxPayloadEvents: 9264.29,
-  compress: false,
-  rejectUnauthorized: true,
-  timeoutSec: 8456.6,
-  flushPeriodSec: 6813.02,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  useRoundRobinDns: true,
-  failedRequestLoggingMode: "payload",
-  safeHeaders: [
-    "<value 1>",
-  ],
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: false,
-  onBackpressure: "drop",
-  authType: "token",
-  tls: {
-    disabled: false,
-    servername: "<value>",
-    certificateName: "<value>",
-    caPath: "<value>",
-    privKeyPath: "<value>",
-    certPath: "<value>",
-    passphrase: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.1",
-  },
-  totalMemoryLimitKB: 909.02,
-  loadBalanced: false,
-  description:
-    "ah loyalty kiddingly notwithstanding within transparency concerned whose oxidize blaspheme",
-  customSourceExpression: "<value>",
-  customDropWhenNull: true,
-  customEventDelimiter: "<value>",
-  customContentType: "<value>",
-  customPayloadExpression: "<value>",
-  advancedContentType: "<value>",
-  formatEventCode: "<value>",
-  formatPayloadCode: "<value>",
-  pqStrictOrdering: false,
-  pqRatePerSec: 9791.64,
-  pqMode: "always",
-  pqMaxBufferSize: 2286.7,
-  pqMaxBackpressureSec: 7516.23,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
-  username: "Gunnar_Dibbert15",
-  password: "9qZ2hW0Gv6Mk06S",
-  token: "<value>",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  loginUrl: "https://irresponsible-help.org",
-  secretParamName: "<value>",
-  secret: "<value>",
-  tokenAttributeName: "<value>",
-  authHeaderExpr: "<value>",
-  tokenTimeoutSecs: 1443.37,
-  oauthParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  oauthHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  url: "https://white-meadow.net/",
-  excludeSelf: false,
-  urls: [
-    {
-      url: "https://hefty-curl.org",
-      weight: 3258.88,
-    },
-  ],
-  dnsResolvePeriodSec: 9591.75,
-  loadBalanceStatsPeriodSec: 9020.67,
 };
 ```
 
@@ -190,10 +73,13 @@ let value: OutputWebhook = {
 | `tokenAttributeName`                                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').                                                                                                                                                                                                                                 |
 | `authHeaderExpr`                                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.                                                                                                                                                                           |
 | `tokenTimeoutSecs`                                                                                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | How often the OAuth token should be refreshed.                                                                                                                                                                                                                                                                                                                            |
-| `oauthParams`                                                                                                                                                                                                                                                                                                                                                             | [models.ItemsTypeOauthParams](../models/itemstypeoauthparams.md)[]                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                   |
-| `oauthHeaders`                                                                                                                                                                                                                                                                                                                                                            | [models.ItemsTypeOauthHeaders](../models/itemstypeoauthheaders.md)[]                                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                                                                                                                                                                           |
+| `oauthParams`                                                                                                                                                                                                                                                                                                                                                             | [models.OauthParam](../models/oauthparam.md)[]                                                                                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                   |
+| `oauthHeaders`                                                                                                                                                                                                                                                                                                                                                            | [models.OauthHeader](../models/oauthheader.md)[]                                                                                                                                                                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                                                                                                                                                                           |
 | `url`                                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | URL of a webhook endpoint to send events to, such as http://localhost:10200                                                                                                                                                                                                                                                                                               |
 | `excludeSelf`                                                                                                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Exclude all IPs of the current host from the list of any resolved hostnames                                                                                                                                                                                                                                                                                               |
 | `urls`                                                                                                                                                                                                                                                                                                                                                                    | [models.OutputWebhookUrl](../models/outputwebhookurl.md)[]                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                                                                                                                       |
 | `dnsResolvePeriodSec`                                                                                                                                                                                                                                                                                                                                                     | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | The interval in which to re-resolve any hostnames and pick up destinations from A records                                                                                                                                                                                                                                                                                 |
 | `loadBalanceStatsPeriodSec`                                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | How far back in time to keep traffic stats for load balancing purposes                                                                                                                                                                                                                                                                                                    |
+| `templateLoginUrl`                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.                                                                                                                                                                             |
+| `templateSecret`                                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.                                                                                                                                                                                 |
+| `templateUrl`                                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.                                                                                                                                                                                       |

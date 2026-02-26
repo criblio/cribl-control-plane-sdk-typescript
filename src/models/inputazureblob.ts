@@ -25,11 +25,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   PqType,
   PqType$inboundSchema,
@@ -100,7 +100,7 @@ export type InputAzureBlob = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -152,6 +152,22 @@ export type InputAzureBlob = {
    */
   clientTextSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
+   */
+  __template_queueName?: string | undefined;
+  /**
+   * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
+   */
+  __template_connectionString?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -179,9 +195,7 @@ export const InputAzureBlob$inboundSchema: z.ZodType<
   maxMessages: types.optional(types.number()),
   servicePeriodSecs: types.optional(types.number()),
   skipOnError: types.optional(types.boolean()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   breakerRulesets: types.optional(z.array(types.string())),
   staleChannelFlushMs: types.optional(types.number()),
   parquetChunkSizeMB: types.optional(types.number()),
@@ -199,6 +213,10 @@ export const InputAzureBlob$inboundSchema: z.ZodType<
   certificate: types.optional(
     CertificateTypeAzureBlobAuthTypeClientCert$inboundSchema,
   ),
+  __template_queueName: types.optional(types.string()),
+  __template_connectionString: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_clientId: types.optional(types.string()),
 });
 /** @internal */
 export type InputAzureBlob$Outbound = {
@@ -219,7 +237,7 @@ export type InputAzureBlob$Outbound = {
   maxMessages?: number | undefined;
   servicePeriodSecs?: number | undefined;
   skipOnError?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs?: number | undefined;
   parquetChunkSizeMB?: number | undefined;
@@ -235,6 +253,10 @@ export type InputAzureBlob$Outbound = {
   endpointSuffix?: string | undefined;
   clientTextSecret?: string | undefined;
   certificate?: CertificateTypeAzureBlobAuthTypeClientCert$Outbound | undefined;
+  __template_queueName?: string | undefined;
+  __template_connectionString?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
@@ -260,7 +282,7 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   maxMessages: z.number().optional(),
   servicePeriodSecs: z.number().optional(),
   skipOnError: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().optional(),
   parquetChunkSizeMB: z.number().optional(),
@@ -277,6 +299,10 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   certificate: CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
+  __template_queueName: z.string().optional(),
+  __template_connectionString: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
 });
 
 export function inputAzureBlobToJSON(inputAzureBlob: InputAzureBlob): string {

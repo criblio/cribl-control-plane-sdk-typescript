@@ -8,24 +8,8 @@
 ```typescript
 const value: models.RestCollectMethodPostRestDiscoveryDiscoverTypeHttp = {
   discoverMethod: "get",
-  discoverRequestParams: "<value>",
   discoverType: "http",
   discoverUrl: "https://utter-roadway.biz/",
-  discoverVerb: "<value>",
-  discoverBody: "<value>",
-  discoverRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "<value>",
-  },
-  discoverDataField: "<value>",
-  enableStrictDiscoverParsing: false,
-  discoverResponseFormat: "<value>",
-  enableDiscoverCode: false,
 };
 ```
 
@@ -35,7 +19,6 @@ const value: models.RestCollectMethodPostRestDiscoveryDiscoverTypeHttp = {
 const value: models.RestCollectMethodPostRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

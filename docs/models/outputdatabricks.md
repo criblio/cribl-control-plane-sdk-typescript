@@ -6,43 +6,7 @@
 import { OutputDatabricks } from "cribl-control-plane/models";
 
 let value: OutputDatabricks = {
-  id: "<id>",
   type: "databricks",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  destPath: "<value>",
-  stagePath: "<value>",
-  addIdToStagePath: true,
-  removeEmptyDirs: false,
-  partitionExpr: "<value>",
-  format: "json",
-  baseFileName: "<value>",
-  fileNameSuffix: "<value>",
-  maxFileSizeMB: 4093.56,
-  maxFileOpenTimeSec: 8874.93,
-  maxFileIdleTimeSec: 9016.87,
-  maxOpenFiles: 4622.48,
-  headerLine: "<value>",
-  writeHighWaterMark: 4574.76,
-  onBackpressure: "block",
-  deadletterEnabled: true,
-  onDiskFullBackpressure: "block",
-  forceCloseOnShutdown: true,
-  retrySettings: {
-    enabled: false,
-    initialBackoffMs: 192.63,
-    backoffMultiplier: 5447.21,
-    maxBackoffMs: 1266.88,
-    jitterPercent: 3342.59,
-  },
   workspaceId: "<id>",
   scope: "<value>",
   clientId: "<id>",
@@ -50,31 +14,6 @@ let value: OutputDatabricks = {
   schema: "<value>",
   eventsVolumeName: "<value>",
   clientTextSecret: "<value>",
-  timeoutSec: 5083.72,
-  description:
-    "woot hm director silk jealous considering zowie celebrated proofread",
-  compress: "gzip",
-  compressionLevel: "normal",
-  automaticSchema: true,
-  parquetSchema: "<value>",
-  parquetVersion: "PARQUET_1_0",
-  parquetDataPageVersion: "DATA_PAGE_V2",
-  parquetRowGroupLength: 8487.54,
-  parquetPageSize: "<value>",
-  shouldLogInvalidRows: false,
-  keyValueMetadata: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
-  enableStatistics: false,
-  enableWritePageIndex: false,
-  enablePageChecksum: false,
-  emptyDirCleanupSec: 5248.52,
-  directoryBatchSize: 5366.36,
-  deadletterPath: "<value>",
-  maxRetryNum: 366.33,
 };
 ```
 
@@ -133,3 +72,4 @@ let value: OutputDatabricks = {
 | `directoryBatchSize`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.                                                                                                          |
 | `deadletterPath`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Storage location for files that fail to reach their final destination after maximum retries are exceeded                                                                                                                                                             |
 | `maxRetryNum`                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | The maximum number of times a file will attempt to move to its final destination before being dead-lettered                                                                                                                                                          |
+| `templateFormat`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.                                                                            |

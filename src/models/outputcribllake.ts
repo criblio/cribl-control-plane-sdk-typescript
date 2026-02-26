@@ -7,6 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import {
+  AwsAuthenticationMethodOptions,
+  AwsAuthenticationMethodOptions$inboundSchema,
+  AwsAuthenticationMethodOptions$outboundSchema,
+} from "./awsauthenticationmethodoptions.js";
+import {
   BackpressureBehaviorOptions1,
   BackpressureBehaviorOptions1$inboundSchema,
   BackpressureBehaviorOptions1$outboundSchema,
@@ -18,15 +23,10 @@ import {
 } from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  FormatOptionsCriblLakeDataset,
-  FormatOptionsCriblLakeDataset$inboundSchema,
-  FormatOptionsCriblLakeDataset$outboundSchema,
-} from "./formatoptionscribllakedataset.js";
-import {
-  MethodOptionsCredentials,
-  MethodOptionsCredentials$inboundSchema,
-  MethodOptionsCredentials$outboundSchema,
-} from "./methodoptionscredentials.js";
+  FormatOptions,
+  FormatOptions$inboundSchema,
+  FormatOptions$outboundSchema,
+} from "./formatoptions.js";
 import {
   ObjectAclOptions,
   ObjectAclOptions$inboundSchema,
@@ -208,8 +208,8 @@ export type OutputCriblLake = {
    * Maximum number of files that can be waiting for upload before backpressure is applied
    */
   maxClosingFilesToBackpressure?: number | undefined;
-  awsAuthenticationMethod?: MethodOptionsCredentials | undefined;
-  format?: FormatOptionsCriblLakeDataset | undefined;
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  format?: FormatOptions | undefined;
   /**
    * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
    */
@@ -231,6 +231,30 @@ export type OutputCriblLake = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+   */
+  __template_destPath?: string | undefined;
 };
 
 /** @internal */
@@ -286,15 +310,21 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   verifyPermissions: types.optional(types.boolean()),
   maxClosingFilesToBackpressure: types.optional(types.number()),
   awsAuthenticationMethod: types.optional(
-    MethodOptionsCredentials$inboundSchema,
+    AwsAuthenticationMethodOptions$inboundSchema,
   ),
-  format: types.optional(FormatOptionsCriblLakeDataset$inboundSchema),
+  format: types.optional(FormatOptions$inboundSchema),
   maxConcurrentFileParts: types.optional(types.number()),
   description: types.optional(types.string()),
   emptyDirCleanupSec: types.optional(types.number()),
   directoryBatchSize: types.optional(types.number()),
   deadletterPath: types.optional(types.string()),
   maxRetryNum: types.optional(types.number()),
+  __template_bucket: types.optional(types.string()),
+  __template_region: types.optional(types.string()),
+  __template_awsSecretKey: types.optional(types.string()),
+  __template_assumeRoleArn: types.optional(types.string()),
+  __template_assumeRoleExternalId: types.optional(types.string()),
+  __template_destPath: types.optional(types.string()),
 });
 /** @internal */
 export type OutputCriblLake$Outbound = {
@@ -346,6 +376,12 @@ export type OutputCriblLake$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_destPath?: string | undefined;
 };
 
 /** @internal */
@@ -396,14 +432,21 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().optional(),
   verifyPermissions: z.boolean().optional(),
   maxClosingFilesToBackpressure: z.number().optional(),
-  awsAuthenticationMethod: MethodOptionsCredentials$outboundSchema.optional(),
-  format: FormatOptionsCriblLakeDataset$outboundSchema.optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .optional(),
+  format: FormatOptions$outboundSchema.optional(),
   maxConcurrentFileParts: z.number().optional(),
   description: z.string().optional(),
   emptyDirCleanupSec: z.number().optional(),
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_destPath: z.string().optional(),
 });
 
 export function outputCriblLakeToJSON(

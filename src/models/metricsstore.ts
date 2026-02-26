@@ -15,7 +15,19 @@ export const MetricsStore$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
+/** @internal */
+export type MetricsStore$Outbound = {};
 
+/** @internal */
+export const MetricsStore$outboundSchema: z.ZodType<
+  MetricsStore$Outbound,
+  z.ZodTypeDef,
+  MetricsStore
+> = z.object({});
+
+export function metricsStoreToJSON(metricsStore: MetricsStore): string {
+  return JSON.stringify(MetricsStore$outboundSchema.parse(metricsStore));
+}
 export function metricsStoreFromJSON(
   jsonString: string,
 ): SafeParseResult<MetricsStore, SDKValidationError> {

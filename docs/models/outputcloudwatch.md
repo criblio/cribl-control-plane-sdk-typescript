@@ -6,48 +6,10 @@
 import { OutputCloudwatch } from "cribl-control-plane/models";
 
 let value: OutputCloudwatch = {
-  id: "<id>",
   type: "cloudwatch",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-  ],
   logGroupName: "<value>",
   logStreamName: "<value>",
-  awsAuthenticationMethod: "<value>",
-  awsSecretKey: "<value>",
   region: "<value>",
-  endpoint: "<value>",
-  reuseConnections: true,
-  rejectUnauthorized: false,
-  enableAssumeRole: true,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 651.97,
-  maxQueueSize: 6480.08,
-  maxRecordSizeKB: 2765.62,
-  flushPeriodSec: 9976.57,
-  onBackpressure: "block",
-  description: "and scientific encode aha hmph without",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  pqStrictOrdering: true,
-  pqRatePerSec: 4173.05,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 135.3,
-  pqMaxBackpressureSec: 621.87,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "drop",
-  pqControls: {},
 };
 ```
 
@@ -91,3 +53,8 @@ let value: OutputCloudwatch = {
 | `pqCompress`                                                                                                                                                                                                                                                   | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                             | Codec to use to compress the persisted data                                                                                                                                                                                                                    |
 | `pqOnBackpressure`                                                                                                                                                                                                                                             | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                          |
 | `pqControls`                                                                                                                                                                                                                                                   | [models.OutputCloudwatchPqControls](../models/outputcloudwatchpqcontrols.md)                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                             | N/A                                                                                                                                                                                                                                                            |
+| `templateAwsSecretKey`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.                                                          |
+| `templateRegion`                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.                                                                      |
+| `templateAssumeRoleArn`                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.                                                        |
+| `templateAssumeRoleExternalId`                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.                                          |
+| `templateAwsApiKey`                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                             | Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.                                                                |

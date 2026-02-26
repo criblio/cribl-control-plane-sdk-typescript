@@ -5,10 +5,7 @@
 ```typescript
 import { ReverseLookupField } from "cribl-control-plane/models";
 
-let value: ReverseLookupField = {
-  inFieldName: "<value>",
-  outFieldName: "<value>",
-};
+let value: ReverseLookupField = {};
 ```
 
 ## Fields

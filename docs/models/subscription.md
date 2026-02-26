@@ -7,29 +7,12 @@ import { Subscription } from "cribl-control-plane/models";
 
 let value: Subscription = {
   subscriptionName: "<value>",
-  version: "<value>",
   contentFormat: "Raw",
   heartbeatInterval: 4763.41,
   batchTimeout: 6361.8,
-  readExistingEvents: true,
-  sendBookmarks: true,
-  compress: false,
-  targets: [],
-  locale: "el",
-  querySelector: "xml",
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
+  targets: [
+    "<value 1>",
   ],
-  queries: [
-    {
-      path: "/usr/libexec",
-      queryExpression: "<value>",
-    },
-  ],
-  xmlQuery: "<value>",
 };
 ```
 
@@ -48,6 +31,6 @@ let value: Subscription = {
 | `targets`                                                                                                                                                                                                                                               | *string*[]                                                                                                                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                                      | The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com                                                                                                                                          |
 | `locale`                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                      | The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".                                                                                                                                                            |
 | `querySelector`                                                                                                                                                                                                                                         | [models.QueryBuilderMode](../models/querybuildermode.md)                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                     |
-| `metadata`                                                                                                                                                                                                                                              | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                      | Fields to add to events ingested under this subscription                                                                                                                                                                                                |
+| `metadata`                                                                                                                                                                                                                                              | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                      | Fields to add to events ingested under this subscription                                                                                                                                                                                                |
 | `queries`                                                                                                                                                                                                                                               | [models.Query](../models/query.md)[]                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                     |
 | `xmlQuery`                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                      | The XPath query to use for selecting events                                                                                                                                                                                                             |

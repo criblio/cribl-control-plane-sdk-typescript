@@ -7,23 +7,17 @@ import { FunctionGeoip } from "cribl-control-plane/models";
 
 let value: FunctionGeoip = {
   __filename: "example.file",
-  asyncTimeout: 7349.9,
-  cribl_version: "<value>",
-  disabled: true,
   group: "<value>",
-  handleSignals: false,
   id: "geoip",
-  loadTime: 720.66,
-  modTime: 3556.8,
+  loadTime: 7349.9,
+  modTime: 3251.53,
   name: "<value>",
-  sync: true,
-  uischema: {},
-  version: "<value>",
-  schema: {
+  uischema: {
     "key": "<value>",
     "key1": "<value>",
     "key2": "<value>",
   },
+  version: "<value>",
 };
 ```
 

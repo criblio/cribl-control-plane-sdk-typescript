@@ -99,35 +99,35 @@ export const OutputSyslogSeverity = {
   /**
    * emergency
    */
-  Zero: 0,
+  Emergency: 0,
   /**
    * alert
    */
-  One: 1,
+  Alert: 1,
   /**
    * critical
    */
-  Two: 2,
+  Critical: 2,
   /**
    * error
    */
-  Three: 3,
+  Error: 3,
   /**
    * warning
    */
-  Four: 4,
+  Warning: 4,
   /**
    * notice
    */
-  Five: 5,
+  Notice: 5,
   /**
    * info
    */
-  Six: 6,
+  Info: 6,
   /**
    * debug
    */
-  Seven: 7,
+  Debug: 7,
 } as const;
 /**
  * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
@@ -155,7 +155,7 @@ export type MessageFormat = OpenEnum<typeof MessageFormat>;
 /**
  * Timestamp format to use when serializing event's time field
  */
-export const TimestampFormat = {
+export const TimestampFormatEnum = {
   /**
    * Syslog
    */
@@ -168,7 +168,7 @@ export const TimestampFormat = {
 /**
  * Timestamp format to use when serializing event's time field
  */
-export type TimestampFormat = OpenEnum<typeof TimestampFormat>;
+export type TimestampFormatEnum = OpenEnum<typeof TimestampFormatEnum>;
 
 export type OutputSyslogPqControls = {};
 
@@ -217,7 +217,7 @@ export type OutputSyslog = {
   /**
    * Timestamp format to use when serializing event's time field
    */
-  timestampFormat?: TimestampFormat | undefined;
+  timestampFormat?: TimestampFormatEnum | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -329,6 +329,14 @@ export type OutputSyslog = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputSyslogPqControls | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -384,17 +392,17 @@ export const MessageFormat$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(MessageFormat);
 
 /** @internal */
-export const TimestampFormat$inboundSchema: z.ZodType<
-  TimestampFormat,
+export const TimestampFormatEnum$inboundSchema: z.ZodType<
+  TimestampFormatEnum,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(TimestampFormat);
+> = openEnums.inboundSchema(TimestampFormatEnum);
 /** @internal */
-export const TimestampFormat$outboundSchema: z.ZodType<
+export const TimestampFormatEnum$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  TimestampFormat
-> = openEnums.outboundSchema(TimestampFormat);
+  TimestampFormatEnum
+> = openEnums.outboundSchema(TimestampFormatEnum);
 
 /** @internal */
 export const OutputSyslogPqControls$inboundSchema: z.ZodType<
@@ -446,7 +454,7 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   severity: types.optional(OutputSyslogSeverity$inboundSchema),
   appName: types.optional(types.string()),
   messageFormat: types.optional(MessageFormat$inboundSchema),
-  timestampFormat: types.optional(TimestampFormat$inboundSchema),
+  timestampFormat: types.optional(TimestampFormatEnum$inboundSchema),
   throttleRatePerSec: types.optional(types.string()),
   octetCountFraming: types.optional(types.boolean()),
   logFailedRequests: types.optional(types.boolean()),
@@ -481,6 +489,8 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputSyslogPqControls$inboundSchema),
   ),
+  __template_host: types.optional(types.string()),
+  __template_port: types.optional(types.string()),
 });
 /** @internal */
 export type OutputSyslog$Outbound = {
@@ -526,6 +536,8 @@ export type OutputSyslog$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputSyslogPqControls$Outbound | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
@@ -545,7 +557,7 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   severity: OutputSyslogSeverity$outboundSchema.optional(),
   appName: z.string().optional(),
   messageFormat: MessageFormat$outboundSchema.optional(),
-  timestampFormat: TimestampFormat$outboundSchema.optional(),
+  timestampFormat: TimestampFormatEnum$outboundSchema.optional(),
   throttleRatePerSec: z.string().optional(),
   octetCountFraming: z.boolean().optional(),
   logFailedRequests: z.boolean().optional(),
@@ -576,6 +588,8 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputSyslogPqControls$outboundSchema).optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
 export function outputSyslogToJSON(outputSyslog: OutputSyslog): string {

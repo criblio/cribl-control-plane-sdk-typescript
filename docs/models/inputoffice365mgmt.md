@@ -6,77 +6,10 @@
 import { InputOffice365Mgmt } from "cribl-control-plane/models";
 
 let value: InputOffice365Mgmt = {
-  id: "<id>",
   type: "office365_mgmt",
-  disabled: true,
-  pipeline: "<value>",
-  sendToRoutes: true,
-  environment: "<value>",
-  pqEnabled: true,
-  streamtags: [
-    "<value 1>",
-  ],
-  connections: [
-    {
-      pipeline: "<value>",
-      output: "<value>",
-    },
-  ],
-  pq: {
-    mode: "always",
-    maxBufferSize: 357.77,
-    commitFrequency: 1717.96,
-    maxFileSize: "<value>",
-    maxSize: "<value>",
-    path: "/etc/namedb",
-    compress: "none",
-    pqControls: {},
-  },
-  planType: "gcc_high",
+  planType: "gcc",
   tenantId: "<id>",
   appId: "<id>",
-  timeout: 6368.3,
-  keepAliveTime: 1421.9,
-  jobTimeout: "<value>",
-  maxMissedKeepAlives: 1799.63,
-  ttl: "<value>",
-  ignoreGroupJobsLimit: true,
-  metadata: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  publisherIdentifier: "<value>",
-  contentConfig: [
-    {
-      contentType: "<value>",
-      description: "illusion ice-cream if puny towards",
-      interval: 8290.81,
-      logLevel: "error",
-      enabled: false,
-    },
-  ],
-  ingestionLag: 9152.34,
-  retryRules: {
-    type: "<value>",
-    interval: 6390.37,
-    limit: 2107.49,
-    multiplier: 2764.09,
-    codes: [
-      1648,
-      6941.51,
-      1223.37,
-    ],
-    enableHeader: true,
-    retryConnectTimeout: true,
-    retryConnectReset: true,
-  },
-  authType: "secret",
-  description:
-    "yowza amnesty yahoo wicked anenst far grouchy birdcage ha seemingly",
-  clientSecret: "<value>",
-  textSecret: "<value>",
 };
 ```
 
@@ -103,7 +36,7 @@ let value: InputOffice365Mgmt = {
 | `maxMissedKeepAlives`                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.                                                                                                                                                                                 |
 | `ttl`                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.                                                                                                                                                         |
 | `ignoreGroupJobsLimit`                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.                                                                                                |
-| `metadata`                                                                                                                                                                                                                                                                              | [models.ItemsTypeNotificationMetadata](../models/itemstypenotificationmetadata.md)[]                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Fields to add to events from this input                                                                                                                                                                                                                                                 |
+| `metadata`                                                                                                                                                                                                                                                                              | [models.ItemsTypeMetadata](../models/itemstypemetadata.md)[]                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Fields to add to events from this input                                                                                                                                                                                                                                                 |
 | `publisherIdentifier`                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)                        |
 | `contentConfig`                                                                                                                                                                                                                                                                         | [models.InputOffice365MgmtContentConfig](../models/inputoffice365mgmtcontentconfig.md)[]                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Enable Office 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule. |
 | `ingestionLag`                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Use this setting to account for ingestion lag. This is necessary because there can be a lag of 60 - 90 minutes (or longer) before Office 365 events are available for retrieval.                                                                                                        |
@@ -112,3 +45,7 @@ let value: InputOffice365Mgmt = {
 | `description`                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | N/A                                                                                                                                                                                                                                                                                     |
 | `clientSecret`                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Office 365 Azure client secret                                                                                                                                                                                                                                                          |
 | `textSecret`                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Select or create a stored text secret                                                                                                                                                                                                                                                   |
+| `templateTenantId`                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.                                                                                           |
+| `templateAppId`                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.                                                                                                 |
+| `templatePublisherIdentifier`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Binds 'publisherIdentifier' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'publisherIdentifier' at runtime.                                                                     |
+| `templateClientSecret`                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                      | Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.                                                                                   |

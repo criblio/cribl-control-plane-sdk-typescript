@@ -68,7 +68,6 @@ export type OutputXsiamAuthenticationMethod = OpenEnum<
 >;
 
 export type OutputXsiamUrl = {
-  url?: any | undefined;
   /**
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
@@ -239,6 +238,10 @@ export type OutputXsiam = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputXsiamPqControls | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -260,12 +263,10 @@ export const OutputXsiamUrl$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  url: types.optional(z.any()),
   weight: types.optional(types.number()),
 });
 /** @internal */
 export type OutputXsiamUrl$Outbound = {
-  url?: any | undefined;
   weight?: number | undefined;
 };
 
@@ -275,7 +276,6 @@ export const OutputXsiamUrl$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputXsiamUrl
 > = z.object({
-  url: z.any().optional(),
   weight: z.number().optional(),
 });
 
@@ -380,6 +380,7 @@ export const OutputXsiam$inboundSchema: z.ZodType<
   pqCompress: types.optional(CompressionOptionsPq$inboundSchema),
   pqOnBackpressure: types.optional(QueueFullBehaviorOptions$inboundSchema),
   pqControls: types.optional(z.lazy(() => OutputXsiamPqControls$inboundSchema)),
+  __template_url: types.optional(types.string()),
 });
 /** @internal */
 export type OutputXsiam$Outbound = {
@@ -428,6 +429,7 @@ export type OutputXsiam$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputXsiamPqControls$Outbound | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -482,6 +484,7 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputXsiamPqControls$outboundSchema).optional(),
+  __template_url: z.string().optional(),
 });
 
 export function outputXsiamToJSON(outputXsiam: OutputXsiam): string {

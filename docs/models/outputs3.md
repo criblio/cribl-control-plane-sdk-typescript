@@ -6,89 +6,9 @@
 import { OutputS3 } from "cribl-control-plane/models";
 
 let value: OutputS3 = {
-  id: "<id>",
   type: "s3",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
   bucket: "<value>",
-  region: "<value>",
-  awsSecretKey: "<value>",
-  awsAuthenticationMethod: "<value>",
-  endpoint: "<value>",
-  signatureVersion: "v2",
-  reuseConnections: false,
-  rejectUnauthorized: true,
-  enableAssumeRole: true,
-  assumeRoleArn: "<value>",
-  assumeRoleExternalId: "<id>",
-  durationSeconds: 2927.57,
   stagePath: "<value>",
-  addIdToStagePath: false,
-  destPath: "<value>",
-  objectACL: "public-read",
-  storageClass: "STANDARD_IA",
-  serverSideEncryption: "AES256",
-  kmsKeyId: "<id>",
-  removeEmptyDirs: true,
-  partitionExpr: "<value>",
-  format: "parquet",
-  baseFileName: "<value>",
-  fileNameSuffix: "<value>",
-  maxFileSizeMB: 6827,
-  maxOpenFiles: 5028.9,
-  headerLine: "<value>",
-  writeHighWaterMark: 8910.21,
-  onBackpressure: "block",
-  deadletterEnabled: false,
-  onDiskFullBackpressure: "drop",
-  forceCloseOnShutdown: false,
-  retrySettings: {
-    enabled: false,
-    initialBackoffMs: 192.63,
-    backoffMultiplier: 5447.21,
-    maxBackoffMs: 1266.88,
-    jitterPercent: 3342.59,
-  },
-  maxFileOpenTimeSec: 4442.82,
-  maxFileIdleTimeSec: 7473.72,
-  maxConcurrentFileParts: 2022.22,
-  verifyPermissions: false,
-  maxClosingFilesToBackpressure: 2293.99,
-  description: "until below bloom rebel",
-  awsApiKey: "<value>",
-  awsSecret: "<value>",
-  compress: "gzip",
-  compressionLevel: "best_compression",
-  automaticSchema: true,
-  parquetSchema: "<value>",
-  parquetVersion: "PARQUET_1_0",
-  parquetDataPageVersion: "DATA_PAGE_V2",
-  parquetRowGroupLength: 1536.61,
-  parquetPageSize: "<value>",
-  shouldLogInvalidRows: true,
-  keyValueMetadata: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
-  enableStatistics: false,
-  enableWritePageIndex: true,
-  enablePageChecksum: true,
-  emptyDirCleanupSec: 3941.66,
-  directoryBatchSize: 9471.19,
-  deadletterPath: "<value>",
-  maxRetryNum: 1008.2,
 };
 ```
 
@@ -160,3 +80,10 @@ let value: OutputS3 = {
 | `directoryBatchSize`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.                                                                                                          |
 | `deadletterPath`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Storage location for files that fail to reach their final destination after maximum retries are exceeded                                                                                                                                                             |
 | `maxRetryNum`                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | The maximum number of times a file will attempt to move to its final destination before being dead-lettered                                                                                                                                                          |
+| `templateBucket`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.                                                                            |
+| `templateRegion`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.                                                                            |
+| `templateAwsSecretKey`                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.                                                                |
+| `templateAssumeRoleArn`                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.                                                              |
+| `templateAssumeRoleExternalId`                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.                                                |
+| `templateFormat`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.                                                                            |
+| `templateAwsApiKey`                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.                                                                      |

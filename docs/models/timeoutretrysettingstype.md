@@ -7,9 +7,6 @@ import { TimeoutRetrySettingsType } from "cribl-control-plane/models";
 
 let value: TimeoutRetrySettingsType = {
   timeoutRetry: false,
-  initialBackoff: 4351.76,
-  backoffRate: 747.11,
-  maxBackoff: 8258.37,
 };
 ```
 

@@ -6,9 +6,6 @@
 import { JobStatus } from "cribl-control-plane/models";
 
 let value: JobStatus = {
-  reason: {
-    "key": "<value>",
-  },
   state: 3,
 };
 ```

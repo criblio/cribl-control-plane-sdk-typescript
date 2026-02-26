@@ -6,15 +6,7 @@
 import { SendConfiguration } from "cribl-control-plane/models";
 
 let value: SendConfiguration = {
-  url: "https://sticky-ribbon.org",
-  group: "<value>",
-  workspace: "<value>",
-  sendUrlTemplate: "<value>",
   searchId: "<id>",
-  tee: true,
-  flushMs: 6242.83,
-  suppressPreviews: true,
-  mode: "metrics",
 };
 ```
 

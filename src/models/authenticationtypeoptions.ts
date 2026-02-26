@@ -10,12 +10,26 @@ import { OpenEnum } from "../types/enums.js";
  * OpenTelemetry authentication type
  */
 export const AuthenticationTypeOptions = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
   Token: "token",
+  /**
+   * Token (text secret)
+   */
   TextSecret: "textSecret",
-  Oauth: "oauth",
 } as const;
 /**
  * OpenTelemetry authentication type

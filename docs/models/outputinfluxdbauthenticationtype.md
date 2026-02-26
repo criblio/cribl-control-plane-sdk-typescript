@@ -15,5 +15,5 @@ let value: OutputInfluxdbAuthenticationType = "none";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"none" | "basic" | "credentialsSecret" | "token" | "textSecret" | "oauth" | Unrecognized<string>
+"none" | "basic" | "credentialsSecret" | "token" | "textSecret" | Unrecognized<string>
 ```

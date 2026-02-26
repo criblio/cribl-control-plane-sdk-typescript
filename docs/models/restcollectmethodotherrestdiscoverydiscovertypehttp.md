@@ -10,24 +10,8 @@ const value:
   models.RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodGet =
     {
       discoverMethod: "get",
-      discoverRequestParams: "<value>",
       discoverType: "list",
       discoverUrl: "https://stingy-hyphenation.net",
-      discoverVerb: "<value>",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: true,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: true,
     };
 ```
 
@@ -38,24 +22,8 @@ const value:
   models.RestCollectMethodOtherRestDiscoveryDiscoverTypeHttpDiscoverMethodPost =
     {
       discoverMethod: "post",
-      discoverRequestParams: "<value>",
       discoverType: "http",
       discoverUrl: "https://infatuated-hovel.org",
-      discoverVerb: "<value>",
-      discoverBody: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: false,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: false,
     };
 ```
 
@@ -69,21 +37,6 @@ const value:
       discoverBody: "<value>",
       discoverType: "json",
       discoverUrl: "https://leading-godparent.info",
-      discoverVerb: "<value>",
-      discoverRequestParams: "<value>",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: false,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: false,
     };
 ```
 
@@ -95,23 +48,8 @@ const value:
     {
       discoverMethod: "other",
       discoverVerb: "<value>",
-      discoverBody: "<value>",
-      discoverRequestParams: "<value>",
       discoverType: "list",
       discoverUrl: "https://dependent-collaboration.info/",
-      discoverRequestHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      pagination: {
-        type: "<value>",
-      },
-      discoverDataField: "<value>",
-      enableStrictDiscoverParsing: false,
-      discoverResponseFormat: "<value>",
-      enableDiscoverCode: true,
     };
 ```
 

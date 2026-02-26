@@ -6,12 +6,6 @@
 import { GitCommitParams } from "cribl-control-plane/models";
 
 let value: GitCommitParams = {
-  effective: true,
-  files: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  group: "<value>",
   message: "<value>",
 };
 ```

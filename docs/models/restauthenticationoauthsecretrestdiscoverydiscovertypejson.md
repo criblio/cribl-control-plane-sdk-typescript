@@ -8,7 +8,6 @@ import { RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJson } from "crib
 let value: RestAuthenticationOauthSecretRestDiscoveryDiscoverTypeJson = {
   discoverType: "json",
   manualDiscoverResult: "<value>",
-  discoverDataField: "<value>",
 };
 ```
 

@@ -7,53 +7,8 @@ import { RestAuthenticationNone } from "cribl-control-plane/models";
 
 let value: RestAuthenticationNone = {
   authentication: "none",
-  discovery: {
-    discoverType: "json",
-    manualDiscoverResult: "<value>",
-    discoverDataField: "<value>",
-  },
-  collectUrl: "https://inexperienced-unblinking.biz/",
+  collectUrl: "https://elastic-hawk.org/",
   collectMethod: "get",
-  collectVerb: "<value>",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  pagination: {
-    type: "none",
-  },
-  timeout: 3213.74,
-  useRoundRobinDns: false,
-  disableTimeFilter: false,
-  decodeUrl: false,
-  rejectUnauthorized: true,
-  captureHeaders: true,
-  stopOnEmptyResults: false,
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  retryRules: {
-    type: "backoff",
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    maxIntervalMs: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-    retryConnectTimeout: "<value>",
-    retryConnectReset: "<value>",
-  },
-  __scheduling: {
-    stateTracking: {
-      enabled: true,
-    },
-  },
 };
 ```
 
@@ -65,9 +20,6 @@ let value: RestAuthenticationNone = {
 | `discovery`                                                                                                                                        | *models.RestAuthenticationNoneDiscovery*                                                                                                           | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectUrl`                                                                                                                                       | *string*                                                                                                                                           | :heavy_check_mark:                                                                                                                                 | URL (constant or JavaScript expression) to use for the Collect operation                                                                           |
 | `collectMethod`                                                                                                                                    | [models.RestAuthenticationNoneCollectMethod](../models/restauthenticationnonecollectmethod.md)                                                     | :heavy_check_mark:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectVerb`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectRequestParams`                                                                                                                             | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
-| `collectBody`                                                                                                                                      | *any*                                                                                                                                              | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `collectRequestHeaders`                                                                                                                            | [models.ItemsTypeRestCollectMethodGetCollectRequestParams](../models/itemstyperestcollectmethodgetcollectrequestparams.md)[]                       | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `pagination`                                                                                                                                       | *models.RestAuthenticationNonePaginationUnion*                                                                                                     | :heavy_minus_sign:                                                                                                                                 | N/A                                                                                                                                                |
 | `timeout`                                                                                                                                          | *number*                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | HTTP request inactivity timeout. Use 0 to disable.                                                                                                 |

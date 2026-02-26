@@ -6,84 +6,11 @@
 import { OutputChronicle } from "cribl-control-plane/models";
 
 let value: OutputChronicle = {
-  id: "<id>",
   type: "chronicle",
-  pipeline: "<value>",
-  systemFields: [
-    "<value 1>",
-  ],
-  environment: "<value>",
-  streamtags: [
-    "<value 1>",
-    "<value 2>",
-    "<value 3>",
-  ],
-  apiVersion: "<value>",
-  authenticationMethod: "serviceAccount",
-  responseRetrySettings: [
-    {
-      httpStatus: 2591.04,
-      initialBackoff: 4815.7,
-      backoffRate: 5576.87,
-      maxBackoff: 1844.93,
-    },
-  ],
-  timeoutRetrySettings: {
-    timeoutRetry: false,
-    initialBackoff: 4289.71,
-    backoffRate: 7830.71,
-    maxBackoff: 6330,
-  },
-  responseHonorRetryAfterHeader: true,
   region: "<value>",
-  concurrency: 1431.94,
-  maxPayloadSizeKB: 3002.04,
-  maxPayloadEvents: 2390.43,
-  compress: false,
-  rejectUnauthorized: false,
-  timeoutSec: 1217.75,
-  flushPeriodSec: 7979.3,
-  extraHttpHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  failedRequestLoggingMode: "none",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  useRoundRobinDns: true,
-  onBackpressure: "drop",
-  totalMemoryLimitKB: 8564.64,
-  ingestionMethod: "<value>",
-  namespace: "<value>",
   logType: "<value>",
-  logTextField: "<value>",
   gcpProjectId: "<id>",
   gcpInstance: "<value>",
-  customLabels: [
-    {
-      key: "<key>",
-      value: "<value>",
-      rbacEnabled: true,
-    },
-  ],
-  description: "ah heating redesign usable for oof swathe expense meh thigh",
-  serviceAccountCredentials: "<value>",
-  serviceAccountCredentialsSecret: "<value>",
-  pqStrictOrdering: false,
-  pqRatePerSec: 9925.69,
-  pqMode: "backpressure",
-  pqMaxBufferSize: 7755.05,
-  pqMaxBackpressureSec: 2000.53,
-  pqMaxFileSize: "<value>",
-  pqMaxSize: "<value>",
-  pqPath: "<value>",
-  pqCompress: "none",
-  pqOnBackpressure: "block",
-  pqControls: {},
 };
 ```
 
@@ -123,6 +50,7 @@ let value: OutputChronicle = {
 | `gcpProjectId`                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | The Google Cloud Platform (GCP) project ID to send events to                                                                                                                                                                                                                                                                                     |
 | `gcpInstance`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | The Google Cloud Platform (GCP) instance to send events to. This is the Chronicle customer uuid.                                                                                                                                                                                                                                                 |
 | `customLabels`                                                                                                                                                                                                                                                                                                                                   | [models.CustomLabel](../models/customlabel.md)[]                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Custom labels to be added to every event                                                                                                                                                                                                                                                                                                         |
+| `endpoint`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)                                                                                                                                           |
 | `description`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
 | `serviceAccountCredentials`                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.                                                                                                                                                                                    |
 | `serviceAccountCredentialsSecret`                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a stored text secret                                                                                                                                                                                                                                                                                                            |
@@ -137,3 +65,5 @@ let value: OutputChronicle = {
 | `pqCompress`                                                                                                                                                                                                                                                                                                                                     | [models.CompressionOptionsPq](../models/compressionoptionspq.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                      |
 | `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                               | [models.QueueFullBehaviorOptions](../models/queuefullbehavioroptions.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                            |
 | `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputChroniclePqControls](../models/outputchroniclepqcontrols.md)                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
+| `templateRegion`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.                                                                                                                                                        |
+| `templateEndpoint`                                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.                                                                                                                                                    |

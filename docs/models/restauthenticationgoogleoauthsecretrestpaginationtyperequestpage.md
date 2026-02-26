@@ -8,13 +8,10 @@ import { RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage } from
 let value: RestAuthenticationGoogleOauthSecretRestPaginationTypeRequestPage = {
   type: "request_page",
   pageField: "<value>",
-  page: 5382.91,
   sizeField: "<value>",
-  size: 592.12,
-  totalPageField: "<value>",
-  totalRecordField: "<value>",
-  maxPages: 4632.73,
-  zeroIndexed: false,
+  size: 5382.91,
+  maxPages: 592.12,
+  zeroIndexed: true,
 };
 ```
 

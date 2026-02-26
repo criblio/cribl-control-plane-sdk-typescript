@@ -5,9 +5,7 @@
 ```typescript
 import { RestCollectMethodOtherStateTracking } from "cribl-control-plane/models";
 
-let value: RestCollectMethodOtherStateTracking = {
-  enabled: true,
-};
+let value: RestCollectMethodOtherStateTracking = {};
 ```
 
 ## Fields

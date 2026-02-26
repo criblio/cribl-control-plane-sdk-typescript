@@ -7,16 +7,6 @@ import { PipelineFunctionMaskConf } from "cribl-control-plane/models";
 
 let value: PipelineFunctionMaskConf = {
   rules: [],
-  fields: [
-    "<value 1>",
-  ],
-  depth: 374535,
-  flags: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
 };
 ```
 

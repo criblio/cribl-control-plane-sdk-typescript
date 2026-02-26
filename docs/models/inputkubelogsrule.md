@@ -7,7 +7,6 @@ import { InputKubeLogsRule } from "cribl-control-plane/models";
 
 let value: InputKubeLogsRule = {
   filter: "<value>",
-  description: "now bah upon parsnip yippee consequently",
 };
 ```
 

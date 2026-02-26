@@ -10,60 +10,15 @@ const criblControlPlane = new CriblControlPlane({
 });
 
 async function run() {
-  const result = await criblControlPlane.lakeDatasets.create({
-    lakeId: "<id>",
-    criblLakeDataset: {
-      acceleratedFields: [
-        "<value 1>",
-        "<value 2>",
-      ],
-      bucketName: "<value>",
-      cacheConnection: {
-        acceleratedFields: [
-          "<value 1>",
-          "<value 2>",
-        ],
-        backfillStatus: "pending",
-        cacheRef: "<value>",
-        createdAt: 7795.06,
-        lakehouseConnectionType: "cache",
-        migrationQueryId: "<id>",
-        retentionInDays: 1466.58,
-      },
-      deletionStartedAt: 8310.58,
-      description:
-        "pleased toothbrush long brush smooth swiftly rightfully phooey chapel",
-      format: "ddss",
-      httpDAUsed: true,
-      id: "<id>",
-      metrics: {
-        currentSizeBytes: 6170.04,
-        metricsDate: "<value>",
-      },
-      retentionPeriodInDays: 456.37,
-      searchConfig: {
-        datatypes: [
-          "<value 1>",
-        ],
-        metadata: {
-          earliest: "<value>",
-          enableAcceleration: true,
-          fieldList: [
-            "<value 1>",
-            "<value 2>",
-          ],
-          latestRunInfo: {
-            earliestScannedTime: 4334.7,
-            finishedAt: 6811.22,
-            latestScannedTime: 5303.3,
-            objectCount: 9489.04,
-          },
-          scanMode: "detailed",
-        },
-      },
-      storageLocationId: "<id>",
-      viewName: "<value>",
-    },
+  const result = await criblControlPlane.databaseConnections.create({
+    authType: "connectionString",
+    connectionString:
+      "mysql://admin:password123@mysql.example.com:3306/production?ssl=true",
+    connectionTimeout: 10000,
+    databaseType: "mysql",
+    description: "Production MySQL database for customer data",
+    id: "mysql-prod-db",
+    tags: "production,mysql,customer-data",
   });
 
   console.log(result);

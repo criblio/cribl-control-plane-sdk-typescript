@@ -6,27 +6,8 @@
 import { PipelineFunctionCef } from "cribl-control-plane/models";
 
 let value: PipelineFunctionCef = {
-  filter: "<value>",
   id: "cef",
-  description: "but minion lest",
-  disabled: false,
-  final: true,
-  conf: {
-    outputField: "<value>",
-    header: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    extension: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-  },
-  groupId: "<id>",
+  conf: {},
 };
 ```
 
