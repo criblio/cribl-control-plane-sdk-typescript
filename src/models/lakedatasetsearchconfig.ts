@@ -16,7 +16,9 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type LakeDatasetSearchConfig = {
   datatypes?: Array<string> | undefined;
+  description?: string | undefined;
   metadata?: DatasetMetadata | undefined;
+  tags?: string | undefined;
 };
 
 /** @internal */
@@ -26,12 +28,16 @@ export const LakeDatasetSearchConfig$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   datatypes: types.optional(z.array(types.string())),
+  description: types.optional(types.string()),
   metadata: types.optional(DatasetMetadata$inboundSchema),
+  tags: types.optional(types.string()),
 });
 /** @internal */
 export type LakeDatasetSearchConfig$Outbound = {
   datatypes?: Array<string> | undefined;
+  description?: string | undefined;
   metadata?: DatasetMetadata$Outbound | undefined;
+  tags?: string | undefined;
 };
 
 /** @internal */
@@ -41,7 +47,9 @@ export const LakeDatasetSearchConfig$outboundSchema: z.ZodType<
   LakeDatasetSearchConfig
 > = z.object({
   datatypes: z.array(z.string()).optional(),
+  description: z.string().optional(),
   metadata: DatasetMetadata$outboundSchema.optional(),
+  tags: z.string().optional(),
 });
 
 export function lakeDatasetSearchConfigToJSON(
