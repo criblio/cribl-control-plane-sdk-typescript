@@ -635,6 +635,17 @@ const value: operations.CreateInputInputWiz = {
 };
 ```
 
+### `operations.CreateInputInputOpenai`
+
+```typescript
+const value: operations.CreateInputInputOpenai = {
+  id: "<id>",
+  type: "openai",
+  contentConfig: [],
+  textSecret: "<value>",
+};
+```
+
 ### `operations.CreateInputInputWizWebhook`
 
 ```typescript

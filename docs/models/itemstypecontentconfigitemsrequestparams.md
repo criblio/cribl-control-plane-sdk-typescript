@@ -1,11 +1,11 @@
-# ItemsTypeLabels
+# ItemsTypeContentConfigItemsRequestParams
 
 ## Example Usage
 
 ```typescript
-import { ItemsTypeLabels } from "cribl-control-plane/models";
+import { ItemsTypeContentConfigItemsRequestParams } from "cribl-control-plane/models";
 
-let value: ItemsTypeLabels = {
+let value: ItemsTypeContentConfigItemsRequestParams = {
   name: "<value>",
   value: "<value>",
 };
