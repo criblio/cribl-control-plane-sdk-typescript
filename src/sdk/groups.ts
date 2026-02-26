@@ -14,6 +14,7 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { Acl } from "./acl.js";
 import { GroupsConfigs } from "./groupsconfigs.js";
+import { Mappings } from "./mappings.js";
 
 export class Groups extends ClientSDK {
   private _configs?: GroupsConfigs;
@@ -24,6 +25,11 @@ export class Groups extends ClientSDK {
   private _acl?: Acl;
   get acl(): Acl {
     return (this._acl ??= new Acl(this._options));
+  }
+
+  private _mappings?: Mappings;
+  get mappings(): Mappings {
+    return (this._mappings ??= new Mappings(this._options));
   }
 
   /**
