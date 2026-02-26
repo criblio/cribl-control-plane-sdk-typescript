@@ -292,6 +292,15 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
 
+#### [Groups.Mappings](docs/sdks/mappings/README.md)
+
+* [activate](docs/sdks/mappings/README.md#activate) - Set a Mapping Ruleset as the active configuration for the specified Cribl product
+* [create](docs/sdks/mappings/README.md#create) - Create a new Mapping Ruleset for the specified Cribl product
+* [list](docs/sdks/mappings/README.md#list) - List all Mapping Rulesets for the specified Cribl product
+* [delete](docs/sdks/mappings/README.md#delete) - Delete the specified Mapping Ruleset from the Worker Group or Edge Fleet
+* [get](docs/sdks/mappings/README.md#get) - Retrieve a Specific Mapping Ruleset
+* [update](docs/sdks/mappings/README.md#update) - Update an existing Mapping Ruleset for a Worker Group or Edge Fleet
+
 ### [Health](docs/sdks/health/README.md)
 
 * [get](docs/sdks/health/README.md#get) - Retrieve health status of the server
@@ -513,6 +522,12 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`groupsDeploy`](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
 - [`groupsGet`](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
 - [`groupsList`](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
+- [`groupsMappingsActivate`](docs/sdks/mappings/README.md#activate) - Set a Mapping Ruleset as the active configuration for the specified Cribl product
+- [`groupsMappingsCreate`](docs/sdks/mappings/README.md#create) - Create a new Mapping Ruleset for the specified Cribl product
+- [`groupsMappingsDelete`](docs/sdks/mappings/README.md#delete) - Delete the specified Mapping Ruleset from the Worker Group or Edge Fleet
+- [`groupsMappingsGet`](docs/sdks/mappings/README.md#get) - Retrieve a Specific Mapping Ruleset
+- [`groupsMappingsList`](docs/sdks/mappings/README.md#list) - List all Mapping Rulesets for the specified Cribl product
+- [`groupsMappingsUpdate`](docs/sdks/mappings/README.md#update) - Update an existing Mapping Ruleset for a Worker Group or Edge Fleet
 - [`groupsUpdate`](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 - [`healthGet`](docs/sdks/health/README.md#get) - Retrieve health status of the server
 - [`lakeDatasetsCreate`](docs/sdks/lakedatasets/README.md#create) - Create a Lake Dataset (Cribl.Cloud only)
