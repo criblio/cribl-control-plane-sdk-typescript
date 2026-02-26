@@ -13,7 +13,7 @@ let value: MappingRulesetAdd = {
 
 ## Fields
 
-| Field                            | Type                             | Required                         | Description                      |
-| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
-| `name`                           | [models.Name](../models/name.md) | :heavy_check_mark:               | N/A                              |
-| `value`                          | *string*                         | :heavy_check_mark:               | N/A                              |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `name`             | *"groupId"*        | :heavy_check_mark: | N/A                |
+| `value`            | *string*           | :heavy_check_mark: | N/A                |
