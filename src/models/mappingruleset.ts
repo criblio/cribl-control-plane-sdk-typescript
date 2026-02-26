@@ -4,34 +4,22 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export const IdEnum = {
-  Eval: "eval",
-} as const;
-export type IdEnum = OpenEnum<typeof IdEnum>;
-
-export const Name = {
-  GroupId: "groupId",
-} as const;
-export type Name = OpenEnum<typeof Name>;
-
 export type MappingRulesetAdd = {
-  name: Name;
+  name: "groupId";
   value: string;
 };
 
-export type FunctionConf = {
+export type ConfEval = {
   add: Array<MappingRulesetAdd>;
 };
 
 export type FunctionT = {
-  id: IdEnum;
-  conf: FunctionConf;
+  id: "eval";
+  conf: ConfEval;
   [additionalProperties: string]: unknown;
 };
 
@@ -49,31 +37,17 @@ export type MappingRuleset = {
 };
 
 /** @internal */
-export const IdEnum$inboundSchema: z.ZodType<IdEnum, z.ZodTypeDef, unknown> =
-  openEnums.inboundSchema(IdEnum);
-/** @internal */
-export const IdEnum$outboundSchema: z.ZodType<string, z.ZodTypeDef, IdEnum> =
-  openEnums.outboundSchema(IdEnum);
-
-/** @internal */
-export const Name$inboundSchema: z.ZodType<Name, z.ZodTypeDef, unknown> =
-  openEnums.inboundSchema(Name);
-/** @internal */
-export const Name$outboundSchema: z.ZodType<string, z.ZodTypeDef, Name> =
-  openEnums.outboundSchema(Name);
-
-/** @internal */
 export const MappingRulesetAdd$inboundSchema: z.ZodType<
   MappingRulesetAdd,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: Name$inboundSchema,
+  name: types.literal("groupId"),
   value: types.string(),
 });
 /** @internal */
 export type MappingRulesetAdd$Outbound = {
-  name: string;
+  name: "groupId";
   value: string;
 };
 
@@ -83,7 +57,7 @@ export const MappingRulesetAdd$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   MappingRulesetAdd
 > = z.object({
-  name: Name$outboundSchema,
+  name: z.literal("groupId"),
   value: z.string(),
 });
 
@@ -105,37 +79,37 @@ export function mappingRulesetAddFromJSON(
 }
 
 /** @internal */
-export const FunctionConf$inboundSchema: z.ZodType<
-  FunctionConf,
+export const ConfEval$inboundSchema: z.ZodType<
+  ConfEval,
   z.ZodTypeDef,
   unknown
 > = z.object({
   add: z.array(z.lazy(() => MappingRulesetAdd$inboundSchema)),
 });
 /** @internal */
-export type FunctionConf$Outbound = {
+export type ConfEval$Outbound = {
   add: Array<MappingRulesetAdd$Outbound>;
 };
 
 /** @internal */
-export const FunctionConf$outboundSchema: z.ZodType<
-  FunctionConf$Outbound,
+export const ConfEval$outboundSchema: z.ZodType<
+  ConfEval$Outbound,
   z.ZodTypeDef,
-  FunctionConf
+  ConfEval
 > = z.object({
   add: z.array(z.lazy(() => MappingRulesetAdd$outboundSchema)),
 });
 
-export function functionConfToJSON(functionConf: FunctionConf): string {
-  return JSON.stringify(FunctionConf$outboundSchema.parse(functionConf));
+export function confEvalToJSON(confEval: ConfEval): string {
+  return JSON.stringify(ConfEval$outboundSchema.parse(confEval));
 }
-export function functionConfFromJSON(
+export function confEvalFromJSON(
   jsonString: string,
-): SafeParseResult<FunctionConf, SDKValidationError> {
+): SafeParseResult<ConfEval, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => FunctionConf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionConf' from JSON`,
+    (x) => ConfEval$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ConfEval' from JSON`,
   );
 }
 
@@ -145,13 +119,13 @@ export const FunctionT$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: IdEnum$inboundSchema,
-  conf: z.lazy(() => FunctionConf$inboundSchema),
+  id: types.literal("eval"),
+  conf: z.lazy(() => ConfEval$inboundSchema),
 }).catchall(z.any());
 /** @internal */
 export type FunctionT$Outbound = {
-  id: string;
-  conf: FunctionConf$Outbound;
+  id: "eval";
+  conf: ConfEval$Outbound;
   [additionalProperties: string]: unknown;
 };
 
@@ -161,8 +135,8 @@ export const FunctionT$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   FunctionT
 > = z.object({
-  id: IdEnum$outboundSchema,
-  conf: z.lazy(() => FunctionConf$outboundSchema),
+  id: z.literal("eval"),
+  conf: z.lazy(() => ConfEval$outboundSchema),
 }).catchall(z.any());
 
 export function functionToJSON(functionT: FunctionT): string {

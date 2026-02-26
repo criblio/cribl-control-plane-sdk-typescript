@@ -1,11 +1,11 @@
-# FunctionConf
+# ConfEval
 
 ## Example Usage
 
 ```typescript
-import { FunctionConf } from "cribl-control-plane/models";
+import { ConfEval } from "cribl-control-plane/models";
 
-let value: FunctionConf = {
+let value: ConfEval = {
   add: [],
 };
 ```

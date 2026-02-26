@@ -15,8 +15,8 @@ let value: FunctionT = {
 
 ## Fields
 
-| Field                                            | Type                                             | Required                                         | Description                                      |
-| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
-| `id`                                             | [models.IdEnum](../models/idenum.md)             | :heavy_check_mark:                               | N/A                                              |
-| `conf`                                           | [models.FunctionConf](../models/functionconf.md) | :heavy_check_mark:                               | N/A                                              |
-| `additionalProperties`                           | Record<string, *any*>                            | :heavy_minus_sign:                               | N/A                                              |
+| Field                                    | Type                                     | Required                                 | Description                              |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| `id`                                     | *"eval"*                                 | :heavy_check_mark:                       | N/A                                      |
+| `conf`                                   | [models.ConfEval](../models/confeval.md) | :heavy_check_mark:                       | N/A                                      |
+| `additionalProperties`                   | Record<string, *any*>                    | :heavy_minus_sign:                       | N/A                                      |
