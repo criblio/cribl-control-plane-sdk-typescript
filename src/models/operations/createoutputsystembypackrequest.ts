@@ -169,10 +169,9 @@ import {
   CreateOutputSystemByPackOutputXsiam,
   CreateOutputSystemByPackOutputXsiam$Outbound,
   CreateOutputSystemByPackOutputXsiam$outboundSchema,
-  CreateOutputSystemByPackPqControlsKinesis,
-  CreateOutputSystemByPackPqControlsKinesis$Outbound,
-  CreateOutputSystemByPackPqControlsKinesis$outboundSchema,
-} from "./createoutputsystembypackpqcontrolskinesis.js";
+} from "./createoutputsystembypackcompression.js";
+
+export type CreateOutputSystemByPackPqControlsKinesis = {};
 
 export type CreateOutputSystemByPackOutputKinesis = {
   /**
@@ -4050,6 +4049,28 @@ export type CreateOutputSystemByPackRequest = {
 };
 
 /** @internal */
+export type CreateOutputSystemByPackPqControlsKinesis$Outbound = {};
+
+/** @internal */
+export const CreateOutputSystemByPackPqControlsKinesis$outboundSchema:
+  z.ZodType<
+    CreateOutputSystemByPackPqControlsKinesis$Outbound,
+    z.ZodTypeDef,
+    CreateOutputSystemByPackPqControlsKinesis
+  > = z.object({});
+
+export function createOutputSystemByPackPqControlsKinesisToJSON(
+  createOutputSystemByPackPqControlsKinesis:
+    CreateOutputSystemByPackPqControlsKinesis,
+): string {
+  return JSON.stringify(
+    CreateOutputSystemByPackPqControlsKinesis$outboundSchema.parse(
+      createOutputSystemByPackPqControlsKinesis,
+    ),
+  );
+}
+
+/** @internal */
 export type CreateOutputSystemByPackOutputKinesis$Outbound = {
   id: string;
   type: "kinesis";
@@ -4144,8 +4165,9 @@ export const CreateOutputSystemByPackOutputKinesis$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: CreateOutputSystemByPackPqControlsKinesis$outboundSchema
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputSystemByPackPqControlsKinesis$outboundSchema
+  ).optional(),
   __template_streamName: z.string().optional(),
   __template_awsSecretKey: z.string().optional(),
   __template_region: z.string().optional(),

@@ -4,35 +4,30 @@
 
 import * as z from "zod/v3";
 
-export type GitCommitParams = {
+export type GitCommitBody = {
   effective?: boolean | undefined;
   files?: Array<string> | undefined;
-  group?: string | undefined;
   message: string;
 };
 
 /** @internal */
-export type GitCommitParams$Outbound = {
+export type GitCommitBody$Outbound = {
   effective?: boolean | undefined;
   files?: Array<string> | undefined;
-  group?: string | undefined;
   message: string;
 };
 
 /** @internal */
-export const GitCommitParams$outboundSchema: z.ZodType<
-  GitCommitParams$Outbound,
+export const GitCommitBody$outboundSchema: z.ZodType<
+  GitCommitBody$Outbound,
   z.ZodTypeDef,
-  GitCommitParams
+  GitCommitBody
 > = z.object({
   effective: z.boolean().optional(),
   files: z.array(z.string()).optional(),
-  group: z.string().optional(),
   message: z.string(),
 });
 
-export function gitCommitParamsToJSON(
-  gitCommitParams: GitCommitParams,
-): string {
-  return JSON.stringify(GitCommitParams$outboundSchema.parse(gitCommitParams));
+export function gitCommitBodyToJSON(gitCommitBody: GitCommitBody): string {
+  return JSON.stringify(GitCommitBody$outboundSchema.parse(gitCommitBody));
 }

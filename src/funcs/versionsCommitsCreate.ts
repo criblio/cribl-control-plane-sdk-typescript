@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function versionsCommitsCreate(
   client: CriblControlPlaneCore,
-  request: models.GitCommitParams,
+  request: models.GitCommitBody,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -58,7 +58,7 @@ export function versionsCommitsCreate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: models.GitCommitParams,
+  request: models.GitCommitBody,
   options?: RequestOptions,
 ): Promise<
   [
@@ -79,7 +79,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.GitCommitParams$outboundSchema.parse(value),
+    (value) => models.GitCommitBody$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
