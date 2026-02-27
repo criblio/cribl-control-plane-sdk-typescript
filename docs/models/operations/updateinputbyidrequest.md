@@ -8,12 +8,11 @@ import { UpdateInputByIdRequest } from "cribl-control-plane/models/operations";
 let value: UpdateInputByIdRequest = {
   id: "<id>",
   input: {
-    type: "journal_files",
-    path: "/Library",
-    journals: [
-      "<value 1>",
-      "<value 2>",
-    ],
+    type: "wiz",
+    endpoint: "<value>",
+    authUrl: "https://scientific-knickers.net/",
+    clientId: "<id>",
+    contentConfig: [],
   },
 };
 ```
@@ -23,4 +22,4 @@ let value: UpdateInputByIdRequest = {
 | Field                                        | Type                                         | Required                                     | Description                                  |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | `id`                                         | *string*                                     | :heavy_check_mark:                           | The <code>id</code> of the Source to update. |
-| `input`                                      | *models.Input*                               | :heavy_check_mark:                           | Input object                                 |
+| `input`                                      | *models.Input2*                              | :heavy_check_mark:                           | Input object                                 |

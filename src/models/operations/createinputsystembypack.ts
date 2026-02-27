@@ -768,12 +768,195 @@ export type CreateInputSystemByPackInputWizWebhook = {
   __template_port?: string | undefined;
 };
 
-export type CreateInputSystemByPackManageState = {};
+export type CreateInputSystemByPackManageStateOpenai = {};
+
+export const CreateInputSystemByPackPaginationType = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 Link Header
+   */
+  ResponseHeaderLink: "response_header_link",
+} as const;
+export type CreateInputSystemByPackPaginationType = OpenEnum<
+  typeof CreateInputSystemByPackPaginationType
+>;
+
+/**
+ * Collector runtime log level.
+ */
+export const CreateInputSystemByPackLogLevelOpenai = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Collector runtime log level.
+ */
+export type CreateInputSystemByPackLogLevelOpenai = OpenEnum<
+  typeof CreateInputSystemByPackLogLevelOpenai
+>;
+
+export type CreateInputSystemByPackContentConfigInput = {
+  disabled?: boolean | undefined;
+  /**
+   * Track collection progress between consecutive scheduled executions.
+   */
+  stateTracking?: boolean | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging task state
+   */
+  stateMergeExpression?: string | undefined;
+  manageState?: CreateInputSystemByPackManageStateOpenai | undefined;
+  /**
+   * Query-string parameters to send with this endpoint
+   */
+  requestParams: Array<models.ItemsTypeContentConfigItemsRequestParams>;
+  paginationType: CreateInputSystemByPackPaginationType;
+  paginationAttribute?: Array<string> | undefined;
+  paginationLastPageExpr?: string | undefined;
+  /**
+   * Maximum number of pages to retrieve per collection task. Set to 0 only when unlimited pagination is required.
+   */
+  maxPages?: number | undefined;
+  /**
+   * Used only for RFC 5988 link-header pagination
+   */
+  paginationNextRelationAttribute?: string | undefined;
+  /**
+   * Optional relation that represents the current page
+   */
+  paginationCurRelationAttribute?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule: string;
+  /**
+   * Relative to the current time
+   */
+  earliest: string;
+  /**
+   * Relative to the current time
+   */
+  latest: string;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * Collector runtime log level.
+   */
+  logLevel?: CreateInputSystemByPackLogLevelOpenai | undefined;
+  /**
+   * Fields automatically added to events from this Content Type
+   */
+  endpointMetadata?: Array<models.ItemsTypeMetadata> | undefined;
+};
+
+export type CreateInputSystemByPackInputOpenai = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "openai";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Optional `OpenAI-Organization` request header value, typically `org-xxxxxxxxxxxxxxxxxxxxxxxx`
+   */
+  openaiOrganization?: string | undefined;
+  /**
+   * Optional `OpenAI-Project` request header value, typically `proj_xxxxxxxxxxxxxxxxxxxxxxxx`
+   */
+  openaiProject?: string | undefined;
+  contentConfig: Array<CreateInputSystemByPackContentConfigInput>;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored API key. Visit [OpenAI's organization admin keys page](https://platform.openai.com/settings/organization/admin-keys) to create an organization admin key.
+   */
+  textSecret: string;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  retryRules?: models.RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'openaiOrganization' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiOrganization' at runtime.
+   */
+  __template_openaiOrganization?: string | undefined;
+  /**
+   * Binds 'openaiProject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiProject' at runtime.
+   */
+  __template_openaiProject?: string | undefined;
+};
+
+export type CreateInputSystemByPackManageStateWiz = {};
 
 /**
  * Collector runtime log level
  */
-export const CreateInputSystemByPackContentConfigLogLevel = {
+export const CreateInputSystemByPackLogLevelWiz = {
   Error: "error",
   Warn: "warn",
   Info: "info",
@@ -783,8 +966,8 @@ export const CreateInputSystemByPackContentConfigLogLevel = {
 /**
  * Collector runtime log level
  */
-export type CreateInputSystemByPackContentConfigLogLevel = OpenEnum<
-  typeof CreateInputSystemByPackContentConfigLogLevel
+export type CreateInputSystemByPackLogLevelWiz = OpenEnum<
+  typeof CreateInputSystemByPackLogLevelWiz
 >;
 
 export type CreateInputSystemByPackContentConfigWiz = {
@@ -806,7 +989,7 @@ export type CreateInputSystemByPackContentConfigWiz = {
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
-  manageState?: CreateInputSystemByPackManageState | undefined;
+  manageState?: CreateInputSystemByPackManageStateWiz | undefined;
   /**
    * Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
    */
@@ -830,7 +1013,7 @@ export type CreateInputSystemByPackContentConfigWiz = {
   /**
    * Collector runtime log level
    */
-  logLevel?: CreateInputSystemByPackContentConfigLogLevel | undefined;
+  logLevel?: CreateInputSystemByPackLogLevelWiz | undefined;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
    */
@@ -9042,6 +9225,7 @@ export type CreateInputSystemByPackRequestBody =
   | CreateInputSystemByPackInputRawUdp
   | CreateInputSystemByPackInputJournalFiles
   | CreateInputSystemByPackInputWiz
+  | CreateInputSystemByPackInputOpenai
   | CreateInputSystemByPackInputWizWebhook
   | CreateInputSystemByPackInputNetflow
   | CreateInputSystemByPackInputSecurityLake
@@ -9118,6 +9302,7 @@ export type CreateInputSystemByPackRequest = {
     | CreateInputSystemByPackInputRawUdp
     | CreateInputSystemByPackInputJournalFiles
     | CreateInputSystemByPackInputWiz
+    | CreateInputSystemByPackInputOpenai
     | CreateInputSystemByPackInputWizWebhook
     | CreateInputSystemByPackInputNetflow
     | CreateInputSystemByPackInputSecurityLake
@@ -9758,32 +9943,208 @@ export function createInputSystemByPackInputWizWebhookToJSON(
 }
 
 /** @internal */
-export type CreateInputSystemByPackManageState$Outbound = {};
+export type CreateInputSystemByPackManageStateOpenai$Outbound = {};
 
 /** @internal */
-export const CreateInputSystemByPackManageState$outboundSchema: z.ZodType<
-  CreateInputSystemByPackManageState$Outbound,
+export const CreateInputSystemByPackManageStateOpenai$outboundSchema: z.ZodType<
+  CreateInputSystemByPackManageStateOpenai$Outbound,
   z.ZodTypeDef,
-  CreateInputSystemByPackManageState
+  CreateInputSystemByPackManageStateOpenai
 > = z.object({});
 
-export function createInputSystemByPackManageStateToJSON(
-  createInputSystemByPackManageState: CreateInputSystemByPackManageState,
+export function createInputSystemByPackManageStateOpenaiToJSON(
+  createInputSystemByPackManageStateOpenai:
+    CreateInputSystemByPackManageStateOpenai,
 ): string {
   return JSON.stringify(
-    CreateInputSystemByPackManageState$outboundSchema.parse(
-      createInputSystemByPackManageState,
+    CreateInputSystemByPackManageStateOpenai$outboundSchema.parse(
+      createInputSystemByPackManageStateOpenai,
     ),
   );
 }
 
 /** @internal */
-export const CreateInputSystemByPackContentConfigLogLevel$outboundSchema:
+export const CreateInputSystemByPackPaginationType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSystemByPackPaginationType
+> = openEnums.outboundSchema(CreateInputSystemByPackPaginationType);
+
+/** @internal */
+export const CreateInputSystemByPackLogLevelOpenai$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSystemByPackLogLevelOpenai
+> = openEnums.outboundSchema(CreateInputSystemByPackLogLevelOpenai);
+
+/** @internal */
+export type CreateInputSystemByPackContentConfigInput$Outbound = {
+  disabled?: boolean | undefined;
+  stateTracking?: boolean | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?: CreateInputSystemByPackManageStateOpenai$Outbound | undefined;
+  requestParams: Array<
+    models.ItemsTypeContentConfigItemsRequestParams$Outbound
+  >;
+  paginationType: string;
+  paginationAttribute?: Array<string> | undefined;
+  paginationLastPageExpr?: string | undefined;
+  maxPages?: number | undefined;
+  paginationNextRelationAttribute?: string | undefined;
+  paginationCurRelationAttribute?: string | undefined;
+  cronSchedule: string;
+  earliest: string;
+  latest: string;
+  jobTimeout?: string | undefined;
+  logLevel?: string | undefined;
+  endpointMetadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackContentConfigInput$outboundSchema:
   z.ZodType<
-    string,
+    CreateInputSystemByPackContentConfigInput$Outbound,
     z.ZodTypeDef,
-    CreateInputSystemByPackContentConfigLogLevel
-  > = openEnums.outboundSchema(CreateInputSystemByPackContentConfigLogLevel);
+    CreateInputSystemByPackContentConfigInput
+  > = z.object({
+    disabled: z.boolean().optional(),
+    stateTracking: z.boolean().optional(),
+    stateUpdateExpression: z.string().optional(),
+    stateMergeExpression: z.string().optional(),
+    manageState: z.lazy(() =>
+      CreateInputSystemByPackManageStateOpenai$outboundSchema
+    ).optional(),
+    requestParams: z.array(
+      models.ItemsTypeContentConfigItemsRequestParams$outboundSchema,
+    ),
+    paginationType: CreateInputSystemByPackPaginationType$outboundSchema,
+    paginationAttribute: z.array(z.string()).optional(),
+    paginationLastPageExpr: z.string().optional(),
+    maxPages: z.number().optional(),
+    paginationNextRelationAttribute: z.string().optional(),
+    paginationCurRelationAttribute: z.string().optional(),
+    cronSchedule: z.string(),
+    earliest: z.string(),
+    latest: z.string(),
+    jobTimeout: z.string().optional(),
+    logLevel: CreateInputSystemByPackLogLevelOpenai$outboundSchema.optional(),
+    endpointMetadata: z.array(models.ItemsTypeMetadata$outboundSchema)
+      .optional(),
+  });
+
+export function createInputSystemByPackContentConfigInputToJSON(
+  createInputSystemByPackContentConfigInput:
+    CreateInputSystemByPackContentConfigInput,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackContentConfigInput$outboundSchema.parse(
+      createInputSystemByPackContentConfigInput,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputSystemByPackInputOpenai$Outbound = {
+  id: string;
+  type: "openai";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  openaiOrganization?: string | undefined;
+  openaiProject?: string | undefined;
+  contentConfig: Array<CreateInputSystemByPackContentConfigInput$Outbound>;
+  requestTimeout?: number | undefined;
+  apiKey?: string | undefined;
+  textSecret: string;
+  keepAliveTime?: number | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  __template_openaiOrganization?: string | undefined;
+  __template_openaiProject?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputSystemByPackInputOpenai$outboundSchema: z.ZodType<
+  CreateInputSystemByPackInputOpenai$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackInputOpenai
+> = z.object({
+  id: z.string(),
+  type: z.literal("openai"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  openaiOrganization: z.string().optional(),
+  openaiProject: z.string().optional(),
+  contentConfig: z.array(
+    z.lazy(() => CreateInputSystemByPackContentConfigInput$outboundSchema),
+  ),
+  requestTimeout: z.number().optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string(),
+  keepAliveTime: z.number().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  __template_openaiOrganization: z.string().optional(),
+  __template_openaiProject: z.string().optional(),
+});
+
+export function createInputSystemByPackInputOpenaiToJSON(
+  createInputSystemByPackInputOpenai: CreateInputSystemByPackInputOpenai,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackInputOpenai$outboundSchema.parse(
+      createInputSystemByPackInputOpenai,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputSystemByPackManageStateWiz$Outbound = {};
+
+/** @internal */
+export const CreateInputSystemByPackManageStateWiz$outboundSchema: z.ZodType<
+  CreateInputSystemByPackManageStateWiz$Outbound,
+  z.ZodTypeDef,
+  CreateInputSystemByPackManageStateWiz
+> = z.object({});
+
+export function createInputSystemByPackManageStateWizToJSON(
+  createInputSystemByPackManageStateWiz: CreateInputSystemByPackManageStateWiz,
+): string {
+  return JSON.stringify(
+    CreateInputSystemByPackManageStateWiz$outboundSchema.parse(
+      createInputSystemByPackManageStateWiz,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateInputSystemByPackLogLevelWiz$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputSystemByPackLogLevelWiz
+> = openEnums.outboundSchema(CreateInputSystemByPackLogLevelWiz);
 
 /** @internal */
 export type CreateInputSystemByPackContentConfigWiz$Outbound = {
@@ -9793,7 +10154,7 @@ export type CreateInputSystemByPackContentConfigWiz$Outbound = {
   stateTracking?: boolean | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
-  manageState?: CreateInputSystemByPackManageState$Outbound | undefined;
+  manageState?: CreateInputSystemByPackManageStateWiz$Outbound | undefined;
   contentQuery: string;
   cronSchedule: string;
   earliest: string;
@@ -9815,15 +10176,15 @@ export const CreateInputSystemByPackContentConfigWiz$outboundSchema: z.ZodType<
   stateTracking: z.boolean().optional(),
   stateUpdateExpression: z.string().optional(),
   stateMergeExpression: z.string().optional(),
-  manageState: z.lazy(() => CreateInputSystemByPackManageState$outboundSchema)
-    .optional(),
+  manageState: z.lazy(() =>
+    CreateInputSystemByPackManageStateWiz$outboundSchema
+  ).optional(),
   contentQuery: z.string(),
   cronSchedule: z.string(),
   earliest: z.string(),
   latest: z.string(),
   jobTimeout: z.string().optional(),
-  logLevel: CreateInputSystemByPackContentConfigLogLevel$outboundSchema
-    .optional(),
+  logLevel: CreateInputSystemByPackLogLevelWiz$outboundSchema.optional(),
   maxPages: z.number().optional(),
 });
 
@@ -17209,6 +17570,7 @@ export type CreateInputSystemByPackRequestBody$Outbound =
   | CreateInputSystemByPackInputRawUdp$Outbound
   | CreateInputSystemByPackInputJournalFiles$Outbound
   | CreateInputSystemByPackInputWiz$Outbound
+  | CreateInputSystemByPackInputOpenai$Outbound
   | CreateInputSystemByPackInputWizWebhook$Outbound
   | CreateInputSystemByPackInputNetflow$Outbound
   | CreateInputSystemByPackInputSecurityLake$Outbound
@@ -17282,6 +17644,7 @@ export const CreateInputSystemByPackRequestBody$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputSystemByPackInputRawUdp$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputJournalFiles$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputWiz$outboundSchema),
+  z.lazy(() => CreateInputSystemByPackInputOpenai$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputWizWebhook$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputNetflow$outboundSchema),
   z.lazy(() => CreateInputSystemByPackInputSecurityLake$outboundSchema),
@@ -17366,6 +17729,7 @@ export type CreateInputSystemByPackRequest$Outbound = {
     | CreateInputSystemByPackInputRawUdp$Outbound
     | CreateInputSystemByPackInputJournalFiles$Outbound
     | CreateInputSystemByPackInputWiz$Outbound
+    | CreateInputSystemByPackInputOpenai$Outbound
     | CreateInputSystemByPackInputWizWebhook$Outbound
     | CreateInputSystemByPackInputNetflow$Outbound
     | CreateInputSystemByPackInputSecurityLake$Outbound
@@ -17444,6 +17808,7 @@ export const CreateInputSystemByPackRequest$outboundSchema: z.ZodType<
     z.lazy(() => CreateInputSystemByPackInputRawUdp$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputJournalFiles$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputWiz$outboundSchema),
+    z.lazy(() => CreateInputSystemByPackInputOpenai$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputWizWebhook$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputNetflow$outboundSchema),
     z.lazy(() => CreateInputSystemByPackInputSecurityLake$outboundSchema),

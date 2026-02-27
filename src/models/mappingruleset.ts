@@ -19,6 +19,10 @@ export type ConfEval = {
 
 export type FunctionT = {
   id: "eval";
+  filter?: string | undefined;
+  disabled: boolean;
+  final: true;
+  description?: string | undefined;
   conf: ConfEval;
   [additionalProperties: string]: unknown;
 };
@@ -120,11 +124,19 @@ export const FunctionT$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: types.literal("eval"),
+  filter: types.optional(types.string()),
+  disabled: types.boolean(),
+  final: types.literal(true),
+  description: types.optional(types.string()),
   conf: z.lazy(() => ConfEval$inboundSchema),
 }).catchall(z.any());
 /** @internal */
 export type FunctionT$Outbound = {
   id: "eval";
+  filter?: string | undefined;
+  disabled: boolean;
+  final: true;
+  description?: string | undefined;
   conf: ConfEval$Outbound;
   [additionalProperties: string]: unknown;
 };
@@ -136,6 +148,10 @@ export const FunctionT$outboundSchema: z.ZodType<
   FunctionT
 > = z.object({
   id: z.literal("eval"),
+  filter: z.string().optional(),
+  disabled: z.boolean(),
+  final: z.literal(true),
+  description: z.string().optional(),
   conf: z.lazy(() => ConfEval$outboundSchema),
 }).catchall(z.any());
 

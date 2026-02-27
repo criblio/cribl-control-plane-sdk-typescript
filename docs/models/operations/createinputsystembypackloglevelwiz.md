@@ -1,13 +1,13 @@
-# CreateInputSystemByPackContentConfigLogLevel
+# CreateInputSystemByPackLogLevelWiz
 
 Collector runtime log level
 
 ## Example Usage
 
 ```typescript
-import { CreateInputSystemByPackContentConfigLogLevel } from "cribl-control-plane/models/operations";
+import { CreateInputSystemByPackLogLevelWiz } from "cribl-control-plane/models/operations";
 
-let value: CreateInputSystemByPackContentConfigLogLevel = "info";
+let value: CreateInputSystemByPackLogLevelWiz = "debug";
 ```
 
 ## Values

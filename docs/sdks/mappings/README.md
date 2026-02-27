@@ -123,6 +123,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "aws?.tags?.Environment === \"Production\"",
+            disabled: false,
+            final: true,
+            description: "Map Production EC2 instances",
             conf: {
               add: [
                 {
@@ -131,13 +135,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "aws?.tags?.Environment === \"Production\"",
-            "description": "Map Production EC2 instances",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "aws?.tags?.Team === \"DevOps\"",
+            disabled: false,
+            final: true,
+            description: "Map DevOps team EC2 instances",
             conf: {
               add: [
                 {
@@ -146,13 +150,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "aws?.tags?.Team === \"DevOps\"",
-            "description": "Map DevOps team EC2 instances",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping",
             conf: {
               add: [
                 {
@@ -161,10 +165,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -203,6 +203,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "aws?.tags?.Environment === \"Production\"",
+            disabled: false,
+            final: true,
+            description: "Map Production EC2 instances",
             conf: {
               add: [
                 {
@@ -211,13 +215,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "aws?.tags?.Environment === \"Production\"",
-            "description": "Map Production EC2 instances",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "aws?.tags?.Team === \"DevOps\"",
+            disabled: false,
+            final: true,
+            description: "Map DevOps team EC2 instances",
             conf: {
               add: [
                 {
@@ -226,13 +230,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "aws?.tags?.Team === \"DevOps\"",
-            "description": "Map DevOps team EC2 instances",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping",
             conf: {
               add: [
                 {
@@ -241,10 +245,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -282,6 +282,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")",
+            disabled: false,
+            final: true,
+            description: "Map high-performance nodes in specific network or DMZ",
             conf: {
               add: [
                 {
@@ -290,13 +294,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")",
-            "description": "Map high-performance nodes in specific network or DMZ",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "platform === \"linux\" && memory > 16000 && cribl.tags.includes(\"Database\")",
+            disabled: false,
+            final: true,
+            description: "Map Linux nodes with high memory for database workloads",
             conf: {
               add: [
                 {
@@ -305,13 +309,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "platform === \"linux\" && memory > 16000 && cribl.tags.includes(\"Database\")",
-            "description": "Map Linux nodes with high memory for database workloads",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping",
             conf: {
               add: [
                 {
@@ -320,10 +324,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -362,6 +362,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")",
+            disabled: false,
+            final: true,
+            description: "Map high-performance nodes in specific network or DMZ",
             conf: {
               add: [
                 {
@@ -370,13 +374,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")",
-            "description": "Map high-performance nodes in specific network or DMZ",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "platform === \"linux\" && memory > 16000 && cribl.tags.includes(\"Database\")",
+            disabled: false,
+            final: true,
+            description: "Map Linux nodes with high memory for database workloads",
             conf: {
               add: [
                 {
@@ -385,13 +389,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "platform === \"linux\" && memory > 16000 && cribl.tags.includes(\"Database\")",
-            "description": "Map Linux nodes with high memory for database workloads",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping",
             conf: {
               add: [
                 {
@@ -400,10 +404,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -441,6 +441,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "hostOs?.platform === \"linux\" && hostOs?.cpu_count > 4",
+            disabled: false,
+            final: true,
+            description: "Map containerized nodes on high-CPU Linux hosts",
             conf: {
               add: [
                 {
@@ -449,13 +453,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "hostOs?.platform === \"linux\" && hostOs?.cpu_count > 4",
-            "description": "Map containerized nodes on high-CPU Linux hosts",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "hostOs?.id",
+            disabled: false,
+            final: true,
+            description: "Map all containerized Edge Nodes",
             conf: {
               add: [
                 {
@@ -464,13 +468,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "hostOs?.id",
-            "description": "Map all containerized Edge Nodes",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping for non-containerized nodes",
             conf: {
               add: [
                 {
@@ -479,10 +483,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping for non-containerized nodes",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -521,6 +521,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "hostOs?.platform === \"linux\" && hostOs?.cpu_count > 4",
+            disabled: false,
+            final: true,
+            description: "Map containerized nodes on high-CPU Linux hosts",
             conf: {
               add: [
                 {
@@ -529,13 +533,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "hostOs?.platform === \"linux\" && hostOs?.cpu_count > 4",
-            "description": "Map containerized nodes on high-CPU Linux hosts",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "hostOs?.id",
+            disabled: false,
+            final: true,
+            description: "Map all containerized Edge Nodes",
             conf: {
               add: [
                 {
@@ -544,13 +548,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "hostOs?.id",
-            "description": "Map all containerized Edge Nodes",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping for non-containerized nodes",
             conf: {
               add: [
                 {
@@ -559,10 +563,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping for non-containerized nodes",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -600,6 +600,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Simple default Mapping Ruleset",
             conf: {
               add: [
                 {
@@ -608,10 +612,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Simple default Mapping Ruleset",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -650,6 +650,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Simple default Mapping Ruleset",
             conf: {
               add: [
                 {
@@ -658,10 +662,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Simple default Mapping Ruleset",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -699,6 +699,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "platform === \"linux\"",
+            disabled: false,
+            final: true,
+            description: "Map Linux Edge Nodes",
             conf: {
               add: [
                 {
@@ -707,13 +711,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "platform === \"linux\"",
-            "description": "Map Linux Edge Nodes",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "platform === \"win32\"",
+            disabled: false,
+            final: true,
+            description: "Map Windows Edge Nodes",
             conf: {
               add: [
                 {
@@ -722,13 +726,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "platform === \"win32\"",
-            "description": "Map Windows Edge Nodes",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "platform === \"darwin\"",
+            disabled: false,
+            final: true,
+            description: "Map macOS Edge Nodes",
             conf: {
               add: [
                 {
@@ -737,13 +741,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "platform === \"darwin\"",
-            "description": "Map macOS Edge Nodes",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping for unmapped nodes",
             conf: {
               add: [
                 {
@@ -752,10 +756,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping for unmapped nodes",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -794,6 +794,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "platform === \"linux\"",
+            disabled: false,
+            final: true,
+            description: "Map Linux Edge Nodes",
             conf: {
               add: [
                 {
@@ -802,13 +806,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "platform === \"linux\"",
-            "description": "Map Linux Edge Nodes",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "platform === \"win32\"",
+            disabled: false,
+            final: true,
+            description: "Map Windows Edge Nodes",
             conf: {
               add: [
                 {
@@ -817,13 +821,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "platform === \"win32\"",
-            "description": "Map Windows Edge Nodes",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "platform === \"darwin\"",
+            disabled: false,
+            final: true,
+            description: "Map macOS Edge Nodes",
             conf: {
               add: [
                 {
@@ -832,13 +836,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "platform === \"darwin\"",
-            "description": "Map macOS Edge Nodes",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping for unmapped nodes",
             conf: {
               add: [
                 {
@@ -847,10 +851,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping for unmapped nodes",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -888,6 +888,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "outpost.host === \"5ab6c676be6a\"",
+            disabled: false,
+            final: true,
+            description: "Map Edge Nodes from Outpost A",
             conf: {
               add: [
                 {
@@ -896,13 +900,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "outpost.host === \"5ab6c676be6a\"",
-            "description": "Map Edge Nodes from Outpost A",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "outpost.guid === \"550e8400-e29b-41d4-a716-446655440000\"",
+            disabled: false,
+            final: true,
+            description: "Map Edge Nodes from Outpost B by GUID",
             conf: {
               add: [
                 {
@@ -911,13 +915,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "outpost.guid === \"550e8400-e29b-41d4-a716-446655440000\"",
-            "description": "Map Edge Nodes from Outpost B by GUID",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping",
             conf: {
               add: [
                 {
@@ -926,10 +930,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -968,6 +968,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "outpost.host === \"5ab6c676be6a\"",
+            disabled: false,
+            final: true,
+            description: "Map Edge Nodes from Outpost A",
             conf: {
               add: [
                 {
@@ -976,13 +980,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "outpost.host === \"5ab6c676be6a\"",
-            "description": "Map Edge Nodes from Outpost A",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "outpost.guid === \"550e8400-e29b-41d4-a716-446655440000\"",
+            disabled: false,
+            final: true,
+            description: "Map Edge Nodes from Outpost B by GUID",
             conf: {
               add: [
                 {
@@ -991,13 +995,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "outpost.guid === \"550e8400-e29b-41d4-a716-446655440000\"",
-            "description": "Map Edge Nodes from Outpost B by GUID",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping",
             conf: {
               add: [
                 {
@@ -1006,10 +1010,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -1047,6 +1047,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "cribl.tags.includes(\"WinLaptop\")",
+            disabled: false,
+            final: true,
+            description: "Map Windows Laptop Edge Nodes",
             conf: {
               add: [
                 {
@@ -1055,13 +1059,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "cribl.tags.includes(\"WinLaptop\")",
-            "description": "Map Windows Laptop Edge Nodes",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "cribl.tags.includes(\"Production\")",
+            disabled: false,
+            final: true,
+            description: "Map Production Edge Nodes",
             conf: {
               add: [
                 {
@@ -1070,13 +1074,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "cribl.tags.includes(\"Production\")",
-            "description": "Map Production Edge Nodes",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping",
             conf: {
               add: [
                 {
@@ -1085,10 +1089,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -1127,6 +1127,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "cribl.tags.includes(\"WinLaptop\")",
+            disabled: false,
+            final: true,
+            description: "Map Windows Laptop Edge Nodes",
             conf: {
               add: [
                 {
@@ -1135,13 +1139,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "cribl.tags.includes(\"WinLaptop\")",
-            "description": "Map Windows Laptop Edge Nodes",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "cribl.tags.includes(\"Production\")",
+            disabled: false,
+            final: true,
+            description: "Map Production Edge Nodes",
             conf: {
               add: [
                 {
@@ -1150,13 +1154,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "cribl.tags.includes(\"Production\")",
-            "description": "Map Production Edge Nodes",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping",
             conf: {
               add: [
                 {
@@ -1165,10 +1169,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -1476,6 +1476,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default Mappings",
             conf: {
               add: [
                 {
@@ -1484,10 +1488,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default Mappings",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -1528,6 +1528,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default Mappings",
             conf: {
               add: [
                 {
@@ -1536,10 +1540,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default Mappings",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -1579,6 +1579,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")",
+            disabled: false,
+            final: true,
+            description: "Map high-performance nodes in specific network or DMZ",
             conf: {
               add: [
                 {
@@ -1587,13 +1591,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")",
-            "description": "Map high-performance nodes in specific network or DMZ",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping",
             conf: {
               add: [
                 {
@@ -1602,10 +1606,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
@@ -1645,6 +1645,10 @@ async function run() {
         functions: [
           {
             id: "eval",
+            filter: "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")",
+            disabled: false,
+            final: true,
+            description: "Map high-performance nodes in specific network or DMZ",
             conf: {
               add: [
                 {
@@ -1653,13 +1657,13 @@ async function run() {
                 },
               ],
             },
-            "filter": "(conn_ip.startsWith(\"10.10.42.\") && cpus > 6) || env.CRIBL_HOME.match(\"DMZ\")",
-            "description": "Map high-performance nodes in specific network or DMZ",
-            "disabled": false,
-            "final": true,
           },
           {
             id: "eval",
+            filter: "!cribl.group",
+            disabled: false,
+            final: true,
+            description: "Default mapping",
             conf: {
               add: [
                 {
@@ -1668,10 +1672,6 @@ async function run() {
                 },
               ],
             },
-            "filter": "!cribl.group",
-            "description": "Default mapping",
-            "disabled": false,
-            "final": true,
           },
         ],
       },
