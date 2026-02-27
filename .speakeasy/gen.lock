@@ -3,23 +3,23 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: d1189f3dd8396bf4693ce24ed17d0579
   docVersion: 4.17.0-alpha.1772136542642-51545bcb
-  speakeasyVersion: 1.731.2
-  generationVersion: 2.845.1
-  releaseVersion: 0.6.0-beta.49
-  configChecksum: 2bc3bad634cfb8728ee85e14d762d2d1
+  speakeasyVersion: 1.733.3
+  generationVersion: 2.845.11
+  releaseVersion: 0.6.0-beta.50
+  configChecksum: 6823f0a2596eb846d90ba3884a4303b8
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: b49c2fa4-f2f5-4b79-a3f9-72b78109b05d
-  pristine_commit_hash: 867cdca2559af1d00c7899111a1a239d5f72e88f
-  pristine_tree_hash: 1b59de1eb8f1971f1267beaa45e1c52994066a68
+  generation_id: 7bdc0cb2-2b22-4afa-bc8e-0955fdd758ea
+  pristine_commit_hash: c545dde073f532cb73a47d31cfbc88850884299e
+  pristine_tree_hash: 14143119cb82c85f5914a1dd386fef5fc2be4f0d
 features:
   typescript:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.3
     constsAndDefaults: 0.1.14
-    core: 3.26.35
+    core: 3.26.37
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -28,14 +28,14 @@ features:
     envVarSecurityUsage: 0.1.2
     globalSecurity: 2.82.15
     globalSecurityCallbacks: 0.1.0
-    globalServerURLs: 2.83.0
+    globalServerURLs: 2.83.1
     groups: 2.81.3
     inputOutputModels: 2.82.1
     jsonlResponses: 0.2.1
     methodArguments: 0.1.2
     nameOverrides: 2.81.4
     nullables: 0.1.1
-    oauth2ClientCredentials: 1.1.3
+    oauth2ClientCredentials: 1.1.5
     openEnums: 0.1.2
     pagination: 2.83.2
     responseFormat: 0.3.0
@@ -12642,20 +12642,20 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:1ace7051776be48b3fd0830ed3d683b65ebd2619
-    pristine_git_object: ace5f11c69fec4564c0b2faee97505952341ef61
+    last_write_checksum: sha1:737e1096f5127207b3410ae12fb0ea8d41a289ef
+    pristine_git_object: 536c80270a60a1f909809acf72b4ee62a912c348
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:645c9790b404b2ea11ba5688e37405f9b801ce8c
-    pristine_git_object: ecf0088138f411aea43e7bf7daf82282c1b490d8
+    last_write_checksum: sha1:bbdd9a4130b2f09646eac928e2e70a3409e14433
+    pristine_git_object: 9d1beec3120e14b0ab3fdb44e8360e79d4c013d6
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
     pristine_git_object: bdd865e46d4858932aa4f53e611bc1b182a006e5
   src/funcs/authTokensGet.ts:
     id: 7505372cd3a5
-    last_write_checksum: sha1:adaa7aaa6bbd1cf35bdce7270f0f209302f4b93c
-    pristine_git_object: 595f3be6124c558ce2d97518909e411eac9c9f78
+    last_write_checksum: sha1:31f8adfdf47f7b9886fab349ad22821e4d08c864
+    pristine_git_object: 52121700187e56db7ed22b06d9214126c9de3b26
   src/funcs/collectorsCreate.ts:
     id: b092f58c64fb
     last_write_checksum: sha1:5261a5cbf01f3cf997f4d1135a9a2ce732057bcd
@@ -12782,8 +12782,8 @@ trackedFiles:
     pristine_git_object: 991ffec409157b87cec8d8d720edf6ffe4a98abd
   src/funcs/healthGet.ts:
     id: e9c08b6f7e1c
-    last_write_checksum: sha1:37ddbe054c5f850248d9c4d8360124bf3c374321
-    pristine_git_object: 4157ac1383efec3e7eb0a536a074189656b8bb98
+    last_write_checksum: sha1:65dc6dd4e3219658e109e58db32ec083d6531718
+    pristine_git_object: fe47dac5fd5b3dea470269dc2aab77a5d09defed
   src/funcs/lakeDatasetsCreate.ts:
     id: 6d585ead5bbf
     last_write_checksum: sha1:4e3ac006d13db662f96d922c919b9be00057fc3f
@@ -13146,8 +13146,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:3ca4191683b267a95c76181215ca2393ee2cfc82
-    pristine_git_object: bff10895b81534a24c1b1d583e146d6df06e6187
+    last_write_checksum: sha1:1c1f78d8c24cffc5facb6890ef2106463cec4357
+    pristine_git_object: 7dee26b23e6e81c50f1a9c7bae49655f5610da2d
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
