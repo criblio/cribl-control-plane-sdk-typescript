@@ -767,12 +767,195 @@ export type CreateInputInputWizWebhook = {
   __template_port?: string | undefined;
 };
 
-export type CreateInputManageState = {};
+export type CreateInputManageStateOpenai = {};
+
+export const CreateInputPaginationType = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Response Body Attribute
+   */
+  ResponseBody: "response_body",
+  /**
+   * Response Header Attribute
+   */
+  ResponseHeader: "response_header",
+  /**
+   * RFC 5988 Link Header
+   */
+  ResponseHeaderLink: "response_header_link",
+} as const;
+export type CreateInputPaginationType = OpenEnum<
+  typeof CreateInputPaginationType
+>;
+
+/**
+ * Collector runtime log level.
+ */
+export const CreateInputLogLevelOpenai = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Collector runtime log level.
+ */
+export type CreateInputLogLevelOpenai = OpenEnum<
+  typeof CreateInputLogLevelOpenai
+>;
+
+export type CreateInputContentConfigInput = {
+  disabled?: boolean | undefined;
+  /**
+   * Track collection progress between consecutive scheduled executions.
+   */
+  stateTracking?: boolean | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging task state
+   */
+  stateMergeExpression?: string | undefined;
+  manageState?: CreateInputManageStateOpenai | undefined;
+  /**
+   * Query-string parameters to send with this endpoint
+   */
+  requestParams: Array<models.ItemsTypeContentConfigItemsRequestParams>;
+  paginationType: CreateInputPaginationType;
+  paginationAttribute?: Array<string> | undefined;
+  paginationLastPageExpr?: string | undefined;
+  /**
+   * Maximum number of pages to retrieve per collection task. Set to 0 only when unlimited pagination is required.
+   */
+  maxPages?: number | undefined;
+  /**
+   * Used only for RFC 5988 link-header pagination
+   */
+  paginationNextRelationAttribute?: string | undefined;
+  /**
+   * Optional relation that represents the current page
+   */
+  paginationCurRelationAttribute?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule: string;
+  /**
+   * Relative to the current time
+   */
+  earliest: string;
+  /**
+   * Relative to the current time
+   */
+  latest: string;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * Collector runtime log level.
+   */
+  logLevel?: CreateInputLogLevelOpenai | undefined;
+  /**
+   * Fields automatically added to events from this Content Type
+   */
+  endpointMetadata?: Array<models.ItemsTypeMetadata> | undefined;
+};
+
+export type CreateInputInputOpenai = {
+  /**
+   * Unique ID for this input
+   */
+  id: string;
+  type: "openai";
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<models.ItemsTypeConnectionsOptional> | undefined;
+  pq?: models.PqType | undefined;
+  /**
+   * Optional `OpenAI-Organization` request header value, typically `org-xxxxxxxxxxxxxxxxxxxxxxxx`
+   */
+  openaiOrganization?: string | undefined;
+  /**
+   * Optional `OpenAI-Project` request header value, typically `proj_xxxxxxxxxxxxxxxxxxxxxxxx`
+   */
+  openaiProject?: string | undefined;
+  contentConfig: Array<CreateInputContentConfigInput>;
+  /**
+   * HTTP request inactivity timeout. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored API key. Visit [OpenAI's organization admin keys page](https://platform.openai.com/settings/organization/admin-keys) to create an organization admin key.
+   */
+  textSecret: string;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<models.ItemsTypeMetadata> | undefined;
+  retryRules?: models.RetryRulesType | undefined;
+  description?: string | undefined;
+  /**
+   * Binds 'openaiOrganization' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiOrganization' at runtime.
+   */
+  __template_openaiOrganization?: string | undefined;
+  /**
+   * Binds 'openaiProject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiProject' at runtime.
+   */
+  __template_openaiProject?: string | undefined;
+};
+
+export type CreateInputManageStateWiz = {};
 
 /**
  * Collector runtime log level
  */
-export const CreateInputContentConfigLogLevel = {
+export const CreateInputLogLevelWiz = {
   Error: "error",
   Warn: "warn",
   Info: "info",
@@ -782,9 +965,7 @@ export const CreateInputContentConfigLogLevel = {
 /**
  * Collector runtime log level
  */
-export type CreateInputContentConfigLogLevel = OpenEnum<
-  typeof CreateInputContentConfigLogLevel
->;
+export type CreateInputLogLevelWiz = OpenEnum<typeof CreateInputLogLevelWiz>;
 
 export type CreateInputContentConfigWiz = {
   /**
@@ -805,7 +986,7 @@ export type CreateInputContentConfigWiz = {
    * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
    */
   stateMergeExpression?: string | undefined;
-  manageState?: CreateInputManageState | undefined;
+  manageState?: CreateInputManageStateWiz | undefined;
   /**
    * Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
    */
@@ -829,7 +1010,7 @@ export type CreateInputContentConfigWiz = {
   /**
    * Collector runtime log level
    */
-  logLevel?: CreateInputContentConfigLogLevel | undefined;
+  logLevel?: CreateInputLogLevelWiz | undefined;
   /**
    * Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
    */
@@ -9011,6 +9192,7 @@ export type CreateInputRequest =
   | CreateInputInputRawUdp
   | CreateInputInputJournalFiles
   | CreateInputInputWiz
+  | CreateInputInputOpenai
   | CreateInputInputWizWebhook
   | CreateInputInputNetflow
   | CreateInputInputSecurityLake
@@ -9620,29 +9802,199 @@ export function createInputInputWizWebhookToJSON(
 }
 
 /** @internal */
-export type CreateInputManageState$Outbound = {};
+export type CreateInputManageStateOpenai$Outbound = {};
 
 /** @internal */
-export const CreateInputManageState$outboundSchema: z.ZodType<
-  CreateInputManageState$Outbound,
+export const CreateInputManageStateOpenai$outboundSchema: z.ZodType<
+  CreateInputManageStateOpenai$Outbound,
   z.ZodTypeDef,
-  CreateInputManageState
+  CreateInputManageStateOpenai
 > = z.object({});
 
-export function createInputManageStateToJSON(
-  createInputManageState: CreateInputManageState,
+export function createInputManageStateOpenaiToJSON(
+  createInputManageStateOpenai: CreateInputManageStateOpenai,
 ): string {
   return JSON.stringify(
-    CreateInputManageState$outboundSchema.parse(createInputManageState),
+    CreateInputManageStateOpenai$outboundSchema.parse(
+      createInputManageStateOpenai,
+    ),
   );
 }
 
 /** @internal */
-export const CreateInputContentConfigLogLevel$outboundSchema: z.ZodType<
+export const CreateInputPaginationType$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CreateInputContentConfigLogLevel
-> = openEnums.outboundSchema(CreateInputContentConfigLogLevel);
+  CreateInputPaginationType
+> = openEnums.outboundSchema(CreateInputPaginationType);
+
+/** @internal */
+export const CreateInputLogLevelOpenai$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputLogLevelOpenai
+> = openEnums.outboundSchema(CreateInputLogLevelOpenai);
+
+/** @internal */
+export type CreateInputContentConfigInput$Outbound = {
+  disabled?: boolean | undefined;
+  stateTracking?: boolean | undefined;
+  stateUpdateExpression?: string | undefined;
+  stateMergeExpression?: string | undefined;
+  manageState?: CreateInputManageStateOpenai$Outbound | undefined;
+  requestParams: Array<
+    models.ItemsTypeContentConfigItemsRequestParams$Outbound
+  >;
+  paginationType: string;
+  paginationAttribute?: Array<string> | undefined;
+  paginationLastPageExpr?: string | undefined;
+  maxPages?: number | undefined;
+  paginationNextRelationAttribute?: string | undefined;
+  paginationCurRelationAttribute?: string | undefined;
+  cronSchedule: string;
+  earliest: string;
+  latest: string;
+  jobTimeout?: string | undefined;
+  logLevel?: string | undefined;
+  endpointMetadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+};
+
+/** @internal */
+export const CreateInputContentConfigInput$outboundSchema: z.ZodType<
+  CreateInputContentConfigInput$Outbound,
+  z.ZodTypeDef,
+  CreateInputContentConfigInput
+> = z.object({
+  disabled: z.boolean().optional(),
+  stateTracking: z.boolean().optional(),
+  stateUpdateExpression: z.string().optional(),
+  stateMergeExpression: z.string().optional(),
+  manageState: z.lazy(() => CreateInputManageStateOpenai$outboundSchema)
+    .optional(),
+  requestParams: z.array(
+    models.ItemsTypeContentConfigItemsRequestParams$outboundSchema,
+  ),
+  paginationType: CreateInputPaginationType$outboundSchema,
+  paginationAttribute: z.array(z.string()).optional(),
+  paginationLastPageExpr: z.string().optional(),
+  maxPages: z.number().optional(),
+  paginationNextRelationAttribute: z.string().optional(),
+  paginationCurRelationAttribute: z.string().optional(),
+  cronSchedule: z.string(),
+  earliest: z.string(),
+  latest: z.string(),
+  jobTimeout: z.string().optional(),
+  logLevel: CreateInputLogLevelOpenai$outboundSchema.optional(),
+  endpointMetadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+});
+
+export function createInputContentConfigInputToJSON(
+  createInputContentConfigInput: CreateInputContentConfigInput,
+): string {
+  return JSON.stringify(
+    CreateInputContentConfigInput$outboundSchema.parse(
+      createInputContentConfigInput,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateInputInputOpenai$Outbound = {
+  id: string;
+  type: "openai";
+  disabled?: boolean | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes?: boolean | undefined;
+  environment?: string | undefined;
+  pqEnabled?: boolean | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<models.ItemsTypeConnectionsOptional$Outbound> | undefined;
+  pq?: models.PqType$Outbound | undefined;
+  openaiOrganization?: string | undefined;
+  openaiProject?: string | undefined;
+  contentConfig: Array<CreateInputContentConfigInput$Outbound>;
+  requestTimeout?: number | undefined;
+  apiKey?: string | undefined;
+  textSecret: string;
+  keepAliveTime?: number | undefined;
+  maxMissedKeepAlives?: number | undefined;
+  ttl?: string | undefined;
+  ignoreGroupJobsLimit?: boolean | undefined;
+  metadata?: Array<models.ItemsTypeMetadata$Outbound> | undefined;
+  retryRules?: models.RetryRulesType$Outbound | undefined;
+  description?: string | undefined;
+  __template_openaiOrganization?: string | undefined;
+  __template_openaiProject?: string | undefined;
+};
+
+/** @internal */
+export const CreateInputInputOpenai$outboundSchema: z.ZodType<
+  CreateInputInputOpenai$Outbound,
+  z.ZodTypeDef,
+  CreateInputInputOpenai
+> = z.object({
+  id: z.string(),
+  type: z.literal("openai"),
+  disabled: z.boolean().optional(),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(models.ItemsTypeConnectionsOptional$outboundSchema)
+    .optional(),
+  pq: models.PqType$outboundSchema.optional(),
+  openaiOrganization: z.string().optional(),
+  openaiProject: z.string().optional(),
+  contentConfig: z.array(
+    z.lazy(() => CreateInputContentConfigInput$outboundSchema),
+  ),
+  requestTimeout: z.number().optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string(),
+  keepAliveTime: z.number().optional(),
+  maxMissedKeepAlives: z.number().optional(),
+  ttl: z.string().optional(),
+  ignoreGroupJobsLimit: z.boolean().optional(),
+  metadata: z.array(models.ItemsTypeMetadata$outboundSchema).optional(),
+  retryRules: models.RetryRulesType$outboundSchema.optional(),
+  description: z.string().optional(),
+  __template_openaiOrganization: z.string().optional(),
+  __template_openaiProject: z.string().optional(),
+});
+
+export function createInputInputOpenaiToJSON(
+  createInputInputOpenai: CreateInputInputOpenai,
+): string {
+  return JSON.stringify(
+    CreateInputInputOpenai$outboundSchema.parse(createInputInputOpenai),
+  );
+}
+
+/** @internal */
+export type CreateInputManageStateWiz$Outbound = {};
+
+/** @internal */
+export const CreateInputManageStateWiz$outboundSchema: z.ZodType<
+  CreateInputManageStateWiz$Outbound,
+  z.ZodTypeDef,
+  CreateInputManageStateWiz
+> = z.object({});
+
+export function createInputManageStateWizToJSON(
+  createInputManageStateWiz: CreateInputManageStateWiz,
+): string {
+  return JSON.stringify(
+    CreateInputManageStateWiz$outboundSchema.parse(createInputManageStateWiz),
+  );
+}
+
+/** @internal */
+export const CreateInputLogLevelWiz$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateInputLogLevelWiz
+> = openEnums.outboundSchema(CreateInputLogLevelWiz);
 
 /** @internal */
 export type CreateInputContentConfigWiz$Outbound = {
@@ -9652,7 +10004,7 @@ export type CreateInputContentConfigWiz$Outbound = {
   stateTracking?: boolean | undefined;
   stateUpdateExpression?: string | undefined;
   stateMergeExpression?: string | undefined;
-  manageState?: CreateInputManageState$Outbound | undefined;
+  manageState?: CreateInputManageStateWiz$Outbound | undefined;
   contentQuery: string;
   cronSchedule: string;
   earliest: string;
@@ -9674,13 +10026,14 @@ export const CreateInputContentConfigWiz$outboundSchema: z.ZodType<
   stateTracking: z.boolean().optional(),
   stateUpdateExpression: z.string().optional(),
   stateMergeExpression: z.string().optional(),
-  manageState: z.lazy(() => CreateInputManageState$outboundSchema).optional(),
+  manageState: z.lazy(() => CreateInputManageStateWiz$outboundSchema)
+    .optional(),
   contentQuery: z.string(),
   cronSchedule: z.string(),
   earliest: z.string(),
   latest: z.string(),
   jobTimeout: z.string().optional(),
-  logLevel: CreateInputContentConfigLogLevel$outboundSchema.optional(),
+  logLevel: CreateInputLogLevelWiz$outboundSchema.optional(),
   maxPages: z.number().optional(),
 });
 
@@ -16703,6 +17056,7 @@ export type CreateInputRequest$Outbound =
   | CreateInputInputRawUdp$Outbound
   | CreateInputInputJournalFiles$Outbound
   | CreateInputInputWiz$Outbound
+  | CreateInputInputOpenai$Outbound
   | CreateInputInputWizWebhook$Outbound
   | CreateInputInputNetflow$Outbound
   | CreateInputInputSecurityLake$Outbound
@@ -16776,6 +17130,7 @@ export const CreateInputRequest$outboundSchema: z.ZodType<
   z.lazy(() => CreateInputInputRawUdp$outboundSchema),
   z.lazy(() => CreateInputInputJournalFiles$outboundSchema),
   z.lazy(() => CreateInputInputWiz$outboundSchema),
+  z.lazy(() => CreateInputInputOpenai$outboundSchema),
   z.lazy(() => CreateInputInputWizWebhook$outboundSchema),
   z.lazy(() => CreateInputInputNetflow$outboundSchema),
   z.lazy(() => CreateInputInputSecurityLake$outboundSchema),

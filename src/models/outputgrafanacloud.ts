@@ -25,17 +25,17 @@ import {
   FailedRequestLoggingModeOptions$outboundSchema,
 } from "./failedrequestloggingmodeoptions.js";
 import {
+  ItemsTypeContentConfigItemsRequestParams,
+  ItemsTypeContentConfigItemsRequestParams$inboundSchema,
+  ItemsTypeContentConfigItemsRequestParams$Outbound,
+  ItemsTypeContentConfigItemsRequestParams$outboundSchema,
+} from "./itemstypecontentconfigitemsrequestparams.js";
+import {
   ItemsTypeExtraHttpHeaders,
   ItemsTypeExtraHttpHeaders$inboundSchema,
   ItemsTypeExtraHttpHeaders$Outbound,
   ItemsTypeExtraHttpHeaders$outboundSchema,
 } from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeLabels,
-  ItemsTypeLabels$inboundSchema,
-  ItemsTypeLabels$Outbound,
-  ItemsTypeLabels$outboundSchema,
-} from "./itemstypelabels.js";
 import {
   ItemsTypeResponseRetrySettings,
   ItemsTypeResponseRetrySettings$inboundSchema,
@@ -120,7 +120,7 @@ export type OutputGrafanaCloudGrafanaCloud2 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<ItemsTypeLabels> | undefined;
+  labels?: Array<ItemsTypeContentConfigItemsRequestParams> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -290,7 +290,7 @@ export type OutputGrafanaCloudGrafanaCloud1 = {
   /**
    * List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
    */
-  labels?: Array<ItemsTypeLabels> | undefined;
+  labels?: Array<ItemsTypeContentConfigItemsRequestParams> | undefined;
   /**
    * JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
    */
@@ -474,7 +474,9 @@ export const OutputGrafanaCloudGrafanaCloud2$inboundSchema: z.ZodType<
   prometheusUrl: types.string(),
   message: types.optional(types.string()),
   messageFormat: types.optional(MessageFormatOptions$inboundSchema),
-  labels: types.optional(z.array(ItemsTypeLabels$inboundSchema)),
+  labels: types.optional(
+    z.array(ItemsTypeContentConfigItemsRequestParams$inboundSchema),
+  ),
   metricRenameExpr: types.optional(types.string()),
   prometheusAuth: types.optional(PrometheusAuthType$inboundSchema),
   lokiAuth: types.optional(PrometheusAuthType$inboundSchema),
@@ -528,7 +530,7 @@ export type OutputGrafanaCloudGrafanaCloud2$Outbound = {
   prometheusUrl: string;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<ItemsTypeLabels$Outbound> | undefined;
+  labels?: Array<ItemsTypeContentConfigItemsRequestParams$Outbound> | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: PrometheusAuthType$Outbound | undefined;
   lokiAuth?: PrometheusAuthType$Outbound | undefined;
@@ -581,7 +583,8 @@ export const OutputGrafanaCloudGrafanaCloud2$outboundSchema: z.ZodType<
   prometheusUrl: z.string(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(ItemsTypeLabels$outboundSchema).optional(),
+  labels: z.array(ItemsTypeContentConfigItemsRequestParams$outboundSchema)
+    .optional(),
   metricRenameExpr: z.string().optional(),
   prometheusAuth: PrometheusAuthType$outboundSchema.optional(),
   lokiAuth: PrometheusAuthType$outboundSchema.optional(),
@@ -699,7 +702,9 @@ export const OutputGrafanaCloudGrafanaCloud1$inboundSchema: z.ZodType<
   prometheusUrl: types.optional(types.string()),
   message: types.optional(types.string()),
   messageFormat: types.optional(MessageFormatOptions$inboundSchema),
-  labels: types.optional(z.array(ItemsTypeLabels$inboundSchema)),
+  labels: types.optional(
+    z.array(ItemsTypeContentConfigItemsRequestParams$inboundSchema),
+  ),
   metricRenameExpr: types.optional(types.string()),
   prometheusAuth: types.optional(PrometheusAuthType$inboundSchema),
   lokiAuth: types.optional(PrometheusAuthType$inboundSchema),
@@ -753,7 +758,7 @@ export type OutputGrafanaCloudGrafanaCloud1$Outbound = {
   prometheusUrl?: string | undefined;
   message?: string | undefined;
   messageFormat?: string | undefined;
-  labels?: Array<ItemsTypeLabels$Outbound> | undefined;
+  labels?: Array<ItemsTypeContentConfigItemsRequestParams$Outbound> | undefined;
   metricRenameExpr?: string | undefined;
   prometheusAuth?: PrometheusAuthType$Outbound | undefined;
   lokiAuth?: PrometheusAuthType$Outbound | undefined;
@@ -806,7 +811,8 @@ export const OutputGrafanaCloudGrafanaCloud1$outboundSchema: z.ZodType<
   prometheusUrl: z.string().optional(),
   message: z.string().optional(),
   messageFormat: MessageFormatOptions$outboundSchema.optional(),
-  labels: z.array(ItemsTypeLabels$outboundSchema).optional(),
+  labels: z.array(ItemsTypeContentConfigItemsRequestParams$outboundSchema)
+    .optional(),
   metricRenameExpr: z.string().optional(),
   prometheusAuth: PrometheusAuthType$outboundSchema.optional(),
   lokiAuth: PrometheusAuthType$outboundSchema.optional(),

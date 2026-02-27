@@ -642,6 +642,25 @@ const value: operations.CreateInputSystemByPackInputWiz = {
 };
 ```
 
+### `operations.CreateInputSystemByPackInputOpenai`
+
+```typescript
+const value: operations.CreateInputSystemByPackInputOpenai = {
+  id: "<id>",
+  type: "openai",
+  contentConfig: [
+    {
+      requestParams: [],
+      paginationType: "none",
+      cronSchedule: "<value>",
+      earliest: "<value>",
+      latest: "<value>",
+    },
+  ],
+  textSecret: "<value>",
+};
+```
+
 ### `operations.CreateInputSystemByPackInputWizWebhook`
 
 ```typescript

@@ -52,12 +52,6 @@ import {
   QueueFullBehaviorOptions$outboundSchema,
 } from "./queuefullbehavioroptions.js";
 import {
-  StatsDestinationType,
-  StatsDestinationType$inboundSchema,
-  StatsDestinationType$Outbound,
-  StatsDestinationType$outboundSchema,
-} from "./statsdestinationtype.js";
-import {
   TimeoutRetrySettingsType,
   TimeoutRetrySettingsType$inboundSchema,
   TimeoutRetrySettingsType$Outbound,
@@ -109,6 +103,16 @@ export const OutputLocalSearchStorageMappingType = {
 export type OutputLocalSearchStorageMappingType = OpenEnum<
   typeof OutputLocalSearchStorageMappingType
 >;
+
+export type StatsDestination = {
+  url?: string | undefined;
+  database?: string | undefined;
+  tableName?: string | undefined;
+  authType?: string | undefined;
+  username?: string | undefined;
+  sqlUsername?: string | undefined;
+  password?: string | undefined;
+};
 
 export type OutputLocalSearchStorageColumnMapping = {
   /**
@@ -233,11 +237,11 @@ export type OutputLocalSearchStorage = {
    * Log the most recent event that fails to match the table schema
    */
   dumpFormatErrorsToDisk?: boolean | undefined;
-  statsDestination?: StatsDestinationType | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: BackpressureBehaviorOptions | undefined;
+  statsDestination?: StatsDestination | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -342,6 +346,63 @@ export const OutputLocalSearchStorageMappingType$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputLocalSearchStorageMappingType
 > = openEnums.outboundSchema(OutputLocalSearchStorageMappingType);
+
+/** @internal */
+export const StatsDestination$inboundSchema: z.ZodType<
+  StatsDestination,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: types.optional(types.string()),
+  database: types.optional(types.string()),
+  tableName: types.optional(types.string()),
+  authType: types.optional(types.string()),
+  username: types.optional(types.string()),
+  sqlUsername: types.optional(types.string()),
+  password: types.optional(types.string()),
+});
+/** @internal */
+export type StatsDestination$Outbound = {
+  url?: string | undefined;
+  database?: string | undefined;
+  tableName?: string | undefined;
+  authType?: string | undefined;
+  username?: string | undefined;
+  sqlUsername?: string | undefined;
+  password?: string | undefined;
+};
+
+/** @internal */
+export const StatsDestination$outboundSchema: z.ZodType<
+  StatsDestination$Outbound,
+  z.ZodTypeDef,
+  StatsDestination
+> = z.object({
+  url: z.string().optional(),
+  database: z.string().optional(),
+  tableName: z.string().optional(),
+  authType: z.string().optional(),
+  username: z.string().optional(),
+  sqlUsername: z.string().optional(),
+  password: z.string().optional(),
+});
+
+export function statsDestinationToJSON(
+  statsDestination: StatsDestination,
+): string {
+  return JSON.stringify(
+    StatsDestination$outboundSchema.parse(statsDestination),
+  );
+}
+export function statsDestinationFromJSON(
+  jsonString: string,
+): SafeParseResult<StatsDestination, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StatsDestination$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StatsDestination' from JSON`,
+  );
+}
 
 /** @internal */
 export const OutputLocalSearchStorageColumnMapping$inboundSchema: z.ZodType<
@@ -470,8 +531,10 @@ export const OutputLocalSearchStorage$inboundSchema: z.ZodType<
   timeoutRetrySettings: types.optional(TimeoutRetrySettingsType$inboundSchema),
   responseHonorRetryAfterHeader: types.optional(types.boolean()),
   dumpFormatErrorsToDisk: types.optional(types.boolean()),
-  statsDestination: types.optional(StatsDestinationType$inboundSchema),
   onBackpressure: types.optional(BackpressureBehaviorOptions$inboundSchema),
+  statsDestination: types.optional(
+    z.lazy(() => StatsDestination$inboundSchema),
+  ),
   description: types.optional(types.string()),
   username: types.optional(types.string()),
   password: types.optional(types.string()),
@@ -533,8 +596,8 @@ export type OutputLocalSearchStorage$Outbound = {
   timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader?: boolean | undefined;
   dumpFormatErrorsToDisk?: boolean | undefined;
-  statsDestination?: StatsDestinationType$Outbound | undefined;
   onBackpressure?: string | undefined;
+  statsDestination?: StatsDestination$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -600,8 +663,8 @@ export const OutputLocalSearchStorage$outboundSchema: z.ZodType<
   timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   dumpFormatErrorsToDisk: z.boolean().optional(),
-  statsDestination: StatsDestinationType$outboundSchema.optional(),
   onBackpressure: BackpressureBehaviorOptions$outboundSchema.optional(),
+  statsDestination: z.lazy(() => StatsDestination$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),

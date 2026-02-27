@@ -1,4 +1,4 @@
-# Input
+# Input2
 
 
 ## Supported Types
@@ -569,6 +569,16 @@ const value: models.InputWiz = {
   authUrl: "https://lone-cinder.name/",
   clientId: "<id>",
   contentConfig: [],
+};
+```
+
+### `models.InputOpenaiInput`
+
+```typescript
+const value: models.InputOpenaiInput = {
+  type: "openai",
+  contentConfig: [],
+  textSecret: "<value>",
 };
 ```
 
