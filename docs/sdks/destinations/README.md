@@ -72,6 +72,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.ListOutputRequest](../../models/operations/listoutputrequest.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -1171,11 +1172,11 @@ async function run() {
     id: "databricks-output",
     type: "databricks",
     workspaceId: "your-workspace-id",
-    scope: "my-scope",
+    scope: "all-apis",
     clientId: "your-client-id",
-    catalog: "my-catalog",
-    schema: "my-schema",
-    eventsVolumeName: "my-volume",
+    catalog: "main",
+    schema: "external",
+    eventsVolumeName: "events",
     clientTextSecret: "your-client-secret",
   });
 
@@ -1207,11 +1208,11 @@ async function run() {
     id: "databricks-output",
     type: "databricks",
     workspaceId: "your-workspace-id",
-    scope: "my-scope",
+    scope: "all-apis",
     clientId: "your-client-id",
-    catalog: "my-catalog",
-    schema: "my-schema",
-    eventsVolumeName: "my-volume",
+    catalog: "main",
+    schema: "external",
+    eventsVolumeName: "events",
     clientTextSecret: "your-client-secret",
   });
   if (res.ok) {
@@ -4695,7 +4696,7 @@ run();
 
 ## update
 
-Update the specified Destination.</br></br>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
+Update the specified Destination.<br/><br/>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
 
 ### Example Usage: OutputCreateExamplesAzureBlob
 
@@ -5863,11 +5864,11 @@ async function run() {
       id: "databricks-output",
       type: "databricks",
       workspaceId: "your-workspace-id",
-      scope: "my-scope",
+      scope: "all-apis",
       clientId: "your-client-id",
-      catalog: "my-catalog",
-      schema: "my-schema",
-      eventsVolumeName: "my-volume",
+      catalog: "main",
+      schema: "external",
+      eventsVolumeName: "events",
       clientTextSecret: "your-client-secret",
     },
   });
@@ -5902,11 +5903,11 @@ async function run() {
       id: "databricks-output",
       type: "databricks",
       workspaceId: "your-workspace-id",
-      scope: "my-scope",
+      scope: "all-apis",
       clientId: "your-client-id",
-      catalog: "my-catalog",
-      schema: "my-schema",
-      eventsVolumeName: "my-volume",
+      catalog: "main",
+      schema: "external",
+      eventsVolumeName: "events",
       clientTextSecret: "your-client-secret",
     },
   });

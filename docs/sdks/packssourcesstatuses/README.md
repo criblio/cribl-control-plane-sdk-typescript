@@ -91,7 +91,7 @@ run();
 
 ## list
 
-Get a list of status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet within the specified Pack.
+List status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet within the specified Pack.
 
 ### Example Usage
 

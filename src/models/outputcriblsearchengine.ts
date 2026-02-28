@@ -169,7 +169,7 @@ export type OutputCriblSearchEngine = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
-   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
    */
   authTokens?: Array<ItemsTypeAuthTokens1> | undefined;
   /**

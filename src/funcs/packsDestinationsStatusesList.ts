@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * List the status of all Destinations within a Pack
  *
  * @remarks
- * Get a list of status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
+ * List status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet within the specified Pack.
  */
 export function packsDestinationsStatusesList(
   client: CriblControlPlaneCore,

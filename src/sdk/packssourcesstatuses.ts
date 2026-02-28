@@ -31,7 +31,7 @@ export class PacksSourcesStatuses extends ClientSDK {
    * List the status of all Sources within a Pack
    *
    * @remarks
-   * Get a list of status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet within the specified Pack.
+   * List status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet within the specified Pack.
    */
   async list(
     request: operations.GetInputStatusSystemInputsByPackRequest,

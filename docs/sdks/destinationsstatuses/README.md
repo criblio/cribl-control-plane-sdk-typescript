@@ -89,7 +89,7 @@ run();
 
 ## list
 
-Get a list of status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet.
+List status information and optional health metrics for all configured Destinations in the Worker Group or Edge Fleet.
 
 ### Example Usage
 
