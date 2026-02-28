@@ -3,22 +3,22 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: 7427e8767527e428dc4da149809d481d
   docVersion: 4.16.1-alpha.1769555026407-0074e6cb
-  speakeasyVersion: 1.731.2
-  generationVersion: 2.845.1
-  releaseVersion: 0.6.0-alpha.24
-  configChecksum: 9ac6ca15d8f9cf6cb089d55347f95ace
+  speakeasyVersion: 1.733.3
+  generationVersion: 2.845.11
+  releaseVersion: 0.6.0-alpha.25
+  configChecksum: 8c470609821ebc298df6f05d0c15603c
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 9b1eda0b-1f37-44a4-bd23-b35c0d565a4b
-  pristine_commit_hash: eafcca05483ba127469ce8c8b4830bd06b5b010e
-  pristine_tree_hash: b4e89fc5f847fc1b0f38a38143267eb81b297f4f
+  generation_id: b664de1a-7652-4d34-8d2f-d4d3e71dae10
+  pristine_commit_hash: 64fbc2f82ee46c3194b68d686fb503c70ee1a642
+  pristine_tree_hash: 5553609071539a16f7fd81a44871644d880ac60f
 features:
   typescript:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.3
-    core: 3.26.35
+    core: 3.26.37
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -26,13 +26,13 @@ features:
     envVarSecurityUsage: 0.1.2
     globalSecurity: 2.82.15
     globalSecurityCallbacks: 0.1.0
-    globalServerURLs: 2.83.0
+    globalServerURLs: 2.83.1
     groups: 2.81.3
     inputOutputModels: 2.82.1
     methodArguments: 0.1.2
     nameOverrides: 2.81.4
     nullables: 0.1.1
-    oauth2ClientCredentials: 1.1.3
+    oauth2ClientCredentials: 1.1.5
     openEnums: 0.1.2
     responseFormat: 0.3.0
     retries: 2.83.0
@@ -8758,20 +8758,20 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:422883c3b90f90d02b3af42b47765e936fa15d36
-    pristine_git_object: 66cec250f746c9d717d0ceedf6391fd975b4b14b
+    last_write_checksum: sha1:73a8b191f8add5d7fb305a092f75dd57ec353b4d
+    pristine_git_object: 8db20031061e80c5eb13e43d8f44fc94c6c9a378
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:58b9b8bec07b3115f0593237d6d111cdae0601a5
-    pristine_git_object: d3dfbdb0d83d08d215921fce1ef470beab3ebdfc
+    last_write_checksum: sha1:83c7e5500a5e00771c1fd161859eb144d36c8410
+    pristine_git_object: 87c7102f52ee4760081ef0873c7dc9d17f055dbe
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
     pristine_git_object: bdd865e46d4858932aa4f53e611bc1b182a006e5
   src/funcs/authTokensGet.ts:
     id: 7505372cd3a5
-    last_write_checksum: sha1:adaa7aaa6bbd1cf35bdce7270f0f209302f4b93c
-    pristine_git_object: 595f3be6124c558ce2d97518909e411eac9c9f78
+    last_write_checksum: sha1:31f8adfdf47f7b9886fab349ad22821e4d08c864
+    pristine_git_object: 52121700187e56db7ed22b06d9214126c9de3b26
   src/funcs/collectorsCreate.ts:
     id: b092f58c64fb
     last_write_checksum: sha1:5261a5cbf01f3cf997f4d1135a9a2ce732057bcd
@@ -8874,8 +8874,8 @@ trackedFiles:
     pristine_git_object: 991ffec409157b87cec8d8d720edf6ffe4a98abd
   src/funcs/healthGet.ts:
     id: e9c08b6f7e1c
-    last_write_checksum: sha1:37ddbe054c5f850248d9c4d8360124bf3c374321
-    pristine_git_object: 4157ac1383efec3e7eb0a536a074189656b8bb98
+    last_write_checksum: sha1:65dc6dd4e3219658e109e58db32ec083d6531718
+    pristine_git_object: fe47dac5fd5b3dea470269dc2aab77a5d09defed
   src/funcs/lakeDatasetsCreate.ts:
     id: 6d585ead5bbf
     last_write_checksum: sha1:f3e205a0cabcf3ed16318e89a50ff6e7b97b57ce
@@ -9082,8 +9082,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:b6233aa407469057f49e8c9cc7c943aab5b44767
-    pristine_git_object: 04cea75ca1546a688ab2c3f93125a94953b5497c
+    last_write_checksum: sha1:8249c4c50afcf2d3baba238850a813d4de9bc286
+    pristine_git_object: d0d2716dc7b0d8649a452f32d5205c80fcfd88f6
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
