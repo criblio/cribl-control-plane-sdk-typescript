@@ -6,86 +6,11 @@ Actions related to Pipelines
 
 ### Available Operations
 
-* [list](#list) - List all Pipelines
 * [create](#create) - Create a Pipeline
+* [list](#list) - List all Pipelines
+* [delete](#delete) - Delete a Pipeline
 * [get](#get) - Get a Pipeline
 * [update](#update) - Update a Pipeline
-* [delete](#delete) - Delete a Pipeline
-
-## list
-
-Get a list of all Pipelines.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="listPipeline" method="get" path="/pipelines" -->
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.pipelines.list();
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { pipelinesList } from "cribl-control-plane/funcs/pipelinesList.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await pipelinesList(criblControlPlane);
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("pipelinesList failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
 ## create
 
@@ -93,7 +18,7 @@ Create a new Pipeline.
 
 ### Example Usage: PipelineExamplesAggregateMetrics
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesAggregateMetrics" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesAggregateMetrics" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -117,6 +42,7 @@ async function run() {
           filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))",
           id: "aggregate_metrics",
           conf: {
+            cumulative: false,
             passthrough: false,
             preserveGroupBys: false,
             sufficientStatsOnly: false,
@@ -138,7 +64,6 @@ async function run() {
             groupbys: [
               "proc",
             ],
-            cumulative: false,
             shouldTreatDotsAsLiterals: true,
             flushOnInputClose: true,
           },
@@ -186,6 +111,7 @@ async function run() {
           filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))",
           id: "aggregate_metrics",
           conf: {
+            cumulative: false,
             passthrough: false,
             preserveGroupBys: false,
             sufficientStatsOnly: false,
@@ -207,7 +133,6 @@ async function run() {
             groupbys: [
               "proc",
             ],
-            cumulative: false,
             shouldTreatDotsAsLiterals: true,
             flushOnInputClose: true,
           },
@@ -230,7 +155,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesAggregations
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesAggregations" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesAggregations" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -254,6 +179,7 @@ async function run() {
           filter: "true",
           id: "aggregation",
           conf: {
+            cumulative: false,
             passthrough: false,
             preserveGroupBys: false,
             sufficientStatsOnly: false,
@@ -265,7 +191,6 @@ async function run() {
             groupbys: [
               "srcaddr",
             ],
-            cumulative: false,
             shouldTreatDotsAsLiterals: false,
             flushOnInputClose: true,
           },
@@ -313,6 +238,7 @@ async function run() {
           filter: "true",
           id: "aggregation",
           conf: {
+            cumulative: false,
             passthrough: false,
             preserveGroupBys: false,
             sufficientStatsOnly: false,
@@ -324,7 +250,6 @@ async function run() {
             groupbys: [
               "srcaddr",
             ],
-            cumulative: false,
             shouldTreatDotsAsLiterals: false,
             flushOnInputClose: true,
           },
@@ -347,7 +272,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesAutoTimestamp
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesAutoTimestamp" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesAutoTimestamp" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -466,7 +391,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesCEFSerializer
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesCEFSerializer" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesCEFSerializer" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -615,7 +540,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesChain
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesChain" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesChain" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -706,7 +631,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesClone
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesClone" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesClone" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -811,7 +736,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesComment
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesComment" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesComment" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -902,7 +827,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesDNSLookup
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesDNSLookup" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesDNSLookup" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -1027,7 +952,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesDrop
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesDrop" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesDrop" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -1114,7 +1039,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesDropDimensions
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesDropDimensions" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesDropDimensions" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -1217,7 +1142,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesDynamicSampling
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesDynamicSampling" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesDynamicSampling" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -1316,7 +1241,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesEmpty
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesEmpty" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesEmpty" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -1391,7 +1316,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesEval
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesEval" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesEval" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -1518,7 +1443,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesEventBreaker
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesEventBreaker" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesEventBreaker" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -1542,7 +1467,18 @@ async function run() {
           filter: "true",
           id: "event_breaker",
           conf: {
+            ruleType: "regex",
+            eventBreakerRegex: "/[\\n\\r]+(?!\\s)/",
             existingOrNew: "new",
+            maxEventBytes: 51200,
+            timestampAnchorRegex: "/^/",
+            timestamp: {
+              type: "auto",
+              length: 150,
+            },
+            timestampTimezone: "local",
+            timestampEarliest: "-420weeks",
+            timestampLatest: "+1week",
             shouldMarkCriblBreaker: true,
           },
         },
@@ -1589,7 +1525,18 @@ async function run() {
           filter: "true",
           id: "event_breaker",
           conf: {
+            ruleType: "regex",
+            eventBreakerRegex: "/[\\n\\r]+(?!\\s)/",
             existingOrNew: "new",
+            maxEventBytes: 51200,
+            timestampAnchorRegex: "/^/",
+            timestamp: {
+              type: "auto",
+              length: 150,
+            },
+            timestampTimezone: "local",
+            timestampEarliest: "-420weeks",
+            timestampLatest: "+1week",
             shouldMarkCriblBreaker: true,
           },
         },
@@ -1611,7 +1558,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesFlatten
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesFlatten" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesFlatten" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -1708,7 +1655,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesFoldKeys
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesFoldKeys" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesFoldKeys" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -1803,7 +1750,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesGeoIP
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesGeoIP" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesGeoIP" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -1910,7 +1857,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesGrok
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesGrok" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesGrok" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -2005,7 +1952,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesGuard
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesGuard" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesGuard" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -2130,7 +2077,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesJSONUnroll
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesJSONUnroll" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesJSONUnroll" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -2223,7 +2170,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesLookup
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesLookup" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesLookup" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -2247,10 +2194,11 @@ async function run() {
           filter: "true",
           id: "lookup",
           conf: {
-            file: "ip_locations.csv",
-            dbLookup: false,
             matchMode: "exact",
+            ignoreCase: false,
+            dbLookup: false,
             reloadPeriodSec: -1,
+            file: "ip_locations.csv",
             inFields: [
               {
                 eventField: "destination_ip",
@@ -2265,7 +2213,6 @@ async function run() {
               },
             ],
             addToEvent: false,
-            ignoreCase: false,
           },
         },
       ],
@@ -2311,10 +2258,11 @@ async function run() {
           filter: "true",
           id: "lookup",
           conf: {
-            file: "ip_locations.csv",
-            dbLookup: false,
             matchMode: "exact",
+            ignoreCase: false,
+            dbLookup: false,
             reloadPeriodSec: -1,
+            file: "ip_locations.csv",
             inFields: [
               {
                 eventField: "destination_ip",
@@ -2329,7 +2277,6 @@ async function run() {
               },
             ],
             addToEvent: false,
-            ignoreCase: false,
           },
         },
       ],
@@ -2350,7 +2297,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesMask
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesMask" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesMask" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -2461,7 +2408,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesNumerify
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesNumerify" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesNumerify" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -2485,10 +2432,10 @@ async function run() {
           filter: "true",
           id: "numerify",
           conf: {
+            format: "none",
             depth: 5,
             ignoreFields: [],
             filterExpr: "",
-            format: "none",
           },
         },
       ],
@@ -2534,10 +2481,10 @@ async function run() {
           filter: "true",
           id: "numerify",
           conf: {
+            format: "none",
             depth: 5,
             ignoreFields: [],
             filterExpr: "",
-            format: "none",
           },
         },
       ],
@@ -2558,7 +2505,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesOTLPLogs
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesOTLPLogs" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesOTLPLogs" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -2582,8 +2529,13 @@ async function run() {
           filter: "__inputId=='open_telemetry:open_telemetry'",
           id: "otlp_logs",
           conf: {
-            dropNonLogEvents: false,
             batchOTLPLogs: true,
+            sendBatchSize: 8192,
+            timeout: 200,
+            sendBatchMaxSize: 0,
+            metadataKeys: [],
+            metadataCardinalityLimit: 1000,
+            dropNonLogEvents: false,
           },
         },
       ],
@@ -2629,8 +2581,13 @@ async function run() {
           filter: "__inputId=='open_telemetry:open_telemetry'",
           id: "otlp_logs",
           conf: {
-            dropNonLogEvents: false,
             batchOTLPLogs: true,
+            sendBatchSize: 8192,
+            timeout: 200,
+            sendBatchMaxSize: 0,
+            metadataKeys: [],
+            metadataCardinalityLimit: 1000,
+            dropNonLogEvents: false,
           },
         },
       ],
@@ -2651,7 +2608,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesOTLPMetrics
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesOTLPMetrics" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesOTLPMetrics" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -2675,6 +2632,12 @@ async function run() {
           filter: "__inputId=='prometheus_rw:prom_rw_in'",
           id: "otlp_metrics",
           conf: {
+            batchOTLPMetrics: true,
+            sendBatchSize: 8192,
+            timeout: 200,
+            sendBatchMaxSize: 0,
+            metadataKeys: [],
+            metadataCardinalityLimit: 1000,
             resourceAttributePrefixes: [
               "service",
               "system",
@@ -2686,7 +2649,6 @@ async function run() {
             ],
             dropNonMetricEvents: false,
             otlpVersion: "0.10.0",
-            batchOTLPMetrics: true,
           },
         },
       ],
@@ -2732,6 +2694,12 @@ async function run() {
           filter: "__inputId=='prometheus_rw:prom_rw_in'",
           id: "otlp_metrics",
           conf: {
+            batchOTLPMetrics: true,
+            sendBatchSize: 8192,
+            timeout: 200,
+            sendBatchMaxSize: 0,
+            metadataKeys: [],
+            metadataCardinalityLimit: 1000,
             resourceAttributePrefixes: [
               "service",
               "system",
@@ -2743,7 +2711,6 @@ async function run() {
             ],
             dropNonMetricEvents: false,
             otlpVersion: "0.10.0",
-            batchOTLPMetrics: true,
           },
         },
       ],
@@ -2764,7 +2731,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesOTLPTraces
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesOTLPTraces" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesOTLPTraces" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -2788,9 +2755,14 @@ async function run() {
           filter: "__inputId=='open_telemetry:open_telemetry'",
           id: "otlp_traces",
           conf: {
+            batchOTLPTraces: true,
+            sendBatchSize: 8192,
+            timeout: 200,
+            sendBatchMaxSize: 0,
+            metadataKeys: [],
+            metadataCardinalityLimit: 1000,
             dropNonTraceEvents: false,
             otlpVersion: "0.10.0",
-            batchOTLPTraces: true,
           },
         },
       ],
@@ -2836,9 +2808,14 @@ async function run() {
           filter: "__inputId=='open_telemetry:open_telemetry'",
           id: "otlp_traces",
           conf: {
+            batchOTLPTraces: true,
+            sendBatchSize: 8192,
+            timeout: 200,
+            sendBatchMaxSize: 0,
+            metadataKeys: [],
+            metadataCardinalityLimit: 1000,
             dropNonTraceEvents: false,
             otlpVersion: "0.10.0",
-            batchOTLPTraces: true,
           },
         },
       ],
@@ -2859,7 +2836,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesParser
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesParser" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesParser" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -2883,10 +2860,18 @@ async function run() {
           filter: "true",
           id: "serde",
           conf: {
-            mode: "extract",
             type: "kvp",
-            srcField: "_raw",
+            keep: [
+              "a",
+              "b",
+              "c",
+            ],
+            remove: [
+              "*",
+            ],
             cleanFields: false,
+            mode: "extract",
+            srcField: "_raw",
           },
         },
       ],
@@ -2932,10 +2917,18 @@ async function run() {
           filter: "true",
           id: "serde",
           conf: {
-            mode: "extract",
             type: "kvp",
-            srcField: "_raw",
+            keep: [
+              "a",
+              "b",
+              "c",
+            ],
+            remove: [
+              "*",
+            ],
             cleanFields: false,
+            mode: "extract",
+            srcField: "_raw",
           },
         },
       ],
@@ -2956,7 +2949,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesPublishMetrics
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesPublishMetrics" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesPublishMetrics" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -3085,7 +3078,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesRedis
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesRedis" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesRedis" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -3109,6 +3102,7 @@ async function run() {
           filter: "true",
           id: "redis",
           conf: {
+            authType: "none",
             commands: [
               {
                 outField: "cached_value",
@@ -3118,7 +3112,6 @@ async function run() {
               },
             ],
             deploymentType: "standalone",
-            authType: "none",
             maxBlockSecs: 60,
           },
         },
@@ -3165,6 +3158,7 @@ async function run() {
           filter: "true",
           id: "redis",
           conf: {
+            authType: "none",
             commands: [
               {
                 outField: "cached_value",
@@ -3174,7 +3168,6 @@ async function run() {
               },
             ],
             deploymentType: "standalone",
-            authType: "none",
             maxBlockSecs: 60,
           },
         },
@@ -3196,7 +3189,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesRegexExtract
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesRegexExtract" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesRegexExtract" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -3293,7 +3286,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesRegexFilter
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesRegexFilter" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesRegexFilter" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -3386,7 +3379,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesRename
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesRename" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesRename" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -3493,7 +3486,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesRollupMetrics
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesRollupMetrics" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesRollupMetrics" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -3592,7 +3585,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesSNMPTrapSerialize
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesSNMPTrapSerialize" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesSNMPTrapSerialize" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -3685,7 +3678,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesSampling
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesSampling" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesSampling" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -3786,7 +3779,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesSerialize
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesSerialize" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesSerialize" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -3810,13 +3803,7 @@ async function run() {
           filter: "true",
           id: "serialize",
           conf: {
-            type: "json",
-            fields: [
-              "city",
-              "state",
-            ],
-            srcField: "",
-            dstField: "_raw",
+            type: "kvp",
           },
         },
       ],
@@ -3862,13 +3849,7 @@ async function run() {
           filter: "true",
           id: "serialize",
           conf: {
-            type: "json",
-            fields: [
-              "city",
-              "state",
-            ],
-            srcField: "",
-            dstField: "_raw",
+            type: "kvp",
           },
         },
       ],
@@ -3889,7 +3870,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesSuppress
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesSuppress" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesSuppress" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -3992,7 +3973,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesTee
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesTee" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesTee" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -4097,7 +4078,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesUnroll
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesUnroll" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesUnroll" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -4190,7 +4171,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesXMLUnroll
 
-<!-- UsageSnippet language="typescript" operationID="createPipeline" method="post" path="/pipelines" example="PipelineExamplesXMLUnroll" -->
+<!-- UsageSnippet language="typescript" operationID="createPipelines" method="post" path="/pipelines" example="PipelineExamplesXMLUnroll" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -4306,13 +4287,168 @@ run();
 | errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
 
+## list
+
+Get a list of all Pipelines.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getPipelines" method="get" path="/pipelines" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.pipelines.list();
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { pipelinesList } from "cribl-control-plane/funcs/pipelinesList.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await pipelinesList(criblControlPlane);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("pipelinesList failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 500                                  | application/json                     |
+| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
+
+## delete
+
+Delete the specified Pipeline.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="deletePipelinesById" method="delete" path="/pipelines/{id}" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.pipelines.delete({
+    id: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { pipelinesDelete } from "cribl-control-plane/funcs/pipelinesDelete.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await pipelinesDelete(criblControlPlane, {
+    id: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("pipelinesDelete failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeletePipelinesByIdRequest](../../models/operations/deletepipelinesbyidrequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
+
+### Errors
+
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 500                                  | application/json                     |
+| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
+
 ## get
 
 Get the specified Pipeline.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="getPipelineById" method="get" path="/pipelines/{id}" -->
+<!-- UsageSnippet language="typescript" operationID="getPipelinesById" method="get" path="/pipelines/{id}" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -4370,7 +4506,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetPipelineByIdRequest](../../models/operations/getpipelinebyidrequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.GetPipelinesByIdRequest](../../models/operations/getpipelinesbyidrequest.md)                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -4392,7 +4528,7 @@ Update the specified Pipeline.</br></br>Provide a complete representation of the
 
 ### Example Usage: PipelineExamplesAggregateMetrics
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesAggregateMetrics" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesAggregateMetrics" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -4418,6 +4554,7 @@ async function run() {
             filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))",
             id: "aggregate_metrics",
             conf: {
+              cumulative: false,
               passthrough: false,
               preserveGroupBys: false,
               sufficientStatsOnly: false,
@@ -4439,7 +4576,6 @@ async function run() {
               groupbys: [
                 "proc",
               ],
-              cumulative: false,
               shouldTreatDotsAsLiterals: true,
               flushOnInputClose: true,
             },
@@ -4490,6 +4626,7 @@ async function run() {
             filter: "(_metric == 'proc.cpu_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.cpu_perc'\")) || (_metric == 'proc.mem_perc' || __criblMetrics[0].nameExpr.includes(\"'proc.mem_perc'\")) || (_metric == 'proc.bytes_in' || __criblMetrics[0].nameExpr.includes(\"'proc.bytes_in'\"))",
             id: "aggregate_metrics",
             conf: {
+              cumulative: false,
               passthrough: false,
               preserveGroupBys: false,
               sufficientStatsOnly: false,
@@ -4511,7 +4648,6 @@ async function run() {
               groupbys: [
                 "proc",
               ],
-              cumulative: false,
               shouldTreatDotsAsLiterals: true,
               flushOnInputClose: true,
             },
@@ -4535,7 +4671,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesAggregations
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesAggregations" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesAggregations" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -4561,6 +4697,7 @@ async function run() {
             filter: "true",
             id: "aggregation",
             conf: {
+              cumulative: false,
               passthrough: false,
               preserveGroupBys: false,
               sufficientStatsOnly: false,
@@ -4572,7 +4709,6 @@ async function run() {
               groupbys: [
                 "srcaddr",
               ],
-              cumulative: false,
               shouldTreatDotsAsLiterals: false,
               flushOnInputClose: true,
             },
@@ -4623,6 +4759,7 @@ async function run() {
             filter: "true",
             id: "aggregation",
             conf: {
+              cumulative: false,
               passthrough: false,
               preserveGroupBys: false,
               sufficientStatsOnly: false,
@@ -4634,7 +4771,6 @@ async function run() {
               groupbys: [
                 "srcaddr",
               ],
-              cumulative: false,
               shouldTreatDotsAsLiterals: false,
               flushOnInputClose: true,
             },
@@ -4658,7 +4794,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesAutoTimestamp
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesAutoTimestamp" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesAutoTimestamp" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -4783,7 +4919,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesCEFSerializer
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesCEFSerializer" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesCEFSerializer" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -4938,7 +5074,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesChain
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesChain" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesChain" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -5035,7 +5171,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesClone
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesClone" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesClone" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -5146,7 +5282,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesComment
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesComment" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesComment" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -5243,7 +5379,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesDNSLookup
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesDNSLookup" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesDNSLookup" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -5374,7 +5510,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesDrop
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesDrop" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesDrop" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -5467,7 +5603,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesDropDimensions
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesDropDimensions" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesDropDimensions" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -5576,7 +5712,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesDynamicSampling
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesDynamicSampling" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesDynamicSampling" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -5681,7 +5817,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesEmpty
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesEmpty" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesEmpty" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -5762,7 +5898,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesEval
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesEval" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesEval" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -5895,7 +6031,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesEventBreaker
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesEventBreaker" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesEventBreaker" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -5921,7 +6057,18 @@ async function run() {
             filter: "true",
             id: "event_breaker",
             conf: {
+              ruleType: "regex",
+              eventBreakerRegex: "/[\\n\\r]+(?!\\s)/",
               existingOrNew: "new",
+              maxEventBytes: 51200,
+              timestampAnchorRegex: "/^/",
+              timestamp: {
+                type: "auto",
+                length: 150,
+              },
+              timestampTimezone: "local",
+              timestampEarliest: "-420weeks",
+              timestampLatest: "+1week",
               shouldMarkCriblBreaker: true,
             },
           },
@@ -5971,7 +6118,18 @@ async function run() {
             filter: "true",
             id: "event_breaker",
             conf: {
+              ruleType: "regex",
+              eventBreakerRegex: "/[\\n\\r]+(?!\\s)/",
               existingOrNew: "new",
+              maxEventBytes: 51200,
+              timestampAnchorRegex: "/^/",
+              timestamp: {
+                type: "auto",
+                length: 150,
+              },
+              timestampTimezone: "local",
+              timestampEarliest: "-420weeks",
+              timestampLatest: "+1week",
               shouldMarkCriblBreaker: true,
             },
           },
@@ -5994,7 +6152,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesFlatten
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesFlatten" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesFlatten" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -6097,7 +6255,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesFoldKeys
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesFoldKeys" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesFoldKeys" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -6198,7 +6356,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesGeoIP
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesGeoIP" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesGeoIP" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -6311,7 +6469,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesGrok
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesGrok" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesGrok" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -6412,7 +6570,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesGuard
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesGuard" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesGuard" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -6543,7 +6701,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesJSONUnroll
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesJSONUnroll" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesJSONUnroll" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -6642,7 +6800,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesLookup
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesLookup" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesLookup" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -6668,10 +6826,11 @@ async function run() {
             filter: "true",
             id: "lookup",
             conf: {
-              file: "ip_locations.csv",
-              dbLookup: false,
               matchMode: "exact",
+              ignoreCase: false,
+              dbLookup: false,
               reloadPeriodSec: -1,
+              file: "ip_locations.csv",
               inFields: [
                 {
                   eventField: "destination_ip",
@@ -6686,7 +6845,6 @@ async function run() {
                 },
               ],
               addToEvent: false,
-              ignoreCase: false,
             },
           },
         ],
@@ -6735,10 +6893,11 @@ async function run() {
             filter: "true",
             id: "lookup",
             conf: {
-              file: "ip_locations.csv",
-              dbLookup: false,
               matchMode: "exact",
+              ignoreCase: false,
+              dbLookup: false,
               reloadPeriodSec: -1,
+              file: "ip_locations.csv",
               inFields: [
                 {
                   eventField: "destination_ip",
@@ -6753,7 +6912,6 @@ async function run() {
                 },
               ],
               addToEvent: false,
-              ignoreCase: false,
             },
           },
         ],
@@ -6775,7 +6933,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesMask
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesMask" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesMask" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -6892,7 +7050,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesNumerify
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesNumerify" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesNumerify" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -6918,10 +7076,10 @@ async function run() {
             filter: "true",
             id: "numerify",
             conf: {
+              format: "none",
               depth: 5,
               ignoreFields: [],
               filterExpr: "",
-              format: "none",
             },
           },
         ],
@@ -6970,10 +7128,10 @@ async function run() {
             filter: "true",
             id: "numerify",
             conf: {
+              format: "none",
               depth: 5,
               ignoreFields: [],
               filterExpr: "",
-              format: "none",
             },
           },
         ],
@@ -6995,7 +7153,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesOTLPLogs
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesOTLPLogs" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesOTLPLogs" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -7021,8 +7179,13 @@ async function run() {
             filter: "__inputId=='open_telemetry:open_telemetry'",
             id: "otlp_logs",
             conf: {
-              dropNonLogEvents: false,
               batchOTLPLogs: true,
+              sendBatchSize: 8192,
+              timeout: 200,
+              sendBatchMaxSize: 0,
+              metadataKeys: [],
+              metadataCardinalityLimit: 1000,
+              dropNonLogEvents: false,
             },
           },
         ],
@@ -7071,8 +7234,13 @@ async function run() {
             filter: "__inputId=='open_telemetry:open_telemetry'",
             id: "otlp_logs",
             conf: {
-              dropNonLogEvents: false,
               batchOTLPLogs: true,
+              sendBatchSize: 8192,
+              timeout: 200,
+              sendBatchMaxSize: 0,
+              metadataKeys: [],
+              metadataCardinalityLimit: 1000,
+              dropNonLogEvents: false,
             },
           },
         ],
@@ -7094,7 +7262,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesOTLPMetrics
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesOTLPMetrics" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesOTLPMetrics" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -7120,6 +7288,12 @@ async function run() {
             filter: "__inputId=='prometheus_rw:prom_rw_in'",
             id: "otlp_metrics",
             conf: {
+              batchOTLPMetrics: true,
+              sendBatchSize: 8192,
+              timeout: 200,
+              sendBatchMaxSize: 0,
+              metadataKeys: [],
+              metadataCardinalityLimit: 1000,
               resourceAttributePrefixes: [
                 "service",
                 "system",
@@ -7131,7 +7305,6 @@ async function run() {
               ],
               dropNonMetricEvents: false,
               otlpVersion: "0.10.0",
-              batchOTLPMetrics: true,
             },
           },
         ],
@@ -7180,6 +7353,12 @@ async function run() {
             filter: "__inputId=='prometheus_rw:prom_rw_in'",
             id: "otlp_metrics",
             conf: {
+              batchOTLPMetrics: true,
+              sendBatchSize: 8192,
+              timeout: 200,
+              sendBatchMaxSize: 0,
+              metadataKeys: [],
+              metadataCardinalityLimit: 1000,
               resourceAttributePrefixes: [
                 "service",
                 "system",
@@ -7191,7 +7370,6 @@ async function run() {
               ],
               dropNonMetricEvents: false,
               otlpVersion: "0.10.0",
-              batchOTLPMetrics: true,
             },
           },
         ],
@@ -7213,7 +7391,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesOTLPTraces
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesOTLPTraces" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesOTLPTraces" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -7239,9 +7417,14 @@ async function run() {
             filter: "__inputId=='open_telemetry:open_telemetry'",
             id: "otlp_traces",
             conf: {
+              batchOTLPTraces: true,
+              sendBatchSize: 8192,
+              timeout: 200,
+              sendBatchMaxSize: 0,
+              metadataKeys: [],
+              metadataCardinalityLimit: 1000,
               dropNonTraceEvents: false,
               otlpVersion: "0.10.0",
-              batchOTLPTraces: true,
             },
           },
         ],
@@ -7290,9 +7473,14 @@ async function run() {
             filter: "__inputId=='open_telemetry:open_telemetry'",
             id: "otlp_traces",
             conf: {
+              batchOTLPTraces: true,
+              sendBatchSize: 8192,
+              timeout: 200,
+              sendBatchMaxSize: 0,
+              metadataKeys: [],
+              metadataCardinalityLimit: 1000,
               dropNonTraceEvents: false,
               otlpVersion: "0.10.0",
-              batchOTLPTraces: true,
             },
           },
         ],
@@ -7314,7 +7502,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesParser
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesParser" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesParser" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -7340,10 +7528,18 @@ async function run() {
             filter: "true",
             id: "serde",
             conf: {
-              mode: "extract",
               type: "kvp",
-              srcField: "_raw",
+              keep: [
+                "a",
+                "b",
+                "c",
+              ],
+              remove: [
+                "*",
+              ],
               cleanFields: false,
+              mode: "extract",
+              srcField: "_raw",
             },
           },
         ],
@@ -7392,10 +7588,18 @@ async function run() {
             filter: "true",
             id: "serde",
             conf: {
-              mode: "extract",
               type: "kvp",
-              srcField: "_raw",
+              keep: [
+                "a",
+                "b",
+                "c",
+              ],
+              remove: [
+                "*",
+              ],
               cleanFields: false,
+              mode: "extract",
+              srcField: "_raw",
             },
           },
         ],
@@ -7417,7 +7621,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesPublishMetrics
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesPublishMetrics" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesPublishMetrics" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -7552,7 +7756,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesRedis
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesRedis" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesRedis" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -7578,6 +7782,7 @@ async function run() {
             filter: "true",
             id: "redis",
             conf: {
+              authType: "none",
               commands: [
                 {
                   outField: "cached_value",
@@ -7587,7 +7792,6 @@ async function run() {
                 },
               ],
               deploymentType: "standalone",
-              authType: "none",
               maxBlockSecs: 60,
             },
           },
@@ -7637,6 +7841,7 @@ async function run() {
             filter: "true",
             id: "redis",
             conf: {
+              authType: "none",
               commands: [
                 {
                   outField: "cached_value",
@@ -7646,7 +7851,6 @@ async function run() {
                 },
               ],
               deploymentType: "standalone",
-              authType: "none",
               maxBlockSecs: 60,
             },
           },
@@ -7669,7 +7873,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesRegexExtract
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesRegexExtract" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesRegexExtract" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -7772,7 +7976,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesRegexFilter
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesRegexFilter" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesRegexFilter" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -7871,7 +8075,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesRename
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesRename" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesRename" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -7984,7 +8188,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesRollupMetrics
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesRollupMetrics" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesRollupMetrics" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -8089,7 +8293,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesSNMPTrapSerialize
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesSNMPTrapSerialize" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesSNMPTrapSerialize" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -8188,7 +8392,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesSampling
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesSampling" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesSampling" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -8295,7 +8499,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesSerialize
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesSerialize" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesSerialize" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -8321,13 +8525,7 @@ async function run() {
             filter: "true",
             id: "serialize",
             conf: {
-              type: "json",
-              fields: [
-                "city",
-                "state",
-              ],
-              srcField: "",
-              dstField: "_raw",
+              type: "kvp",
             },
           },
         ],
@@ -8376,13 +8574,7 @@ async function run() {
             filter: "true",
             id: "serialize",
             conf: {
-              type: "json",
-              fields: [
-                "city",
-                "state",
-              ],
-              srcField: "",
-              dstField: "_raw",
+              type: "kvp",
             },
           },
         ],
@@ -8404,7 +8596,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesSuppress
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesSuppress" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesSuppress" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -8513,7 +8705,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesTee
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesTee" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesTee" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -8624,7 +8816,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesUnroll
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesUnroll" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesUnroll" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -8723,7 +8915,7 @@ run();
 ```
 ### Example Usage: PipelineExamplesXMLUnroll
 
-<!-- UsageSnippet language="typescript" operationID="updatePipelineById" method="patch" path="/pipelines/{id}" example="PipelineExamplesXMLUnroll" -->
+<!-- UsageSnippet language="typescript" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineExamplesXMLUnroll" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -8829,87 +9021,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.UpdatePipelineByIdRequest](../../models/operations/updatepipelinebyidrequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
-
-### Errors
-
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ErrorT                        | 500                                  | application/json                     |
-| errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |
-
-## delete
-
-Delete the specified Pipeline.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="deletePipelineById" method="delete" path="/pipelines/{id}" -->
-```typescript
-import { CriblControlPlane } from "cribl-control-plane";
-
-const criblControlPlane = new CriblControlPlane({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const result = await criblControlPlane.pipelines.delete({
-    id: "<id>",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { pipelinesDelete } from "cribl-control-plane/funcs/pipelinesDelete.js";
-
-// Use `CriblControlPlaneCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const criblControlPlane = new CriblControlPlaneCore({
-  serverURL: "https://api.example.com",
-  security: {
-    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
-  },
-});
-
-async function run() {
-  const res = await pipelinesDelete(criblControlPlane, {
-    id: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("pipelinesDelete failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeletePipelineByIdRequest](../../models/operations/deletepipelinebyidrequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [operations.UpdatePipelinesByIdRequest](../../models/operations/updatepipelinesbyidrequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

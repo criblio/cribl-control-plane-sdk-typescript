@@ -10,13 +10,11 @@ import { CollectorSplunk } from "cribl-control-plane/models";
 let value: CollectorSplunk = {
   type: "splunk",
   conf: {
-    authentication: "basic",
-    username: "Enrico53",
-    password: "a6l5mrPhEvtGkTu",
+    authentication: "none",
     searchHead: "<value>",
     search: "<value>",
     endpoint: "<value>",
-    outputMode: "json",
+    outputMode: "csv",
   },
 };
 ```

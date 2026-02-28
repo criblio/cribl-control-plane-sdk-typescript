@@ -613,6 +613,17 @@ const value: models.OutputClickHouse = {
 };
 ```
 
+### `models.OutputLocalSearchStorage`
+
+```typescript
+const value: models.OutputLocalSearchStorage = {
+  type: "local_search_storage",
+  url: "https://acidic-lift.info/",
+  database: "<value>",
+  tableName: "<value>",
+};
+```
+
 ### `models.OutputXsiam`
 
 ```typescript

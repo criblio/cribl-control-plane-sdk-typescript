@@ -7,173 +7,360 @@ import * as openEnums from "../../types/enums.js";
 import { OpenEnum } from "../../types/enums.js";
 import * as models from "../index.js";
 import {
-  AuthenticationMethodAzureLogs,
-  AuthenticationMethodAzureLogs$outboundSchema,
-  OutputAzureEventhub,
-  OutputAzureEventhub$Outbound,
-  OutputAzureEventhub$outboundSchema,
-  OutputChronicle,
-  OutputChronicle$Outbound,
-  OutputChronicle$outboundSchema,
-  OutputClickHouse,
-  OutputClickHouse$Outbound,
-  OutputClickHouse$outboundSchema,
-  OutputCloudflareR2,
-  OutputCloudflareR2$Outbound,
-  OutputCloudflareR2$outboundSchema,
-  OutputCloudwatch,
-  OutputCloudwatch$Outbound,
-  OutputCloudwatch$outboundSchema,
-  OutputConfluentCloud,
-  OutputConfluentCloud$Outbound,
-  OutputConfluentCloud$outboundSchema,
-  OutputCriblHttp,
-  OutputCriblHttp$Outbound,
-  OutputCriblHttp$outboundSchema,
-  OutputCriblLake,
-  OutputCriblLake$Outbound,
-  OutputCriblLake$outboundSchema,
-  OutputCriblSearchEngine,
-  OutputCriblSearchEngine$Outbound,
-  OutputCriblSearchEngine$outboundSchema,
-  OutputCriblTcp,
-  OutputCriblTcp$Outbound,
-  OutputCriblTcp$outboundSchema,
-  OutputCrowdstrikeNextGenSiem,
-  OutputCrowdstrikeNextGenSiem$Outbound,
-  OutputCrowdstrikeNextGenSiem$outboundSchema,
-  OutputDatabricks,
-  OutputDatabricks$Outbound,
-  OutputDatabricks$outboundSchema,
-  OutputDatadog,
-  OutputDatadog$Outbound,
-  OutputDatadog$outboundSchema,
-  OutputDataset,
-  OutputDataset$Outbound,
-  OutputDataset$outboundSchema,
-  OutputDiskSpool,
-  OutputDiskSpool$Outbound,
-  OutputDiskSpool$outboundSchema,
-  OutputDlS3,
-  OutputDlS3$Outbound,
-  OutputDlS3$outboundSchema,
-  OutputDynatraceHttp,
-  OutputDynatraceHttp$Outbound,
-  OutputDynatraceHttp$outboundSchema,
-  OutputDynatraceOtlp,
-  OutputDynatraceOtlp$Outbound,
-  OutputDynatraceOtlp$outboundSchema,
-  OutputElastic,
-  OutputElastic$Outbound,
-  OutputElastic$outboundSchema,
-  OutputElasticCloud,
-  OutputElasticCloud$Outbound,
-  OutputElasticCloud$outboundSchema,
-  OutputExabeam,
-  OutputExabeam$Outbound,
-  OutputExabeam$outboundSchema,
-  OutputGoogleChronicle,
-  OutputGoogleChronicle$Outbound,
-  OutputGoogleChronicle$outboundSchema,
-  OutputGoogleCloudLogging,
-  OutputGoogleCloudLogging$Outbound,
-  OutputGoogleCloudLogging$outboundSchema,
-  OutputGoogleCloudStorage,
-  OutputGoogleCloudStorage$Outbound,
-  OutputGoogleCloudStorage$outboundSchema,
-  OutputGooglePubsub,
-  OutputGooglePubsub$Outbound,
-  OutputGooglePubsub$outboundSchema,
-  OutputGrafanaCloud,
-  OutputGrafanaCloud$Outbound,
-  OutputGrafanaCloud$outboundSchema,
-  OutputGraphite,
-  OutputGraphite$Outbound,
-  OutputGraphite$outboundSchema,
-  OutputHoneycomb,
-  OutputHoneycomb$Outbound,
-  OutputHoneycomb$outboundSchema,
-  OutputHumioHec,
-  OutputHumioHec$Outbound,
-  OutputHumioHec$outboundSchema,
-  OutputInfluxdb,
-  OutputInfluxdb$Outbound,
-  OutputInfluxdb$outboundSchema,
-  OutputKafka,
-  OutputKafka$Outbound,
-  OutputKafka$outboundSchema,
-  OutputKinesis,
-  OutputKinesis$Outbound,
-  OutputKinesis$outboundSchema,
-  OutputLoki,
-  OutputLoki$Outbound,
-  OutputLoki$outboundSchema,
-  OutputMicrosoftFabric,
-  OutputMicrosoftFabric$Outbound,
-  OutputMicrosoftFabric$outboundSchema,
-  OutputMinio,
-  OutputMinio$Outbound,
-  OutputMinio$outboundSchema,
-  OutputMsk,
-  OutputMsk$Outbound,
-  OutputMsk$outboundSchema,
-  OutputNetflow,
-  OutputNetflow$Outbound,
-  OutputNetflow$outboundSchema,
-  OutputNewrelic,
-  OutputNewrelic$Outbound,
-  OutputNewrelic$outboundSchema,
-  OutputNewrelicEvents,
-  OutputNewrelicEvents$Outbound,
-  OutputNewrelicEvents$outboundSchema,
-  OutputOpenTelemetry,
-  OutputOpenTelemetry$Outbound,
-  OutputOpenTelemetry$outboundSchema,
-  OutputPrometheus,
-  OutputPrometheus$Outbound,
-  OutputPrometheus$outboundSchema,
-  OutputRing,
-  OutputRing$Outbound,
-  OutputRing$outboundSchema,
-  OutputRouter,
-  OutputRouter$Outbound,
-  OutputRouter$outboundSchema,
-  OutputSecurityLake,
-  OutputSecurityLake$Outbound,
-  OutputSecurityLake$outboundSchema,
-  OutputSentinelOneAiSiem,
-  OutputSentinelOneAiSiem$Outbound,
-  OutputSentinelOneAiSiem$outboundSchema,
-  OutputServiceNow,
-  OutputServiceNow$Outbound,
-  OutputServiceNow$outboundSchema,
-  OutputSnmp,
-  OutputSnmp$Outbound,
-  OutputSnmp$outboundSchema,
-  OutputSns,
-  OutputSns$Outbound,
-  OutputSns$outboundSchema,
-  OutputSqs,
-  OutputSqs$Outbound,
-  OutputSqs$outboundSchema,
-  OutputStatsd,
-  OutputStatsd$Outbound,
-  OutputStatsd$outboundSchema,
-  OutputStatsdExt,
-  OutputStatsdExt$Outbound,
-  OutputStatsdExt$outboundSchema,
-  OutputSumoLogic,
-  OutputSumoLogic$Outbound,
-  OutputSumoLogic$outboundSchema,
-  OutputXsiam,
-  OutputXsiam$Outbound,
-  OutputXsiam$outboundSchema,
-  PqControlsAzureLogs,
-  PqControlsAzureLogs$Outbound,
-  PqControlsAzureLogs$outboundSchema,
-} from "./pqcontrolsazurelogs.js";
+  CreateOutputCompression,
+  CreateOutputCompression$outboundSchema,
+  CreateOutputOutputAzureEventhub,
+  CreateOutputOutputAzureEventhub$Outbound,
+  CreateOutputOutputAzureEventhub$outboundSchema,
+  CreateOutputOutputChronicle,
+  CreateOutputOutputChronicle$Outbound,
+  CreateOutputOutputChronicle$outboundSchema,
+  CreateOutputOutputClickHouse,
+  CreateOutputOutputClickHouse$Outbound,
+  CreateOutputOutputClickHouse$outboundSchema,
+  CreateOutputOutputCloudflareR2,
+  CreateOutputOutputCloudflareR2$Outbound,
+  CreateOutputOutputCloudflareR2$outboundSchema,
+  CreateOutputOutputCloudwatch,
+  CreateOutputOutputCloudwatch$Outbound,
+  CreateOutputOutputCloudwatch$outboundSchema,
+  CreateOutputOutputConfluentCloud,
+  CreateOutputOutputConfluentCloud$Outbound,
+  CreateOutputOutputConfluentCloud$outboundSchema,
+  CreateOutputOutputCriblHttp,
+  CreateOutputOutputCriblHttp$Outbound,
+  CreateOutputOutputCriblHttp$outboundSchema,
+  CreateOutputOutputCriblLake,
+  CreateOutputOutputCriblLake$Outbound,
+  CreateOutputOutputCriblLake$outboundSchema,
+  CreateOutputOutputCriblSearchEngine,
+  CreateOutputOutputCriblSearchEngine$Outbound,
+  CreateOutputOutputCriblSearchEngine$outboundSchema,
+  CreateOutputOutputCriblTcp,
+  CreateOutputOutputCriblTcp$Outbound,
+  CreateOutputOutputCriblTcp$outboundSchema,
+  CreateOutputOutputCrowdstrikeNextGenSiem,
+  CreateOutputOutputCrowdstrikeNextGenSiem$Outbound,
+  CreateOutputOutputCrowdstrikeNextGenSiem$outboundSchema,
+  CreateOutputOutputDatabricks,
+  CreateOutputOutputDatabricks$Outbound,
+  CreateOutputOutputDatabricks$outboundSchema,
+  CreateOutputOutputDatadog,
+  CreateOutputOutputDatadog$Outbound,
+  CreateOutputOutputDatadog$outboundSchema,
+  CreateOutputOutputDataset,
+  CreateOutputOutputDataset$Outbound,
+  CreateOutputOutputDataset$outboundSchema,
+  CreateOutputOutputDiskSpool,
+  CreateOutputOutputDiskSpool$Outbound,
+  CreateOutputOutputDiskSpool$outboundSchema,
+  CreateOutputOutputDlS3,
+  CreateOutputOutputDlS3$Outbound,
+  CreateOutputOutputDlS3$outboundSchema,
+  CreateOutputOutputDynatraceHttp,
+  CreateOutputOutputDynatraceHttp$Outbound,
+  CreateOutputOutputDynatraceHttp$outboundSchema,
+  CreateOutputOutputDynatraceOtlp,
+  CreateOutputOutputDynatraceOtlp$Outbound,
+  CreateOutputOutputDynatraceOtlp$outboundSchema,
+  CreateOutputOutputElastic,
+  CreateOutputOutputElastic$Outbound,
+  CreateOutputOutputElastic$outboundSchema,
+  CreateOutputOutputElasticCloud,
+  CreateOutputOutputElasticCloud$Outbound,
+  CreateOutputOutputElasticCloud$outboundSchema,
+  CreateOutputOutputExabeam,
+  CreateOutputOutputExabeam$Outbound,
+  CreateOutputOutputExabeam$outboundSchema,
+  CreateOutputOutputGoogleChronicle,
+  CreateOutputOutputGoogleChronicle$Outbound,
+  CreateOutputOutputGoogleChronicle$outboundSchema,
+  CreateOutputOutputGoogleCloudLogging,
+  CreateOutputOutputGoogleCloudLogging$Outbound,
+  CreateOutputOutputGoogleCloudLogging$outboundSchema,
+  CreateOutputOutputGoogleCloudStorage,
+  CreateOutputOutputGoogleCloudStorage$Outbound,
+  CreateOutputOutputGoogleCloudStorage$outboundSchema,
+  CreateOutputOutputGooglePubsub,
+  CreateOutputOutputGooglePubsub$Outbound,
+  CreateOutputOutputGooglePubsub$outboundSchema,
+  CreateOutputOutputGrafanaCloudUnion,
+  CreateOutputOutputGrafanaCloudUnion$Outbound,
+  CreateOutputOutputGrafanaCloudUnion$outboundSchema,
+  CreateOutputOutputGraphite,
+  CreateOutputOutputGraphite$Outbound,
+  CreateOutputOutputGraphite$outboundSchema,
+  CreateOutputOutputHoneycomb,
+  CreateOutputOutputHoneycomb$Outbound,
+  CreateOutputOutputHoneycomb$outboundSchema,
+  CreateOutputOutputHumioHec,
+  CreateOutputOutputHumioHec$Outbound,
+  CreateOutputOutputHumioHec$outboundSchema,
+  CreateOutputOutputInfluxdb,
+  CreateOutputOutputInfluxdb$Outbound,
+  CreateOutputOutputInfluxdb$outboundSchema,
+  CreateOutputOutputKafka,
+  CreateOutputOutputKafka$Outbound,
+  CreateOutputOutputKafka$outboundSchema,
+  CreateOutputOutputLocalSearchStorage,
+  CreateOutputOutputLocalSearchStorage$Outbound,
+  CreateOutputOutputLocalSearchStorage$outboundSchema,
+  CreateOutputOutputLoki,
+  CreateOutputOutputLoki$Outbound,
+  CreateOutputOutputLoki$outboundSchema,
+  CreateOutputOutputMicrosoftFabric,
+  CreateOutputOutputMicrosoftFabric$Outbound,
+  CreateOutputOutputMicrosoftFabric$outboundSchema,
+  CreateOutputOutputMinio,
+  CreateOutputOutputMinio$Outbound,
+  CreateOutputOutputMinio$outboundSchema,
+  CreateOutputOutputMsk,
+  CreateOutputOutputMsk$Outbound,
+  CreateOutputOutputMsk$outboundSchema,
+  CreateOutputOutputNetflow,
+  CreateOutputOutputNetflow$Outbound,
+  CreateOutputOutputNetflow$outboundSchema,
+  CreateOutputOutputNewrelic,
+  CreateOutputOutputNewrelic$Outbound,
+  CreateOutputOutputNewrelic$outboundSchema,
+  CreateOutputOutputNewrelicEvents,
+  CreateOutputOutputNewrelicEvents$Outbound,
+  CreateOutputOutputNewrelicEvents$outboundSchema,
+  CreateOutputOutputOpenTelemetry,
+  CreateOutputOutputOpenTelemetry$Outbound,
+  CreateOutputOutputOpenTelemetry$outboundSchema,
+  CreateOutputOutputPrometheus,
+  CreateOutputOutputPrometheus$Outbound,
+  CreateOutputOutputPrometheus$outboundSchema,
+  CreateOutputOutputRing,
+  CreateOutputOutputRing$Outbound,
+  CreateOutputOutputRing$outboundSchema,
+  CreateOutputOutputRouter,
+  CreateOutputOutputRouter$Outbound,
+  CreateOutputOutputRouter$outboundSchema,
+  CreateOutputOutputSecurityLake,
+  CreateOutputOutputSecurityLake$Outbound,
+  CreateOutputOutputSecurityLake$outboundSchema,
+  CreateOutputOutputSentinelOneAiSiem,
+  CreateOutputOutputSentinelOneAiSiem$Outbound,
+  CreateOutputOutputSentinelOneAiSiem$outboundSchema,
+  CreateOutputOutputServiceNow,
+  CreateOutputOutputServiceNow$Outbound,
+  CreateOutputOutputServiceNow$outboundSchema,
+  CreateOutputOutputSnmp,
+  CreateOutputOutputSnmp$Outbound,
+  CreateOutputOutputSnmp$outboundSchema,
+  CreateOutputOutputSns,
+  CreateOutputOutputSns$Outbound,
+  CreateOutputOutputSns$outboundSchema,
+  CreateOutputOutputSqs,
+  CreateOutputOutputSqs$Outbound,
+  CreateOutputOutputSqs$outboundSchema,
+  CreateOutputOutputStatsd,
+  CreateOutputOutputStatsd$Outbound,
+  CreateOutputOutputStatsd$outboundSchema,
+  CreateOutputOutputStatsdExt,
+  CreateOutputOutputStatsdExt$Outbound,
+  CreateOutputOutputStatsdExt$outboundSchema,
+  CreateOutputOutputSumoLogic,
+  CreateOutputOutputSumoLogic$Outbound,
+  CreateOutputOutputSumoLogic$outboundSchema,
+  CreateOutputOutputXsiam,
+  CreateOutputOutputXsiam$Outbound,
+  CreateOutputOutputXsiam$outboundSchema,
+} from "./createoutputcompression.js";
 
-export type OutputAzureLogs = {
+export type CreateOutputPqControlsKinesis = {};
+
+export type CreateOutputOutputKinesis = {
+  /**
+   * Unique ID for this output
+   */
+  id: string;
+  type: "kinesis";
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Kinesis stream name to send events to.
+   */
+  streamName: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing Kinesis stream requests
+   */
+  signatureVersion?: models.SignatureVersionOptions2 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of ongoing put requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For uncompressed or non-compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Compression type to use for records
+   */
+  compression?: CreateOutputCompression | undefined;
+  /**
+   * Provides higher stream rate limits, improving delivery speed and reliability by minimizing throttling. See the [ListShards API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html) documentation for details.
+   */
+  useListShards?: boolean | undefined;
+  /**
+   * Batch events into a single record as NDJSON
+   */
+  asNdjson?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: models.BackpressureBehaviorOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Maximum number of records to send in a single request
+   */
+  maxEventsPerFlush?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: models.ModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: models.CompressionOptionsPq | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
+  pqControls?: CreateOutputPqControlsKinesis | undefined;
+  /**
+   * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
+   */
+  __template_streamName?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
+};
+
+/**
+ * Enter workspace ID and workspace key directly, or select a stored secret
+ */
+export const CreateOutputAuthenticationMethodAzureLogs = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter workspace ID and workspace key directly, or select a stored secret
+ */
+export type CreateOutputAuthenticationMethodAzureLogs = OpenEnum<
+  typeof CreateOutputAuthenticationMethodAzureLogs
+>;
+
+export type CreateOutputPqControlsAzureLogs = {};
+
+export type CreateOutputOutputAzureLogs = {
   /**
    * Unique ID for this output
    */
@@ -270,7 +457,7 @@ export type OutputAzureLogs = {
   /**
    * Enter workspace ID and workspace key directly, or select a stored secret
    */
-  authType?: AuthenticationMethodAzureLogs | undefined;
+  authType?: CreateOutputAuthenticationMethodAzureLogs | undefined;
   description?: string | undefined;
   /**
    * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -312,7 +499,7 @@ export type OutputAzureLogs = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsAzureLogs | undefined;
+  pqControls?: CreateOutputPqControlsAzureLogs | undefined;
   /**
    * Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
    */
@@ -325,9 +512,17 @@ export type OutputAzureLogs = {
    * Select or create a stored secret that references your access key and secret key
    */
   keypairSecret?: string | undefined;
+  /**
+   * Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
+   */
+  __template_workspaceId?: string | undefined;
+  /**
+   * Binds 'workspaceKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceKey' at runtime.
+   */
+  __template_workspaceKey?: string | undefined;
 };
 
-export const IngestionMode = {
+export const CreateOutputIngestionMode = {
   /**
    * Batching
    */
@@ -337,12 +532,14 @@ export const IngestionMode = {
    */
   Streaming: "streaming",
 } as const;
-export type IngestionMode = OpenEnum<typeof IngestionMode>;
+export type CreateOutputIngestionMode = OpenEnum<
+  typeof CreateOutputIngestionMode
+>;
 
 /**
  * The type of OAuth 2.0 client credentials grant flow to use
  */
-export const OauthTypeAuthenticationMethod = {
+export const CreateOutputOauthTypeAuthenticationMethod = {
   /**
    * Client secret
    */
@@ -359,18 +556,18 @@ export const OauthTypeAuthenticationMethod = {
 /**
  * The type of OAuth 2.0 client credentials grant flow to use
  */
-export type OauthTypeAuthenticationMethod = OpenEnum<
-  typeof OauthTypeAuthenticationMethod
+export type CreateOutputOauthTypeAuthenticationMethod = OpenEnum<
+  typeof CreateOutputOauthTypeAuthenticationMethod
 >;
 
-export type Certificate = {
+export type CreateOutputCertificate = {
   /**
    * The certificate you registered as credentials for your app in the Azure portal
    */
   certificateName?: string | undefined;
 };
 
-export const PrefixOptional = {
+export const CreateOutputPrefixOptional = {
   /**
    * drop-by
    */
@@ -380,21 +577,23 @@ export const PrefixOptional = {
    */
   IngestBy: "ingestBy",
 } as const;
-export type PrefixOptional = OpenEnum<typeof PrefixOptional>;
+export type CreateOutputPrefixOptional = OpenEnum<
+  typeof CreateOutputPrefixOptional
+>;
 
-export type ExtentTag = {
-  prefix?: PrefixOptional | undefined;
+export type CreateOutputExtentTag = {
+  prefix?: CreateOutputPrefixOptional | undefined;
   value: string;
 };
 
-export type IngestIfNotExist = {
+export type CreateOutputIngestIfNotExist = {
   value: string;
 };
 
 /**
  * Level of ingestion status reporting. Defaults to FailuresOnly.
  */
-export const ReportLevel = {
+export const CreateOutputReportLevel = {
   /**
    * FailuresOnly
    */
@@ -411,12 +610,12 @@ export const ReportLevel = {
 /**
  * Level of ingestion status reporting. Defaults to FailuresOnly.
  */
-export type ReportLevel = OpenEnum<typeof ReportLevel>;
+export type CreateOutputReportLevel = OpenEnum<typeof CreateOutputReportLevel>;
 
 /**
  * Target of the ingestion status reporting. Defaults to Queue.
  */
-export const ReportMethod = {
+export const CreateOutputReportMethod = {
   /**
    * Queue
    */
@@ -433,16 +632,18 @@ export const ReportMethod = {
 /**
  * Target of the ingestion status reporting. Defaults to Queue.
  */
-export type ReportMethod = OpenEnum<typeof ReportMethod>;
+export type CreateOutputReportMethod = OpenEnum<
+  typeof CreateOutputReportMethod
+>;
 
-export type AdditionalProperty = {
+export type CreateOutputAdditionalProperty = {
   key: string;
   value: string;
 };
 
-export type PqControlsAzureDataExplorer = {};
+export type CreateOutputPqControlsAzureDataExplorer = {};
 
-export type OutputAzureDataExplorer = {
+export type CreateOutputOutputAzureDataExplorer = {
   /**
    * Unique ID for this output
    */
@@ -480,7 +681,7 @@ export type OutputAzureDataExplorer = {
    * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
    */
   validateDatabaseSettings?: boolean | undefined;
-  ingestMode?: IngestionMode | undefined;
+  ingestMode?: CreateOutputIngestionMode | undefined;
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
@@ -500,7 +701,7 @@ export type OutputAzureDataExplorer = {
   /**
    * The type of OAuth 2.0 client credentials grant flow to use
    */
-  oauthType: OauthTypeAuthenticationMethod;
+  oauthType: CreateOutputOauthTypeAuthenticationMethod;
   description?: string | undefined;
   /**
    * The client secret that you generated for your app in the Azure portal
@@ -510,7 +711,7 @@ export type OutputAzureDataExplorer = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  certificate?: Certificate | undefined;
+  certificate?: CreateOutputCertificate | undefined;
   /**
    * Format of the output data
    */
@@ -663,23 +864,23 @@ export type OutputAzureDataExplorer = {
   /**
    * Strings or tags associated with the extent (ingested data shard)
    */
-  extentTags?: Array<ExtentTag> | undefined;
+  extentTags?: Array<CreateOutputExtentTag> | undefined;
   /**
    * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
    */
-  ingestIfNotExists?: Array<IngestIfNotExist> | undefined;
+  ingestIfNotExists?: Array<CreateOutputIngestIfNotExist> | undefined;
   /**
    * Level of ingestion status reporting. Defaults to FailuresOnly.
    */
-  reportLevel?: ReportLevel | undefined;
+  reportLevel?: CreateOutputReportLevel | undefined;
   /**
    * Target of the ingestion status reporting. Defaults to Queue.
    */
-  reportMethod?: ReportMethod | undefined;
+  reportMethod?: CreateOutputReportMethod | undefined;
   /**
    * Optionally, enter additional configuration properties to send to the ingestion service
    */
-  additionalProperties?: Array<AdditionalProperty> | undefined;
+  additionalProperties?: Array<CreateOutputAdditionalProperty> | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -763,10 +964,46 @@ export type OutputAzureDataExplorer = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsAzureDataExplorer | undefined;
+  pqControls?: CreateOutputPqControlsAzureDataExplorer | undefined;
+  /**
+   * Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
+   */
+  __template_clusterUrl?: string | undefined;
+  /**
+   * Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
+   */
+  __template_database?: string | undefined;
+  /**
+   * Binds 'table' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'table' at runtime.
+   */
+  __template_table?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
+  /**
+   * Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
+   */
+  __template_scope?: string | undefined;
+  /**
+   * Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
+   */
+  __template_clientSecret?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'ingestUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'ingestUrl' at runtime.
+   */
+  __template_ingestUrl?: string | undefined;
 };
 
-export const BlobAccessTier = {
+export const CreateOutputBlobAccessTier = {
   /**
    * Default account access tier
    */
@@ -788,9 +1025,11 @@ export const BlobAccessTier = {
    */
   Archive: "Archive",
 } as const;
-export type BlobAccessTier = OpenEnum<typeof BlobAccessTier>;
+export type CreateOutputBlobAccessTier = OpenEnum<
+  typeof CreateOutputBlobAccessTier
+>;
 
-export type OutputAzureBlob = {
+export type CreateOutputOutputAzureBlob = {
   /**
    * Unique ID for this output
    */
@@ -898,7 +1137,7 @@ export type OutputAzureBlob = {
   forceCloseOnShutdown?: boolean | undefined;
   retrySettings?: models.RetrySettingsType | undefined;
   authType?: models.AuthenticationMethodOptions | undefined;
-  storageClass?: BlobAccessTier | undefined;
+  storageClass?: CreateOutputBlobAccessTier | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -1001,9 +1240,29 @@ export type OutputAzureBlob = {
    */
   clientTextSecret?: string | undefined;
   certificate?: models.CertificateTypeAzureBlobAuthTypeClientCert | undefined;
+  /**
+   * Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+   */
+  __template_containerName?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
+   */
+  __template_connectionString?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+   */
+  __template_clientId?: string | undefined;
 };
 
-export type OutputS3 = {
+export type CreateOutputOutputS3 = {
   /**
    * Unique ID for this output
    */
@@ -1250,9 +1509,37 @@ export type OutputS3 = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+   */
+  __template_bucket?: string | undefined;
+  /**
+   * Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+   */
+  __template_region?: string | undefined;
+  /**
+   * Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+   */
+  __template_awsSecretKey?: string | undefined;
+  /**
+   * Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+   */
+  __template_assumeRoleArn?: string | undefined;
+  /**
+   * Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+   */
+  __template_assumeRoleExternalId?: string | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
+  /**
+   * Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+   */
+  __template_awsApiKey?: string | undefined;
 };
 
-export type OutputFilesystem = {
+export type CreateOutputOutputFilesystem = {
   /**
    * Unique ID for this output
    */
@@ -1416,11 +1703,15 @@ export type OutputFilesystem = {
    * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
    */
   maxRetryNum?: number | undefined;
+  /**
+   * Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+   */
+  __template_format?: string | undefined;
 };
 
-export type PqControlsSignalfx = {};
+export type CreateOutputPqControlsSignalfx = {};
 
-export type OutputSignalfx = {
+export type CreateOutputOutputSignalfx = {
   /**
    * Unique ID for this output
    */
@@ -1562,12 +1853,12 @@ export type OutputSignalfx = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSignalfx | undefined;
+  pqControls?: CreateOutputPqControlsSignalfx | undefined;
 };
 
-export type PqControlsWavefront = {};
+export type CreateOutputPqControlsWavefront = {};
 
-export type OutputWavefront = {
+export type CreateOutputOutputWavefront = {
   /**
    * Unique ID for this output
    */
@@ -1709,12 +2000,12 @@ export type OutputWavefront = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsWavefront | undefined;
+  pqControls?: CreateOutputPqControlsWavefront | undefined;
 };
 
-export type PqControlsTcpjson = {};
+export type CreateOutputPqControlsTcpjson = {};
 
-export type OutputTcpjson = {
+export type CreateOutputOutputTcpjson = {
   /**
    * Unique ID for this output
    */
@@ -1846,7 +2137,7 @@ export type OutputTcpjson = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsTcpjson | undefined;
+  pqControls?: CreateOutputPqControlsTcpjson | undefined;
   /**
    * Optional authentication token to include as part of the connection header
    */
@@ -1855,11 +2146,19 @@ export type OutputTcpjson = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type PqControlsWizHec = {};
+export type CreateOutputPqControlsWizHec = {};
 
-export type OutputWizHec = {
+export type CreateOutputOutputWizHec = {
   /**
    * Unique ID for this output
    */
@@ -1881,7 +2180,6 @@ export type OutputWizHec = {
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  loadBalanced?: any | undefined;
   /**
    * In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
    */
@@ -1935,7 +2233,6 @@ export type OutputWizHec = {
    * List of headers that are safe to log in plain text
    */
   safeHeaders?: Array<string> | undefined;
-  enableMultiMetrics?: any | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
@@ -2009,7 +2306,7 @@ export type OutputWizHec = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsWizHec | undefined;
+  pqControls?: CreateOutputPqControlsWizHec | undefined;
   /**
    * Wiz Defend Auth token
    */
@@ -2018,9 +2315,21 @@ export type OutputWizHec = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'wiz_environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_environment' at runtime.
+   */
+  __template_wiz_environment?: string | undefined;
+  /**
+   * Binds 'data_center' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'data_center' at runtime.
+   */
+  __template_data_center?: string | undefined;
+  /**
+   * Binds 'wiz_sourcetype' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_sourcetype' at runtime.
+   */
+  __template_wiz_sourcetype?: string | undefined;
 };
 
-export type UrlSplunkHec = {
+export type CreateOutputUrlSplunkHec = {
   /**
    * URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
    */
@@ -2029,11 +2338,15 @@ export type UrlSplunkHec = {
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
-export type PqControlsSplunkHec = {};
+export type CreateOutputPqControlsSplunkHec = {};
 
-export type OutputSplunkHec = {
+export type CreateOutputOutputSplunkHec = {
   /**
    * Unique ID for this output
    */
@@ -2148,7 +2461,7 @@ export type OutputSplunkHec = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<UrlSplunkHec> | undefined;
+  urls?: Array<CreateOutputUrlSplunkHec> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -2205,7 +2518,11 @@ export type OutputSplunkHec = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSplunkHec | undefined;
+  pqControls?: CreateOutputPqControlsSplunkHec | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 export type CreateOutputAuthToken = {
@@ -2226,7 +2543,7 @@ export type CreateOutputAuthToken = {
 /**
  * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
  */
-export type IndexerDiscoveryConfigs = {
+export type CreateOutputIndexerDiscoveryConfigs = {
   /**
    * Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
    */
@@ -2261,9 +2578,9 @@ export type IndexerDiscoveryConfigs = {
   textSecret?: string | undefined;
 };
 
-export type PqControlsSplunkLb = {};
+export type CreateOutputPqControlsSplunkLb = {};
 
-export type OutputSplunkLb = {
+export type CreateOutputOutputSplunkLb = {
   /**
    * Unique ID for this output
    */
@@ -2358,7 +2675,7 @@ export type OutputSplunkLb = {
   /**
    * List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
    */
-  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs | undefined;
+  indexerDiscoveryConfigs?: CreateOutputIndexerDiscoveryConfigs | undefined;
   /**
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
@@ -2407,7 +2724,7 @@ export type OutputSplunkLb = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSplunkLb | undefined;
+  pqControls?: CreateOutputPqControlsSplunkLb | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
    */
@@ -2418,9 +2735,9 @@ export type OutputSplunkLb = {
   textSecret?: string | undefined;
 };
 
-export type PqControlsSplunk = {};
+export type CreateOutputPqControlsSplunk = {};
 
-export type OutputSplunk = {
+export type CreateOutputOutputSplunk = {
   /**
    * Unique ID for this output
    */
@@ -2540,7 +2857,7 @@ export type OutputSplunk = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSplunk | undefined;
+  pqControls?: CreateOutputPqControlsSplunk | undefined;
   /**
    * Shared secret token to use when establishing a connection to a Splunk indexer.
    */
@@ -2549,12 +2866,20 @@ export type OutputSplunk = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
 /**
  * The network protocol to use for sending out syslog messages
  */
-export const ProtocolSyslog = {
+export const CreateOutputProtocolSyslog = {
   /**
    * TCP
    */
@@ -2567,12 +2892,14 @@ export const ProtocolSyslog = {
 /**
  * The network protocol to use for sending out syslog messages
  */
-export type ProtocolSyslog = OpenEnum<typeof ProtocolSyslog>;
+export type CreateOutputProtocolSyslog = OpenEnum<
+  typeof CreateOutputProtocolSyslog
+>;
 
 /**
  * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
  */
-export const Facility = {
+export const CreateOutputFacility = {
   Zero: 0,
   One: 1,
   Two: 2,
@@ -2599,54 +2926,56 @@ export const Facility = {
 /**
  * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
  */
-export type Facility = OpenEnum<typeof Facility>;
+export type CreateOutputFacility = OpenEnum<typeof CreateOutputFacility>;
 
 /**
  * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
  */
-export const SeveritySyslog = {
+export const CreateOutputSeveritySyslog = {
   /**
    * emergency
    */
-  Zero: 0,
+  Emergency: 0,
   /**
    * alert
    */
-  One: 1,
+  Alert: 1,
   /**
    * critical
    */
-  Two: 2,
+  Critical: 2,
   /**
    * error
    */
-  Three: 3,
+  Error: 3,
   /**
    * warning
    */
-  Four: 4,
+  Warning: 4,
   /**
    * notice
    */
-  Five: 5,
+  Notice: 5,
   /**
    * info
    */
-  Six: 6,
+  Info: 6,
   /**
    * debug
    */
-  Seven: 7,
+  Debug: 7,
 } as const;
 /**
  * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
  */
-export type SeveritySyslog = OpenEnum<typeof SeveritySyslog>;
+export type CreateOutputSeveritySyslog = OpenEnum<
+  typeof CreateOutputSeveritySyslog
+>;
 
 /**
  * The syslog message format depending on the receiver's support
  */
-export const MessageFormat = {
+export const CreateOutputMessageFormat = {
   /**
    * RFC3164
    */
@@ -2659,12 +2988,14 @@ export const MessageFormat = {
 /**
  * The syslog message format depending on the receiver's support
  */
-export type MessageFormat = OpenEnum<typeof MessageFormat>;
+export type CreateOutputMessageFormat = OpenEnum<
+  typeof CreateOutputMessageFormat
+>;
 
 /**
  * Timestamp format to use when serializing event's time field
  */
-export const TimestampFormat = {
+export const CreateOutputTimestampFormat = {
   /**
    * Syslog
    */
@@ -2677,11 +3008,13 @@ export const TimestampFormat = {
 /**
  * Timestamp format to use when serializing event's time field
  */
-export type TimestampFormat = OpenEnum<typeof TimestampFormat>;
+export type CreateOutputTimestampFormat = OpenEnum<
+  typeof CreateOutputTimestampFormat
+>;
 
-export type PqControlsSyslog = {};
+export type CreateOutputPqControlsSyslog = {};
 
-export type OutputSyslog = {
+export type CreateOutputOutputSyslog = {
   /**
    * Unique ID for this output
    */
@@ -2706,15 +3039,15 @@ export type OutputSyslog = {
   /**
    * The network protocol to use for sending out syslog messages
    */
-  protocol?: ProtocolSyslog | undefined;
+  protocol?: CreateOutputProtocolSyslog | undefined;
   /**
    * Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
    */
-  facility?: Facility | undefined;
+  facility?: CreateOutputFacility | undefined;
   /**
    * Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
    */
-  severity?: SeveritySyslog | undefined;
+  severity?: CreateOutputSeveritySyslog | undefined;
   /**
    * Default name for device or application that originated the message. Defaults to Cribl, but will be overwritten by value of __appname if set.
    */
@@ -2722,11 +3055,11 @@ export type OutputSyslog = {
   /**
    * The syslog message format depending on the receiver's support
    */
-  messageFormat?: MessageFormat | undefined;
+  messageFormat?: CreateOutputMessageFormat | undefined;
   /**
    * Timestamp format to use when serializing event's time field
    */
-  timestampFormat?: TimestampFormat | undefined;
+  timestampFormat?: CreateOutputTimestampFormat | undefined;
   /**
    * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
    */
@@ -2837,10 +3170,18 @@ export type OutputSyslog = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSyslog | undefined;
+  pqControls?: CreateOutputPqControlsSyslog | undefined;
+  /**
+   * Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+   */
+  __template_host?: string | undefined;
+  /**
+   * Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+   */
+  __template_port?: string | undefined;
 };
 
-export type OutputDevnull = {
+export type CreateOutputOutputDevnull = {
   /**
    * Unique ID for this output
    */
@@ -2864,15 +3205,15 @@ export type OutputDevnull = {
   streamtags?: Array<string> | undefined;
 };
 
-export const AuthType = {
+export const CreateOutputAuthType = {
   Oauth: "oauth",
 } as const;
-export type AuthType = OpenEnum<typeof AuthType>;
+export type CreateOutputAuthType = OpenEnum<typeof CreateOutputAuthType>;
 
 /**
  * Enter the data collection endpoint URL or the individual ID
  */
-export const EndpointConfiguration = {
+export const CreateOutputEndpointConfiguration = {
   /**
    * URL
    */
@@ -2885,19 +3226,23 @@ export const EndpointConfiguration = {
 /**
  * Enter the data collection endpoint URL or the individual ID
  */
-export type EndpointConfiguration = OpenEnum<typeof EndpointConfiguration>;
+export type CreateOutputEndpointConfiguration = OpenEnum<
+  typeof CreateOutputEndpointConfiguration
+>;
 
-export const FormatSentinel = {
+export const CreateOutputFormatSentinel = {
   Ndjson: "ndjson",
   JsonArray: "json_array",
   Custom: "custom",
   Advanced: "advanced",
 } as const;
-export type FormatSentinel = OpenEnum<typeof FormatSentinel>;
+export type CreateOutputFormatSentinel = OpenEnum<
+  typeof CreateOutputFormatSentinel
+>;
 
-export type PqControlsSentinel = {};
+export type CreateOutputPqControlsSentinel = {};
 
-export type OutputSentinel = {
+export type CreateOutputOutputSentinel = {
   /**
    * Unique ID for this output
    */
@@ -2986,7 +3331,7 @@ export type OutputSentinel = {
    * How to handle events when all receivers are exerting backpressure
    */
   onBackpressure?: models.BackpressureBehaviorOptions | undefined;
-  authType?: AuthType | undefined;
+  authType?: CreateOutputAuthType | undefined;
   /**
    * URL for OAuth
    */
@@ -3006,13 +3351,13 @@ export type OutputSentinel = {
   /**
    * Enter the data collection endpoint URL or the individual ID
    */
-  endpointURLConfiguration: EndpointConfiguration;
+  endpointURLConfiguration: CreateOutputEndpointConfiguration;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
-  format?: FormatSentinel | undefined;
+  format?: CreateOutputFormatSentinel | undefined;
   /**
    * Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
    */
@@ -3085,7 +3430,7 @@ export type OutputSentinel = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsSentinel | undefined;
+  pqControls?: CreateOutputPqControlsSentinel | undefined;
   /**
    * URL to send events to. Can be overwritten by an event's __url field.
    */
@@ -3102,12 +3447,44 @@ export type OutputSentinel = {
    * The name of the stream (Sentinel table) in which to store the events
    */
   streamName?: string | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+   */
+  __template_secret?: string | undefined;
+  /**
+   * Binds 'client_id' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'client_id' at runtime.
+   */
+  __template_client_id?: string | undefined;
+  /**
+   * Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
+   */
+  __template_scope?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
+  /**
+   * Binds 'dcrID' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dcrID' at runtime.
+   */
+  __template_dcrID?: string | undefined;
+  /**
+   * Binds 'dceEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dceEndpoint' at runtime.
+   */
+  __template_dceEndpoint?: string | undefined;
+  /**
+   * Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
+   */
+  __template_streamName?: string | undefined;
 };
 
 /**
  * How to format events before sending out
  */
-export const FormatWebhook = {
+export const CreateOutputFormatWebhook = {
   /**
    * NDJSON (Newline Delimited JSON)
    */
@@ -3128,12 +3505,14 @@ export const FormatWebhook = {
 /**
  * How to format events before sending out
  */
-export type FormatWebhook = OpenEnum<typeof FormatWebhook>;
+export type CreateOutputFormatWebhook = OpenEnum<
+  typeof CreateOutputFormatWebhook
+>;
 
 /**
  * Authentication method to use for the HTTP request
  */
-export const AuthenticationTypeWebhook = {
+export const CreateOutputAuthenticationTypeWebhook = {
   /**
    * None
    */
@@ -3162,13 +3541,35 @@ export const AuthenticationTypeWebhook = {
 /**
  * Authentication method to use for the HTTP request
  */
-export type AuthenticationTypeWebhook = OpenEnum<
-  typeof AuthenticationTypeWebhook
+export type CreateOutputAuthenticationTypeWebhook = OpenEnum<
+  typeof CreateOutputAuthenticationTypeWebhook
 >;
 
-export type PqControlsWebhook = {};
+export type CreateOutputPqControlsWebhook = {};
 
-export type UrlWebhook = {
+export type CreateOutputOauthParam = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type CreateOutputOauthHeader = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
+
+export type CreateOutputUrlWebhook = {
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -3177,9 +3578,13 @@ export type UrlWebhook = {
    * Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
    */
   weight?: number | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
-export type OutputWebhook = {
+export type CreateOutputOutputWebhook = {
   /**
    * Unique ID for this output
    */
@@ -3208,7 +3613,7 @@ export type OutputWebhook = {
   /**
    * How to format events before sending out
    */
-  format?: FormatWebhook | undefined;
+  format?: CreateOutputFormatWebhook | undefined;
   /**
    * Disable to close the connection immediately after sending the outgoing request
    */
@@ -3279,7 +3684,7 @@ export type OutputWebhook = {
   /**
    * Authentication method to use for the HTTP request
    */
-  authType?: AuthenticationTypeWebhook | undefined;
+  authType?: CreateOutputAuthenticationTypeWebhook | undefined;
   tls?: models.TlsSettingsClientSideType1 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
@@ -3362,7 +3767,7 @@ export type OutputWebhook = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: models.QueueFullBehaviorOptions | undefined;
-  pqControls?: PqControlsWebhook | undefined;
+  pqControls?: CreateOutputPqControlsWebhook | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -3404,11 +3809,11 @@ export type OutputWebhook = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<models.ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<CreateOutputOauthParam> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<CreateOutputOauthHeader> | undefined;
   /**
    * URL of a webhook endpoint to send events to, such as http://localhost:10200
    */
@@ -3417,7 +3822,7 @@ export type OutputWebhook = {
    * Exclude all IPs of the current host from the list of any resolved hostnames
    */
   excludeSelf?: boolean | undefined;
-  urls?: Array<UrlWebhook> | undefined;
+  urls?: Array<CreateOutputUrlWebhook> | undefined;
   /**
    * The interval in which to re-resolve any hostnames and pick up destinations from A records
    */
@@ -3426,9 +3831,21 @@ export type OutputWebhook = {
    * How far back in time to keep traffic stats for load balancing purposes
    */
   loadBalanceStatsPeriodSec?: number | undefined;
+  /**
+   * Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+   */
+  __template_loginUrl?: string | undefined;
+  /**
+   * Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
+   */
+  __template_secret?: string | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
-export type OutputDefault = {
+export type CreateOutputOutputDefault = {
   /**
    * Unique ID for this output
    */
@@ -3453,86 +3870,245 @@ export type OutputDefault = {
   /**
    * ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
    */
-  defaultId: string;
+  defaultId: string | null;
 };
 
 /**
  * Output object
  */
 export type CreateOutputRequest =
-  | OutputDefault
-  | OutputWebhook
-  | OutputSentinel
-  | OutputDevnull
-  | OutputSyslog
-  | OutputSplunk
-  | OutputSplunkLb
-  | OutputSplunkHec
-  | OutputWizHec
-  | OutputTcpjson
-  | OutputWavefront
-  | OutputSignalfx
-  | OutputFilesystem
-  | OutputS3
-  | OutputAzureBlob
-  | OutputAzureDataExplorer
-  | OutputAzureLogs
-  | OutputKinesis
-  | OutputHoneycomb
-  | OutputAzureEventhub
-  | OutputGoogleChronicle
-  | OutputGoogleCloudStorage
-  | OutputGoogleCloudLogging
-  | OutputGooglePubsub
-  | OutputExabeam
-  | OutputKafka
-  | OutputConfluentCloud
-  | OutputMsk
-  | OutputElastic
-  | OutputElasticCloud
-  | OutputNewrelic
-  | OutputNewrelicEvents
-  | OutputInfluxdb
-  | OutputCloudwatch
-  | OutputMinio
-  | OutputStatsd
-  | OutputStatsdExt
-  | OutputGraphite
-  | OutputRouter
-  | OutputSns
-  | OutputSqs
-  | OutputSnmp
-  | OutputSumoLogic
-  | OutputDatadog
-  | (OutputGrafanaCloud & { type: "grafana_cloud" })
-  | OutputLoki
-  | OutputPrometheus
-  | OutputRing
-  | OutputOpenTelemetry
-  | OutputServiceNow
-  | OutputDataset
-  | OutputCriblTcp
-  | OutputCriblHttp
-  | OutputCriblSearchEngine
-  | OutputHumioHec
-  | OutputCrowdstrikeNextGenSiem
-  | OutputDlS3
-  | OutputSecurityLake
-  | OutputCriblLake
-  | OutputDiskSpool
-  | OutputClickHouse
-  | OutputXsiam
-  | OutputNetflow
-  | OutputDynatraceHttp
-  | OutputDynatraceOtlp
-  | OutputSentinelOneAiSiem
-  | OutputChronicle
-  | OutputDatabricks
-  | OutputMicrosoftFabric
-  | OutputCloudflareR2;
+  | CreateOutputOutputDefault
+  | CreateOutputOutputWebhook
+  | CreateOutputOutputSentinel
+  | CreateOutputOutputDevnull
+  | CreateOutputOutputSyslog
+  | CreateOutputOutputSplunk
+  | CreateOutputOutputSplunkLb
+  | CreateOutputOutputSplunkHec
+  | CreateOutputOutputWizHec
+  | CreateOutputOutputTcpjson
+  | CreateOutputOutputWavefront
+  | CreateOutputOutputSignalfx
+  | CreateOutputOutputFilesystem
+  | CreateOutputOutputS3
+  | CreateOutputOutputAzureBlob
+  | CreateOutputOutputAzureDataExplorer
+  | CreateOutputOutputAzureLogs
+  | CreateOutputOutputKinesis
+  | CreateOutputOutputHoneycomb
+  | CreateOutputOutputAzureEventhub
+  | CreateOutputOutputGoogleChronicle
+  | CreateOutputOutputGoogleCloudStorage
+  | CreateOutputOutputGoogleCloudLogging
+  | CreateOutputOutputGooglePubsub
+  | CreateOutputOutputExabeam
+  | CreateOutputOutputKafka
+  | CreateOutputOutputConfluentCloud
+  | CreateOutputOutputMsk
+  | CreateOutputOutputElastic
+  | CreateOutputOutputElasticCloud
+  | CreateOutputOutputNewrelic
+  | CreateOutputOutputNewrelicEvents
+  | CreateOutputOutputInfluxdb
+  | CreateOutputOutputCloudwatch
+  | CreateOutputOutputMinio
+  | CreateOutputOutputStatsd
+  | CreateOutputOutputStatsdExt
+  | CreateOutputOutputGraphite
+  | CreateOutputOutputRouter
+  | CreateOutputOutputSns
+  | CreateOutputOutputSqs
+  | CreateOutputOutputSnmp
+  | CreateOutputOutputSumoLogic
+  | CreateOutputOutputDatadog
+  | (CreateOutputOutputGrafanaCloudUnion & { type: "grafana_cloud" })
+  | CreateOutputOutputLoki
+  | CreateOutputOutputPrometheus
+  | CreateOutputOutputRing
+  | CreateOutputOutputOpenTelemetry
+  | CreateOutputOutputServiceNow
+  | CreateOutputOutputDataset
+  | CreateOutputOutputCriblTcp
+  | CreateOutputOutputCriblHttp
+  | CreateOutputOutputCriblSearchEngine
+  | CreateOutputOutputHumioHec
+  | CreateOutputOutputCrowdstrikeNextGenSiem
+  | CreateOutputOutputDlS3
+  | CreateOutputOutputSecurityLake
+  | CreateOutputOutputCriblLake
+  | CreateOutputOutputDiskSpool
+  | CreateOutputOutputClickHouse
+  | CreateOutputOutputLocalSearchStorage
+  | CreateOutputOutputXsiam
+  | CreateOutputOutputNetflow
+  | CreateOutputOutputDynatraceHttp
+  | CreateOutputOutputDynatraceOtlp
+  | CreateOutputOutputSentinelOneAiSiem
+  | CreateOutputOutputChronicle
+  | CreateOutputOutputDatabricks
+  | CreateOutputOutputMicrosoftFabric
+  | CreateOutputOutputCloudflareR2;
 
 /** @internal */
-export type OutputAzureLogs$Outbound = {
+export type CreateOutputPqControlsKinesis$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsKinesis$outboundSchema: z.ZodType<
+  CreateOutputPqControlsKinesis$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsKinesis
+> = z.object({});
+
+export function createOutputPqControlsKinesisToJSON(
+  createOutputPqControlsKinesis: CreateOutputPqControlsKinesis,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsKinesis$outboundSchema.parse(
+      createOutputPqControlsKinesis,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputKinesis$Outbound = {
+  id: string;
+  type: "kinesis";
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  streamName: string;
+  awsAuthenticationMethod?: string | undefined;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion?: string | undefined;
+  reuseConnections?: boolean | undefined;
+  rejectUnauthorized?: boolean | undefined;
+  enableAssumeRole?: boolean | undefined;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds?: number | undefined;
+  concurrency?: number | undefined;
+  maxRecordSizeKB?: number | undefined;
+  flushPeriodSec?: number | undefined;
+  compression?: string | undefined;
+  useListShards?: boolean | undefined;
+  asNdjson?: boolean | undefined;
+  onBackpressure?: string | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  maxEventsPerFlush?: number | undefined;
+  pqStrictOrdering?: boolean | undefined;
+  pqRatePerSec?: number | undefined;
+  pqMode?: string | undefined;
+  pqMaxBufferSize?: number | undefined;
+  pqMaxBackpressureSec?: number | undefined;
+  pqMaxFileSize?: string | undefined;
+  pqMaxSize?: string | undefined;
+  pqPath?: string | undefined;
+  pqCompress?: string | undefined;
+  pqOnBackpressure?: string | undefined;
+  pqControls?: CreateOutputPqControlsKinesis$Outbound | undefined;
+  __template_streamName?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_region?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_awsApiKey?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputOutputKinesis$outboundSchema: z.ZodType<
+  CreateOutputOutputKinesis$Outbound,
+  z.ZodTypeDef,
+  CreateOutputOutputKinesis
+> = z.object({
+  id: z.string(),
+  type: z.literal("kinesis"),
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsAuthenticationMethod: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: models.SignatureVersionOptions2$outboundSchema.optional(),
+  reuseConnections: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().optional(),
+  enableAssumeRole: z.boolean().optional(),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().optional(),
+  concurrency: z.number().optional(),
+  maxRecordSizeKB: z.number().optional(),
+  flushPeriodSec: z.number().optional(),
+  compression: CreateOutputCompression$outboundSchema.optional(),
+  useListShards: z.boolean().optional(),
+  asNdjson: z.boolean().optional(),
+  onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().optional(),
+  pqStrictOrdering: z.boolean().optional(),
+  pqRatePerSec: z.number().optional(),
+  pqMode: models.ModeOptions$outboundSchema.optional(),
+  pqMaxBufferSize: z.number().optional(),
+  pqMaxBackpressureSec: z.number().optional(),
+  pqMaxFileSize: z.string().optional(),
+  pqMaxSize: z.string().optional(),
+  pqPath: z.string().optional(),
+  pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
+  pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsKinesis$outboundSchema)
+    .optional(),
+  __template_streamName: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
+});
+
+export function createOutputOutputKinesisToJSON(
+  createOutputOutputKinesis: CreateOutputOutputKinesis,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputKinesis$outboundSchema.parse(createOutputOutputKinesis),
+  );
+}
+
+/** @internal */
+export const CreateOutputAuthenticationMethodAzureLogs$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateOutputAuthenticationMethodAzureLogs> =
+    openEnums.outboundSchema(CreateOutputAuthenticationMethodAzureLogs);
+
+/** @internal */
+export type CreateOutputPqControlsAzureLogs$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsAzureLogs$outboundSchema: z.ZodType<
+  CreateOutputPqControlsAzureLogs$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsAzureLogs
+> = z.object({});
+
+export function createOutputPqControlsAzureLogsToJSON(
+  createOutputPqControlsAzureLogs: CreateOutputPqControlsAzureLogs,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsAzureLogs$outboundSchema.parse(
+      createOutputPqControlsAzureLogs,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputAzureLogs$Outbound = {
   id: string;
   type: "azure_logs";
   pipeline?: string | undefined;
@@ -3573,17 +4149,19 @@ export type OutputAzureLogs$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsAzureLogs$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsAzureLogs$Outbound | undefined;
   workspaceId?: string | undefined;
   workspaceKey?: string | undefined;
   keypairSecret?: string | undefined;
+  __template_workspaceId?: string | undefined;
+  __template_workspaceKey?: string | undefined;
 };
 
 /** @internal */
-export const OutputAzureLogs$outboundSchema: z.ZodType<
-  OutputAzureLogs$Outbound,
+export const CreateOutputOutputAzureLogs$outboundSchema: z.ZodType<
+  CreateOutputOutputAzureLogs$Outbound,
   z.ZodTypeDef,
-  OutputAzureLogs
+  CreateOutputOutputAzureLogs
 > = z.object({
   id: z.string(),
   type: z.literal("azure_logs"),
@@ -3614,7 +4192,7 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthenticationMethodAzureLogs$outboundSchema.optional(),
+  authType: CreateOutputAuthenticationMethodAzureLogs$outboundSchema.optional(),
   description: z.string().optional(),
   pqStrictOrdering: z.boolean().optional(),
   pqRatePerSec: z.number().optional(),
@@ -3626,159 +4204,177 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: PqControlsAzureLogs$outboundSchema.optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsAzureLogs$outboundSchema)
+    .optional(),
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
   keypairSecret: z.string().optional(),
+  __template_workspaceId: z.string().optional(),
+  __template_workspaceKey: z.string().optional(),
 });
 
-export function outputAzureLogsToJSON(
-  outputAzureLogs: OutputAzureLogs,
-): string {
-  return JSON.stringify(OutputAzureLogs$outboundSchema.parse(outputAzureLogs));
-}
-
-/** @internal */
-export const IngestionMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  IngestionMode
-> = openEnums.outboundSchema(IngestionMode);
-
-/** @internal */
-export const OauthTypeAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OauthTypeAuthenticationMethod
-> = openEnums.outboundSchema(OauthTypeAuthenticationMethod);
-
-/** @internal */
-export type Certificate$Outbound = {
-  certificateName?: string | undefined;
-};
-
-/** @internal */
-export const Certificate$outboundSchema: z.ZodType<
-  Certificate$Outbound,
-  z.ZodTypeDef,
-  Certificate
-> = z.object({
-  certificateName: z.string().optional(),
-});
-
-export function certificateToJSON(certificate: Certificate): string {
-  return JSON.stringify(Certificate$outboundSchema.parse(certificate));
-}
-
-/** @internal */
-export const PrefixOptional$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  PrefixOptional
-> = openEnums.outboundSchema(PrefixOptional);
-
-/** @internal */
-export type ExtentTag$Outbound = {
-  prefix?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const ExtentTag$outboundSchema: z.ZodType<
-  ExtentTag$Outbound,
-  z.ZodTypeDef,
-  ExtentTag
-> = z.object({
-  prefix: PrefixOptional$outboundSchema.optional(),
-  value: z.string(),
-});
-
-export function extentTagToJSON(extentTag: ExtentTag): string {
-  return JSON.stringify(ExtentTag$outboundSchema.parse(extentTag));
-}
-
-/** @internal */
-export type IngestIfNotExist$Outbound = {
-  value: string;
-};
-
-/** @internal */
-export const IngestIfNotExist$outboundSchema: z.ZodType<
-  IngestIfNotExist$Outbound,
-  z.ZodTypeDef,
-  IngestIfNotExist
-> = z.object({
-  value: z.string(),
-});
-
-export function ingestIfNotExistToJSON(
-  ingestIfNotExist: IngestIfNotExist,
+export function createOutputOutputAzureLogsToJSON(
+  createOutputOutputAzureLogs: CreateOutputOutputAzureLogs,
 ): string {
   return JSON.stringify(
-    IngestIfNotExist$outboundSchema.parse(ingestIfNotExist),
-  );
-}
-
-/** @internal */
-export const ReportLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ReportLevel
-> = openEnums.outboundSchema(ReportLevel);
-
-/** @internal */
-export const ReportMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ReportMethod
-> = openEnums.outboundSchema(ReportMethod);
-
-/** @internal */
-export type AdditionalProperty$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const AdditionalProperty$outboundSchema: z.ZodType<
-  AdditionalProperty$Outbound,
-  z.ZodTypeDef,
-  AdditionalProperty
-> = z.object({
-  key: z.string(),
-  value: z.string(),
-});
-
-export function additionalPropertyToJSON(
-  additionalProperty: AdditionalProperty,
-): string {
-  return JSON.stringify(
-    AdditionalProperty$outboundSchema.parse(additionalProperty),
-  );
-}
-
-/** @internal */
-export type PqControlsAzureDataExplorer$Outbound = {};
-
-/** @internal */
-export const PqControlsAzureDataExplorer$outboundSchema: z.ZodType<
-  PqControlsAzureDataExplorer$Outbound,
-  z.ZodTypeDef,
-  PqControlsAzureDataExplorer
-> = z.object({});
-
-export function pqControlsAzureDataExplorerToJSON(
-  pqControlsAzureDataExplorer: PqControlsAzureDataExplorer,
-): string {
-  return JSON.stringify(
-    PqControlsAzureDataExplorer$outboundSchema.parse(
-      pqControlsAzureDataExplorer,
+    CreateOutputOutputAzureLogs$outboundSchema.parse(
+      createOutputOutputAzureLogs,
     ),
   );
 }
 
 /** @internal */
-export type OutputAzureDataExplorer$Outbound = {
+export const CreateOutputIngestionMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputIngestionMode
+> = openEnums.outboundSchema(CreateOutputIngestionMode);
+
+/** @internal */
+export const CreateOutputOauthTypeAuthenticationMethod$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CreateOutputOauthTypeAuthenticationMethod> =
+    openEnums.outboundSchema(CreateOutputOauthTypeAuthenticationMethod);
+
+/** @internal */
+export type CreateOutputCertificate$Outbound = {
+  certificateName?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputCertificate$outboundSchema: z.ZodType<
+  CreateOutputCertificate$Outbound,
+  z.ZodTypeDef,
+  CreateOutputCertificate
+> = z.object({
+  certificateName: z.string().optional(),
+});
+
+export function createOutputCertificateToJSON(
+  createOutputCertificate: CreateOutputCertificate,
+): string {
+  return JSON.stringify(
+    CreateOutputCertificate$outboundSchema.parse(createOutputCertificate),
+  );
+}
+
+/** @internal */
+export const CreateOutputPrefixOptional$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputPrefixOptional
+> = openEnums.outboundSchema(CreateOutputPrefixOptional);
+
+/** @internal */
+export type CreateOutputExtentTag$Outbound = {
+  prefix?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const CreateOutputExtentTag$outboundSchema: z.ZodType<
+  CreateOutputExtentTag$Outbound,
+  z.ZodTypeDef,
+  CreateOutputExtentTag
+> = z.object({
+  prefix: CreateOutputPrefixOptional$outboundSchema.optional(),
+  value: z.string(),
+});
+
+export function createOutputExtentTagToJSON(
+  createOutputExtentTag: CreateOutputExtentTag,
+): string {
+  return JSON.stringify(
+    CreateOutputExtentTag$outboundSchema.parse(createOutputExtentTag),
+  );
+}
+
+/** @internal */
+export type CreateOutputIngestIfNotExist$Outbound = {
+  value: string;
+};
+
+/** @internal */
+export const CreateOutputIngestIfNotExist$outboundSchema: z.ZodType<
+  CreateOutputIngestIfNotExist$Outbound,
+  z.ZodTypeDef,
+  CreateOutputIngestIfNotExist
+> = z.object({
+  value: z.string(),
+});
+
+export function createOutputIngestIfNotExistToJSON(
+  createOutputIngestIfNotExist: CreateOutputIngestIfNotExist,
+): string {
+  return JSON.stringify(
+    CreateOutputIngestIfNotExist$outboundSchema.parse(
+      createOutputIngestIfNotExist,
+    ),
+  );
+}
+
+/** @internal */
+export const CreateOutputReportLevel$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputReportLevel
+> = openEnums.outboundSchema(CreateOutputReportLevel);
+
+/** @internal */
+export const CreateOutputReportMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputReportMethod
+> = openEnums.outboundSchema(CreateOutputReportMethod);
+
+/** @internal */
+export type CreateOutputAdditionalProperty$Outbound = {
+  key: string;
+  value: string;
+};
+
+/** @internal */
+export const CreateOutputAdditionalProperty$outboundSchema: z.ZodType<
+  CreateOutputAdditionalProperty$Outbound,
+  z.ZodTypeDef,
+  CreateOutputAdditionalProperty
+> = z.object({
+  key: z.string(),
+  value: z.string(),
+});
+
+export function createOutputAdditionalPropertyToJSON(
+  createOutputAdditionalProperty: CreateOutputAdditionalProperty,
+): string {
+  return JSON.stringify(
+    CreateOutputAdditionalProperty$outboundSchema.parse(
+      createOutputAdditionalProperty,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputPqControlsAzureDataExplorer$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsAzureDataExplorer$outboundSchema: z.ZodType<
+  CreateOutputPqControlsAzureDataExplorer$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsAzureDataExplorer
+> = z.object({});
+
+export function createOutputPqControlsAzureDataExplorerToJSON(
+  createOutputPqControlsAzureDataExplorer:
+    CreateOutputPqControlsAzureDataExplorer,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsAzureDataExplorer$outboundSchema.parse(
+      createOutputPqControlsAzureDataExplorer,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputAzureDataExplorer$Outbound = {
   id: string;
   type: "azure_data_explorer";
   pipeline?: string | undefined;
@@ -3798,7 +4394,7 @@ export type OutputAzureDataExplorer$Outbound = {
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
-  certificate?: Certificate$Outbound | undefined;
+  certificate?: CreateOutputCertificate$Outbound | undefined;
   format?: string | undefined;
   compress: string;
   compressionLevel?: string | undefined;
@@ -3839,11 +4435,13 @@ export type OutputAzureDataExplorer$Outbound = {
   timeoutSec?: number | undefined;
   flushImmediately?: boolean | undefined;
   retainBlobOnSuccess?: boolean | undefined;
-  extentTags?: Array<ExtentTag$Outbound> | undefined;
-  ingestIfNotExists?: Array<IngestIfNotExist$Outbound> | undefined;
+  extentTags?: Array<CreateOutputExtentTag$Outbound> | undefined;
+  ingestIfNotExists?: Array<CreateOutputIngestIfNotExist$Outbound> | undefined;
   reportLevel?: string | undefined;
   reportMethod?: string | undefined;
-  additionalProperties?: Array<AdditionalProperty$Outbound> | undefined;
+  additionalProperties?:
+    | Array<CreateOutputAdditionalProperty$Outbound>
+    | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
@@ -3866,14 +4464,23 @@ export type OutputAzureDataExplorer$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsAzureDataExplorer$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsAzureDataExplorer$Outbound | undefined;
+  __template_clusterUrl?: string | undefined;
+  __template_database?: string | undefined;
+  __template_table?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
+  __template_scope?: string | undefined;
+  __template_clientSecret?: string | undefined;
+  __template_format?: string | undefined;
+  __template_ingestUrl?: string | undefined;
 };
 
 /** @internal */
-export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
-  OutputAzureDataExplorer$Outbound,
+export const CreateOutputOutputAzureDataExplorer$outboundSchema: z.ZodType<
+  CreateOutputOutputAzureDataExplorer$Outbound,
   z.ZodTypeDef,
-  OutputAzureDataExplorer
+  CreateOutputOutputAzureDataExplorer
 > = z.object({
   id: z.string(),
   type: z.literal("azure_data_explorer"),
@@ -3885,17 +4492,17 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   database: z.string(),
   table: z.string(),
   validateDatabaseSettings: z.boolean().optional(),
-  ingestMode: IngestionMode$outboundSchema.optional(),
+  ingestMode: CreateOutputIngestionMode$outboundSchema.optional(),
   oauthEndpoint:
     models.MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema,
   tenantId: z.string(),
   clientId: z.string(),
   scope: z.string(),
-  oauthType: OauthTypeAuthenticationMethod$outboundSchema,
+  oauthType: CreateOutputOauthTypeAuthenticationMethod$outboundSchema,
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  certificate: z.lazy(() => Certificate$outboundSchema).optional(),
+  certificate: z.lazy(() => CreateOutputCertificate$outboundSchema).optional(),
   format: models.DataFormatOptions$outboundSchema.optional(),
   compress: models.CompressionOptions2$outboundSchema,
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
@@ -3937,13 +4544,16 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   timeoutSec: z.number().optional(),
   flushImmediately: z.boolean().optional(),
   retainBlobOnSuccess: z.boolean().optional(),
-  extentTags: z.array(z.lazy(() => ExtentTag$outboundSchema)).optional(),
-  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist$outboundSchema))
+  extentTags: z.array(z.lazy(() => CreateOutputExtentTag$outboundSchema))
     .optional(),
-  reportLevel: ReportLevel$outboundSchema.optional(),
-  reportMethod: ReportMethod$outboundSchema.optional(),
-  additionalProperties: z.array(z.lazy(() => AdditionalProperty$outboundSchema))
-    .optional(),
+  ingestIfNotExists: z.array(
+    z.lazy(() => CreateOutputIngestIfNotExist$outboundSchema),
+  ).optional(),
+  reportLevel: CreateOutputReportLevel$outboundSchema.optional(),
+  reportMethod: CreateOutputReportMethod$outboundSchema.optional(),
+  additionalProperties: z.array(
+    z.lazy(() => CreateOutputAdditionalProperty$outboundSchema),
+  ).optional(),
   responseRetrySettings: z.array(
     models.ItemsTypeResponseRetrySettings$outboundSchema,
   ).optional(),
@@ -3967,27 +4577,39 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsAzureDataExplorer$outboundSchema)
-    .optional(),
+  pqControls: z.lazy(() =>
+    CreateOutputPqControlsAzureDataExplorer$outboundSchema
+  ).optional(),
+  __template_clusterUrl: z.string().optional(),
+  __template_database: z.string().optional(),
+  __template_table: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
+  __template_scope: z.string().optional(),
+  __template_clientSecret: z.string().optional(),
+  __template_format: z.string().optional(),
+  __template_ingestUrl: z.string().optional(),
 });
 
-export function outputAzureDataExplorerToJSON(
-  outputAzureDataExplorer: OutputAzureDataExplorer,
+export function createOutputOutputAzureDataExplorerToJSON(
+  createOutputOutputAzureDataExplorer: CreateOutputOutputAzureDataExplorer,
 ): string {
   return JSON.stringify(
-    OutputAzureDataExplorer$outboundSchema.parse(outputAzureDataExplorer),
+    CreateOutputOutputAzureDataExplorer$outboundSchema.parse(
+      createOutputOutputAzureDataExplorer,
+    ),
   );
 }
 
 /** @internal */
-export const BlobAccessTier$outboundSchema: z.ZodType<
+export const CreateOutputBlobAccessTier$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  BlobAccessTier
-> = openEnums.outboundSchema(BlobAccessTier);
+  CreateOutputBlobAccessTier
+> = openEnums.outboundSchema(CreateOutputBlobAccessTier);
 
 /** @internal */
-export type OutputAzureBlob$Outbound = {
+export type CreateOutputOutputAzureBlob$Outbound = {
   id: string;
   type: "azure_blob";
   pipeline?: string | undefined;
@@ -4049,13 +4671,18 @@ export type OutputAzureBlob$Outbound = {
   certificate?:
     | models.CertificateTypeAzureBlobAuthTypeClientCert$Outbound
     | undefined;
+  __template_containerName?: string | undefined;
+  __template_format?: string | undefined;
+  __template_connectionString?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_clientId?: string | undefined;
 };
 
 /** @internal */
-export const OutputAzureBlob$outboundSchema: z.ZodType<
-  OutputAzureBlob$Outbound,
+export const CreateOutputOutputAzureBlob$outboundSchema: z.ZodType<
+  CreateOutputOutputAzureBlob$Outbound,
   z.ZodTypeDef,
-  OutputAzureBlob
+  CreateOutputOutputAzureBlob
 > = z.object({
   id: z.string(),
   type: z.literal("azure_blob"),
@@ -4087,7 +4714,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   forceCloseOnShutdown: z.boolean().optional(),
   retrySettings: models.RetrySettingsType$outboundSchema.optional(),
   authType: models.AuthenticationMethodOptions$outboundSchema.optional(),
-  storageClass: BlobAccessTier$outboundSchema.optional(),
+  storageClass: CreateOutputBlobAccessTier$outboundSchema.optional(),
   description: z.string().optional(),
   compress: models.CompressionOptions2$outboundSchema.optional(),
   compressionLevel: models.CompressionLevelOptions$outboundSchema.optional(),
@@ -4118,16 +4745,25 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   certificate: models.CertificateTypeAzureBlobAuthTypeClientCert$outboundSchema
     .optional(),
+  __template_containerName: z.string().optional(),
+  __template_format: z.string().optional(),
+  __template_connectionString: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_clientId: z.string().optional(),
 });
 
-export function outputAzureBlobToJSON(
-  outputAzureBlob: OutputAzureBlob,
+export function createOutputOutputAzureBlobToJSON(
+  createOutputOutputAzureBlob: CreateOutputOutputAzureBlob,
 ): string {
-  return JSON.stringify(OutputAzureBlob$outboundSchema.parse(outputAzureBlob));
+  return JSON.stringify(
+    CreateOutputOutputAzureBlob$outboundSchema.parse(
+      createOutputOutputAzureBlob,
+    ),
+  );
 }
 
 /** @internal */
-export type OutputS3$Outbound = {
+export type CreateOutputOutputS3$Outbound = {
   id: string;
   type: "s3";
   pipeline?: string | undefined;
@@ -4194,13 +4830,20 @@ export type OutputS3$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_bucket?: string | undefined;
+  __template_region?: string | undefined;
+  __template_awsSecretKey?: string | undefined;
+  __template_assumeRoleArn?: string | undefined;
+  __template_assumeRoleExternalId?: string | undefined;
+  __template_format?: string | undefined;
+  __template_awsApiKey?: string | undefined;
 };
 
 /** @internal */
-export const OutputS3$outboundSchema: z.ZodType<
-  OutputS3$Outbound,
+export const CreateOutputOutputS3$outboundSchema: z.ZodType<
+  CreateOutputOutputS3$Outbound,
   z.ZodTypeDef,
-  OutputS3
+  CreateOutputOutputS3
 > = z.object({
   id: z.string(),
   type: z.literal("s3"),
@@ -4271,14 +4914,25 @@ export const OutputS3$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_bucket: z.string().optional(),
+  __template_region: z.string().optional(),
+  __template_awsSecretKey: z.string().optional(),
+  __template_assumeRoleArn: z.string().optional(),
+  __template_assumeRoleExternalId: z.string().optional(),
+  __template_format: z.string().optional(),
+  __template_awsApiKey: z.string().optional(),
 });
 
-export function outputS3ToJSON(outputS3: OutputS3): string {
-  return JSON.stringify(OutputS3$outboundSchema.parse(outputS3));
+export function createOutputOutputS3ToJSON(
+  createOutputOutputS3: CreateOutputOutputS3,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputS3$outboundSchema.parse(createOutputOutputS3),
+  );
 }
 
 /** @internal */
-export type OutputFilesystem$Outbound = {
+export type CreateOutputOutputFilesystem$Outbound = {
   id: string;
   type: "filesystem";
   pipeline?: string | undefined;
@@ -4324,13 +4978,14 @@ export type OutputFilesystem$Outbound = {
   directoryBatchSize?: number | undefined;
   deadletterPath?: string | undefined;
   maxRetryNum?: number | undefined;
+  __template_format?: string | undefined;
 };
 
 /** @internal */
-export const OutputFilesystem$outboundSchema: z.ZodType<
-  OutputFilesystem$Outbound,
+export const CreateOutputOutputFilesystem$outboundSchema: z.ZodType<
+  CreateOutputOutputFilesystem$Outbound,
   z.ZodTypeDef,
-  OutputFilesystem
+  CreateOutputOutputFilesystem
 > = z.object({
   id: z.string(),
   type: z.literal("filesystem"),
@@ -4378,36 +5033,41 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   directoryBatchSize: z.number().optional(),
   deadletterPath: z.string().optional(),
   maxRetryNum: z.number().optional(),
+  __template_format: z.string().optional(),
 });
 
-export function outputFilesystemToJSON(
-  outputFilesystem: OutputFilesystem,
+export function createOutputOutputFilesystemToJSON(
+  createOutputOutputFilesystem: CreateOutputOutputFilesystem,
 ): string {
   return JSON.stringify(
-    OutputFilesystem$outboundSchema.parse(outputFilesystem),
+    CreateOutputOutputFilesystem$outboundSchema.parse(
+      createOutputOutputFilesystem,
+    ),
   );
 }
 
 /** @internal */
-export type PqControlsSignalfx$Outbound = {};
+export type CreateOutputPqControlsSignalfx$Outbound = {};
 
 /** @internal */
-export const PqControlsSignalfx$outboundSchema: z.ZodType<
-  PqControlsSignalfx$Outbound,
+export const CreateOutputPqControlsSignalfx$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSignalfx$Outbound,
   z.ZodTypeDef,
-  PqControlsSignalfx
+  CreateOutputPqControlsSignalfx
 > = z.object({});
 
-export function pqControlsSignalfxToJSON(
-  pqControlsSignalfx: PqControlsSignalfx,
+export function createOutputPqControlsSignalfxToJSON(
+  createOutputPqControlsSignalfx: CreateOutputPqControlsSignalfx,
 ): string {
   return JSON.stringify(
-    PqControlsSignalfx$outboundSchema.parse(pqControlsSignalfx),
+    CreateOutputPqControlsSignalfx$outboundSchema.parse(
+      createOutputPqControlsSignalfx,
+    ),
   );
 }
 
 /** @internal */
-export type OutputSignalfx$Outbound = {
+export type CreateOutputOutputSignalfx$Outbound = {
   id: string;
   type: "signalfx";
   pipeline?: string | undefined;
@@ -4448,14 +5108,14 @@ export type OutputSignalfx$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSignalfx$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSignalfx$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputSignalfx$outboundSchema: z.ZodType<
-  OutputSignalfx$Outbound,
+export const CreateOutputOutputSignalfx$outboundSchema: z.ZodType<
+  CreateOutputOutputSignalfx$Outbound,
   z.ZodTypeDef,
-  OutputSignalfx
+  CreateOutputOutputSignalfx
 > = z.object({
   id: z.string(),
   type: z.literal("signalfx"),
@@ -4499,33 +5159,40 @@ export const OutputSignalfx$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSignalfx$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSignalfx$outboundSchema)
+    .optional(),
 });
 
-export function outputSignalfxToJSON(outputSignalfx: OutputSignalfx): string {
-  return JSON.stringify(OutputSignalfx$outboundSchema.parse(outputSignalfx));
-}
-
-/** @internal */
-export type PqControlsWavefront$Outbound = {};
-
-/** @internal */
-export const PqControlsWavefront$outboundSchema: z.ZodType<
-  PqControlsWavefront$Outbound,
-  z.ZodTypeDef,
-  PqControlsWavefront
-> = z.object({});
-
-export function pqControlsWavefrontToJSON(
-  pqControlsWavefront: PqControlsWavefront,
+export function createOutputOutputSignalfxToJSON(
+  createOutputOutputSignalfx: CreateOutputOutputSignalfx,
 ): string {
   return JSON.stringify(
-    PqControlsWavefront$outboundSchema.parse(pqControlsWavefront),
+    CreateOutputOutputSignalfx$outboundSchema.parse(createOutputOutputSignalfx),
   );
 }
 
 /** @internal */
-export type OutputWavefront$Outbound = {
+export type CreateOutputPqControlsWavefront$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsWavefront$outboundSchema: z.ZodType<
+  CreateOutputPqControlsWavefront$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsWavefront
+> = z.object({});
+
+export function createOutputPqControlsWavefrontToJSON(
+  createOutputPqControlsWavefront: CreateOutputPqControlsWavefront,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsWavefront$outboundSchema.parse(
+      createOutputPqControlsWavefront,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputWavefront$Outbound = {
   id: string;
   type: "wavefront";
   pipeline?: string | undefined;
@@ -4566,14 +5233,14 @@ export type OutputWavefront$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsWavefront$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsWavefront$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputWavefront$outboundSchema: z.ZodType<
-  OutputWavefront$Outbound,
+export const CreateOutputOutputWavefront$outboundSchema: z.ZodType<
+  CreateOutputOutputWavefront$Outbound,
   z.ZodTypeDef,
-  OutputWavefront
+  CreateOutputOutputWavefront
 > = z.object({
   id: z.string(),
   type: z.literal("wavefront"),
@@ -4617,35 +5284,42 @@ export const OutputWavefront$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsWavefront$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsWavefront$outboundSchema)
+    .optional(),
 });
 
-export function outputWavefrontToJSON(
-  outputWavefront: OutputWavefront,
-): string {
-  return JSON.stringify(OutputWavefront$outboundSchema.parse(outputWavefront));
-}
-
-/** @internal */
-export type PqControlsTcpjson$Outbound = {};
-
-/** @internal */
-export const PqControlsTcpjson$outboundSchema: z.ZodType<
-  PqControlsTcpjson$Outbound,
-  z.ZodTypeDef,
-  PqControlsTcpjson
-> = z.object({});
-
-export function pqControlsTcpjsonToJSON(
-  pqControlsTcpjson: PqControlsTcpjson,
+export function createOutputOutputWavefrontToJSON(
+  createOutputOutputWavefront: CreateOutputOutputWavefront,
 ): string {
   return JSON.stringify(
-    PqControlsTcpjson$outboundSchema.parse(pqControlsTcpjson),
+    CreateOutputOutputWavefront$outboundSchema.parse(
+      createOutputOutputWavefront,
+    ),
   );
 }
 
 /** @internal */
-export type OutputTcpjson$Outbound = {
+export type CreateOutputPqControlsTcpjson$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsTcpjson$outboundSchema: z.ZodType<
+  CreateOutputPqControlsTcpjson$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsTcpjson
+> = z.object({});
+
+export function createOutputPqControlsTcpjsonToJSON(
+  createOutputPqControlsTcpjson: CreateOutputPqControlsTcpjson,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsTcpjson$outboundSchema.parse(
+      createOutputPqControlsTcpjson,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputTcpjson$Outbound = {
   id: string;
   type: "tcpjson";
   pipeline?: string | undefined;
@@ -4683,16 +5357,18 @@ export type OutputTcpjson$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsTcpjson$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsTcpjson$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const OutputTcpjson$outboundSchema: z.ZodType<
-  OutputTcpjson$Outbound,
+export const CreateOutputOutputTcpjson$outboundSchema: z.ZodType<
+  CreateOutputOutputTcpjson$Outbound,
   z.ZodTypeDef,
-  OutputTcpjson
+  CreateOutputOutputTcpjson
 > = z.object({
   id: z.string(),
   type: z.literal("tcpjson"),
@@ -4731,42 +5407,50 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsTcpjson$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsTcpjson$outboundSchema)
+    .optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function outputTcpjsonToJSON(outputTcpjson: OutputTcpjson): string {
-  return JSON.stringify(OutputTcpjson$outboundSchema.parse(outputTcpjson));
-}
-
-/** @internal */
-export type PqControlsWizHec$Outbound = {};
-
-/** @internal */
-export const PqControlsWizHec$outboundSchema: z.ZodType<
-  PqControlsWizHec$Outbound,
-  z.ZodTypeDef,
-  PqControlsWizHec
-> = z.object({});
-
-export function pqControlsWizHecToJSON(
-  pqControlsWizHec: PqControlsWizHec,
+export function createOutputOutputTcpjsonToJSON(
+  createOutputOutputTcpjson: CreateOutputOutputTcpjson,
 ): string {
   return JSON.stringify(
-    PqControlsWizHec$outboundSchema.parse(pqControlsWizHec),
+    CreateOutputOutputTcpjson$outboundSchema.parse(createOutputOutputTcpjson),
   );
 }
 
 /** @internal */
-export type OutputWizHec$Outbound = {
+export type CreateOutputPqControlsWizHec$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsWizHec$outboundSchema: z.ZodType<
+  CreateOutputPqControlsWizHec$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsWizHec
+> = z.object({});
+
+export function createOutputPqControlsWizHecToJSON(
+  createOutputPqControlsWizHec: CreateOutputPqControlsWizHec,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsWizHec$outboundSchema.parse(
+      createOutputPqControlsWizHec,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputWizHec$Outbound = {
   id: string;
   type: "wiz_hec";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  loadBalanced?: any | undefined;
   nextQueue?: string | undefined;
   tcpRouting?: string | undefined;
   tls?: models.TlsSettingsClientSideType1$Outbound | undefined;
@@ -4782,7 +5466,6 @@ export type OutputWizHec$Outbound = {
     | undefined;
   failedRequestLoggingMode?: string | undefined;
   safeHeaders?: Array<string> | undefined;
-  enableMultiMetrics?: any | undefined;
   authType?: string | undefined;
   responseRetrySettings?:
     | Array<models.ItemsTypeResponseRetrySettings$Outbound>
@@ -4805,16 +5488,19 @@ export type OutputWizHec$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsWizHec$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsWizHec$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
+  __template_wiz_environment?: string | undefined;
+  __template_data_center?: string | undefined;
+  __template_wiz_sourcetype?: string | undefined;
 };
 
 /** @internal */
-export const OutputWizHec$outboundSchema: z.ZodType<
-  OutputWizHec$Outbound,
+export const CreateOutputOutputWizHec$outboundSchema: z.ZodType<
+  CreateOutputOutputWizHec$Outbound,
   z.ZodTypeDef,
-  OutputWizHec
+  CreateOutputOutputWizHec
 > = z.object({
   id: z.string(),
   type: z.literal("wiz_hec"),
@@ -4822,7 +5508,6 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  loadBalanced: z.any().optional(),
   nextQueue: z.string().optional(),
   tcpRouting: z.string().optional(),
   tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
@@ -4838,7 +5523,6 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   failedRequestLoggingMode: models
     .FailedRequestLoggingModeOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
-  enableMultiMetrics: z.any().optional(),
   authType: models.AuthenticationMethodOptionsAuthTokensItems$outboundSchema
     .optional(),
   responseRetrySettings: z.array(
@@ -4863,55 +5547,71 @@ export const OutputWizHec$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsWizHec$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsWizHec$outboundSchema)
+    .optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_wiz_environment: z.string().optional(),
+  __template_data_center: z.string().optional(),
+  __template_wiz_sourcetype: z.string().optional(),
 });
 
-export function outputWizHecToJSON(outputWizHec: OutputWizHec): string {
-  return JSON.stringify(OutputWizHec$outboundSchema.parse(outputWizHec));
-}
-
-/** @internal */
-export type UrlSplunkHec$Outbound = {
-  url: string;
-  weight?: number | undefined;
-};
-
-/** @internal */
-export const UrlSplunkHec$outboundSchema: z.ZodType<
-  UrlSplunkHec$Outbound,
-  z.ZodTypeDef,
-  UrlSplunkHec
-> = z.object({
-  url: z.string(),
-  weight: z.number().optional(),
-});
-
-export function urlSplunkHecToJSON(urlSplunkHec: UrlSplunkHec): string {
-  return JSON.stringify(UrlSplunkHec$outboundSchema.parse(urlSplunkHec));
-}
-
-/** @internal */
-export type PqControlsSplunkHec$Outbound = {};
-
-/** @internal */
-export const PqControlsSplunkHec$outboundSchema: z.ZodType<
-  PqControlsSplunkHec$Outbound,
-  z.ZodTypeDef,
-  PqControlsSplunkHec
-> = z.object({});
-
-export function pqControlsSplunkHecToJSON(
-  pqControlsSplunkHec: PqControlsSplunkHec,
+export function createOutputOutputWizHecToJSON(
+  createOutputOutputWizHec: CreateOutputOutputWizHec,
 ): string {
   return JSON.stringify(
-    PqControlsSplunkHec$outboundSchema.parse(pqControlsSplunkHec),
+    CreateOutputOutputWizHec$outboundSchema.parse(createOutputOutputWizHec),
   );
 }
 
 /** @internal */
-export type OutputSplunkHec$Outbound = {
+export type CreateOutputUrlSplunkHec$Outbound = {
+  url: string;
+  weight?: number | undefined;
+  __template_url?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputUrlSplunkHec$outboundSchema: z.ZodType<
+  CreateOutputUrlSplunkHec$Outbound,
+  z.ZodTypeDef,
+  CreateOutputUrlSplunkHec
+> = z.object({
+  url: z.string(),
+  weight: z.number().optional(),
+  __template_url: z.string().optional(),
+});
+
+export function createOutputUrlSplunkHecToJSON(
+  createOutputUrlSplunkHec: CreateOutputUrlSplunkHec,
+): string {
+  return JSON.stringify(
+    CreateOutputUrlSplunkHec$outboundSchema.parse(createOutputUrlSplunkHec),
+  );
+}
+
+/** @internal */
+export type CreateOutputPqControlsSplunkHec$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsSplunkHec$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSplunkHec$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsSplunkHec
+> = z.object({});
+
+export function createOutputPqControlsSplunkHecToJSON(
+  createOutputPqControlsSplunkHec: CreateOutputPqControlsSplunkHec,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsSplunkHec$outboundSchema.parse(
+      createOutputPqControlsSplunkHec,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputSplunkHec$Outbound = {
   id: string;
   type: "splunk_hec";
   pipeline?: string | undefined;
@@ -4946,7 +5646,7 @@ export type OutputSplunkHec$Outbound = {
   url?: string | undefined;
   useRoundRobinDns?: boolean | undefined;
   excludeSelf?: boolean | undefined;
-  urls?: Array<UrlSplunkHec$Outbound> | undefined;
+  urls?: Array<CreateOutputUrlSplunkHec$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
   token?: string | undefined;
@@ -4961,14 +5661,15 @@ export type OutputSplunkHec$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSplunkHec$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSplunkHec$Outbound | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
-export const OutputSplunkHec$outboundSchema: z.ZodType<
-  OutputSplunkHec$Outbound,
+export const CreateOutputOutputSplunkHec$outboundSchema: z.ZodType<
+  CreateOutputOutputSplunkHec$Outbound,
   z.ZodTypeDef,
-  OutputSplunkHec
+  CreateOutputOutputSplunkHec
 > = z.object({
   id: z.string(),
   type: z.literal("splunk_hec"),
@@ -5006,7 +5707,8 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   url: z.string().optional(),
   useRoundRobinDns: z.boolean().optional(),
   excludeSelf: z.boolean().optional(),
-  urls: z.array(z.lazy(() => UrlSplunkHec$outboundSchema)).optional(),
+  urls: z.array(z.lazy(() => CreateOutputUrlSplunkHec$outboundSchema))
+    .optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
   token: z.string().optional(),
@@ -5021,13 +5723,19 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSplunkHec$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSplunkHec$outboundSchema)
+    .optional(),
+  __template_url: z.string().optional(),
 });
 
-export function outputSplunkHecToJSON(
-  outputSplunkHec: OutputSplunkHec,
+export function createOutputOutputSplunkHecToJSON(
+  createOutputOutputSplunkHec: CreateOutputOutputSplunkHec,
 ): string {
-  return JSON.stringify(OutputSplunkHec$outboundSchema.parse(outputSplunkHec));
+  return JSON.stringify(
+    CreateOutputOutputSplunkHec$outboundSchema.parse(
+      createOutputOutputSplunkHec,
+    ),
+  );
 }
 
 /** @internal */
@@ -5058,7 +5766,7 @@ export function createOutputAuthTokenToJSON(
 }
 
 /** @internal */
-export type IndexerDiscoveryConfigs$Outbound = {
+export type CreateOutputIndexerDiscoveryConfigs$Outbound = {
   site: string;
   masterUri: string;
   refreshIntervalSec: number;
@@ -5070,10 +5778,10 @@ export type IndexerDiscoveryConfigs$Outbound = {
 };
 
 /** @internal */
-export const IndexerDiscoveryConfigs$outboundSchema: z.ZodType<
-  IndexerDiscoveryConfigs$Outbound,
+export const CreateOutputIndexerDiscoveryConfigs$outboundSchema: z.ZodType<
+  CreateOutputIndexerDiscoveryConfigs$Outbound,
   z.ZodTypeDef,
-  IndexerDiscoveryConfigs
+  CreateOutputIndexerDiscoveryConfigs
 > = z.object({
   site: z.string(),
   masterUri: z.string(),
@@ -5087,34 +5795,38 @@ export const IndexerDiscoveryConfigs$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 
-export function indexerDiscoveryConfigsToJSON(
-  indexerDiscoveryConfigs: IndexerDiscoveryConfigs,
+export function createOutputIndexerDiscoveryConfigsToJSON(
+  createOutputIndexerDiscoveryConfigs: CreateOutputIndexerDiscoveryConfigs,
 ): string {
   return JSON.stringify(
-    IndexerDiscoveryConfigs$outboundSchema.parse(indexerDiscoveryConfigs),
+    CreateOutputIndexerDiscoveryConfigs$outboundSchema.parse(
+      createOutputIndexerDiscoveryConfigs,
+    ),
   );
 }
 
 /** @internal */
-export type PqControlsSplunkLb$Outbound = {};
+export type CreateOutputPqControlsSplunkLb$Outbound = {};
 
 /** @internal */
-export const PqControlsSplunkLb$outboundSchema: z.ZodType<
-  PqControlsSplunkLb$Outbound,
+export const CreateOutputPqControlsSplunkLb$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSplunkLb$Outbound,
   z.ZodTypeDef,
-  PqControlsSplunkLb
+  CreateOutputPqControlsSplunkLb
 > = z.object({});
 
-export function pqControlsSplunkLbToJSON(
-  pqControlsSplunkLb: PqControlsSplunkLb,
+export function createOutputPqControlsSplunkLbToJSON(
+  createOutputPqControlsSplunkLb: CreateOutputPqControlsSplunkLb,
 ): string {
   return JSON.stringify(
-    PqControlsSplunkLb$outboundSchema.parse(pqControlsSplunkLb),
+    CreateOutputPqControlsSplunkLb$outboundSchema.parse(
+      createOutputPqControlsSplunkLb,
+    ),
   );
 }
 
 /** @internal */
-export type OutputSplunkLb$Outbound = {
+export type CreateOutputOutputSplunkLb$Outbound = {
   id: string;
   type: "splunk_lb";
   pipeline?: string | undefined;
@@ -5142,7 +5854,9 @@ export type OutputSplunkLb$Outbound = {
   description?: string | undefined;
   maxFailedHealthChecks?: number | undefined;
   compress?: string | undefined;
-  indexerDiscoveryConfigs?: IndexerDiscoveryConfigs$Outbound | undefined;
+  indexerDiscoveryConfigs?:
+    | CreateOutputIndexerDiscoveryConfigs$Outbound
+    | undefined;
   excludeSelf?: boolean | undefined;
   hosts: Array<models.ItemsTypeHosts$Outbound>;
   pqStrictOrdering?: boolean | undefined;
@@ -5155,16 +5869,16 @@ export type OutputSplunkLb$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSplunkLb$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSplunkLb$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
 };
 
 /** @internal */
-export const OutputSplunkLb$outboundSchema: z.ZodType<
-  OutputSplunkLb$Outbound,
+export const CreateOutputOutputSplunkLb$outboundSchema: z.ZodType<
+  CreateOutputOutputSplunkLb$Outbound,
   z.ZodTypeDef,
-  OutputSplunkLb
+  CreateOutputOutputSplunkLb
 > = z.object({
   id: z.string(),
   type: z.literal("splunk_lb"),
@@ -5194,8 +5908,9 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
   description: z.string().optional(),
   maxFailedHealthChecks: z.number().optional(),
   compress: models.CompressionOptions$outboundSchema.optional(),
-  indexerDiscoveryConfigs: z.lazy(() => IndexerDiscoveryConfigs$outboundSchema)
-    .optional(),
+  indexerDiscoveryConfigs: z.lazy(() =>
+    CreateOutputIndexerDiscoveryConfigs$outboundSchema
+  ).optional(),
   excludeSelf: z.boolean().optional(),
   hosts: z.array(models.ItemsTypeHosts$outboundSchema),
   pqStrictOrdering: z.boolean().optional(),
@@ -5208,35 +5923,42 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSplunkLb$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSplunkLb$outboundSchema)
+    .optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
-export function outputSplunkLbToJSON(outputSplunkLb: OutputSplunkLb): string {
-  return JSON.stringify(OutputSplunkLb$outboundSchema.parse(outputSplunkLb));
-}
-
-/** @internal */
-export type PqControlsSplunk$Outbound = {};
-
-/** @internal */
-export const PqControlsSplunk$outboundSchema: z.ZodType<
-  PqControlsSplunk$Outbound,
-  z.ZodTypeDef,
-  PqControlsSplunk
-> = z.object({});
-
-export function pqControlsSplunkToJSON(
-  pqControlsSplunk: PqControlsSplunk,
+export function createOutputOutputSplunkLbToJSON(
+  createOutputOutputSplunkLb: CreateOutputOutputSplunkLb,
 ): string {
   return JSON.stringify(
-    PqControlsSplunk$outboundSchema.parse(pqControlsSplunk),
+    CreateOutputOutputSplunkLb$outboundSchema.parse(createOutputOutputSplunkLb),
   );
 }
 
 /** @internal */
-export type OutputSplunk$Outbound = {
+export type CreateOutputPqControlsSplunk$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsSplunk$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSplunk$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsSplunk
+> = z.object({});
+
+export function createOutputPqControlsSplunkToJSON(
+  createOutputPqControlsSplunk: CreateOutputPqControlsSplunk,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsSplunk$outboundSchema.parse(
+      createOutputPqControlsSplunk,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputSplunk$Outbound = {
   id: string;
   type: "splunk";
   pipeline?: string | undefined;
@@ -5271,16 +5993,18 @@ export type OutputSplunk$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSplunk$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSplunk$Outbound | undefined;
   authToken?: string | undefined;
   textSecret?: string | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const OutputSplunk$outboundSchema: z.ZodType<
-  OutputSplunk$Outbound,
+export const CreateOutputOutputSplunk$outboundSchema: z.ZodType<
+  CreateOutputOutputSplunk$Outbound,
   z.ZodTypeDef,
-  OutputSplunk
+  CreateOutputOutputSplunk
 > = z.object({
   id: z.string(),
   type: z.literal("splunk"),
@@ -5317,70 +6041,79 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSplunk$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSplunk$outboundSchema)
+    .optional(),
   authToken: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function outputSplunkToJSON(outputSplunk: OutputSplunk): string {
-  return JSON.stringify(OutputSplunk$outboundSchema.parse(outputSplunk));
-}
-
-/** @internal */
-export const ProtocolSyslog$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ProtocolSyslog
-> = openEnums.outboundSchema(ProtocolSyslog);
-
-/** @internal */
-export const Facility$outboundSchema: z.ZodType<
-  number,
-  z.ZodTypeDef,
-  Facility
-> = openEnums.outboundSchemaInt(Facility);
-
-/** @internal */
-export const SeveritySyslog$outboundSchema: z.ZodType<
-  number,
-  z.ZodTypeDef,
-  SeveritySyslog
-> = openEnums.outboundSchemaInt(SeveritySyslog);
-
-/** @internal */
-export const MessageFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  MessageFormat
-> = openEnums.outboundSchema(MessageFormat);
-
-/** @internal */
-export const TimestampFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  TimestampFormat
-> = openEnums.outboundSchema(TimestampFormat);
-
-/** @internal */
-export type PqControlsSyslog$Outbound = {};
-
-/** @internal */
-export const PqControlsSyslog$outboundSchema: z.ZodType<
-  PqControlsSyslog$Outbound,
-  z.ZodTypeDef,
-  PqControlsSyslog
-> = z.object({});
-
-export function pqControlsSyslogToJSON(
-  pqControlsSyslog: PqControlsSyslog,
+export function createOutputOutputSplunkToJSON(
+  createOutputOutputSplunk: CreateOutputOutputSplunk,
 ): string {
   return JSON.stringify(
-    PqControlsSyslog$outboundSchema.parse(pqControlsSyslog),
+    CreateOutputOutputSplunk$outboundSchema.parse(createOutputOutputSplunk),
   );
 }
 
 /** @internal */
-export type OutputSyslog$Outbound = {
+export const CreateOutputProtocolSyslog$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputProtocolSyslog
+> = openEnums.outboundSchema(CreateOutputProtocolSyslog);
+
+/** @internal */
+export const CreateOutputFacility$outboundSchema: z.ZodType<
+  number,
+  z.ZodTypeDef,
+  CreateOutputFacility
+> = openEnums.outboundSchemaInt(CreateOutputFacility);
+
+/** @internal */
+export const CreateOutputSeveritySyslog$outboundSchema: z.ZodType<
+  number,
+  z.ZodTypeDef,
+  CreateOutputSeveritySyslog
+> = openEnums.outboundSchemaInt(CreateOutputSeveritySyslog);
+
+/** @internal */
+export const CreateOutputMessageFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputMessageFormat
+> = openEnums.outboundSchema(CreateOutputMessageFormat);
+
+/** @internal */
+export const CreateOutputTimestampFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputTimestampFormat
+> = openEnums.outboundSchema(CreateOutputTimestampFormat);
+
+/** @internal */
+export type CreateOutputPqControlsSyslog$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsSyslog$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSyslog$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsSyslog
+> = z.object({});
+
+export function createOutputPqControlsSyslogToJSON(
+  createOutputPqControlsSyslog: CreateOutputPqControlsSyslog,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsSyslog$outboundSchema.parse(
+      createOutputPqControlsSyslog,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputSyslog$Outbound = {
   id: string;
   type: "syslog";
   pipeline?: string | undefined;
@@ -5424,14 +6157,16 @@ export type OutputSyslog$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSyslog$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSyslog$Outbound | undefined;
+  __template_host?: string | undefined;
+  __template_port?: string | undefined;
 };
 
 /** @internal */
-export const OutputSyslog$outboundSchema: z.ZodType<
-  OutputSyslog$Outbound,
+export const CreateOutputOutputSyslog$outboundSchema: z.ZodType<
+  CreateOutputOutputSyslog$Outbound,
   z.ZodTypeDef,
-  OutputSyslog
+  CreateOutputOutputSyslog
 > = z.object({
   id: z.string(),
   type: z.literal("syslog"),
@@ -5439,12 +6174,12 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: ProtocolSyslog$outboundSchema.optional(),
-  facility: Facility$outboundSchema.optional(),
-  severity: SeveritySyslog$outboundSchema.optional(),
+  protocol: CreateOutputProtocolSyslog$outboundSchema.optional(),
+  facility: CreateOutputFacility$outboundSchema.optional(),
+  severity: CreateOutputSeveritySyslog$outboundSchema.optional(),
   appName: z.string().optional(),
-  messageFormat: MessageFormat$outboundSchema.optional(),
-  timestampFormat: TimestampFormat$outboundSchema.optional(),
+  messageFormat: CreateOutputMessageFormat$outboundSchema.optional(),
+  timestampFormat: CreateOutputTimestampFormat$outboundSchema.optional(),
   throttleRatePerSec: z.string().optional(),
   octetCountFraming: z.boolean().optional(),
   logFailedRequests: z.boolean().optional(),
@@ -5475,15 +6210,22 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSyslog$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSyslog$outboundSchema)
+    .optional(),
+  __template_host: z.string().optional(),
+  __template_port: z.string().optional(),
 });
 
-export function outputSyslogToJSON(outputSyslog: OutputSyslog): string {
-  return JSON.stringify(OutputSyslog$outboundSchema.parse(outputSyslog));
+export function createOutputOutputSyslogToJSON(
+  createOutputOutputSyslog: CreateOutputOutputSyslog,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputSyslog$outboundSchema.parse(createOutputOutputSyslog),
+  );
 }
 
 /** @internal */
-export type OutputDevnull$Outbound = {
+export type CreateOutputOutputDevnull$Outbound = {
   id: string;
   type: "devnull";
   pipeline?: string | undefined;
@@ -5493,10 +6235,10 @@ export type OutputDevnull$Outbound = {
 };
 
 /** @internal */
-export const OutputDevnull$outboundSchema: z.ZodType<
-  OutputDevnull$Outbound,
+export const CreateOutputOutputDevnull$outboundSchema: z.ZodType<
+  CreateOutputOutputDevnull$Outbound,
   z.ZodTypeDef,
-  OutputDevnull
+  CreateOutputOutputDevnull
 > = z.object({
   id: z.string(),
   type: z.literal("devnull"),
@@ -5506,51 +6248,57 @@ export const OutputDevnull$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
 });
 
-export function outputDevnullToJSON(outputDevnull: OutputDevnull): string {
-  return JSON.stringify(OutputDevnull$outboundSchema.parse(outputDevnull));
-}
-
-/** @internal */
-export const AuthType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthType
-> = openEnums.outboundSchema(AuthType);
-
-/** @internal */
-export const EndpointConfiguration$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  EndpointConfiguration
-> = openEnums.outboundSchema(EndpointConfiguration);
-
-/** @internal */
-export const FormatSentinel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  FormatSentinel
-> = openEnums.outboundSchema(FormatSentinel);
-
-/** @internal */
-export type PqControlsSentinel$Outbound = {};
-
-/** @internal */
-export const PqControlsSentinel$outboundSchema: z.ZodType<
-  PqControlsSentinel$Outbound,
-  z.ZodTypeDef,
-  PqControlsSentinel
-> = z.object({});
-
-export function pqControlsSentinelToJSON(
-  pqControlsSentinel: PqControlsSentinel,
+export function createOutputOutputDevnullToJSON(
+  createOutputOutputDevnull: CreateOutputOutputDevnull,
 ): string {
   return JSON.stringify(
-    PqControlsSentinel$outboundSchema.parse(pqControlsSentinel),
+    CreateOutputOutputDevnull$outboundSchema.parse(createOutputOutputDevnull),
   );
 }
 
 /** @internal */
-export type OutputSentinel$Outbound = {
+export const CreateOutputAuthType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputAuthType
+> = openEnums.outboundSchema(CreateOutputAuthType);
+
+/** @internal */
+export const CreateOutputEndpointConfiguration$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputEndpointConfiguration
+> = openEnums.outboundSchema(CreateOutputEndpointConfiguration);
+
+/** @internal */
+export const CreateOutputFormatSentinel$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputFormatSentinel
+> = openEnums.outboundSchema(CreateOutputFormatSentinel);
+
+/** @internal */
+export type CreateOutputPqControlsSentinel$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsSentinel$outboundSchema: z.ZodType<
+  CreateOutputPqControlsSentinel$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsSentinel
+> = z.object({});
+
+export function createOutputPqControlsSentinelToJSON(
+  createOutputPqControlsSentinel: CreateOutputPqControlsSentinel,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsSentinel$outboundSchema.parse(
+      createOutputPqControlsSentinel,
+    ),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputSentinel$Outbound = {
   id: string;
   type: "sentinel";
   pipeline?: string | undefined;
@@ -5604,18 +6352,26 @@ export type OutputSentinel$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsSentinel$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsSentinel$Outbound | undefined;
   url?: string | undefined;
   dcrID?: string | undefined;
   dceEndpoint?: string | undefined;
   streamName?: string | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_secret?: string | undefined;
+  __template_client_id?: string | undefined;
+  __template_scope?: string | undefined;
+  __template_url?: string | undefined;
+  __template_dcrID?: string | undefined;
+  __template_dceEndpoint?: string | undefined;
+  __template_streamName?: string | undefined;
 };
 
 /** @internal */
-export const OutputSentinel$outboundSchema: z.ZodType<
-  OutputSentinel$Outbound,
+export const CreateOutputOutputSentinel$outboundSchema: z.ZodType<
+  CreateOutputOutputSentinel$Outbound,
   z.ZodTypeDef,
-  OutputSentinel
+  CreateOutputOutputSentinel
 > = z.object({
   id: z.string(),
   type: z.literal("sentinel"),
@@ -5644,15 +6400,15 @@ export const OutputSentinel$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthType$outboundSchema.optional(),
+  authType: CreateOutputAuthType$outboundSchema.optional(),
   loginUrl: z.string(),
   secret: z.string(),
   client_id: z.string(),
   scope: z.string().optional(),
-  endpointURLConfiguration: EndpointConfiguration$outboundSchema,
+  endpointURLConfiguration: CreateOutputEndpointConfiguration$outboundSchema,
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
-  format: FormatSentinel$outboundSchema.optional(),
+  format: CreateOutputFormatSentinel$outboundSchema.optional(),
   customSourceExpression: z.string().optional(),
   customDropWhenNull: z.boolean().optional(),
   customEventDelimiter: z.string().optional(),
@@ -5671,71 +6427,140 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsSentinel$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsSentinel$outboundSchema)
+    .optional(),
   url: z.string().optional(),
   dcrID: z.string().optional(),
   dceEndpoint: z.string().optional(),
   streamName: z.string().optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
+  __template_client_id: z.string().optional(),
+  __template_scope: z.string().optional(),
+  __template_url: z.string().optional(),
+  __template_dcrID: z.string().optional(),
+  __template_dceEndpoint: z.string().optional(),
+  __template_streamName: z.string().optional(),
 });
 
-export function outputSentinelToJSON(outputSentinel: OutputSentinel): string {
-  return JSON.stringify(OutputSentinel$outboundSchema.parse(outputSentinel));
-}
-
-/** @internal */
-export const FormatWebhook$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  FormatWebhook
-> = openEnums.outboundSchema(FormatWebhook);
-
-/** @internal */
-export const AuthenticationTypeWebhook$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  AuthenticationTypeWebhook
-> = openEnums.outboundSchema(AuthenticationTypeWebhook);
-
-/** @internal */
-export type PqControlsWebhook$Outbound = {};
-
-/** @internal */
-export const PqControlsWebhook$outboundSchema: z.ZodType<
-  PqControlsWebhook$Outbound,
-  z.ZodTypeDef,
-  PqControlsWebhook
-> = z.object({});
-
-export function pqControlsWebhookToJSON(
-  pqControlsWebhook: PqControlsWebhook,
+export function createOutputOutputSentinelToJSON(
+  createOutputOutputSentinel: CreateOutputOutputSentinel,
 ): string {
   return JSON.stringify(
-    PqControlsWebhook$outboundSchema.parse(pqControlsWebhook),
+    CreateOutputOutputSentinel$outboundSchema.parse(createOutputOutputSentinel),
   );
 }
 
 /** @internal */
-export type UrlWebhook$Outbound = {
-  url: string;
-  weight?: number | undefined;
-};
+export const CreateOutputFormatWebhook$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CreateOutputFormatWebhook
+> = openEnums.outboundSchema(CreateOutputFormatWebhook);
 
 /** @internal */
-export const UrlWebhook$outboundSchema: z.ZodType<
-  UrlWebhook$Outbound,
+export const CreateOutputAuthenticationTypeWebhook$outboundSchema: z.ZodType<
+  string,
   z.ZodTypeDef,
-  UrlWebhook
-> = z.object({
-  url: z.string(),
-  weight: z.number().optional(),
-});
+  CreateOutputAuthenticationTypeWebhook
+> = openEnums.outboundSchema(CreateOutputAuthenticationTypeWebhook);
 
-export function urlWebhookToJSON(urlWebhook: UrlWebhook): string {
-  return JSON.stringify(UrlWebhook$outboundSchema.parse(urlWebhook));
+/** @internal */
+export type CreateOutputPqControlsWebhook$Outbound = {};
+
+/** @internal */
+export const CreateOutputPqControlsWebhook$outboundSchema: z.ZodType<
+  CreateOutputPqControlsWebhook$Outbound,
+  z.ZodTypeDef,
+  CreateOutputPqControlsWebhook
+> = z.object({});
+
+export function createOutputPqControlsWebhookToJSON(
+  createOutputPqControlsWebhook: CreateOutputPqControlsWebhook,
+): string {
+  return JSON.stringify(
+    CreateOutputPqControlsWebhook$outboundSchema.parse(
+      createOutputPqControlsWebhook,
+    ),
+  );
 }
 
 /** @internal */
-export type OutputWebhook$Outbound = {
+export type CreateOutputOauthParam$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CreateOutputOauthParam$outboundSchema: z.ZodType<
+  CreateOutputOauthParam$Outbound,
+  z.ZodTypeDef,
+  CreateOutputOauthParam
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function createOutputOauthParamToJSON(
+  createOutputOauthParam: CreateOutputOauthParam,
+): string {
+  return JSON.stringify(
+    CreateOutputOauthParam$outboundSchema.parse(createOutputOauthParam),
+  );
+}
+
+/** @internal */
+export type CreateOutputOauthHeader$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CreateOutputOauthHeader$outboundSchema: z.ZodType<
+  CreateOutputOauthHeader$Outbound,
+  z.ZodTypeDef,
+  CreateOutputOauthHeader
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function createOutputOauthHeaderToJSON(
+  createOutputOauthHeader: CreateOutputOauthHeader,
+): string {
+  return JSON.stringify(
+    CreateOutputOauthHeader$outboundSchema.parse(createOutputOauthHeader),
+  );
+}
+
+/** @internal */
+export type CreateOutputUrlWebhook$Outbound = {
+  url: string;
+  weight?: number | undefined;
+  __template_url?: string | undefined;
+};
+
+/** @internal */
+export const CreateOutputUrlWebhook$outboundSchema: z.ZodType<
+  CreateOutputUrlWebhook$Outbound,
+  z.ZodTypeDef,
+  CreateOutputUrlWebhook
+> = z.object({
+  url: z.string(),
+  weight: z.number().optional(),
+  __template_url: z.string().optional(),
+});
+
+export function createOutputUrlWebhookToJSON(
+  createOutputUrlWebhook: CreateOutputUrlWebhook,
+): string {
+  return JSON.stringify(
+    CreateOutputUrlWebhook$outboundSchema.parse(createOutputUrlWebhook),
+  );
+}
+
+/** @internal */
+export type CreateOutputOutputWebhook$Outbound = {
   id: string;
   type: "webhook";
   pipeline?: string | undefined;
@@ -5787,7 +6612,7 @@ export type OutputWebhook$Outbound = {
   pqPath?: string | undefined;
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
-  pqControls?: PqControlsWebhook$Outbound | undefined;
+  pqControls?: CreateOutputPqControlsWebhook$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
   token?: string | undefined;
@@ -5799,20 +6624,23 @@ export type OutputWebhook$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr?: string | undefined;
   tokenTimeoutSecs?: number | undefined;
-  oauthParams?: Array<models.ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<models.ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<CreateOutputOauthParam$Outbound> | undefined;
+  oauthHeaders?: Array<CreateOutputOauthHeader$Outbound> | undefined;
   url?: string | undefined;
   excludeSelf?: boolean | undefined;
-  urls?: Array<UrlWebhook$Outbound> | undefined;
+  urls?: Array<CreateOutputUrlWebhook$Outbound> | undefined;
   dnsResolvePeriodSec?: number | undefined;
   loadBalanceStatsPeriodSec?: number | undefined;
+  __template_loginUrl?: string | undefined;
+  __template_secret?: string | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
-export const OutputWebhook$outboundSchema: z.ZodType<
-  OutputWebhook$Outbound,
+export const CreateOutputOutputWebhook$outboundSchema: z.ZodType<
+  CreateOutputOutputWebhook$Outbound,
   z.ZodTypeDef,
-  OutputWebhook
+  CreateOutputOutputWebhook
 > = z.object({
   id: z.string(),
   type: z.literal("webhook"),
@@ -5821,7 +6649,7 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   method: models.MethodOptions$outboundSchema.optional(),
-  format: FormatWebhook$outboundSchema.optional(),
+  format: CreateOutputFormatWebhook$outboundSchema.optional(),
   keepAlive: z.boolean().optional(),
   concurrency: z.number().optional(),
   maxPayloadSizeKB: z.number().optional(),
@@ -5843,7 +6671,7 @@ export const OutputWebhook$outboundSchema: z.ZodType<
     .optional(),
   responseHonorRetryAfterHeader: z.boolean().optional(),
   onBackpressure: models.BackpressureBehaviorOptions$outboundSchema.optional(),
-  authType: AuthenticationTypeWebhook$outboundSchema.optional(),
+  authType: CreateOutputAuthenticationTypeWebhook$outboundSchema.optional(),
   tls: models.TlsSettingsClientSideType1$outboundSchema.optional(),
   totalMemoryLimitKB: z.number().optional(),
   loadBalanced: z.boolean().optional(),
@@ -5866,7 +6694,8 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   pqPath: z.string().optional(),
   pqCompress: models.CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: models.QueueFullBehaviorOptions$outboundSchema.optional(),
-  pqControls: z.lazy(() => PqControlsWebhook$outboundSchema).optional(),
+  pqControls: z.lazy(() => CreateOutputPqControlsWebhook$outboundSchema)
+    .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -5878,35 +6707,44 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().optional(),
   tokenTimeoutSecs: z.number().optional(),
-  oauthParams: z.array(models.ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(models.ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => CreateOutputOauthParam$outboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => CreateOutputOauthHeader$outboundSchema))
+    .optional(),
   url: z.string().optional(),
   excludeSelf: z.boolean().optional(),
-  urls: z.array(z.lazy(() => UrlWebhook$outboundSchema)).optional(),
+  urls: z.array(z.lazy(() => CreateOutputUrlWebhook$outboundSchema)).optional(),
   dnsResolvePeriodSec: z.number().optional(),
   loadBalanceStatsPeriodSec: z.number().optional(),
+  __template_loginUrl: z.string().optional(),
+  __template_secret: z.string().optional(),
+  __template_url: z.string().optional(),
 });
 
-export function outputWebhookToJSON(outputWebhook: OutputWebhook): string {
-  return JSON.stringify(OutputWebhook$outboundSchema.parse(outputWebhook));
+export function createOutputOutputWebhookToJSON(
+  createOutputOutputWebhook: CreateOutputOutputWebhook,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputWebhook$outboundSchema.parse(createOutputOutputWebhook),
+  );
 }
 
 /** @internal */
-export type OutputDefault$Outbound = {
+export type CreateOutputOutputDefault$Outbound = {
   id: string;
   type: "default";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  defaultId: string;
+  defaultId: string | null;
 };
 
 /** @internal */
-export const OutputDefault$outboundSchema: z.ZodType<
-  OutputDefault$Outbound,
+export const CreateOutputOutputDefault$outboundSchema: z.ZodType<
+  CreateOutputOutputDefault$Outbound,
   z.ZodTypeDef,
-  OutputDefault
+  CreateOutputOutputDefault
 > = z.object({
   id: z.string(),
   type: z.literal("default"),
@@ -5914,85 +6752,90 @@ export const OutputDefault$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  defaultId: z.string(),
+  defaultId: z.nullable(z.string()),
 });
 
-export function outputDefaultToJSON(outputDefault: OutputDefault): string {
-  return JSON.stringify(OutputDefault$outboundSchema.parse(outputDefault));
+export function createOutputOutputDefaultToJSON(
+  createOutputOutputDefault: CreateOutputOutputDefault,
+): string {
+  return JSON.stringify(
+    CreateOutputOutputDefault$outboundSchema.parse(createOutputOutputDefault),
+  );
 }
 
 /** @internal */
 export type CreateOutputRequest$Outbound =
-  | OutputDefault$Outbound
-  | OutputWebhook$Outbound
-  | OutputSentinel$Outbound
-  | OutputDevnull$Outbound
-  | OutputSyslog$Outbound
-  | OutputSplunk$Outbound
-  | OutputSplunkLb$Outbound
-  | OutputSplunkHec$Outbound
-  | OutputWizHec$Outbound
-  | OutputTcpjson$Outbound
-  | OutputWavefront$Outbound
-  | OutputSignalfx$Outbound
-  | OutputFilesystem$Outbound
-  | OutputS3$Outbound
-  | OutputAzureBlob$Outbound
-  | OutputAzureDataExplorer$Outbound
-  | OutputAzureLogs$Outbound
-  | OutputKinesis$Outbound
-  | OutputHoneycomb$Outbound
-  | OutputAzureEventhub$Outbound
-  | OutputGoogleChronicle$Outbound
-  | OutputGoogleCloudStorage$Outbound
-  | OutputGoogleCloudLogging$Outbound
-  | OutputGooglePubsub$Outbound
-  | OutputExabeam$Outbound
-  | OutputKafka$Outbound
-  | OutputConfluentCloud$Outbound
-  | OutputMsk$Outbound
-  | OutputElastic$Outbound
-  | OutputElasticCloud$Outbound
-  | OutputNewrelic$Outbound
-  | OutputNewrelicEvents$Outbound
-  | OutputInfluxdb$Outbound
-  | OutputCloudwatch$Outbound
-  | OutputMinio$Outbound
-  | OutputStatsd$Outbound
-  | OutputStatsdExt$Outbound
-  | OutputGraphite$Outbound
-  | OutputRouter$Outbound
-  | OutputSns$Outbound
-  | OutputSqs$Outbound
-  | OutputSnmp$Outbound
-  | OutputSumoLogic$Outbound
-  | OutputDatadog$Outbound
-  | (OutputGrafanaCloud$Outbound & { type: "grafana_cloud" })
-  | OutputLoki$Outbound
-  | OutputPrometheus$Outbound
-  | OutputRing$Outbound
-  | OutputOpenTelemetry$Outbound
-  | OutputServiceNow$Outbound
-  | OutputDataset$Outbound
-  | OutputCriblTcp$Outbound
-  | OutputCriblHttp$Outbound
-  | OutputCriblSearchEngine$Outbound
-  | OutputHumioHec$Outbound
-  | OutputCrowdstrikeNextGenSiem$Outbound
-  | OutputDlS3$Outbound
-  | OutputSecurityLake$Outbound
-  | OutputCriblLake$Outbound
-  | OutputDiskSpool$Outbound
-  | OutputClickHouse$Outbound
-  | OutputXsiam$Outbound
-  | OutputNetflow$Outbound
-  | OutputDynatraceHttp$Outbound
-  | OutputDynatraceOtlp$Outbound
-  | OutputSentinelOneAiSiem$Outbound
-  | OutputChronicle$Outbound
-  | OutputDatabricks$Outbound
-  | OutputMicrosoftFabric$Outbound
-  | OutputCloudflareR2$Outbound;
+  | CreateOutputOutputDefault$Outbound
+  | CreateOutputOutputWebhook$Outbound
+  | CreateOutputOutputSentinel$Outbound
+  | CreateOutputOutputDevnull$Outbound
+  | CreateOutputOutputSyslog$Outbound
+  | CreateOutputOutputSplunk$Outbound
+  | CreateOutputOutputSplunkLb$Outbound
+  | CreateOutputOutputSplunkHec$Outbound
+  | CreateOutputOutputWizHec$Outbound
+  | CreateOutputOutputTcpjson$Outbound
+  | CreateOutputOutputWavefront$Outbound
+  | CreateOutputOutputSignalfx$Outbound
+  | CreateOutputOutputFilesystem$Outbound
+  | CreateOutputOutputS3$Outbound
+  | CreateOutputOutputAzureBlob$Outbound
+  | CreateOutputOutputAzureDataExplorer$Outbound
+  | CreateOutputOutputAzureLogs$Outbound
+  | CreateOutputOutputKinesis$Outbound
+  | CreateOutputOutputHoneycomb$Outbound
+  | CreateOutputOutputAzureEventhub$Outbound
+  | CreateOutputOutputGoogleChronicle$Outbound
+  | CreateOutputOutputGoogleCloudStorage$Outbound
+  | CreateOutputOutputGoogleCloudLogging$Outbound
+  | CreateOutputOutputGooglePubsub$Outbound
+  | CreateOutputOutputExabeam$Outbound
+  | CreateOutputOutputKafka$Outbound
+  | CreateOutputOutputConfluentCloud$Outbound
+  | CreateOutputOutputMsk$Outbound
+  | CreateOutputOutputElastic$Outbound
+  | CreateOutputOutputElasticCloud$Outbound
+  | CreateOutputOutputNewrelic$Outbound
+  | CreateOutputOutputNewrelicEvents$Outbound
+  | CreateOutputOutputInfluxdb$Outbound
+  | CreateOutputOutputCloudwatch$Outbound
+  | CreateOutputOutputMinio$Outbound
+  | CreateOutputOutputStatsd$Outbound
+  | CreateOutputOutputStatsdExt$Outbound
+  | CreateOutputOutputGraphite$Outbound
+  | CreateOutputOutputRouter$Outbound
+  | CreateOutputOutputSns$Outbound
+  | CreateOutputOutputSqs$Outbound
+  | CreateOutputOutputSnmp$Outbound
+  | CreateOutputOutputSumoLogic$Outbound
+  | CreateOutputOutputDatadog$Outbound
+  | (CreateOutputOutputGrafanaCloudUnion$Outbound & { type: "grafana_cloud" })
+  | CreateOutputOutputLoki$Outbound
+  | CreateOutputOutputPrometheus$Outbound
+  | CreateOutputOutputRing$Outbound
+  | CreateOutputOutputOpenTelemetry$Outbound
+  | CreateOutputOutputServiceNow$Outbound
+  | CreateOutputOutputDataset$Outbound
+  | CreateOutputOutputCriblTcp$Outbound
+  | CreateOutputOutputCriblHttp$Outbound
+  | CreateOutputOutputCriblSearchEngine$Outbound
+  | CreateOutputOutputHumioHec$Outbound
+  | CreateOutputOutputCrowdstrikeNextGenSiem$Outbound
+  | CreateOutputOutputDlS3$Outbound
+  | CreateOutputOutputSecurityLake$Outbound
+  | CreateOutputOutputCriblLake$Outbound
+  | CreateOutputOutputDiskSpool$Outbound
+  | CreateOutputOutputClickHouse$Outbound
+  | CreateOutputOutputLocalSearchStorage$Outbound
+  | CreateOutputOutputXsiam$Outbound
+  | CreateOutputOutputNetflow$Outbound
+  | CreateOutputOutputDynatraceHttp$Outbound
+  | CreateOutputOutputDynatraceOtlp$Outbound
+  | CreateOutputOutputSentinelOneAiSiem$Outbound
+  | CreateOutputOutputChronicle$Outbound
+  | CreateOutputOutputDatabricks$Outbound
+  | CreateOutputOutputMicrosoftFabric$Outbound
+  | CreateOutputOutputCloudflareR2$Outbound;
 
 /** @internal */
 export const CreateOutputRequest$outboundSchema: z.ZodType<
@@ -6000,78 +6843,79 @@ export const CreateOutputRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CreateOutputRequest
 > = z.union([
-  z.lazy(() => OutputDefault$outboundSchema),
-  z.lazy(() => OutputWebhook$outboundSchema),
-  z.lazy(() => OutputSentinel$outboundSchema),
-  z.lazy(() => OutputDevnull$outboundSchema),
-  z.lazy(() => OutputSyslog$outboundSchema),
-  z.lazy(() => OutputSplunk$outboundSchema),
-  z.lazy(() => OutputSplunkLb$outboundSchema),
-  z.lazy(() => OutputSplunkHec$outboundSchema),
-  z.lazy(() => OutputWizHec$outboundSchema),
-  z.lazy(() => OutputTcpjson$outboundSchema),
-  z.lazy(() => OutputWavefront$outboundSchema),
-  z.lazy(() => OutputSignalfx$outboundSchema),
-  z.lazy(() => OutputFilesystem$outboundSchema),
-  z.lazy(() => OutputS3$outboundSchema),
-  z.lazy(() => OutputAzureBlob$outboundSchema),
-  z.lazy(() => OutputAzureDataExplorer$outboundSchema),
-  z.lazy(() => OutputAzureLogs$outboundSchema),
-  OutputKinesis$outboundSchema,
-  OutputHoneycomb$outboundSchema,
-  OutputAzureEventhub$outboundSchema,
-  OutputGoogleChronicle$outboundSchema,
-  OutputGoogleCloudStorage$outboundSchema,
-  OutputGoogleCloudLogging$outboundSchema,
-  OutputGooglePubsub$outboundSchema,
-  OutputExabeam$outboundSchema,
-  OutputKafka$outboundSchema,
-  OutputConfluentCloud$outboundSchema,
-  OutputMsk$outboundSchema,
-  OutputElastic$outboundSchema,
-  OutputElasticCloud$outboundSchema,
-  OutputNewrelic$outboundSchema,
-  OutputNewrelicEvents$outboundSchema,
-  OutputInfluxdb$outboundSchema,
-  OutputCloudwatch$outboundSchema,
-  OutputMinio$outboundSchema,
-  OutputStatsd$outboundSchema,
-  OutputStatsdExt$outboundSchema,
-  OutputGraphite$outboundSchema,
-  OutputRouter$outboundSchema,
-  OutputSns$outboundSchema,
-  OutputSqs$outboundSchema,
-  OutputSnmp$outboundSchema,
-  OutputSumoLogic$outboundSchema,
-  OutputDatadog$outboundSchema,
-  OutputGrafanaCloud$outboundSchema.and(
+  z.lazy(() => CreateOutputOutputDefault$outboundSchema),
+  z.lazy(() => CreateOutputOutputWebhook$outboundSchema),
+  z.lazy(() => CreateOutputOutputSentinel$outboundSchema),
+  z.lazy(() => CreateOutputOutputDevnull$outboundSchema),
+  z.lazy(() => CreateOutputOutputSyslog$outboundSchema),
+  z.lazy(() => CreateOutputOutputSplunk$outboundSchema),
+  z.lazy(() => CreateOutputOutputSplunkLb$outboundSchema),
+  z.lazy(() => CreateOutputOutputSplunkHec$outboundSchema),
+  z.lazy(() => CreateOutputOutputWizHec$outboundSchema),
+  z.lazy(() => CreateOutputOutputTcpjson$outboundSchema),
+  z.lazy(() => CreateOutputOutputWavefront$outboundSchema),
+  z.lazy(() => CreateOutputOutputSignalfx$outboundSchema),
+  z.lazy(() => CreateOutputOutputFilesystem$outboundSchema),
+  z.lazy(() => CreateOutputOutputS3$outboundSchema),
+  z.lazy(() => CreateOutputOutputAzureBlob$outboundSchema),
+  z.lazy(() => CreateOutputOutputAzureDataExplorer$outboundSchema),
+  z.lazy(() => CreateOutputOutputAzureLogs$outboundSchema),
+  z.lazy(() => CreateOutputOutputKinesis$outboundSchema),
+  CreateOutputOutputHoneycomb$outboundSchema,
+  CreateOutputOutputAzureEventhub$outboundSchema,
+  CreateOutputOutputGoogleChronicle$outboundSchema,
+  CreateOutputOutputGoogleCloudStorage$outboundSchema,
+  CreateOutputOutputGoogleCloudLogging$outboundSchema,
+  CreateOutputOutputGooglePubsub$outboundSchema,
+  CreateOutputOutputExabeam$outboundSchema,
+  CreateOutputOutputKafka$outboundSchema,
+  CreateOutputOutputConfluentCloud$outboundSchema,
+  CreateOutputOutputMsk$outboundSchema,
+  CreateOutputOutputElastic$outboundSchema,
+  CreateOutputOutputElasticCloud$outboundSchema,
+  CreateOutputOutputNewrelic$outboundSchema,
+  CreateOutputOutputNewrelicEvents$outboundSchema,
+  CreateOutputOutputInfluxdb$outboundSchema,
+  CreateOutputOutputCloudwatch$outboundSchema,
+  CreateOutputOutputMinio$outboundSchema,
+  CreateOutputOutputStatsd$outboundSchema,
+  CreateOutputOutputStatsdExt$outboundSchema,
+  CreateOutputOutputGraphite$outboundSchema,
+  CreateOutputOutputRouter$outboundSchema,
+  CreateOutputOutputSns$outboundSchema,
+  CreateOutputOutputSqs$outboundSchema,
+  CreateOutputOutputSnmp$outboundSchema,
+  CreateOutputOutputSumoLogic$outboundSchema,
+  CreateOutputOutputDatadog$outboundSchema,
+  CreateOutputOutputGrafanaCloudUnion$outboundSchema.and(
     z.object({ type: z.literal("grafana_cloud") }),
   ),
-  OutputLoki$outboundSchema,
-  OutputPrometheus$outboundSchema,
-  OutputRing$outboundSchema,
-  OutputOpenTelemetry$outboundSchema,
-  OutputServiceNow$outboundSchema,
-  OutputDataset$outboundSchema,
-  OutputCriblTcp$outboundSchema,
-  OutputCriblHttp$outboundSchema,
-  OutputCriblSearchEngine$outboundSchema,
-  OutputHumioHec$outboundSchema,
-  OutputCrowdstrikeNextGenSiem$outboundSchema,
-  OutputDlS3$outboundSchema,
-  OutputSecurityLake$outboundSchema,
-  OutputCriblLake$outboundSchema,
-  OutputDiskSpool$outboundSchema,
-  OutputClickHouse$outboundSchema,
-  OutputXsiam$outboundSchema,
-  OutputNetflow$outboundSchema,
-  OutputDynatraceHttp$outboundSchema,
-  OutputDynatraceOtlp$outboundSchema,
-  OutputSentinelOneAiSiem$outboundSchema,
-  OutputChronicle$outboundSchema,
-  OutputDatabricks$outboundSchema,
-  OutputMicrosoftFabric$outboundSchema,
-  OutputCloudflareR2$outboundSchema,
+  CreateOutputOutputLoki$outboundSchema,
+  CreateOutputOutputPrometheus$outboundSchema,
+  CreateOutputOutputRing$outboundSchema,
+  CreateOutputOutputOpenTelemetry$outboundSchema,
+  CreateOutputOutputServiceNow$outboundSchema,
+  CreateOutputOutputDataset$outboundSchema,
+  CreateOutputOutputCriblTcp$outboundSchema,
+  CreateOutputOutputCriblHttp$outboundSchema,
+  CreateOutputOutputCriblSearchEngine$outboundSchema,
+  CreateOutputOutputHumioHec$outboundSchema,
+  CreateOutputOutputCrowdstrikeNextGenSiem$outboundSchema,
+  CreateOutputOutputDlS3$outboundSchema,
+  CreateOutputOutputSecurityLake$outboundSchema,
+  CreateOutputOutputCriblLake$outboundSchema,
+  CreateOutputOutputDiskSpool$outboundSchema,
+  CreateOutputOutputClickHouse$outboundSchema,
+  CreateOutputOutputLocalSearchStorage$outboundSchema,
+  CreateOutputOutputXsiam$outboundSchema,
+  CreateOutputOutputNetflow$outboundSchema,
+  CreateOutputOutputDynatraceHttp$outboundSchema,
+  CreateOutputOutputDynatraceOtlp$outboundSchema,
+  CreateOutputOutputSentinelOneAiSiem$outboundSchema,
+  CreateOutputOutputChronicle$outboundSchema,
+  CreateOutputOutputDatabricks$outboundSchema,
+  CreateOutputOutputMicrosoftFabric$outboundSchema,
+  CreateOutputOutputCloudflareR2$outboundSchema,
 ]);
 
 export function createOutputRequestToJSON(

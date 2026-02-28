@@ -12,8 +12,32 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PacksDestinations } from "./packsdestinations.js";
+import { PacksPipelines } from "./packspipelines.js";
+import { PacksRoutes } from "./packsroutes.js";
+import { PacksSources } from "./packssources.js";
 
 export class Packs extends ClientSDK {
+  private _sources?: PacksSources;
+  get sources(): PacksSources {
+    return (this._sources ??= new PacksSources(this._options));
+  }
+
+  private _destinations?: PacksDestinations;
+  get destinations(): PacksDestinations {
+    return (this._destinations ??= new PacksDestinations(this._options));
+  }
+
+  private _pipelines?: PacksPipelines;
+  get pipelines(): PacksPipelines {
+    return (this._pipelines ??= new PacksPipelines(this._options));
+  }
+
+  private _routes?: PacksRoutes;
+  get routes(): PacksRoutes {
+    return (this._routes ??= new PacksRoutes(this._options));
+  }
+
   /**
    * Install a Pack
    *
@@ -103,7 +127,7 @@ export class Packs extends ClientSDK {
    * Upgrade a Pack
    *
    * @remarks
-   * Upgrade the specified Pack.</br></br>If the Pack includes any user–modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack.Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.</br></br>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
+   * Upgrade the specified Pack.</br></br>If the Pack includes any user-modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack.Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.</br></br>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
    */
   async update(
     request: operations.UpdatePacksByIdRequest,

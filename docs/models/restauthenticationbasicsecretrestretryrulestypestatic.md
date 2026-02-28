@@ -1,25 +1,25 @@
 # RestAuthenticationBasicSecretRestRetryRulesTypeStatic
 
-## Example Usage
+
+## Supported Types
+
+### `models.RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse`
 
 ```typescript
-import { RestAuthenticationBasicSecretRestRetryRulesTypeStatic } from "cribl-control-plane/models";
-
-let value: RestAuthenticationBasicSecretRestRetryRulesTypeStatic = {
-  type: "static",
-};
+const value:
+  models.RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderFalse =
+    {
+      type: "<value>",
+    };
 ```
 
-## Fields
+### `models.RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue`
 
-| Field                                             | Type                                              | Required                                          | Description                                       |
-| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
-| `type`                                            | *"static"*                                        | :heavy_check_mark:                                | The algorithm to use when performing HTTP retries |
-| `interval`                                        | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `limit`                                           | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `codes`                                           | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `enableHeader`                                    | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `retryConnectTimeout`                             | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `retryConnectReset`                               | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `multiplier`                                      | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
-| `maxIntervalMs`                                   | *any*                                             | :heavy_minus_sign:                                | N/A                                               |
+```typescript
+const value:
+  models.RestAuthenticationBasicSecretRestRetryRulesTypeStaticEnableHeaderTrue =
+    {
+      type: "<value>",
+    };
+```
+

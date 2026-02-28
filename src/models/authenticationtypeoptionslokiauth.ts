@@ -10,12 +10,26 @@ import { OpenEnum } from "../types/enums.js";
  * Loki logs authentication type
  */
 export const AuthenticationTypeOptionsLokiAuth = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
   Token: "token",
+  /**
+   * Token (text secret)
+   */
   TextSecret: "textSecret",
-  Oauth: "oauth",
 } as const;
 /**
  * Loki logs authentication type

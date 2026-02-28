@@ -169,7 +169,7 @@ export type OutputCriblSearchEngine = {
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
   /**
-   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
+   * Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
    */
   authTokens?: Array<ItemsTypeAuthTokens1> | undefined;
   /**
@@ -239,6 +239,10 @@ export type OutputCriblSearchEngine = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputCriblSearchEnginePqControls | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -336,6 +340,7 @@ export const OutputCriblSearchEngine$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputCriblSearchEnginePqControls$inboundSchema),
   ),
+  __template_url: types.optional(types.string()),
 });
 /** @internal */
 export type OutputCriblSearchEngine$Outbound = {
@@ -385,6 +390,7 @@ export type OutputCriblSearchEngine$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputCriblSearchEnginePqControls$Outbound | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -441,6 +447,7 @@ export const OutputCriblSearchEngine$outboundSchema: z.ZodType<
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputCriblSearchEnginePqControls$outboundSchema)
     .optional(),
+  __template_url: z.string().optional(),
 });
 
 export function outputCriblSearchEngineToJSON(

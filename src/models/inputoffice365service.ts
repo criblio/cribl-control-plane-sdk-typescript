@@ -19,11 +19,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   LogLevelOptionsContentConfigItems,
   LogLevelOptionsContentConfigItems$inboundSchema,
@@ -135,7 +135,7 @@ export type InputOffice365Service = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   /**
    * Enable Office 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: * /${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
    */
@@ -154,6 +154,18 @@ export type InputOffice365Service = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+   */
+  __template_tenantId?: string | undefined;
+  /**
+   * Binds 'appId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'appId' at runtime.
+   */
+  __template_appId?: string | undefined;
+  /**
+   * Binds 'clientSecret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecret' at runtime.
+   */
+  __template_clientSecret?: string | undefined;
 };
 
 /** @internal */
@@ -237,9 +249,7 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
   maxMissedKeepAlives: types.optional(types.number()),
   ttl: types.optional(types.string()),
   ignoreGroupJobsLimit: types.optional(types.boolean()),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   contentConfig: types.optional(
     z.array(z.lazy(() => InputOffice365ServiceContentConfig$inboundSchema)),
   ),
@@ -248,6 +258,9 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
   description: types.optional(types.string()),
   clientSecret: types.optional(types.string()),
   textSecret: types.optional(types.string()),
+  __template_tenantId: types.optional(types.string()),
+  __template_appId: types.optional(types.string()),
+  __template_clientSecret: types.optional(types.string()),
 });
 /** @internal */
 export type InputOffice365Service$Outbound = {
@@ -270,7 +283,7 @@ export type InputOffice365Service$Outbound = {
   maxMissedKeepAlives?: number | undefined;
   ttl?: string | undefined;
   ignoreGroupJobsLimit?: boolean | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   contentConfig?:
     | Array<InputOffice365ServiceContentConfig$Outbound>
     | undefined;
@@ -279,6 +292,9 @@ export type InputOffice365Service$Outbound = {
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
+  __template_tenantId?: string | undefined;
+  __template_appId?: string | undefined;
+  __template_clientSecret?: string | undefined;
 };
 
 /** @internal */
@@ -306,7 +322,7 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().optional(),
   ttl: z.string().optional(),
   ignoreGroupJobsLimit: z.boolean().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   contentConfig: z.array(
     z.lazy(() => InputOffice365ServiceContentConfig$outboundSchema),
   ).optional(),
@@ -315,6 +331,9 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
+  __template_tenantId: z.string().optional(),
+  __template_appId: z.string().optional(),
+  __template_clientSecret: z.string().optional(),
 });
 
 export function inputOffice365ServiceToJSON(

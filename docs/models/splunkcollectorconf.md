@@ -68,38 +68,3 @@ const value: models.SplunkAuthenticationTokenSecret = {
 };
 ```
 
-### `models.SplunkAuthenticationLogin`
-
-```typescript
-const value: models.SplunkAuthenticationLogin = {
-  authentication: "login",
-  loginUrl: "https://incomplete-object.info/",
-  username: "Augustus.Kuvalis",
-  password: "UUnhU5e52mz0OGv",
-  loginBody: "<value>",
-  tokenRespAttribute: "<value>",
-  authHeaderExpr: "<value>",
-  searchHead: "<value>",
-  search: "<value>",
-  endpoint: "<value>",
-  outputMode: "json",
-};
-```
-
-### `models.SplunkAuthenticationLoginSecret`
-
-```typescript
-const value: models.SplunkAuthenticationLoginSecret = {
-  authentication: "loginSecret",
-  loginUrl: "https://cruel-monster.name/",
-  credentialsSecret: "<value>",
-  loginBody: "<value>",
-  tokenRespAttribute: "<value>",
-  authHeaderExpr: "<value>",
-  searchHead: "<value>",
-  search: "<value>",
-  endpoint: "<value>",
-  outputMode: "json",
-};
-```
-

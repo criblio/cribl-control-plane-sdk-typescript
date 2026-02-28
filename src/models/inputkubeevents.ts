@@ -14,11 +14,11 @@ import {
   ItemsTypeConnectionsOptional$outboundSchema,
 } from "./itemstypeconnectionsoptional.js";
 import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
+  ItemsTypeMetadata,
+  ItemsTypeMetadata$inboundSchema,
+  ItemsTypeMetadata$Outbound,
+  ItemsTypeMetadata$outboundSchema,
+} from "./itemstypemetadata.js";
 import {
   ItemsTypeRules,
   ItemsTypeRules$inboundSchema,
@@ -71,7 +71,7 @@ export type InputKubeEvents = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<ItemsTypeMetadata> | undefined;
   description?: string | undefined;
 };
 
@@ -94,9 +94,7 @@ export const InputKubeEvents$inboundSchema: z.ZodType<
   ),
   pq: types.optional(PqType$inboundSchema),
   rules: types.optional(z.array(ItemsTypeRules$inboundSchema)),
-  metadata: types.optional(
-    z.array(ItemsTypeNotificationMetadata$inboundSchema),
-  ),
+  metadata: types.optional(z.array(ItemsTypeMetadata$inboundSchema)),
   description: types.optional(types.string()),
 });
 /** @internal */
@@ -112,7 +110,7 @@ export type InputKubeEvents$Outbound = {
   connections?: Array<ItemsTypeConnectionsOptional$Outbound> | undefined;
   pq?: PqType$Outbound | undefined;
   rules?: Array<ItemsTypeRules$Outbound> | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<ItemsTypeMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -133,7 +131,7 @@ export const InputKubeEvents$outboundSchema: z.ZodType<
   connections: z.array(ItemsTypeConnectionsOptional$outboundSchema).optional(),
   pq: PqType$outboundSchema.optional(),
   rules: z.array(ItemsTypeRules$outboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(ItemsTypeMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 

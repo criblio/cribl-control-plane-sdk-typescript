@@ -6,10 +6,6 @@ import * as z from "zod/v3";
 
 export type GetVersionCountRequest = {
   /**
-   * The <code>id</code> of the Worker Group or Edge Fleet to get the count for.
-   */
-  groupId?: string | undefined;
-  /**
    * The Git commit hash to use as the starting point for the count.
    */
   commit?: string | undefined;
@@ -17,7 +13,6 @@ export type GetVersionCountRequest = {
 
 /** @internal */
 export type GetVersionCountRequest$Outbound = {
-  groupId?: string | undefined;
   commit?: string | undefined;
 };
 
@@ -27,7 +22,6 @@ export const GetVersionCountRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetVersionCountRequest
 > = z.object({
-  groupId: z.string().optional(),
   commit: z.string().optional(),
 });
 

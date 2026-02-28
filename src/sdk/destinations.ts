@@ -11,18 +11,24 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
-import { Pq } from "./pq.js";
+import { DestinationsPq } from "./destinationspq.js";
+import { DestinationsStatuses } from "./destinationsstatuses.js";
 import { Samples } from "./samples.js";
 
 export class Destinations extends ClientSDK {
-  private _pq?: Pq;
-  get pq(): Pq {
-    return (this._pq ??= new Pq(this._options));
+  private _pq?: DestinationsPq;
+  get pq(): DestinationsPq {
+    return (this._pq ??= new DestinationsPq(this._options));
   }
 
   private _samples?: Samples;
   get samples(): Samples {
     return (this._samples ??= new Samples(this._options));
+  }
+
+  private _statuses?: DestinationsStatuses;
+  get statuses(): DestinationsStatuses {
+    return (this._statuses ??= new DestinationsStatuses(this._options));
   }
 
   /**
@@ -32,10 +38,12 @@ export class Destinations extends ClientSDK {
    * Get a list of all Destinations.
    */
   async list(
+    request?: operations.ListOutputRequest | undefined,
     options?: RequestOptions,
   ): Promise<models.CountedOutput> {
     return unwrapAsync(destinationsList(
       this,
+      request,
       options,
     ));
   }
@@ -78,7 +86,7 @@ export class Destinations extends ClientSDK {
    * Update a Destination
    *
    * @remarks
-   * Update the specified Destination.</br></br>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
+   * Update the specified Destination.<br/><br/>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
    */
   async update(
     request: operations.UpdateOutputByIdRequest,

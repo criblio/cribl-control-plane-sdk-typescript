@@ -72,6 +72,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.ListOutputRequest](../../models/operations/listoutputrequest.md)                                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -1171,11 +1172,11 @@ async function run() {
     id: "databricks-output",
     type: "databricks",
     workspaceId: "your-workspace-id",
-    scope: "my-scope",
+    scope: "all-apis",
     clientId: "your-client-id",
-    catalog: "my-catalog",
-    schema: "my-schema",
-    eventsVolumeName: "my-volume",
+    catalog: "main",
+    schema: "external",
+    eventsVolumeName: "events",
     clientTextSecret: "your-client-secret",
   });
 
@@ -1207,11 +1208,11 @@ async function run() {
     id: "databricks-output",
     type: "databricks",
     workspaceId: "your-workspace-id",
-    scope: "my-scope",
+    scope: "all-apis",
     clientId: "your-client-id",
-    catalog: "my-catalog",
-    schema: "my-schema",
-    eventsVolumeName: "my-volume",
+    catalog: "main",
+    schema: "external",
+    eventsVolumeName: "events",
     clientTextSecret: "your-client-secret",
   });
   if (res.ok) {
@@ -2512,6 +2513,69 @@ async function run() {
     type: "kinesis",
     streamName: "my-stream",
     region: "us-east-1",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("destinationsCreate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputCreateExamplesLocalSearchStorage
+
+<!-- UsageSnippet language="typescript" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesLocalSearchStorage" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.destinations.create({
+    id: "local-search-storage-output",
+    type: "local_search_storage",
+    url: "http://localhost:8123/",
+    database: "default",
+    tableName: "mytable",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { destinationsCreate } from "cribl-control-plane/funcs/destinationsCreate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await destinationsCreate(criblControlPlane, {
+    id: "local-search-storage-output",
+    type: "local_search_storage",
+    url: "http://localhost:8123/",
+    database: "default",
+    tableName: "mytable",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -4632,7 +4696,7 @@ run();
 
 ## update
 
-Update the specified Destination.</br></br>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
+Update the specified Destination.<br/><br/>Provide a complete representation of the Destination that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Destination.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Destination might not function as expected.
 
 ### Example Usage: OutputCreateExamplesAzureBlob
 
@@ -5800,11 +5864,11 @@ async function run() {
       id: "databricks-output",
       type: "databricks",
       workspaceId: "your-workspace-id",
-      scope: "my-scope",
+      scope: "all-apis",
       clientId: "your-client-id",
-      catalog: "my-catalog",
-      schema: "my-schema",
-      eventsVolumeName: "my-volume",
+      catalog: "main",
+      schema: "external",
+      eventsVolumeName: "events",
       clientTextSecret: "your-client-secret",
     },
   });
@@ -5839,11 +5903,11 @@ async function run() {
       id: "databricks-output",
       type: "databricks",
       workspaceId: "your-workspace-id",
-      scope: "my-scope",
+      scope: "all-apis",
       clientId: "your-client-id",
-      catalog: "my-catalog",
-      schema: "my-schema",
-      eventsVolumeName: "my-volume",
+      catalog: "main",
+      schema: "external",
+      eventsVolumeName: "events",
       clientTextSecret: "your-client-secret",
     },
   });
@@ -7270,6 +7334,75 @@ async function run() {
       type: "kinesis",
       streamName: "my-stream",
       region: "us-east-1",
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("destinationsUpdate failed:", res.error);
+  }
+}
+
+run();
+```
+### Example Usage: OutputCreateExamplesLocalSearchStorage
+
+<!-- UsageSnippet language="typescript" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesLocalSearchStorage" -->
+```typescript
+import { CriblControlPlane } from "cribl-control-plane";
+
+const criblControlPlane = new CriblControlPlane({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const result = await criblControlPlane.destinations.update({
+    id: "<id>",
+    output: {
+      id: "local-search-storage-output",
+      type: "local_search_storage",
+      url: "http://localhost:8123/",
+      database: "default",
+      tableName: "mytable",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
+import { destinationsUpdate } from "cribl-control-plane/funcs/destinationsUpdate.js";
+
+// Use `CriblControlPlaneCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const criblControlPlane = new CriblControlPlaneCore({
+  serverURL: "https://api.example.com",
+  security: {
+    bearerAuth: process.env["CRIBLCONTROLPLANE_BEARER_AUTH"] ?? "",
+  },
+});
+
+async function run() {
+  const res = await destinationsUpdate(criblControlPlane, {
+    id: "<id>",
+    output: {
+      id: "local-search-storage-output",
+      type: "local_search_storage",
+      url: "http://localhost:8123/",
+      database: "default",
+      tableName: "mytable",
     },
   });
   if (res.ok) {

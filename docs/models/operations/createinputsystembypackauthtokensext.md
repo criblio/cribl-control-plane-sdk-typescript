@@ -1,0 +1,21 @@
+# CreateInputSystemByPackAuthTokensExt
+
+## Example Usage
+
+```typescript
+import { CreateInputSystemByPackAuthTokensExt } from "cribl-control-plane/models/operations";
+
+let value: CreateInputSystemByPackAuthTokensExt = {
+  token: "<value>",
+};
+```
+
+## Fields
+
+| Field                                                                                                                              | Type                                                                                                                               | Required                                                                                                                           | Description                                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `token`                                                                                                                            | *string*                                                                                                                           | :heavy_check_mark:                                                                                                                 | N/A                                                                                                                                |
+| `description`                                                                                                                      | *string*                                                                                                                           | :heavy_minus_sign:                                                                                                                 | N/A                                                                                                                                |
+| `metadata`                                                                                                                         | [models.ItemsTypeMetadata](../../models/itemstypemetadata.md)[]                                                                    | :heavy_minus_sign:                                                                                                                 | Fields to add to events referencing this token                                                                                     |
+| `splunkHecMetadata`                                                                                                                | [operations.CreateInputSystemByPackSplunkHecMetadata](../../models/operations/createinputsystembypacksplunkhecmetadata.md)         | :heavy_minus_sign:                                                                                                                 | N/A                                                                                                                                |
+| `elasticsearchMetadata`                                                                                                            | [operations.CreateInputSystemByPackElasticsearchMetadata](../../models/operations/createinputsystembypackelasticsearchmetadata.md) | :heavy_minus_sign:                                                                                                                 | N/A                                                                                                                                |

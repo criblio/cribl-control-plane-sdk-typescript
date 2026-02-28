@@ -4,35 +4,14 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import * as discriminatedUnionTypes from "../types/discriminatedUnion.js";
+import { discriminatedUnion } from "../types/discriminatedUnion.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import * as types from "../types/primitives.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export const FunctionConfSchemaNumerifyFormat = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Fix
-   */
-  Fix: "fix",
-  /**
-   * Floor
-   */
-  Floor: "floor",
-  /**
-   * Ceil
-   */
-  Ceil: "ceil",
-} as const;
-export type FunctionConfSchemaNumerifyFormat = OpenEnum<
-  typeof FunctionConfSchemaNumerifyFormat
->;
-
-export type FunctionConfSchemaNumerify = {
+export type NumerifyFormatNone = {
+  format: "none";
   /**
    * Depth to which the Numerify Function will search within a nested event. Depth greater than 5 (the default) could decrease performance.
    */
@@ -45,52 +24,155 @@ export type FunctionConfSchemaNumerify = {
    * Optional JavaScript expression to determine whether a field should be numerified. If left blank, all fields will be numerified. Use the 'name' and 'value' global variables to access fields' names/values. Examples: `value != null`, `name=='fieldname'`. You can access other fields' values via `__e.<fieldName>`.
    */
   filterExpr?: string | undefined;
-  format?: FunctionConfSchemaNumerifyFormat | undefined;
+};
+
+export type NumerifyFormatFix = {
+  format: "fix";
+  /**
+   * Number of digits after the decimal point, between 0 and 20. If left blank, defaults to 2.
+   */
+  digits?: number | undefined;
+  /**
+   * Depth to which the Numerify Function will search within a nested event. Depth greater than 5 (the default) could decrease performance.
+   */
+  depth?: number | undefined;
+  /**
+   * Fields to NOT numerify. Takes precedence over 'Include expression' when set. Supports wildcards. A '!' before field name(s) means: numerify all fields EXCEPT these. For syntax details, see [Wildcard Lists](https://docs.cribl.io/stream/introduction-reference/#wildcard-lists).
+   */
+  ignoreFields?: Array<string> | undefined;
+  /**
+   * Optional JavaScript expression to determine whether a field should be numerified. If left blank, all fields will be numerified. Use the 'name' and 'value' global variables to access fields' names/values. Examples: `value != null`, `name=='fieldname'`. You can access other fields' values via `__e.<fieldName>`.
+   */
+  filterExpr?: string | undefined;
+};
+
+export type FunctionConfSchemaNumerify =
+  | NumerifyFormatFix
+  | NumerifyFormatNone
+  | discriminatedUnionTypes.Unknown<"format">;
+
+/** @internal */
+export const NumerifyFormatNone$inboundSchema: z.ZodType<
+  NumerifyFormatNone,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: types.literal("none"),
+  depth: types.optional(types.number()),
+  ignoreFields: types.optional(z.array(types.string())),
+  filterExpr: types.optional(types.string()),
+});
+/** @internal */
+export type NumerifyFormatNone$Outbound = {
+  format: "none";
+  depth?: number | undefined;
+  ignoreFields?: Array<string> | undefined;
+  filterExpr?: string | undefined;
 };
 
 /** @internal */
-export const FunctionConfSchemaNumerifyFormat$inboundSchema: z.ZodType<
-  FunctionConfSchemaNumerifyFormat,
+export const NumerifyFormatNone$outboundSchema: z.ZodType<
+  NumerifyFormatNone$Outbound,
+  z.ZodTypeDef,
+  NumerifyFormatNone
+> = z.object({
+  format: z.literal("none"),
+  depth: z.number().int().optional(),
+  ignoreFields: z.array(z.string()).optional(),
+  filterExpr: z.string().optional(),
+});
+
+export function numerifyFormatNoneToJSON(
+  numerifyFormatNone: NumerifyFormatNone,
+): string {
+  return JSON.stringify(
+    NumerifyFormatNone$outboundSchema.parse(numerifyFormatNone),
+  );
+}
+export function numerifyFormatNoneFromJSON(
+  jsonString: string,
+): SafeParseResult<NumerifyFormatNone, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NumerifyFormatNone$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NumerifyFormatNone' from JSON`,
+  );
+}
+
+/** @internal */
+export const NumerifyFormatFix$inboundSchema: z.ZodType<
+  NumerifyFormatFix,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(FunctionConfSchemaNumerifyFormat);
+> = z.object({
+  format: types.literal("fix"),
+  digits: types.optional(types.number()),
+  depth: types.optional(types.number()),
+  ignoreFields: types.optional(z.array(types.string())),
+  filterExpr: types.optional(types.string()),
+});
 /** @internal */
-export const FunctionConfSchemaNumerifyFormat$outboundSchema: z.ZodType<
-  string,
+export type NumerifyFormatFix$Outbound = {
+  format: "fix";
+  digits?: number | undefined;
+  depth?: number | undefined;
+  ignoreFields?: Array<string> | undefined;
+  filterExpr?: string | undefined;
+};
+
+/** @internal */
+export const NumerifyFormatFix$outboundSchema: z.ZodType<
+  NumerifyFormatFix$Outbound,
   z.ZodTypeDef,
-  FunctionConfSchemaNumerifyFormat
-> = openEnums.outboundSchema(FunctionConfSchemaNumerifyFormat);
+  NumerifyFormatFix
+> = z.object({
+  format: z.literal("fix"),
+  digits: z.number().optional(),
+  depth: z.number().int().optional(),
+  ignoreFields: z.array(z.string()).optional(),
+  filterExpr: z.string().optional(),
+});
+
+export function numerifyFormatFixToJSON(
+  numerifyFormatFix: NumerifyFormatFix,
+): string {
+  return JSON.stringify(
+    NumerifyFormatFix$outboundSchema.parse(numerifyFormatFix),
+  );
+}
+export function numerifyFormatFixFromJSON(
+  jsonString: string,
+): SafeParseResult<NumerifyFormatFix, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NumerifyFormatFix$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NumerifyFormatFix' from JSON`,
+  );
+}
 
 /** @internal */
 export const FunctionConfSchemaNumerify$inboundSchema: z.ZodType<
   FunctionConfSchemaNumerify,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  depth: types.optional(types.number()),
-  ignoreFields: types.optional(z.array(types.string())),
-  filterExpr: types.optional(types.string()),
-  format: types.optional(FunctionConfSchemaNumerifyFormat$inboundSchema),
+> = discriminatedUnion("format", {
+  fix: z.lazy(() => NumerifyFormatFix$inboundSchema),
+  none: z.lazy(() => NumerifyFormatNone$inboundSchema),
 });
 /** @internal */
-export type FunctionConfSchemaNumerify$Outbound = {
-  depth?: number | undefined;
-  ignoreFields?: Array<string> | undefined;
-  filterExpr?: string | undefined;
-  format?: string | undefined;
-};
+export type FunctionConfSchemaNumerify$Outbound =
+  | NumerifyFormatFix$Outbound
+  | NumerifyFormatNone$Outbound;
 
 /** @internal */
 export const FunctionConfSchemaNumerify$outboundSchema: z.ZodType<
   FunctionConfSchemaNumerify$Outbound,
   z.ZodTypeDef,
   FunctionConfSchemaNumerify
-> = z.object({
-  depth: z.number().int().optional(),
-  ignoreFields: z.array(z.string()).optional(),
-  filterExpr: z.string().optional(),
-  format: FunctionConfSchemaNumerifyFormat$outboundSchema.optional(),
-});
+> = z.union([
+  z.lazy(() => NumerifyFormatFix$outboundSchema),
+  z.lazy(() => NumerifyFormatNone$outboundSchema),
+]);
 
 export function functionConfSchemaNumerifyToJSON(
   functionConfSchemaNumerify: FunctionConfSchemaNumerify,

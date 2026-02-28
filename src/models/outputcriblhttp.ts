@@ -239,6 +239,10 @@ export type OutputCriblHttp = {
    */
   pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputCriblHttpPqControls | undefined;
+  /**
+   * Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+   */
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -334,6 +338,7 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
   pqControls: types.optional(
     z.lazy(() => OutputCriblHttpPqControls$inboundSchema),
   ),
+  __template_url: types.optional(types.string()),
 });
 /** @internal */
 export type OutputCriblHttp$Outbound = {
@@ -383,6 +388,7 @@ export type OutputCriblHttp$Outbound = {
   pqCompress?: string | undefined;
   pqOnBackpressure?: string | undefined;
   pqControls?: OutputCriblHttpPqControls$Outbound | undefined;
+  __template_url?: string | undefined;
 };
 
 /** @internal */
@@ -438,6 +444,7 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
   pqCompress: CompressionOptionsPq$outboundSchema.optional(),
   pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.optional(),
   pqControls: z.lazy(() => OutputCriblHttpPqControls$outboundSchema).optional(),
+  __template_url: z.string().optional(),
 });
 
 export function outputCriblHttpToJSON(

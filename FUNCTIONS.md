@@ -20,7 +20,7 @@ specific category of applications.
 
 ```typescript
 import { CriblControlPlaneCore } from "cribl-control-plane/core.js";
-import { lakeDatasetsCreate } from "cribl-control-plane/funcs/lakeDatasetsCreate.js";
+import { databaseConnectionsCreate } from "cribl-control-plane/funcs/databaseConnectionsCreate.js";
 
 // Use `CriblControlPlaneCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -32,17 +32,20 @@ const criblControlPlane = new CriblControlPlaneCore({
 });
 
 async function run() {
-  const res = await lakeDatasetsCreate(criblControlPlane, {
-    lakeId: "<id>",
-    criblLakeDataset: {
-      id: "<id>",
-    },
+  const res = await databaseConnectionsCreate(criblControlPlane, {
+    authType: "connectionString",
+    connectionString: "mysql://admin:password123@mysql.example.com:3306/production?ssl=true",
+    connectionTimeout: 10000,
+    databaseType: "mysql",
+    description: "Production MySQL database for customer data",
+    id: "mysql-prod-db",
+    tags: "production,mysql,customer-data",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("lakeDatasetsCreate failed:", res.error);
+    console.log("databaseConnectionsCreate failed:", res.error);
   }
 }
 

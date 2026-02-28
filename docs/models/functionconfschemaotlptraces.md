@@ -1,17 +1,17 @@
 # FunctionConfSchemaOtlpTraces
 
-## Example Usage
+
+## Supported Types
+
+### `models.OTLPTracesBatchOTLPTracesFalse`
 
 ```typescript
-import { FunctionConfSchemaOtlpTraces } from "cribl-control-plane/models";
-
-let value: FunctionConfSchemaOtlpTraces = {};
+const value: models.OTLPTracesBatchOTLPTracesFalse = {};
 ```
 
-## Fields
+### `models.OTLPTracesBatchOTLPTracesTrue`
 
-| Field                                                        | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `dropNonTraceEvents`                                         | *boolean*                                                    | :heavy_minus_sign:                                           | N/A                                                          |
-| `otlpVersion`                                                | [models.OtlpVersionOptions](../models/otlpversionoptions.md) | :heavy_minus_sign:                                           | N/A                                                          |
-| `batchOTLPTraces`                                            | *boolean*                                                    | :heavy_minus_sign:                                           | Batch OTLP traces by shared top-level `resource` attributes  |
+```typescript
+const value: models.OTLPTracesBatchOTLPTracesTrue = {};
+```
+
